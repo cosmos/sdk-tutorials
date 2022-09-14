@@ -1,17 +1,21 @@
 ---
 parent:
   title: Introduction to Cosmos
-  description: 
-  number: 1
-tag: fast-track
+  description: A universe of limitless possibilities
+  number: 2
+tags:
+order: 0
+title: Week 1 - A Universe of Limitless Possibilities
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">...</div>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A universe of limitless possibilities</div>
 <h1 class="mt-4 mb-6">Introduction to Cosmos</h1>
 
-TEXT
+Enjoy an introduction to the main components of the Cosmos SDK.
 
-![](/cosmos_dev_portal_module-02-lp.png)
+From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
+
+![LP image - Week 1](./images/cosmos_dev_portal_module-03-lp.png)
 
 ## In this chapter
 
@@ -19,19 +23,32 @@ TEXT
 
 In this chapter, you will:
 
-* ...
+* Get an introduction to Tendermint and consensus in the Cosmos SDK.
+* Develop an understanding of the different components of the Cosmos SDK.
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by May 30th, 23:59 UTC.**
+**This week, make sure to submit your quiz by Friday, September 23rd, 23:59 UTC.**
 
-**The submission of this exercise is required to continue with the program.** Do not worry if you do not pass the quiz: it is meant to be an opportunity to practice and demonstrate your engagement with the program.
+**The submission of this quiz is mandatory.** Do not worry if you do not pass the quiz: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
+
+<HighlightBox type="info">
+  
+**Live Session**
+<br/>
+This week you can join the first live session on **September 19th, 2PM UTC**: _Introduction to Cosmos_ with Billy Rennekamp, Product Lead for Cosmos Hub. 
+<br/>
+Detailed information on how to join the session will be provided via email and Discord.
+<br/>
+You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
+  
+</HighlightBox>
 
 ## Next up
 
-First....
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
