@@ -14,9 +14,9 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [messages](../2-main-concepts/messages.md), [Protobuf](../2-main-concepts/protobuf.md), and [IBC](https://interchainacademy.cosmos.network/academy/ibc/what-is-ibc.html).
+* You understand the concepts of [messages](/academy/2-cosmos-concepts/messages.md), [Protobuf](/academy/2-cosmos-concepts/protobuf.md), and [IBC](/academy/3-ibc/1-what-is-ibc.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the _can play_ query. If not, follow the [previous steps](./can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli/7-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-When you [introduced a wager](./game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](/hands-on-exercise/2-ignite-cli/5-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Thus, you could expand the pool of your potential players by extending the pool of possible wager denominations via the use of IBC. How can you do this?
 
@@ -545,4 +545,4 @@ To summarize, this section has explored:
 
 In the [next section](./migration.md), you will learn how to conduct chain upgrades through migrations.-->
 
-Alternatively, you can learn how to create the [TypeScript client elements](./cosmjs-checkers-sections/cosmjs-objects.md) for your blockchain.
+Alternatively, you can learn how to create the [TypeScript client elements](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) for your blockchain.

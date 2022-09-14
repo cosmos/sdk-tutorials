@@ -362,7 +362,7 @@ Application modules are expected to verify the versioning used during the channe
 
 Versions must be strings but can implement any versioning structure. Often a simple template is used that combines the name of the application and an iteration number, like `leaderboard-1` for the leaderboard IBC module.
 
-However, the version string can also include metadata to indicate attributes of the channel you are supporting, like applicable middleware and the underlying app version. An example of this is the version string for middleware, which is discussed in a [later section](./ibcmw-develop.md).
+However, the version string can also include metadata to indicate attributes of the channel you are supporting, like applicable middleware and the underlying app version. An example of this is the version string for middleware, which is discussed in a [later section](./9-ibc-mw-develop.md).
 
 </HighlightBox>
 
@@ -370,7 +370,7 @@ However, the version string can also include metadata to indicate attributes of 
 
 The general application packet flow was discussed in [a previous section](https://tutorials.cosmos.network/academy/4-ibc/channels.html#application-packet-flow). As a refresher, let's take a look at the diagram:
 
-![Packet flow](/academy/ibc-dev/images/packetflow.png)
+![Packet flow](./images/packetflow.png)
 
 The packet callbacks in the packet flow can now be identified by investigating the `IBCModule` interface.
 

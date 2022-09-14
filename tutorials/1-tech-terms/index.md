@@ -141,7 +141,7 @@ For more information on the Tendermint RPC, gRPC, and the REST server, a closer 
 
 <HighlightBox type="info">
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/academy/5-cosmjs/cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 
@@ -155,7 +155,7 @@ If you want to get more accustomed to Protobuf, a look at the [official document
 
 <br/>
 
-Also take a look at the [section on this platform on Protobuf](/academy/2-cosmos-concepts/protobuf.md).
+Also take a look at the [section on this platform on Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 
 </HighlightBox>
 
