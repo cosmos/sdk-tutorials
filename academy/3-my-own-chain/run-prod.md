@@ -136,7 +136,7 @@ On the desktop computer, select the keyring you want to use.
 
 ## Prepare the genesis
 
-Now focus on preparing the genesis to continue to prepare to run your checkers blockchain in production.
+Now focus on preparing the genesis to continue to prepare to run your checkers blockchain in production. It involves some back and forth.
 
 ### Centralized creation
 
