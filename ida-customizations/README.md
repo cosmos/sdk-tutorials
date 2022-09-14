@@ -26,11 +26,10 @@ overview:
         Live Sessions
         <br/><br/>
         We are offering one-hour live sessions providing introductions to Cosmos, app.go, CosmJS, and IBC with the team at the Interchain Foundation:<br/><br/>
-        <b>September 19th, 2PM UTC</b> | Introduction to Cosmos, Billy Rennekamp, Product Lead for Cosmos Hub.<br/><br/>
-        <b>September 26th, 3PM UTC</b> | Introduction to app.go, Julien Robert, Developer Relations Engineer for the Cosmos SDK.<br/><br/>
-        <b>September 29th, 3PM UTC</b> | Introduction to CosmJS, Noam Cohen, Developer Relations Lead for Cosmos Hub.<br/><br/>
-        <b>October 3rd, 3PM UTC</b> | Introduction to IBC, Thomas Dekeyser, Developer Relations Engineer for IBC.<br/><br/>
-        <br/><br/>
+        <a href ="https://meet.google.com/tsf-pwat-bfo?hs=122&authuser=0"><b>September 19th, 2 PM UTC</b> | Introduction to Cosmos, Billy Rennekamp, Product Lead for Cosmos Hub.</a><br/><br/>
+        <a href ="https://meet.google.com/ois-hnxh-dgu?hs=122&authuser=0"><b>September 26th, 3 PM UTC</b> | Introduction to app.go, Julien Robert, Developer Relations Engineer for the Cosmos SDK.</a><br/><br/>
+        <a href="https://meet.google.com/ruz-jmmz-sij?hs=122&authuser=0"><b>September 29th, 3 PM UTC</b> | Introduction to CosmJS, Noam Cohen, Developer Relations Lead for Cosmos Hub.</a><br/><br/>
+        <a href="https://meet.google.com/eth-nzsv-xhr?hs=122&authuser=0"><b>October 3rd, 3 PM UTC</b> | Introduction to IBC, Thomas Dekeyser, Developer Relations Engineer for IBC.</a><br/><br/>
         Detailed information on how to join the sessions will be provided via email and Discord.
         <br/><br/>
         You should receive an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
