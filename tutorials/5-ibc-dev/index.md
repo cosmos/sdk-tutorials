@@ -1,10 +1,6 @@
 ---
 parent:
-<<<<<<< HEAD:tutorials/5-ibc-dev/index.md
-title: Understand IBC Denoms
-=======
 title: "Understanding IBC Denoms"
->>>>>>> master:tutorials/understanding-ibc-denoms/index.md
 order: 0
 description: Send tokens with IBC, trace a denom, and understand how denoms work.
 tags:
@@ -13,11 +9,7 @@ tags:
   - ibc
 ---
 
-<<<<<<< HEAD:tutorials/5-ibc-dev/index.md
 # Understand IBC Denoms
-=======
-# Understanding IBC Denoms
->>>>>>> master:tutorials/understanding-ibc-denoms/index.md
 
 The Interchain vision set out by the original [Cosmos whitepaper](https://v1.cosmos.network/resources/whitepaper) was one of sovereign, application-specific, Proof-of-Stake blockchains. A crucial component of this vision was the **Inter-Blockchain Communication Protocol** or simply **IBC**. With IBC, chains can maintain their sovereignty while still being able to permissionlessly inter-operate with other chains (that also enable IBC), thus paving the way towards an _internet of blockchains_.
 

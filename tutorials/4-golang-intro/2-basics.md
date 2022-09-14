@@ -5,7 +5,6 @@ description: Basic types, string formatting, functions, and methods
 tags: 
   - tutorial
 ---
-
 # Go Basics
 
 This section introduces basic types and string formatting. After that, you will dive into functions and methods in Golang.

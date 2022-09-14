@@ -4,6 +4,7 @@ order: 21
 description: Elements to run your checkers in production
 tags:
   - guided-coding
+  - cosmos-sdk
   - dev-ops
 ---
 
