@@ -381,6 +381,10 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli/7-can-play.html",
                 },
                 {
+                  title: "Move to Production",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/8-run-prod.html",
+                },   
+                {
                   title: "Understand IBC Denoms",
                   path: "/tutorials/5-ibc-dev",
                 },
@@ -508,10 +512,6 @@ module.exports = {
                 {
                   title: "Prepare and Do Migrations",
                   path: "/hands-on-exercise/5-run-in-prod/7-migration.html",
-                },
-                {
-                  title: "Move to Production",
-                  path: "/hands-on-exercise/5-run-in-prod/8-run-prod.html",
                 },
                 {
                   title: "Final Exam",
