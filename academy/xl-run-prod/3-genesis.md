@@ -238,7 +238,7 @@ To summarize, this section has explored:
 
 * The contents of the blockchain genesis: the original validators and their stakes, and the original state values defined, such as the minting, staking, and slashing parameters.
 * How to name and create a new genesis file.
-* The nature and prupose of genesis accounts, and how to add them to the genesis file.
+* The nature and purpose of genesis accounts, and how to add them to the genesis file.
 * How to name, define, and allocate tokens to your genesis accounts.
 * How to define the genesis validators, credit them with the agreed staked tokens, collect their first signed transactions, and aggregate them.
 * How to publish the genesis file so that it can be accessed by all those needing their own copy to be able to start the network.
