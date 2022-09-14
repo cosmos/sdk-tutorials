@@ -169,7 +169,7 @@ How can you _guess_ the order of elements? Easily, as you created them in this o
 2. Run this test in **debug mode**: right-click the green arrow next to the test name.
 3. Observe the live values on the left.
 
-![Live values of event in debug mode](/academy/4-my-own-chain/images/go_test_debug_event_attributes.png)
+![Live values of event in debug mode](/academy/3-my-own-chain/images/go_test_debug_event_attributes.png)
 
 As for the events emitted during the _play move_ test, there are two of them: one for the creation and the other for the play. Because this is a unit test and each action is not isolated into individual transactions, the context collects all events emitted during the test. It just so happens that the context prepends them - the newest one is at index `0`. Which is why, when you fetch them, the play event is at `events[0]`.
 
