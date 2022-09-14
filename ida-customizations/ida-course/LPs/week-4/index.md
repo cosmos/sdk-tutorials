@@ -53,7 +53,7 @@ In this chapter, continue working on your checkers blockchain by first [putting 
 
 After, take a deeper dive into all that IBC has to offer by first tackling [IBC denoms](/tutorials/5-ibc-dev/index.md), [playing with some cross-chain tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md), and [taking a look at relaying with IBC](/hands-on-exercise/4-ibc-adv/2-relayer-intro.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
