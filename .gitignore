@@ -2,7 +2,7 @@
 .DS_Store
 *.swp
 *.swo
-.vscode
+.vscode/settings.json
 .idea
 
 # Build

@@ -1,6 +1,9 @@
 ---
 title: "Understand the Feegrant Module"
 order: 3
+parent:
+title: Understand the Feegrant Module
+order: 0
 description: Use the Cosmos SDK feegrant module to grant the use of tokens to pay for fees from one account (the granter) to another account (the grantee).
 tags:
   - tutorial
