@@ -173,8 +173,6 @@ module.exports = {
               title: "The Inter-Blockchain Communication Protocol",
               directory: true,
               children: [
-            },
-
                 {
                   title: "The Inter-Blockchain Communication Protocol",
                   path: "/academy/3-ibc/index",

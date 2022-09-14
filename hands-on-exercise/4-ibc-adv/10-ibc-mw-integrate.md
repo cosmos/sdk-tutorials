@@ -103,7 +103,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   <HighlightBox type="tip">
 
-  In addition to the diagram shown in the [introduction](./ibc-mw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
+  In addition to the diagram shown in the [introduction](./ibcmw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
 
   ```go
       type Middleware interface {
