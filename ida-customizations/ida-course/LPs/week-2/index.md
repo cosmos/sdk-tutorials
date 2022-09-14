@@ -54,7 +54,7 @@ You should have received an email with a link to each session to be added to you
 
 Before you begin [running a node](/tutorials/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](tutorials/2-setup/index.md).
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
