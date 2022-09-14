@@ -60,7 +60,7 @@ overview:
       description: |
         We have set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your tutors and expert instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you will get the most out of the Academy.<br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6AM UTC and 4PM UTC. We do not provide support during the weekends.<br/><br/>
-        Click [here](ida-customizations/ida-course/discord-info.md) to learn how to join and use Discord.<br/><br/>
+        Click [here](/ida-course/discord-info.md) to learn how to join and use Discord.<br/><br/>
         You will get detailed information on how to join and use Discord via email.
     - title: How do I access Discord?
       description: |
@@ -70,7 +70,7 @@ overview:
         3. After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
         If you have any problems, email us at (academy@interchain.io)[academy@interchain.io].<br/><br/>
         <br/><br/>
-        We have put together a [quick guide](ida-customizations/ida-course/discord-info.md) explaining how to best communicate on Discord.
+        We have put together a [quick guide](/ida-course/discord-info.md) explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
@@ -92,10 +92,10 @@ customModules:
   sections:
     - image: /cosmos_dev_portal_module-02-lp.png
       title: Getting started
-      href: /ida-customizations/ida-course/LPs/week-0/
+      href: /ida-course/LPs/week-0/
       description: |
         This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on:
-      links: [{'title': 'Blockchain Basics', 'path': '/ida-customizations/ida-course/0-blockchain-basics/1-blockchain.html'}, {'title': 'Golang', 'path': '/tutorials/4-golang-intro/1_install.html'}, {'title': 'Good-To-Know Dev Terms', 'path': '/tutorials/1-tech-terms/'}]
+      links: [{'title': 'Blockchain Basics', 'path': '/ida-course/0-blockchain-basics/1-blockchain.html'}, {'title': 'Golang', 'path': '/tutorials/4-golang-intro/1_install.html'}, {'title': 'Good-To-Know Dev Terms', 'path': '/tutorials/1-tech-terms/'}]
 -->
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

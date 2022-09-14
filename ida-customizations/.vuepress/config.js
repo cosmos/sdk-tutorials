@@ -89,31 +89,31 @@ module.exports = {
               children: [
                 {
                   title: "Getting Started",
-                  path: "ida-customizations/ida-course/LPs/week-0/",
+                  path: "/ida-course/LPs/week-0/",
                 },
                 {
                   title: "Blockchain 101",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/1-blockchain.html",
+                  path: "/ida-course/0-blockchain-basics/1-blockchain.html",
                 },
                 {
                   title: "Blockchain History",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/2-public.html",
+                  path: "/ida-course/0-blockchain-basics/2-public.html",
                 },
                 {
                   title: "Public and Managed Blockchains",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/3-managed.html",
+                  path: "/ida-course/0-blockchain-basics/3-managed.html",
                 },
                 {
                   title: "Consensus in Distributed Networks",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/4-consensus.html",
+                  path: "/ida-course/0-blockchain-basics/4-consensus.html",
                 },
                 {
                   title: "Cryptography",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/5-crypto.html",
+                  path: "/ida-course/0-blockchain-basics/5-crypto.html",
                 },
                 {
                   title: "Self-Assessment Quiz",
-                  path: "ida-customizations/ida-course/0-blockchain-basics/6-quiz.html",
+                  path: "/ida-course/0-blockchain-basics/6-quiz.html",
                 },
                 {
                   title: "Go Introduction - First Steps",
@@ -157,7 +157,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to Cosmos",
-                  path: "ida-customizations/ida-course/LPs/week-1",
+                  path: "/ida-course/LPs/week-1",
                 },
                 {
                   title: "Blockchain Technology and Cosmos",
@@ -225,7 +225,7 @@ module.exports = {
                 },
                 {
                   title: "Mandatory Quiz",
-                  path: "ida-customizations/ida-course/quiz-week1.html",
+                  path: "/ida-course/quiz-week1.html",
                 },
               ]
             },
@@ -236,7 +236,7 @@ module.exports = {
               children: [
                 {
                   title: "First Steps",
-                  path: "ida-customizations/ida-course/LPs/week-2",
+                  path: "/ida-course/LPs/week-2",
                 },
                 {
                   title: "Setup Your Work Environment",
@@ -280,7 +280,7 @@ module.exports = {
                 },
                 {
                   title: "Mandatory Exercise",
-                  path: "ida-customizations/ida-course/exercise-week2.html",
+                  path: "/ida-course/exercise-week2.html",
                 },
               ]
             },
@@ -291,7 +291,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to IBC and CosmJS",
-                  path: "ida-customizations/ida-course/LPs/week-3",
+                  path: "/ida-course/LPs/week-3",
                 },
                 {
                   title: "What is IBC?",
@@ -350,7 +350,7 @@ module.exports = {
               children: [
                 {
                   title: "Ignite CLI and IBC Advanced",
-                  path: "ida-customizations/ida-course/LPs/week-4",
+                  path: "/ida-course/LPs/week-4",
                 },
                 {
                   title: "Put Your Games in Order",
@@ -413,7 +413,7 @@ module.exports = {
               children: [
                 {
                   title: "CosmJS Advanced",
-                  path: "ida-customizations/ida-course/LPs/week-5",
+                  path: "/ida-course/LPs/week-5",
                 },
                 {
                   title: "Create Custom Objects",
@@ -448,7 +448,7 @@ module.exports = {
               children: [
                 {
                   title: "IBC Deep Dive",
-                  path: "ida-customizations/ida-course/LPs/week-6",
+                  path: "/ida-course/LPs/week-6",
                 },
                 {
                   title: "IBC Application Developer Introduction",
@@ -483,7 +483,7 @@ module.exports = {
               children: [
                 {
                   title: "Run in Production",
-                  path: "ida-customizations/ida-course/LPs/week-7",
+                  path: "/ida-course/LPs/week-7",
                 },
                 {
                   title: "Overview",
