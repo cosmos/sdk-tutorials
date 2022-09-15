@@ -518,7 +518,12 @@ module.exports = {
                   path: "/ida-course/final-exam.html"
                 },
               ]
-            }
+            },
+            {
+              title: "What's Next?"
+              directory: true,
+              order: 9,
+            },
           ],
         },
       ],
