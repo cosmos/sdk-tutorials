@@ -239,7 +239,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
   You configured the _chain_ metadata, now you need _path_ metadata. This scenario assumes that there is already a canonical channel, so there is no need for light client creation, nor connection and channel handshakes to set these up.
 
-  There is one easy command to get this path information - initially from the [Interchain folder](https://github.com/cosmos/relayer/tree/main/interchain) in the Go relayer repository, but this is being replaced by [IBC data in the chain registry](https://github.com/cosmos/chain-registry/tree/master/_IBC).
+  There is one easy command to get this path information - initially from the [Interchain folder](https://github.com/cosmos/relayer/tree/2.0.x/interchain) in the Go relayer repository, but this is being replaced by [IBC data in the chain registry](https://github.com/cosmos/chain-registry/tree/master/_IBC).
 
   ```sh
   $ rly paths fetch

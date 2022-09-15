@@ -210,7 +210,7 @@ Quite straightforward.
 
 A query is evaluated in memory, while using the current state in a read-only mode. Thanks to this, you can take some liberties with the current state before running a test, as long as reading the state works as intended. For example, you can pretend that the game has been progressed through a number of moves even though you have only just planted the board in that state in the keeper. For this reason, you can easily test the new method with unit tests, even though you painstakingly prepared integration tests.
 
-Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_next_game_test.go#L18-L33), which create an array of cases to test in a loop. Running a battery of test cases makes it easier to insert new cases and surface any unintended impact. Create a new `grpc_query_can_play_move_test.go` file where you:
+Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_system_info_test.go#L20-L35), which create an array of cases to test in a loop. Running a battery of test cases makes it easier to insert new cases and surface any unintended impact. Create a new `grpc_query_can_play_move_test.go` file where you:
 
 1. Declare a `struct` that describes a test case:
 
