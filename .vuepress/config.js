@@ -264,6 +264,11 @@ module.exports = {
               title: "Understand the Group Module",
               path: "/tutorials/7-understand-sdk-modules/3-group.md",
               directory: true,
+            },
+            {
+              title: "How to use IPFS",
+              path: "/tutorials/how-to-use-ipfs/",
+              directory: false,
             }
           ],
         },
