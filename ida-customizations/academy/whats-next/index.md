@@ -5,7 +5,7 @@ parent:
   number: 9
 tags:
 order: 0
-title: What's Next? Continue Your Cosmos Journey
+title: Continue Your Cosmos Journey
 ---
 
 # What's Next?

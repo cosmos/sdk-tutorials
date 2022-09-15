@@ -153,7 +153,7 @@ See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/ru
 
 ### Tendermint RPC
 
-The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/master/rpc/#/Tx) to directly broadcast the transaction through Tendermint if you wish to.
+The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html) to directly broadcast the transaction through Tendermint if you wish to.
 
 <HighlightBox type="info">
 
@@ -163,7 +163,7 @@ Tendermint supports the following RPC protocols:
 * JSONRPC over HTTP.
 * JSONRPC over WebSockets.
 
-For more information on broadcasting with Tendermint RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/master/rpc/#/Tx).
+For more information on broadcasting with Tendermint RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html).
 
 </HighlightBox>
 

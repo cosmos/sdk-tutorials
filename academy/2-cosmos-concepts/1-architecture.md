@@ -44,7 +44,7 @@ Tendermint BFT is maintained even when 1/3rd of all machines fail, by providing 
 
 <HighlightBox type="tip">
 
-Want to continue exploring this useful component of the Cosmos SDK? Find further information beneath under _Consensus in Tendermint Core and Cosmos_, or in the [Tendermint Core documentation](https://docs.tendermint.com/master/#).
+Want to continue exploring this useful component of the Cosmos SDK? Find further information beneath under _Consensus in Tendermint Core and Cosmos_, or in the [Tendermint Core documentation](https://docs.tendermint.com/v0.34/tendermint-core/#).
 
 </HighlightBox>
 
@@ -102,7 +102,7 @@ The _block time_ is approximately seven seconds, and blocks may contain thousand
 For a deeper dive on consensus and Tendermint visit:
 
 * This [podcast on consensus systems](https://softwareengineeringdaily.com/2018/03/26/consensus-systems-with-ethan-buchman/) with Ethan Buchman
-* The [Tendermint Core documentation on consensus](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
+* The [Tendermint Core documentation on consensus](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html#consensus-overview)
 
 </HighlightBox>
 
