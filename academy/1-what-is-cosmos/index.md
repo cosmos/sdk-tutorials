@@ -16,7 +16,7 @@ How does the Cosmos network of interoperable blockchains fit into the overall de
 
 Dive into the history of blockchain technology and discover the Cosmos Ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
 
-![](./images/cosmos_dev_portal_module-02-lp.png)
+![](/academy/1-what-is-cosmos/images/cosmos_dev_portal_module-02-lp.png)
 
 ## In this chapter
 

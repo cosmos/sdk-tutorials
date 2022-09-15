@@ -21,7 +21,7 @@ However, the first and still most dominant example to date is to transfer a (fun
 
 Take this example: you have some ATOM on the Cosmos Hub but would like to swap this for some other token on a DEX (**D**ecentralized **Ex**change) like [Osmosis](https://app.osmosis.zone/). This can be illustrated with a random IBC transfer between the Hub and Osmosis using Mintscan, a popular block explorer.
 
-![IBC token transfer](./images/ibc_token.png)
+![IBC token transfer](/tutorials/5-ibc-dev/images/ibc_token.png)
 
 _Sending token from blockchain A to blockchain B_
 
