@@ -137,7 +137,7 @@ Tendermint is widely used across the industry and is the most mature BFT consens
 
 <HighlightBox type="tip">
 
-For more on Tendermint, see this helpful [introduction](https://docs.tendermint.com/master/introduction/what-is-tendermint.html).
+For more on Tendermint, see this helpful [introduction](https://docs.tendermint.com/v0.34/introduction/what-is-tendermint.html).
 
 </HighlightBox>
 

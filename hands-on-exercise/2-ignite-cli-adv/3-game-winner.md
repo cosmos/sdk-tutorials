@@ -141,7 +141,7 @@ With further checks when handling a play in the handler:
     }
     ```
 
-2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/game-winner/checkers/checkers.go#L165) if there is no winner yet:
+2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/master/checkers/checkers.go#L165) if there is no winner yet:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L61]
     storedGame.Winner = rules.PieceStrings[game.Winner()]

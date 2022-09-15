@@ -25,7 +25,7 @@ Before you upgrade your mainnet, it is good practice to upgrade your testnet(s).
 Cosmovisor is a piece of software that you need to [install](https://docs.cosmos.network/main/run-node/cosmovisor.html#installation) on your node computer. Its configuration is done via:
 
 1. [Environment variables](https://docs.cosmos.network/main/run-node/cosmovisor.html#command-line-arguments-and-environment-variables).
-2. [Configuration files and folders](https://docs.cosmos.network/main/run-node/cosmovisor.html#folder-layout) that are polled at intervals and which you prepare by hand or via [a command](https://dodocs.cosmos.network/mainun-node/cosmovisor.html#initialization).
+2. [Configuration files and folders](https://docs.cosmos.network/main/run-node/cosmovisor.html#folder-layout) that are polled at intervals and which you prepare by hand or via [a command](https://docs.cosmos.network/master/run-node/cosmovisor.html#cosmovisor).
 
 When starting you can pass Cosmovisor command-line arguments that it will pass on to the wrapped Cosmos chain executable. Typically, you use `cosmovisor run start`, where `start` is the same as in `myprojectd start`.
 
@@ -47,7 +47,7 @@ When it launches, Cosmovisor does the following:
 5. Exchanges the symbolic link to the `current` executable for the new one.
 6. Restarts the node.
 
-When restarting, the node launches its [in-place migration](https://docs.cosmos.network/main/core/upgrade.html) process for all modules that have a [new version](https://dodocs.cosmos.network/mainore/upgrade.html#tracking-module-versions).
+When restarting, the node launches its [in-place migration](https://docs.cosmos.network/main/core/upgrade.html) process for all modules that have a [new version](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions).
 
 Downloading an executable is a potential security risk, so although you have the [choice of doing it](https://docs.cosmos.network/main/run-node/cosmovisor.html#auto-download) automatically, this is not the default behavior.
 

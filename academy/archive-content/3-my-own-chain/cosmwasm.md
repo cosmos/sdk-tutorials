@@ -102,7 +102,7 @@ If you cannot call `wasmd`, make sure your `$GOPATH` and `$PATH` are set correct
 
 ## Connect to a testnet
 
-First, test the `wasmd` client with the [Cliffnet](https://github.com/CosmWasm/testnets/tree/master/cliffnet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/blob/master/cliffnet-1/defaults.env):
+First, test the `wasmd` client with the [Cliffnet](https://github.com/CosmWasm/testnets/tree/master/archive/cliffnet-1) testnet. `wasmd` is configured via environment variables. Export the most recent environment from [here](https://github.com/CosmWasm/testnets/tree/master/archive/cliffnet-1):
 
 ```sh
 $ curl https://raw.githubusercontent.com/CosmWasm/testnets/master/cliffnet-1/defaults.env -o cliffnet-1-defaults.env
