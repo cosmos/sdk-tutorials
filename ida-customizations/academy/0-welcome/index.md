@@ -22,16 +22,14 @@ overview:
         Exam period: November 3rd - December 1st<br/><br/>
         Results available: December 15th<br/><br/>
         <br/><br/>
-        Live Sessions
         <br/><br/>
+        Live Sessions
         We are offering one-hour live sessions providing introductions to Cosmos, app.go, CosmJS, and IBC with the team at the Interchain Foundation:<br/><br/>
         <a href ="https://meet.google.com/tsf-pwat-bfo?hs=122&authuser=0"><b>September 19th, 2 PM UTC</b> | Introduction to Cosmos, Billy Rennekamp, Product Lead for Cosmos Hub.</a><br/><br/>
         <a href ="https://meet.google.com/ois-hnxh-dgu?hs=122&authuser=0"><b>September 26th, 3 PM UTC</b> | Introduction to app.go, Julien Robert, Developer Relations Engineer for the Cosmos SDK.</a><br/><br/>
         <a href="https://meet.google.com/ruz-jmmz-sij?hs=122&authuser=0"><b>September 29th, 3 PM UTC</b> | Introduction to CosmJS, Noam Cohen, Developer Relations Lead for Cosmos Hub.</a><br/><br/>
         <a href="https://meet.google.com/eth-nzsv-xhr?hs=122&authuser=0"><b>October 3rd, 3 PM UTC</b> | Introduction to IBC, Thomas Dekeyser, Developer Relations Engineer for IBC.</a><br/><br/>
-        <br/><br/>
         Detailed information on how to join the sessions will be provided via email and Discord.
-        <br/><br/>
         You should receive an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
     - title: What you will learn
       description: |
@@ -43,12 +41,10 @@ overview:
           The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There is plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who will point you in the right direction!<br/><br/>
           <br/><br/>
           <b>Mandatory exercises</b><br/><br/>
-          <br/><br/>
           In each module, you will find quizzes and/or code exercises. Two of these need to be completed by a certain date. It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Mandatory quiz - due date: Friday, September 23rd<br/><br/>
           Week 2: Mandatory exercise - due date: Friday, September 30th<br/><br/>
           You will also find exercises every week that are not mandatory. These are still highly recommended, as they are a good preparation for the final exam.<br/><br/>
-          <br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
     - title: How much time do I need to dedicate to the Academy?
@@ -68,20 +64,14 @@ overview:
         2. Follow the verification process. It is straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839).
         3. After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
         If you have any problems, email us at (academy@interchain.io)[academy@interchain.io].<br/><br/>
-        <br/><br/>
         We have put together a [quick guide](/ida-course/discord-info.md) explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
-        <br/><br/>
         You will receive an email and notification via Discord closer to the date.<br/><br/>
-        <br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
-        <br/><br/>
         You will receive an email with further instructions on how to launch the exam request.<br/><br/>
-        <br/><br/>
         The exam is an individual exercise.<br/><br/>
-        <br/><br/>
         <div class="tm-bold">When do I get the results?</div>
         You will receive your exam results by <span class="tm-bold">December 1st</span>.
 customModules:
