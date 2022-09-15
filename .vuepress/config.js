@@ -146,6 +146,11 @@ module.exports = {
               title: "Understanding the Group Module",
               path: "/tutorials/understanding-group/",
               directory: false,
+            },
+            {
+              title: "How to use IPFS",
+              path: "/tutorials/how-to-use-ipfs/",
+              directory: false,
             }
           ],
         },
