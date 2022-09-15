@@ -53,7 +53,7 @@ priv_validator_key.json
 
 ## Open your node
 
-In the [`config.toml` file](https://docs.tendermint.com/master/nodes/configuration.html) you can configure the open ports. The important piece is your **listen address**:
+In the [`config.toml` file](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#configuration) you can configure the open ports. The important piece is your **listen address**:
 
 ```toml
 # Address to listen for incoming connections
