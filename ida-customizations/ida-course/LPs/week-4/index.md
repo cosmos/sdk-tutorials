@@ -15,7 +15,7 @@ This week you will work further on your checkers blockchain and take your next s
 
 Following the hands-on exercises, you will discover how IBC denoms work and get to grips with cross-chain tokens and relayers.
 
-![LP image - Week 4](/ida-course/LPs/week-4/images/planet-collection.svg)
+![LP image - Week 4](/planet-collection.svg)
 
 ## In this chapter
 

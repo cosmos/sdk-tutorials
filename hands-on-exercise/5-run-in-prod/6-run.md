@@ -29,7 +29,7 @@ In `config/app.toml`, you will find other parameters to configure. Take special 
 
 As for the database(s), classic considerations apply. With the `db_dir` flag, consider storing its files in a dedicated and redundant volume. On Linux, you could mount the `data` folder to that separate drive.
 
-Events are also stored in a database ([see `indexer`](https://docs.tendermint.com/master/nodes/configuration.html#indexing-settings)), and here too you can choose to store them separately. Note that events are purely a node concern, not a consensus or network one.
+Events are also stored in a database, and here too you can choose to store them separately. Note that events are purely a node concern, not a consensus or network one.
 
 ## Run user
 
