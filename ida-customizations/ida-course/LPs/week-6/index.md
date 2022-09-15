@@ -13,7 +13,7 @@ title: Week 6 - IBC Custom App and IBC Middleware
 
 In the IBC custom application sections, you will learn to scaffold an IBC-enabled blockchain via Ignite CLI and explore different aspects of IBC communication and packet handling. In the IBC middleware sections, you will learn about IBC middleware and understand how it can help you to simplify your application logic.
 
-![LP image - Week 6](/ida-course/LPs/week-6/images/moving-objects.svg)
+![LP image - Week 6](/moving-objects.svg)
 
 ## In this chapter
 

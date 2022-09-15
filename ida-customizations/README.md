@@ -64,12 +64,12 @@ overview:
     - title: How do I access Discord?
       description: |
         Follow these two steps to join the private Academy channels on Discord:<br/><br/>
-        1. Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork).
-        2. Follow the verification process. It is straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839).
-        3. After joining the Discord server, go to [INSERT LINK] and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
-        If you have any problems, email us at (academy@interchain.io)[academy@interchain.io].<br/><br/>
+        1. Join the <a href="https://discord.gg/cosmosnetwork" target="_blank">official Cosmos Discord</a>.<br>
+        2. Follow the verification process. It is straightforward but if you need guidance, read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">this article</a>.<br>
+        3. After joining the Discord server, go to <a href="https://academy.cosmos.network/onboarding/" target="_blank">academy.cosmos.network/onboarding</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
+        If you have any problems, email us at <a href="mailto:academy@interchain.io">academy@interchain.io</a>.<br/><br/>
         <br/><br/>
-        We have put together a [quick guide](/ida-course/discord-info.md) explaining how to best communicate on Discord.
+        We have put together a <a href="/ida-course/discord-info.md">quick guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program, you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>November 3rd</b> and you have to complete it by <b>December 1st</b>.<br/><br/>
@@ -235,7 +235,7 @@ customModules:
             path: /hands-on-exercise/4-ibc-dev/9-ibc-mw-develop.html
           - title: Integrating IBC middleware into a chain - OPTIONAL
             path: /hands-on-exercise/4-ibc-dev/10-ibc-mw-integrate.html
-      - image: /universe.png
+      - image: /universe.svg
         title: Week 7 - Run in Production
         href: /ida-course/LPs/week-7/
         description: |

@@ -33,7 +33,7 @@ You can also use it as a refresher.
 
 You can find a short section at the end of the chapter with good-to-know dev terms.
 
-![LP image - Week 0](/ida-course/LPs/week-0/images/planets-large.svg)
+![LP image - Week 0](/planets-large.svg)
 
 ## In this chapter
 

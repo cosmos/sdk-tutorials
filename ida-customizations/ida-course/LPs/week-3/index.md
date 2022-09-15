@@ -23,7 +23,7 @@ You will learn more about the transportation, authentication, and ordering layer
 
 You will also learn about CosmJS, the TypeScript library for the Cosmos SKD. With step-by-step examples, you will learn how to work with CosmJS when building your application-specific blockchain.
 
-![LP image - Week 3](/ida-course/LPs/week-3/images/planet-pod.svg)
+![LP image - Week 3](/planet-pod.svg)
 
 ## In this chapter
 
