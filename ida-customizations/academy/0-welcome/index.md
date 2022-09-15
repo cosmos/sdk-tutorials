@@ -77,10 +77,10 @@ customModules:
     The Academy runs for 7 weeks. You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam after 7 weeks.
   sections:
     - image: /cosmos_dev_portal_module-02-lp.png
-      title: Week 0 - Getting started
+      title: Week 0 -   Getting Started
       href: /ida-course/LPs/week-0/
       description: |
-        This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on:
+        This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Cosmos:
       links: 
         - title: Blockchain basics
           path: /ida-course/0-blockchain-basics/1-blockchain.html
