@@ -329,7 +329,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./4-create-message.md#interact-via-the-cli).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section under "Interact via the CLI"](/hands-on-exercise/1-ignite-cli/4-create-message.md).
 
 Confirm that there is no winner for a game when it is created:
 

@@ -298,7 +298,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-Send your transaction as you did in the [previous section](./4-create-message.md#interact-via-the-cli):
+Send your transaction as you did in the [previous section under "Interact via the CLI"](./4-create-message.md):
 
 <CodeGroup>
 
