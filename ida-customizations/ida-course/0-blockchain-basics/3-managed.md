@@ -139,7 +139,7 @@ Cosmos can be applied to both public and private settings and, importantly, supp
 
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
-* [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* [Vitalik Buterin on private chains](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains)
 * [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>
