@@ -52,19 +52,16 @@ customModules:
         href: /academy/1-what-is-cosmos/
         description: |
           From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at the more conceptual introductions to begin your journey. 
-        links:
       - image:
         title: Tutorials
         href: /tutorials/1-tech-terms/
         description: |
           Dive into the tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
-        links:
       - image:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
           Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
-        links:
 
   - title: Introduction to Cosmos
     description: |
@@ -82,46 +79,47 @@ customModules:
             path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
           - title: How to get ATOM and stake it
             path: /academy/1-what-is-cosmos/3-atom-staking.html
+      #- {} Example of section break
       - image: /cosmos_dev_portal_module-03-lp.png
         title: Cosmos Concepts
         href: /academy/2-cosmos-concepts/
         description: |
           This chapter includes an introduction to the main concepts underlying Cosmos SDK:
         links:
-        - title: Blockchain app architecture
-          path: /academy/2-cosmos-concepts/1-architecture.html
-        - title: Accounts
-          path: /academy/2-cosmos-concepts/2-accounts.html
-        - title: Transaction, messages, and modules
-          path: /academy/2-cosmos-concepts/3-transactions.html
-        - title: Protobuf
-          path: /academy/2-cosmos-concepts/6-protobuf.html
-        - title: Multistore and keepers
-          path: /academy/2-cosmos-concepts/7-multistore-keepers.html
-        - title: BaseApp
-          path: /academy/2-cosmos-concepts/8-base-app.html
-        - title: Queries, events, and context
-          path: /academy/2-cosmos-concepts/9-queries.html
-        - title: Migrations
-          path: /academy/2-cosmos-concepts/12-migrations.html
-        - title: Bridges
-          path: /academy/2-cosmos-concepts/13-bridges.html
+          - title: Blockchain app architecture
+            path: /academy/2-cosmos-concepts/1-architecture.html
+          - title: Accounts
+            path: /academy/2-cosmos-concepts/2-accounts.html
+          - title: Transaction, messages, and modules
+            path: /academy/2-cosmos-concepts/3-transactions.html
+          - title: Protobuf
+            path: /academy/2-cosmos-concepts/6-protobuf.html
+          - title: Multistore and keepers
+            path: /academy/2-cosmos-concepts/7-multistore-keepers.html
+          - title: BaseApp
+            path: /academy/2-cosmos-concepts/8-base-app.html
+          - title: Queries, events, and context
+            path: /academy/2-cosmos-concepts/9-queries.html
+          - title: Migrations
+            path: /academy/2-cosmos-concepts/12-migrations.html
+          - title: Bridges
+            path: /academy/2-cosmos-concepts/13-bridges.html
       - image: /planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/
         description: |
           This chapter will give you an understanding of the Inter-Blockchain Communication Protocol including:
         links:
-        - title: What is IBC?
-          path: /academy/3-ibc/1-what-is-ibc.html
-        - title: Transport, authentication, and ordering layer - connections, channels, and clients
-          path: /academy/3-ibc/2-connections.html
-        - title: Fungible token transfer
-          path: /academy/3-ibc/5-token-transfer.html
-        - title: Interchain accounts
-          path: /academy/3-ibc/6-ica.html
-        - title: IBC tooling
-          path: /academy/3-ibc/7-ibc-tooling.html
+          - title: What is IBC?
+            path: /academy/3-ibc/1-what-is-ibc.html
+          - title: Transport, authentication, and ordering layer - connections, channels, and clients
+            path: /academy/3-ibc/2-connections.html
+          - title: Fungible token transfer
+            path: /academy/3-ibc/5-token-transfer.html
+          - title: Interchain accounts
+            path: /academy/3-ibc/6-ica.html
+          - title: IBC tooling
+            path: /academy/3-ibc/7-ibc-tooling.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules
@@ -137,13 +135,11 @@ customModules:
         href: /tutorials/2-setup/
         description: |
           Find out what you should install on your machine to work with the Cosmos SDK and work on the hands-on exercises.
-        links:
       - image:
         title: Run a node, API, and CLI
         href: /tutorials/3-run-node/
         description: |
           Take your first steps with simapp and get your first node for a Cosmos blockchain running.
-        links:
       - image:
         title: Golang introduction
         href: /tutorials/4-golang-intro/
@@ -151,26 +147,25 @@ customModules:
           Take your first steps with Go to discover the basics, including a look at Go interfaces, structures, arrays, slices, and much more.
       - image:
         title: IBC Developers
-        href: /tutorials/4-ibc-dev/
+        href: /tutorials/5-ibc-dev/
         description: |
           Want to become an IBC developer? Take a closer look at IBC denoms.
-        links:
       - image: /planet-pod.svg
         title: Introduction to CosmJS
         href: /tutorials/6-comsjs/
         description: |
           Want to integrate frontend user interfaces and backend servers with you Cosmos chain? Take a closer look at:
         links:
-        - title: What is CosmJS?
-          path: tutorials/6-comsjs/1-cosmjs-intro.html
-        - title: Send tokens with CosmJS
-          path: tutorials/6-comsjs/2-first-steps.html
-        - title: Compose complex transactions
-          path: tutorials/6-comsjs/2-multi-msg.html
-        - title: Learn to integrate Keplr
-          path: tutorials/6-comsjs/3-with-keplr.html
-        - title: Create custom CosmJS interfaces
-          path: tutorials/6-comsjs/4-create-custom.html
+          - title: What is CosmJS?
+            path: tutorials/6-comsjs/1-cosmjs-intro.html
+          - title: Send tokens with CosmJS
+            path: tutorials/6-comsjs/2-first-steps.html
+          - title: Compose complex transactions
+            path: tutorials/6-comsjs/2-multi-msg.html
+          - title: Learn to integrate Keplr
+            path: tutorials/6-comsjs/3-with-keplr.html
+          - title: Create custom CosmJS interfaces
+            path: tutorials/6-comsjs/4-create-custom.html
       - image: /planets-large.svg
         title: Understand SDK modules
         href: /tutorials/7-understand-sdk-modules/
