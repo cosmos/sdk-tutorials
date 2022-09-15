@@ -30,7 +30,7 @@ In this section you will learn more about bridges in the Cosmos Ecosystem, inclu
 
 ## The Gravity Bridge
 
-The [Gravity Bridge](https://gravitybridge.althea.net) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back.
+The [Gravity Bridge](https://www.gravitybridge.net/) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back.
 
 <HighlightBox type="info">
 
@@ -102,7 +102,7 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 * [Cosmos Gravity Bridge documentation](https://github.com/cosmos/gravity-bridge/)
 * Projects based on the Gravity Bridge:
     * [Peggy JV Inc.: Gravity Bridge](https://github.com/PeggyJV/gravity-bridge/)
-    * [Althea Testnet repository: Gravity Bridge](https://github.com/althea-net/cosmos-gravity-bridge/)
+    * [Althea Testnet repository: Gravity Bridge](https://github.com/gravity-bridge/gravity-bridge)
 
 </HighlightBox>
 

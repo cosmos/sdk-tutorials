@@ -85,7 +85,7 @@ While Bitcoin addresses this efficiency issue with a relatively long block time 
 
 ![Uncles in Ethereum](/ida-course/0-blockchain-basics/images/00_18_block_uncles-01.png)
 
-This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
+This is made possible thanks to Ethereum's implementation of the [GHOST protocol](https://www.geeksforgeeks.org/what-is-ghost-protocol-for-ethereum/#:~:text=GHOST%20protocol%20is%20a%20chain,who%20owns%20the%20computing%20power.). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
 Ethereum's solution to achieve faster block times draws attention to the universal challenges of blockchain technology: performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
 
