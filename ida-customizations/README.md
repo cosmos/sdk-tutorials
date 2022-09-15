@@ -222,7 +222,7 @@ customModules:
             path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
           - title: Integrating IBC middleware into a chain - OPTIONAL
             path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
-      - image: /universe.png
+      - image: /universe.svg
         title: Week 7 - Run in Production
         href: /ida-course/LPs/week-7/
         description: |

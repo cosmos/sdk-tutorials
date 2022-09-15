@@ -46,7 +46,7 @@ You should have received an email with a link to each session to be added to you
 
 ## Next up
 
-Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
 
 ## Developer Resources
 
