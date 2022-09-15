@@ -523,6 +523,7 @@ module.exports = {
               title: "What's Next?",
               directory: true,
               order: 9,
+              path: "/ida-course/final-exam.html"
             },
           ],
         },
