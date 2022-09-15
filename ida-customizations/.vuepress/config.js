@@ -520,7 +520,7 @@ module.exports = {
               ]
             },
             {
-              title: "What's Next?"
+              title: "What's Next?",
               directory: true,
               order: 9,
             },
@@ -726,6 +726,7 @@ module.exports = {
     "ida-course/*/*.md",
     "ida-course/*.md",
     "course-ida/*/*.md",
-    "course-ida/*.md"
+    "course-ida/*.md",
+    "hands-on-exercise/*/*.md"
   ]
 };
