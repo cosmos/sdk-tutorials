@@ -157,7 +157,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to Cosmos",
-                  path: "/ida-course/LPs/week-1",
+                  path: "/ida-course/LPs/week-1/",
                 },
                 {
                   title: "Blockchain Technology and Cosmos",
@@ -236,7 +236,7 @@ module.exports = {
               children: [
                 {
                   title: "First Steps",
-                  path: "/ida-course/LPs/week-2",
+                  path: "/ida-course/LPs/week-2/",
                 },
                 {
                   title: "Setup Your Work Environment",
@@ -291,7 +291,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to IBC and CosmJS",
-                  path: "/ida-course/LPs/week-3",
+                  path: "/ida-course/LPs/week-3/",
                 },
                 {
                   title: "What is IBC?",
@@ -350,7 +350,7 @@ module.exports = {
               children: [
                 {
                   title: "Ignite CLI and IBC Advanced",
-                  path: "/ida-course/LPs/week-4",
+                  path: "/ida-course/LPs/week-4/",
                 },
                 {
                   title: "Put Your Games in Order",
@@ -413,7 +413,7 @@ module.exports = {
               children: [
                 {
                   title: "CosmJS Advanced",
-                  path: "/ida-course/LPs/week-5",
+                  path: "/ida-course/LPs/week-5/",
                 },
                 {
                   title: "Create Custom Objects",
@@ -448,7 +448,7 @@ module.exports = {
               children: [
                 {
                   title: "IBC Deep Dive",
-                  path: "/ida-course/LPs/week-6",
+                  path: "/ida-course/LPs/week-6/",
                 },
                 {
                   title: "IBC Application Developer Introduction",
@@ -483,7 +483,7 @@ module.exports = {
               children: [
                 {
                   title: "Run in Production",
-                  path: "/ida-course/LPs/week-7",
+                  path: "/ida-course/LPs/week-7/",
                 },
                 {
                   title: "Overview",
@@ -523,7 +523,7 @@ module.exports = {
               title: "What's Next?",
               directory: true,
               order: 9,
-              path: "/ida-course/final-exam.html"
+              path: "/academy/whats-next/"
             },
           ],
         },
