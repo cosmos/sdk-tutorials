@@ -240,11 +240,11 @@ module.exports = {
                 },
                 {
                   title: "Setup Your Work Environment",
-                  path: "/tutorials/2-setup",
+                  path: "/tutorials/2-setup/",
                 },
                 {
                   title: "Run a Node, API, and CLI",
-                  path: "/tutorials/3-run-node",
+                  path: "/tutorials/3-run-node/",
                 },
                 {
                   title: "Ignite CLI",
@@ -386,7 +386,7 @@ module.exports = {
                 },   
                 {
                   title: "Understand IBC Denoms",
-                  path: "/tutorials/5-ibc-dev",
+                  path: "/tutorials/5-ibc-dev/",
                 },
                 {
                   title: "Play With Cross-Chain Tokens",
