@@ -14,7 +14,7 @@ tags:
 
 Make sure to read the following sections as a preparation:
 
-* [The Cosmos Ecosystem](/academy/1-what-is-cosmos/1-cosmos-ecosystem.md)
+* [The Cosmos Ecosystem](/academy/1-what-is-cosmos/2-cosmos-ecosystem.md)
 * [Transactions](./3-transactions.md)
 * [Messages](./4-messages.md)
 * [Events](./10-events.md)
