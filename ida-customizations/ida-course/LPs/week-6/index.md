@@ -36,7 +36,7 @@ Please be aware that the recommended **essentials** for IBC are:
 
 * [IBC Application Developer Introduction](/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.md)
 * [Make a Module IBC-Enabled](/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.md)
-* [Adding Packet and Acknowledgement Data](/hands-on-exercise/4-ibc-adv/7-ibc-app-packet)
+* [Adding Packet and Acknowledgement Data](/hands-on-exercise/4-ibc-adv/7-ibc-app-packet.md)
 
 The following sections are optional and **NOT** final exam relevant:
 
