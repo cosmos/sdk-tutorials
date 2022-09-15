@@ -14,7 +14,7 @@ tags:
 Make sure you have everything you need before proceeding:
 
 * You have Go installed.
-* You have the checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. If not, follow the [previous steps](./create-message.md) and check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
+* You have the checkers blockchain codebase with `MsgCreateGame` created by Ignite CLI. If not, follow the [previous steps](./4-create-message.md) and check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/create-game-msg).
 
 </HighlightBox>
 
@@ -27,7 +27,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./create-message.md), you added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI.
+In the [previous section](./4-create-message.md), you added the message to create a game along with its serialization and dedicated gRPC function with the help of Ignite CLI.
 
 However, it does not create a game yet because you have not implemented the message handling. How would you do this?
 
@@ -298,7 +298,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-Send your transaction as you did in the [previous section](./create-message.md#interact-via-the-cli):
+Send your transaction as you did in the [previous section](./4-create-message.md#interact-via-the-cli):
 
 <CodeGroup>
 

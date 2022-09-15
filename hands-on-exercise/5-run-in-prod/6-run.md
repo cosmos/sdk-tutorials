@@ -76,7 +76,7 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 ```
 
-Check the [section on migrations](./6-migration.md) to see how you may add parameters to this file if you want to use Cosmovisor.
+Check the [section on migrations](./7-migration.md) to see how you may add parameters to this file if you want to use Cosmovisor.
 
 Enable it once:
 

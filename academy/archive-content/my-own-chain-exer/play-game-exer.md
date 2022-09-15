@@ -30,4 +30,4 @@ As before, do not bother yet with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](../3-my-own-chain/play-game.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/1-ignite-cli/6-play-game.md).

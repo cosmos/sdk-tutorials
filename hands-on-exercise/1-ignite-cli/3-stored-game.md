@@ -166,7 +166,7 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
 
     * `board`, `turn`, `black` and `red` are by default strings, so there is no need to be explicit with for instance `board:string`.
     * `index` is the id field picked, and anyway is the default name when scaffolding a map. `id` cannot be chosen when scaffolding with Ignite.
-    * `--no-message` prevents game objects from being created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./create-message.md) or [_play a move_](./play-game.md).
+    * `--no-message` prevents game objects from being created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./4-create-message.md) or [_play a move_](./6-play-game.md).
 
 The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/d5a93bf) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/4249ce1).
 
@@ -316,7 +316,7 @@ message QueryAllStoredGameResponse {
 Ignite CLI puts the different Protobuf messages into different files depending on their use:
 
 * [**`query.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/query.proto) - for objects related to reading the state. Ignite CLI modifies this file whenever you instruct it to add queries. This includes objects to [query your stored elements](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/query.proto#L46-L67).
-* [**`tx.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/tx.proto) - for objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./create-message.md).
+* [**`tx.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/tx.proto) - for objects that relate to updating the state. As you have only defined storage elements with `--no-message`, it is empty for now. The file will be modified as you add transaction-related elements like the message to [create a game](./4-create-message.md).
 * [**`genesis.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/genesis.proto) - for the genesis. Ignite CLI modifies this file according to how your new storage elements evolve.
 * [**`system_info.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/system_info.proto) and [**`stored_game.proto`**](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/stored_game.proto) - separate files created once, that will remain untouched by Ignite CLI. You are free to modify them but be careful with [field numbering](https://developers.google.com/protocol-buffers/docs/overview#assigning_field_numbers).
 
@@ -637,15 +637,15 @@ func EqualValues(t TestingT, expected interface{}, actual interface{}, msgAndArg
 
 Your first unit test is a standard Go unit test. If you use an IDE like Visual Studio Code and have Go installed locally, it is ready to assist you with running the test in debug mode. Next to the function name is a small green tick or arrow. If you hover below it, a faint red dot appears:
 
-![Go test debug button in VSCode](/academy/3-my-own-chain/images/go_test_debug_button.png)
+![Go test debug button in VSCode](/hands-on-exercise/1-ignite-cli/images/go_test_debug_button.png)
 
 This red dot is a potential breakpoint. Add one on the `types.DefaultGenesis()` line. The dot is now bright and stays there:
 
-![Go test breakpoint placed](/academy/3-my-own-chain/images/go_test_debug_breakpoint.png)
+![Go test breakpoint placed](/hands-on-exercise/1-ignite-cli/images/go_test_debug_breakpoint.png)
 
 Right-click on the green tick, and choose <kbd>Debug Test</kbd>. If it asks you to install a package, accept. Eventually it stops at the breakpoint and displays the current variables and a panel for stepping actions:
 
-![Go test stopped at breakpoint](/academy/3-my-own-chain/images/go_test_debug_stopped_at_breakpoint.png)
+![Go test stopped at breakpoint](/hands-on-exercise/1-ignite-cli/images/go_test_debug_stopped_at_breakpoint.png)
 
 If you are struggling with a test, create separate variables in order to inspect them in debug. From there, follow your regular step-by-step debugging process. If you are not familiar with debugging, [this online tutorial](https://www.digitalocean.com/community/tutorials/debugging-go-code-with-visual-studio-code) will be helpful.
 
@@ -698,7 +698,7 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
-Interested in integration tests? Skip ahead to the [section](./game-wager.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) where you learn about them.
 
 ## Interact via the CLI
 

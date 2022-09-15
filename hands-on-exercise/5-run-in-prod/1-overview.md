@@ -34,4 +34,4 @@ A good way to divide and conquer is to go with:
 * Migration preparation
 * IBC preparation
 
-Start with the binary preparation in the [next section](./1-software.md).
+Start with the binary preparation in the [next section](./2-software.md).

@@ -10,7 +10,7 @@ tags:
 
 # Move to Production
 
-How would you apply what you learned about [running in production](/hands-on-exercise/5-run-in-prod/0-overview.html) to your checkers blockchain?
+How would you apply what you learned about [running in production](/hands-on-exercise/5-run-in-prod/0-overview.md) to your checkers blockchain?
 
 ## Prepare the node
 

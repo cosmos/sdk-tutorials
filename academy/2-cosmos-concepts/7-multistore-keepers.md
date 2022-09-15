@@ -13,7 +13,7 @@ tags:
 
 Look at the following sections before you begin:
 
-* [Transactions](./2-transactions.md)
+* [Transactions](./3-transactions.md)
 * [Messages](./4-messages.md)
 * [Modules](./5-modules.md)
 * [Protobuf](./6-protobuf.md)

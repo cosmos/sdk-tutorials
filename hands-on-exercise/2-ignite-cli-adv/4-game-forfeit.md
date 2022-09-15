@@ -228,7 +228,7 @@ Now, what goes into this `if "expired" { TODO }`?
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./1-game-fifo.md).
 
 </HighlightBox>
 

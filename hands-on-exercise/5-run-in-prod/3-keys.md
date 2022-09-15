@@ -10,9 +10,9 @@ tags:
 
 # Prepare a Validator and Keys
 
-In the [previous section](./1-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need ongoing access to private keys. A regular node does not need such keys.
+In the [previous section](./2-software.md), you prepared a binary for your nodes. Some of your nodes will be validators. To propose and sign blocks, validators need ongoing access to private keys. A regular node does not need such keys.
 
-Here you learn how to prepare a validator and handle its keys. This works whether you are preparing a validator to join a preexisting network, or you are setting up your validator to be part of the [genesis](./genesis.md).
+Here you learn how to prepare a validator and handle its keys. This works whether you are preparing a validator to join a preexisting network, or you are setting up your validator to be part of the [genesis](./4-genesis.md).
 
 ## Private key security considerations
 
@@ -56,7 +56,7 @@ There are two main honest-mistake pitfalls:
     * You have a misconfigured failover validator.
     * You have two computers using the same key.
 
-To address **point 1**, this sounds like an issue about keeping your computer running and your networks in good shape. There is an added difficulty, though. Because your validator participates in a public network, its address can be [discovered and attacked](https://hub.cosmos.network/main/validators/validator-faq.html#how-can-validators-protect-themselves-from-denial-of-service-attacks). To mitigate this risk, you can for instance, use a [sentry node architecture](./4-network.md#ddos), with which your validator node is only accessible through private networks, and a number of regular public-facing nodes connect to the network at large and your validator over the private network. These sentry nodes can be placed on the cloud and only relay over the gossip network. You can safely shut them down or start up more of them. As an additional feature, if you absolutely trust a few other nodes, you can have your node connect to those directly over a private network.
+To address **point 1**, this sounds like an issue about keeping your computer running and your networks in good shape. There is an added difficulty, though. Because your validator participates in a public network, its address can be [discovered and attacked](https://hub.cosmos.network/main/validators/validator-faq.html#how-can-validators-protect-themselves-from-denial-of-service-attacks). To mitigate this risk, you can for instance, use a [sentry node architecture](./5-network.md#ddos), with which your validator node is only accessible through private networks, and a number of regular public-facing nodes connect to the network at large and your validator over the private network. These sentry nodes can be placed on the cloud and only relay over the gossip network. You can safely shut them down or start up more of them. As an additional feature, if you absolutely trust a few other nodes, you can have your node connect to those directly over a private network.
 
 To address **point 2**, this is where your use of the specialized KMS application that sits between your validator and your HSM can help. This application handles strictly one process at a time and stores the latest signed blocks so that it can detect any attempt at double-signing.
 
