@@ -34,61 +34,56 @@ overview:
         With the fast-track, you will gain a solid understanding of Cosmos and its SDK. This might be a matter of just an hour or two. The time you spend on the deep dive depends on you – there are endless possibilities to discover. <br/><br/>
         Welcome to the cosmos!
 
---> Not sure this is the right way to do it - ASK IBO
 customModules:
-  title: Use the Cosmos SDK to build application-specific blockchains
-  description: |
-    Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
-  action:
-    label: What is Cosmos?
-    url: /academy/1-what-is-cosmos/
-  description: |
-    You are not sure where to start? Take a look at all there is to dive in!
-customModules:
-  title: All there is to discover
-  description: |
-    Start with the first chapter, or select one or more tags below.
-  sections:
-    - image:
-      title: Introduction to Cosmos
-      href: /academy/1-what-is-cosmos/
-      description: |
-        From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at the more conceptual introductions to begin your journey. 
-      links:
-    - image:
-      title: Tutorials
-      href: /tutorials/1-tech-terms/
-      description: |
-        Dive into the tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
-      links:
-    - image:
-      title: Hands-on Exercise
-      href: /hands-on-exercise/1-ignite-cli/
-      description: |
-        Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
-      links:
---> INCLUDE TAG SELECTION HERE - ASK IBO
+  - title: Use the Cosmos SDK to build application-specific blockchains
+    description: |
+      Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
+    action:
+      label: What is Cosmos?
+      url: /academy/1-what-is-cosmos/
 
---> ADDED CARDS, NEED A CHECK - ASK IBO
-customModules:
-  title: Introduction to Cosmos
-  description: |
-    Discover the Cosmos Ecosystem, Cosmos SDK, and IBC
-  sections:
-    - image: /cosmos_dev_portal_module-02-lp.png
-      title: What is Cosmos?
-      href: /academy/1-what-is-cosmos/
-      description: |
-        Get a fast overview of:
-      links: 
-        - title: Blockchain technology and Cosmos
-          path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
-        - title: The Cosmos Ecosystem
-          path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
-        - title: How to get ATOM and stake it
-          path: /academy/1-what-is-cosmos/3-atom-staking.html
-    - image: /cosmos_dev_portal_module-03-lp.png
-      title: Cosmos Concepts
+
+  - title: All there is to discover
+    description: |
+      Start with the first chapter, or select one or more tags below.
+    sections:
+      - image:
+        title: Introduction to Cosmos
+        href: /academy/1-what-is-cosmos/
+        description: |
+          From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at the more conceptual introductions to begin your journey. 
+        links:
+      - image:
+        title: Tutorials
+        href: /tutorials/1-tech-terms/
+        description: |
+          Dive into the tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
+        links:
+      - image:
+        title: Hands-on Exercise
+        href: /hands-on-exercise/1-ignite-cli/
+        description: |
+          Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+        links:
+
+  - title: Introduction to Cosmos
+    description: |
+      Discover the Cosmos Ecosystem, Cosmos SDK, and IBC
+    sections:
+      - image: /cosmos_dev_portal_module-02-lp.png
+        title: What is Cosmos?
+        href: /academy/1-what-is-cosmos/
+        description: |
+          Get a fast overview of:
+        links: 
+          - title: Blockchain technology and Cosmos
+            path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
+          - title: The Cosmos Ecosystem
+            path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
+          - title: How to get ATOM and stake it
+            path: /academy/1-what-is-cosmos/3-atom-staking.html
+      - image: /cosmos_dev_portal_module-03-lp.png
+        title: Cosmos Concepts
         href: /academy/2-cosmos-concepts/
         description: |
           This chapter includes an introduction to the main concepts underlying Cosmos SDK:
@@ -111,8 +106,8 @@ customModules:
           path: /academy/2-cosmos-concepts/12-migrations.html
         - title: Bridges
           path: /academy/2-cosmos-concepts/13-bridges.html
-    - image: /planet-collection.svg
-      title: Introduction to IBC
+      - image: /planet-collection.svg
+        title: Introduction to IBC
         href: /academy/3-ibc/
         description: |
           This chapter will give you an understanding of the Inter-Blockchain Communication Protocol including:
@@ -127,41 +122,41 @@ customModules:
           path: /academy/3-ibc/6-ica.html
         - title: IBC tooling
           path: /academy/3-ibc/7-ibc-tooling.html
-  title: Tutorials
-  description: |
-    Get started and explore IBC, CosmJS, and Cosmos SDK modules
-  sections:
-    - image:
-      title: Good-to-know dev terms
+  - title: Tutorials
+    description: |
+      Get started and explore IBC, CosmJS, and Cosmos SDK modules
+    sections:
+      - image:
+        title: Good-to-know dev terms
         href: /tutorials/1-tech-terms/
         description: |
           From gRPC to Protobuf - a brief overview of dev terms you encounter in the Cosmos Ecosystem.
-      links:
-    - image:
-      title: Set up your work environment
+        links:
+      - image:
+        title: Set up your work environment
         href: /tutorials/2-setup/
         description: |
           Find out what you should install on your machine to work with the Cosmos SDK and work on the hands-on exercises.
-      links:
-    - image:
-      title: Run a node, API, and CLI
+        links:
+      - image:
+        title: Run a node, API, and CLI
         href: /tutorials/3-run-node/
         description: |
           Take your first steps with simapp and get your first node for a Cosmos blockchain running.
-      links:
-    - image:
-      title: Golang introduction
+        links:
+      - image:
+        title: Golang introduction
         href: /tutorials/4-golang-intro/
         description: |
           Take your first steps with Go to discover the basics, including a look at Go interfaces, structures, arrays, slices, and much more.
-    - image:
-      title: IBC Developers
+      - image:
+        title: IBC Developers
         href: /tutorials/4-ibc-dev/
         description: |
           Want to become an IBC developer? Take a closer look at IBC denoms.
         links:
-    - image: /planet-pod.svg
-      title: Introduction to CosmJS
+      - image: /planet-pod.svg
+        title: Introduction to CosmJS
         href: /tutorials/6-comsjs/
         description: |
           Want to integrate frontend user interfaces and backend servers with you Cosmos chain? Take a closer look at:
@@ -176,8 +171,8 @@ customModules:
           path: tutorials/6-comsjs/3-with-keplr.html
         - title: Create custom CosmJS interfaces
           path: tutorials/6-comsjs/4-create-custom.html
-    - image: /planets-large.svg
-      title: Understand SDK modules
+      - image: /planets-large.svg
+        title: Understand SDK modules
         href: /tutorials/7-understand-sdk-modules/
         description: |
           Discover several tutorials on specific SDK modules:
@@ -188,34 +183,34 @@ customModules:
             path: /tutorials/7-understand-sdk-modules/2-feegrant.html
           - title: The group module
             path: /tutorials/7-understand-sdk-modules/3-group.md
-  title: Hands-on Exercise
-  description: |
-    From zero to hero - work with the full Cosmo stack while developing a checkers game blockchain
-  sections:
-    - image: /cosmos_dev_portal_module-05-lp.png
-      title: Ignite CLI - Basics
+  - title: Hands-on Exercise
+    description: |
+      From zero to hero - work with the full Cosmo stack while developing a checkers game blockchain
+    sections:
+      - image: /cosmos_dev_portal_module-05-lp.png
+        title: Ignite CLI - Basics
         href: /hands-on-exercise/1-ignite-cli/
         description: |
           Get started with Ignite CLI and begin developing a checkers blockchain:
         links:
           - title: Introduction to Ignite CLI
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
-        - title: First steps for your checkers blockchain
-          path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
-        - title: Make a checkers blockchain
-          path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
-        - title: Create custom messages
-          path: /hands-on-exercise/1-ignite-cli/4-create-message.html
-        - title: Create and save a game
-          path: /hands-on-exercise/1-ignite-cli/5-create-handling
-        - title: Add a way to make a move
-          path: /hands-on-exercise/1-ignite-cli/6-play-game
-        - title: Emit game information
-          path: /hands-on-exercise/1-ignite-cli/7-events
-        - title: Make sure a player can reject a game
-          path: /hands-on-exercise/1-ignite-cli/8-reject-game
-    - image: /moving-objects.svg
-      title: Ignite CLI - Advanced
+          - title: First steps for your checkers blockchain
+            path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
+          - title: Make a checkers blockchain
+            path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
+          - title: Create custom messages
+            path: /hands-on-exercise/1-ignite-cli/4-create-message.html
+          - title: Create and save a game
+            path: /hands-on-exercise/1-ignite-cli/5-create-handling
+          - title: Add a way to make a move
+            path: /hands-on-exercise/1-ignite-cli/6-play-game
+          - title: Emit game information
+            path: /hands-on-exercise/1-ignite-cli/7-events
+          - title: Make sure a player can reject a game
+            path: /hands-on-exercise/1-ignite-cli/8-reject-game
+      - image: /moving-objects.svg
+        title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
         description: |
           Continue developing your checkers blockchain with Ignite by:
@@ -236,8 +231,8 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Preparing to move into production
             path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
-    - image: /green-planet.svg
-      title: CosmJS - Advanced
+      - image: /green-planet.svg
+        title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
         description: |
           Apply your knowledge of CosmJS to the checkers blockchain exercise. You will:
@@ -254,8 +249,8 @@ customModules:
             path: hands-on-exercise/3-cosmjs/5-server-side.html
           - title: Introduce a leaderboard after production
             path: hands-on-exercise/3-cosmjs/6-migration.html
-    - image: /cosmos_dev_portal_module-04-lp.png
-      title: IBC - Advanced
+      - image: /cosmos_dev_portal_module-04-lp.png
+        title: IBC - Advanced
         href: /hands-on-exercise/4-ibc-adv/
         description: |
           Test your IBC knowledge by developing your checkers blockchain further:
@@ -280,8 +275,8 @@ customModules:
             path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
           - title: Integrate IBC middleware into a chain
             path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
-    - image: /universe.svg
-      title: Run in Production
+      - image: /universe.svg
+        title: Run in Production
         href: /hands-on-exercise/5-run-in-prod
         description: |
           Prepare your checkers blockchain to run in production:
