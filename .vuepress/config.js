@@ -93,7 +93,7 @@ module.exports = {
             },
             {
               title: "Run Your Own Cosmos Chain",
-              directory: true,
+              directory: false,
               children: [
                 {
                   title: "Run Your Own Cosmos Chain",
@@ -171,7 +171,7 @@ module.exports = {
             },
             {
               title: "The Inter-Blockchain Communication Protocol",
-              directory: true,
+              directory: false,
               children: [
                 {
                   title: "The Inter-Blockchain Communication Protocol",
@@ -238,7 +238,7 @@ module.exports = {
             {
               title: "Good-To-Know Dev Terms",
               path: "/tutorials/1-tech-terms/",
-              directory: false,
+              directory: true,
             },
             {
               title: "Golang Introduction",
@@ -248,22 +248,22 @@ module.exports = {
             {
               title: "Understand IBC denoms",
               path: "/tutorials/4-ibc-dev/1-wager-denom.md",
-              directory: false,
+              directory: true,
             },
             {
               title: "Understand the Authz Module",
               path: "/tutorials/7-understand-sdk-modules/1-authz.md",
-              directory: false,
+              directory: true,
             },
             {
               title: "Understand the Feegrant Module",
               path: "/tutorials/7-understand-sdk-modules/2-feegrant.md",
-              directory: false,
+              directory: true,
             },
             {
               title: "Understand the Group Module",
               path: "/tutorials/7-understand-sdk-modules/3-group.md",
-              directory: false,
+              directory: true,
             }
           ],
         },
