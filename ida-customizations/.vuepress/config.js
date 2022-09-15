@@ -452,27 +452,27 @@ module.exports = {
                 },
                 {
                   title: "IBC Application Developer Introduction",
-                  path: "/hands-on-exercise/4-ibc-dev/5-ibc-app-intro.html",
+                  path: "/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html",
                 },
                 {
                   title: "Make a Module IBC-Enabled",
-                  path: "/hands-on-exercise/4-ibc-dev/6-ibc-app-steps.html",
+                  path: "/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html",
                 },
                 {
                   title: "Adding Packet and Acknowledgment Data",
-                  path: "/hands-on-exercise/4-ibc-dev/7-ibc-app-packets.html",
+                  path: "/hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html",
                 },
                 {
                   title: "IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/8-ibc-mw-intro.html",
+                  path: "/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html",
                 },
                 {
                   title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/9-ibc-mw-develop.html",
+                  path: "/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html",
                 },
                 {
                   title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/4-ibc-dev/10-ibc-mw-integrate.html",
+                  path: "/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html",
                 },
               ]
             },

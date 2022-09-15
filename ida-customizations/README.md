@@ -194,7 +194,7 @@ customModules:
           - title: Move your chain to production
             path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
           - title: Understand IBC denoms
-            path: /tutorials/5-ibc-dev
+            path: /tutorials/5-ibc-dev/
           - title: Play with cross-chain tokens
             path: /hands-on-exercise/4-ibc-adv/1-wager-denom.html
           - title: Work with IBC relayers
