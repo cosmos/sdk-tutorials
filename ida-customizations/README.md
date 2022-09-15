@@ -98,7 +98,7 @@ customModules:
           - title: Blockchain basics
             path: /ida-course/0-blockchain-basics/1-blockchain.html
           - title: Golang
-            path: /tutorials/4-golang-intro/1_install.html
+            path: /tutorials/4-golang-intro/1-install.html
           - title: Good-to-know dev terms
             path: /tutorials/1-tech-terms/
       - image: /cosmos_dev_portal_module-03-lp.svg
@@ -162,15 +162,15 @@ customModules:
           - title: IBC tooling
             path: /academy/3-ibc/7-ibc-tooling.html
           - title: What is CosmJS?
-            path: tutorials/6-comsjs/1-cosmjs-intro.html
+            path: tutorials/6-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
-            path: tutorials/6-comsjs/2-first-steps.html
+            path: tutorials/6-cosmjs/2-first-steps.html
           - title: Compose complex transactions
-            path: tutorials/6-comsjs/2-multi-msg.html
+            path: tutorials/6-cosmjs/3-multi-msg.html
           - title: Learn to integrate Keplr
-            path: tutorials/6-comsjs/3-with-keplr.html
+            path: tutorials/6-cosmjs/4-with-keplr.html
           - title: Create custom CosmJS interfaces
-            path: tutorials/6-comsjs/4-create-custom.html
+            path: tutorials/6-cosmjs/5-create-custom.html
       - image: /planet-collection.svg
         title: Week 4 - Ignite CLI and IBC Advanced
         href: /ida-course/LPs/week-4/
@@ -178,19 +178,19 @@ customModules:
           You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
         links: 
           - title: Put your games in order
-            path: /hands-on-exercise/2-ignite-cli/1-game-fifo.html
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Keep a game deadline
-            path: /hands-on-exercise/2-ignite-cli/2-game-deadline.html
+            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
           - title: Record a game winner
-            path: /hands-on-exercise/2-ignite-cli/3-game-winner.html
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
           - title: Allow for auto-expiring games
-            path: /hands-on-exercise/2-ignite-cli/4-game-forfeit.html
+            path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Let players set a wager
-            path: /hands-on-exercise/2-ignite-cli/5-game-wager.html
+            path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
           - title: Incentivize players and manage gas
-            path: /hands-on-exercise/2-ignite-cli/6-gas-meter.html
+            path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find a correct move
-            path: /hands-on-exercise/2-ignite-cli/7-can-play.html
+            path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Move your chain to production
             path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
           - title: Understand IBC denoms
@@ -206,17 +206,17 @@ customModules:
           You will build on your previous work with CosmJS to implement a sound game GUI and a backend script that improves the user experience by:
         links: 
           - title: Creating custom objects
-            path: hands-on-exercise/3-cosmjs/1-cosmjs-objects.html
+            path: hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html
           - title: Creating custom messages
-            path: hands-on-exercise/3-cosmjs/2-cosmjs-messages.html
+            path: hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.html
           - title: Getting an external GUI
-            path: hands-on-exercise/3-cosmjs/3-external-gui.html
+            path: hands-on-exercise/3-cosmjs-adv/3-external-gui.html
           - title: Integrating CosmJS and Keplr
-            path: hands-on-exercise/3-cosmjs/4-cosmjs-gui.html
+            path: hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html
           - title: Using CosmJS for game indexing
-            path: hands-on-exercise/3-cosmjs/5-server-side.html
+            path: hands-on-exercise/3-cosmjs-adv/5-server-side.html
           - title: Introducing a leaderboard after production
-            path: hands-on-exercise/3-cosmjs/6-migration.html
+            path: hands-on-exercise/3-cosmjs-adv/6-migration.html
       - image: /moving-objects.svg
         title: Week 6 - IBC Deep Dive
         href: /ida-course/LPs/week-6/
@@ -224,17 +224,17 @@ customModules:
           Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
         links: 
           - title: Writing a custom IBC application
-            path: /hands-on-exercise/4-ibc-dev/5-ibc-app-intro.html
+            path: /hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html
           - title: How to make a module IBC-enabled
-            path: /hands-on-exercise/4-ibc-dev/6-ibc-app-steps.html
+            path: /hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html
           - title: Adding packet and acknowledgment data
-            path: /hands-on-exercise/4-ibc-dev/7-ibc-app-packets.html
+            path: /hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html
           - title: Exploring IBC middlewares - OPTIONAL
-            path: /hands-on-exercise/4-ibc-dev/8-ibc-mw-intro.html
+            path: /hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html
           - title: Creating a custom IBC middleware - OPTIONAL
-            path: /hands-on-exercise/4-ibc-dev/9-ibc-mw-develop.html
+            path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
           - title: Integrating IBC middleware into a chain - OPTIONAL
-            path: /hands-on-exercise/4-ibc-dev/10-ibc-mw-integrate.html
+            path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
       - image: /universe.svg
         title: Week 7 - Run in Production
         href: /ida-course/LPs/week-7/
