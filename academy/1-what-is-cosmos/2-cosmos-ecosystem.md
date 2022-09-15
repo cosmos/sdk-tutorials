@@ -105,7 +105,7 @@ The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.net
 
 <HighlightBox type="info">
 
-The default consensus mechanism available when developing with the SDK is the [Tendermint Core](https://docs.tendermint.com/master/).
+The default consensus mechanism available when developing with the SDK is the [Tendermint Core](https://docs.tendermint.com/v0.34/tendermint-core/).
 
 </HighlightBox>
 

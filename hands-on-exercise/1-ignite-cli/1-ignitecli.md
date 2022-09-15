@@ -108,7 +108,7 @@ Ignite CLI version:     v0.22.2
 
 <HighlightBox type="docs">
 
-If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/).
+If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/v0.24).
 
 </HighlightBox>
 
