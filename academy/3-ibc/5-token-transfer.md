@@ -249,4 +249,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](ica.md), discover how you can control an account on a host chain from a controller chain using interchain accounts (ICAs).-->
+In the [next section](./6-ica.md), discover how you can control an account on a host chain from a controller chain using interchain accounts (ICAs).-->

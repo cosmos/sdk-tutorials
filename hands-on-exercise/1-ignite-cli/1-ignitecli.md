@@ -724,7 +724,7 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./exercise-intro.md).-->
+You just created a fully working Cosmos SDK chain, one that forms the basis of the [following exercise](./2-exercise-intro.md).-->
 
 <HighlightBox type="info">
 

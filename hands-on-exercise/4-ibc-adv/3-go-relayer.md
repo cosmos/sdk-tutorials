@@ -497,4 +497,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./hermes-relayer.md).-->
+After having taken a look at the Go relayer, it is now time to turn to the Hermes relayer in the [next section](./4-hermes-relayer.md).-->

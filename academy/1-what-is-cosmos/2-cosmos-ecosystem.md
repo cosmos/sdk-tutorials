@@ -147,7 +147,7 @@ A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge
 
 <HighlightBox type="info">
 
-Want to learn more about modules in the Cosmos SDK? See the [Modules section](../2-main-concepts/modules.md) in the **Main Concepts** chapter.
+Want to learn more about modules in the Cosmos SDK? See the [Modules section](../2-cosmos-concepts/5-modules.md) in the **Main Concepts** chapter.
 
 </HighlightBox>
 
@@ -240,4 +240,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./atom-staking.md).-->
+Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./3-atom-staking.md).-->

@@ -177,4 +177,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./context.md) to learn about the `Context` object.-->
+Now you know about events, where they are expected, and how to emit or receive them. Look at the code samples above, or go to the [next section](./11-context.md) to learn about the `Context` object.-->

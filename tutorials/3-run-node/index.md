@@ -571,4 +571,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-It is time to begin developing your own chain. You will begin working with Ignite CLI in the [next section](./ignitecli.md).-->
+It is time to begin developing your own chain. You will begin working with Ignite CLI in the [next section](/hands-on-exercise/1-ignite-cli/1-ignitecli.md).-->

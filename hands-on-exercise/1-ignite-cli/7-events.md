@@ -513,4 +513,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Time to add a third message to make it possible for a player to [reject a game](./reject-game.md) and to make your checkers blockchain more resistant to spam.-->
+Time to add a third message to make it possible for a player to [reject a game](./8-reject-game.md) and to make your checkers blockchain more resistant to spam.-->

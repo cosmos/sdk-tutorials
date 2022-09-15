@@ -371,7 +371,7 @@ The blockchain client itself knows how to serialize or deserialize it only becau
 
 <HighlightBox type="info">
 
-To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](./create-custom.md).
+To learn how to make your own types for your own blockchain project, head to [Create my own CosmJS objects](/tutorials/6-cosmjs/5-create-custom.md).
 
 </HighlightBox>
 
@@ -801,4 +801,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You have sent a transaction with a single message. How about you send a transaction with more than one message? That is the object of the [next section](./multi-msg.md). Or skip ahead and send a simple transaction, but this time from a Web browser with the help of [Keplr](./with-keplr.md).-->
+You have sent a transaction with a single message. How about you send a transaction with more than one message? That is the object of the [next section](/tutorials/6-cosmjs/3-multi-msg.md). Or skip ahead and send a simple transaction, but this time from a Web browser with the help of [Keplr](./4-with-keplr.md).-->

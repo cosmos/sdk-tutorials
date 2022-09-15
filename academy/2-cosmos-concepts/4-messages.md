@@ -332,4 +332,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./modules.md) to learn more about modules.-->
+Look at the above code example to get a better sense of how theory translates into development. If you feel ready to dive into the next main concept of the Cosmos SDK, you can go directly to the [next section](./5-modules.md) to learn more about modules.-->

@@ -667,5 +667,5 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You have how updated your CosmJS frontend so that it integrates with Keplr. In the [next section](./create-custom.md), learn more about creating custom CosmJS interfaces.-->
+You have how updated your CosmJS frontend so that it integrates with Keplr. In the [next section](./5-create-custom.md), learn more about creating custom CosmJS interfaces.-->
 

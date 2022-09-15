@@ -156,4 +156,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./cosmjs-gui.md).-->
+You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./4-cosmjs-gui.md).-->

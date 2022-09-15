@@ -453,12 +453,12 @@ To summarize, this section has explored:
 At this point, you have:
 
 * [Understood how Cosmos and the Cosmos SDK fit in the overall development of blockchain technology.](../1-what-is-cosmos/1-blockchain-and-cosmos.md)
-* [A better sense of what comprises the Cosmos Ecosystem.](../1-what-is-cosmos/cosmos-ecosystem.md)
-* [Set up a wallet, got some ATOM tokens, and staked them.](../1-what-is-cosmos/atom-staking.md)
-* [Learned more about the elements of application architecture.](../2-main-concepts/architecture.md)
-* [Understood and applied main concepts of the Cosmos SDK.](../2-main-concepts/index.md)
-* [Run a node, API, and CLI for a Cosmos chain.](../3-my-own-chain/node-api-and-cli.md)
-* [Used Ignite CLI to develop your chain.](./ignitecli.md)
+* [A better sense of what comprises the Cosmos Ecosystem.](../1-what-is-cosmos/2-cosmos-ecosystem.md)
+* [Set up a wallet, got some ATOM tokens, and staked them.](../1-what-is-cosmos/3-atom-staking.md)
+* [Learned more about the elements of application architecture.](../2-cosmos-concepts/1-architecture.md)
+* [Understood and applied main concepts of the Cosmos SDK.](../2-cosmos-concepts/index.md)
+* [Run a node, API, and CLI for a Cosmos chain.](/tutorials/2-setup/index.md)
+* [Used Ignite CLI to develop your chain.](/hands-on-exercise/1-ignite-cli/1-ignitecli.md)
 * Discovered how CosmWasm assists with developing multi-chain smart contracts in Rust.
 
 Head to the [next chapter](https://interchainacademy.cosmos.network/course-ida/landingpages/week4-lp.html) to discover the Inter-Blockchain Communication Protocol.

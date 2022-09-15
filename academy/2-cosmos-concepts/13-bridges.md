@@ -18,7 +18,6 @@ Make sure to read the following sections as a preparation:
 * [Transactions](./3-transactions.md)
 * [Messages](./4-messages.md)
 * [Events](./10-events.md)
-<!-- * [IBC](./ibc.md) -->
 
 </HighlightBox>
 
@@ -118,4 +117,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You will discover more on running a node in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).-->
+You will discover more on running a node in [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).-->

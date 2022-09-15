@@ -583,10 +583,10 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Before you add a third message to let a player [reject a game](./reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./events.md).
+Before you add a third message to let a player [reject a game](./8-reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./7-events.md).
 
 <HighlightBox type="tip">
 
-If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](./can-play.md).
+If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
 
 </HighlightBox>-->

@@ -248,4 +248,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next chapter](../2-main-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->
+In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->

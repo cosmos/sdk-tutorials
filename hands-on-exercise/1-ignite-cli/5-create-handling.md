@@ -494,4 +494,4 @@ You will learn how to modify this handling in later sections by:
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
 * Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md).
 
-<!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./play-game.md).-->
+<!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./6-play-game.md).-->

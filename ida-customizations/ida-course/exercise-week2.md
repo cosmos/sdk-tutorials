@@ -16,7 +16,7 @@ PART OF THE TITLE - Create an Object
 You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! 
 -->
 
-<!-- Before you [try](TODO), here is a summary of what you will be asked to do. -->
+<!-- Before you [try](), here is a summary of what you will be asked to do. -->
 
 <!--
 INCLUDE LATER:

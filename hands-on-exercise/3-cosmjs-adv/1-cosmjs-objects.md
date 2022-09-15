@@ -611,4 +611,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./cosmjs-messages.md).-->
+Now that your types have been generated, you can get to work on making sure CosmJS understands which messages it can use on your checkers blockchain in the [next tutorial](./2-cosmjs-messages.md).-->

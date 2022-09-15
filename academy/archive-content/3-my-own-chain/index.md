@@ -36,7 +36,7 @@ In this chapter, you will:
 
 ## Next up
 
-Before you begin [running a node](./node-api-and-cli.md) and exploring [Ignite CLI](./ignitecli.md), prep everything for the running exercise - creating a checkers blockchain - by going through the section _[Setup Your Work Environment](./setup.md)_.
+Before you begin [running a node](/hands-on-exercise/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - creating a checkers blockchain - by going through the section _[Setup Your Work Environment](/tutorials/2-setup/index.md)_.
 
 ## Developer Resources
 

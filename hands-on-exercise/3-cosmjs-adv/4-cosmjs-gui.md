@@ -633,7 +633,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutuorials/6-cosmjs/4-with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutorials/6-cosmjs/4-with-keplr.md) section.
 
 </HighlightBox>
 
@@ -1067,4 +1067,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./server-side.md), explore how server-side scripts can help you improve the user experience of your application.-->
+In the [next section](./5-server-side.md), explore how server-side scripts can help you improve the user experience of your application.-->

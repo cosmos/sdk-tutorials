@@ -170,6 +170,6 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You can now continue directly to the [next section](./events.md) to learn about events.
+You can now continue directly to the [next section](./10-events.md) to learn about events.
 
 If you prefer to see some code in action and continue with the checkers blockchain, look at the expandable box above.-->

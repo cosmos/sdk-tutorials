@@ -1457,4 +1457,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You can skip ahead and see how to integrate [foreign tokens](./wager-denom.md) via the use of IBC, or take a look at the [next section](./gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.-->
+You can skip ahead and see how to integrate [foreign tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md) via the use of IBC, or take a look at the [next section](./6-gas-meter.md) to prevent spam and reward validators proportional to their effort in your checkers blockchain.-->

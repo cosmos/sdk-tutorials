@@ -192,4 +192,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.-->
+In the [next section](./9-queries.md), you can find information on queries, one of two primary objects handled by a module in the Cosmos SDK.-->

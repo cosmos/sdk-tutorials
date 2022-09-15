@@ -426,4 +426,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Look at the above code example to see modules in practice, or go straight to the [next section](../2-main-concepts/protobuf.md) for an introduction to Protobuf.-->
+Look at the above code example to see modules in practice, or go straight to the [next section](../2-cosmos-concepts/6-protobuf.md) for an introduction to Protobuf.-->

@@ -108,4 +108,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./go-relayer.md).-->
+You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./3-go-relayer.md).-->

@@ -260,4 +260,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.-->
+In the [next section](./3-transactions.md), you will learn how transactions are generated and handled in the Cosmos SDK.-->

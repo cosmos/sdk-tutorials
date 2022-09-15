@@ -330,4 +330,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./channels.md).-->
+Now that you finished having a look at connections in IBC/TAO, it is now time to switch your focus to channels in the [next section](./3-channels.md).-->

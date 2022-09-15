@@ -446,4 +446,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Now that you covered your Go basics, get an overview of interfaces in Go in the [next section](./3_interfaces.md).-->
+Now that you covered your Go basics, get an overview of interfaces in Go in the [next section](./3-interfaces.md).-->

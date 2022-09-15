@@ -996,4 +996,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./game-deadline.md).-->
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./2-game-deadline.md).-->

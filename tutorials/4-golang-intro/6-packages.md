@@ -219,4 +219,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Before diving deep into Cosmos, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7_concurrency.md).-->
+Before diving deep into Cosmos, take a look at Go's built-in concurrency by exploring _Goroutine_ and _channels_ in the [next section](./7-concurrency.md).-->

@@ -932,4 +932,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Want to continue developing your checkers blockchain? In the [next section](./create-message.md), you will learn all about introducing an `sdk.Msg` to create a game.-->
+Want to continue developing your checkers blockchain? In the [next section](./4-create-message.md), you will learn all about introducing an `sdk.Msg` to create a game.-->

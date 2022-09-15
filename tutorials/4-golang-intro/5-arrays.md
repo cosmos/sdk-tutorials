@@ -180,4 +180,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-After discovering slices and arrays, you can now dive into some of the useful standard packages Go offers. In the [next section](./6_packages.md), you can explore _fmt_, _strconv_, and _errors_.-->
+After discovering slices and arrays, you can now dive into some of the useful standard packages Go offers. In the [next section](./6-packages.md), you can explore _fmt_, _strconv_, and _errors_.-->

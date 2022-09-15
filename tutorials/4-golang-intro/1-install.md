@@ -97,4 +97,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./2_basics.md), you can take a look at further Golang foundations and discover basic types, string formatting, functions, and methods.-->
+In the [next section](./2-basics.md), you can take a look at further Golang foundations and discover basic types, string formatting, functions, and methods.-->

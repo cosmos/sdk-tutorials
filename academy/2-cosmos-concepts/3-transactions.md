@@ -190,4 +190,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.-->
+In the [next section](./4-messages.md), you can learn how transaction messages are generated and handled in the Cosmos SDK.-->

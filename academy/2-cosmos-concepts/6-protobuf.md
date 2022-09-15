@@ -180,4 +180,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](/academy/2-main-concepts/7-multistore-keepers.md) for an introduction to storage types and keepers.-->
+Look at the above code example to see how Protobuf can facilitate your activities, or go straight to the [next section](/academy/2-cosmos-concepts/7-multistore-keepers.md) for an introduction to storage types and keepers.-->

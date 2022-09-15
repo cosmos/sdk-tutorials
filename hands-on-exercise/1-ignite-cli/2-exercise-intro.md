@@ -15,4 +15,4 @@ These exercises help you prepare a conceptual framework for the information that
 
 <!--## Next up
 
-Start with your checkers blockchain by heading to the [next section](./stored-game.md).-->
+Start with your checkers blockchain by heading to the [next section](./3-stored-game.md).-->

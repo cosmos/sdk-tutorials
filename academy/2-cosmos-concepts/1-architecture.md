@@ -149,8 +149,6 @@ The creation of an application-specific blockchain with the Cosmos SDK is largel
 
 The Inter-Blockchain Communication Protocol (IBC) is a common framework for exchanging information between blockchains. For now, it is enough to know that it exists and it enables seamless interaction between blockchains that want to transfer value (token transfers) and exchange information. It enables communication between applications that run on separate application-specific blockchains.
 
-<!-- We will dive further into the Inter-Blockchain Communication Protocol (IBC) in a [later section of this chapter](./ibc.md). -->
-
 </HighlightBox>
 
 The application, consensus, and network layers are contained within the custom blockchain node that forms the foundation of the custom blockchain.
@@ -444,5 +442,3 @@ The following sections will extend your comprehension of the Cosmos SDK and the 
 * Do you want the player's GUI to easily reload any pending games, or let them know whether a move is valid or not? These are good uses of Cosmos SDK [queries](./9-queries.md).
 * If you want to use Tendermint to notify players when it's their turn, Cosmos SDK provides that option with [events](./10-events.md).
 * What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./12-migrations.md).
-
-<!--* Finally, how can you allow players to play for money using different tokens? Fortunately the Cosmos SDK already integrates [IBC](./ibc.md) for tokens coming from other blockchains.-->

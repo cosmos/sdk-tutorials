@@ -170,5 +170,5 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Basics and interfaces are covered, what's next? Take a closer look at the control structures in Go by diving into `if`, `switch`, and `for` statements in the [next section](./4_control.md).-->
+Basics and interfaces are covered, what's next? Take a closer look at the control structures in Go by diving into `if`, `switch`, and `for` statements in the [next section](./4-control.md).-->
 

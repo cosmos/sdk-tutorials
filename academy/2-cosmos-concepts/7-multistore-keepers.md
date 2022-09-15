@@ -579,4 +579,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.-->
+In the [next section](./8-base-app.md) you can find more information on `BaseApp` and its role in the Cosmos SDK.-->

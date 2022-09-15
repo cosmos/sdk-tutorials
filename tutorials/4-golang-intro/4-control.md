@@ -170,4 +170,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You covered control structures in Go and learned about the `if`, `switch`, and `for` statements, it is time to turn to [arrays and slices in Go](./5_arrays.md).-->
+You covered control structures in Go and learned about the `if`, `switch`, and `for` statements, it is time to turn to [arrays and slices in Go](./5-arrays.md).-->

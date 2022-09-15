@@ -341,5 +341,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./bridges.md) to discover bridges in the Cosmos SDK.-->
-<!-- You are now up-to-date on migrations. Look at the following code samples, or go to the [next section](./ibc.md) to learn about the Inter-Blockchain Communication Protocol. -->
+You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./13-bridges.md) to discover bridges in the Cosmos SDK.-->

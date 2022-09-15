@@ -197,4 +197,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](./cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.-->
+In the [next section](./2-cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.-->
