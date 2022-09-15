@@ -351,7 +351,7 @@ Deserializing the transaction has not fully deserialized any messages that it co
 
 ### What is this long string?
 
-Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from the [Protobuf](/academy/2-main-concepts/6-protobuf.md) definitions and is a mixture of:
+Note the `typeUrl: "/cosmos.bank.v1beta1.MsgSend"` string. This comes from the [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) definitions and is a mixture of:
 
 1. The `package` where `MsgSend` is initially declared:
 
@@ -652,7 +652,7 @@ You connected to a publicly running testnet. Therefore, you depended on someone 
 
 ## With a locally started chain
 
-The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-my-own-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
+The easiest option is to reuse the `simd` chain that you started in a [previous module](/tutorials/3-run-node/index.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
 
 When you finally launch `simd`, you see the line:
 

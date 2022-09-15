@@ -137,7 +137,7 @@ $ ignite scaffold message createGame red black --module checkers --response idVa
 
 <HighlightBox type="info">
 
-Ignite CLI creates a variety of other files. See [Run Your Own Cosmos Chain](../3-my-own-chain/index.md) for details, and to make additions to existing files.
+Ignite CLI creates a variety of other files. See [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) for details, and to make additions to existing files.
 
 </HighlightBox>
 
@@ -314,7 +314,7 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 <HighlightBox type="tip">
 
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](../3-my-own-chain/index.md).
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
 
 </HighlightBox>
 

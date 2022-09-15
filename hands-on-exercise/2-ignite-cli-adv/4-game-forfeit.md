@@ -13,7 +13,7 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [ABCI](/academy/2-main-concepts/1-architecture.md).
+* You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md).
 * Go is installed.
 * You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./3-game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 

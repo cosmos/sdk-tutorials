@@ -36,4 +36,4 @@ Run the commands, make the adjustments, run some tests. **Create the message onl
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](../3-my-own-chain/create-message.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/1-ignite-cli/4-create-message.md).

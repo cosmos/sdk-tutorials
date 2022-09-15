@@ -202,7 +202,7 @@ In the Cosmos SDK, there are **two categories of binary wire encoding types**: c
 The Cosmos SDK uses two binary wire encoding protocols:
 
 * **Amino:** an object encoding specification. Every Cosmos SDK module uses an Amino codec to serialize types and interfaces.
-* **[Protocol Buffers (Protobuf)](/academy/2-main-concepts/6-protobuf.md):** a data serialization method, which developers use to describe message formats.
+* **[Protocol Buffers (Protobuf)](/academy/2-cosmos-concepts/6-protobuf.md):** a data serialization method, which developers use to describe message formats.
 
 Due to reasons such as performance drawbacks and missing cross-language/client support, Protocol Buffers are used more and more over Amino.
 

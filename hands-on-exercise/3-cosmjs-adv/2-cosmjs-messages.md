@@ -20,7 +20,7 @@ Make sure you have all you need before proceeding:
 
 </HighlightBox>
 
-In the previous section, you created the objects that allow you to **query** your Checkers blockchain. Now, you will create the elements that allow you to **send transactions** to it.
+In the previous section, you created the objects that allow you to **query** your checkers blockchain. Now, you will create the elements that allow you to **send transactions** to it.
 
 ## Encodable messages
 
@@ -814,7 +814,7 @@ You can add further tests, for instance:
 
 To summarize, this section has explored:
 
-* How to create the elements necessary for you to begin sending transactions to your Checkers blockchain, including encodable messages, a signing client, and action methods that permit interaction with the blockchain.
+* How to create the elements necessary for you to begin sending transactions to your checkers blockchain, including encodable messages, a signing client, and action methods that permit interaction with the blockchain.
 * How to test your signing client, including key preparation (with either a mnemonic or a private key) and client preparation, followed by functions such as creating a game, rejecting a game, or playing a move.
 
 </HighlightBox>

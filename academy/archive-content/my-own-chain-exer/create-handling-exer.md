@@ -14,7 +14,7 @@ You have created a message that is intended to create a game. However, it does n
 
 * How do you sanitize your inputs?
 * How do you avoid conflicts with past and future games?
-* How do you use your files that implement the Checkers rules?
+* How do you use your files that implement the checkers rules?
 
 ## Code
 
@@ -27,4 +27,4 @@ For now, do not bother with niceties like gas metering or event emission.
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](../3-my-own-chain/create-handling.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/1-ignite-cli/5-create-handling.md).

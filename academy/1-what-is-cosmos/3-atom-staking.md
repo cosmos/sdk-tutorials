@@ -22,7 +22,7 @@ The [Cosmos Hub](https://hub.cosmos.network) is the first among equals of Cosmos
 
 <HighlightBox type="info">
 
-The main concepts are covered in more detail in the [next chapter](../2-main-concepts/index.md).
+The main concepts are covered in more detail in the [next chapter](/academy/2-cosmos-concepts/index.md).
 
 </HighlightBox>
 

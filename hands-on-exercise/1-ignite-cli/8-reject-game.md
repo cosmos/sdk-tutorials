@@ -13,7 +13,7 @@ tags:
 
 Before proceeding, make sure you have all you need:
 
-* You understand the concepts of [transactions](/academy/2-main-concepts/3-transactions.md), [messages](/academy/2-main-concepts/4-messages.md), and [Protobuf](/academy/2-main-concepts/6-protobuf.md).
+* You understand the concepts of [transactions](/academy/2-cosmos-concepts/3-transactions.md), [messages](/academy/2-cosmos-concepts/4-messages.md), and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You know how to [create a message](./4-create-message.md) with Ignite CLI, and code [its handling](./5-create-handling.md). This section does not aim to repeat what can be learned in earlier sections.
 * Go is installed.
 * You have the checkers blockchain codebase with the previous messages and their events. If not, follow the [previous steps](./7-events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
@@ -43,7 +43,7 @@ Ask yourself:
 * What conditions have to be satisfied to reject a game?
 * How do you report back errors?
 * What event should you emit?
-* How do you use your files that implement the Checkers rules?
+* How do you use your files that implement the checkers rules?
 * What do you do with a rejected game?
 
 ## Code needs

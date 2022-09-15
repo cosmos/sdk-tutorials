@@ -84,7 +84,7 @@ Each chain in the Cosmos Ecosystem relies on the Tendermint **fast-finality BFT 
 
 <HighlightBox type="tip">
 
-If you want to dive deeper into application-specific blockchains, look at the section [A Blockchain App Architecture](../2-main-concepts/1-architecture.md).
+If you want to dive deeper into application-specific blockchains, look at the section [A Blockchain App Architecture](/academy/2-cosmos-concepts/1-architecture.md).
 
 </HighlightBox>
 
@@ -137,7 +137,7 @@ If the other chain is a **probabilistic-finality chain**, a simple adaptation of
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-main-concepts/13-bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/13-bridges.md).
 
 </HighlightBox>
 
@@ -176,7 +176,7 @@ With Ignite CLI, developers can:
 
 <HighlightBox type="docs">
 
-See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](../3-my-own-chain/ignitecli.md) in the _Run Your Own Cosmos Chain_ chapter.
+See the official [Ignite CLI documentation](https://docs.ignite.com/), and the section on [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md) in the _Run Your Own Cosmos Chain_ chapter.
 
 </HighlightBox>
 
@@ -198,7 +198,7 @@ With CosmWasm, smart contracts can run on multiple chains with the help of the I
 
 <HighlightBox type="docs">
 
-For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/), or compile and deploy a contract in the [guided exercise](../4-my-own-chain/cosmwasm.md).
+For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
 
 </HighlightBox>
 

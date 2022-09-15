@@ -13,7 +13,7 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [modules](/academy/2-main-concepts/5-modules.md), [keepers](/academy/2-main-concepts/7-multistore-keepers.md), and [Protobuf](/academy/2-main-concepts/6-protobuf.md).
+* You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md), [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md), and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./4-game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
 

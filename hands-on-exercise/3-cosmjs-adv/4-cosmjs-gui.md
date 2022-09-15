@@ -21,8 +21,8 @@ Make sure you have all you need before proceeding:
 
 In the previous sections:
 
-1. You created the objects, messages, and clients that allow you to **interface** any GUI with your Checkers blockchain.
-2. You imported an external Checkers **GUI** to use.
+1. You created the objects, messages, and clients that allow you to **interface** any GUI with your checkers blockchain.
+2. You imported an external checkers **GUI** to use.
 
 Now, you must **integrate the two** together:
 
@@ -118,11 +118,11 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
     Be careful to leave the `"eject"` unchanged.
 
-See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the Checkers blockchain, as explained in the previous section.
+See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the checkers blockchain, as explained in the previous section.
 
 ### GUI data structures
 
-The Checkers GUI uses different data structures, which you must understand to convert them correctly.
+The checkers GUI uses different data structures, which you must understand to convert them correctly.
 
 1. The `IPlayerInfo` has a [`name: string`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L27) field which can be used as the player's address.
 2. The `IGameInfo` has a [`board: number[][] | null`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L11) field. You must do a conversion from `b*b*...` to this type. Ensure that the alignments are correct.
@@ -566,9 +566,9 @@ $ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install @keplr-
 
 </CodeGroup>
 
-### Identify the Checkers blockchain
+### Identify the checkers blockchain
 
-Keplr will need information to differentiate your Checkers blockchain from the other chains. Prepare your Checkers blockchain info in a new `src/types/checkers/chain.ts` file:
+Keplr will need information to differentiate your checkers blockchain from the other chains. Prepare your checkers blockchain info in a new `src/types/checkers/chain.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/types/checkers/chain.ts]
 import { ChainInfo } from "@keplr-wallet/types"
@@ -821,7 +821,7 @@ Examine the code, and focus on `src/components/Menu/NewGameModal/NewGameModal.ts
 
 You have now added game creation to your GUI.
 
-If you do not yet know your Keplr address on the Checkers network, you will have to test in two passes. To test properly, you need to:
+If you do not yet know your Keplr address on the checkers network, you will have to test in two passes. To test properly, you need to:
 
 1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both, but optionally reject the prompt to accept a transaction if your balance is zero.
 
@@ -849,7 +849,7 @@ If you do not yet know your Keplr address on the Checkers network, you will have
             localhost:4500
         ```
 
-    * If you do not have access to `checkersd` or its faucet, look for instructions on how to start your locally-running Checkers or tap the faucet of a public Checkers test net.
+    * If you do not have access to `checkersd` or its faucet, look for instructions on how to start your locally-running checkers or tap the faucet of a public checkers test net.
 
 4. Now start again to actually create a game. Accept the transaction, and you are redirected to the game page. This time the content of the game is from the blockchain.
 
@@ -1060,7 +1060,7 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 
 To summarize, this section has explored:
 
-* How to prepare for and then integrate CosmJS and Keplr into the GUI of your Checkers blockchain, including how to adjust the React app to be able to package CosmJS.
+* How to prepare for and then integrate CosmJS and Keplr into the GUI of your checkers blockchain, including how to adjust the React app to be able to package CosmJS.
 * How to integrate CosmJS, including working with the GUI's data structures, fetching games from the blockchain and displaying them, integrating with Keplr for browser-based players, creating a new game, and fetching a single game to be played.
 
 </HighlightBox>

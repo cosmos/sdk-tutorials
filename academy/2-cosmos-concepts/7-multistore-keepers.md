@@ -42,7 +42,7 @@ A keeper can be thought of as the literal gatekeeper of a module's stores. Each 
 
 When a module needs to interact with the state defined in another module, it does so by interacting with the methods of the other module’s keeper. Developers control the interactions their module can have with other modules by defining methods and controlling access.
 
-![Keepers in the Cosmos SDK](/academy/2-main-concepts/images/keeper.png)
+![Keepers in the Cosmos SDK](/academy/2-cosmos-concepts/images/keeper.png)
 
 ## Format
 

@@ -11,7 +11,7 @@ title: Chapter Overview - See your chain in action
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See your chain in action</div>
 <h1 class="mt-4 mb-6">Run in Production</h1>
 
-After having developed your chain, now you'll take the next step to move your chain into production.
+After having developed your chain, now you will take the next step to move your chain into production.
 
 ![](./images/universe.svg)
 

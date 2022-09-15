@@ -172,7 +172,7 @@ In general, there are three types of files:
 * Files used on both platforms, with the same content.
 * Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`).
 
-The first two types of files don't require any special treatment. Only the last type - files used on both platforms which contain different content - requires you to undertake particular steps. 
+The first two types of files do not require any special treatment. Only the last type - files used on both platforms which contain different content - requires you to undertake particular steps. 
 
 ### IDA platform
 
@@ -286,7 +286,7 @@ In general, there are three types of files:
 * Files used on both platforms, with the same content.
 * Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`)
 
-The first two types of files don't require any special treatment. Only the last type - files used on both platforms which contain different content - requires you to undertake particular steps 
+The first two types of files do not require any special treatment. Only the last type - files used on both platforms which contain different content - requires you to undertake particular steps 
 
 ### IDA platform
 

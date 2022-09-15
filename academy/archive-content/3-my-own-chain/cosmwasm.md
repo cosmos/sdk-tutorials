@@ -14,9 +14,9 @@ tags:
 
 The following sections are recommended as a preparation:
 
-* [Transactions](/academy/2-main-concepts/3-transactions.md)
-* [Messages](/academy/2-main-concepts/4-messages.md)
-* [Queries](/academy/2-main-concepts/9-queries.md)
+* [Transactions](/academy/2-cosmos-concepts/3-transactions.md)
+* [Messages](/academy/2-cosmos-concepts/4-messages.md)
+* [Queries](/academy/2-cosmos-concepts/9-queries.md)
 
 </HighlightBox>
 

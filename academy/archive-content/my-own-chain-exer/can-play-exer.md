@@ -28,4 +28,4 @@ Since sending transactions includes costs, how do you assist participants in mak
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](../3-my-own-chain/can-play.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).

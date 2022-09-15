@@ -15,7 +15,7 @@ tags:
 
 Before you dive into Go relayers, make sure to install Go.
 <br></br>
-For all installations, please see the [setup page](../3-my-own-chain/setup.md).
+For all installations, please see the [setup page](/tutorials/2-setup/index.md).
 
 </HighlightBox>
 

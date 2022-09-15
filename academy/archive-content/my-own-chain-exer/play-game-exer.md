@@ -16,7 +16,7 @@ Your blockchain can now create games, but can you play them? Not yet.. so what d
 * How do you sanitize the inputs?
 * How do you unequivocally identify games?
 * How do you report back errors?
-* How do you use your files that implement the Checkers rules?
+* How do you use your files that implement the checkers rules?
 * How do you make sure that nothing is lost?
 
 ## Code

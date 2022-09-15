@@ -18,7 +18,7 @@ For example, how do you list all of a player's games? Currently this information
 
 To implement this functionality, build a Web 2.0 server to do the indexing. The server:
 
-1. Listens to updates from the Checkers chain:
+1. Listens to updates from the checkers chain:
     1. On a game creation event, adds the game ID under each player.
     2. On a game deletion event, removes it. This happens either because of a rejection or in an end-block.
 2. When asked about its status, returns the latest block height up to which it has indexed players.
@@ -27,7 +27,7 @@ To implement this functionality, build a Web 2.0 server to do the indexing. The 
 
 ## Barebones server
 
-As a fast and simple Web 2.0 solution, navigate to the [Checkers CosmJS repository](https://github.com/cosmos/academy-checkers-ui) for the checkers blockchain, in the existing `gui` branch, and perform the following steps:
+As a fast and simple Web 2.0 solution, navigate to the [checkers CosmJS repository](https://github.com/cosmos/academy-checkers-ui) for the checkers blockchain, in the existing `gui` branch, and perform the following steps:
 
 1. Create a sub-directory of the `src` folder (e.g. `server`).
 2. Use the `express` Node.js module to create an HTTP REST API.
@@ -419,7 +419,7 @@ Add the following to `indexer.ts`:
     }
     ```
 
-The `.env` file contains the `RPC_URL`, adjust it to your situation, in particular if you are using Docker. If necessary, launch the Checkers blockchain:
+The `.env` file contains the `RPC_URL`, adjust it to your situation, in particular if you are using Docker. If necessary, launch the checkers blockchain:
 
 * If you are running it with Ignite CLI:
 

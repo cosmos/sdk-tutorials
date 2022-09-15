@@ -20,7 +20,7 @@ In the following sections, you will learn how to develop your custom IBC applica
 
 In the [integration](https://ibc.cosmos.network/v3.0.0/ibc/integration.html) section of the IBC documentation, the necessary steps to integrate IBC in a Cosmos SDK chain are outlined.
 
-Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Comsos SDK chains since the 0.40.x version of the SDK, so it is unlikely you'll have to implement these steps manually when developing a chain.
+Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Comsos SDK chains since the 0.40.x version of the SDK, so it is unlikely you will have to implement these steps manually when developing a chain.
 
 For example, the checkers blockchain you developed in the previous section **is IBC-enabled**. This is revealed when trying to send IBC denoms from other chains in order to set a wager. However, this does not make the `x/checkers` module an IBC-enabled module. you will investigate all the additions required to make the module IBC-enabled in what follows.
 

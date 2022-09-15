@@ -11,7 +11,7 @@ title: Week 4 - Let's Get Serious!
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Let's get serious!</div>
 <h1 class="mt-4 mb-6">Ignite CLI and IBC Advanced</h1>
 
-This week you will work further on your checkers Blockchain and take your next steps with Ignite CLI. You have a workable checkers blockchain, one which lets players play. But have you thought about everything? Is your blockchain safe from bad behavior? How do you incentivize good behavior? Can you also make it more fun?
+This week you will work further on your checkers blockchain and take your next steps with Ignite CLI. You have a workable checkers blockchain, one which lets players play. But have you thought about everything? Is your blockchain safe from bad behavior? How do you incentivize good behavior? Can you also make it more fun?
 
 Following the hands-on exercises, you will discover how IBC denoms work and get to grips with cross-chain tokens and relayers.
 

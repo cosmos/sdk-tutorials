@@ -115,7 +115,7 @@ Click `Show entropy details` and enter random data in the `Entropy` field. This 
 
 Like most blockchain implementations, Cosmos derives addresses from the public keys.
 
-![HD wallets: The seed, keys, addresses, and accounts](/academy/2-main-concepts/images/hd-accounts.png)
+![HD wallets: The seed, keys, addresses, and accounts](/academy/2-cosmos-concepts/images/hd-accounts.png)
 
 When using BIP39 or one of its variants, a user is required _only_ to store their BIP39 mnemonic in a safe and confidential manner. All key pairs can be reconstructed from the mnemonic because it is deterministic. There is no practical upper limit to the number of key pairs that can be generated from a single mnemonic. The input taken from the [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) derivation path is used to generate a key pair for every blockchain using one single mnemonic. Hence the name "hierarchical-deterministic" to describe this key generation approach.
 
@@ -152,7 +152,7 @@ Passing `Payload` and `Signature` into the signature verification function retur
 
 There is more than one implementation of the public key signature process previously described. The Cosmos SDK supports the following digital key schemes for creating digital signatures:
 
-![State change](/academy/2-main-concepts/images/state_machine_2.png)
+![State change](/academy/2-cosmos-concepts/images/state_machine_2.png)
 
 <HighlightBox type="note">
 
@@ -188,7 +188,7 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [previous section](../2-main-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
+In the [previous section](/academy/2-cosmos-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
 <br></br>
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 <br></br>

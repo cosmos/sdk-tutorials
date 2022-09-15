@@ -163,7 +163,7 @@ It is worth mentioning that on top of the particular security considerations IBC
 
 As previously mentioned, even though IBC originated from the Cosmos stack it allows for chains not built with the Cosmos SDK to adopt IBC, or even those with a different consensus than Tendermint altogether. However, depending on which chain you want to implement IBC for or build IBC applications on top of, it may require prior development to ensure that all the different components needed for IBC to work are available for the consensus type and blockchain framework of your choice.
 
-Generally speaking, you'll need the following:
+Generally speaking, you will need the following:
 1. An implementation of the IBC transport layer.
 2. A light client implementation on your chain, to track the counterparty chain you want to connect to.
 3. A light client implementation for your consensus type, to be encorporated on the counterparty chain you want to connect to.
@@ -174,7 +174,7 @@ The following decision tree helps visualize the roadmap towards an IBC-enabled c
 <br></br>
 Do you have access to an existing chain?
 * **No.** You will have to build a chain:
-    * Cosmos SDK chain: see the [previous chapters](../3-my-own-chain/index.md).
+    * Cosmos SDK chain: see the [previous chapters](/hands-on-exercise/1-ignite-cli/index.md).
     * Another chain.
         * Is there a Tendermint light client implementation available for your chain?
             * Yes. Continue.
@@ -208,7 +208,7 @@ To summarize, this section has explored:
 
 * How the Inter-Blockchain Communication Protocol (IBC) solves the problem of cross-chain communication by handling the authentication and transport of data between two blockchains through a minimal set of functions specified in the Interchain Standards (ICS).
 * How the IBC functions permissionlessly and can be used with a wide range of blockchains or state machines regardless of their network topologies or consensus algorithms, with IBC security reduced to that of the participating chains.
-* How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which don't meet the criteria of Proof-of-Stake (PoS)finality.
+* How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which do not meet the criteria of Proof-of-Stake (PoS)finality.
 * How a Cosmos blockchain's transport layer (TAO) provides the infrastructure for establishing secure connections to other chains, while the application layer built on top defines how authenticated data packets should be packaged and interpreted.
 * How relayer algorithms provide the essential off-chain processes that share data between chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as permitted by the protocol.
 * How the Byzantine behavior that leads to forking is prevented within the fast finality Cosmos Ecosystem, and how the IBC protocol can achieve fork prevention outside the ecosystem by submitting proof of validator misbehavior and freezing affected light clients until an issue or attack has been neutralized.

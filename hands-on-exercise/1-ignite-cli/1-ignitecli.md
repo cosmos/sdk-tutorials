@@ -13,13 +13,13 @@ tags:
 
 Before diving into the details of how Ignite CLI helps you scaffold the basics for your application blockchain make sure to understand the main concepts presented in the following sections:
 
-* [A Blockchain App Architecture](../2-main-concepts/1-architecture.md)
-* [Accounts](../2-main-concepts/2-accounts.md)
-* [Transactions](../2-main-concepts/3-transactions.md)
-* [Messages](../2-main-concepts/4-messages.md)
-* [Modules](../2-main-concepts/5-modules.md)
-* [Protobuf](../2-main-concepts/6-protobuf.md)
-* [BaseApp](../2-main-concepts/8-base-app.md)
+* [A Blockchain App Architecture](/academy/2-cosmos-concepts/1-architecture.md)
+* [Accounts](/academy/2-cosmos-concepts/2-accounts.md)
+* [Transactions](/academy/2-cosmos-concepts/3-transactions.md)
+* [Messages](/academy/2-cosmos-concepts/4-messages.md)
+* [Modules](/academy/2-cosmos-concepts/5-modules.md)
+* [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md)
+* [BaseApp](/academy/2-cosmos-concepts/8-base-app.md)
 
 </HighlightBox>
 
@@ -372,7 +372,7 @@ The `ignite chain serve` command downloads (a lot of) dependencies and compiles 
 
 If you use Docker with throwaway containers (`run --rm`) you will notice that it downloads the Go dependencies every time. To increase your productivity, you can have the dependencies be downloaded in the Docker image itself:
 
-1. Move your `Dockerfile-ubuntu` file into your Checkers project, next to the `go.mod` file.
+1. Move your `Dockerfile-ubuntu` file into your checkers project, next to the `go.mod` file.
 2. Add the following lines to `Dockerfile-ubuntu`:
 
   ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu#L35-L37]
@@ -559,7 +559,7 @@ When you return to the main page, you should see your new assets:
 
 From here, you can send tokens around. You can also ask for `"10stake"` from the faucet, if you recall the name of the tokens from `config.yml`.
 
-There is not much else to do. After all, this is the Cosmos BaseApp. Ignite will continue scaffolding this GUI as your Checkers project advances.
+There is not much else to do. After all, this is the Cosmos BaseApp. Ignite will continue scaffolding this GUI as your checkers project advances.
 
 <HighlightBox type="note">
 

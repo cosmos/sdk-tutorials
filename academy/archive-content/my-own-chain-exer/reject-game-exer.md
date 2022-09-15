@@ -8,7 +8,7 @@ tags:
 
 # Exercise - Message and Handler - Make Sure a Player Can Reject a Game
 
-Your blockchain can now create and play games, and inform the outside world about the process. It would be good to add a way for players to back out of games they don't want to play. What do you need to make this possible?
+Your blockchain can now create and play games, and inform the outside world about the process. It would be good to add a way for players to back out of games they do not want to play. What do you need to make this possible?
 
 ## Think
 
@@ -18,7 +18,7 @@ Your blockchain can now create and play games, and inform the outside world abou
 * What conditions have to be satisfied to reject a game?
 * How do you report back errors?
 * What event should you emit?
-* How do you use your files that implement the Checkers rules?
+* How do you use your files that implement the checkers rules?
 * What do you do with a rejected game?
 
 ## Code

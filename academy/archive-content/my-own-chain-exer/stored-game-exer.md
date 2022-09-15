@@ -33,7 +33,7 @@ The goal here is not to finalize every conceivable game feature immediately. For
 
 ## Code
 
-**Do not** dive headlong into coding the rules of Checkers in Go - examples will already exist which you can put to use. Your job is to make a blockchain that just happens to enable the game of Checkers.
+**Do not** dive headlong into coding the rules of checkers in Go - examples will already exist which you can put to use. Your job is to make a blockchain that just happens to enable the game of Checkers.
 
 With that in mind:
 

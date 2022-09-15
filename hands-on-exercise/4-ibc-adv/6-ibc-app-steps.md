@@ -10,7 +10,7 @@ tags:
 
 # Make a Module IBC-Enabled
 
-In this section, you'll build a conceptual SDK blockchain with one module: first as a regular module, and second as an IBC module. This will introduce you to what makes a module IBC-enabled.
+In this section, you will build a conceptual SDK blockchain with one module: first as a regular module, and second as an IBC module. This will introduce you to what makes a module IBC-enabled.
 
 ## Scaffold a leaderboard chain
 

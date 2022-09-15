@@ -37,7 +37,7 @@ Dwell on the following questions to guide you in the exercise:
 
 * How do you sanitize your inputs?
 * How do you avoid conflicts with past and future games?
-* How do you use your files that implement the Checkers rules?
+* How do you use your files that implement the checkers rules?
 
 ## Code needs
 
@@ -112,7 +112,7 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
     Note the use of:
 
-    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/rules/checkers.go#L122) command, which is part of the Checkers rules file you imported earlier.
+    * The [`rules.New()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/rules/checkers.go#L122) command, which is part of the checkers rules file you imported earlier.
     * The string content of the `msg *types.MsgCreateGame`, namely `.Black` and `.Red`.
 
     Also note that you lose the information about the creator. If your design is different, you may want to keep this information.
