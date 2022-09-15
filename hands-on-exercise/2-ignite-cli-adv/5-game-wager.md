@@ -1169,11 +1169,11 @@ suite.Require().EqualValues([]sdk.Attribute{
 
 ### Debug your suite
 
-You learned in a [previous section](./stored-game.md) how to launch a test in debug mode. It is still possible to do so when using a suite. Depending on the versions of your Go installation and your Visual Studio Code, you can launch it in two ways:
+You learned in a [previous section](/hands-on-exercise/1-ignite-cli/3-stored-game.md) how to launch a test in debug mode. It is still possible to do so when using a suite. Depending on the versions of your Go installation and your Visual Studio Code, you can launch it in two ways:
 
 1. Right-click on the arrow to the left of the suite's runner `func TestCheckersKeeperTestSuite`:
 
-    ![Suite runner with green button](/academy/3-my-own-chain/images/go_test_debug_suite.png)
+    ![Suite runner with green button](/hands-on-exercise/2-ignite-cli-adv/images/go_test_debug_suite.png)
 
     <HighlightBox type="note">
 
@@ -1183,7 +1183,7 @@ You learned in a [previous section](./stored-game.md) how to launch a test in de
 
 2. Right-click on the arrow to the left of the separate test of the suite:
 
-    ![Suite test with green button](/academy/3-my-own-chain/images/go_test_debug_suite_test.png)
+    ![Suite test with green button](/hands-on-exercise/2-ignite-cli-adv/images/go_test_debug_suite_test.png)
 
     <HighlightBox type="note">
 
@@ -1195,7 +1195,7 @@ You learned in a [previous section](./stored-game.md) how to launch a test in de
 
 With the tests done, see what happens at the command-line.
 
-Keep the game expiry at 5 minutes to be able to test a forfeit, as done in the [previous section](./game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.
+Keep the game expiry at 5 minutes to be able to test a forfeit, as done in the [previous section](./4-game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.
 
 How much do Alice and Bob have to start with?
 
@@ -1275,7 +1275,7 @@ Confirm that the balances of both Alice and Bob are unchanged - as they have not
 
 <HighlightBox type="note">
 
-In this example, Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./gas-meter.md).
+In this example, Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./6-gas-meter.md).
 
 </HighlightBox>
 

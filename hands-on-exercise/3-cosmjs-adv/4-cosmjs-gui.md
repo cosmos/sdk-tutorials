@@ -419,7 +419,7 @@ Next, in `MenuContainer.tsx`:
 
 Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line, test this new functionality by creating one:
 
-![List of one game](/academy/cosmjs-checkers-sections/images/list-games-1.png)
+![List of one game](/hands-on-exercise/3-cosmjs-adv/images/list-games-1.png)
 
 If you do not have a way to create a game, wait for the procedures about creating a game.
 
@@ -538,7 +538,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
 
 Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the procedure about playing.
 
-![Game with one move played](/academy/cosmjs-checkers-sections/images/show-game-1-move.png)
+![Game with one move played](/hands-on-exercise/3-cosmjs-adv/images/show-game-1-move.png)
 
 ## Integrate with Keplr
 
@@ -633,7 +633,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](hands-on-exercise/3-cosmjs.adv/4-with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](hands-on-exercise/3-cosmjs-adv/4-with-keplr.md) section.
 
 </HighlightBox>
 
@@ -731,7 +731,7 @@ Your component is now ready to send transactions to the blockchain. Why choose `
 
 This modal window pops up when you click on <kbd>New Game</kbd>:
 
-![Modal window to create game](/academy/cosmjs-checkers-sections/images/window-create-game.png)
+![Modal window to create game](/hands-on-exercise/3-cosmjs-adv/images/window-create-game.png)
 
 The player names look ready-made to take the player's Cosmos addresses.
 
@@ -825,11 +825,11 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both, but optionally reject the prompt to accept a transaction if your balance is zero.
 
-    ![Checkers prompting to add support for Checkers](/academy/cosmjs-checkers-sections/images/checkers-add-support.png)![Checkers prompting to access account](/academy/cosmjs-checkers-sections/images/checkers-access-address.png)    
+    ![Checkers prompting to add support for Checkers](/hands-on-exercise/3-cosmjs-adv/images/checkers-add-support.png)![Checkers prompting to access account](/hands-on-exercise/3-cosmjs-adv/images/checkers-access-address.png)    
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 
-    ![Checkers network in beta support list](/academy/cosmjs-checkers-sections/images/list-keplr-beta-support.png)
+    ![Checkers network in beta support list](//hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
 
 3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 
@@ -866,7 +866,7 @@ console.log(positions)
 
 Now play a move with the current interface. Move your first black piece:
 
-![Black moves first piece](/academy/cosmjs-checkers-sections/images/black-moves-first-piece.png)
+![Black moves first piece](/hands-on-exercise/3-cosmjs-adv/images/black-moves-first-piece.png)
 
 In the blockchain code, this is `fromX: 1, fromY: 2, toX: 2, toY: 3`. However, the GUI prints:
 

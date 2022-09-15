@@ -80,7 +80,7 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](./create-message.md) of the exercise again.
+If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](./4-create-message.md) of the exercise again.
 
 </HighlightBox>
 
@@ -341,7 +341,7 @@ type winningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded serialized?">
 
-You can reuse the [date format used for the deadline](./game-deadline.md):
+You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md):
 
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/ed8c76836d797af891414391f21d2f5b5f1eb6fa/x/checkers/types/keys.go#L50]

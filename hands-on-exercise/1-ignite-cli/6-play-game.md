@@ -347,7 +347,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-If you restarted from the [previous section](./create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
+If you restarted from the [previous section](./5-create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
 
 Can Bob make a move? Look at the `play-move` message and which parameters it expects:
 
@@ -520,7 +520,7 @@ This returns:
 raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"play_move"}]}]}]'
 ```
 
-Confirm the move went through with your one-line formatter from the [previous section](./create-handling.md):
+Confirm the move went through with your one-line formatter from the [previous section](./5-create-handling.md):
 
 <CodeGroup>
 

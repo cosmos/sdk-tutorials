@@ -69,13 +69,13 @@ In this tutorial you will:
 
 <HighlightBox type="info">
 
-Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/4-ibc/token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
+Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/5-token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
 
 </HighlightBox>
 
 Imagine two blockchains, blockchain A and blockchain B. As a starting point, you have some tokens on blockchain A you want to send to blockchain B. You can follow the steps in the image below:
 
-![IBC token transfer](/tutorials/understanding-ibc-denoms/images/ibc_token.png)
+![IBC token transfer](/tutorials/5-ibc-dev/images/ibc_token.png)
 
 _Sending tokens from blockchain A to blockchain B_
 
@@ -395,4 +395,4 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-If your interest in IBC has been piqued, go to the IBC introduction and learn the intricacies of the IBC protocol and IBC applications, start [here](/academy/4-ibc/index.md).
+If your interest in IBC has been piqued, go to the IBC introduction and learn the intricacies of the IBC protocol and IBC applications, start [here](/academy/3-ibc/index.md).

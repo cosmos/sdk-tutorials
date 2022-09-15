@@ -329,7 +329,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 </CodeGroup>
 
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md#interact-via-the-cli).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./4-create-message.md#interact-via-the-cli).
 
 Confirm that there is no winner for a game when it is created:
 
@@ -395,7 +395,7 @@ This should show:
 ...
 ```
 
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./game-forfeit.md), via a forfeit.
+Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./4-game-forfeit.md), via a forfeit.
 
 <HighlightBox type="synopsis">
 

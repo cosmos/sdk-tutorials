@@ -308,7 +308,7 @@ With these functions ready, it is time to use them in the message handlers.
     ...
     ```
 
-You have implemented a FIFO that is updated but never really used. It will be used in a [later section](./game-forfeit.md).
+You have implemented a FIFO that is updated but never really used. It will be used in a [later section](./4-game-forfeit.md).
 
 ## Unit tests
 
@@ -582,7 +582,7 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 <HighlightBox type="tip">
 
-Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./create-message.md#interact-via-the-cli).
+Do not forget to export `alice` and `bob` again, as explained in an [earlier section](./4-create-message.md#interact-via-the-cli).
 
 </HighlightBox>
 

@@ -60,7 +60,7 @@ This separation is reflected in the categories of the ICS in the [general ICS de
 
 The following diagram shows how IBC works at a high level:
 
-![IBC overview - two connected chains](/academy/4-ibc/images/ibcoverview.png)
+![IBC overview - two connected chains](/academy/3-ibc/images/ibcoverview.png)
 
 Note three crucial elements in the diagram:
 
