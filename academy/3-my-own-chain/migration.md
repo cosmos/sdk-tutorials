@@ -13,9 +13,9 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](/academy/2-main-concepts/protobuf.md) and [migrations](/academy/2-main-concepts/migrations.md).
+* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/12-migrations.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/academy/3-my-own-chain/wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
+* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/4-ibc-adv/1-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
 
 </HighlightBox>
 
@@ -80,7 +80,7 @@ It is time to take a closer look at the new data structures being introduced wit
 
 <HighlightBox type="tip">
 
-If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](/academy/3-my-own-chain/create-message.md) of the exercise again.
+If you feel unsure about creating new data structures with Ignite CLI, look at the [previous sections](/hands-on-exercise/1-ignite-cli/4-create-message.md) of the exercise again.
 
 </HighlightBox>
 
@@ -477,7 +477,7 @@ type WinningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded (de)serialized?">
 
-You can reuse the [date format used for the deadline](/academy/3-my-own-chain/game-deadline.md):
+You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignte-cli-adv/2-game-deadline.md):
 
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/keys.go#L84]
