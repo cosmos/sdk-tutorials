@@ -247,7 +247,7 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 ## Verifying packet commitments
 
-As shown in the deep dive on [channels](/academy/3-ibc/4-channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
+As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
 The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/main/modules/light-clients/07-tendermint/client_state.go) is as follows:
 

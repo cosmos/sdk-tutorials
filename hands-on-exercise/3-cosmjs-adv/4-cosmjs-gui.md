@@ -633,7 +633,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](hands-on-exercise/3-cosmjs-adv/4-with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutuorials/6-cosmjs/4-with-keplr.md) section.
 
 </HighlightBox>
 
