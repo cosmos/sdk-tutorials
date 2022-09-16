@@ -20,8 +20,8 @@ When the group module is enabled in a chain (say the Cosmos Hub), users can crea
 Before starting, review some terminology:
 
 * **Group Admin:** the account that creates the group is the group administrator. The group administrator is the account that can add, remove, or change the group members, but does not need to be a member of the group itself. Choose it wisely.
-* **[Group policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#group-policy):** a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members or as defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
-* **[Decision policy](https://docs.cosmos.network/main/modules/group/01_concepts.html#decision-policy):** a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated. A decision policy is associated with a group policy. This means that a group can have different decision policies for each of its different group policies.
+* **[Group policy](https://docs.cosmos.network/v0.46/modules/group/01_concepts.html#group-policy):** a group policy is an account associated with a group and a decision policy. In order to perform actions on this account, a proposal must be approved by a majority of the group members or as defined in the decision policy. For the avoidance of doubt, note that a group can have multiple group policies.
+* **[Decision policy](https://docs.cosmos.network/v0.46/modules/group/01_concepts.html#decision-policy):** a policy that defines how the group members can vote on a proposal and how the vote outcome is calculated. A decision policy is associated with a group policy. This means that a group can have different decision policies for each of its different group policies.
 * **Proposal:** a group proposal works the same way as a governance proposal. Group members can submit proposals to the group and vote on proposals with a _Yes_, _No_, _No with Veto_, and _Abstain_.
 
 In this tutorial, you will learn how to create a group, manage its members, submit a group proposal, and vote on it. After that, you will be able to create your own on-chain DAO for your own use case.
@@ -428,4 +428,4 @@ $ simd tx group --help
 $ simd query group --help
 ```
 
-To learn more about the group module specs, check out the [group](https://docs.cosmos.network/main/modules/group) module developer documentation.
+To learn more about the group module specs, check out the [group](https://docs.cosmos.network/v0.46/modules/group) module developer documentation.

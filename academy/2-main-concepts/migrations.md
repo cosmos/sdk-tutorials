@@ -114,7 +114,7 @@ Application developers build implementations of those components that are tailor
 
 <HighlightBox type="docs">
 
-For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/modules/upgrade).
+For a more detailed explanation of the upgrade process, see the [Cosmos SDK documentation](https://docs.cosmos.network/v0.46/modules/upgrade).
 
 </HighlightBox>
 
