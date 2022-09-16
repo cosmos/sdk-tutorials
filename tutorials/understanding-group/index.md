@@ -328,8 +328,8 @@ You are meant to upload the `proposal_metadata.json` to [IPFS](https://tutorials
   "authors": "Bob Smith",
   "summary": "Pay the energy bill of the association",
   "details": "",
-  "proposalForumURL": "https://football.club/proposal/nov-utility-bills",
-  "voteOptionContext": "Yes means pay the energy bill. No means to not pay the energy bill and have no more warm water.",
+  "proposal_forum_url": "https://football.club/proposal/nov-utility-bills",
+  "vote_option_context": "Yes means pay the energy bill. No means to not pay the energy bill and have no more warm water.",
 }
 ```
 
