@@ -51,7 +51,7 @@ The confirmed transaction is relayed to the Cosmos SDK application for interpret
 
 Although it is technically feasible to proceed to create a novel `MsgService`, the recommended approach is to define a Protobuf `Msg` service. Each module has exactly one Protobuf `Msg` service defined in `tx.proto` and there is an RPC service method for each message type in the module. The Protobuf message service implicitly defines the interface layer of the state, mutating processes contained within the module.
 
-How does all of this translate into code? Here is an example `MsgService` from the [`bank` module](https://docs.cosmos.network/main/modules/bank/):
+How does all of this translate into code? Here is an example `MsgService` from the [`bank` module](https://docs.cosmos.network/v0.46/modules/bank/):
 
 ```protobuf
 // Msg defines the bank Msg service.
@@ -305,7 +305,7 @@ What would happen if a player stops taking turns? To ensure functionality for yo
 * Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
 
-In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay, for example *one day*.
+In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay, for example _one day_.
 
 <HighlightBox type="info">
 
