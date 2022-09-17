@@ -152,10 +152,10 @@ Here is what the metadata of Alice and Bob looks like:
 }
 ```
 
-Which gives the IPFS CID of `QmbZAqeGApZTfFkVEL3SL1NG5no37B6b6bbkw5g7z5Pzga`.
+Which gives the IPFS CID of `QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1`.
 
 ```sh
-$ simd tx group create-group $ALICE "QmbZAqeGApZTfFkVEL3SL1NG5no37B6b6bbkw5g7z5Pzga" members.json
+$ simd tx group create-group $ALICE "QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1" members.json
 ```
 
 It is here, by sending the create transaction, that Alice becomes the administrator of the group.
@@ -196,7 +196,7 @@ This last command outputs `1` too. This shows you that the group and its `id` ca
 $ simd query group group-members $GROUP_ID
 ```
 
-Nice! Your group has `QmbZAqeGApZTfFkVEL3SL1NG5no37B6b6bbkw5g7z5Pzga` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
+Nice! Your group has `QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
 
 ## Manage group members
 
