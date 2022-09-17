@@ -147,8 +147,8 @@ Here is what the metadata of Alice and Bob looks like:
 {
   "name": "Football Association",
   "description": "Best football association",
-  "groupWebsiteURL": "https://www.footbal.club",
-  "groupForumURL": ""
+  "group_website_url": "https://www.footbal.club",
+  "group_forum_url": ""
 }
 ```
 
