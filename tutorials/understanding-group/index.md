@@ -137,9 +137,9 @@ For the avoidance of doubt, in the JSON above, Alice is labeled with some metada
 Create the group:
 
 
-Note that, according to the [group documentation](https://docs.cosmos.network/v0.46/modules/group/06_metadata.html), the metadata of group must be off-chain. This means you must put the IPFS CID of the group metadata in the `metadata` field. For learning more about IPFS check out the [IPFS tutorial](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs).
+Note that, according to the [group documentation](https://docs.cosmos.network/v0.46/modules/group/06_metadata.html), the metadata of a group must be off-chain. This means you must put the IPFS CID of the group metadata in the `metadata` field. To learn more about IPFS, check out the [IPFS tutorial](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs).
 
-Here is how the metadata of Alice and Bob looks like:
+Here is what the metadata of Alice and Bob looks like:
 
 **group_metadata.json**:
 
