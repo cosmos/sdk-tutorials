@@ -152,6 +152,8 @@ Here is what the metadata of Alice and Bob looks like:
 }
 ```
 
+Which gives the IPFS CID of `QmbZAqeGApZTfFkVEL3SL1NG5no37B6b6bbkw5g7z5Pzga`.
+
 ```sh
 $ simd tx group create-group $ALICE "QmbZAqeGApZTfFkVEL3SL1NG5no37B6b6bbkw5g7z5Pzga" members.json
 ```
