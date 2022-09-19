@@ -251,7 +251,7 @@ When you revisit this design exercise in later chapters, the goal will be to imp
 
 </HighlightBox>
 
-There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md) to see what the application needs to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect*, checkers game blockchain.
+There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md) to see what the application needs to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect*, checkers game blockchain.
 
 ### "Make" the state machine
 
@@ -277,7 +277,7 @@ To simplify, begin with only a single game and a single board. You can decide im
 func (game *Game) String() string
 ```
 
-Store the board at `/store/board` and return it in the response's `Value` when requested via the [`Query`](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#query) command at `path = "/store/board"`. If and when you need to re-instantiate the board state out of its serialized form, call:
+Store the board at `/store/board` and return it in the response's `Value` when requested via the [`Query`](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#query-1) command at `path = "/store/board"`. If and when you need to re-instantiate the board state out of its serialized form, call:
 
 ```go [https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331]
 func Parse(s string) (*Game, error)
@@ -289,7 +289,7 @@ Your application needs its own database to store the state. The application must
 
 #### `InitChain` - the initial chain state
 
-[This is where](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#initchain) your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game.
+[This is where](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#initchain) your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game.
 <br></br>
 Your application:
 
@@ -305,7 +305,7 @@ Next you must decide how to represent a move. In the ready-made implementation, 
 
 #### `BeginBlock` - a new block is about to be created
 
-[`BeginBlock`](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#beginblock) instructs the application to load its state in the right location. Inside `header: Header` (as per its [detailed definition](https://github.com/tendermint/spec/blob/c939e15/spec/core/data_structures.md#header)) you find:
+[`BeginBlock`](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#beginblock) instructs the application to load its state in the right location. Inside `header: Header` (as per its [detailed definition](https://github.com/tendermint/spec/blob/master/spec/core/data_structures.md#header)) you find:
 
 > `AppHash: []byte`: an arbitrary byte array returned by the application after executing and committing the previous block. This serves as the basis to validate any Merkle proofs that come from the ABCI application, and represents the state of the actual application rather than the state of the blockchain itself. The first block's `block.Header.AppHash` is given by `ResponseInitChain.app_hash`.
 
@@ -317,7 +317,7 @@ The application is now ready to respond to the upcoming `CheckTx` and `DeliverTx
 
 #### `CheckTx` - a new transaction appears in the transaction pool
 
-Tendermint [asks](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#checktx) your application whether the transaction is worth keeping at all. For maximum simplification, you are only concerned with whether there is a valid move in the transaction. You check whether there are four `int` in the serialized information for this. You can also check that the `int` themselves are within the boundaries of the board, for example between `0` and `7`.
+Tendermint [asks](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#checktx-1) your application whether the transaction is worth keeping at all. For maximum simplification, you are only concerned with whether there is a valid move in the transaction. You check whether there are four `int` in the serialized information for this. You can also check that the `int` themselves are within the boundaries of the board, for example between `0` and `7`.
 <br></br>
 It is better **not** to check if the move is valid according to the rules of the application.
 
@@ -331,7 +331,7 @@ Check the _possibility_ of validity of the transaction in `CheckTx`: reject the 
 
 #### `DeliverTx` - a transaction is added and needs to be processed
 
-When a pre-checked transaction [is delivered](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#delivertx), it must be applied to the latest board state. You call:
+When a pre-checked transaction [is delivered](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#delivertx-1), it must be applied to the latest board state. You call:
 
 ```go [https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274]
 func (game *Game) Move(src, dst Pos) (captured Pos, err error)
@@ -345,7 +345,7 @@ You can also choose to define which information should be indexed via `events: r
 
 <HighlightBox type="docs">
 
-See [Tendermint's ABCI event spec documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#events) for what goes into an `Event`.
+See [Tendermint's ABCI event spec documentation](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#events) for what goes into an `Event`.
 
 </HighlightBox>
 
@@ -376,7 +376,7 @@ It would be judicious to inform Tendermint about the `GasUsed (int64)`. Each mov
 
 #### `EndBlock` - the block is being finished
 
-Ignoring the issue of validators for now, [this is used](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#endblock) to let Tendermint know what events should be emitted (similarly to how `DeliverTx` was handled). You have only checkers moves, so it is not very clear what could be interesting at a later date.
+Ignoring the issue of validators for now, [this is used](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#endblock) to let Tendermint know what events should be emitted (similarly to how `DeliverTx` was handled). You have only checkers moves, so it is not very clear what could be interesting at a later date.
 <br></br>
 Assume that you want to tally what happened in the block. You return this aggregate event:
 
@@ -392,7 +392,7 @@ Assume that you want to tally what happened in the block. You return this aggreg
 
 #### `Commit` - your work here is done
 
-The block is now [confirmed](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#commit). The application needs to save its state to storage, i.e. to its database. The state, which includes `/store/board`, is uniquely identified by its Merkle root hash. As per the ABCI, this hash has to be returned in a `[]byte` form. For a consensus to be able to emerge, the hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx` methods in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/spec/blob/c939e15/spec/abci/abci.md#determinism).
+The block is now [confirmed](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#commit). The application needs to save its state to storage, i.e. to its database. The state, which includes `/store/board`, is uniquely identified by its Merkle root hash. As per the ABCI, this hash has to be returned in a `[]byte` form. For a consensus to be able to emerge, the hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx` methods in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#determinism).
 <br></br>
 The application may also keep a pointer in its database regarding which state is the latest, so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application should keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same `AppHash` previously calculated.
 
