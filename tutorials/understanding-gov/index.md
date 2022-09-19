@@ -35,9 +35,11 @@ Before starting, review some terminology:
 
 * **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a [`2 weeks` voting period](https://mintscan.io/cosmos/parameters).
 
-* **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
-
 * **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed. `Abstain` is different from not voting at all, as voting contributes to reaching the quorum.
+
+* **Voting weight:** A.k.a. **voting power**. Each vote is weighted by the voter's staked tokens at the time the vote tally is computed. For the avoidance of doubt, it means that the number of staked tokens at the time the vote transaction is sent is irrelevant.
+
+* **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
 
 More information about the governance concepts can be found in the [Cosmos SDK documentation](https://docs.cosmos.network/v0.46/modules/gov/01_concepts.html).
 
@@ -321,7 +323,7 @@ After waiting for the voting period, you can see that the proposal has passed.
 $ simd query gov proposal 1 --output json | jq .status
 ```
 
-This is because the governance proposal weights each vote by the amount of tokens staked. Alice owns staked tokens, while Bob has no staked tokens. So Bob's vote was not taken into consideration in the tally of the result.
+This is because the governance proposal weights each vote by the amount of tokens staked. Alice owns staked tokens, while Bob has no staked tokens at the end of the voting period. So Bob's vote was not taken into consideration in the tally of the result.
 
 ```sh
 $ simd query staking delegations $ALICE
