@@ -118,7 +118,6 @@ The default voting period is **172800s** (two days). It is too long to wait for 
 
 ```sh
 $ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
-$ cat <<< $(jq '.app_state.gov.params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
 ```
 
 Then add the genesis accounts:
@@ -207,7 +206,7 @@ This json should to be [pinned on IPFS](https://tutorials.cosmos.network/tutoria
 
 <HighlightBox type="note">
 
-In fact this file is already pinned on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://w3s.link/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
+In fact this file is already pinned on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://ipfs.io/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
 
 </HighlightBox>
 
