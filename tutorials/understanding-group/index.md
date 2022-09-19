@@ -323,7 +323,7 @@ For this tutorial, continue with your example of an association. The treasurer, 
             ]
         }
     ],
-    "metadata": "QmearrgtJxKHu37HnNjU1AQMnvWoXqwh6cWR8mytBJoFVv",
+    "metadata": "ipfs://QmearrgtJxKHu37HnNjU1AQMnvWoXqwh6cWR8mytBJoFVv",
     "proposers": [ "bobaddr" ] // $BOB
 }
 ```
