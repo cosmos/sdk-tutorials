@@ -136,8 +136,26 @@ For the avoidance of doubt, in the JSON above, Alice is labeled with some metada
 
 Create the group:
 
+
+Note that, according to the [group documentation](https://docs.cosmos.network/v0.46/modules/group/06_metadata.html), the metadata of a group must be off-chain. This means that, should you choose IPFS as your storage, you must put the IPFS CID of the group metadata in the `metadata` field. To learn more about IPFS, check out the [IPFS tutorial](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs).
+
+Here is what the metadata of Alice and Bob looks like:
+
+**group_metadata.json**:
+
+```json
+{
+  "name": "Football Association",
+  "description": "Best football association",
+  "group_website_url": "https://www.footbal.club",
+  "group_forum_url": ""
+}
+```
+
+Which gives the IPFS CID of `QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1`.
+
 ```sh
-$ simd tx group create-group $ALICE "best football association" members.json
+$ simd tx group create-group $ALICE "ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1" members.json
 ```
 
 It is here, by sending the create transaction, that Alice becomes the administrator of the group.
@@ -178,7 +196,13 @@ This last command outputs `1` too. This shows you that the group and its `id` ca
 $ simd query group group-members $GROUP_ID
 ```
 
-Nice! Your group has `best football association` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
+Nice! Your group has `ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
+
+<HighlightBox type="note">
+
+The members of your group understand that this hash is for IPFS. Without IPFS, the metadata is viewable at <https://ipfs.io/ipfs/QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1>.
+
+</HighlightBox>
 
 ## Manage group members
 
@@ -250,8 +274,10 @@ The following is the content of the `policy.json`. It states that:
 Have the group administrator create the group policy with metadata that identifies it as one with a quick turnaround:
 
 ```sh
-$ simd tx group create-group-policy $ALICE $GROUP_ID "quick turnaround" policy.json
+$ simd tx group create-group-policy $ALICE $GROUP_ID "{\"name\":\"quick turnaround\",\"description\":\"\"}" policy.json
 ```
+
+Note that this time, the metadata is on-chain an escaped JSON string. This is as per the [group documentation](https://docs.cosmos.network/v0.46/modules/group/06_metadata.html).
 
 Check and verify your newly created group policy, and in particular the address you just created:
 
@@ -278,7 +304,7 @@ Now that you have a group with a few members and a group policy, you can submit 
 
 A proposal can contain any number of messages defined on the current blockchain.
 
-For this tutorial, continue with your example of an association. The treasurer, Bob, wants to send money to a third party to pay the bills, and so creates a `proposal.json`:
+For this tutorial, continue with your example of an association. The treasurer, Bob, wants to send money to a third party to pay the bills, and so creates a `proposal.json` and a `proposal_metadata.json` (as proposal metadata should be off-chain):
 
 ```json
 {
@@ -297,8 +323,21 @@ For this tutorial, continue with your example of an association. The treasurer, 
             ]
         }
     ],
-    "metadata": "utilities bill",
+    "metadata": "ipfs://QmearrgtJxKHu37HnNjU1AQMnvWoXqwh6cWR8mytBJoFVv",
     "proposers": [ "bobaddr" ] // $BOB
+}
+```
+
+You are meant to upload the `proposal_metadata.json` to [IPFS](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs) and set its CID in the `metadata` field of the `proposal.json`.
+
+```json
+{
+  "title": "Pay the utilities bill",
+  "authors": "Bob Smith",
+  "summary": "Pay the energy bill of the association",
+  "details": "",
+  "proposal_forum_url": "https://football.club/proposal/nov-utility-bills",
+  "vote_option_context": "Yes means pay the energy bill. No means to not pay the energy bill and have no more warm water.",
 }
 ```
 
