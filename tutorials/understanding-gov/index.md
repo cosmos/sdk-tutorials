@@ -25,7 +25,7 @@ Before starting, review some terminology:
 
 * **Message:** A proposal includes an array of `sdk.Msgs` which are executed automatically if the proposal passes. This means you can submit a proposal about any action on which the governance module has `authority`.
 
-* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a `64 ATOM` deposit. The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case the deposit is burned.
+* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a [`64 ATOM` deposit](https://mintscan.io/cosmos/parameters). The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case the deposit is burned.
 
   <HighlightBox type="tip">
 
@@ -43,7 +43,7 @@ More information about the governance concepts can be found in the [Cosmos SDK d
 
 ## Requirements
 
-In the Cosmos SDK [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/), the gov module has been [upgraded from `v1beta1` to `v1`](https://github.com/cosmos/cosmos-sdk/blob/main/UPGRADING.md#xgov-1). To follow the tutorial, you must use the binary of a chain with the gov module, using a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
+In the Cosmos SDK [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/), the gov module has been [upgraded from `v1beta1` to `v1`](https://github.com/cosmos/cosmos-sdk/blob/main/UPGRADING.md#xgov-1). To follow this tutorial, you must use the binary of a chain with the _v1_ gov module, for instance with a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
 
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
@@ -114,7 +114,7 @@ Now you are ready to fund Alice and Bob's respective accounts and use the Alice 
 $ simd init test --chain-id demo
 ```
 
-The default voting period is **172800s**. It is too long to wait for the tutorial, so you will change it to **180s**. To do so, you need to edit the `~/.simapp/config/genesis.json` file:
+The default voting period is **172800s** (two days). It is too long to wait for the tutorial, so you will change it to **180s** (three minutes). To do so, edit the `~/.simapp/config/genesis.json` file:
 
 ```sh
 $ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
@@ -136,17 +136,17 @@ Lastly, start the chain:
 $ simd start
 ```
 
-`simapp` is now configured and running. You can now play with the gov module.
+`simapp` is now configured and running. You can play with the gov module.
 
 ## Create a proposal
 
 <HighlightBox type="note">
 
-Prior to submitting a proposal on the Cosmos Hub, it is requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it appears on chain.
+Prior to submitting a proposal on the Cosmos Hub, it is good practice, and also requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it appears on chain.
 
 </HighlightBox>
 
-Before sending anything to the blockchain, to create the files that describe a proposal, you can use the following interactive command:
+Before sending anything to the blockchain, to create the files that describe a proposal in the proper format, you can use the following interactive command:
 
 ```sh
 $ simd tx gov draft-proposal
@@ -263,7 +263,7 @@ voting_end_time: null
 voting_start_time: null
 ```
 
-As you can see, the proposal is in the deposit period. You cannot yet vote on it. You can find out what is the minimum proposal deposit for a chain with the following command:
+As you can see, the proposal is in the deposit period. This means that the deposit associated with it has not yet reached the minimum required, so you cannot vote on it just yet. Find out what is the minimum proposal deposit for a chain with the following command:
 
 
 ```sh
@@ -281,7 +281,7 @@ It returns:
 ]
 ```
 
-Since you submitted the proposal with `10stake`, you need to top up the deposit with `9999990stake`. You can do so with Bob and the following command:
+Therefore, since you submitted the proposal with `10stake`, you need to top up the deposit with `9999990stake`. You can do so with Bob and the following command:
 
 ```sh
 $ simd tx gov deposit 1 9999990stake --from bob --keyring-backend test
@@ -300,7 +300,7 @@ $ simd tx gov vote 1 yes --from alice --keyring-backend test
 $ simd tx gov vote 1 no --from bob --keyring-backend test
 ```
 
-After waiting the voting period, you can see that the proposal passed.
+After waiting for the voting period, you can see that the proposal has passed.
 
 ```sh
 $ simd query gov proposal 1 --output json | jq .status
@@ -313,7 +313,7 @@ $ simd query staking delegations $ALICE
 $ simd query staking delegations $BOB
 ```
 
-After a proposal execution, the deposit is refunded (unless a majority of `No with veto`). You can check the balance of Alice and Bob with the following commands:
+After a proposal execution, the deposit is refunded (unless a weighted majority voted `No with veto`). You can check the balance of Alice and Bob with the following commands:
 
 ```sh
 $ simd query bank balances $ALICE
