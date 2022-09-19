@@ -15,7 +15,7 @@ The [`gov`](https://docs.cosmos.network/v0.46/modules/gov) module enables govern
 
 ## Usage of the gov module
 
-When the gov module is enabled on a chain (for example the Cosmos Hub), the users can submit proposal to be voted on by the community.
+When the gov module is enabled on a chain (for example the Cosmos Hub), the users can submit a proposal to be voted on by the community.
 A proposal can be an upgrade of the chain, a change of the parameters of the chain, a simple text proposal, or any other message type. This tutorial will focus on how you can participate in governance, by creating and voting on proposals.
 
 Before starting, review some terminology:
@@ -24,7 +24,7 @@ Before starting, review some terminology:
 
 * **Message:** A proposal includes an array of `sdk.Msgs` which are executed automatically if the proposal passes. This means you can submit a proposal about any action on which the governance module has `authority`.
 
-* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a `64 ATOM` deposit. The deposit is always refunded to the depositers after voting, unless the proposal is vetoed: in that case the deposit is burned.
+* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a `64 ATOM` deposit. The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case the deposit is burned.
 
 <HighlightBox type="tip">
 
@@ -32,17 +32,17 @@ The proposer is not obliged to submit the totality of the deposit amount. Other 
 
 </HighlightBox>
 
-* **Voting period:** After the mininimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is defined by the chain, for instance, the Cosmos Hub has a `2 weeks` voting period.
+* **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is defined by the chain, for instance, the Cosmos Hub has a `2 weeks` voting period.
 
-* **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be casted on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
+* **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
 
-* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed.
+* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed.
 
 More information about the governance concepts can be found in the [Cosmos SDK documentation](https://docs.cosmos.network/v0.46/modules/gov/01_concepts.html).
 
 ## Requirements
 
-The gov module has been introduced in the [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/) of the Cosmos SDK. In order to follow the tutorial, you must use the binary of a chain with the gov module, using a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
+The gov module has been introduced in the [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/) of the Cosmos SDK. To follow the tutorial, you must use the binary of a chain with the gov module, using a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
 
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
@@ -80,7 +80,7 @@ If you have used `simd` before, you might already have a `.simapp` directory in 
 
 </HighlightBox>
 
-In order to configure `simd`, you need to set the chain ID and the keyring backend.
+For configuring `simd`, you have to set the chain ID and the keyring backend.
 
 ```sh
 $ simd config chain-id demo
@@ -111,6 +111,17 @@ Now you are ready to fund Alice and Bob's respective accounts and use the Alice 
 
 ```sh
 $ simd init test --chain-id demo
+```
+
+The default voting period is **172800s**. It is too long to wait for the tutorial, so you will change it to **180s**. To do so, you need to edit the `~/.simapp/config/genesis.json` file:
+
+```json
+"voting_period": "180s"
+```
+
+Then add the genesis accounts:
+
+```sh
 $ simd add-genesis-account alice 5000000000stake --keyring-backend test
 $ simd add-genesis-account bob 5000000000stake --keyring-backend test
 $ simd gentx alice 1000000stake --chain-id demo
@@ -133,7 +144,7 @@ Prior to submit a proposal on the Cosmos Hub, it is requested to publish a draft
 
 </HighlightBox>
 
-For creating a proposal we can use the following interactive command:
+For creating a proposal, we can use the following interactive command:
 
 ```sh
 $ simd tx gov draft-proposal
@@ -157,10 +168,10 @@ Then enter the proposal title, authors, and other proposal metadata:
 ✔ text
 ✔ Enter proposal title: Test Proposal
 ✔ Enter proposal authors: Alice
-✔ Enter proposal summary: A test proposal on simd█
+✔ Enter proposal summary: A test proposal with simapp
 ✔ Enter proposal details: -
-✔ Enter proposal proposal forum url: https://forum.example.org/proposal/1█
-✔ Enter proposal vote option context: YES: Accept the proposal, NO: Reject the proposal, No with veto: Reject proposal and burn deposit.
+✔ Enter proposal proposal forum url: https://example.org/proposal/1█
+✔ Enter proposal vote option context: YES: XX, NO: YX, ABSTAIN: XY, NO_WITH_VETO: YY
 ```
 
 Then enter the proposal deposit:
@@ -182,10 +193,10 @@ The content of `draft_metadata.json` contains the information you have just ente
 {
  "title": "Test Proposal",
  "authors": "Alice",
- "summary": "A test proposal on simd",
+ "summary": "A test proposal with simapp",
  "details": "-",
- "proposal_forum_url": "https://forum.example.org/proposal/1",
- "vote_option_context": "YES: Accept the proposal, NO: Reject the proposal, No with veto: Reject proposal and burn deposit."
+ "proposal_forum_url": "https://example.org/proposal/1",
+ "vote_option_context": "YES: XX, NO: YX, ABSTAIN: XY, NO_WITH_VETO: YY"
 }
 ```
 
@@ -193,7 +204,7 @@ This json is deemed to be [pinned on IPFS](https://tutorials.cosmos.network/tuto
 
 <HighlightBox type="note">
 
-We went ahead and pinned this file on IPFS. It's CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://w3s.link/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
+We went ahead and pinned this file on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://w3s.link/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
 
 </HighlightBox>
 
@@ -228,6 +239,8 @@ In our case, the proposal ID is `1`. You can query the proposal with the followi
 $ simd query gov proposal 1
 ```
 
+Which returns:
+
 ```sh
 deposit_end_time: "2022-09-20T16:36:04.741427768Z"
 final_tally_result:
@@ -246,3 +259,66 @@ total_deposit:
 voting_end_time: null
 voting_start_time: null
 ```
+
+As we can see, the proposal is in the deposit period. We cannot yet vote on it. We can see what is the minimum proposal deposit for a chain with the following command:
+
+
+```sh
+$ simd q gov params --output=json | jq .deposit_params.min_deposit
+```
+
+It returns:
+
+```json
+[
+  {
+    "denom": "stake",
+    "amount": "10000000"
+  }
+]
+```
+
+We need to deposit `9999990` stake to the proposal (remember that we have submitted the proposal with `10stake`). We can do so with the following command:
+
+```sh
+$ simd tx gov deposit 1 9999990stake --from=alice --keyring-backend test
+```
+
+The proposal is now in the voting period. Do not forget, you have `180s` (as per the gov param) to vote on the proposal.
+
+```sh
+$ simd query gov proposal 1 --output=json | jq .status
+```
+
+We can vote on it with the following command:
+
+```sh
+$ simd tx gov vote 1 yes --from=alice --keyring-backend test
+$ simd tx gov vote 1 no --from=bob --keyring-backend test
+```
+
+<!-- TODO -->
+
+## 🎉 Congratulations 🎉
+
+By completing this tutorial, you have learned how to use the `gov` module!
+
+<HighlightBox type="synopsis">
+
+To summarize, this tutorial has explained:
+
+* How to a create proposal.
+* How to submit a proposal
+* How to vote on a proposal.
+
+</HighlightBox>
+
+For more information about what else you can do with the CLI, please refer to the module help.
+
+```sh
+$ simd tx gov --help
+$ simd query gov --help
+```
+
+To learn more about the gov specs, check out the [group](https://docs.cosmos.network/main/modules/gov) module developer documentation.
+If you want to learn more about the Cosmos Hub governance, please refer to the [Cosmos Hub governance](https://hub.cosmos.network/main/governance) documentation.

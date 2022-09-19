@@ -410,7 +410,7 @@ By completing this tutorial, you have learned how to use the `group` module!
 
 <HighlightBox type="synopsis">
 
-To summarize, this section has explored:
+To summarize, this tutorial has explained:
 
 * How to create a group.
 * How to manage its members.
