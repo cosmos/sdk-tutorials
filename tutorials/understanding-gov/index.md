@@ -37,13 +37,13 @@ The proposer is not obliged to submit the totality of the deposit amount. Other 
 
 * **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
 
-* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed.
+* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed. `Abstain` is different from not voting at all, as voting contributes to reaching the quorum.
 
 More information about the governance concepts can be found in the [Cosmos SDK documentation](https://docs.cosmos.network/v0.46/modules/gov/01_concepts.html).
 
 ## Requirements
 
-The gov module has been introduced in the [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/) of the Cosmos SDK. To follow the tutorial, you must use the binary of a chain with the gov module, using a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
+In the Cosmos SDK [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/gov/), the gov module has been [upgraded from `v1beta1` to `v1`](https://github.com/cosmos/cosmos-sdk/blob/main/UPGRADING.md#xgov-1). To follow the tutorial, you must use the binary of a chain with the gov module, using a v0.46+ version of the SDK. For demonstration purposes, you will use `simd`, the simulation app of the Cosmos SDK.
 
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
@@ -116,8 +116,9 @@ $ simd init test --chain-id demo
 
 The default voting period is **172800s**. It is too long to wait for the tutorial, so you will change it to **180s**. To do so, you need to edit the `~/.simapp/config/genesis.json` file:
 
-```json
-"voting_period": "180s"
+```sh
+$ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
+$ cat <<< $(jq '.app_state.gov.params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
 ```
 
 Then add the genesis accounts:
