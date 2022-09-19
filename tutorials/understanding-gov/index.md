@@ -27,11 +27,11 @@ Before starting, review some terminology:
 
 * **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a `64 ATOM` deposit. The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case the deposit is burned.
 
-<HighlightBox type="tip">
+  <HighlightBox type="tip">
 
-The proposer is not obliged to submit the totality of the deposit amount. Other users can also contribute to the deposit. 
+  The proposer is not obliged to submit the totality of the deposit amount. Other users can also contribute to the deposit. 
 
-</HighlightBox>
+  </HighlightBox>
 
 * **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a [`2 weeks` voting period](https://mintscan.io/cosmos/parameters).
 
