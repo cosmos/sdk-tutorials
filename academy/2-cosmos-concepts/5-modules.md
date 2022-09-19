@@ -62,7 +62,7 @@ Most of the work for developers involved in building a Cosmos SDK application co
 
 ## Module components
 
-It is best practice to define a module in the `x/moduleName` folder. For example, the module called `Checkers` would go in `x/checkers`. If you look at the Cosmos SDK's base code, it also [defines its modules](https://github.com/cosmos/cosmos-sdk/tree/master/x) in an `x/` folder.
+It is best practice to define a module in the `x/moduleName` folder. For example, the module called `Checkers` would go in `x/checkers`. If you look at the Cosmos SDK's base code, it also [defines its modules](https://github.com/cosmos/cosmos-sdk/tree/main/x) in an `x/` folder.
 
 Modules implement several elements:
 
@@ -167,7 +167,7 @@ Developers create coherent applications by selecting and composing core modules 
 
 <HighlightBox type="tip">
 
-Why not explore the [list of core modules and the application concerns they address](https://github.com/cosmos/cosmos-sdk/tree/master/x)?
+Why not explore the [list of core modules and the application concerns they address](https://github.com/cosmos/cosmos-sdk/tree/main/x)?
 
 </HighlightBox>
 
