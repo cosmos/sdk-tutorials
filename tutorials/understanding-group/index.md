@@ -155,7 +155,7 @@ Here is what the metadata of Alice and Bob looks like:
 Which gives the IPFS CID of `QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1`.
 
 ```sh
-$ simd tx group create-group $ALICE "QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1" members.json
+$ simd tx group create-group $ALICE "ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1" members.json
 ```
 
 It is here, by sending the create transaction, that Alice becomes the administrator of the group.
@@ -196,7 +196,12 @@ This last command outputs `1` too. This shows you that the group and its `id` ca
 $ simd query group group-members $GROUP_ID
 ```
 
-Nice! Your group has `QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
+Nice! Your group has `ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
+
+<HighlightBox type="note">
+The members of your group understand that this hash is for IPFS.
+Without IPFS, the metadata is viewable at <https://ipfs.io/ipfs/QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1>.
+</HighlightBox>
 
 ## Manage group members
 
