@@ -33,7 +33,7 @@ The proposer is not obliged to submit the totality of the deposit amount. Other 
 
 </HighlightBox>
 
-* **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a `2 weeks` voting period.
+* **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a [`2 weeks` voting period](https://mintscan.io/cosmos/parameters).
 
 * **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
 
@@ -187,8 +187,8 @@ Then, replace the generated metadata field with the IPFS CID.
 
 The `draft-proposal` command has now generated two files:
 
-    * **draft_metadata.json**
-    * **draft_proposal.json** 
+* **draft_metadata.json**
+* **draft_proposal.json** 
 
 The content of `draft_metadata.json` contains the information you have just entered:
 
@@ -231,7 +231,7 @@ $ simd tx gov submit-proposal draft_proposal.json --from alice --keyring-backend
 The command outputs a transaction hash. You can use it to query the proposal:
 
 ```sh
-$ simd query tx 3447C74EE19EF5E4B413547F1809C1E2026A7B7A8281366F88174F37D87F7060 --output json
+$ simd query tx D8F1165AAB343EB9416F1DF3D30F2883D26E1125AED733878C590E60256ED9C9
 ```
 
 ## View and vote on proposals
@@ -300,7 +300,25 @@ $ simd tx gov vote 1 yes --from alice --keyring-backend test
 $ simd tx gov vote 1 no --from bob --keyring-backend test
 ```
 
-<!-- TODO -->
+After waiting the voting period, you can see that the proposal passed.
+
+```sh
+$ simd query gov proposal 1 --output json | jq .status
+```
+
+This is because the governance proposal weight the votes given the amount of token staked. Alice had staked tokens, while Bob had no token staked. So Bob's vote was not took into consideration in the tally of the result.
+
+```sh
+$ simd query staking delegations $ALICE
+$ simd query staking delegations $BOB
+```
+
+After a proposal execution, the deposit is refunded (unless a majority of `No with veto`). You can check the balance of Alice and Bob with the following commands:
+
+```sh
+$ simd query bank balances $ALICE
+$ simd query bank balances $BOB
+```
 
 ## 🎉 Congratulations 🎉
 
