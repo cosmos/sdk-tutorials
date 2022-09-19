@@ -203,7 +203,7 @@ The content of `draft_metadata.json` contains the information you have just ente
 }
 ```
 
-This json is deemed to be [pinned on IPFS](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs/).
+This json should to be [pinned on IPFS](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs/).
 
 <HighlightBox type="note">
 
@@ -306,7 +306,7 @@ After waiting for the voting period, you can see that the proposal has passed.
 $ simd query gov proposal 1 --output json | jq .status
 ```
 
-This is because the governance proposal weight the votes given the amount of token staked. Alice had staked tokens, while Bob had no token staked. So Bob's vote was not took into consideration in the tally of the result.
+This is because the governance proposal weights each vote by the amount of tokens staked. Alice owns staked tokens, while Bob has no staked tokens. So Bob's vote was not taken into consideration in the tally of the result.
 
 ```sh
 $ simd query staking delegations $ALICE
