@@ -199,8 +199,8 @@ $ simd query group group-members $GROUP_ID
 Nice! Your group has `ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as metadata (which you can recall with the `group-info` command), Alice as group admin, and Alice and Bob as group members.
 
 <HighlightBox type="note">
-The members of your group understand that this hash is for IPFS.
-Without IPFS, the metadata is viewable at <https://ipfs.io/ipfs/QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1>.
+
+The members of your group understand that this hash is for IPFS. Without IPFS, the metadata is viewable at <https://ipfs.io/ipfs/QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1>.
 </HighlightBox>
 
 ## Manage group members
