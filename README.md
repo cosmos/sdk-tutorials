@@ -1,7 +1,7 @@
 <!--
 layout: LandingPage
 tutorials:
-  - title: Understand the Gov Module
+  - title: Understanding the Gov Module
     level: intermediate
     description: Learn about the new Gov module, how to make and submit proposals for chain governance.
     url: /tutorials/understanding-gov

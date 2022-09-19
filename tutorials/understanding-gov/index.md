@@ -2,7 +2,7 @@
 parent:
 title: Understand the Gov Module
 order: 0
-description: Use the Cosmos SDK gov module for participation to Cosmos SDK governance. Create proposals of any message type thanks to the new gov module.
+description: Use the Cosmos SDK gov module for participation in Cosmos SDK governance. Create proposals of any message type thanks to the new gov module.
 tags:
   - tutorial
   - cosmos-sdk
@@ -16,6 +16,7 @@ The [`gov`](https://docs.cosmos.network/v0.46/modules/gov) module enables govern
 ## Usage of the gov module
 
 When the gov module is enabled on a chain (for example the Cosmos Hub), the users can submit a proposal to be voted on by the community.
+
 A proposal can be an upgrade of the chain, a change of the parameters of the chain, a simple text proposal, or any other message type. This tutorial will focus on how you can participate in governance, by creating and voting on proposals.
 
 Before starting, review some terminology:
@@ -32,7 +33,7 @@ The proposer is not obliged to submit the totality of the deposit amount. Other 
 
 </HighlightBox>
 
-* **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is defined by the chain, for instance, the Cosmos Hub has a `2 weeks` voting period.
+* **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a `2 weeks` voting period.
 
 * **Quorum:** Quorum is defined as the minimum percentage of voting power that needs to be cast on a proposal for the result to be valid. If the quorum is not reached, the proposal is rejected.
 
@@ -50,7 +51,7 @@ To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the
 $ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.3
 ```
 
-We are installing `v0.46.3` because this version added the command `draft-proposal`. We will explain later what it does.
+You are installing `v0.46.3` because this version added the command `draft-proposal`. You will learn later what it does.
 
 Go to the cloned directory:
 
@@ -70,7 +71,7 @@ Make sure the installation was successful:
 $ simd version
 ```
 
-The version number should be greater than or equal to `0.46.3`.
+The returned version number should be greater than or equal to `0.46.3`.
 
 ## Configuration
 
@@ -80,7 +81,7 @@ If you have used `simd` before, you might already have a `.simapp` directory in 
 
 </HighlightBox>
 
-For configuring `simd`, you have to set the chain ID and the keyring backend.
+To configure `simd`, you have to set the chain ID and the keyring backend.
 
 ```sh
 $ simd config chain-id demo
@@ -140,11 +141,11 @@ $ simd start
 
 <HighlightBox type="note">
 
-Prior to submit a proposal on the Cosmos Hub, it is requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it arrives on chain.
+Prior to submitting a proposal on the Cosmos Hub, it is requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it appears on chain.
 
 </HighlightBox>
 
-For creating a proposal, we can use the following interactive command:
+Before sending anything to the blockchain, to create the files that describe a proposal, you can use the following interactive command:
 
 ```sh
 $ simd tx gov draft-proposal
@@ -184,6 +185,7 @@ Then, replace the generated metadata field with the IPFS CID.
 ```
 
 The `draft-proposal` command has now generated two files:
+
     * **draft_metadata.json**
     * **draft_proposal.json** 
 
@@ -191,12 +193,12 @@ The content of `draft_metadata.json` contains the information you have just ente
 
 ```json
 {
- "title": "Test Proposal",
- "authors": "Alice",
- "summary": "A test proposal with simapp",
- "details": "-",
- "proposal_forum_url": "https://example.org/proposal/1",
- "vote_option_context": "YES: XX, NO: YX, ABSTAIN: XY, NO_WITH_VETO: YY"
+  "title": "Test Proposal",
+  "authors": "Alice",
+  "summary": "A test proposal with simapp",
+  "details": "-",
+  "proposal_forum_url": "https://example.org/proposal/1",
+  "vote_option_context": "YES: XX, NO: YX, ABSTAIN: XY, NO_WITH_VETO: YY"
 }
 ```
 
@@ -204,7 +206,7 @@ This json is deemed to be [pinned on IPFS](https://tutorials.cosmos.network/tuto
 
 <HighlightBox type="note">
 
-We went ahead and pinned this file on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://w3s.link/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
+In fact this file is already pinned on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://w3s.link/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
 
 </HighlightBox>
 
@@ -212,20 +214,20 @@ Now look at the content of the generated `draft_proposal.json`:
 
 ```json
 {
- "metadata": "ipfs://CID",
- "deposit": "10stake"
+  "metadata": "ipfs://CID",
+  "deposit": "10stake"
 }
 ```
 
-Replace the `metadata` field by `ipfs://QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`.
+Replace the `metadata` field with `ipfs://QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`.
 
 Submit the proposal on chain from alice:
 
 ```sh
-$ simd tx gov submit-proposal draft_proposal.json --from=alice --keyring-backend test
+$ simd tx gov submit-proposal draft_proposal.json --from alice --keyring-backend test
 ```
 
-The command output a transaction hash. You can use it to query the proposal:
+The command outputs a transaction hash. You can use it to query the proposal:
 
 ```sh
 $ simd query tx 3447C74EE19EF5E4B413547F1809C1E2026A7B7A8281366F88174F37D87F7060 --output json
@@ -233,7 +235,7 @@ $ simd query tx 3447C74EE19EF5E4B413547F1809C1E2026A7B7A8281366F88174F37D87F7060
 
 ## View and vote on proposals
 
-In our case, the proposal ID is `1`. You can query the proposal with the following command:
+In your case, the proposal ID is `1`. You can query the proposal with the following command:
 
 ```sh
 $ simd query gov proposal 1
@@ -260,11 +262,11 @@ voting_end_time: null
 voting_start_time: null
 ```
 
-As we can see, the proposal is in the deposit period. We cannot yet vote on it. We can see what is the minimum proposal deposit for a chain with the following command:
+As you can see, the proposal is in the deposit period. You cannot yet vote on it. You can find out what is the minimum proposal deposit for a chain with the following command:
 
 
 ```sh
-$ simd q gov params --output=json | jq .deposit_params.min_deposit
+$ simd query gov params --output json | jq .deposit_params.min_deposit
 ```
 
 It returns:
@@ -278,23 +280,23 @@ It returns:
 ]
 ```
 
-We need to deposit `9999990` stake to the proposal (remember that we have submitted the proposal with `10stake`). We can do so with the following command:
+Since you submitted the proposal with `10stake`, you need to top up the deposit with `9999990stake`. You can do so with Bob and the following command:
 
 ```sh
-$ simd tx gov deposit 1 9999990stake --from=alice --keyring-backend test
+$ simd tx gov deposit 1 9999990stake --from bob --keyring-backend test
 ```
 
-The proposal is now in the voting period. Do not forget, you have `180s` (as per the gov param) to vote on the proposal.
+The proposal is now in the voting period. Do not forget, you have three minutes (`180s` as per the gov parameters) to vote on the proposal.
 
 ```sh
-$ simd query gov proposal 1 --output=json | jq .status
+$ simd query gov proposal 1 --output json | jq .status
 ```
 
-We can vote on it with the following command:
+You can vote on it with the following command:
 
 ```sh
-$ simd tx gov vote 1 yes --from=alice --keyring-backend test
-$ simd tx gov vote 1 no --from=bob --keyring-backend test
+$ simd tx gov vote 1 yes --from alice --keyring-backend test
+$ simd tx gov vote 1 no --from bob --keyring-backend test
 ```
 
 <!-- TODO -->
