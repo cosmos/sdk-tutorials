@@ -116,9 +116,25 @@ $ simd init test --chain-id demo
 
 The default voting period is **172800s** (two days). It is too long to wait for the tutorial, so you will change it to **180s** (three minutes). To do so, edit the `~/.simapp/config/genesis.json` file:
 
+<CodeGroup>
+
+<CodeGroupItem title="v0.46" active>
+
 ```sh
 $ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="v0.47+">
+
+```sh
+$ cat <<< $(jq '.app_state.gov.params.voting_period = "180s"' ~/.simapp/config/genesis.json) > ~/.simapp/config/genesis.json
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Then add the genesis accounts:
 
