@@ -201,6 +201,7 @@ Nice! Your group has `ipfs://QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1` as 
 <HighlightBox type="note">
 
 The members of your group understand that this hash is for IPFS. Without IPFS, the metadata is viewable at <https://ipfs.io/ipfs/QmXNvNnHrX7weSyDLBNEv6YxnmwEUncmvG1z8HTxXEBnW1>.
+
 </HighlightBox>
 
 ## Manage group members
