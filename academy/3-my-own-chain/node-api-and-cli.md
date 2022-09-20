@@ -14,7 +14,7 @@ tags:
 
 In this first section, you will learn how to run a blockchain and discover how to interact with it.
 
-There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/master/simapp).
+There are different ways to run a node of a Cosmos blockchain. You will explore how to do so using [`simapp`](https://github.com/cosmos/cosmos-sdk/tree/main/simapp).
 
 </HighlightBox>
 
