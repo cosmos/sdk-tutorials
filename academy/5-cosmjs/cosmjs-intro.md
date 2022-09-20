@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Build applications that interact with Cosmos blockchains with CosmJS.
-<br></br>
+<br/><br/>
 In this section, you will learn:
   
 * What CosmJS is.

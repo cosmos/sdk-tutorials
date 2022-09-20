@@ -21,9 +21,9 @@ To better understand this section, first read the following sections:
 <HighlightBox type="learning">
 
 Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
-<br></br>
+<br/><br/>
 Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
-<br></br>
+<br/><br/>
 At the end of the section, the code example demonstrates how you would use migration to upgrade your checkers blockchain with new features even after it has been in operation for some time.
 
 </HighlightBox>
@@ -144,9 +144,9 @@ The code samples you have seen previously were meant to build your checkers bloc
 * To increase engagement, the player with the most recent score takes precedence over an _older_ contender with an equal score.
 
 It is not good enough to introduce a leaderboard for players currently winning and losing: you want to start with **all** those that played in the past. Fortunately, all past games and their outcomes have been kept in the chain state. What you need to do is go through the record, update the players with their tallies, and add a leaderboard.
-<br></br>
 Call your existing version "v1". To disambiguate, call your new one with the leaderboard "v2".
-<br></br>
+<br/><br/>
+<br/><br/>
 **New information**
 
 You need new data structures for v2. With Ignite CLI you have:
@@ -173,6 +173,7 @@ You need new data structures for v2. With Ignite CLI you have:
     ```
 
     `wonCount` decides the position on the leaderboard, and `dateAdded` resolves ties for equal `wonCount`s, with the most recent ranking higher.
+
 3. Now you need a leaderboard as an array of winner information:
 
     ```protobuf
@@ -194,6 +195,7 @@ You need new data structures for v2. With Ignite CLI you have:
     ```
 
     Conceptually, it is the _new_ genesis because your actual genesis file did not contain any leaderboard.
+
 5. Finally, you must set a hard-coded leaderboard length:
 
     ```go
@@ -205,6 +207,7 @@ You need new data structures for v2. With Ignite CLI you have:
 **Leaderboard on-the-go updating**
 
 You will need to add code to v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
+<br/><br/>
 
 <HighlightBox type="tip">
 
@@ -215,8 +218,8 @@ If you want more details on how to update the leaderboard, look at [Running Your
 **Genesis migration preparation**
 
 With on-the-go updating of the leaderboard taken care of for v2, you must place past players on the leaderboard. You need a new v2 genesis where the leaderboard has been added. First, create a new folder `x/checkers/migrations/v1tov2` to handle this task.
-<br></br>
 Create a new type to make it easier to handle your v1 genesis:
+<br/><br/>
 
 ```go
 type GenesisStateV1 struct {
@@ -324,7 +327,7 @@ func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisSt
 ```
 
 Note that `StoredGameList` and `NextGame` are copied from v1 to v2. Also note that all past players are saved `now`, since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
-<br></br>
+<br/><br/>
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
 </ExpansionPanel>

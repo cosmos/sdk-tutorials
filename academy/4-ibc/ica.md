@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 **Interchain accounts (ICAs)** allow you to control an account on a **host chain** from a **controller chain**.
-<br></br>
+<br/><br/>
 In this section, you will learn more about:
 
 * Hosting chains and controller chains

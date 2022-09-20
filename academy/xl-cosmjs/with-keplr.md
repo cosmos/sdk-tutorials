@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Build applicatiosn that interact with the Keplr browser extension.
-<br></br>
+<br/><br/>
 In this section, you will learn more about: 
     
 * Detecting Keplr.

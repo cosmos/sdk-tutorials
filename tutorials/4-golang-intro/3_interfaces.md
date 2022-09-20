@@ -137,7 +137,7 @@ You will see that it passes the test.
 <HighlightBox type="note">
 
 A test function has the syntax `TestXXX`.
-<br></br>
+<br/><br/>
 A benchmark function has the syntax `BenchXXX`.
 
 </HighlightBox>
