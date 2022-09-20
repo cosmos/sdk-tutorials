@@ -56,7 +56,7 @@ This creates the following query objects:
 
 ```go
 type QueryCanPlayMoveRequest struct {
-    IdValue string
+    GameIndex string
     Player  string
     FromX   uint64
     FromY   uint64
@@ -87,35 +87,42 @@ Now you must fill in the gaps under `TODO`. Simply put:
 2. Is it an expected player?
 
     ```go
+    isBlack := req.Player == "b"
+    isRed := req.Player == "r"
     var player rules.Player
-    if strings.Compare(rules.RED_PLAYER.Color, req.Player) == 0 {
-        player = rules.RED_PLAYER
-    } else if strings.Compare(rules.BLACK_PLAYER.Color, req.Player) == 0 {
+    if isBlack && isRed {
+        player = rules.StringPieces[storedGame.Turn].Player
+    } else if isBlack {
         player = rules.BLACK_PLAYER
+    } else if isRed {
+        player = rules.RED_PLAYER
     } else {
         return &types.QueryCanPlayMoveResponse{
-                Possible: false,
-                Reason:   "message creator is not a player",
-            }, nil
+            Possible: false,
+            Reason:   fmt.Sprintf("%s: %s", "message creator is not a player", req.Player),
+        }, nil
     }
     ```
 
 3. Is it the player's turn?
 
     ```go
-    fullGame := storedGame.ToFullGame()
-        if !fullGame.Game.TurnIs(player) {
-            return &types.QueryCanPlayMoveResponse{
-                Possible: false,
-                Reason:   "player tried to play out of turn",
-            }, nil
-        }
+    game, err := storedGame.ParseGame()
+    if err != nil {
+        return nil, err
+    }
+    if !game.TurnIs(player) {
+        return &types.QueryCanPlayMoveResponse{
+            Possible: false,
+            Reason:   fmt.Sprintf("%s: %s", "player tried to play out of turn", player.Color),
+        }, nil
+    }
     ```
 
 4. Attempt the move in memory without committing any new state:
 
     ```go
-    _, moveErr := fullGame.Game.Move(
+    _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
             Y: int(req.FromY),
@@ -128,7 +135,7 @@ Now you must fill in the gaps under `TODO`. Simply put:
     if moveErr != nil {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
-            Reason:   fmt.Sprintf("wrong move", moveErr.Error()),
+            Reason:   fmt.Sprintf("%s: %s", "wrong move", moveErr.Error()),
         }, nil
     }
     ```

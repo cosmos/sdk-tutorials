@@ -199,8 +199,8 @@ First define some elements of the eventual stored game:
 ```go
 type StoredGame struct {
     Creator string // A stringified address for the creator of the game.
-    Red string // A stringified address for the player playing reds.
     Black string // A stringified address for the player playing blacks.
+    Red string // A stringified address for the player playing reds.
     ...
 }
 ```
@@ -234,10 +234,10 @@ Defining the players is good, but the stored game is not complete unless you add
 type StoredGame struct {
     Creator string
     Index string // The unique id that identifies this game.
-    Game string // The serialized board.
-    Turn string // "red" or "black"
-    Red string
+    Board string // The serialized board.
+    Turn string // "black" or "red"
     Black string
+    Red string
 }
 ```
 

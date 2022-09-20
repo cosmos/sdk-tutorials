@@ -112,7 +112,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `SystemInfo` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
-    message NextGame {
+    message SystemInfo {
         ...
         string fifoHeadIndex = 2; // Will contain the index of the game at the head.
         string fifoTailIndex = 3; // Will contain the index of the game at the tail.
@@ -221,7 +221,7 @@ Now that the new fields are created, you need to update them to keep your FIFO u
 2. A function to send to the tail:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/stored_game_in_fifo.go#L43-L68]
-    func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
+    func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.SystemInfo) {
         if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
             game.BeforeId = types.NoFifoIdKey
             game.AfterId = types.NoFifoIdKey
@@ -497,14 +497,14 @@ func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
         Creator: carol,
         IdValue: "2",
     })
-    nextGame, found := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
+    systemInfo, found := keeper.GetSystemInfo(sdk.UnwrapSDKContext(context))
     require.True(t, found)
-    require.EqualValues(t, types.NextGame{
+    require.EqualValues(t, types.SystemInfo{
         Creator:  "",
         IdValue:  4,
         FifoHead: "1",
         FifoTail: "3",
-    }, nextGame)
+    }, systemInfo)
     game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
     require.True(t, found1)
     require.EqualValues(t, types.StoredGame{

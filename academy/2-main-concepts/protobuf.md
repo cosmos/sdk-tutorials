@@ -101,10 +101,10 @@ In the previous code samples, you saw something like:
 type StoredGame struct {
     Creator string
     Index string // The unique id that identifies this game.
-    Game string // The serialized board.
-    Turn string // "red" or "black"
-    Red string
+    Board string // The serialized board.
+    Turn string // "black" or "red"
     Black string
+    Red string
     Wager uint64
 }
 ```
@@ -126,10 +126,10 @@ This is where Protobuf simplifies your activity even more. The same `StoredGame`
 message StoredGame {
   string creator = 1;
   string index = 2;
-  string game = 3;
+  string board = 3;
   string turn = 4;
-  string red = 5;
-  string black = 6;
+  string black = 5;
+  string red = 6;
   uint64 wager = 7;
 }
 ```
@@ -141,13 +141,13 @@ When _compiling_, Protobuf will add the `protobuf:"bytes..."` elements. The mess
 ```protobuf
 message MsgCreateGame {
   string creator = 1;
-  string red = 2;
-  string black = 3;
+  string black = 2;
+  string red = 3;
   uint64 wager = 4;
 }
 
 message MsgCreateGameResponse {
-  string idValue = 1;
+  string gameIndex = 1;
 }
 ```
 
@@ -156,8 +156,8 @@ message MsgCreateGameResponse {
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. It is relatively easy to introduce Protobuf elements into your chain using commands like the following:
 
 ```sh
-$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
-$ ignite scaffold message createGame red black wager:uint --module checkers --response idValue
+$ ignite scaffold map storedGame board turn black red wager:uint --module checkers --no-message
+$ ignite scaffold message createGame black red wager:uint --module checkers --response gameIndex
 ```
 
 <HighlightBox type="tip">

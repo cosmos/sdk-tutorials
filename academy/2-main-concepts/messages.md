@@ -108,8 +108,8 @@ Focus on the messages around the **game creation**.
     ```go
     type MsgCreateGame struct {
         Creator string
-        Red     string
         Black   string
+        Red     string
     }
     ```
 
@@ -119,7 +119,7 @@ Focus on the messages around the **game creation**.
 
     ```go
     type MsgCreateGameResponse struct {
-        IdValue string
+        GameIndex string
     }
     ```
 
@@ -132,7 +132,7 @@ With the messages defined, you need to declare how the message should be handled
 Ignite CLI can help you create these elements, plus the `MsgCreateGame` and `MsgCreateGameResponse` objects, with this command:
 
 ```sh
-$ ignite scaffold message createGame red black --module checkers --response idValue
+$ ignite scaffold message createGame black red --module checkers --response gameIndex
 ```
 
 <HighlightBox type="info">
@@ -222,8 +222,8 @@ Your work is mostly done. You want to create the specific game creation code to 
         Creator:   creator,
         Index:     newIndex,
         Game:      rules.New().String(),
-        Red:       red,
         Black:     black,
+        Red:       red,
     }
     ```
 
@@ -237,7 +237,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     ```go
     return &types.MsgCreateGameResponse{
-        IdValue: newIndex,
+        GameIndex: newIndex,
     }, nil
     ```
 
@@ -257,7 +257,7 @@ You can also implement other messages:
 1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Ignite CLI, use:
 
     ```sh
-    $ ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
+    $ ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint --module checkers --response capturedX:int,capturedY:int,winner
     ```
 
     This generates, among others, the object files, callbacks, and a new file for you to write your code:
@@ -276,7 +276,7 @@ You can also implement other messages:
 2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
-    $ ignite scaffold message rejectGame idValue --module checkers
+    $ ignite scaffold message rejectGame gameIndex --module checkers
     ```
 
     This generates, among others:

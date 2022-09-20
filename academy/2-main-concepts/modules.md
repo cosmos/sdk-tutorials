@@ -381,7 +381,7 @@ if err != nil {
 }
 ```
 
-`"stake"` identifies the likely name of the base token of your application, the token that is used with the consensus. Conversely, when paying a winner you would have:
+`"stake"` identifies the likely name of the base token of your application, the token that is used with the consensus. Of course, you can choose to have the wager paid in any denomination, even one decided by players when creating the game. Conversely, when paying a winner you would have:
 
 ```go
 amount := sdk.NewInt(storedGame.Wager).Mul(sdk.NewInt(2))

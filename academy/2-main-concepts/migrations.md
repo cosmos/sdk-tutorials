@@ -143,9 +143,9 @@ The code samples you have seen previously were meant to build your checkers bloc
 * There should be a leaderboard that lists the players with the most wins, but in limited numbers (for instance, only the top 100 scores).
 * To increase engagement, the player with the most recent score takes precedence over an _older_ contender with an equal score.
 
-It is not good enough to introduce a leaderboard for players currently winning and losing: you want to start with **all** those that played in the past. Fortunately, all past games and their outcomes have been kept in the chain state. What you need to do is go through the record, update the players with their tallies, and add a leaderboard.
-Call your existing version "v1". To disambiguate, call your new one with the leaderboard "v2".
+It is not good enough to introduce a leaderboard for players currently winning and losing: you want to start with **all** those that played in the past. Fortunately, you have kept all past games and their outcomes in the chain state. What you need to do is go through the record, update the players with their tallies, and add a leaderboard.
 <br/><br/>
+Call your existing app version **v1**. To disambiguate, call your new one with the leaderboard **v2**, and the upgrade's name `"v1tov2"`.
 <br/><br/>
 **New information**
 
@@ -194,7 +194,7 @@ You need new data structures for v2. With Ignite CLI you have:
     }
     ```
 
-    Conceptually, it is the _new_ genesis because your actual genesis file did not contain any leaderboard.
+    Conceptually, it is a hypothetical _new_ v2 genesis because your actual genesis file did not contain any leaderboard.
 
 5. Finally, you must set a hard-coded leaderboard length:
 
@@ -206,7 +206,7 @@ You need new data structures for v2. With Ignite CLI you have:
 
 **Leaderboard on-the-go updating**
 
-You will need to add code to v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
+Before thinking about the upgrade, you take care of the code as if your v2 was a new project. You need to add code to your v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
 <br/><br/>
 
 <HighlightBox type="tip">
@@ -217,116 +217,131 @@ If you want more details on how to update the leaderboard, look at [Running Your
 
 **Genesis migration preparation**
 
-With on-the-go updating of the leaderboard taken care of for v2, you must place past players on the leaderboard. You need a new v2 genesis where the leaderboard has been added. First, create a new folder `x/checkers/migrations/v1tov2` to handle this task.
-Create a new type to make it easier to handle your v1 genesis:
+With on-the-go updating of the leaderboard taken care of in v2, you must place past players on the leaderboard. You choose the **in-place migration**, whereby your v2 software has access to the v1 storage the first time it launches, and _migrates_ it to a v2 storage as fast as it can.
 <br/><br/>
-
-```go
-type GenesisStateV1 struct {
-    StoredGameList []*types.StoredGame `protobuf:"bytes,2,rep,name=storedGameList,proto3" json:"storedGameList,omitempty"`
-    NextGame       *types.NextGame     `protobuf:"bytes,1,opt,name=nextGame,proto3" json:"nextGame,omitempty"`
-}
-```
-
-This is easy to create, as you only need to copy and paste the values of your genesis from a previous commit.
-<br></br>
 **Past player handling**
 
-Now prepare functions to progressively build the player's information, given a list of games:
+Now prepare functions to progressively build the player's information, given a list of games. To improve performance you can choose to use [Go routines](https://gobyexample.com/goroutines) and [channels](https://gobyexample.com/channels) so that in-memory computation can proceed on the current data chunk while the next data chunk is being fetched from storage, in a manner reminiscent of map/reduce.
+<br/><br/>
+Without going into too much detail, the following actions are taken:
 
-```go
-func PopulatePlayerInfosWith(infoSoFar *map[string]*types.PlayerInfo, games *[]*types.StoredGame) (err error) {
-    for _, game := range *games {
-        // Extract winner
-        winnerAddress, err = game.GetRedAddress()
-        if err != nil {
-            return err
-        }
-        loserAddress, err = game.GetBlackAddress()
-        if err != nil {
-            return err
-        }
-        if game.Winner == rules.RED_PLAYER.Color {
-            // Already correct
-        } else if game.Winner == rules.BLACK_PLAYER.Color {
-            // Swap
-            winnerAddress, loserAddress = loserAddress, winnerAddress
-        } else {
-            // Game is still unresolved.
-            continue
-        }
-        winnerIndex = winnerAddress.String()
-        loserIndex = loserAddress.String()
-        winnerInfo = getOrNewPlayerInfo(infoSoFar, winnerIndex)
-        loserInfo = getOrNewPlayerInfo(infoSoFar, loserIndex)
-        winnerInfo.WonCount += 1
-        loserInfo.LostCount += 1
-        (*infoSoFar)[winnerIndex] = winnerInfo
-        (*infoSoFar)[loserIndex] = loserInfo
-    }
-}
-```
+* Games are read from storage 1,000 at a time.
+* A Go routine computes the intermediate pieces of player information then passes them on.
+* These intermediate pieces are added to the player information totals from storage.
+
+Look at [Running Your Own Cosmos Chain](../3-my-own-chain/index.md) for more details.
 
 **Past leaderboard**
 
-Eventually the player information is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
+Eventually the player information computation is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
 
 ```go
 const (
     // Adjust this length to obtain the best performance over a large map.
-    IntermediaryPlayerLength = types.LeaderboardWinnerLength * 2
+    PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
 )
 ```
 
-Then process the player information:
+Then, you use a Go routine and channel again such that:
+
+* Player information is read from storage chunks at a time.
+* The intermediate leaderboard is combined with this chunk and sorted again.
+
+Wih this done, you can encapsulate in a new function the order in which the state migration takes place:
 
 ```go
-func PopulateLeaderboardWith(leaderboard *types.Leaderboard, additionalPlayers *map[string]*types.PlayerInfo, now time.Time) (err error) {
-    partialPlayers := make([]*types.PlayerInfo, IntermediaryPlayerLength)
-    for _, playerInfo := range *additionalPlayers {
-        partialPlayers = append(partialPlayers, playerInfo)
-        if len(partialPlayers) >= cap(partialPlayers) {
-            leaderboard.AddCandidatesAndSortAtNow(now, partialPlayers)
-            partialPlayers = partialPlayers[:0]
-        }
+func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, playerInfoChunk uint64) error {
+    err := MapStoredGamesReduceToPlayerInfo(ctx, k, storedGameChunk)
+    if err != nil {
+        return err
     }
-    leaderboard.AddCandidatesAndSortAtNow(now, partialPlayers)
+    err = MapPlayerInfosReduceToLeaderboard(ctx, k, playerInfoChunk)
+    if err != nil {
+        return err
+    }
     return nil
 }
 ```
 
-<HighlightBox type="tip">
-
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](../3-my-own-chain/index.md).
-
-</HighlightBox>
+Look at [Running Your Own Cosmos Chain](../3-my-own-chain/index.md) for more details.
 
 **Proper genesis migration**
 
-Now everything is prepared, migrate the v1 genesis:
+With the data migration prepared, it is time to:
+
+1. Inform your module about its consensus versions.
+2. Inform the app about its upgrade versions.
+
+Make explicit your module's new `ConsensusVersion`. It should strictly increment. If you previously had `2`, you can increment it to `3`:
 
 ```go
-func (genesisV1 GenesisStateV1) Convert(now time.Time) (genesis *types.GenesisState, err error) {
-    playerInfos := make(map[string]*types.PlayerInfo, 1000)
-    err = PopulatePlayerInfosWith(&playerInfos, &genesisV1.StoredGameList)
-    if err != nil {
-        return nil, err
+func (AppModule) ConsensusVersion() uint64 { return 3 }
+```
+
+With that, the upgrade module knows it has to look for migration information to go from `2` to `3`. If you had put `4` the upgrade module would know it has to look for migration information to go from `2` to `3` and then from `3` to `4`.
+
+Have your module inform the app about what it has to do when it encounters the old `2` version:
+
+```go
+func (am AppModule) RegisterServices(cfg module.Configurator) {
+    ...
+    if err := cfg.RegisterMigration(types.ModuleName, "2", func(ctx sdk.Context) error {
+        return v1tov2.PerformMigration(ctx, am.keeper, v1tov2.StoredGameChunkSize, v1tov2.PlayerInfoChunkSize)
+    }); err != nil {
+        panic(fmt.Errorf("failed to register migration of %s to v2: %w", types.ModuleName, err))
     }
-    leaderboard := CreateLeaderboardForGenesis()
-    err = PopulateLeaderboardWith(leaderboard, &playerInfos, now)
-    if err != nil {
-        return nil, err
-    }
-    return &types.GenesisState{
-        Leaderboard:    leaderboard,
-        PlayerInfoList: PlayerInfoMapToList(&playerInfos),
-        StoredGameList: genesisV1.StoredGameList,
-        NextGame:       genesisV1.NextGame,
-    }, nil
 }
 ```
 
-Note that `StoredGameList` and `NextGame` are copied from v1 to v2. Also note that all past players are saved `now`, since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
+If you had put `4`, you would have to add another `if ... "3"` (not `else if ... "3"`).
+<br/><br/>
+With the module informed about what it has to do to migrate its state from one consensus version to the next, you need to inform the app about what to do about the whole app version, from v1 to v2. Such an app upgrade could cover state migration for more than one module.
+<br/><br/>
+The app already calls your module's `RegisterServices` so you do not need to add anything here. If it is not already the case, make sure your app has a `Configurator`:
+
+```go
+type App struct {
+    ...
+    configurator module.Configurator
+}
+```
+
+And that it is populated:
+
+```go
+app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
+app.mm.RegisterServices(app.configurator)
+```
+
+Then create a function that encapsulates what needs to be done when encountering the `"v1tov2"` upgrade name:
+
+```go
+func (app *App) setupUpgradeHandlers() {
+    // v1 to v2 upgrade handler
+    app.UpgradeKeeper.SetUpgradeHandler(
+        "v1tov2",
+        func(ctx sdk.Context, plan upgradetypes.Plan, vm module.VersionMap) (module.VersionMap, error) {
+            return app.mm.RunMigrations(ctx, app.configurator, vm)
+        },
+    )
+    ...
+}
+```
+
+`app.mm.RunMigrations` will call all the module's state migrations. Finally make sure your app calls this new function:
+
+```go
+...
+app.SetEndBlocker(app.EndBlocker)
+
+app.setupUpgradeHandlers()
+
+if loadLatest {
+    ...
+}
+```
+
+Note that `StoredGameList` and `SystemInfo` are unchanged from v1 to v2. Also note that all past players are saved with `now`, since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
 <br/><br/>
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 

@@ -356,23 +356,23 @@ For the sake of the exercise imagine that you emit some information in two event
 ```
 [
     { key: "name", value: "moveMetadata", index: true },
-    { key: "whoPlayer", value: bool, index: true },
-    { key: "isJump", value: bool, index: false},
-    { key: "madeKing", value: bool, index: false},
-    { key: "hasCaptured", value: bool, index: false},
-    { key: "hasCapturedKing", value: bool, index: false},
-    { key: "isWinning", value: bool, index: true}
+    { key: "who-player", value: bool, index: true },
+    { key: "is-jump", value: bool, index: false},
+    { key: "made-king", value: bool, index: false},
+    { key: "has-captured", value: bool, index: false},
+    { key: "has-captured-king", value: bool, index: false},
+    { key: "is-winning", value: bool, index: true}
 ],
 [
     { key: "name", value: "boardState", index: true },
-    { key: "blackCount", value: uint32, index: false },
-    { key: "blackKingCount", value: uint32, index: false },
-    { key: "redCount", value: uint32, index: false },
-    { key: "redKingCount", value: uint32, index: false }
+    { key: "black-count", value: uint32, index: false },
+    { key: "black-king-count", value: uint32, index: false },
+    { key: "red-count", value: uint32, index: false },
+    { key: "red-king-count", value: uint32, index: false }
 ]
 ```
 
-If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs.
+If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs. Unlike Ethereum, though, events are not part of the consensus (the block), but instead are handled purely on the node.
 <br/><br/>
 It would be judicious to inform Tendermint about the `GasUsed (int64)`. Each move costs the same, so you can return `1`.
 
@@ -385,10 +385,10 @@ Assume that you want to tally what happened in the block. You return this aggreg
 ```
 [
     { key: "name", value: "aggregateAction", index: true },
-    { key: "blackCapturedCount", value: uint32, index: false },
-    { key: "blackKingCapturedCount", value: uint32, index: false },
-    { key: "redCapturedCount", value: uint32, index: false },
-    { key: "redKingCapturedCount", value: uint32, index: false }
+    { key: "black-captured-count", value: uint32, index: false },
+    { key: "black-king-captured-count", value: uint32, index: false },
+    { key: "red-captured-count", value: uint32, index: false },
+    { key: "red-king-captured-count", value: uint32, index: false }
 ]
 ```
 
