@@ -62,13 +62,6 @@ module.exports = {
     topbar: {
       banner: true,
     },
-    allowedIDAOrigins: [
-      "preview-5bxuue6kafu5ocp5", 
-      "deploy-preview-995", 
-      "deploy-preview-994", 
-      "deploy-preview-991",
-      "deploy-preview-1047"
-    ],
     sidebar: {
       auto: false,
       hideProducts: true,
@@ -85,13 +78,13 @@ module.exports = {
             },
             {
               title: "What is Cosmos?",
-              path: "/academy/1-what-is-cosmos",
+              path: "/academy/1-what-is-cosmos/",
               directory: true,
               order: 2
             },
             {
               title: "Main Concepts",
-              path: "/academy/2-cosmos-concepts",
+              path: "/academy/2-cosmos-concepts/",
               directory: true,
               order: 3
             },
@@ -146,31 +139,31 @@ module.exports = {
                 },
                 {
                   title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli/1-game-fifo.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
                 },
                 {
                   title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli/2-game-deadline.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
                 },
                 {
                   title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli/3-game-winner.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-winner.html",
                 },
                 {
                   title: "Auto-Expiring Games",
-                  path: "/hands-on-exercise/2-ignite-cli/4-game-forfeit.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html",
                 },
                 {
                   title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli/5-game-wager.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-game-wager.html",
                 },
                 {
                   title: "Incentivize Players",
-                  path: "/hands-on-exercise/2-ignite-cli/6-gas-meter.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
                 },
                 {
                   title: "Help Find a Correct Move",
-                  path: "/hands-on-exercise/2-ignite-cli/7-can-play.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
                 },
               ]
             },
@@ -181,7 +174,7 @@ module.exports = {
               children: [
                 {
                   title: "The Inter-Blockchain Communication Protocol",
-                  path: "/academy/3-ibc/index",
+                  path: "/academy/3-ibc/",
                 },
 
                 {
