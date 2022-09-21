@@ -8,7 +8,7 @@ tags:
   - dev-ops
 ---
 
-# Run in Production
+# Overview
 
 You have coded your Cosmos chain. It may not be feature complete, but unit and integration tests are passing. You ran it locally on your computer and interacted with it via the command line. Congratulations, you have already accomplished a lot.
 
