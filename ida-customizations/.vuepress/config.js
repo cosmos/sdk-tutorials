@@ -310,7 +310,7 @@ module.exports = {
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
-                  title: "IBC Fungible Token Transfer",
+                  title: "IBC Token Transfer",
                   path: "/academy/3-ibc/5-token-transfer.html",
                 },
                 {
