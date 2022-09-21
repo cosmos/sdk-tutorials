@@ -654,10 +654,31 @@ You connected to a publicly running testnet. Therefore, you depended on someone 
 
 The easiest option is to reuse the `simd` chain that you started in a [previous module](../3-my-own-chain/node-api-and-cli.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
 
-When you finally launch `simd`, you see the line:
+When you finally launch `simd`:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```sh
 $ ./build/simd start
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd start --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+You see the line:
+
+```txt
 ...
 4:37PM INF Starting RPC HTTP server on 127.0.0.1:26657 module=rpc-server
 ...
@@ -682,9 +703,25 @@ Make a copy of your `experiment.ts` script, with some adjustments. Name it `expe
 
 Although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend. For the purpose of this exercise, extract it - generally this is an unsafe operation:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./build/simd keys export alice --unsafe --unarmored-hex
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd keys export alice --unsafe --unarmored-hex --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 You get a 64-digit-long hex value. Copy-paste it into a new `simd.alice.private.key` file in your `cosmjs-sandbox` folder. The `.gitignore` was already configured earlier to ignore it, which mitigates the risk.
 
@@ -692,8 +729,29 @@ You get a 64-digit-long hex value. Copy-paste it into a new `simd.alice.private.
 
 If you cannot remember which alias you gave your keys, `list` them:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./build/simd keys list
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd keys list --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Which returns:
+
+```yaml
 - address: cosmos1c3srguwnzah5nd4cn49shltvr6tsrcl2jwn8je
   name: alice
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"AhR7SWWDsaSxBD9r/mIhbVOWap70jA3WpBIqjOJo4Dwp"}'

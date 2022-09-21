@@ -64,7 +64,7 @@ $ ./simd unsafe-reset-all
 
 The command output lists all of the files set to their initial state with their locations.
 
-```
+```txt
 3:58PM INF Removed all blockchain history dir=/Users/b9lab/.simapp/data
 3:58PM INF Generated private validator file keyFile=/Users/b9lab/.simapp/config/priv_validator_key.json stateFile=/Users/b9lab/.simapp/data/priv_validator_state.json
 ```
@@ -243,25 +243,57 @@ It helps to understand the concepts clearly when working hands-on with the Cosmo
 
 You can also inspect your keys. These are held in the backend keyring, which by default is that of the operating system:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd keys list
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd keys list --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 As you might have expected, you do not have any keys yet:
 
-```
+```json
 []
 ```
 
 Now you can add a new key:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd keys add b9lab
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd keys add b9lab --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 Which prints something similar to:
 
-```
+```yaml
 - name: b9lab
   type: local
   address: cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq
@@ -278,15 +310,47 @@ You can see the mnemonic at the end of the above output. This sequence of words 
 
 Confirm that the key has been added with:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd keys list
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd keys list --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 You can also confirm the key has been added with:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```sh
 $ ./simd keys show b9lab
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd keys show b9lab --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 ## Make yourself a proper validator
 
@@ -294,9 +358,25 @@ As previously explained, a Cosmos SDK blockchain relies on identified validators
 
 Make your key, also known as an account, have an initial balance in the genesis file:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd add-genesis-account b9lab 100000000stake
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd add-genesis-account b9lab 100000000stake --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Appended here to the amount is the `stake` suffix. This `stake` represents the unit for the tokens in this chain as per the genesis file. Therefore, this command adds `100000000` `stake` to your account. If in doubt, you can confirm the proper suffix in the `genesis.json` file with:
 
@@ -320,13 +400,29 @@ Do not forget to use your own `--chain-id`.
 
 </HighlightBox>
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd gentx b9lab 70000000stake --chain-id test-chain-rT4wZY --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 Which confirms the action:
 
-```
+```txt
 Genesis transaction written to "/Users/muratoener/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
@@ -348,9 +444,25 @@ If you are curious, you can find the updated `gen_txs` field in your genesis.
 
 Now you can start your single-node blockchain:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd start
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd start --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 In the terminal window where you ran the command, you can see blocks being produced and validated:
 
@@ -365,13 +477,29 @@ In the terminal window where you ran the command, you can see blocks being produ
 
 Open a new terminal in the same folder and check the balances:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd query bank balances $(./simd keys show b9lab -a)
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd query bank balances $(./simd keys show b9lab -a --keyring-backend test)
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 Which prints:
 
-```
+```yaml
 balances:
 - amount: "30000000"
   denom: stake
@@ -384,13 +512,29 @@ pagination:
 
 Practice sending a transaction. To do this, you are going to create another account named "student" and transfer some tokens to that account:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd keys add student
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd keys add student --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 Which prints:
 
-```
+```yaml
 - name: student
   type: local
   address: cosmos1m95dh3uc2s7fkn4w6v3ueux3sya96dhdudwa24
@@ -405,13 +549,29 @@ gown all scissors page panel table hill acoustic junior run winter cement mass c
 
 Before sending any tokens confirm that the balance of the new account is absent:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
-$ ./simd query bank balances $(./simd keys show student -a)
+$ ./simd query bank balances $(./simd keys show student --address)
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd query bank balances $(./simd keys show student --address --keyring-backend test)
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 This account does not have a balance. The new account does not yet exist in your blockchain. Only the key pair has been generated and stored in your keyring:
 
-```
+```yaml
 balances: []
 pagination:
   next_key: null
@@ -420,13 +580,29 @@ pagination:
 
 You need to send a transaction to change this new account's balance:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd tx bank send $(./simd keys show b9lab -a) $(./simd keys show student -a) 10stake --chain-id test-chain-rT4wZY
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd tx bank send $(./simd keys show b9lab -a --keyring-backend test) $(./simd keys show student -a --keyring-backend test) 10stake --chain-id test-chain-rT4wZY --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 You should be prompted to confirm the transaction before signing and broadcasting:
 
-```
+```json
 {"body":{"messages":[{"@type":"/cosmos.bank.v1beta1.MsgSend","from_address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","to_address":"cosmos1m95dh3uc2s7fkn4w6v3ueux3sya96dhdudwa24","amount":[{"denom":"stake","amount":"10"}]}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""},"tip":null},"signatures":[]}
 
 confirm transaction before signing and broadcasting [y/N]: y
@@ -448,13 +624,29 @@ The command output includes useful information, such as `gas_used`.
 
 Now check the balance of the student account again:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./simd query bank balances $(./simd keys show student -a)
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./simd query bank balances $(./simd keys show student -a --keyring-backend test)
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 Which prints:
 
-```
+```yaml
 balances:
 - amount: "10"
   denom: stake
