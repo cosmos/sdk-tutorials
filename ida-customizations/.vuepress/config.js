@@ -67,6 +67,7 @@ module.exports = {
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
     label: "sdk",
+    isIDAMode: true,
     algolia: {
       id: "BH4D9OD16A",
       key: "7976d773390a0be350dc24b0571eee15",
