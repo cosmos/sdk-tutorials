@@ -53,6 +53,7 @@ module.exports = {
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
     label: "sdk",
+    isIDAMode: false,
     algolia: {
       id: "BH4D9OD16A",
       key: "7976d773390a0be350dc24b0571eee15",
@@ -80,32 +81,36 @@ module.exports = {
               title: "Welcome",
               path: "/academy/0-welcome/",
               directory: false,
+              order: 1
             },
             {
               title: "What is Cosmos?",
               path: "/academy/1-what-is-cosmos",
               directory: true,
+              order: 2
             },
             {
               title: "Main Concepts",
               path: "/academy/2-cosmos-concepts",
               directory: true,
+              order: 3
             },
             {
               title: "Run Your Own Cosmos Chain",
-              directory: false,
+              directory: true,
+              order: 4,
               children: [
                 {
                   title: "Run Your Own Cosmos Chain",
-                  path: "/hands-on-exercise/1-ignite-cli/index",
+                  path: "/hands-on-exercise/1-ignite-cli/",
                 },
                 {
                   title: "Setup Your Work Environment",
-                  path: "/tutorials/2-setup",
+                  path: "/tutorials/2-setup/",
                 },
                 {
                   title: "Run a Node, API, and CLI",
-                  path: "/tutorials/3-run-node",
+                  path: "/tutorials/3-run-node/",
                 },
                 {
                   title: "Ignite CLI",
@@ -171,7 +176,8 @@ module.exports = {
             },
             {
               title: "The Inter-Blockchain Communication Protocol",
-              directory: false,
+              directory: true,
+              order: 5,
               children: [
                 {
                   title: "The Inter-Blockchain Communication Protocol",
@@ -222,18 +228,22 @@ module.exports = {
             },
             {
               title: "CosmJS",
-              path: "/tutorials/6-cosmjs",
+              path: "/tutorials/6-cosmjs/",
               directory: true,
+              order: 6
             },
             {
               title: "What's Next?",
               path: "/academy/whats-next/",
               directory: false,
+              order: 7
             }
           ],
         },
         {
           title: "Tutorials",
+          directory: true,
+          order: 8,
           children: [
             {
               title: "Good-To-Know Dev Terms",
@@ -247,23 +257,19 @@ module.exports = {
             },
             {
               title: "Understand IBC denoms",
-              path: "/tutorials/4-ibc-dev/1-wager-denom.md",
-              directory: true,
+              path: "/tutorials/5-ibc-dev/"
             },
             {
               title: "Understand the Authz Module",
-              path: "/tutorials/7-understand-sdk-modules/1-authz.md",
-              directory: true,
+              path: "/tutorials/7-understand-sdk-modules/1-authz.html"
             },
             {
               title: "Understand the Feegrant Module",
-              path: "/tutorials/7-understand-sdk-modules/2-feegrant.md",
-              directory: true,
+              path: "/tutorials/7-understand-sdk-modules/2-feegrant.html"
             },
             {
               title: "Understand the Group Module",
-              path: "/tutorials/7-understand-sdk-modules/3-group.md",
-              directory: true,
+              path: "/tutorials/7-understand-sdk-modules/3-group.html"
             },
             {
               title: "How to use IPFS",
