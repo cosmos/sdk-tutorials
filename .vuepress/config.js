@@ -478,6 +478,8 @@ module.exports = {
     "academy/*/*.md",
     "tutorials/*/*.md",
     "course-ida/*/*.md",
-    "course-ida/*.md"
+    "course-ida/*.md",
+    "hands-on-exercise/*/*.md"
+
   ]
 };
