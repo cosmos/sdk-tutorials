@@ -17,18 +17,22 @@
 		.modules(v-if="!$frontmatter.customModules && this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
-		.modules-intro__wrapper.mt-10.mb-10(v-if="$frontmatter.customModules && $frontmatter.customModules.sections")
-			h2(v-if="$frontmatter.customModules.title") {{$frontmatter.customModules.title}}
-			.modules-intro__description.mt-5(v-if="$frontmatter.customModules.description") {{$frontmatter.customModules.description}}
-			.cards
-				.cards__wrapper(v-for="card in $frontmatter.customModules.sections")
-					card-links.cards__item(
-						:image="card.image" 
-						:title="card.title" 
-						:description="card.description" 
-						:tag="card.tag || null"
-						:links="card.links"
-						:href="card.href"
+		.modules-intro__wrapper.mt-10(v-if="$frontmatter.customModules")
+			.modules-intro.mb-10(v-for="customModule in $frontmatter.customModules")
+				h2(v-if="customModule.title") {{customModule.title}}
+				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
+				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
+					span {{customModule.action.label}}
+				.cards
+					.cards__wrapper(v-for="card in customModule.sections")
+						card-links.cards__item(
+							:image="card.image" 
+							:title="card.title" 
+							:description="card.description" 
+							:tags="card.tags || null"
+							:links="card.links"
+							:href="card.href"
+							:overline="card.overline"
 					)
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}

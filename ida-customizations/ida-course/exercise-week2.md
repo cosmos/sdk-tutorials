@@ -1,11 +1,11 @@
 ---
-title: Mandatory Exercise - Create an Object
+title: Mandatory Exercise
 order:
 description: From simple creation to practice
 tag: deep-dive
 ---
 
-# Mandatory Exercise - Create an Object
+# Mandatory Exercise
 
 You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! Before you [try](https://hr.gs/ida-c2-exercise-week-2), here is a summary of what you will be asked to do.
 
