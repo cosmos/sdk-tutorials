@@ -265,10 +265,15 @@ module.exports = {
               path: "/tutorials/7-understand-sdk-modules/3-group.html"
             },
             {
+              title: "Understanding the Gov Module",
+              path: "/tutorials/understanding-gov/",
+              directory: false,
+            },
+            {
               title: "How to use IPFS",
               path: "/tutorials/how-to-use-ipfs/",
               directory: false,
-            }
+            },
           ],
         },
       ],
