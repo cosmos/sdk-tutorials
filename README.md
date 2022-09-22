@@ -8,11 +8,11 @@ tutorials:
   - title: Understanding the Group Module
     level: intermediate
     description: Learn what the group module does, how to create group, and how to submit group proposals.
-    url: /tutorials/7-understand-sdk-modules/3-group
+    url: /tutorials/7-understand-sdk-modules/3-group.html
   - title: Understand the Authz Module
     level: intermediate
     description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
-    url: /tutorials/7-understand-sdk-modules/1-authz
+    url: /tutorials/7-understand-sdk-modules/1-authz.html
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
