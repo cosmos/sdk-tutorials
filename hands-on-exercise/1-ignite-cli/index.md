@@ -1,8 +1,4 @@
 ---
-parent:
-  title: First Steps
-  description: Get started with Ignite CLI and run your own Cosmos chain
-  number: 1
 tag:
 order: 0
 title: Chapter Overview - First steps to run your own chain
