@@ -1,0 +1,11 @@
+# Todo: replace with a call to npm run link:check
+name: Verify valid config.js
+on: [push, pull_request]
+
+jobs:
+  verify-config-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: ✅ Verify valid config.js
+        run: npm run check-config
