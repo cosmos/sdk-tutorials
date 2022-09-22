@@ -41,7 +41,7 @@ All 3 files cannot compile before you have done as per below.
 
 ## What you need to do
 
-You need to run a Ignite command to create a new Protobuf type and its associated keeper functions that follows this description:
+You need to run an Ignite command to create a new Protobuf type and its associated keeper functions that follows this description:
 
 1. The name is `WorldParams`.
 2. It has 3 params exactly, no more, no less:
@@ -93,9 +93,10 @@ $ ./score.sh
 
 In fact, `score.sh` is what we run in the Hackerrank environment.
 
-## HackerRank Environment
+## HackerRank environment
 
 The HackerRank environment presents an online IDE to you, which already contains all the project files. We have also already installed all packages and modules for you.
+
 You can start a new Terminal windows by selecting _Terminal_ -> _New Terminal_ in the top menu.
 
 You can run all tests to check your code by clicking on the _Run Tests_ button at the bottom right corner of the IDE.
@@ -104,4 +105,4 @@ You can run all tests to check your code by clicking on the _Run Tests_ button a
 
 Please submit your exercise via the following link: [HackerRank week 2 exercise submission](https://hr.gs/ida-c2-exercise-week-2).
 
-**Please make sure to submit your exercise till Friday September the 30th 23:59 UTC.**
+**Please make sure to submit your exercise by Friday, September the 30th 23:59 UTC.**
