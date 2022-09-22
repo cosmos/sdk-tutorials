@@ -247,7 +247,7 @@ Then, you use a Go routine and channel again such that:
 * Player information is read from storage chunks at a time.
 * The intermediate leaderboard is combined with this chunk and sorted again.
 
-Wih this done, you can encapsulate in a new function the order in which the state migration takes place:
+With this done, you can encapsulate in a new function the order in which the state migration takes place:
 
 ```go
 func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, playerInfoChunk uint64) error {
@@ -272,7 +272,7 @@ With the data migration prepared, it is time to:
 1. Inform your module about its consensus versions.
 2. Inform the app about its upgrade versions.
 
-Make explicit your module's new `ConsensusVersion`. It should strictly increment. If you previously had `2`, you can increment it to `3`:
+Make explicit your module's new `ConsensusVersion`. It should increment strictly. If you previously had `2`, you can increment it to `3`:
 
 ```go
 func (AppModule) ConsensusVersion() uint64 { return 3 }
@@ -306,7 +306,7 @@ type App struct {
 }
 ```
 
-And that it is populated:
+Ensure that the `Configurator` is populated:
 
 ```go
 app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
