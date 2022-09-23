@@ -314,7 +314,7 @@ type App struct {
 }
 ```
 
-Ensure that the `Configurator` is populated:
+Ensure that the `configurator` is populated:
 
 ```go
 app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
