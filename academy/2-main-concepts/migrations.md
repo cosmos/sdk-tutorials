@@ -145,7 +145,7 @@ The code samples you have seen previously were meant to build your checkers bloc
 
 It is not good enough to introduce a leaderboard for players currently winning and losing: you want to start with **all** those that played in the past. Fortunately, you have kept all past games and their outcomes in the chain state. What you need to do is go through the record, update the players with their tallies, and add a leaderboard.
 <br/><br/>
-Call your existing app version **v1**. To disambiguate, call your new one with the leaderboard **v2**, and the upgrade's name `"v1tov2"`.
+Call your existing app version **v1**. To disambiguate, call your new one with the leaderboard **v2** and the upgrade's name `"v1tov2"`.
 <br/><br/>
 **New information**
 
@@ -206,7 +206,7 @@ You need new data structures for v2. With Ignite CLI you have:
 
 **Leaderboard on-the-go updating**
 
-Before thinking about the upgrade, you take care of the code as if your v2 was a new project. You need to add code to your v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
+Before thinking about the upgrade, take care of the code as if your v2 was a new project. You need to add code to your v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
 <br/><br/>
 
 <HighlightBox type="tip">
@@ -217,23 +217,27 @@ If you want more details on how to update the leaderboard, look at [Running Your
 
 **Genesis migration preparation**
 
-With on-the-go updating of the leaderboard taken care of in v2, you must place past players on the leaderboard. You choose the **in-place migration**, whereby your v2 software has access to the v1 storage the first time it launches, and _migrates_ it to a v2 storage as fast as it can.
+With on-the-go updating of the leaderboard taken care of in v2, you must place past players on the leaderboard. You choose the **in-place migration**, whereby your v2 software has access to the v1 storage the first time it launches and _migrates_ it to a v2 storage as fast as it can.
 <br/><br/>
 **Past player handling**
 
-Now prepare functions to progressively build the player's information, given a list of games. To improve performance you can choose to use [Go routines](https://gobyexample.com/goroutines) and [channels](https://gobyexample.com/channels) so that in-memory computation can proceed on the current data chunk while the next data chunk is being fetched from storage, in a manner reminiscent of map/reduce.
+Now prepare functions to progressively build the player's information, given a list of games. To improve performance, you can choose to use [Go routines](https://gobyexample.com/goroutines) and [channels](https://gobyexample.com/channels) so that the in-memory computation can proceed on the current data chunk while the next data chunk is being fetched from storage, in a manner reminiscent of map/reduce.
 <br/><br/>
 Without going into too much detail, the following actions are taken:
 
 * Games are read from storage 1,000 at a time.
-* A Go routine computes the intermediate pieces of player information then passes them on.
+* A Go routine computes the intermediate pieces of player information and then passes them on.
 * These intermediate pieces are added to the player information totals from storage.
 
-Look at [Running Your Own Cosmos Chain](../3-my-own-chain/index.md) for more details.
+<HighlightBox type="info">
+
+Look at [Run Your Own Cosmos Chain](hands-on-exercise/1-ignite-cli/index.md) for more details.
+
+</HighlightBox>
 
 **Past leaderboard**
 
-Eventually the player information computation is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
+Eventually, the player information computation is complete and it is possible to create the leaderboard for these past players. This may involve the sorting of a very large array. Perhaps it could be done in tranches:
 
 ```go
 const (
@@ -263,7 +267,11 @@ func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, 
 }
 ```
 
-Look at [Running Your Own Cosmos Chain](../3-my-own-chain/index.md) for more details.
+<HighlightBox type="info">
+
+Look at [Run Your Own Cosmos Chain](hands-on-exercise/1-ignite-cli/index.md) for more details.
+
+</HighlightBox>
 
 **Proper genesis migration**
 
@@ -278,7 +286,7 @@ Make explicit your module's new `ConsensusVersion`. It should increment strictly
 func (AppModule) ConsensusVersion() uint64 { return 3 }
 ```
 
-With that, the upgrade module knows it has to look for migration information to go from `2` to `3`. If you had put `4` the upgrade module would know it has to look for migration information to go from `2` to `3` and then from `3` to `4`.
+With that, the upgrade module knows it has to look for migration information to go from `2` to `3`. If you had put `4`, the upgrade module would know it has to look for migration information to go from `2` to `3` and then from `3` to `4`.
 
 Have your module inform the app about what it has to do when it encounters the old `2` version:
 
@@ -293,11 +301,11 @@ func (am AppModule) RegisterServices(cfg module.Configurator) {
 }
 ```
 
-If you had put `4`, you would have to add another `if ... "3"` (not `else if ... "3"`).
+If you had put `4`, you would have to add another `if ... "3"` - not `else if ... "3"`.
 <br/><br/>
-With the module informed about what it has to do to migrate its state from one consensus version to the next, you need to inform the app about what to do about the whole app version, from v1 to v2. Such an app upgrade could cover state migration for more than one module.
+With the module informed about what it has to do to migrate its state from one consensus version to the next, you need to inform the app how to handle the whole app version, from v1 to v2. Such an app upgrade could cover a state migration for more than one module.
 <br/><br/>
-The app already calls your module's `RegisterServices` so you do not need to add anything here. If it is not already the case, make sure your app has a `Configurator`:
+The app already calls your module's `RegisterServices`, so you do not need to add anything here. If it is not already the case, make sure your app has a `Configurator`:
 
 ```go
 type App struct {
@@ -328,7 +336,7 @@ func (app *App) setupUpgradeHandlers() {
 }
 ```
 
-`app.mm.RunMigrations` will call all the module's state migrations. Finally make sure your app calls this new function:
+`app.mm.RunMigrations` will call all the module's state migrations. Finally, make sure your app calls this new function:
 
 ```go
 ...
@@ -341,8 +349,12 @@ if loadLatest {
 }
 ```
 
-Note that `StoredGameList` and `SystemInfo` are unchanged from v1 to v2. Also note that all past players are saved with `now`, since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
-<br/><br/>
+<HighlightBox type="note">
+
+`StoredGameList` and `SystemInfo` are unchanged from v1 to v2. Also note that all past players are saved with `now`, since the time was not saved in the game when winning. If you decide to use the `Deadline`, make sure that there are no times in the future.
+
+</HighlightBox>
+
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
 </ExpansionPanel>

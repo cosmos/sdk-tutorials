@@ -372,7 +372,7 @@ For the sake of the exercise imagine that you emit some information in two event
 ]
 ```
 
-If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs. Unlike Ethereum, though, events are not part of the consensus (the block), but instead are handled purely on the node.
+If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs. Unlike Ethereum, though, events are not part of the consensus (the block) but instead are handled purely on the node.
 <br/><br/>
 It would be judicious to inform Tendermint about the `GasUsed (int64)`. Each move costs the same, so you can return `1`.
 
