@@ -3,7 +3,7 @@ layout: ModuleLandingPage
 main: true
 order: 0
 intro:
-  - overline: Developer course
+  - overline: Developer Portal
     title: Cosmos Academy
     image: /graphics-sdk-course.png
     description: |
@@ -11,7 +11,7 @@ intro:
       The ever-expanding ecosystem provides an SDK, tokens, wallets, applications, and services. Discover the Cosmos SDK to develop application-specific blockchains.<br/><br/>
       Ready to begin your journey?
     action:
-      label: Start course
+      label: Start
       url: /academy/1-what-is-cosmos/index.html
     secondtext: |
       This is a beta version of the Developer Portal that will help you take your first steps with the Cosmos SDK.
@@ -19,12 +19,12 @@ intro:
 overview:
   title: Welcome to the Cosmos Ecosystem!
   items:
-    - title: Is this course for me?
+    - title: Is this portal for me?
       description: |
-        This course offers an overview of the Cosmos SDK, as well as examples and exercises to help developers get a quick start.
-    - title: How should I go through this course?
+        This portal offers an overview of the Cosmos SDK, as well as examples and exercises to help developers get a quick start.
+    - title: How should I go through the portal?
       description: |
-        This course unfolds the Cosmos universe, beginning with a big picture perspective and getting into how to create your own application-specific blockchain with the Cosmos SDK.<br/>
+        The portal content unfolds the Cosmos universe, beginning with a big picture perspective and getting into how to create your own application-specific blockchain with the Cosmos SDK.<br/>
         You can follow two tracks: The fast track and the deep dive. The fast track gives you a solid overview of the Cosmos SDK, its components, and dApps in Cosmos. The deep dive takes you through hands-on exercises to put theory into practice – showcasing how to address application concerns when developing such as managing gas fees and cross-chain communication, working with Ignite CLI, running a node, and understanding CosmWasm. All sections are tagged accordingly as “Fast track” or “Deep dive”. A look into all chapters is recommended as a basic understanding helps when things get tricky.
     - title: What do I need?
       description: |

@@ -13,7 +13,7 @@ title: Week 5 - See Your Chain in Action
 
 After having developed your chain, now you will take the next step to move your chain into production.
 
-![LP image - Week 7](./images/universe.svg)
+![LP image - Week 7](/universe.svg)
 
 ## In this chapter
 

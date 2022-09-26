@@ -13,7 +13,7 @@ jobs:
     container:
       image: node:14
     steps:
-      - name: Prepare build container ⚙️
+      - name: ⚙️ Prepare build container
         run: |
           apt-key adv --recv-keys --keyserver keyserver.ubuntu.com A1715D88E1DF1F24
           apt update
@@ -30,10 +30,14 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Install and Build 🔧
+      - name: 🔧 Install and Build 
         run: make build-website
 
-      - name: Deploy 🚀
+      - name: ✅ Verify valid config.js
+        run: npm run check-config
+
+      - name: 🚀 Deploy
+        if: ${{ success() }}
         uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

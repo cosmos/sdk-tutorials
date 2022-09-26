@@ -85,7 +85,7 @@ While Bitcoin addresses this efficiency issue with a relatively long block time 
 
 ![Uncles in Ethereum](/ida-course/0-blockchain-basics/images/00_18_block_uncles-01.png)
 
-This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
+This is made possible thanks to Ethereum's implementation of the [GHOST protocol](https://www.geeksforgeeks.org/what-is-ghost-protocol-for-ethereum/#:~:text=GHOST%20protocol%20is%20a%20chain,who%20owns%20the%20computing%20power.). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
 
 Ethereum's solution to achieve faster block times draws attention to the universal challenges of blockchain technology: performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
 
@@ -109,7 +109,7 @@ Managed networks are typically governed through traditional governance processes
 
 <HighlightBox type="info">
 
-Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus.md).
+Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4-consensus.md).
 
 </HighlightBox>
 
@@ -139,7 +139,7 @@ Cosmos can be applied to both public and private settings and, importantly, supp
 
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
-* [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* [Vitalik Buterin on private chains](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains)
 * [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>

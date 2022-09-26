@@ -320,7 +320,7 @@ children: [
   },
   {
     title: "What is Cosmos?",
-    path: "/academy/what-is-cosmos",
+    path: "/academy/1-what-is-cosmos",
     directory: true,
   },
   {
