@@ -82,7 +82,7 @@ Let us start by diving into public blockchains and their most known examples, Bi
 
 **Books**
 
-* [Swan Melanie: Blockchain (2015): Blueprint for a New Economy](https://www.amazon.co.uk/Blockchain-Blueprint-Economy-Melanie-Swan/dp/1491920491)
+* [Swan Melanie: Blockchain (2015): Blueprint for a New Economy](https://www.melanieswan.com/publications.html#books)
 * [Antonopolous, Andreas (2017): Mastering Bitcoin](https://bitcoinbook.info/)
 
 **Further readings**

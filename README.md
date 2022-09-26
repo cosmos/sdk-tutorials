@@ -1,18 +1,18 @@
 <!--
 layout: LandingPage
 tutorials:
+  - title: Understanding the Gov Module
+    level: intermediate
+    description: Learn about the new Gov module, how to make and submit proposals for chain governance.
+    url: /tutorials/understanding-gov
   - title: Understanding the Group Module
     level: intermediate
-    description: Learn what the Group module does, how to create group, and how to submit group proposals.
-    url: /tutorials/understanding-group
-  - title: Understanding the Authz Module
+    description: Learn what the group module does, how to create group, and how to submit group proposals.
+    url: /tutorials/7-understand-sdk-modules/3-group.html
+  - title: Understand the Authz Module
     level: intermediate
     description: Learn what the Authz module does, how to create and revoke authorizations, and how to execute authorized transactions.
-    url: /tutorials/understanding-authz
-  - title: Understand IBC Denoms with Gaia
-    level: intermediate
-    description: Learn about what means IBC denoms and understand what they are.
-    url: /tutorials/understanding-ibc-denoms/
+    url: /tutorials/7-understand-sdk-modules/1-authz.html
 tools:
   - title: Cosmos SDK
     description: A framework for building public blockchains.
@@ -108,5 +108,5 @@ The code and docs for each tutorial are based on a specific version of the softw
 
 Use the tutorials landing page as your entry point to articles on [Cosmos blog](https://blog.cosmos.network/), videos on [Cosmos YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
 
-This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](CONTRIBUTING.md) and [TECHNICAL-SETUP](TECHNICAL-SETUP.md).
+This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](/sdk-tutorials/CONTRIBUTING.md) and [/sdk-tutorials/TECHNICAL-SETUP](TECHNICAL-SETUP.md).
 The tutorials are formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md).

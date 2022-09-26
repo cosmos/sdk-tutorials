@@ -33,7 +33,7 @@ The Google guidelines include more material than is listed here, and are used as
 Other useful resources:
 
 - [Google Technical Writing Courses](https://developers.google.com/tech-writing)
-- [GitHub guides on mastering markdown](https://guides.github.com/features/mastering-markdown/)
+- [GitHub guides on mastering markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 ### Pull Request
 
@@ -89,9 +89,9 @@ To view a deployed preview on a **Ready for review** PR, click the **Details** l
 
 ### Preview Draft PRs on a Local Web Browser
 
-Since the deploy preview doesn't work on Draft PRs, follow these steps to preview the tutorial build on a local web browser.
+Since the deploy preview does not work on Draft PRs, follow these steps to preview the tutorial build on a local web browser.
 
-1. If you haven't already, clone the tutorials repo to your local machine and change to that directory. For example:
+1. If you have not already, clone the tutorials repo to your local machine and change to that directory. For example:
 
     ```bash
     cd ~/github

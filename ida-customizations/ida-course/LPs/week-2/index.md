@@ -19,7 +19,7 @@ Begin by interacting with a chain using simapp. In the end, you will know how to
 
 Then discover the first steps to building an application-specific blockchain from scratch, using Ignite to implement a checkers game and to interact with a running local blockchain from the command line.
 
-![LP image - Week 2](./images/cosmos_dev_portal_module-05-lp.png)
+![LP image - Week 2](/ida-course/LPs/week-2/images/cosmos_dev_portal_module-05-lp.png)
 
 ## In this chapter
 
@@ -52,7 +52,7 @@ You should have received an email with a link to each session to be added to you
 
 ## Next up
 
-Before you begin [running a node](/tutorials/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](tutorials/2-setup/index.md).
+Before you begin [running a node](/tutorials/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](/tutorials/2-setup/index.md).
 
 ## Developer Resources
 

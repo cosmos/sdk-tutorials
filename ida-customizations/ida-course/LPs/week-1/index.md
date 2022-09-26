@@ -15,7 +15,7 @@ Enjoy an introduction to the main components of the Cosmos SDK.
 
 From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
 
-![LP image - Week 1](./images/cosmos_dev_portal_module-03-lp.png)
+![LP image - Week 1](/ida-course/LPs/week-1/images/cosmos_dev_portal_module-03-lp.png)
 
 ## In this chapter
 
@@ -36,17 +36,17 @@ In this chapter, you will:
   
 **Live Session**
 <br/>
-This week you can join the first live session on **September 19th, 2PM UTC**: _Introduction to Cosmos_ with Billy Rennekamp, Product Lead for Cosmos Hub. 
+This week you were able to join the first live session on **September 19th, 2PM UTC**: _Introduction to Cosmos_ with Billy Rennekamp, Product Lead for Cosmos Hub.
 <br/>
-Detailed information on how to join the session will be provided via email and Discord.
-<br/>
-You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
+In case you want to recap the live session or could not attend: this is the **recording** of the session _Introduction to Cosmos_ with Billy Rennekamp:
+
+<YoutubePlayer videoId="rz2oPXqMJlU"/>
   
 </HighlightBox>
 
 ## Next up
 
-Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
 
 ## Developer Resources
 
