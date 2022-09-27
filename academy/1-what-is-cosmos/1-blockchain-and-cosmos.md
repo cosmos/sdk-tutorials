@@ -57,7 +57,7 @@ Want to look closer at the initial proposition of Bitcoin? See the original [Bit
 
 Bitcoin uses PoW to achieve Byzantine Fault-Tolerance (BFT) which enables decentralized, trustless networks to function even with malfunctioning or malicious nodes present. It is best described as a cryptographic puzzle solved by a network node called a "miner". The puzzle is a task of pre-defined, arbitrary difficulty. At the current scale of the networks using PoW, the outcome is akin to a lottery with a single winning ticket, the successful miner node.
 <br></br>
-In most PoW systems, the task consists of a search for an unknown random number - a "nonce". To be a winning nonce, when it is combined with ordered transactions in a block the result is a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort or work invested in the search. Each node uses its computing power in a race to solve the puzzle first and win the right to author the latest block.
+In most PoW systems, the task consists of a search for an unknown random number - a "nonce". To be a winning nonce, when it is combined with ordered transactions in a block, the result is a hash value matching pre-defined criteria. Finding the nonce is evidence of considerable effort or work invested in the search. Each node uses its computing power in a race to solve the puzzle first and win the right to author the latest block.
 <br></br>
 Financial incentives are in play: the node that first announces a solution receives a reward. Through these rewards the network's native currency is issued and nodes are encouraged to invest computing power into solving the task. Network security scales with computing power; more investment leads to a more secure PoW network.
 
