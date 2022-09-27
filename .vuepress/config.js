@@ -65,7 +65,7 @@ module.exports = {
     sidebar: {
       auto: false,
       hideProducts: true,
-      filterByTagEnabled: false,
+      filterByTagEnabled: true,
       nav: [
         {
           title: "Cosmos Academy",
@@ -393,14 +393,46 @@ module.exports = {
       ],
     },
     tags: {
-      'deep-dive': {
-        color: 'var(--color-secondary)',
-        label: 'Deep dive'
+      'dev-ops': {
+        color: '#FAC712',
+        label: 'DevOps'
       },
-      'fast-track': {
-        color: 'var(--color-primary)',
-        label: 'Fast track'
-      }
+      'cosmos-sdk': {
+        color: '#FEF345',
+        label: 'Cosmos SDK'
+      },
+      'ibc': {
+        color: '#9510AC',
+        label: 'IBC'
+      },
+      'cosm-js': {
+        color: '#2E9BF0',
+        label: 'CosmJS'
+      },
+      'cosm-wasm': {
+        color: '#F14725',
+        label: 'CosmWasm'
+      },
+      'tendermint': {
+        color: '#0FA789',
+        label: 'Tendermint'
+      },
+      'cosmos-hub': {
+        color: '#404BB2',
+        label: 'Cosmos Hub'
+      },
+      'concepts': {
+        color: '#11CDD4',
+        label: 'Concept'
+      },
+      'tutorial': {
+        color: '#8FD14F',
+        label: 'Tutorial'
+      },
+      'guided-coding': {
+        color: '#D90163',
+        label: 'Guided Coding'
+      },
     },
     feedback: {
       formId: "xyylrkbl",
