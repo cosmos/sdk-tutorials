@@ -476,7 +476,13 @@ module.exports = {
       {
         wordsPerMinute: 200,
         imageTime: 2,
-        codeTimePerLine: 1
+        codeTimePerLine: 0.5,
+        customComponents: [
+          {
+            name: 'H5PComponent',
+            time: 5
+          }
+        ],
       }
     ]
   ],
