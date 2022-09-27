@@ -12,7 +12,8 @@ fs-activate-ida-files: fs-check-clean-git
 
 fs-restore-main-files:
 	echo "\nRestore main files, moving updates into ida-customizations\n"
-	- git ls-files -m | xargs -I {} sh -c 'ls ./ida-customizations/{} && cp -fp {} ./ida-customizations/{} && git stash push -m "ida-customizations stash" -- {}'
+	- git ls-files -m --exclude-standard | xargs -I {} sh -c 'ls ./ida-customizations/{} && cp -fp {} ./ida-customizations/{} && git stash push -m "ida-customizations stash" -- {}'
+	- git ls-files -o --exclude-standard | xargs -I {} sh -c 'ls ./ida-customizations/{} && cp -fp {} ./ida-customizations/{} && rm -rf ./{}'
 	git status
 
 fs-check-clean-git:

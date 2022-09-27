@@ -15,7 +15,7 @@ Continue your work on CosmJS and explore how to use and apply it to your checker
 
 The chapter also deals with backend scripts and demonstrates how to use them for game indexing, so that you are all set to continue developing using CosmJS.
 
-![LP image - Week 5](./images/cosmos_dev_portal_module-04-lp.png)
+![LP image - Week 5](/ida-course/LPs/week-5/images/cosmos_dev_portal_module-04-lp.png)
 
 ## In this chapter
 

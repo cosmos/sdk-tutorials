@@ -69,29 +69,9 @@ The protocol defines the **Gas cost** for each operation in the EVM. The halting
 
 In Ethereum, **smart contracts** are stored on every single node - they are public. In practice, a smart contract in the EVM is an autonomous agent with an internal account. The most popular language for writing such a contract is **Solidity**.
 
-<ExpansionPanel title="Faster block time">
+Ethereum recently transitioned from Proof-of-Work to Proof-of-Stake consensus. Block times were unaffected by this change, by design, and are much faster - around 14 seconds at the time of writing.
 
-Ethereum has a much faster block time than Bitcoin - currently it is around 15 seconds.
-
-Ethereum implements a variation of Bitcoin's PoW consensus algorithm called Ethash, which is intended to be [ASIC-resistant and GPU friendly](https://github.com/ethereum/wiki/wiki/Ethash-Design-Rationale). ASIC-resistance is meant to discourage unwanted concentrations of mining power; in other words, to encourage decentralization. Core developers of the Ethereum project plan to switch to the **proof-of-stake (PoS)** consensus algorithm in the future.
-
-However, these useful innovations are not the key innovation that allows Ethereum to operate with faster block times.
-
-A well-understood challenge related to reduced block time stems from network latency. Since nodes do not learn about newly discovered blocks simultaneously, at any given time a portion of the miners will be working on already solved/old blocks. If these miners find a solution, they might not be rewarded and a "fork" of the chain results. This can lead to rival chains with a common true history spreading through the network. The rate at which such transient forks occur increases predictably with shorter block times.
-
-Another way of understanding this is to consider that at any point in time, a predictable percentage of the total mining hardware in the network could be working on the wrong chain because of latency, and this percentage increases with shorter block times. It is not beneficial to the network or the miners to waste hardware resources that are intended to secure the network.
-
-While Bitcoin addresses this efficiency issue with a relatively long block time of 10 minutes, Ethereum addresses this concern with a partial reward strategy: valid blocks that are not ultimately included in the canonical chain, because another chain becomes longer, can still be included on the side. They are known as **uncles**. Miners of uncles receive a smaller reward than regular block miners.
-
-![Uncles in Ethereum](/ida-course/0-blockchain-basics/images/00_18_block_uncles-01.png)
-
-This is made possible thanks to Ethereum's implementation of the [GHOST protocol](http://www.cs.huji.ac.il/~yoni_sompo/pubs/15/inclusive_full.pdf). GHOST includes so-called uncles that are propagated into the network too late to rise to the level of network consensus. This increases the total difficulty of the chain (by capturing the "work" that would otherwise be wasted), makes smaller block times possible, and rewards miners of uncles for contributing to the overall strength of the network.
-
-Ethereum's solution to achieve faster block times draws attention to the universal challenges of blockchain technology: performance, and throughput. Cosmos solves for performance in two ways: with a faster consensus process, and by introducing parallelism.
-
-</ExpansionPanel>
-
-That Ethereum's virtual machine runs arbitrary programs hints at the potential of blockchain technology to disintermediate and decentralize processes which include network participants that would benefit from a shared set of facts and reliable interactions. The field of possibilities is expansive. It includes virtually all cases where trading partners need to reconcile their respective records, trade assets, and considerations in an atomic way, or to execute remedial actions such as penalties if a counterparty fails to deliver as agreed.
+The fact that Ethereum's virtual machine runs arbitrary programs hints at the potential of blockchain technology to disintermediate and decentralize processes which include network participants that would benefit from a shared set of facts and reliable interactions. The field of possibilities is expansive. It includes virtually all cases where trading partners need to reconcile their respective records, trade assets, and considerations in an atomic way, or to execute remedial actions such as penalties if a counterparty fails to deliver as agreed.
 
 As promising as this sounds, the technology is **not without limitations**. Chief among these limitations is capacity, not only in terms of transactions per second but also in terms of the complexity of transactions that can be handled by the network. Ethereum's virtual machine paradigm places limits on transaction complexity to ensure that a single contract or a single transaction does not overload the shared, distributed computer. This constraint is inherent to the design choice of using a virtual machine model.
 
@@ -109,7 +89,7 @@ Managed networks are typically governed through traditional governance processes
 
 <HighlightBox type="info">
 
-Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4_consensus.md).
+Dive into the specifics of the Byzantine Generals Problem in the next section on [consensus in blockchain](./4-consensus.md).
 
 </HighlightBox>
 
@@ -139,7 +119,7 @@ Cosmos can be applied to both public and private settings and, importantly, supp
 
 * [Buterin, Vitalik (2014): A Next-Generation Smart Contract and Decentralized Application Platform - The Ethereum White Paper](https://github.com/ethereum/wiki/wiki/White-Paper)
 * [Nakamoto, S. (2008): Bitcoin: A Peer-to-Peer Electronic Cash System](https://bitcoin.org/bitcoin.pdf)
-* [Vitalik Buterin on private chains](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
+* [Vitalik Buterin on private chains](https://blog.ethereum.org/2015/08/07/on-public-and-private-blockchains)
 * [Permissioned blockchains in production](https://www.multichain.com/blog/2017/11/three-non-pointless-blockchains-production/)
 
 </HighlightBox>

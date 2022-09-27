@@ -67,6 +67,7 @@ module.exports = {
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
     label: "sdk",
+    isIDAMode: true,
     algolia: {
       id: "BH4D9OD16A",
       key: "7976d773390a0be350dc24b0571eee15",
@@ -117,31 +118,31 @@ module.exports = {
                 },
                 {
                   title: "Go Introduction - First Steps",
-                  path: "/tutorials/4-golang-intro/1_install.html",
+                  path: "/tutorials/4-golang-intro/1-install.html",
                 },
                 {
                   title: "Go Basics",
-                  path: "/tutorials/4-golang-intro/2_basics.html",
+                  path: "/tutorials/4-golang-intro/2-basics.html",
                 },
                 {
                   title: "Go Interfaces",
-                  path: "/tutorials/4-golang-intro/3_interfaces.html",
+                  path: "/tutorials/4-golang-intro/3-interfaces.html",
                 },
                 {
                   title: "Control Structures in Go",
-                  path: "/tutorials/4-golang-intro/4_control.html",
+                  path: "/tutorials/4-golang-intro/4-control.html",
                 },
                 {
                   title: "Arrays and Slices in Go",
-                  path: "/tutorials/4-golang-intro/5_arrays.html",
+                  path: "/tutorials/4-golang-intro/5-arrays.html",
                 },
                 {
                   title: "Standard Packages in Go",
-                  path: "/tutorials/4-golang-intro/6_packages.html",
+                  path: "/tutorials/4-golang-intro/6-packages.html",
                 },
                 {
                   title: "Concurrency in Go",
-                  path: "/tutorials/4-golang-intro/7_concurrency.html",
+                  path: "/tutorials/4-golang-intro/7-concurrency.html",
                 },
                 {
                   title: "Good-To-Know Dev Terms",
@@ -157,7 +158,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to Cosmos",
-                  path: "/ida-course/LPs/week-1",
+                  path: "/ida-course/LPs/week-1/",
                 },
                 {
                   title: "Blockchain Technology and Cosmos",
@@ -236,15 +237,15 @@ module.exports = {
               children: [
                 {
                   title: "First Steps",
-                  path: "/ida-course/LPs/week-2",
+                  path: "/ida-course/LPs/week-2/",
                 },
                 {
                   title: "Setup Your Work Environment",
-                  path: "/tutorials/2-setup",
+                  path: "/tutorials/2-setup/",
                 },
                 {
                   title: "Run a Node, API, and CLI",
-                  path: "/tutorials/3-run-node",
+                  path: "/tutorials/3-run-node/",
                 },
                 {
                   title: "Ignite CLI",
@@ -291,7 +292,7 @@ module.exports = {
               children: [
                 {
                   title: "Introduction to IBC and CosmJS",
-                  path: "/ida-course/LPs/week-3",
+                  path: "/ida-course/LPs/week-3/",
                 },
                 {
                   title: "What is IBC?",
@@ -310,7 +311,7 @@ module.exports = {
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
-                  title: "IBC Fungible Token Transfer",
+                  title: "IBC Token Transfer",
                   path: "/academy/3-ibc/5-token-transfer.html",
                 },
                 {
@@ -323,23 +324,23 @@ module.exports = {
                 },
                 {
                   title: "What is CosmJS?",
-                  path: "tutorials/6-comsjs/1-cosmjs-intro.html",
+                  path: "/tutorials/6-cosmjs/1-cosmjs-intro.html",
                 },
                 {
                   title: "Your First CosmJS Actions",
-                  path: "tutorials/6-comsjs/2-first-steps.html",
+                  path: "/tutorials/6-cosmjs/2-first-steps.html",
                 },
                 {
                   title: "Compose Complex Transactions",
-                  path: "tutorials/6-comsjs/2-multi-msg.html",
+                  path: "/tutorials/6-cosmjs/3-multi-msg.html",
                 },
                 {
                   title: "Learn to Integrate Keplr",
-                  path: "tutorials/6-comsjs/3-with-keplr.html",
+                  path: "/tutorials/6-cosmjs/4-with-keplr.html",
                 },
                 {
                   title: "Create Custom CosmJS Interfaces",
-                  path: "tutorials/6-comsjs/4-create-custom.html",
+                  path: "/tutorials/6-cosmjs/5-create-custom.html",
                 },
               ]
             },
@@ -350,35 +351,35 @@ module.exports = {
               children: [
                 {
                   title: "Ignite CLI and IBC Advanced",
-                  path: "/ida-course/LPs/week-4",
+                  path: "/ida-course/LPs/week-4/",
                 },
                 {
                   title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli/1-game-fifo.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
                 },
                 {
                   title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli/2-game-deadline.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
                 },
                 {
                   title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli/3-game-winner.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-winner.html",
                 },
                 {
                   title: "Auto-Expiring Games",
-                  path: "/hands-on-exercise/2-ignite-cli/4-game-forfeit.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html",
                 },
                 {
                   title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli/5-game-wager.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-game-wager.html",
                 },
                 {
                   title: "Incentivize Players",
-                  path: "/hands-on-exercise/2-ignite-cli/6-gas-meter.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
                 },
                 {
                   title: "Help Find a Correct Move",
-                  path: "/hands-on-exercise/2-ignite-cli/7-can-play.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
                 },
                 {
                   title: "Move to Production",
@@ -386,7 +387,7 @@ module.exports = {
                 },   
                 {
                   title: "Understand IBC Denoms",
-                  path: "/tutorials/5-ibc-dev",
+                  path: "/tutorials/5-ibc-dev/",
                 },
                 {
                   title: "Play With Cross-Chain Tokens",
@@ -413,31 +414,31 @@ module.exports = {
               children: [
                 {
                   title: "CosmJS Advanced",
-                  path: "/ida-course/LPs/week-5",
+                  path: "/ida-course/LPs/week-5/",
                 },
                 {
                   title: "Create Custom Objects",
-                  path: "hands-on-exercise/3-cosmjs/1-cosmjs-objects.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html",
                 },
                 {
                   title: "Create Custom Messages",
-                  path: "hands-on-exercise/3-cosmjs/2-cosmjs-messages.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.html",
                 },
                 {
                   title: "Get an External GUI",
-                  path: "hands-on-exercise/3-cosmjs/3-external-gui.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/3-external-gui.html",
                 },
                 {
                   title: "Integrate CosmJS and Keplr",
-                  path: "hands-on-exercise/3-cosmjs/4-cosmjs-gui.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html",
                 },
                 {
                   title: "Backend Script for Game Indexing",
-                  path: "hands-on-exercise/3-cosmjs/5-server-side.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/5-server-side.html",
                 },
                 {
                   title: "Introduce a Leaderboard After Production",
-                  path: "hands-on-exercise/3-cosmjs/6-migration.html",
+                  path: "/hands-on-exercise/3-cosmjs-adv/6-migration.html",
                 },
               ]
             },
@@ -448,31 +449,31 @@ module.exports = {
               children: [
                 {
                   title: "IBC Deep Dive",
-                  path: "/ida-course/LPs/week-6",
+                  path: "/ida-course/LPs/week-6/",
                 },
                 {
                   title: "IBC Application Developer Introduction",
-                  path: "/hands-on-exercise/4-ibc-dev/5-ibc-app-intro.html",
+                  path: "/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html",
                 },
                 {
                   title: "Make a Module IBC-Enabled",
-                  path: "/hands-on-exercise/4-ibc-dev/6-ibc-app-steps.html",
+                  path: "/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html",
                 },
                 {
                   title: "Adding Packet and Acknowledgment Data",
-                  path: "/hands-on-exercise/4-ibc-dev/7-ibc-app-packets.html",
+                  path: "/hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html",
                 },
                 {
                   title: "IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/8-ibc-mw-intro.html",
+                  path: "/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html",
                 },
                 {
                   title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-dev/9-ibc-mw-develop.html",
+                  path: "/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html",
                 },
                 {
                   title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/4-ibc-dev/10-ibc-mw-integrate.html",
+                  path: "/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html",
                 },
               ]
             },
@@ -483,7 +484,7 @@ module.exports = {
               children: [
                 {
                   title: "Run in Production",
-                  path: "/ida-course/LPs/week-7",
+                  path: "/ida-course/LPs/week-7/",
                 },
                 {
                   title: "Overview",
@@ -518,7 +519,13 @@ module.exports = {
                   path: "/ida-course/final-exam.html"
                 },
               ]
-            }
+            },
+            {
+              title: "What's Next?",
+              directory: true,
+              order: 9,
+              path: "/academy/whats-next/"
+            },
           ],
         },
       ],
@@ -721,6 +728,7 @@ module.exports = {
     "ida-course/*/*.md",
     "ida-course/*.md",
     "course-ida/*/*.md",
-    "course-ida/*.md"
+    "course-ida/*.md",
+    "hands-on-exercise/*/*.md"
   ]
 };

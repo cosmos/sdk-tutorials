@@ -121,7 +121,7 @@ As the reader might guess, Cosmos relies on Tendermint Core. It offers the most 
 
 <HighlightBox type="info">
 
-Tendermint will be explored in detail in the [Main Concepts](academy/2-main-concepts/index.md) section.
+Tendermint will be explored in detail in the [Main Concepts](/academy/2-cosmos-concepts/index.md) section.
 
 </HighlightBox>
 

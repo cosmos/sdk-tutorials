@@ -14,7 +14,8 @@
     "switch-main": "make fs-restore-main-files",
     "add-ida-file": "sh ./create-ida-file.sh",
     "link:check": "npx check-md",
-    "link:fix": "npx check-md --fix"
+    "link:fix": "npx check-md --fix",
+    "check-config": "node ./check-config.js"
   },
   "keywords": [
     "Cosmos",
