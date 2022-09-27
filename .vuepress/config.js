@@ -470,6 +470,14 @@ module.exports = {
           background: "#000000"
         }
       }
+    ],
+    [
+      require("vuepress-reading-time-extended"),
+      {
+        wordsPerMinute: 200,
+        imageTime: 2,
+        codeTimePerLine: 1
+      }
     ]
   ],
   patterns: [
