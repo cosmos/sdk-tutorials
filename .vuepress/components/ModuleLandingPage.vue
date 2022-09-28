@@ -46,7 +46,34 @@
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
 			tm-image.image-section__image(:src="$frontmatter.image.src")
-		.resources__wrapper(v-if="$themeConfig.resources")
+
+		.articles__wrapper.mt-10(v-if="$frontmatter.articles")
+			.articles__wrapper__title
+				h3.tm-title.tm-lh-title.tm-rf3.tm-bold Articles
+			.articles.mt-8
+				.articles__item(v-for="article in $frontmatter.articles")
+					a.articles__item__container(:href="article.url" target="_blank")
+						.articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+						.articles__item__content
+							.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
+							h4.articles__item__content__title.mx-5 {{article.title}}
+							.info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minutes read
+
+		.tools__wrapper.mt-10(v-if="$frontmatter.tools && $frontmatter.tools.length > 0")
+			h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tools
+			.tools.mt-8
+				.tools__item(v-for="tool in $frontmatter.tools")
+					.tools__item__container
+						.tools__item__icon
+							img(:src="tool.image" :alt="tool.title")
+						.tools__item__content
+							h5 {{tool.title}}
+							.mt-3 {{tool.description}}
+							.mt-6.tools__item__content__links
+								a(v-for="link in tool.links" :href="link.url" target="_blank").tm-link.tm-lh-solid.tm-medium.tm-link-external
+									span {{link.name}}
+
+		.resources__wrapper(v-if="$themeConfig.resources && !$frontmatter.hideResources")
 			h3.resources__title Developer Resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
@@ -55,6 +82,130 @@
 
 
 <style lang="stylus" scoped>
+	@media screen and (max-width: 480px)
+		.tools__wrapper
+			margin-top 64px
+
+		.articles__wrapper
+			margin-top 64px
+
+	.tools
+		display flex
+		flex-wrap wrap
+		margin-left calc(-1 * var(--spacing-5))
+		margin-right calc(-1 * var(--spacing-5))
+
+		&__item
+			padding-left var(--spacing-5)
+			padding-right var(--spacing-5)
+			margin-bottom var(--spacing-5)
+			width 50%
+
+			@media screen and (max-width: 480px)
+				width 100%
+
+			&__container
+				padding-top var(--spacing-5)
+				padding-bottom var(--spacing-5)
+				border-bottom 1px solid var(--semi-transparent-color-2)
+				display flex
+				height 100%
+				margin-block 22px
+
+				@media screen and (max-width: 1024px)
+					flex-direction column
+
+			&__icon
+				flex-shrink 0
+				width 6.5rem
+				margin-bottom 10px
+				text-align center
+				filter var(--img-filter)
+
+				@media screen and (max-width: 1024px)
+					text-align start
+
+				img
+					width 3.5rem
+					height 3.5rem
+					margin 0
+
+			&__content
+				padding-bottom var(--spacing-6)
+
+				&__links
+					display flex
+					> *
+						margin-left var(--spacing-6)
+						&:first-child
+							margin-left 0
+
+					@media screen and (max-width: 480px)
+						flex-direction column
+
+						.tm-link
+							margin-left 0
+							margin-top 10px
+							width fit-content
+
+	.articles
+		display flex
+		overflow hidden
+		overflow-x auto
+		-ms-overflow-style none
+		scrollbar-width none
+
+		@media screen and (max-width: 1024px)
+			width 100vw
+			margin-left calc(50% - 50vw)
+			padding-inline calc(50vw - 50%)
+
+		&::-webkit-scrollbar
+			display none
+
+		&__item
+			padding-inline 15px
+			flex 1 1 0px
+
+			&:last-child
+				padding-right 0px
+
+			&:first-child
+				padding-left 0px
+
+			&__container
+				background var(--background-color-secondary)
+				border-radius 20px
+				display flex
+				flex-direction column
+				height 100%
+
+				@media screen and (min-width: 481px) and (max-width: 1024px)
+					width 40vw
+
+				@media screen and (max-width: 480px)
+					width 80vw
+
+			&__image
+				height 0
+				padding-bottom 56%
+				flex-grow 0
+				background-size cover
+				border-top-left-radius 20px
+				border-top-right-radius 20px
+
+			&__content
+				padding 48px
+				flex-grow 1
+				display flex
+				flex-direction column
+				justify-content space-between
+
+				@media screen and (min-width: 481px) and (max-width: 1024px)
+					padding 32px
+
+				@media screen and (max-width: 480px)
+					padding 24px
 	.tags-filter
 		display flex
 		margin-top 40px

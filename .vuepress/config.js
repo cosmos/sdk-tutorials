@@ -72,7 +72,7 @@ module.exports = {
           children: [
             {
               title: "Welcome",
-              path: "/academy/0-welcome/",
+              path: "/",
               directory: false,
               order: 1
             },

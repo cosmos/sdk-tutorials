@@ -2,6 +2,70 @@
 layout: ModuleLandingPage
 main: true
 order: 0
+hideResources: true
+tools:
+  - title: Cosmos SDK
+    description: A framework for building public blockchains.
+    links:
+      - name: Learn more
+        url: https://v1.cosmos.network/sdk
+      - name: Documentation
+        url: https://docs.cosmos.network/
+    image: /cosmos-sdk-icon.svg
+  - title: Tendermint Core
+    description: Blockchain consensus engine and application interface.
+    links:
+      - name: Learn more
+        url: https://tendermint.com/core/
+      - name: Documentation
+        url: https://docs.tendermint.com/
+    image: /tendermint-icon.svg
+  - title: Ignite CLI
+    description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
+    links:
+      - name: Learn more
+        url: https://ignite.com/cli
+      - name: Documentation
+        url: https://docs.ignite.com
+    image: /ignitecli-icon.svg
+  - title: IBC
+    description: Industry standard protocol for inter-blockchain communication.
+    links:
+      - name: Learn more
+        url: https://ibcprotocol.org/
+      - name: Documentation
+        url: https://ibc.cosmos.network/
+    image: /ibc-icon.svg
+  - title: CosmWasm
+    description: Smart contracting platform built for the Cosmos Ecosystem.
+    links:
+      - name: Learn more
+        url: https://cosmwasm.com/
+      - name: Documentation
+        url: https://docs.cosmwasm.com/docs/1.0/
+    image: /cosmwasm-icon.svg
+  - title: Cosmos Hub
+    description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
+    links:
+      - name: Documentation
+        url: https://hub.cosmos.network/
+    image: /generic-star-icon.svg
+articles:
+  - title: Move From Web2 to Web3 in 7 Weeks With the Interchain Developer Academy
+    date: Thursday, August 30
+    time: 4
+    url: https://blog.cosmos.network/join-the-interchain-developer-academy-and-master-cosmos-in-7-weeks-e28a47896e0f
+    image: /article-banner-02.png
+  - title: The Mind, Body, and Soul of Cosmos.
+    date: Friday, May 27
+    time: 6
+    url: https://blog.cosmos.network/the-mind-body-and-soul-of-cosmos-140ee7cec0cd
+    image: /article-banner-01.png
+  - title: What is IBC?
+    date: Tuesday, December 7
+    time: 9
+    url: https://bisontrails.co/ibc-protocol
+    image: /article-banner-04.jpg
 intro:
   - overline: Begin Your Cosmos Journey
     title: Cosmos Developer Portal
