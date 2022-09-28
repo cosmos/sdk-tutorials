@@ -18,13 +18,22 @@
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.modules-intro__wrapper.mt-10(v-if="$frontmatter.customModules")
-			.modules-intro.mb-10(v-for="customModule in $frontmatter.customModules")
+			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules")
 				h2(v-if="customModule.title") {{customModule.title}}
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
 					span {{customModule.action.label}}
+				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections")
+					.tag-item(
+						v-if="$themeConfig.tags" 
+						v-for="(tag, tagKey) in $themeConfig.tags" 
+						v-bind:key="tagKey" 
+						v-bind:style="isTagActive(key, tagKey) ? {'background': tag.color || '', 'border-color': tag.color} : {}"
+						v-on:click="onTagFiltersChange(key, tagKey)"
+						v-bind:class="isTagActive(key, tagKey) ? 'tag-item__active' : ''"
+					) {{tag.label || ''}}
 				.cards
-					.cards__wrapper(v-for="card in customModule.sections")
+					.cards__wrapper(v-for="card in customModule.sections" v-if="filterByTags(card, key)")
 						card-links.cards__item(
 							:image="card.image" 
 							:title="card.title" 
@@ -33,7 +42,7 @@
 							:links="card.links"
 							:href="card.href"
 							:overline="card.overline"
-					)
+						)
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
 			tm-image.image-section__image(:src="$frontmatter.image.src")
@@ -46,8 +55,35 @@
 
 
 <style lang="stylus" scoped>
+	.tags-filter
+		display flex
+		margin-top 40px
+		flex-wrap wrap
+
+		.tag-item
+			border-radius 8px
+			padding 8px
+			flex-shrink 0
+			height fit-content
+			margin-right 8px
+			margin-block auto
+			margin-bottom 8px
+			border 1px solid var(--semi-transparent-color-3)
+			background none
+			color var(--semi-transparent-color-3)
+			font-size var(--font-size--1)
+			cursor pointer
+
+			&__active
+				color white !important
+
+			&:hover
+				border 1px solid var(--color-text-strong)
+				color var(--color-text-strong, black)
+
 	.modules-intro__description
 		font-style italic
+
 	.cards
 		display flex
 		justify-content space-between
@@ -285,6 +321,11 @@ export default {
 			scrollToHeader();
 		});
 	},
+	data: () => {
+		return {
+			filterTags: {}
+		}
+	},
 	computed: {
 		modules() {
 			let modules = null;
@@ -304,6 +345,20 @@ export default {
 		}
 	},
 	methods: {
+		isTagActive(key, tagKey) {
+			return this.filterTags[key]?.includes(tagKey);
+		},
+		onTagFiltersChange(key, tagKey) {
+			const tags = this.filterTags[key] || [];
+			if (this.isTagActive(key, tagKey)) {
+				const index = tags.indexOf(tagKey)
+				if (index !== -1) tags.splice(index, 1);
+			} else {
+				tags.push(tagKey);
+			}
+
+			this.$set(this.filterTags, key, tags);
+		},
 		formatModules(submodules) {
 			return submodules.reduce((formattedModules, item) => {
 				const index = item.path.split("/").filter(item => item !== "")[1];
@@ -348,6 +403,19 @@ export default {
 
 				return formattedModules;
 			}, {});
+		},
+		filterByTags(item, key) {
+			var tagPresent = true;
+
+			if (this.filterTags && this.filterTags[key]?.length > 0) {
+				tagPresent = false;
+
+				for (var tag of this.filterTags[key]) {
+					tagPresent = item.tags && item.tags.includes(tag);
+				}
+			}
+			
+			return tagPresent;
 		}
 	}
 }
