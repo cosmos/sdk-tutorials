@@ -562,7 +562,10 @@ export default {
 				tagPresent = false;
 
 				for (var tag of this.filterTags[key]) {
-					tagPresent = item.tags && item.tags.includes(tag);
+					if (item.tags && item.tags.includes(tag)) {
+						tagPresent = true;
+						break;
+					}
 				}
 			}
 			
