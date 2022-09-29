@@ -567,7 +567,7 @@ To summarize, this section has explored:
 * How to make yourself a proper validator, by adding and confirming the presence of an initial balance and including bootstrap transactions in the genesis file.
 * How to start your single-node blockchain, observe blocks being created through the terminal window, and check the balances.
 * How to practice sending transactions by creating another account and transferring tokens to it, and checking the balance of the new account to confirm the successful transfer.
-* CLI routing with the examination of the initial Go code, revealing carious aspects of your nascent chain.
+* CLI routing with the examination of the initial Go code, revealing various aspects of your nascent chain.
 
 </HighlightBox>
 
