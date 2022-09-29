@@ -40,17 +40,13 @@ Do not worry if you do not pass the exercise: it is simply meant to be an opport
 
 <HighlightBox type="info">
   
-**Live Sessions**
+**Live Session**
 <br/>
-This week you can join two live sessions:
-  
-* **September 26th, 3PM UTC**: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK.
-* **September 29th, 3PM UTC**: _Introduction to CosmJS_with Noam Cohen, Developer Relations Lead for Cosmos Hub.
+You can watch the recordings of the live session: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK, in case you want to recap or could not join the session:
+
+  <YoutubePlayer videoId="xE_nSdwls90"/>
+
 <br/>
-  
-Detailed information on how to join the sessions will be provided via email and Discord.
-<br/>
-You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
 
 </HighlightBox>
 
