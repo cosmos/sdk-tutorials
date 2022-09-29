@@ -69,9 +69,11 @@ The following sections are optional and **NOT** final exam relevant:
 
 <HighlightBox type="info">
 
-**Live Session**
+**Live Sessions**
 <br/>
-This week you can join the third live session on **September 29th, 3 pm UTC**: _Introduction to CosmJS_ with Noam Cohen, Developer Relations Lead for Cosmos Hub.
+This week you can join 2 live sessions:
+* **September 29th, 3 pm UTC**: _Introduction to CosmJS_ with Noam Cohen, Developer Relations Lead for Cosmos Hub.
+* **October 3rd, 3 pm UTC**: _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
 <br/>
 Detailed information on how to join the session will be provided via email and Discord.
 <br/>
