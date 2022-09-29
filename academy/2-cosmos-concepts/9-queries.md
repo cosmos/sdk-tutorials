@@ -49,7 +49,7 @@ If you have used Ignite CLI so far, it has already created queries for you to ge
 Ignite CLI can again help with a simple command:
 
 ```sh
-$ ignite scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
+$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
 ```
 
 This creates the following query objects:
