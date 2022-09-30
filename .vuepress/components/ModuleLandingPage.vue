@@ -33,7 +33,7 @@
 						v-bind:class="isTagActive(key, tagKey) ? 'tag-item__active' : ''"
 					) {{tag.label || ''}}
 				.cards
-					.cards__wrapper(v-for="card in customModule.sections" v-if="filterByTags(card, key)")
+					.cards__wrapper(v-for="card in customModule.sections")
 						card-links.cards__item(
 							:image="card.image" 
 							:title="card.title" 
@@ -42,6 +42,7 @@
 							:links="card.links"
 							:href="card.href"
 							:overline="card.overline"
+							:filterTags="filterTags[key]"
 						)
 		.image-section(v-if="$frontmatter.image")
 			h2(v-if="$frontmatter.image.title") {{$frontmatter.image.title}}
@@ -245,6 +246,9 @@
 			margin-top var(--spacing-8)
 			flex-grow 1
 			width 100%
+
+			&:empty
+				display none
 
 		@media screen and (max-width: 1024px)
 			flex-direction column
@@ -554,22 +558,6 @@ export default {
 
 				return formattedModules;
 			}, {});
-		},
-		filterByTags(item, key) {
-			var tagPresent = true;
-
-			if (this.filterTags && this.filterTags[key]?.length > 0) {
-				tagPresent = false;
-
-				for (var tag of this.filterTags[key]) {
-					if (item.tags && item.tags.includes(tag)) {
-						tagPresent = true;
-						break;
-					}
-				}
-			}
-			
-			return tagPresent;
 		}
 	}
 }
