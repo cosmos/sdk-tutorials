@@ -73,7 +73,7 @@ Make sure the installation was successful:
 $ simd version
 ```
 
-The returned version number should be greater than or equal to `0.46.2`.
+The returned version number should be equal to `0.46.2`.
 
 ## Configuration
 
