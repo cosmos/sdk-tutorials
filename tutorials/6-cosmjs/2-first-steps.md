@@ -85,9 +85,9 @@ You will soon make this script more meaningful. With the basic script ready, you
 
 ## Testnet preparation
 
-The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
-```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
+```[https://github.com/cosmos/testnets/tree/master/public#endpoints]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
@@ -116,7 +116,7 @@ $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
 
 When done, it should also tell you the address of the first account:
 
-```
+```txt
 Mnemonic with 1st account: cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf
 ```
 
@@ -175,7 +175,7 @@ const runAll = async(): Promise<void> => {
 
 Run again to check with `npm run experiment`, and you get:
 
-```
+```txt
 With client, chain id: theta-testnet-001 , height: 9507032
 ```
 
@@ -192,7 +192,7 @@ console.log(
 
 `getAllBalances` is used because the default token name is not yet known. When you run it again, you get:
 
-```
+```txt
 Alice balances: []
 ```
 
@@ -202,7 +202,7 @@ The Cosmos Hub Testnet faucet has a dedicated [Discord channel](https://discord.
 
 Go to the faucet channel and request tokens for Alice by entering this command in the channel:
 
-```
+```txt
 $request [Alice's address] theta
 
 // For example:
@@ -211,13 +211,13 @@ $request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf theta
 
 The faucet bot replies with a link to the transaction from the block explorer:
 
-```
+```txt
 ✅  https://explorer.theta-testnet.polypore.xyz/transactions/540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
 ```
 
 Check that Alice received the tokens with `npm run experiment`, which should return:
 
-```
+```txt
 Alice balances: [ { denom: 'uatom', amount: '10000000' } ]
 ```
 
@@ -410,7 +410,7 @@ const faucet: string = sendMessage.fromAddress
 
 Similar to how you got the balance for Alice, you get the faucet's balance as well. Try this by [copying](https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L24) the code to print Alice's balances. When running, you should get:
 
-```
+```txt
 Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 ```
 
@@ -571,7 +571,7 @@ console.log("Gas limit:", decodedTx.authInfo!.fee!.gasLimit.toString(10))
 
 When you run it, it prints:
 
-```
+```txt
 Gas fee: [ { denom: 'uatom', amount: '500' } ]
 Gas limit: 200000
 ```
@@ -620,7 +620,7 @@ console.log("Faucet balance after:", await client.getAllBalances(faucet))
 
 Run this with `npm run experiment` and you should get:
 
-```
+```txt
 ...
 Transfer result: {
   code: 0,
@@ -817,7 +817,7 @@ $ npm run experiment-local
 
 And confirm the output is as expected. For instance something like:
 
-```
+```txt
 > cosmjs-sandbox@1.0.0 experiment-local
 > ts-node experiment-local.ts
 
