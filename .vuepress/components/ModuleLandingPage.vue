@@ -33,6 +33,7 @@
 							:label="tag.label" 
 							:color="tag.color" 
 							:active="isTagActive(key, tagKey)"
+							:bright="tag.isBright"
 						)
 				.cards
 					.cards__wrapper(v-for="card in customModule.sections")
@@ -234,6 +235,9 @@
 				background var(--tag-color)
 				border-color var(--tag-color)
 				color white !important
+
+			&__bright
+				color black !important
 
 	.modules-intro__description
 		font-style italic

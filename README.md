@@ -125,7 +125,7 @@ customModules:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
 
   - title: Introduction to Cosmos
     description: |
@@ -152,6 +152,10 @@ customModules:
         links:
           - title: Blockchain app architecture
             path: /academy/2-cosmos-concepts/1-architecture.html
+            tags: 
+              - concepts
+              - tendermint
+              - cosmos-sdk
           - title: Accounts
             path: /academy/2-cosmos-concepts/2-accounts.html
           - title: Transaction, messages, and modules

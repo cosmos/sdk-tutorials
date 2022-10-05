@@ -394,43 +394,46 @@ module.exports = {
     },
     tags: {
       'dev-ops': {
-        color: '#FAC712',
+        color: '#336667',
         label: 'DevOps'
       },
       'cosmos-sdk': {
-        color: '#FEF345',
-        label: 'Cosmos SDK'
+        color: '#F69900',
+        label: 'Cosmos SDK',
+        isBright: true
       },
       'ibc': {
-        color: '#9510AC',
+        color: '#6D0000',
         label: 'IBC'
       },
       'cosm-js': {
-        color: '#2E9BF0',
+        color: '#6836D0',
         label: 'CosmJS'
       },
       'cosm-wasm': {
-        color: '#F14725',
+        color: '#05BDFC',
         label: 'CosmWasm'
       },
       'tendermint': {
-        color: '#0FA789',
+        color: '#00B067',
         label: 'Tendermint'
       },
       'cosmos-hub': {
-        color: '#404BB2',
-        label: 'Cosmos Hub'
+        color: '#FFFFFF',
+        label: 'Cosmos Hub',
+        isBright: true
       },
       'concepts': {
-        color: '#11CDD4',
-        label: 'Concept'
+        color: '#AABAFF',
+        label: 'Concept',
+        isBright: true
       },
       'tutorial': {
-        color: '#8FD14F',
+        color: '#F46800',
         label: 'Tutorial'
       },
       'guided-coding': {
-        color: '#D90163',
+        color: '#F24CF4',
         label: 'Guided Coding'
       },
     },
