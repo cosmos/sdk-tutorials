@@ -24,14 +24,16 @@
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
 					span {{customModule.action.label}}
 				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections")
-					.tag-item(
+					div(
 						v-if="$themeConfig.tags" 
-						v-for="(tag, tagKey) in $themeConfig.tags" 
-						v-bind:key="tagKey" 
-						v-bind:style="isTagActive(key, tagKey) ? {'background': tag.color || '', 'border-color': tag.color} : {}"
+						v-for="(tag, tagKey) in $themeConfig.tags"
 						v-on:click="onTagFiltersChange(key, tagKey)"
-						v-bind:class="isTagActive(key, tagKey) ? 'tag-item__active' : ''"
-					) {{tag.label || ''}}
+					)
+						tag(
+							:label="tag.label" 
+							:color="tag.color" 
+							:active="isTagActive(key, tagKey)"
+						)
 				.cards
 					.cards__wrapper(v-for="card in customModule.sections")
 						card-links.cards__item(
@@ -225,13 +227,13 @@
 			color var(--semi-transparent-color-3)
 			font-size var(--font-size--1)
 			cursor pointer
+			border 1px solid var(--tag-color)
+			color var(--tag-color)
 
 			&__active
+				background var(--tag-color)
+				border-color var(--tag-color)
 				color white !important
-
-			&:hover
-				border 1px solid var(--color-text-strong)
-				color var(--color-text-strong, black)
 
 	.modules-intro__description
 		font-style italic
