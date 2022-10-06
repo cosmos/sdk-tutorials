@@ -68,7 +68,7 @@ articles:
     image: /article-banner-04.jpg
 intro:
   - overline: Begin Your Cosmos Journey
-    title: Cosmos Developer Portal
+    title: Developer Portal
     image: /graphics-sdk-course.png
     description: |
       Cosmos is a network of interoperable blockchains built on BFT consensus.<br/><br/>
@@ -88,20 +88,20 @@ overview:
         This portal offers an overview of the Cosmos SDK, as well as examples and exercises to help developers get a quick start.
     - title: How should I go through the portal?
       description: |
-        The portal content unfolds the Cosmos universe, beginning with a big picture perspective and getting into how to create your own application-specific blockchain with the Cosmos SDK.<br/>
-        You can follow two tracks: The fast track and the deep dive. The fast track gives you a solid overview of the Cosmos SDK, its components, and dApps in Cosmos. The deep dive takes you through hands-on exercises to put theory into practice – showcasing how to address application concerns when developing such as managing gas fees and cross-chain communication, working with Ignite CLI, running a node, and understanding CosmWasm. All sections are tagged accordingly as “Fast track” or “Deep dive”. A look into all chapters is recommended as a basic understanding helps when things get tricky.
-    - title: What do I need?
+        The portal content unfolds the Cosmos universe, beginning with a big picture perspective and getting into how to create your own application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its components, and dApps in Cosmos, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing, such as managing gas fees and cross-chain communication, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
+        You can follow your own path or go through the content chronologically. To follow your own path, select the tags for the subjects you are interested in and all the chapters and sections relating to that subject will be displayed.
+    - title: What do I need to know?
       description: |
         For the fast track, you should have a solid understanding of blockchain technology and be familiar with decentralized applications. The deep dives are specially designed for experienced developers.
-    - title: How long does it take me?
+    - title: How long will it take?
       description: |
-        With the fast-track, you will gain a solid understanding of Cosmos and its SDK. This might be a matter of just an hour or two. The time you spend on the deep dive depends on you – there are endless possibilities to discover. <br/><br/>
+        With the overview sections you will gain a solid understanding of Cosmos and its SDK. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
         Welcome to the cosmos!
 
 customModules:
   - title: Use the Cosmos SDK to build application-specific blockchains
     description: |
-      Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
+      Take your first steps in the Cosmos universe with a look into this complete and comprehensive portal.
     action:
       label: What is Cosmos?
       url: /academy/1-what-is-cosmos/
@@ -109,23 +109,23 @@ customModules:
 
   - title: All there is to discover
     description: |
-      Start with the first chapter, or select one or more tags below.
+      The portal has three different sections, with content to take you through the fundamentals of Cosmos, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
     sections:
       - image:
         title: Introduction to Cosmos
         href: /academy/1-what-is-cosmos/
         description: |
-          From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at the more conceptual introductions to begin your journey. 
-      - image:
-        title: Tutorials
-        href: /tutorials/1-tech-terms/
-        description: |
-          Dive into the tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
+          From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at these more conceptual introductions to begin your journey.
       - image:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+      - image:
+        title: Tutorials
+        href: /tutorials/1-tech-terms/
+        description: |
+          Dive into these tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the other SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
 
   - title: Introduction to Cosmos
     description: |

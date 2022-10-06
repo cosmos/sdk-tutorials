@@ -24,7 +24,7 @@
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
 					span {{customModule.action.label}}
 				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections")
-					div(
+					.tags-filter__item(
 						v-if="$themeConfig.tags" 
 						v-for="(tag, tagKey) in $themeConfig.tags"
 						v-on:click="onTagFiltersChange(key, tagKey)"
@@ -214,6 +214,9 @@
 		display flex
 		margin-top 40px
 		flex-wrap wrap
+
+		&__item
+			margin-right var(--spacing-4)
 
 		.tag-item
 			border-radius 8px
