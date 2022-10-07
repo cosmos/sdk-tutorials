@@ -217,6 +217,7 @@
 
 		&__item
 			margin-right var(--spacing-4)
+			margin-bottom var(--spacing-4)
 
 		.tag-item
 			border-radius 8px
