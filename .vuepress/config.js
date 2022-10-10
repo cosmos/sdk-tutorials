@@ -68,179 +68,51 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Cosmos Academy",
+          title: "Cosmos Developer Portal",
           children: [
             {
               title: "Welcome",
-              path: "/",
+              path: "/academy/0-welcome/",
               directory: false,
-              order: 1
-            },
+            }
+          ],
+        },
+        {
+          title: "Introduction to Cosmos",
+          children: [
             {
               title: "What is Cosmos?",
-              path: "/academy/1-what-is-cosmos/",
+              path: "/academy/1-what-is-cosmos",
               directory: true,
-              order: 2
             },
             {
-              title: "Main Concepts",
-              path: "/academy/2-cosmos-concepts/",
+              title: "Cosmos Concepts",
+              path: "/academy/2-cosmos-concepts",
               directory: true,
-              order: 3
             },
             {
-              title: "Run Your Own Cosmos Chain",
+              title: "Introduction to IBC",
+              path: "/academy/3-ibc",
               directory: true,
-              order: 4,
-              children: [
-                {
-                  title: "Run Your Own Cosmos Chain",
-                  path: "/hands-on-exercise/1-ignite-cli/",
-                },
-                {
-                  title: "Setup Your Work Environment",
-                  path: "/tutorials/2-setup/",
-                },
-                {
-                  title: "Run a Node, API, and CLI",
-                  path: "/tutorials/3-run-node/",
-                },
-                {
-                  title: "Ignite CLI",
-                  path: "/hands-on-exercise/1-ignite-cli/1-ignitecli.html",
-                },
-                {
-                  title: "Exercise - Make a Checkers Blockchain",
-                  path: "/hands-on-exercise/1-ignite-cli/2-exercise-intro.html",
-                },
-                {
-                  title: "Store Object - Make a Checkers Blockchain",
-                  path: "/hands-on-exercise/1-ignite-cli/3-stored-game.html",
-                },
-                {
-                  title: "Create Custom Messages",
-                  path: "/hands-on-exercise/1-ignite-cli/4-create-message.html",
-                },
-                {
-                  title: "Create and Save a Game Properly",
-                  path: "/hands-on-exercise/1-ignite-cli/5-create-handling.html",
-                },
-                {
-                  title: "Add a Way to Make a Move",
-                  path: "/hands-on-exercise/1-ignite-cli/6-play-game.html",
-                },
-                {
-                  title: "Emit Game Information",
-                  path: "/hands-on-exercise/1-ignite-cli/7-events.html",
-                },
-                {
-                  title: "Make Sure a Player Can Reject a Game",
-                  path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
-                },
-                {
-                  title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
-                },
-                {
-                  title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
-                },
-                {
-                  title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-winner.html",
-                },
-                {
-                  title: "Auto-Expiring Games",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html",
-                },
-                {
-                  title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/5-game-wager.html",
-                },
-                {
-                  title: "Incentivize Players",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
-                },
-                {
-                  title: "Help Find a Correct Move",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
-                },
-              ]
-            },
-            {
-              title: "The Inter-Blockchain Communication Protocol",
-              directory: true,
-              order: 5,
-              children: [
-                {
-                  title: "The Inter-Blockchain Communication Protocol",
-                  path: "/academy/3-ibc/",
-                },
-
-                {
-                  title: "What is IBC?",
-                  path: "/academy/3-ibc/1-what-is-ibc.html",
-                },
-                {
-                  title: "IBC/TAO - Connections",
-                  path: "/academy/3-ibc/2-connections.html",
-                },
-                {
-                  title: "IBC/TAO - Channels",
-                  path: "/academy/3-ibc/3-channels.html",
-                },
-                {
-                  title: "IBC/TAO - Clients",
-                  path: "/academy/3-ibc/4-clients.html",
-                },
-                {
-                  title: "IBC Fungible Token Transfer",
-                  path: "/academy/3-ibc/5-token-transfer.html",
-                },
-                {
-                  title: "Interchain Accounts",
-                  path: "/academy/3-ibc/6-ica.html",
-                },
-                {
-                  title: "IBC Tooling",
-                  path: "/academy/3-ibc/7-ibc-tooling.html",
-                },
-                {
-                  title: "Relaying With IBC",
-                  path: "/hands-on-exercise/4-ibc-adv/2-relayer-intro.html",
-                },
-                {
-                  title: "Go Relayer",
-                  path: "/hands-on-exercise/4-ibc-adv/3-go-relayer.html",
-                },
-                {
-                  title: "Hermes Relayer",
-                  path: "/hands-on-exercise/4-ibc-adv/4-hermes-relayer.html",
-                },
-              ]
-            },
-            {
-              title: "CosmJS",
-              path: "/tutorials/6-cosmjs/",
-              directory: true,
-              order: 6
-            },
-            {
-              title: "What's Next?",
-              path: "/academy/whats-next/",
-              directory: false,
-              order: 7
             }
           ],
         },
         {
           title: "Tutorials",
-          directory: true,
-          order: 8,
           children: [
             {
               title: "Good-To-Know Dev Terms",
               path: "/tutorials/1-tech-terms/",
+              directory: true,
+            },
+            {
+              title: "Set Up Your Work Environment",
+              path: "/tutorials/2-setup/",
+              directory: true,
+            },
+            {
+              title: "Run a Node, API, and CLI",
+              path: "/tutorials/3-run-node/",
               directory: true,
             },
             {
@@ -249,31 +121,60 @@ module.exports = {
               directory: true,
             },
             {
-              title: "Understand IBC denoms",
-              path: "/tutorials/5-ibc-dev/"
+              title: "IBC Developers",
+              path: "/tutorials/5-ibc-dev/",
+              directory: true,
             },
             {
-              title: "Understand the Authz Module",
-              path: "/tutorials/7-understand-sdk-modules/1-authz.html"
+              title: "Introduction to CosmJS",
+              path: "/tutorials/6-cosmjs/",
+              directory: true,
             },
             {
-              title: "Understand the Feegrant Module",
-              path: "/tutorials/7-understand-sdk-modules/2-feegrant.html"
+              title: "Understand SDK modules",
+              path: "/tutorials/7-understand-sdk-modules/",
+              directory: true,
+            }
+          ],
+        },
+        {
+          title: "Hands-on Exercise",
+          children: [
+            {
+              title: "Run Your Own Cosmos Chain",
+              path: "/hands-on-exercise/1-ignite-cli/",
+              directory: true,
             },
             {
-              title: "Understand the Group Module",
-              path: "/tutorials/7-understand-sdk-modules/3-group.html"
+              title: "Continue Developing Your Chain",
+              path: "/hands-on-exercise/2-ignite-cli-adv/",
+              directory: true,
             },
             {
-              title: "Understanding the Gov Module",
-              path: "/tutorials/understanding-gov/",
-              directory: false,
+              title: "CosmJS for Your Chain",
+              path: "/hands-on-exercise/3-cosmjs-adv/",
+              directory: true,
             },
             {
-              title: "How to use IPFS",
-              path: "/tutorials/how-to-use-ipfs/",
-              directory: false,
+              title: "IBC Advanced",
+              path: "/hands-on-exercise/4-ibc-adv/",
+              directory: true,
             },
+            {
+              title: "Run in Production",
+              path: "/hands-on-exercise/5-run-in-prod/",
+              directory: true,
+            },
+          ],
+        },
+        {
+          title: "What's Next",
+          children: [
+            {
+              title: "Continue Your Cosmos Journey",
+              path: "academy/whats-next/",
+              directory: true,
+            }
           ],
         },
       ],

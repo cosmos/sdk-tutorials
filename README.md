@@ -116,6 +116,8 @@ customModules:
         href: /academy/1-what-is-cosmos/
         description: |
           From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at these more conceptual introductions to begin your journey.
+        tags:
+          - concepts
       - image:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
