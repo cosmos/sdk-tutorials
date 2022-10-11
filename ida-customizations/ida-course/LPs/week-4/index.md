@@ -35,17 +35,6 @@ Following the hands-on exercises, you will discover how IBC denoms work and get 
 
 </HighlightBox>
 
-<HighlightBox type="info">
-
-**Live Session**
-<br/>
-This week you can join the fourth live session on **October 3rd, 3 pm UTC**: _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
-<br/>
-Detailed information on how to join the session will be provided via email and Discord.
-<br/>
-You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
-
-</HighlightBox>
 
 ## Next up
 
