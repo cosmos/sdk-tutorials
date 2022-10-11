@@ -316,7 +316,7 @@ Despite this initial balance, before you run your blockchain you still need to e
 
 In this scenario, for your network to even run, you must meet the 2/3 threshold of the weighted validators.
 <br/><br/>
-However you will be alone on the network, so you can stake any number. However, to remind yourself that it is important that honest nodes stake a large amount, you stake `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all of your tokens so you can still pay for gas and so you don't run out of tokens later.
+However you will be alone on the network, so you can stake any number at or above the [minimum enforced](https://github.com/cosmos/cosmos-sdk/blob/66ca3e8/types/staking.go#L21-L22), i.e. `1000000stake`. However, to remind yourself that it is important that honest nodes stake a large amount, you stake `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all of your tokens so you can still pay for gas and so you don't run out of tokens later.
 <br/><br/>
 Do not forget to use your own `--chain-id`.
 
