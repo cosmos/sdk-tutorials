@@ -74,7 +74,7 @@ $ npm run experiment
 
 This returns:
 
-```
+```txt
 > cosmjs-sandbox@1.0.0 experiment
 > ts-node experiment.ts
 

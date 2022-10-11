@@ -299,6 +299,7 @@ const result = await signingClient.signAndBroadcast(
     }
 )
 ```
+
 When you create [your own message types in CosmJS](./5-create-custom.md), they have to follow this format and be declared in the same fashion.
 
 <!-- Not supported at the moment.
@@ -547,8 +548,8 @@ Bob balance before: [
 
 To summarize, this section has explored:
 
-* How to move past the one-transaction-one-recipient limitations of the previous exercise, which could compel a user to sign potentially many transactions at a time, and denies the possibility of sending *atomic* transactions to multiple recipients (for example, a situation in which either all recipients receive tokens or none of them do).
-* How to include two token-transfer messages in a single transaction, and how to combine messages of different types in a single transaction (for example, sending tokens to the faucet *and* delegating tokens to a validator).
+* How to move past the one-transaction-one-recipient limitations of the previous exercise, which could compel a user to sign potentially many transactions at a time, and denies the possibility of sending _atomic_ transactions to multiple recipients (for example, a situation in which either all recipients receive tokens or none of them do).
+* How to include two token-transfer messages in a single transaction, and how to combine messages of different types in a single transaction (for example, sending tokens to the faucet _and_ delegating tokens to a validator).
 
 </HighlightBox>
 
