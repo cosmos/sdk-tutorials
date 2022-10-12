@@ -68,17 +68,8 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Cosmos Developer Portal",
-          children: [
-            {
-              title: "Welcome",
-              path: "/academy/0-welcome/",
-              directory: false,
-            }
-          ],
-        },
-        {
           title: "Introduction to Cosmos",
+          order: 1,
           children: [
             {
               title: "What is Cosmos?",
@@ -99,6 +90,7 @@ module.exports = {
         },
         {
           title: "Tutorials",
+          order: 2,
           children: [
             {
               title: "Good-To-Know Dev Terms",
@@ -139,6 +131,7 @@ module.exports = {
         },
         {
           title: "Hands-on Exercise",
+          order: 3,
           children: [
             {
               title: "Run Your Own Cosmos Chain",
@@ -169,11 +162,12 @@ module.exports = {
         },
         {
           title: "What's Next",
+          order: 4,
           children: [
             {
               title: "Continue Your Cosmos Journey",
               path: "academy/whats-next/",
-              directory: true,
+              directory: false,
             }
           ],
         },
