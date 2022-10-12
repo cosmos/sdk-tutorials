@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   theme: "cosmos",
-  title: "Cosmos Developer Portal",
+  title: "Developer Portal",
   head: [
     [
       "link",

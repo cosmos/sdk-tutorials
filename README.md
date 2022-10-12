@@ -99,17 +99,11 @@ overview:
         Welcome to the cosmos!
 
 customModules:
-  - title: Use the Cosmos SDK to build application-specific blockchains
-    description: |
-      Take your first steps in the Cosmos universe with a look into this complete and comprehensive portal.
-    action:
-      label: What is Cosmos?
-      url: /academy/1-what-is-cosmos/
-
-
   - title: All there is to discover
     description: |
       The portal has three different sections, with content to take you through the fundamentals of Cosmos, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
+    useNarrowCards: true
+    hideFilter: true
     sections:
       - image:
         title: Introduction to Cosmos
@@ -123,6 +117,8 @@ customModules:
         href: /hands-on-exercise/1-ignite-cli/
         description: |
           Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+        tags:
+          - guided-coding
       - image:
         title: Tutorials
         href: /tutorials/1-tech-terms/
@@ -131,7 +127,7 @@ customModules:
 
   - title: Introduction to Cosmos
     description: |
-      Discover the Cosmos Ecosystem, Cosmos SDK, and IBC
+      Discover the Cosmos Ecosystem, Cosmos SDK, and IBC. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
       - image: /cosmos_dev_portal_module-02-lp.png
         title: What is Cosmos?
@@ -192,7 +188,7 @@ customModules:
             path: /academy/3-ibc/7-ibc-tooling.html
   - title: Tutorials
     description: |
-      Get started and explore IBC, CosmJS, and Cosmos SDK modules
+      Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
       - image:
         title: Good-to-know dev terms
@@ -250,7 +246,7 @@ customModules:
             path: /tutorials/7-understand-sdk-modules/3-group.md
   - title: Hands-on Exercise
     description: |
-      From zero to hero - work with the full Cosmo stack while developing a checkers game blockchain
+      From zero to hero - work with the full Cosmos stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
       - image: /cosmos_dev_portal_module-05-lp.png
         title: Ignite CLI - Basics

@@ -23,7 +23,7 @@
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
 					span {{customModule.action.label}}
-				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections")
+				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections && !customModule.hideFilter")
 					.tags-filter__item(
 						v-if="$themeConfig.tags" 
 						v-for="(tag, tagKey) in $themeConfig.tags"
@@ -36,7 +36,7 @@
 							:bright="tag.isBright"
 						)
 				.cards
-					.cards__wrapper(v-for="card in customModule.sections")
+					.cards__wrapper(:class="customModule.useNarrowCards ? 'cards__narrow' : ''" v-for="card in customModule.sections")
 						card-links.cards__item(
 							:image="card.image" 
 							:title="card.title" 
@@ -259,6 +259,9 @@
 
 			&:empty
 				display none
+
+		&__narrow
+			max-width 31.5%
 
 		@media screen and (max-width: 1024px)
 			flex-direction column
