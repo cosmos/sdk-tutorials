@@ -317,7 +317,7 @@ customModules:
           Test your IBC knowledge by developing your checkers blockchain further:
         links:
           - title: Play with cross-chain tokens
-            path: /hands-on-exercise/4-ibc-adv/1-wager-denom.html
+            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Relaying with IBC
             path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
           - title: Go relayer
