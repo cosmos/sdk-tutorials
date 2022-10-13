@@ -4,7 +4,7 @@ This file should support contributors, illustrating details about how to use the
 
 ## Feature demonstration file
 
-There is an **unlinked** overview page, Illustrating the use of all components at [/feature-test](/feature-test/index.md), which demonstrates the use of these new components. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/).
+There is an **unlinked** overview page, illustrating the use of all components at [/feature-test](/feature-test/index.md), which demonstrates the use of these new components. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/).
 
 The following new components have been added:
 

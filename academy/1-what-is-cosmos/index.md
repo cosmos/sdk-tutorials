@@ -5,7 +5,7 @@ parent:
   number: 1
 description: How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 title: Chapter Overview - Cosmos, its Ecosystem, and ATOM
-tag: fast-track
+tag:
 order: 0
 ---
 
@@ -14,11 +14,11 @@ order: 0
 
 How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 
-Dive into the history of blockchain technology and discover the Cosmos ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
+Dive into the history of blockchain technology and discover the Cosmos Ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
 
-![](/cosmos_dev_portal_module-02-lp.png)
+![](/academy/1-what-is-cosmos/images/cosmos_dev_portal_module-02-lp.png)
 
-## In this module
+## In this chapter
 
 <HighlightBox type="learning">
 
@@ -34,9 +34,9 @@ In this chapter, you will:
 
 ## Next up
 
-Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./blockchain-and-cosmos.md)_.
+Dive right into Cosmos with the first section _[Blockchain Technology and Cosmos](./1-blockchain-and-cosmos.md)_.
 
-## Developer resources
+## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
   <Resource
