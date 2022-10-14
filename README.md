@@ -106,6 +106,7 @@ customModules:
     useNarrowCards: true
     hideFilter: true
     image: /lp-images/planets-15-gradient.jpg
+    imageLightMode: /cosmos_dev_portal_module-02-lp.png
     sections:
       - image:
         title: Introduction to Cosmos

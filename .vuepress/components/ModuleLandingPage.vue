@@ -5,9 +5,10 @@
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="intro.overline") {{intro.overline}}
 				h2.home__content__intro__content__title {{intro.title}}
 				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
-				a.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
-					span {{intro.action.label}}
-				a.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
+				.home__content__intro__content__links
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
+						span {{intro.action.label}}
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
 			.home__content__overview(v-if="$frontmatter.overview" id="overview")
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.overline") {{$frontmatter.overview.overline}}
 				h2.home__content__overview__title(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
@@ -18,7 +19,7 @@
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.modules-intro__wrapper.mt-10(v-if="$frontmatter.customModules")
-			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'background-image': customModule.image ? `url(${customModule.image})` : ''}")
+			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'--custom-module-background-image-url': `url(${customModule.image})`, '--custom-module-background-image-light-url': `url(${customModule.imageLightMode || customModule.image})`}")
 				h2(v-if="customModule.title") {{customModule.title}}
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
@@ -93,6 +94,11 @@
 		padding-block var(--spacing-10)
 		margin-block var(--spacing-10)
 		background-size cover
+		background-image var(--custom-module-background-image-url)
+
+	:root.light-theme
+		.custom-module-background-image
+			background-image var(--custom-module-background-image-light-url)
 
 	@media screen and (max-width: 480px)
 		.tools__wrapper
@@ -405,16 +411,12 @@
 						margin-top 2rem
 						font-size 21px
 
-					&__link
+					&__links
 						display flex
-						font-weight 500
-						color var(--background-color-primary)
-						margin-top 32px
-						background var(--color-text)
-						border-radius 10px
-						padding-block 20px
-						padding-inline 60px
-						width fit-content
+
+					&__link
+						width 45%
+						padding-inline unset
 
 						&__icon
 							margin-left 5px
@@ -437,15 +439,19 @@
 		.home
 			&__content
 				&__intro
-					flex-direction column-reverse
+					flex-direction column
 
 					&__content
 						&__small
 							width 100%
 
+						&__links
+							flex-direction column
+
 						&__link
 							justify-content center
 							width 100%
+							margin-left 0
 
 					&__image
 						width 100%
@@ -453,7 +459,9 @@
 						margin-bottom 32px
 
 				&__overview
+					margin-top var(--spacing-13)
 					flex-direction column
+					width 100%
 
 					&__title
 						width 100%
