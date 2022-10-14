@@ -9,7 +9,8 @@
 					span {{intro.action.label}}
 				a.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
 			.home__content__overview(v-if="$frontmatter.overview" id="overview")
-				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
+				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.overline") {{$frontmatter.overview.overline}}
+				h2.home__content__overview__title(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
 				.home__content__overview__content(v-if="$frontmatter.overview.items")
 					tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
@@ -401,7 +402,7 @@
 						width 50%
 
 					&__desc
-						margin-top 20px
+						margin-top 2rem
 						font-size 21px
 
 					&__link

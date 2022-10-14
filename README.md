@@ -81,7 +81,8 @@ intro:
       This is a beta version of the Developer Portal that will help you take your first steps with the Cosmos SDK.
       <br>We would be grateful for your feedback. At the end of each are three icons to rate the page and a small box where you can give us feedback about things to improve. Enjoy your journey through the portal and good luck with the HackAtom!
 overview:
-  title: Frequently Asked Questions
+  overline: Frequently Asked Questions
+  title: FAQ
   items:
     - title: Is this portal for me?
       description: |
