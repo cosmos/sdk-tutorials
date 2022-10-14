@@ -7,12 +7,10 @@
 				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
 				a.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
 					span {{intro.action.label}}
-			.home__content__intro__image(v-if="intro.image")
-				tm-image(:src="intro.image")
-		.home__content__overview(v-if="$frontmatter.overview" id="overview")
-			h2.home__content__overview__title {{$frontmatter.overview.title}}
-			.home__content__overview__content(v-if="$frontmatter.overview.items")
-				tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
+			.home__content__overview(v-if="$frontmatter.overview" id="overview")
+				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
+				.home__content__overview__content(v-if="$frontmatter.overview.items")
+					tm-faq.home__content__overview__content__item(v-for="item in $frontmatter.overview.items" :title="item.title" :description="item.description")
 
 		.modules(v-if="!$frontmatter.customModules && this.modules && this.modules[0].submodules && this.modules[0].submodules.length > 1")
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
@@ -379,7 +377,8 @@
 
 			&__intro
 				display flex
-				align-items center
+				align-items top
+				justify-content space-between
 
 				&__image
 					margin-left 16px
@@ -413,16 +412,10 @@
 							height 10px
 
 			&__overview
-				margin-top 96px
-				display flex
-
-				&__title
-					margin-right 16px
-					width 50%
+				width 50%
 
 				&__content
-					width 50%
-					margin-top 20px 
+					margin-top 2rem 
 
 					&__item
 						&:first-child
