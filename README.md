@@ -220,20 +220,20 @@ customModules:
           Want to become an IBC developer? Take a closer look at IBC denoms.
       - image: /planet-pod.svg
         title: Introduction to CosmJS
-        href: /tutorials/6-comsjs/
+        href: /tutorials/6-cosmjs/
         description: |
           Want to integrate frontend user interfaces and backend servers with you Cosmos chain? Take a closer look at:
         links:
           - title: What is CosmJS?
-            path: tutorials/6-comsjs/1-cosmjs-intro.html
+            path: /tutorials/6-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
-            path: tutorials/6-comsjs/2-first-steps.html
+            path: /tutorials/6-cosmjs/2-first-steps.html
           - title: Compose complex transactions
-            path: tutorials/6-comsjs/2-multi-msg.html
+            path: /tutorials/6-cosmjs/3-multi-msg.html
           - title: Learn to integrate Keplr
-            path: tutorials/6-comsjs/3-with-keplr.html
+            path: /tutorials/6-cosmjs/4-with-keplr.html
           - title: Create custom CosmJS interfaces
-            path: tutorials/6-comsjs/4-create-custom.html
+            path: /tutorials/6-cosmjs/5-create-custom.html
       - image: /planets-large.svg
         title: Understand SDK modules
         href: /tutorials/7-understand-sdk-modules/
@@ -245,7 +245,7 @@ customModules:
           - title: The feegrant module
             path: /tutorials/7-understand-sdk-modules/2-feegrant.html
           - title: The group module
-            path: /tutorials/7-understand-sdk-modules/3-group.md
+            path: /tutorials/7-understand-sdk-modules/3-group.html
   - title: Hands-on Exercise
     description: |
       From zero to hero - work with the full Cosmos stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -265,13 +265,13 @@ customModules:
           - title: Create custom messages
             path: /hands-on-exercise/1-ignite-cli/4-create-message.html
           - title: Create and save a game
-            path: /hands-on-exercise/1-ignite-cli/5-create-handling
+            path: /hands-on-exercise/1-ignite-cli/5-create-handling.html
           - title: Add a way to make a move
-            path: /hands-on-exercise/1-ignite-cli/6-play-game
+            path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game information
-            path: /hands-on-exercise/1-ignite-cli/7-events
+            path: /hands-on-exercise/1-ignite-cli/7-events.html
           - title: Make sure a player can reject a game
-            path: /hands-on-exercise/1-ignite-cli/8-reject-game
+            path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
       - image: /moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
@@ -301,17 +301,17 @@ customModules:
           Apply your knowledge of CosmJS to the checkers blockchain exercise. You will:
         links: 
           - title: Create custom objects
-            path: hands-on-exercise/3-cosmjs/1-cosmjs-objects.html
+            path: /hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html
           - title: Create custom messages
-            path: hands-on-exercise/3-cosmjs/2-cosmjs-messages.html
+            path: /hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.html
           - title: Get an external GUI
-            path: hands-on-exercise/3-cosmjs/3-external-gui.html
+            path: /hands-on-exercise/3-cosmjs-adv/3-external-gui.html
           - title: Integrate CosmJS and Keplr
-            path: hands-on-exercise/3-cosmjs/4-cosmjs-gui.html
+            path: /hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html
           - title: Use CosmJS for game indexing
-            path: hands-on-exercise/3-cosmjs/5-server-side.html
+            path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
           - title: Introduce a leaderboard after production
-            path: hands-on-exercise/3-cosmjs/6-migration.html
+            path: /hands-on-exercise/2-ignite-cli-adv/9-migration.html
       - image: /cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/4-ibc-adv/
@@ -355,7 +355,7 @@ customModules:
           - title: Prepare and connect to other nodes
             path: /hands-on-exercise/5-run-in-prod/5-network.html
           - title: Configure, run, and set up a service
-            path: /hands-on-exercise/5-run-in-prod/6-run
+            path: /hands-on-exercise/5-run-in-prod/6-run.html
           - title: Prepare and do migrations
             path: /hands-on-exercise/5-run-in-prod/7-migration.html
 ---

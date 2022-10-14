@@ -289,8 +289,9 @@ module.exports = {
     },
     tags: {
       'dev-ops': {
-        color: '#336667',
-        label: 'DevOps'
+        color: '#54ffe0',
+        label: 'DevOps',
+        isBright: true
       },
       'cosmos-sdk': {
         color: '#F69900',
@@ -298,7 +299,7 @@ module.exports = {
         isBright: true
       },
       'ibc': {
-        color: '#6D0000',
+        color: '#ff1717',
         label: 'IBC'
       },
       'cosm-js': {
