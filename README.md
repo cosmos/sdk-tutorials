@@ -104,6 +104,7 @@ customModules:
       The portal has three different sections, with content to take you through the fundamentals of Cosmos, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
     useNarrowCards: true
     hideFilter: true
+    image: /cosmos_dev_portal_module-02-lp.png
     sections:
       - image:
         title: Introduction to Cosmos
