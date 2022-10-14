@@ -7,6 +7,7 @@
 				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
 				a.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
 					span {{intro.action.label}}
+				a.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
 			.home__content__overview(v-if="$frontmatter.overview" id="overview")
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
 				.home__content__overview__content(v-if="$frontmatter.overview.items")
@@ -62,7 +63,7 @@
 							.info-label.articles__item__content__time.tm-rf-1.tm-muted.tm-lh-title {{article.time}} minutes read
 
 		.tools__wrapper.mt-10(v-if="$frontmatter.tools && $frontmatter.tools.length > 0")
-			h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tools
+			h3.tm-title.tm-lh-title.tm-rf3.tm-bold(id="developer-resources") Developer Resources
 			.tools.mt-8
 				.tools__item(v-for="tool in $frontmatter.tools")
 					.tools__item__container
@@ -76,7 +77,7 @@
 									span {{link.name}}
 
 		.resources__wrapper(v-if="$themeConfig.resources && !$frontmatter.hideResources")
-			h3.resources__title Developer Resources
+			h3.resources__title(id="developer-resources") Developer Resources
 			.resources
 				.resources__item(v-for="resource in $themeConfig.resources" :class="$frontmatter.main && 'resources__item__main'")
 					resource(:title="resource.title" :description="resource.description" :links="resource.links" :image="resource.image")
@@ -84,6 +85,9 @@
 
 
 <style lang="stylus" scoped>
+	.resources-link
+		margin-left var(--spacing-6)
+
 	.custom-module-background-image
 		padding-block var(--spacing-10)
 		margin-block var(--spacing-10)
