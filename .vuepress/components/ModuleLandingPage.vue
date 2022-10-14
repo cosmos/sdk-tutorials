@@ -17,7 +17,7 @@
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.modules-intro__wrapper.mt-10(v-if="$frontmatter.customModules")
-			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules")
+			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'background-image': customModule.image ? `url(${customModule.image})` : ''}")
 				h2(v-if="customModule.title") {{customModule.title}}
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
 				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
@@ -87,6 +87,12 @@
 <style lang="stylus" scoped>
 	.resources-link
 		margin-left var(--spacing-6)
+
+	.custom-module-background-image
+		padding-block var(--spacing-10)
+		margin-block var(--spacing-10)
+		background-size cover
+
 	@media screen and (max-width: 480px)
 		.tools__wrapper
 			margin-top 64px
