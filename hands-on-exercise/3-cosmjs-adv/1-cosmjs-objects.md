@@ -411,7 +411,7 @@ $ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install mocha@10.0.
 
 Describe how to connect to the running blockchain in a `.env` file in your project root:
 
-``` [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
+```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
 RPC_URL="http://localhost:26657"
 ```
 
@@ -538,6 +538,8 @@ Note the forced import of `import _ from "../../environment"`, to actively infor
 
 </HighlightBox>
 
+### Launch the tests
+
 Launch your checkers chain, for instance from the checkers folder with:
 
 <!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
@@ -598,6 +600,104 @@ SystemInfo
 
 
 3 passing (287ms)
+```
+
+## Within a Docker network
+
+You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_. If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. So if you consider this eventually useful, you should do this part.
+
+Install [Docker](https://docs.docker.com/get-docker/).
+
+To run the checkers chain with Ignite CLI you have the choice of two Docker images:
+
+1. Using that published by Ignite themselves, for version `0.22.1`: [`ignitehq/cli:0.22.1`](https://hub.docker.com/layers/ignitehq/cli/0.22.1/images/sha256-8e2f353f943227488f966dd02558b718766a17dd8b611bccd2789facdceef0cf). This may be faster the first time you run it, but it can become annoying if you plan on doing it many times as it will download the Go dependencies every time.
+2. Building it yourself from the checkers [`Dockerfile-ubuntu`](https://github.com/cosmos/b9-checkers-academy-draft/blob/main/Dockerfile-ubuntu), with the command:
+
+    ```sh
+    $ docker build -f Dockerfile-ubuntu . -t checkers_i
+    ```
+
+    This is the preferred method if you plan on using the image many times as it downloads all Go dependencies once.
+
+Now that you have decided which Docker image to use, you can run the tests.
+
+Create a Docker user-defined bridge network for checkers:
+
+```sh
+$ docker network create checkers-net
+```
+
+Go to the checkers chain project folder. Launch the chain's container in the `checkers-net` network, and with the DNS-resolvable name of `chain-serve`:
+
+<CodeGroup>
+
+<CodeGroupItem title="With checkers_i">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers --network checkers-net --name chain-serve checkers_i ignite chain serve
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="With ignitehq/cli">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers --network checkers-net --name chain-serve ignitehq/cli:0.22.1 chain serve
+```
+
+Note that `ignite` is already the image's entry point, so you only need to pass `chain serve`.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Note how this time no ports are published (`-p`) back to the host. Indeed, the communication for the NodeJs tests will take place within the `checkers-net` network.
+
+The chain is served in a container named `chain-serve`. Update your `client` folder's `.env` with this information:
+
+<CodeGroup>
+
+<CodeGroupItem title="By hand">
+
+```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
+RPC_URL="http://chain-serve:26657"
+FAUCET_URL="http://chain-serve:4500"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Linux sed">
+
+```sh
+$ sed -i -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
+$ sed -i -E 's/^FAUCET_URL=.*$/FAUCET_URL="http:\/\/chain-serve:4500"/g' .env
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="MacOS sed">
+
+```sh
+$ sed -i '' -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
+$ sed -i '' -E 's/^FAUCET_URL=.*$/FAUCET_URL="http:\/\/chain-serve:4500"/g' .env
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Again in your `client` folder, you can now run the tests within the same `checkers-net` network:
+
+```sh
+$ docker run --rm -v $(pwd):/client -w /client --network checkers-net node:18.7 npm test
+```
+
+And that is it. You defined a network over which the NodeJs tests' container could easily access the chain's container.
+
+To clean up after you stopped the containers, you can safely delete the network:
+
+```sh
+$ docker network rm checkers-net
 ```
 
 <HighlightBox type="synopsis">
