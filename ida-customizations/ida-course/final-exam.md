@@ -52,8 +52,9 @@ Some pointers to assist you along the way:
 * Your local chain can declare other denoms such as `stake` too, but that is irrelevant for the exercise.
 * If you use Ignite to start your local blockchain, have a look at `config.yml` to declare new denoms.
 * If you use a compiled version, like `simd`, have a look at the genesis to declare new denoms.
-* To get testnet tokens, ask the faucet [here](https://discord.com/channels/669268347736686612/953697793476821092).
+* To get testnet tokens, ask the faucet [here](https://discord.com/channels/669268347736686612/953697793476821092). You need an account on the testnet in order to pay the fees.
 * To find a Theta testnet RPC end point, look [here](https://github.com/cosmos/testnets/tree/master/public#endpoints). At the time of writing, `sentry--02` was working well.
+* We recommend the use of the Hermes relayer for this assignment. You can use the `ws://rpc.state-sync-02.theta-testnet.polypore.xyz:26657/websocket` endpoint for the `websocker_addr` in the Hermes configuration. Remember to adjust the gas prices to be `uatom`.
 * To see the balances of your recipient, and confirm your success, head to a block explorer, for instance [here](https://explorer.theta-testnet.polypore.xyz/account/<StudentInfo.addressRecipient>).
 * When you have established the IBC channel, and have its `channelId`, you can find out the denom that will be created when you transfer tokens. Go [here](https://emn178.github.io/online-tools/sha256.html) and input the string `transfer/channel-channelId/<StudentInfo.homeDenom>`.
 
