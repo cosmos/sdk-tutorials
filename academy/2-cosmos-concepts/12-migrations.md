@@ -129,7 +129,7 @@ Cosmovisor is a tool that node operators can use to automate the on-chain proces
 
 <HighlightBox type="docs">
 
-See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html) to learn more about this process manager for Cosmos SDK applications.
+See the [Cosmos SDK documentation on Cosmovisor](https://docs.cosmos.network/main/tooling/cosmovisor) to learn more about this process manager for Cosmos SDK applications.
 
 </HighlightBox>
 

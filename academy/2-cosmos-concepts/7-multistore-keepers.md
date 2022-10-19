@@ -164,8 +164,8 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 For more information on the subject, see the following resources:
 
-* [Cosmos SDK documentation: Gas and Fees](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md)
-* [Cosmos SDK documentation: AnteHandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md#antehandler)
+* [Cosmos SDK documentation: Gas and Fees](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/basics/04-gas-fees.md)
+* [Cosmos SDK documentation: AnteHandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/basics/04-gas-fees.md#antehandler)
 
 </HighlightBox>
 

@@ -108,7 +108,7 @@ Ignite CLI version:     v0.22.2
 
 <HighlightBox type="docs">
 
-If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration/v0.24).
+If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://github.com/ignite/cli/tree/develop/docs/docs/migration/).
 
 </HighlightBox>
 
@@ -564,9 +564,9 @@ There is not much else to do. After all, this is the Cosmos BaseApp. Ignite will
 <HighlightBox type="note">
 
 Keplr is also able to import Alice and Bob (i.e. the accounts that Ignite created). Use Keplr's <kbd>+Add account</kbd> feature. This is a convenient way to bypass having to use the faucet. You will need to use Alice's mnemonic, which you can find in the output of the `ignite chain serve` command.
-
+<p></p>
 If you do not see the mnemonic, that is because the mnemonic was shown to you the first time you ran the command and you did not copy it. If so, reset with `ignite chain serve --reset-once`.
-
+<p></p>
 Now you should see the balance of Alice's account and can act on her behalf.
 
 </HighlightBox>

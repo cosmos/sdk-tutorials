@@ -133,11 +133,11 @@ CLI commands bundle all the steps of transaction processing into one simple comm
 
 ### gRPC
 
-The principal usage of gRPC is in the context of module query services. The Cosmos SDK also exposes other module-agnostic gRPC services. One of these is the `Tx` service, which exposes a handful of utility functions such as simulating a transaction or querying a transaction, and also one method to [broadcast transactions](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#broadcasting-a-transaction-1).
+The principal usage of gRPC is in the context of module query services. The Cosmos SDK also exposes other module-agnostic gRPC services. One of these is the `Tx` service, which exposes a handful of utility functions such as simulating a transaction or querying a transaction, and also one method to [broadcast transactions](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/run-node/03-txs.md#broadcasting-a-transaction-1).
 
 <HighlightBox type="tip">
 
-See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#programmatically-with-go) for more insight.
+See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/run-node/03-txs.md#programmatically-with-go) for more insight.
 
 </HighlightBox>
 
@@ -147,7 +147,7 @@ Each gRPC method has its corresponding REST endpoint generated using gRPC-gatewa
 
 <HighlightBox type="tip">
 
-See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/run-node/txs.md#using-rest) for more details.
+See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/run-node/03-txs.md#using-rest) for more details.
 
 </HighlightBox>
 
