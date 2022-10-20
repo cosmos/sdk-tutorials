@@ -89,6 +89,8 @@
 <style lang="stylus" scoped>
 	.resources-link
 		margin-left var(--spacing-6)
+		background-color var(--color-blue)
+		color white
 
 	.custom-module-background-image
 		padding-block var(--spacing-10)
