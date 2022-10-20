@@ -34,7 +34,7 @@ Now, take a closer look at how to prepare the executables.
 
 This takes place on the desktop computer. Add a `Makefile` for the targets you want to support:
 
-```make
+```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L41]
 build-all:
 	GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
 	GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
@@ -58,11 +58,21 @@ $ make build-with-checksum
 
 </CodeGroupItem>
 
-<CodeGroupItem title="Docker">
+<CodeGroupItem title="Your Docker">
 
 ```sh
 $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make build-with-checksum
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker official Go">
+
+```sh
+$ docker run --rm -it -v $(pwd):/checkers -w /checkers golang:1.18.7 make build-with-checksum
+```
+
+You pick a 1.18 version because some modules actually need it, although 1.16 is mentioned in [`go.mod`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/go.mod#L3)
 
 </CodeGroupItem>
 
@@ -75,8 +85,8 @@ Make these files publicly downloadable.
 Download them to the node servers, including the validator nodes, and put them in place. You can use a new script `prepare-node.sh` that describes the steps:
 
 ```sh
-cp -v /checkers/build/checkersd-linux-amd64 /usr/local/bin/checkersd
-adduser --home /home/checkersuser --disabled-login --disabled-password checkersuser
+$ cp -v /checkers/build/checkersd-linux-amd64 /usr/local/bin/checkersd
+$ adduser --home /home/checkersuser --disabled-login --disabled-password checkersuser
 ```
 
 Now run the script on the node:
