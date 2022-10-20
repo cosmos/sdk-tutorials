@@ -315,7 +315,7 @@ module.exports = {
         label: 'Tendermint'
       },
       'cosmos-hub': {
-        color: '#FFFFFF',
+        color: '#f7f199',
         label: 'Cosmos Hub',
         isBright: true
       },
