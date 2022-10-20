@@ -263,4 +263,3 @@ To summarize, this section has explored:
 You have created and updated the deadline. The [section two steps ahead](./1-game-forfeit.md) describes how to use the deadline.
 
 Before you can do that, there is one other field you need to add. Discover which in the [next section](./3-game-winner.md).-->
-Before you can do that, there is one other field you need to add. Discover which in the [next section](./3-game-winner.md).-->

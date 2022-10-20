@@ -829,7 +829,7 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 
-    ![Checkers network in beta support list](//hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
+    ![Checkers network in beta support list](/hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
 
 3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 
@@ -1038,9 +1038,9 @@ With this done:
     <HighlightBox type="tip">
 
     There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMoves` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
-    <br></br>
+    <br/><br/>
     As your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact that it is a **provisional** state.
-    <br></br>
+    <br/><br/>
     The same can happen when creating a game, where the second server may return `null` if it has not been updated yet.
 
     </HighlightBox>

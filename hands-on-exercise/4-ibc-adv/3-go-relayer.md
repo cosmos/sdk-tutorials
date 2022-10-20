@@ -25,7 +25,7 @@ For all installations, please see the [setup page](/tutorials/2-setup/index.md).
 <HighlightBox type="learning">
 
 Have you considered running a relayer?
-<br/>
+<br/><br/>
 In this section, you will learn:
 
 * How to get started with the Go relayer.
@@ -48,7 +48,7 @@ The repository offers a script to start two chains, which you need to test the r
 <HighlightBox type="note">
 
 The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint and event-based processing that results in performance improvements.
-<br/>
+<br/><br/>
 It is recommended to use this latest version, and the following commands assume you are using v2.
 
 </HighlightBox>
@@ -133,18 +133,19 @@ $ rly config show
 <HighlightBox type="info">
 
 By default, transactions will be relayed with a memo of `rly(VERSION)` - for example, `rly(v2.0.0)`.
-<br/>
+<br/><br/>
 To customize the memo for all relaying, use the `--memo` flag when initializing the configuration.
 
 ```shell
 $ rly config init --memo "My custom memo"
 ```
 
-<br/>
+<br/><br/>
+
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
-<br/>
+<br/><br/>
 The `--memo` flag is also available for other `rly` commands that involve sending transactions, such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.
-<br/>
+<br/><br/>
 To omit the memo entirely, including the default value of `rly(VERSION)`, use `-` for the memo.
 
 </HighlightBox>
