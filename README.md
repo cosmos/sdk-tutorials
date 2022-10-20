@@ -106,7 +106,7 @@ customModules:
     useNarrowCards: true
     hideFilter: true
     image: /lp-images/planets-15-gradient.jpg
-    imageLightMode: /cosmos_dev_portal_module-02-lp.png
+    imageLightMode: /lp-images/universe.svg
     sections:
       - image:
         title: Introduction to Cosmos
@@ -132,7 +132,7 @@ customModules:
     description: |
       Discover the Cosmos Ecosystem, Cosmos SDK, and IBC. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
-      - image: /cosmos_dev_portal_module-02-lp.png
+      - image: /lp-images/cosmos_dev_portal_module-02-lp.png
         title: What is Cosmos?
         href: /academy/1-what-is-cosmos/
         description: |
@@ -145,7 +145,7 @@ customModules:
           - title: How to get ATOM and stake it
             path: /academy/1-what-is-cosmos/3-atom-staking.html
       #- {} Example of section break
-      - image: /cosmos_dev_portal_module-03-lp.png
+      - image: /lp-images/cosmos_dev_portal_module-03-lp-new.png
         title: Cosmos Concepts
         href: /academy/2-cosmos-concepts/
         description: |
@@ -173,7 +173,7 @@ customModules:
             path: /academy/2-cosmos-concepts/12-migrations.html
           - title: Bridges
             path: /academy/2-cosmos-concepts/13-bridges.html
-      - image: /planet-collection.svg
+      - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/
         description: |
@@ -219,7 +219,7 @@ customModules:
         href: /tutorials/5-ibc-dev/
         description: |
           Want to become an IBC developer? Take a closer look at IBC denoms.
-      - image: /planet-pod.svg
+      - image: /lp-images/planet-pod.svg
         title: Introduction to CosmJS
         href: /tutorials/6-cosmjs/
         description: |
@@ -235,7 +235,7 @@ customModules:
             path: /tutorials/6-cosmjs/4-with-keplr.html
           - title: Create custom CosmJS interfaces
             path: /tutorials/6-cosmjs/5-create-custom.html
-      - image: /planets-large.svg
+      - image: /lp-images/planets-large.svg
         title: Understand SDK modules
         href: /tutorials/7-understand-sdk-modules/
         description: |
@@ -251,7 +251,7 @@ customModules:
     description: |
       From zero to hero - work with the full Cosmos stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
-      - image: /cosmos_dev_portal_module-05-lp.png
+      - image: /lp-images/cosmos_dev_portal_module-05-lp.png
         title: Ignite CLI - Basics
         href: /hands-on-exercise/1-ignite-cli/
         description: |
@@ -273,7 +273,7 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/7-events.html
           - title: Make sure a player can reject a game
             path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
-      - image: /moving-objects.svg
+      - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
         description: |
@@ -295,7 +295,7 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Preparing to move into production
             path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
-      - image: /green-planet.svg
+      - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
         description: |
@@ -313,7 +313,7 @@ customModules:
             path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
           - title: Introduce a leaderboard after production
             path: /hands-on-exercise/2-ignite-cli-adv/9-migration.html
-      - image: /cosmos_dev_portal_module-04-lp.png
+      - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/4-ibc-adv/
         description: |
@@ -339,7 +339,7 @@ customModules:
             path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
           - title: Integrate IBC middleware into a chain
             path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
-      - image: /universe.svg
+      - image: /lp-images/universe.svg
         title: Run in Production
         href: /hands-on-exercise/5-run-in-prod
         description: |
