@@ -214,6 +214,8 @@ customModules:
         href: /tutorials/4-golang-intro/
         description: |
           Take your first steps with Go to discover the basics, including a look at Go interfaces, structures, arrays, slices, and much more.
+        tags:
+          - tutorial
       - image:
         title: IBC Developers
         href: /tutorials/5-ibc-dev/
