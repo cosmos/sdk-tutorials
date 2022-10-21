@@ -36,7 +36,7 @@ Middleware allows developers to define the extensions to the application and cor
 <HighlightBox type="info">
 
 This design allows both the application and the middleware to implement their own isolated logic while still being able to run as part of a single packet flow.
-
+<br/><br/>
 In addition, as multiple middlewares can be stacked this design enables modularity, where chain developers can build the required business logic using _plug-and-play_ components consisting of a base IBC application module and a stack of middlewares.
 
 </HighlightBox>
