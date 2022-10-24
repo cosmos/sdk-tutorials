@@ -73,17 +73,17 @@ module.exports = {
           children: [
             {
               title: "What is Cosmos?",
-              path: "/academy/1-what-is-cosmos",
+              path: "/academy/1-what-is-cosmos/",
               directory: true,
             },
             {
               title: "Cosmos Concepts",
-              path: "/academy/2-cosmos-concepts",
+              path: "/academy/2-cosmos-concepts/",
               directory: true,
             },
             {
               title: "Introduction to IBC",
-              path: "/academy/3-ibc",
+              path: "/academy/3-ibc/",
               directory: true,
             }
           ],
@@ -166,7 +166,7 @@ module.exports = {
           children: [
             {
               title: "Continue Your Cosmos Journey",
-              path: "academy/whats-next/",
+              path: "/academy/whats-next/",
               directory: false,
             }
           ],
