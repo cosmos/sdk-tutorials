@@ -516,7 +516,7 @@ module.exports = {
                 },
                 {
                   title: "Final Exam",
-                  path: "/ida-course/final-exam.html"
+                  path: "/ida-course/final-exam/index.html"
                 },
               ]
             },
