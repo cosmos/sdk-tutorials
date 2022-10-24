@@ -4,6 +4,7 @@ parent:
   description: Know your way around Golang
   number: 
 tags:
+  - tutorial
 order: 0
 title: Chapter Overview - Introduction to Go
 ---
