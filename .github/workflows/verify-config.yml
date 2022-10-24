@@ -8,4 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: ✅ Verify valid config.js
-        run: npm run check-config
+        run: |
+          npm ci
+          npm run check-config
