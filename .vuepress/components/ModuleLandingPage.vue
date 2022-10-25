@@ -435,9 +435,7 @@
 						&:first-child
 							padding-top 0px
 
-					
-	
-	@media screen and (max-width: 480px)
+	@media screen and (max-width: 832px)
 		.home
 			&__content
 				&__intro
@@ -448,12 +446,15 @@
 							width 100%
 
 						&__links
-							flex-direction column
+							flex-direction row
 
 						&__link
 							justify-content center
 							width 100%
 							margin-left 0
+
+							&:last-child
+								margin-left var(--spacing-6)
 
 					&__image
 						width 100%
@@ -461,7 +462,7 @@
 						margin-bottom 32px
 
 				&__overview
-					margin-top var(--spacing-13)
+					margin-top var(--spacing-12)
 					flex-direction column
 					width 100%
 
@@ -475,6 +476,18 @@
 						&__item
 							&:first-child
 								padding-top 32px
+	
+	@media screen and (max-width: 480px)
+		.home
+			&__content
+			
+				&__intro
+					&__content
+						&__links
+							flex-direction column
+						&__link
+							&:last-child
+								margin-left 0
 
 				&__get-started
 					flex-direction column
