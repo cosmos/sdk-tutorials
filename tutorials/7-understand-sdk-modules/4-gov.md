@@ -50,10 +50,10 @@ In the Cosmos SDK [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/go
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
 ```sh
-$ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.3
+$ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.2
 ```
 
-You are installing `v0.46.3` because this version added the command `draft-proposal`. You will learn later what it does.
+You are installing `v0.46.2` because this version added the command `draft-proposal`. You will learn later what it does.
 
 Go to the cloned directory:
 
@@ -73,7 +73,7 @@ Make sure the installation was successful:
 $ simd version
 ```
 
-The returned version number should be greater than or equal to `0.46.3`.
+The returned version number should be equal to `0.46.2`.
 
 ## Configuration
 
