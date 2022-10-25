@@ -215,6 +215,12 @@ import (
 
 </HighlightBox>
 
+Do not forget to replace `setupMsgServer(t)` with this new function everywhere in the file. For instance:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L28]
+msgServer, _, context := setupMsgServerCreateGame(t)
+```
+
 Run the tests again with the same command as before:
 
 <CodeGroup>
@@ -492,6 +498,6 @@ You will learn how to modify this handling in later sections by:
 * Adding [an event](./7-events.md).
 * Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
-* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md).
+* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md).
 
 <!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./6-play-game.md).-->

@@ -112,7 +112,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `SystemInfo` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
     ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
-    message NextGame {
+    message SystemInfo {
         ...
         string fifoHeadIndex = 2; // Will contain the index of the game at the head.
         string fifoTailIndex = 3; // Will contain the index of the game at the tail.
@@ -221,30 +221,30 @@ Now that the new fields are created, you need to update them to keep your FIFO u
 2. A function to send to the tail:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/stored_game_in_fifo.go#L43-L68]
-    func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.NextGame) {
-        if info.FifoHead == types.NoFifoIdKey && info.FifoTail == types.NoFifoIdKey {
-            game.BeforeId = types.NoFifoIdKey
-            game.AfterId = types.NoFifoIdKey
-            info.FifoHead = game.Index
-            info.FifoTail = game.Index
-        } else if info.FifoHead == types.NoFifoIdKey || info.FifoTail == types.NoFifoIdKey {
+    func (k Keeper) SendToFifoTail(ctx sdk.Context, game *types.StoredGame, info *types.SystemInfo) {
+        if info.FifoHeadIndex == types.NoFifoIndex && info.FifoTailIndex == types.NoFifoIndex {
+            game.BeforeIndex = types.NoFifoIndex
+            game.AfterIndex = types.NoFifoIndex
+            info.FifoHeadIndex = game.Index
+            info.FifoTailIndex = game.Index
+        } else if info.FifoHeadIndex == types.NoFifoIndex || info.FifoTailIndex == types.NoFifoIndex {
             panic("Fifo should have both head and tail or none")
-        } else if info.FifoTail == game.Index {
+        } else if info.FifoTailIndex == game.Index {
             // Nothing to do, already at tail
         } else {
             // Snip game out
             k.RemoveFromFifo(ctx, game, info)
 
             // Now add to tail
-            currentTail, found := k.GetStoredGame(ctx, info.FifoTail)
+            currentTail, found := k.GetStoredGame(ctx, info.FifoTailIndex)
             if !found {
                 panic("Current Fifo tail was not found")
             }
-            currentTail.AfterId = game.Index
+            currentTail.AfterIndex = game.Index
             k.SetStoredGame(ctx, currentTail)
 
-            game.BeforeId = currentTail.Index
-            info.FifoTail = game.Index
+            game.BeforeIndex = currentTail.Index
+            info.FifoTailIndex = game.Index
         }
     }
     ```
@@ -302,7 +302,7 @@ With these functions ready, it is time to use them in the message handlers.
         panic("SystemInfo not found")
     }
     k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-    k.Keeper.RemoveStoredGame(ctx, msg.IdValue)
+    k.Keeper.RemoveStoredGame(ctx, msg.GameIndex)
     ...
     k.Keeper.SetSystemInfo(ctx, systemInfo)
     ...
@@ -483,53 +483,51 @@ What happens when you [have two games and reject the _older_ one](https://github
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L44-L92]
 func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
+    ctx := sdk.UnwrapSDKContext(context)
     msgServer.CreateGame(context, &types.MsgCreateGame{
         Creator: bob,
-        Red:     carol,
-        Black:   alice,
+        Black:   carol,
+        Red:     alice,
     })
     msgServer.CreateGame(context, &types.MsgCreateGame{
         Creator: carol,
-        Red:     alice,
-        Black:   bob,
+        Black:   alice,
+        Red:     bob,
     })
     msgServer.RejectGame(context, &types.MsgRejectGame{
-        Creator: carol,
-        IdValue: "2",
-    })
-    nextGame, found := keeper.GetNextGame(sdk.UnwrapSDKContext(context))
-    require.True(t, found)
-    require.EqualValues(t, types.NextGame{
-        Creator:  "",
-        IdValue:  4,
-        FifoHead: "1",
-        FifoTail: "3",
-    }, nextGame)
-    game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
-    require.True(t, found1)
-    require.EqualValues(t, types.StoredGame{
-        Creator:   alice,
-        Index:     "1",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       bob,
-        Black:     carol,
-        MoveCount: uint64(0),
-        BeforeId:  "-1",
-        AfterId:   "3",
-    }, game1)
-    game3, found3 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "3")
-    require.True(t, found3)
-    require.EqualValues(t, types.StoredGame{
         Creator:   carol,
-        Index:     "3",
-        Game:      "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:      "b",
-        Red:       alice,
-        Black:     bob,
-        MoveCount: uint64(0),
-        BeforeId:  "1",
-        AfterId:   "-1",
+        GameIndex: "2",
+    })
+    systemInfo, found := keeper.GetSystemInfo(ctx)
+    require.True(t, found)
+    require.EqualValues(t, types.SystemInfo{
+        NextId:        4,
+        FifoHeadIndex: "1",
+        FifoTailIndex: "3",
+    }, systemInfo)
+    game1, found := keeper.GetStoredGame(ctx, "1")
+    require.True(t, found)
+    require.EqualValues(t, types.StoredGame{
+        Index:       "1",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       bob,
+        Red:         carol,
+        MoveCount:   uint64(0),
+        BeforeIndex: "-1",
+        AfterIndex:  "3",
+    }, game1)
+    game3, found := keeper.GetStoredGame(ctx, "3")
+    require.True(t, found)
+    require.EqualValues(t, types.StoredGame{
+        Index:       "3",
+        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+        Turn:        "b",
+        Black:       alice,
+        Red:         bob,
+        MoveCount:   uint64(0),
+        BeforeIndex: "1",
+        AfterIndex:  "-1",
     }, game3)
 }
 ```

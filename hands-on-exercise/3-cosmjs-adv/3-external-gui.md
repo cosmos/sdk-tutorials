@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 * You have created the Protobuf types and objects for [queries](./1-cosmjs-objects.md) and [messages](./2-cosmjs-messages.md) in the previous two steps. If not, you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/signing-stargate) to get the version needed for this tutorial.
 
 The purpose of this section is to obtain a working and fairly recent checkers GUI. If you already have one, you can skip to the [next section](./4-cosmjs-gui.md) on how to integrate it with CosmJS.
-<br></br>
+<br/><br/>
 This section does not introduce anything related to CosmJS, but sets you up with a template of a graphical user interface which you will later wire to CosmJS.
 
 </HighlightBox>

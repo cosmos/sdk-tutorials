@@ -22,7 +22,7 @@ It is recommended to take a look at the following previous sections to better un
 <HighlightBox type="learning">
 
 In this section, you will take a closer look at messages, `Msg`. At the end of the section, you can find a code example that illustrates message creation and the inclusion of messages in transactions for your checkers blockchain.
-<br></br>
+<br/><br/>
 Understanding `Msg` will help you prepare for the next section, on [modules in the Cosmos SDK](./5-modules.md), as messages are a primary object handled by modules.
 
 </HighlightBox>
@@ -34,9 +34,9 @@ In the Cosmos SDK, a **transaction** contains **one or more messages**. The modu
 <ExpansionPanel title="Signing a message">
 
 Remember from the [previous section on transactions](./3-transactions.md) that transactions must be signed before a validator includes them in a block. Every message in a transaction must be signed by the addresses as specified by `GetSigners`.
-<br></br>
+<br/><br/>
 The Cosmos SDK currently allows signing transactions with either `SIGN_MODE_DIRECT` or `SIGN_MODE_LEGACY_AMINO_JSON` methods.
-<br></br>
+<br/><br/>
 When an account signs a message it signs an array of bytes. This array of bytes is the outcome of serializing the message. For the signature to be verifiable at a later date, this conversion needs to be deterministic. For this reason, you define a canonical bytes-representation of the message, typically with the parameters ordered alphabetically.
 
 </ExpansionPanel>
@@ -90,7 +90,7 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
 In the [previous](./3-transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
-<br></br>
+<br/><br/>
 **What you need**
 
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
@@ -108,8 +108,8 @@ Focus on the messages around the **game creation**.
     ```go
     type MsgCreateGame struct {
         Creator string
-        Red     string
         Black   string
+        Red     string
     }
     ```
 
@@ -119,7 +119,7 @@ Focus on the messages around the **game creation**.
 
     ```go
     type MsgCreateGameResponse struct {
-        IdValue string
+        GameIndex string
     }
     ```
 
@@ -132,7 +132,7 @@ With the messages defined, you need to declare how the message should be handled
 Ignite CLI can help you create these elements, plus the `MsgCreateGame` and `MsgCreateGameResponse` objects, with this command:
 
 ```sh
-$ ignite scaffold message createGame red black --module checkers --response idValue
+$ ignite scaffold message createGame black red --module checkers --response gameIndex
 ```
 
 <HighlightBox type="info">
@@ -222,8 +222,8 @@ Your work is mostly done. You want to create the specific game creation code to 
         Creator:   creator,
         Index:     newIndex,
         Game:      rules.New().String(),
-        Red:       red,
         Black:     black,
+        Red:       red,
     }
     ```
 
@@ -237,7 +237,7 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     ```go
     return &types.MsgCreateGameResponse{
-        IdValue: newIndex,
+        GameIndex: newIndex,
     }, nil
     ```
 
@@ -257,7 +257,7 @@ You can also implement other messages:
 1. The **play message**, which means implicitly accepting the challenge when playing for the first time. If you create it with Ignite CLI, use:
 
     ```sh
-    $ ignite scaffold message playMove idValue fromX:uint fromY:uint toX:uint toY:uint --module checkers --response idValue
+    $ ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint --module checkers --response capturedX:int,capturedY:int,winner
     ```
 
     This generates, among others, the object files, callbacks, and a new file for you to write your code:
@@ -276,7 +276,7 @@ You can also implement other messages:
 2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
-    $ ignite scaffold message rejectGame idValue --module checkers
+    $ ignite scaffold message rejectGame gameIndex --module checkers
     ```
 
     This generates, among others:

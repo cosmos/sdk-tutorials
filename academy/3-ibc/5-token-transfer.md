@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Transferring tokens between chains is both a common requirement and a significant technical challenge when two chains are incompatible. A convenient solution for moving tokens between chains is essential.
-<br></br>
+<br/><br/>
 In this section, you will explore how a fungible token transfer can be done with IBC.
 
 </HighlightBox>

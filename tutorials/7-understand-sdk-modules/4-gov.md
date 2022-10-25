@@ -1,8 +1,8 @@
 ---
 parent:
 title: Understand the Gov Module
-order: 0
-description: Use the Cosmos SDK gov module for participation in Cosmos SDK governance. Create proposals of any message type thanks to the new gov module.
+order: 5
+description: Use the Cosmos SDK gov module for participation in Cosmos SDK governance - create proposals of any message type thanks to the new gov module.
 tags:
   - tutorial
   - cosmos-sdk
@@ -25,7 +25,7 @@ Before starting, review some terminology:
 
 * **Message:** A proposal includes an array of `sdk.Msgs` which are executed automatically if the proposal passes. This means you can submit a proposal about any action on which the governance module has `authority`.
 
-* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a [`64 ATOM` deposit](https://mintscan.io/cosmos/parameters). The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case the deposit is burned.
+* **Deposit period:** To prevent spam, proposals must be submitted with a deposit in the coins defined by the chain. At this point, for instance, the Cosmos Hub requires a [`64 ATOM` deposit](https://mintscan.io/cosmos/parameters). The deposit is always refunded to the depositors after voting, unless the proposal is vetoed: in that case, the deposit is burned.
 
   <HighlightBox type="tip">
 
@@ -35,7 +35,7 @@ Before starting, review some terminology:
 
 * **Voting period:** After the minimum deposit is reached, the proposal enters the voting period. During this period, users can vote on the proposal. The voting period is a parameter of individual chains. For instance, the Cosmos Hub has a [`2 weeks` voting period](https://mintscan.io/cosmos/parameters).
 
-* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto` and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes` the proposal pass and its messages are executed. `Abstain` is different from not voting at all, as voting contributes to reaching the quorum.
+* **Voting options:** Voters can choose between `Yes`, `No`, `NoWithVeto`, and `Abstain`. `NoWithVeto` allows the voter to cast a `No` vote, but also to veto the proposal. If a proposal is vetoed, it is automatically rejected and the deposit burned. `Abstain` allows the voter to abstain from voting. With a majority of `Yes`, the proposal pass and its messages are executed. `Abstain` is different from not voting at all, as voting contributes to reaching the quorum.
 
 * **Voting weight:** A.k.a. **voting power**. Each vote is weighted by the voter's staked tokens at the time the vote tally is computed. For the avoidance of doubt, it means that the number of staked tokens at the time the vote transaction is sent is irrelevant.
 
@@ -50,10 +50,10 @@ In the Cosmos SDK [v0.46.0 release](https://docs.cosmos.network/v0.46/modules/go
 To install `simd`, first clone the Cosmos SDK GitHub repository and checkout the right version:
 
 ```sh
-$ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.3
+$ git clone https://github.com/cosmos/cosmos-sdk --depth=1 --branch v0.46.2
 ```
 
-You are installing `v0.46.3` because this version added the command `draft-proposal`. You will learn later what it does.
+You are installing `v0.46.2` because this version added the command `draft-proposal`. You will learn later what it does.
 
 Go to the cloned directory:
 
@@ -73,7 +73,7 @@ Make sure the installation was successful:
 $ simd version
 ```
 
-The returned version number should be greater than or equal to `0.46.3`.
+The returned version number should be equal to `0.46.2`.
 
 ## Configuration
 
@@ -110,7 +110,7 @@ $ export ALICE=$(simd keys show alice --address)
 $ export BOB=$(simd keys show bob --address)
 ```
 
-Now you are ready to fund Alice and Bob's respective accounts and use the Alice account as validator:
+Now you are ready to fund Alice and Bob's respective accounts and use the Alice account as a validator:
 
 ```sh
 $ simd init test --chain-id demo
@@ -159,7 +159,7 @@ $ simd start
 
 <HighlightBox type="note">
 
-Prior to submitting a proposal on the Cosmos Hub, it is good practice, and also requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it appears on chain.
+Prior to submitting a proposal on the Cosmos Hub, it is good practice and also requested to publish a draft of the proposal on the [Cosmos Hub Forum](https://forum.cosmos.network). This allows the community to discuss the proposal before it appears on chain.
 
 </HighlightBox>
 
@@ -220,11 +220,11 @@ The content of `draft_metadata.json` contains the information you have just ente
 }
 ```
 
-This json should to be [pinned on IPFS](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs/).
+This json should be [pinned on IPFS](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs/).
 
 <HighlightBox type="note">
 
-In fact this file is already pinned on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://ipfs.io/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
+In fact, this file is already pinned on IPFS. Its CID is `QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49`. You can verify its content on <https://ipfs.io/ipfs/QmbmhY1eNXdmcVV8QPqV5enwLZm1mjH7iv8aYTQ4RJCH49>.
 
 </HighlightBox>
 
@@ -282,7 +282,6 @@ voting_start_time: null
 
 As you can see, the proposal is in the deposit period. This means that the deposit associated with it has not yet reached the minimum required, so you cannot vote on it just yet. Find out what is the minimum proposal deposit for a chain with the following command:
 
-
 ```sh
 $ simd query gov params --output json | jq .deposit_params.min_deposit
 ```
@@ -323,7 +322,7 @@ After waiting for the voting period, you can see that the proposal has passed.
 $ simd query gov proposal 1 --output json | jq .status
 ```
 
-This is because the governance proposal weights each vote by the amount of tokens staked. Alice owns staked tokens, while Bob had no staked tokens at the end of the voting period. So Bob's vote was not taken into consideration in the tally of the result.
+This is because the governance proposal weights each vote by the number of tokens staked. Alice owns staked tokens, while Bob had no staked tokens at the end of the voting period. So Bob's vote was not taken into consideration in the tally of the result.
 
 ```sh
 $ simd query staking delegations $ALICE
