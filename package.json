@@ -57,7 +57,8 @@
     "v-runtime-template": "^1.10.0",
     "vue-h5p": "^0.5.3",
     "vuepress": "^1.5.4",
-    "vuepress-plugin-sitemap": "^2.3.1"
+    "vuepress-plugin-sitemap": "^2.3.1",
+    "vuepress-reading-time-extended": "git+https://github.com/b9lab/vuepress-reading-time-extended.git"
   },
   "devDependencies": {
     "@vuepress/plugin-medium-zoom": "^1.9.7",

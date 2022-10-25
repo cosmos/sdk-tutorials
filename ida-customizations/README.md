@@ -183,7 +183,7 @@ customModules:
           - title: Understand IBC denoms
             path: /tutorials/5-ibc-dev
           - title: Play with cross-chain tokens
-            path: /hands-on-exercise/4-ibc-adv/1-wager-denom.html
+            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Work with IBC relayers
             path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
       - image: /cosmos_dev_portal_module-04-lp.png
@@ -203,7 +203,7 @@ customModules:
           - title: Using CosmJS for game indexing
             path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
           - title: Introducing a leaderboard after production
-            path: /hands-on-exercise/3-cosmjs-adv/6-migration.html
+            path: /hands-on-exercise/2-ignite-cli-adv/9-migration.html
       - image: /moving-objects.svg
         title: Week 6 - IBC Deep Dive
         href: /ida-course/LPs/week-6/
