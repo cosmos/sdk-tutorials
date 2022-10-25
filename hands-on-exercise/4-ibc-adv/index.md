@@ -4,7 +4,7 @@ parent:
   description: Deep dive into IBC - Relaying, custom application, and middleware
   number: 1
 tag:
-order: 4
+order: 1
 title: Chapter Overview - Relaying, custom application, and middleware
 ---
 

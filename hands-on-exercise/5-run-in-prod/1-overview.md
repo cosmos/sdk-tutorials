@@ -1,6 +1,6 @@
 ---
 title: Run in Production
-order: 0
+order: 2
 description: What does running in production entail?
 tags:
   - concepts

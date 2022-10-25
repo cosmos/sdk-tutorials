@@ -1,6 +1,6 @@
 ---
 title: "IBC Tooling"
-order: 11
+order: 8
 description: Overview of some helpful tools
 tags: 
   - concepts

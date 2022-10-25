@@ -1,6 +1,6 @@
 ---
 title: "Relaying With IBC"
-order: 8
+order: 2
 description: Introduction to relayers
 tags:
   - concepts
