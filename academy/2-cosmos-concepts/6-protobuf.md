@@ -21,7 +21,7 @@ Before diving into this section, it is recommended to read the following section
 <HighlightBox type="learning">
 
 Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
-<br></br>
+<br/><br/>
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 
 </HighlightBox>
@@ -63,7 +63,7 @@ Go developers access the setters and getters in the generated source code throug
 <HighlightBox type="docs">
 
 For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
-<br></br>
+<br/><br/>
 Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/main/core/proto-docs.html).
 
 </HighlightBox>
@@ -101,10 +101,10 @@ In the previous code samples, you saw something like:
 type StoredGame struct {
     Creator string
     Index string // The unique id that identifies this game.
-    Game string // The serialized board.
-    Turn string // "red" or "black"
-    Red string
+    Board string // The serialized board.
+    Turn string // "black" or "red"
     Black string
+    Red string
     Wager uint64
 }
 ```
@@ -126,28 +126,28 @@ This is where Protobuf simplifies your activity even more. The same `StoredGame`
 message StoredGame {
   string creator = 1;
   string index = 2;
-  string game = 3;
+  string board = 3;
   string turn = 4;
-  string red = 5;
-  string black = 6;
+  string black = 5;
+  string red = 6;
   uint64 wager = 7;
 }
 ```
 
 The `= 1` parts indicate how each field is identified in the serialized output and provide backward compatibility. As your application upgrades to newer versions, make sure to not reuse numbers for new fields but to keep increasing the `= x` value to preserve backward compatibility.
-<br></br>
+<br/><br/>
 When _compiling_, Protobuf will add the `protobuf:"bytes..."` elements. The messages to create a game can be declared in Protobuf similarly as:
 
 ```protobuf
 message MsgCreateGame {
   string creator = 1;
-  string red = 2;
-  string black = 3;
+  string black = 2;
+  string red = 3;
   uint64 wager = 4;
 }
 
 message MsgCreateGameResponse {
-  string idValue = 1;
+  string gameIndex = 1;
 }
 ```
 
@@ -156,8 +156,8 @@ message MsgCreateGameResponse {
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. It is relatively easy to introduce Protobuf elements into your chain using commands like the following:
 
 ```sh
-$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
-$ ignite scaffold message createGame red black wager:uint --module checkers --response idValue
+$ ignite scaffold map storedGame board turn black red wager:uint --module checkers --no-message
+$ ignite scaffold message createGame black red wager:uint --module checkers --response gameIndex
 ```
 
 <HighlightBox type="tip">

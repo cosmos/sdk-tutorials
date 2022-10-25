@@ -215,6 +215,12 @@ import (
 
 </HighlightBox>
 
+Do not forget to replace `setupMsgServer(t)` with this new function everywhere in the file. For instance:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L28]
+msgServer, _, context := setupMsgServerCreateGame(t)
+```
+
 Run the tests again with the same command as before:
 
 <CodeGroup>
