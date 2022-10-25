@@ -4,7 +4,7 @@ parent:
   description: Deep dive into CosmJS - Implement a game GUI and backend script
   number: 1
 tag:
-order: 3
+order: 1
 title: Chapter Overview - Implement a game GUI and backend script
 ---
 

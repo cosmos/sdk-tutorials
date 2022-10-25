@@ -35,7 +35,7 @@ In this chapter, you will:
 
 Dive into creating [custom objects](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) and [custom messages](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md) before [developing a GUI](/hands-on-exercise/3-cosmjs-adv/3-external-gui.md) and [integrating CosmJS and Keplr into the GUI](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md).
 
-Then, you can take a closer look at [backend scripts for game indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) and [introducing a leaderboard after production](/hands-on-exercise/3-cosmjs-adv/6-migration.md).
+Then, you can take a closer look at [backend scripts for game indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) and [introducing a leaderboard after production](/hands-on-exercise/2-ignite-cli-adv/9-migration.md).
 
 ## Developer Resources
 
