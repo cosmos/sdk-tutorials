@@ -4,7 +4,7 @@ parent:
   description: See your chain in action
   number: 1
 tag:
-order: 5
+order: 1
 title: Chapter Overview - See your chain in action
 ---
 

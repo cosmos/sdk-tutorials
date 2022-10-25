@@ -1,6 +1,6 @@
 ---
 title: Configure, Run, and Set Up a Service
-order: 5
+order: 7
 description: Make sure your software is configured and always on
 tags:
   - guided-coding
