@@ -178,6 +178,8 @@ customModules:
             path: /tutorials/7-understand-sdk-modules/2-feegrant.html
           - title: The group module
             path: /tutorials/7-understand-sdk-modules/3-group.md
+          - title: The gov module
+            path: /tutorials/7-understand-sdk-modules/4-gov.md
   - title: Hands-on Exercise
     description: |
       From zero to hero - work with the full Cosmo stack while developing a checkers game blockchain
