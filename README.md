@@ -61,7 +61,7 @@ articles:
     time: 6
     url: https://blog.cosmos.network/the-mind-body-and-soul-of-cosmos-140ee7cec0cd
     image: /article-banner-01.png
-  - title: ELI5: What is IBC?
+  - title: "ELI5: What is IBC?"
     date: Tuesday, June 28
     time: 9
     url: https://medium.com/the-interchain-foundation/eli5-what-is-ibc-a212f518715f
