@@ -971,7 +971,7 @@ To achieve this, add a new function:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L196-L212]
 const handleEventForfeit = async (event: StringEvent): Promise<void> => {
-    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "IdValue")
+    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "GameIndex")
     if (!forfeitedId) throw new Error(`Forfeit event missing forfeitedId`)
     const winner: string | undefined = getAttributeValueByKey(event.attributes, "Winner")
     const blackAddress: string | undefined = db.games[forfeitedId]?.blackAddress

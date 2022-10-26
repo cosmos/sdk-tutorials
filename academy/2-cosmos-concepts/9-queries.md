@@ -45,18 +45,18 @@ Visit the [detailed Cosmos SDK documentation](https://docs.cosmos.network/main/b
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 If you have used Ignite CLI so far, it has already created queries for you to get one stored game or a list of them. However, you still do not have a way to check whether a move works or is valid. It would be wasteful to send a transaction with an invalid move, it is better to catch such a mistake *before* submitting a transaction. So you are going to create a query to discover whether a move is valid.
-<br></br>
+<br/><br/>
 Ignite CLI can again help with a simple command:
 
 ```sh
-$ ignite scaffold query canPlayMove idValue player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
+$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
 ```
 
 This creates the following query objects:
 
 ```go
 type QueryCanPlayMoveRequest struct {
-    IdValue string
+    GameIndex string
     Player  string
     FromX   uint64
     FromY   uint64
@@ -87,35 +87,42 @@ Now you must fill in the gaps under `TODO`. Simply put:
 2. Is it an expected player?
 
     ```go
+    isBlack := req.Player == "b"
+    isRed := req.Player == "r"
     var player rules.Player
-    if strings.Compare(rules.RED_PLAYER.Color, req.Player) == 0 {
-        player = rules.RED_PLAYER
-    } else if strings.Compare(rules.BLACK_PLAYER.Color, req.Player) == 0 {
+    if isBlack && isRed {
+        player = rules.StringPieces[storedGame.Turn].Player
+    } else if isBlack {
         player = rules.BLACK_PLAYER
+    } else if isRed {
+        player = rules.RED_PLAYER
     } else {
         return &types.QueryCanPlayMoveResponse{
-                Possible: false,
-                Reason:   "message creator is not a player",
-            }, nil
+            Possible: false,
+            Reason:   fmt.Sprintf("%s: %s", "message creator is not a player", req.Player),
+        }, nil
     }
     ```
 
 3. Is it the player's turn?
 
     ```go
-    fullGame := storedGame.ToFullGame()
-        if !fullGame.Game.TurnIs(player) {
-            return &types.QueryCanPlayMoveResponse{
-                Possible: false,
-                Reason:   "player tried to play out of turn",
-            }, nil
-        }
+    game, err := storedGame.ParseGame()
+    if err != nil {
+        return nil, err
+    }
+    if !game.TurnIs(player) {
+        return &types.QueryCanPlayMoveResponse{
+            Possible: false,
+            Reason:   fmt.Sprintf("%s: %s", "player tried to play out of turn", player.Color),
+        }, nil
+    }
     ```
 
 4. Attempt the move in memory without committing any new state:
 
     ```go
-    _, moveErr := fullGame.Game.Move(
+    _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
             Y: int(req.FromY),
@@ -128,7 +135,7 @@ Now you must fill in the gaps under `TODO`. Simply put:
     if moveErr != nil {
         return &types.QueryCanPlayMoveResponse{
             Possible: false,
-            Reason:   fmt.Sprintf("wrong move", moveErr.Error()),
+            Reason:   fmt.Sprintf("%s: %s", "wrong move", moveErr.Error()),
         }, nil
     }
     ```

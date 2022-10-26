@@ -183,7 +183,7 @@ customModules:
         - title: Understand IBC denoms
           path: /tutorials/5-ibc-dev
         - title: Play with cross-chain tokens
-          path: /hands-on-exercise/4-ibc-adv/1-wager-denom.html
+          path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
         - title: Work with IBC relayers
           path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
     - image: /cosmos_dev_portal_module-04-lp.png

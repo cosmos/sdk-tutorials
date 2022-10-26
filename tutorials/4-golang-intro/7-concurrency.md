@@ -14,7 +14,7 @@ For concurrency, Go offers so-called *Goroutines* and *Channels*.
 
 ## Goroutines
 
-A *Gouroutine* is a concurrent thread managed by the Go runtime. 
+A *Goroutine* is a concurrent thread managed by the Go runtime. 
 
 To call a goroutine use the following:
 

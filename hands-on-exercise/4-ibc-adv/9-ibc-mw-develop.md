@@ -1,6 +1,6 @@
 ---
 title: "Create a Custom IBC Middleware"
-order: 10
+order: 9
 description: Implementing interfaces
 tags: 
   - guided-coding

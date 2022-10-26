@@ -1,6 +1,6 @@
 ---
 title: Prepare and Connect to Other Nodes
-order: 4
+order: 6
 description: Be part of a larger network
 tags:
   - guided-coding

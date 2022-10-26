@@ -124,21 +124,19 @@ You can filter for event types and attribute values. For example, a transfer tra
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 It would be good to document a game's lifecycle via events in your checkers blockchain.
-<br></br>
+<br/><br/>
 For instance, you can emit a specific event such as when creating a game:
 
 ```go
 var ctx sdk.Context
 ctx.EventManager().EmitEvent(
-    sdk.NewEvent(sdk.EventTypeMessage,
-        sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
-        sdk.NewAttribute(sdk.AttributeKeyAction, "NewGameCreated"),
-        sdk.NewAttribute("Creator", msg.Creator),
-        sdk.NewAttribute("Index", newIndex),
-        sdk.NewAttribute("Red", msg.Red),
-        sdk.NewAttribute("Black", msg.Black),
-        sdk.NewAttribute("Wager", strconv.FormatUint(msg.Wager, 10)),
-        sdk.NewAttribute("Token", msg.Token),
+    sdk.NewEvent("new-game-created",
+        sdk.NewAttribute("creator", msg.Creator),
+        sdk.NewAttribute("game-index", newIndex),
+        sdk.NewAttribute("black", msg.Black),
+        sdk.NewAttribute("red", msg.Red),
+        sdk.NewAttribute("wager", strconv.FormatUint(msg.Wager, 10)),
+        sdk.NewAttribute("denom", msg.Denom),
     ),
 )
 ```
@@ -153,11 +151,9 @@ You should also emit an event for games that have timed out. This is part of the
 
 ```go
 ctx.EventManager().EmitEvent(
-    sdk.NewEvent(sdk.EventTypeMessage,
-        sdk.NewAttribute(sdk.AttributeKeyModule, "checkers"),
-        sdk.NewAttribute(sdk.AttributeKeyAction, "GameForfeited"),
-        sdk.NewAttribute("IdValue", storedGameId),
-        sdk.NewAttribute("Winner", rules.NO_PLAYER.Color), // Or the rightful winner.
+    sdk.NewEvent("game-forfeited",
+        sdk.NewAttribute("game-index", gameIndex),
+        sdk.NewAttribute("winner", storedGame.Winner),
     ),
 )
 ```
