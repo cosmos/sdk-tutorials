@@ -4,7 +4,7 @@
 
 Accessing the exam is a simple process:
 
-Check your email (and spam folder) for an invitation to the [B9lab academy gitlab server](https://git.academy.b9lab.com/). The email contains a link to setup your password. Follow this link to finish your account creation and log into the gitlab server.
+Check your email (and spam folder) for an invitation to the [B9lab academy Gitlab server](https://git.academy.b9lab.com/). The email contains a link to setup your password. Follow this link to finish your account creation and log into the Gitlab server.
 
 Once you are in you will see three repositories:
 
