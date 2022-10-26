@@ -1,6 +1,6 @@
 ---
 title: Simulate Production in Docker
-order: 22
+order: 12
 description: Run your checkers in a simulated production with Docker Compose
 tags:
   - guided-coding
@@ -33,7 +33,7 @@ In terms of Docker concepts, this means:
 
 Before looking at the specific Compose elements, you need to define what the _regular_ Docker elements are.
 
-### The images
+### The node images
 
 The validators, sentries and regular nodes will run `checkersd`.
 
@@ -45,7 +45,7 @@ ARG BUILDARCH
 
 ENV LOCAL=/usr/local
 
-EXPOSE 1317 26657
+EXPOSE 1317 26656 26657
 
 COPY build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
 
@@ -68,6 +68,71 @@ It prints a recognizable list of commands.
 
 Each Docker container will run `checkersd` as `root` and it does not matter because it all happens in a container. So there is no need to create a specific additional user. For the same reason, there is also no need to create a service to launch it.
 
+### The key manager image
+
+Alice runs a [Tendermint Key Management System](https://github.com/iqlusioninc/tmkms) on a separate machine. You need to prepare its image. This involves a compilation of the Rust code. This is a good opportunity to use a [multi-stage Docker build](https://docs.docker.com/build/building/multi-stage/). With this technique:
+
+1. You define a disposable image (the first stage) that clones the code and compiles it, which involves the download of Rust crates. It is large and then disposed of.
+2. You define a slim new image (the second stage) in which you only copy the compiled file. This is the image you keep for production. It is small.
+
+The disposable image needs to have Rust of at least version 1.56. Fortunately, there are ready-made images. Pick [`rust:1.64.0`](https://hub.docker.com/layers/library/rust/1.64.0/images/sha256-44ba8b8d8a2993694926cc847e1cce27937550c2e9eade4d9887ba90b2a2063f).
+
+In what device will your key be stored? You do not use hardware keys in this setup. So, when building, you use the [`softsign` extension](https://github.com/iqlusioninc/tmkms/blob/c56b496e1bb1187482d7a6fad23c4566329c951e/src/keyring/providers/softsign.rs) with the syntax `--features=softsign`.
+
+What version of the KMS should you compile to? Find the Tendermint version of your Checkers code:
+
+```sh
+$ grep tendermint/tendermint go.mod
+```
+
+It should return something like:
+
+```txt
+github.com/tendermint/tendermint v0.34.19
+```
+
+Because here it is version 0.34, it is a good idea to use the KMS from [version 0.10.0](https://github.com/iqlusioninc/tmkms/blob/main/CHANGELOG.md). At the time of writing, **version 0.12.2** still seems to support Tendermint v0.34. Pick this one.
+
+With these requisites, you can create the staged Docker image:
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-ubuntu-tmkms]
+FROM --platform=linux rust:1.64.0 AS builder
+ARG BUILDARCH
+
+ENV LOCAL=/usr/local
+ENV RUSTFLAGS=-Ctarget-feature=+aes,+ssse3
+ENV TMKMS_VERSION=v0.12.2
+
+RUN apt-get update
+RUN apt-get install libusb-1.0-0-dev --yes
+
+WORKDIR /root
+RUN git clone https://github.com/iqlusioninc/tmkms.git
+WORKDIR /root/tmkms
+RUN git checkout ${TMKMS_VERSION}
+RUN cargo build --release --features=softsign
+
+FROM --platform=linux ubuntu:22.04
+
+COPY --from=builder /root/tmkms/target/release/tmkms ${LOCAL}/bin
+
+ENTRYPOINT [ "tmkms" ]
+```
+
+Note how the production stage is only three lines. Build the image as usual with:
+
+```sh
+$ docker build -f Dockerfile-ubuntu-tmkms . -t tmkms_i
+```
+
+Now when you run it:
+
+```sh
+$ docker run --rm -it tmkms_i
+```
+
+It returns you information about usage. You built Tendermint Key Management System.
+
 ## Blockchain elements
 
 Each container needs access to its own private information, such as keys and genesis. To facilitate data access and separation between containers, you create folders that will map as a volume to the default `/root/.checkers`.
@@ -87,23 +152,35 @@ For instance, when running a container for `val-alice`, you will create the mapp
 $ docker run ... -v $(pwd)/docker/val-alice:/root/.checkers checkersd_i ...
 ```
 
+And for the KMS:
+
+```sh
+$ docker run ... -v $(pwd)/docker/kms-alice:/root/tmkms tmkms_i ...
+```
+
 ### Keys
 
-First, you need to create the two validators' operation keys. This key is not meant to reside on the node when it runs. It is meant to be used to stake on behalf of Alice. Nonetheless, you are going to create them by running containers. Because you want to move these keys around:
+Some keys are created automatically, like the node key. For others, you have to create them by hand. The keys for the validators and Alice's KMS Tendermint key.
+
+### Validator operation keys
+
+First, you need to create the two validators' operation keys. This key is not meant to reside on the node when it runs. It is meant to be used to stake on behalf of Alice (or Bob). Nonetheless, you are going to create them by running containers. Because you want to keep these keys inside and outside of containers:
 
 1. You use the `--keyring-backend file`.
-2. You put it in the mapped volume with `--keyring-dir /root/.checkers/keys`.
+2. You keep them in the mapped volume with `--keyring-dir /root/.checkers/keys`.
 
-Create it for `val-alice`:
+Create the key for `val-alice`:
 
 ```sh
 $ docker run --rm -it \
     -v $(pwd)/docker/val-alice:/root/.checkers \
     checkersd_i \
-    keys --keyring-backend file --keyring-dir /root/.checkers/keys add alice
+    keys \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
+    add alice
 ```
 
-Use a passphrase you can remember. It does not need to be exceptionally complex as this is all a local simulation. And because with this in-prod simulation you care less about safety, you laughably put the mnemonic in a new `docker/val-alice/keys/mnemonic-alice.txt` file.
+Use a passphrase you can remember. It does not need to be exceptionally complex as this is all a local simulation. And because with this in-prod simulation you care less about safety, so much less that you put the mnemonic in a new `docker/val-alice/keys/mnemonic-alice.txt` file.
 
 Do the same for `val-bob`:
 
@@ -111,15 +188,27 @@ Do the same for `val-bob`:
 $ docker run --rm -it \
     -v $(pwd)/docker/val-bob:/root/.checkers \
     checkersd_i \
-    keys --keyring-backend file --keyring-dir /root/.checkers/keys \
+    keys \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
     add bob
 ```
 
-For this exercise, the keyring was created with the passphrase `password`. You will note that `checkersd` has also created a `config` file with three TOML configuration files.
+For this exercise, the keyring was created with the passphrase `password`. You will note that `checkersd` has also created a `config` folder with three TOML configuration files.
 
-### Genesis
+### Alice's KMS Tendermint key
 
-With the keys in, you can start creating the genesis. Have Alice create the first shot:
+As per [the documentation](https://github.com/iqlusioninc/tmkms/tree/v0.12.2#configuration-tmkms-init), initialize the KMS folder:
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    tmkms_i \
+    init /root/tmkms
+```
+
+In the `kms-alice/tmkms.toml` file replace `cosmoshub-3` with `checkers`, the name of your blockchain, wherever the former appears.
+
+Under `[[validator]]`'s `addr` you need to positively identify the validator node when connecting to it, i.e. Alice's validator. Otherwise you could be signing transactions submitted by a malicious actor. You may know the right id value only after you have initialized Alice's validator too. So go ahead and do it now:
 
 ```sh
 $ docker run --rm -it \
@@ -128,7 +217,99 @@ $ docker run --rm -it \
     init checkers
 ```
 
-It has created the `config/genesis.json` but also two private key files. Alice will eventually use the Tendermint KMS so `priv_validator_key.json` will be replaced. Replace the default token from `"stake"` to `"upawn"`, which will be understood as 1 PAWN equals 1 million of `upawn`.
+Accessorily, this has also created the `config/genesis.json` first shot. Now you can extract Alice's validator node key:
+
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  checkersd_i \
+  tendermint show-node-id
+```
+
+It returns something like:
+
+```txt
+f2673103417334a839f5c20096909c3023ba4903
+```
+
+So update `kms-alice/tmkms.toml` with:
+
+```toml
+[[validator]]
+...
+addr = "tcp://f2673103417334a839f5c20096909c3023ba4903@val-alice:26658"
+```
+
+`val-alice` is the future network name of Alice's validator, and it will be resolved to an IP address via Docker.
+
+While you are at it, you should inform Alice's validator that it should indeed listen on port 26658. In `val-alice/config/config.toml`:
+
+* Make it listen on its IP address that is within the KMS private network:
+
+  ```toml
+  priv_validator_laddr = "tcp://0.0.0.0:26658"
+  ```
+
+* Make it not look for the consensus key on file:
+
+  ```toml
+  priv_validator_key_file = ""
+  ```
+
+With `init checkers` Alice has also created a new `val-alice/config/priv_validator_key.json` file. This would be the key her validator uses if it kept its Tendermint key on disk. However, the KMS is here to take care of this key. Remember that you picked `--features=softsign` when building it.
+
+Taking inspiration from [this guide](https://docs.desmos.network/mainnet/kms/kms_softsign), you prepare a new `softsign` key.
+
+<!-- First get Alice's validator operator key:
+
+```sh
+$ ALICE_VALOPER=$(echo password | docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  checkersd_i \
+  keys \
+  --keyring-backend file --keyring-dir /root/.checkers/keys \
+  show alice --bech val --address)
+```
+
+It should save an address like `cosmosvaloper10y9el7wa4gynqkr9x0ds35knhjzj9whsmgjnnu`.
+
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  checkersd_i \
+  query staking validator $ALICE_VALOPER
+``` -->
+
+Move the consensus private key from the validator to the KMS:
+
+```sh
+$ mv docker/val-alice/config/priv_validator_key.json docker/kms-alice/secrets
+```
+
+And import it into the file that the KMS uses:
+
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/kms-alice:/root/tmkms \
+  -w /root/tmkms \
+  tmkms_i \
+  softsign import secrets/priv_validator_key.json \
+  secrets/checkers-consensus.key
+```
+
+Confirm that you extracted the key in the right file name `kms-alice/secrets/checkers-consensus.key` as specified in `tmkms.toml` here:
+
+```toml
+[[providers.softsign]]
+...
+path = "/root/tmkms/secrets/checkers-consensus.key"
+```
+
+### Genesis
+
+With the keys in, you can start creating the genesis. Alice has already created the first shot
+
+`checkersd` has created the `config/genesis.json` and two private key files. Alice will eventually use the Tendermint KMS so `priv_validator_key.json` will be replaced. Replace the default token from `"stake"` to `"upawn"`, which will be understood as 1 PAWN equals 1 million of `upawn`.
 
 ```sh
 $ docker run --rm -it \
@@ -138,15 +319,18 @@ $ docker run --rm -it \
     -i 's/"stake"/"upawn"/g' /root/.checkers/config/genesis.json
 ```
 
+Note how the command overrides the default `checkersd` entry point and replaces it with `--entrypoint sed`.
+
 #### Initial balances
 
-In this setup Alice and Bob both start with 1,000 PAWN, of which, they will stake 10 each. Get their respective addresses:
+In this setup Alice starts with 1,000 PAWN and Bob  500 PAWN, of which, they will stake 10 each. Get their respective addresses:
 
 ```sh
 $ ALICE=$(echo password | docker run --rm -i \
     -v $(pwd)/docker/val-alice:/root/.checkers \
     checkersd_i \
-    keys --keyring-backend file --keyring-dir /root/.checkers/keys \
+    keys \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
     show alice --address)
 ```
 
@@ -173,15 +357,20 @@ And have Bob add his own initial balance:
 $ BOB=$(echo password | docker run --rm -i \
     -v $(pwd)/docker/val-bob:/root/.checkers \
     checkersd_i \
-    keys --keyring-backend file --keyring-dir /root/.checkers/keys \
+    keys \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
     show bob --address)
 $ docker run --rm -it \
     -v $(pwd)/docker/val-bob:/root/.checkers \
     checkersd_i \
-    add-genesis-account $BOB 1000000000upawn
+    add-genesis-account $BOB 500000000upawn
 ```
 
 #### Initial stakes
+
+Alice and Bob both have initial stakes that they define via genesis transactions. You create them.
+
+##### Bob's stake
 
 Bob is not using the Tendermint KMS but instead uses the validator key on file. It is not created yet but will be created automatically. Bob appears in second position in `app_state.accounts`, so it has an `account_number` of `1`:
 
@@ -195,14 +384,78 @@ $ echo password | docker run --rm -i \
     --chain-id checkers
 ```
 
-Again, put your correct passphrase.
-
-TODO Have Alice add her staking transaction with KMS.
-
-With the initial transactions created, you have Alice include them in the genesis:
+Again, put your correct passphrase. Return the genesis to Alice and have Bob send his genesis transaction to Alice:
 
 ```sh
-$ mv docker/val-bob/config/gentx/* docker/val-alice/config/gentx
+$ mv docker/val-bob/config/genesis.json docker/val-alice/config/
+$ mkdir docker/val-alice/config/gentx
+$ cp docker/val-bob/config/gentx/gentx-* docker/val-alice/config/gentx
+```
+
+It is Alice's turn to add her staking transaction.
+
+##### Alice's stake
+
+For Alice to sign her first transaction, she needs to run both her validator and her KMS. They are on the same user-defined network, call it `net-alice-kms`:
+
+```sh
+$ docker network create net-alice-kms
+```
+
+The validator needs to be informed to listen to the KMS
+
+Start the KMS in this network:
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -w /root/tmkms \
+    --network net-alice-kms \
+    --name kms-alice \
+    tmkms_i \
+    start
+```
+
+As it starts, it complains that it cannot find the validator:
+
+```txt
+ERROR tmkms::client: [checkers@tcp://f2673103417334a839f5c20096909c3023ba4903@val-alice:26658] I/O error: failed to lookup address information: Name or service not known
+```
+
+Now, in another shell, you get the consensus public key. You need to get it because you moved `priv_validator_key.json` out of `val-alice`, and this mimics better the case where you would use a hardware keys.
+
+```sh
+$ ALICE_CONSENSUS_PUBKEY=$(docker run --rm -i \
+  -v $(pwd)/docker/kms-alice:/root/tmkms \
+  checkers_i \
+  jq -crj ".pub_key" /root/tmkms/secrets/priv_validator_key.json | sed 's/"/\\"/g')
+```
+
+Note how it calls `checkers_i` which has `jq`, not `checkersd_i`.
+
+Create the genesis transaction:
+
+```sh
+$ echo password | docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  --network net-alice-kms \
+  --name val-alice \
+  checkersd_i \
+  gentx alice 10000000upawn \
+  --keyring-backend file --keyring-dir /root/.checkers/keys \
+  --account-number 0 --sequence 0 \
+  --pubkey \"$ALICE_CONSENSUS_PUBKEY\" \
+  --chain-id checkers
+```
+
+TODO 
+
+#### Genesis assembly
+
+With the initial transactions created, have Alice include them in the genesis:
+
+```sh
+$ cp docker/val-bob/config/gentx/* docker/val-alice/config/gentx
 $ mv docker/val-bob/config/genesis.json docker/val-alice/config
 $ docker run --rm -it \
     -v $(pwd)/docker/val-bob:/root/.checkers \
@@ -321,6 +574,68 @@ For the avoidance of doubt, `sentry-alice` has a different address depending on 
 </HighlightBox>
 
 ## Compose elements
+
+You define the different machines as `services` with names that make them intelligible:
+
+```yaml
+version: "3.7"
+
+services:
+
+  kms-alice:
+    container_name: kms-alice
+
+  val-alice:
+    container_name: val-alice
+
+  sentry-alice:
+    container_name: sentry-alice
+
+  val-bob:
+    container_name: val-bob
+  
+  sentry-bob:
+    container_name: sentry-bob
+
+  node-carol:
+    container_name: node-carol
+```
+
+You are going to further refine the services definitions, starting with the disk volumes. You want each machine to access its own private folder:
+
+```yaml
+services:
+
+  kms-alice:
+    ...
+    volumes:
+      - docker/kms-alice:/root/.checkers
+
+  val-alice:
+    ...
+    volumes:
+      - docker/val-alice:/root/.checkers
+
+  sentry-alice:
+    ...
+    volumes:
+      - docker/sentry-alice:/root/.checkers
+
+  val-bob:
+    ...
+    volumes:
+      - docker/val-bob:/root/.checkers
+  
+  sentry-bob:
+    ...
+    volumes:
+      - docker/sentry-bob:/root/.checkers
+
+  node-carol:
+    ...
+    volumes:
+      - docker/node-carol:/root/.checkers
+```
 
 The user-defined networks need to mimic the desired separation of machines/containers and can be expressed as:
 
