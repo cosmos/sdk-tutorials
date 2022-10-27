@@ -415,6 +415,9 @@ module.exports = {
           }
         ],
       }
+    ],
+    [
+      '@vuepress/html-redirect'
     ]
   ],
   patterns: [
