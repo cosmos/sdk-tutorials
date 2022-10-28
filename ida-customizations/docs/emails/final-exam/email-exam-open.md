@@ -31,11 +31,11 @@ The two parts are independent and you can tackle them in any order.
 
 [End of Tip box]
 
-You can work on your exam until the [EXAM CUT-OFF DATE] and can submit your exam whenever you feel ready. Importantly, **[EXAM CUT-OFF DATE] is a hard cut-off, and we are not granting extensions**.
+You can work on your exam until the **1st of December** and can submit your exam whenever you feel ready. Importantly, **1st of December** is a hard cut-off, and we are not granting extensions**.
 
 We are providing reduced support on Discord during the exam period. However, we are always happy to help, so reach out if you have questions and issues. It may take us longer to get back to you. As always, we do not provide support on the weekends.
 
-You will get your results by the [RESULT DELIVERY DATE].
+You will get your results by the 15th of December.
 
 Good luck with your exam!
 
