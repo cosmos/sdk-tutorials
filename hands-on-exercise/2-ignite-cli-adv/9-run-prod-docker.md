@@ -24,10 +24,10 @@ In order to mimic a real setup, find an objective on which to focus:
 
 In terms of Docker concepts, this means:
 
-* Alice's validator and KMS are on the private user-defined network `alice-kms-net`.
-* Alice's validator and sentry are on the private user-defined network `alice-net`.
-* Bob's validator and sentry are on the private user-defined network `bob-net`.
-* There is a public user-defined network on which sentries and Carol's node run: `public-net`.
+* Alice's validator and KMS are on the private user-defined network `net-alice-kms`.
+* Alice's validator and sentry are on the private user-defined network `net-alice`.
+* Bob's validator and sentry are on the private user-defined network `net-bob`.
+* There is a public user-defined network on which sentries and Carol's node run: `net-public`.
 
 ## Docker elements
 
@@ -280,13 +280,34 @@ $ docker run --rm -i \
   query staking validator $ALICE_VALOPER
 ``` -->
 
-Move the consensus private key from the validator to the KMS:
+At some point, Alice is going to generate her genesis staking transaction. For that, she will need the public key from her KMS. As it turns out, that is the one found in `priv_validator_key.json`. So save this information:
+
+```sh
+$ docker run --rm -t \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  checkersd_i \
+  tendermint show-validator \
+  | docker run --rm -i \
+  checkers_i \
+  jq -jc "." \
+  > docker/val-alice/config/pub_validator_key.json
+```
+
+Note how the second command after `|` is calling the `checkers_i` image, not `checkersd_i`, to get access to `jq`. Of course, if you have `jq` on your host, you can simply use it.
+
+Because the consensus private key should not be on the validator, you can remove it. Actually, because this is a test setup, move it from the validator to the KMS so that you can import it:
 
 ```sh
 $ mv docker/val-alice/config/priv_validator_key.json docker/kms-alice/secrets
 ```
 
-And import it into the file that the KMS uses:
+Before moving on, make sure that the validator still has a `priv_validator_key.json` because the code may complain if the file cannot be found. You can copy the key from `sentry-alice`, which does not present any risk:
+
+```sh
+$ cp docker/sentry-alice/config/priv_validator_key.json docker/val-alice/config
+```
+
+Now import the consensus key into the _`softsign`_ file that the KMS uses:
 
 ```sh
 $ docker run --rm -i \
@@ -323,7 +344,7 @@ Note how the command overrides the default `checkersd` entry point and replaces 
 
 #### Initial balances
 
-In this setup Alice starts with 1,000 PAWN and Bob  500 PAWN, of which, they will stake 10 each. Get their respective addresses:
+In this setup Alice starts with 1,000 PAWN and Bob  500 PAWN, of which, they will stake 100 each. Get their respective addresses:
 
 ```sh
 $ ALICE=$(echo password | docker run --rm -i \
@@ -378,93 +399,70 @@ Bob is not using the Tendermint KMS but instead uses the validator key on file. 
 $ echo password | docker run --rm -i \
     -v $(pwd)/docker/val-bob:/root/.checkers \
     checkersd_i \
-    gentx bob 10000000upawn \
+    gentx bob 100000000upawn \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     --account-number 1 --sequence 0 \
-    --chain-id checkers
+    --chain-id checkers \
+    --gas 1000000 \
+    --gas-prices 0.1upawn
 ```
 
-Again, put your correct passphrase. Return the genesis to Alice and have Bob send his genesis transaction to Alice:
+Again, put your correct passphrase. Return the genesis to Alice:
 
 ```sh
 $ mv docker/val-bob/config/genesis.json docker/val-alice/config/
-$ mkdir docker/val-alice/config/gentx
-$ cp docker/val-bob/config/gentx/gentx-* docker/val-alice/config/gentx
 ```
 
 It is Alice's turn to add her staking transaction.
 
 ##### Alice's stake
 
-For Alice to sign her first transaction, she needs to run both her validator and her KMS. They are on the same user-defined network, call it `net-alice-kms`:
-
-```sh
-$ docker network create net-alice-kms
-```
-
-The validator needs to be informed to listen to the KMS
-
-Start the KMS in this network:
-
-```sh
-$ docker run --rm -it \
-    -v $(pwd)/docker/kms-alice:/root/tmkms \
-    -w /root/tmkms \
-    --network net-alice-kms \
-    --name kms-alice \
-    tmkms_i \
-    start
-```
-
-As it starts, it complains that it cannot find the validator:
-
-```txt
-ERROR tmkms::client: [checkers@tcp://f2673103417334a839f5c20096909c3023ba4903@val-alice:26658] I/O error: failed to lookup address information: Name or service not known
-```
-
-Now, in another shell, you get the consensus public key. You need to get it because you moved `priv_validator_key.json` out of `val-alice`, and this mimics better the case where you would use a hardware keys.
-
-```sh
-$ ALICE_CONSENSUS_PUBKEY=$(docker run --rm -i \
-  -v $(pwd)/docker/kms-alice:/root/tmkms \
-  checkers_i \
-  jq -crj ".pub_key" /root/tmkms/secrets/priv_validator_key.json | sed 's/"/\\"/g')
-```
-
-Note how it calls `checkers_i` which has `jq`, not `checkersd_i`.
-
-Create the genesis transaction:
+Create Alice's genesis transaction using the specific validator public key that you saved on file, and not the key that would be taken from `priv_validator_key.json` by default:
 
 ```sh
 $ echo password | docker run --rm -i \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
-  --network net-alice-kms \
-  --name val-alice \
-  checkersd_i \
-  gentx alice 10000000upawn \
-  --keyring-backend file --keyring-dir /root/.checkers/keys \
-  --account-number 0 --sequence 0 \
-  --pubkey \"$ALICE_CONSENSUS_PUBKEY\" \
-  --chain-id checkers
+    -v $(pwd)/docker/val-alice:/root/.checkers \
+    checkersd_i \
+    gentx alice 100000000upawn \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --account-number 0 --sequence 0 \
+    --pubkey $(cat docker/val-alice/config/pub_validator_key.json) \
+    --chain-id checkers \
+    --gas 1000000 \
+    --gas-prices 0.1upawn
 ```
 
-TODO 
+It is useful to know this `--pubkey` method. Indeed, if you were using a hardware key located on the KMS, that would be the canonical way of generating your genesis transaction.
 
 #### Genesis assembly
 
-With the initial transactions created, have Alice include them in the genesis:
+With the two initial staking transactions created, have Alice include both of them in the genesis:
 
 ```sh
-$ cp docker/val-bob/config/gentx/* docker/val-alice/config/gentx
-$ mv docker/val-bob/config/genesis.json docker/val-alice/config
+$ cp docker/val-bob/config/gentx/gentx-* docker/val-alice/config/gentx
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-bob:/root/.checkers \
+    -v $(pwd)/docker/val-alice:/root/.checkers \
     checkersd_i collect-gentxs
+```
+
+As an added precaution, confirm that it is a valid genesis:
+
+```sh
+$ docker run --rm -it \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  checkersd_i \
+  validate-genesis
+```
+
+It should return:
+
+```txt
+File at /root/.checkers/config/genesis.json is a valid genesis file
 ```
 
 #### Genesis distribution
 
-All the nodes that will run the executable need the final version of the genesis:
+All the nodes that will run the executable need the final version of the genesis. Copy it across:
 
 ```sh
 $ cp docker/val-alice/config/genesis.json docker/sentry-alice/config
@@ -478,7 +476,10 @@ $ cp docker/val-alice/config/genesis.json docker/node-carol/config
 Because the the validators are on a private network and fronted by sentries, you need to set up the configuration of each nodes so they can find each other. And also that the sentries keep the validators addresses private. What are the nodes' public keys? For instance, for `val-alice`, it is:
 
 ```sh
-$ docker run --rm -i -v $(pwd)/docker/val-alice:/root/.checkers checkersd_i tendermint show-node-id
+$ docker run --rm -i \
+    -v $(pwd)/docker/val-alice:/root/.checkers \
+    checkersd_i \
+    tendermint show-node-id
 ```
 
 It returns something like:
@@ -503,7 +504,9 @@ Where:
 In the case of `val-alice`, only `sentry-alice` has access to it. Moreover, this is a persistent node. So you add it in `docker/sentry-alice/config/config.toml`. If this file is missing, you can create it and other by doing a _fake_ `start`:
 
 ```sh
-$ docker run --rm -i -v $(pwd)/docker/sentry-alice:/root/.checkers checkersd_i start
+$ docker run --rm -i \
+    -v $(pwd)/docker/sentry-alice:/root/.checkers \
+    checkersd_i start
 ```
 
 Then in `docker/sentry-alice/config/config.toml`:
@@ -515,10 +518,18 @@ persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 It so happens that `sentry-alice` also has access to `sentry-bob` and `node-carol`, although these nodes probably should not be considered persistent. You will add them under `"seeds"`. First collect the same information from these nodes:
 
 ```sh
-$ docker run --rm -i -v $(pwd)/docker/sentry-bob:/root/.checkers checkersd_i start
-$ docker run --rm -i -v $(pwd)/docker/sentry-bob:/root/.checkers checkersd_i tendermint show-node-id
-$ docker run --rm -i -v $(pwd)/docker/node-carol:/root/.checkers checkersd_i start
-$ docker run --rm -i -v $(pwd)/docker/node-carol:/root/.checkers checkersd_i tendermint show-node-id
+$ docker run --rm -i \
+    -v $(pwd)/docker/sentry-bob:/root/.checkers \
+    checkersd_i start
+$ docker run --rm -i -v $(pwd)/docker/sentry-bob:/root/.checkers \
+    checkersd_i \
+    tendermint show-node-id
+$ docker run --rm -i -v $(pwd)/docker/node-carol:/root/.checkers \
+    checkersd_i \
+    start
+$ docker run --rm -i -v $(pwd)/docker/node-carol:/root/.checkers \
+    checkersd_i \
+    tendermint show-node-id
 ```
 
 Eventually, in `sentry-alice`, you should have:
@@ -568,14 +579,22 @@ Repeat the procedure for the other nodes taking into account their specific circ
 
 For the avoidance of doubt, `sentry-alice` has a different address depending on which node resolves the address.
 
-* When it is resolved from `val-alice`, the resolution takes place in `alice-net`.
-* When it is resolved from `sentry-bob`, the resolution takes place in `public-net`.
+* When it is resolved from `val-alice`, the resolution takes place in `net-alice`.
+* When it is resolved from `sentry-bob`, the resolution takes place in `net-public`.
 
 </HighlightBox>
 
 ## Compose elements
 
-You define the different machines as `services` with names that make them intelligible:
+You have defined the basic Docker elements, the blockchain and network elements. Time to assemble all those into Compose.
+
+### The executables that run
+
+You define the different machines as `services`. To start with:
+
+* In `container_name`, you use names that make them intelligible and match the names you used in the network preparation.
+* In `image`, you associate the Docker image to use.
+* In `command`, you define the command to use when launching the image.
 
 ```yaml
 version: "3.7"
@@ -583,25 +602,41 @@ version: "3.7"
 services:
 
   kms-alice:
+    command: start --config /root/tmkms/tmkms.toml
     container_name: kms-alice
+    image: tmkms_i
 
   val-alice:
+    command: start
     container_name: val-alice
+    image: checkersd_i
 
   sentry-alice:
+    command: start
     container_name: sentry-alice
+    image: checkersd_i
 
   val-bob:
+    command: start
     container_name: val-bob
+    image: checkersd_i
   
   sentry-bob:
+    command: start
     container_name: sentry-bob
+    image: checkersd_i
 
   node-carol:
+    command: start
     container_name: node-carol
+    image: checkersd_i
 ```
 
-You are going to further refine the services definitions, starting with the disk volumes. You want each machine to access its own private folder:
+You are going to further refine the services definitions, starting with the disk volumes.
+
+### The data each needs
+
+You want each machine to access its own private folder prepared earlier. So you declare the mappings:
 
 ```yaml
 services:
@@ -609,75 +644,108 @@ services:
   kms-alice:
     ...
     volumes:
-      - docker/kms-alice:/root/.checkers
+      - ./docker/kms-alice:/root/tmkms
 
   val-alice:
     ...
     volumes:
-      - docker/val-alice:/root/.checkers
+      - ./docker/val-alice:/root/.checkers
 
   sentry-alice:
     ...
     volumes:
-      - docker/sentry-alice:/root/.checkers
+      - ./docker/sentry-alice:/root/.checkers
 
   val-bob:
     ...
     volumes:
-      - docker/val-bob:/root/.checkers
+      - ./docker/val-bob:/root/.checkers
   
   sentry-bob:
     ...
     volumes:
-      - docker/sentry-bob:/root/.checkers
+      - ./docker/sentry-bob:/root/.checkers
 
   node-carol:
     ...
     volumes:
-      - docker/node-carol:/root/.checkers
+      - ./docker/node-carol:/root/.checkers
 ```
 
-The user-defined networks need to mimic the desired separation of machines/containers and can be expressed as:
+### The networks they run in
+
+The user-defined networks need to mimic the desired separation of machines/containers and can be declared as:
 
 ```yaml
 networks:
-  alice-kms-net:
-  alice-net:
-  bob-net:
-  public-net:
+  net-alice-kms:
+  net-alice:
+  net-bob:
+  net-public:
 ```
 
-The belonging of each computer to each network can be written as:
+With the network declaration done, the belonging of each computer to each network can be written as:
 
 ```yaml
 services:
 
   kms-alice:
+    ...
     networks:
-      - alice-kms-net
+      - net-alice-kms
 
   val-alice:
+    ...
     networks:
-      - alice-kms-net
-      - alice-net
+      - net-alice-kms
+      - net-alice
 
   sentry-alice:
+    ...
     networks:
-      - alice-net
-      - public-net
+      - net-alice
+      - net-public
 
   val-bob:
+    ...
     networks:
-      - bob-net
+      - net-bob
   
   sentry-bob:
+    ...
     networks:
-      - bob-net
-      - public-net
+      - net-bob
+      - net-public
 
   node-carol:
+    ...
     networks:
-      - public-net
+      - net-public
+```
+
+With all these computers on their own Docker networks, you may still want to access one of them to query the blockchain, or to play games. Make it on Carol's node:
+
+```yaml
+services:
+
+  node-carol:
+    ...
+    ports:
+      - 9090:9090
+```
+
+### Launching it
+
+You are now ready to start your setup:
+
+```sh
+$ docker compose --project-name checkers-prod up --detach
+```
+
+To stop your whole setup:
+
+```sh
+$ docker compose --project-name checkers-prod down
 ```
 
 <HighlightBox type="synopsis">
