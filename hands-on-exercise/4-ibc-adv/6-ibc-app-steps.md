@@ -1,6 +1,6 @@
 ---
 title: "Make a Module IBC-Enabled"
-order: 7
+order: 6
 description: 
 tags: 
   - guided-coding

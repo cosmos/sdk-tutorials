@@ -1,6 +1,6 @@
 ---
 title: "IBC Middleware"
-order: 9
+order: 8
 description: Custom middleware to wrap an IBC application
 tags: 
   - concepts

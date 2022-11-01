@@ -1,6 +1,6 @@
 ---
 title: "Go Relayer"
-order: 4
+order: 3
 description: Relayer implementation in Golang
 tags:
   - guided-coding

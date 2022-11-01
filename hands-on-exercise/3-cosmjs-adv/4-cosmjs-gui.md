@@ -720,7 +720,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
     <HighlightBox type="note">
 
     Setting up Keplr is [idempotent](https://www.merriam-webster.com/dictionary/idempotent#:~:text=Definition%20of%20idempotent,plural%20idempotents), so repeating these operations more than once is harmless. You may want to separate these actions into more defined methods at a later optimization stage.
-    <br></br>
+    <br/><br/>
     Note too that a default gas price is passed in, so that you can use `"auto"` when sending a transaction.
 
     </HighlightBox>

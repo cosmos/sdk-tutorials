@@ -1,6 +1,6 @@
 ---
 title: Prepare a Validator and Keys
-order: 2
+order: 4
 description: Set up keys for use by your validator
 tags:
   - guided-coding

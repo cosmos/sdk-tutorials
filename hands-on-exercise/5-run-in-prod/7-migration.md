@@ -1,6 +1,6 @@
 ---
 title: Prepare and Do Migrations
-order: 6
+order: 8
 description: Keep your software and network up to date
 tags:
   - guided-coding

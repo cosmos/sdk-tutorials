@@ -1,6 +1,6 @@
 ---
 title: "Hermes Relayer"
-order: 5
+order: 4
 description: Relayer implementation in Rust
 tags:
   - guided-coding
