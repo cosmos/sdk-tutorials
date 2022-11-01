@@ -112,7 +112,7 @@ To give the new v2 information a data structure, you need the following:
     <HighlightBox type="info">
 
     The new `PlayerInfo/value/` prefix for players helps differentiate between the value for players and the value for games prefixed with `StoredGame/value/`.
-    
+    <br/><br/>
     Now you can safely have both `StoredGame/value/123/` and `PlayerInfo/value/123/` side by side in storage.
 
     </HighlightBox>
@@ -1292,7 +1292,7 @@ You have in place the functions that will handle the store migration. Now you ha
 
 ### Consensus version and name
 
-The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First, keep both these values in their respective locations:
+The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First, keep both these values in their respective locations:
 
 <CodeGroup>
 

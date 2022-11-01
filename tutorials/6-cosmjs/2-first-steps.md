@@ -85,7 +85,7 @@ You will soon make this script more meaningful. With the basic script ready, you
 
 ## Testnet preparation
 
-The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/public) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
 ```[https://github.com/cosmos/testnets/tree/master/public#endpoints]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
@@ -108,11 +108,15 @@ generateKey()
 
 Now create a **key** for our imaginary user **Alice**:
 
-*Note: You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
-
 ```sh
 $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
 ```
+
+<HighlightBox type="Note">
+
+You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
+
+</HighlightBox>
 
 When done, it should also tell you the address of the first account:
 
@@ -492,8 +496,8 @@ When you instantiate `SigningStargateClient` by using the [`connectWithSigner`](
 <HighlightBox type="info">
 
 The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you have to use the `OfflineAminoSigner`.
-<br/><br/>
-Read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
+<br></br>
+Read more about encoding [here](https://docs.cosmos.network/main/core/encoding.html).
 
 </HighlightBox>
 

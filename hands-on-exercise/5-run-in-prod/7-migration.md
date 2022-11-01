@@ -14,7 +14,7 @@ Your software is now running, which is good, but perhaps over time, a software u
 
 You can do this whole process somewhat manually, or use a tool to assist you to do it smoothly and fast. This is not an unreasonable concern, since when you perform an upgrade all nodes are simultaneously down.
 
-The main tool is [Cosmovisor](https://docs.cosmos.network/main/run-node/cosmovisor.html). This is a wrapper executable that in turn launches your node as a subprocess. It watches out for when the node stops and drops upgrade information.
+The main tool is [Cosmovisor](https://docs.cosmos.network/main/tooling/cosmovisor). This is a wrapper executable that in turn launches your node as a subprocess. It watches out for when the node stops and drops upgrade information.
 
 Before you upgrade your mainnet, it is good practice to upgrade your testnet(s). You can also use your mainnet state in a temporary testnet to test the computation needs of your state upgrade.
 
@@ -22,10 +22,10 @@ Before you upgrade your mainnet, it is good practice to upgrade your testnet(s).
 
 ## Set up Cosmovisor
 
-Cosmovisor is a piece of software that you need to [install](https://docs.cosmos.network/main/run-node/cosmovisor.html#installation) on your node computer. Its configuration is done via:
+Cosmovisor is a piece of software that you need to [install](https://docs.cosmos.network/main/tooling/cosmovisor.html#installation) on your node computer. Its configuration is done via:
 
-1. [Environment variables](https://docs.cosmos.network/main/run-node/cosmovisor.html#command-line-arguments-and-environment-variables).
-2. [Configuration files and folders](https://docs.cosmos.network/main/run-node/cosmovisor.html#folder-layout) that are polled at intervals and which you prepare by hand or via [a command](https://docs.cosmos.network/master/run-node/cosmovisor.html#cosmovisor).
+1. [Environment variables](https://docs.cosmos.network/main/tooling/cosmovisor.html#command-line-arguments-and-environment-variables).
+2. [Configuration files and folders](https://docs.cosmos.network/main/tooling/cosmovisor.html#folder-layout) that are polled at intervals and which you prepare by hand or via [a command](https://docs.cosmos.network/main/tooling/cosmovisor.html#cosmovisor).
 
 When starting you can pass Cosmovisor command-line arguments that it will pass on to the wrapped Cosmos chain executable. Typically, you use `cosmovisor run start`, where `start` is the same as in `myprojectd start`.
 
@@ -49,7 +49,7 @@ When it launches, Cosmovisor does the following:
 
 When restarting, the node launches its [in-place migration](https://docs.cosmos.network/main/core/upgrade.html) process for all modules that have a [new version](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions).
 
-Downloading an executable is a potential security risk, so although you have the [choice of doing it](https://docs.cosmos.network/main/run-node/cosmovisor.html#auto-download) automatically, this is not the default behavior.
+Downloading an executable is a potential security risk, so although you have the [choice of doing it](https://docs.cosmos.network/main/tooling/cosmovisor.html#auto-download) automatically, this is not the default behavior.
 
 Previously, you may have set up your node executable as a service. If you use Cosmovisor, you can in fact replace your node executable in the declaration of your node service. Update its ``/etc/systemd/system/myprojectd.service`` service declaration as follows:
 

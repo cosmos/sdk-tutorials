@@ -55,7 +55,7 @@ You need to run an Ignite command to create a new Protobuf type and its associat
 
 Make these tests pass:
 
-* [`x/otherworld/types/world_params_student_test.go`](x/otherworld/types/world_params_student_test.go): It needs to pass with:
+* `x/otherworld/types/world_params_student_test.go`: It needs to pass with:
 
     ```sh
     $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/types
@@ -67,7 +67,7 @@ Make these tests pass:
     $ go test github.com/b9lab/other-world/x/otherworld/types
     ```
 
-* [`x/otherworld/keeper/world_params_student_test.go`](x/otherworld/keeper/world_params_student_test.go): It needs to pass with:
+* `x/otherworld/keeper/world_params_student_test.go`: It needs to pass with:
 
     ```sh
     $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/keeper
