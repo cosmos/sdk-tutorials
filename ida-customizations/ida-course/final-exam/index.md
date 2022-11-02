@@ -7,7 +7,7 @@ tag:
 
 # Final Exam
 
-Congratulations on getting this far! You are now ready to take the exam.
+Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until the **1st of December** and can submit your exam whenever you feel ready. Importantly, the 1st of December is a hard cut-off, and we are not granting extensions.
 
 The exam is composed of two parts:
 
