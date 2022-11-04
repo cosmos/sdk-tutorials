@@ -188,12 +188,6 @@ $ docker run --rm -it tmkms_i:v0.12.2
 
 It returns you information about usage. You built Tendermint Key Management System.
 
-To dispose of the large untagged `builder` image, you can run:
-
-```sh
-$ docker image prune
-```
-
 ## Blockchain elements
 
 Each container needs access to its own private information, such as keys and genesis. To facilitate data access and separation between containers, you create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers.
@@ -228,9 +222,9 @@ $ docker run ... \
 Before you can change the configuration, you need to initialize it. Do it on all nodes with this one-liner:
 
 ```sh
-$ echo -ne node-carol'\0'sentry-alice'\0'sentry-bob'\0'val-alice'\0'val-bob \
-    | xargs -0 -I {} \
-    docker run --rm -it \
+$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+    | xargs -I {} \
+    docker run --rm -i \
     -v $(pwd)/docker/{}:/root/.checkers \
     checkersd_i \
     init checkers
@@ -257,8 +251,8 @@ The default initialization set it to `stake`, so you need to make some changes:
 2. In all five `config/app.toml`:
 
   ```sh
-  $ echo -ne node-carol'\0'sentry-alice'\0'sentry-bob'\0'val-alice'\0'val-bob \
-      | xargs -0 -I {} \
+  $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+      | xargs -I {} \
       docker run --rm -i \
       -v $(pwd)/docker/{}:/root/.checkers \
       --entrypoint sed \
@@ -269,8 +263,8 @@ The default initialization set it to `stake`, so you need to make some changes:
 For good measure, you can also make sure that `config/client.toml` mentions the chain's name:
 
 ```sh
-$ echo -ne node-carol'\0'sentry-alice'\0'sentry-bob'\0'val-alice'\0'val-bob \
-    | xargs -0 -I {} \
+$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+    | xargs -I {} \
     docker run --rm -i \
     -v $(pwd)/docker/{}:/root/.checkers \
     --entrypoint sed \
@@ -528,7 +522,7 @@ $ echo password | docker run --rm -i \
     gentx bob 100000000upawn \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     --account-number 0 --sequence 0 \
-    --chain-id checkers \
+    --chain-id checkers-1 \
     --gas 1000000 \
     --gas-prices 0.1upawn
 ```
@@ -554,7 +548,7 @@ $ echo password | docker run --rm -i \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     --account-number 0 --sequence 0 \
     --pubkey $(cat docker/val-alice/config/pub_validator_key.json) \
-    --chain-id checkers \
+    --chain-id checkers-1 \
     --gas 1000000 \
     --gas-prices 0.1upawn
 ```
@@ -612,8 +606,8 @@ $ cp docker/val-alice/config/genesis.json docker/val-bob/config
 <CodeGroupItem title="One-liner">
 
 ```sh
-$ echo -ne node-carol'\0'sentry-alice'\0'sentry-bob'\0'val-bob \
-    | xargs -0 -I {} \
+$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-bob \
+    | xargs -I {} \
     cp docker/val-alice/config/genesis.json docker/{}/config
 ```
 
@@ -920,8 +914,8 @@ Or other errors, you may want to do a state reset on all nodes:
 <ExpansionPanel title="unsafe-reset-all">
 
 ```sh
-$ echo -ne node-carol'\0'sentry-alice'\0'sentry-bob'\0'val-alice'\0'val-bob \
-    | xargs -0 -I {} \
+$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+    | xargs -I {} \
     docker run --rm -i \
     -v $(pwd)/docker/{}:/root/.checkers \
     checkersd_i \
