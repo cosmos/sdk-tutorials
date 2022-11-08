@@ -326,30 +326,31 @@ $ docker run --rm -it \
     init /root/tmkms
 ```
 
-In the `kms-alice/tmkms.toml` file replace `cosmoshub-3` with `checkers`, the name of your blockchain, wherever the former appears.
+In the `kms-alice/tmkms.toml` file:
 
-Under `[[validator]]`'s `addr` you need to positively identify the validator node when connecting to it, i.e. Alice's validator. Otherwise you could be signing transactions submitted by a malicious actor. You can find the right id value in Alice's validator. Extract Alice's validator node key:
+* Make sure that you use the right protocol version. In your case:
+  
+  ```toml
+  [[validator]]
+  ...
+  protocol_version = "v0.34"
+  ```
 
-```sh
-$ docker run --rm -i \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
-  checkersd_i \
-  tendermint show-node-id
-```
+* Replace `cosmoshub-3` with `checkers`, the name of your blockchain, wherever the former appears.
 
-It returns something like:
-
-```txt
-f2673103417334a839f5c20096909c3023ba4903
-```
-
-So update `kms-alice/tmkms.toml` with:
+Under `[[validator]]`'s `addr` you need to provide a way to connect to the validator node, i.e. Alice's validator. So update `kms-alice/tmkms.toml` with:
 
 ```toml
 [[validator]]
 ...
-addr = "tcp://f2673103417334a839f5c20096909c3023ba4903@val-alice:26659"
+addr = "tcp://val-alice:26659"
 ```
+
+<!--
+  TODO: can we add an id? Like
+  addr = "tcp://f2673103417334a839f5c20096909c3023ba4903@val-alice:26659"
+  Otherwise you could be signing blocks submitted by a malicious actor.
+-->
 
 * `val-alice` is the future network name of Alice's validator, and it will be resolved to an IP address via Docker.
 * `26659` is an unused port on `val-alice`.
@@ -365,7 +366,13 @@ Not to forget, you should inform Alice's validator that it should indeed listen 
 * Make it not look for the consensus key on file:
 
   ```toml
-  priv_validator_key_file = ""
+  # priv_validator_key_file = "config/priv_validator_key.json"
+  ```
+
+* and make it not look for the consensus state file:
+
+  ```toml
+  # priv_validator_state_file = "data/priv_validator_state.json"
   ```
 
 With `init checkers` Alice has also created a new `val-alice/config/priv_validator_key.json` file. This would be the key her validator uses if it kept its Tendermint key on disk. However, the KMS is here to take care of this key. Remember that you picked `--features=softsign` when building it.
@@ -924,6 +931,12 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
 ```
 
 </ExpansionPanel>
+
+If one of your services fails to start because it could not resolve one of the other containers, you can restart it, and only it, with, for instance:
+
+```sh
+$ docker compose restart sentry-bob
+```
 
 <HighlightBox type="synopsis">
 
