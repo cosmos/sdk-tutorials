@@ -417,7 +417,10 @@ module.exports = {
       }
     ],
     [
-      '@vuepress/html-redirect'
+      '@vuepress/html-redirect',
+      {
+        countdown: 0
+      }
     ]
   ],
   patterns: [
