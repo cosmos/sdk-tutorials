@@ -39,7 +39,10 @@
 /academy/5-cosmjs/with-keplr.html /tutorials/6-cosmjs/4-with-keplr.html
 /academy/5-cosmjs/create-custom.html /tutorials/6-cosmjs/5-create-custom.html
 /authz-module/ /tutorials/7-understand-sdk-modules/1-authz.html
+/tutorials/understanding-authz/ /tutorials/7-understand-sdk-modules/1-authz.html
 /tutorials/understanding-feegrant/ /tutorials/7-understand-sdk-modules/2-feegrant.html
+/tutorials/understanding-group/ /tutorials/7-understand-sdk-modules/3-group.html
+/tutorials/understanding-gov/ /tutorials/7-understand-sdk-modules/4-gov.html
 /academy/3-my-own-chain/ /hands-on-exercise/1-ignite-cli/
 /academy/3-my-own-chain/ignitecli.html /hands-on-exercise/1-ignite-cli/1-ignitecli.html
 /academy/3-my-own-chain/exercise-intro.html /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
