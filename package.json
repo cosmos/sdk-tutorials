@@ -70,6 +70,9 @@
     "ssri": "^8.0.1",
     "watchpack": "^2.0.0"
   },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
+  },
   "engines": {
     "node": ">=14 <15"
   }
