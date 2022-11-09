@@ -10,6 +10,28 @@ tags:
 
 # Simulate Production in Docker
 
+<HighlightBox type="prerequisite">
+
+Make sure you have everything you need before proceeding:
+
+* You understand the concepts of [Production](/hands-on-exercise/5-run-in-prod/index.md).
+* Docker is installed.
+* You have the checkers blockchain codebase with the CosmJS elements. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements).
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Prepare Docker elements.
+* Handle keys.
+* Prepare blockchain nodes.
+* Prepare a blockchain genesis.
+* Compose the lot in one orchestrated ensemble.
+
+</HighlightBox>
+
 Before you launch yourself fully into production, it would be interesting to simulate a set of independent nodes on your own computer. This can be prepared and orchestrated with [Docker Compose](https://docs.docker.com/get-started/08_using_compose).
 
 ## Target setup
@@ -52,13 +74,18 @@ Build the executable(s) that will be launched by Docker Compose within Docker im
 
 Update your `Makefile` with:
 
-```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L41]
+```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
 build-all:
     GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    GOOS=darwin GOARCH=amd64 go build -o ./build/checkersd-darwin-amd64 ./cmd/checkersd/main.go
+    GOOS=darwin GOARCH=arm64 go build -o ./build/checkersd-darwin-arm64 ./cmd/checkersd/main.go
 
 do-checksum:
-    cd build && sha256sum checkersd-linux-amd64 checkersd-linux-arm64 > checkers_checksum
+    cd build && sha256sum \
+        checkersd-linux-amd64 checkersd-linux-arm64 \
+        checkersd-darwin-amd64 checkersd-darwin-arm64 \
+        > checkers_checksum
 
 build-with-checksum: build-all do-checksum
 ```
@@ -940,6 +967,37 @@ For the avoidance of doubt, `sentry-alice` has a different address depending on 
 
 </HighlightBox>
 
+### Open Carol's node
+
+Carol created her node to open it to the public. Make sure that her node's RPC listens on all IP addresses:
+
+<CodeGroup>
+
+<CodeGroupItem title="TOML">
+
+```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/node-carol/config/config.toml#L91]
+laddr = "tcp://0.0.0.0:26657"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="One-liner">
+
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/node-carol:/root/.checkers \
+  --entrypoint sed \
+  checkersd_i \
+  -Ei '0,/^laddr = .*$/{s/^laddr = .*$/laddr = "tcp:\/\/0.0.0.0:26657"/}' \
+  /root/.checkers/config/config.toml
+```
+
+Note that it has to replace only the first occurrence in the whole.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 ## Compose elements
 
 You have prepared:
@@ -1100,7 +1158,7 @@ services:
       - kms-alice
 ```
 
-With all these computers on their own Docker networks, you may still want to access one of them to query the blockchain, or to play games. Pick to expose Carol's node:
+With all these computers on their own Docker networks, you may still want to access one of them to query the blockchain, or to play games. In order to make your host computer look like an open node, you expose Carol's node on all addresses of your host:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L69-L70]
 services:
@@ -1108,7 +1166,7 @@ services:
   node-carol:
     ...
     ports:
-      - 9090:9090
+      - 0.0.0.0:26657:26657
 ```
 
 ### Launching it
@@ -1130,7 +1188,103 @@ docker/*/data/*
 !docker/*/data/priv_validator_state.json
 ```
 
-Note how `priv_validator_state.json` is necessary if you want to try again on another host.
+Note how `priv_validator_state.json` is necessary if you want to try again on another host, so it should not be ignored by Git.
+
+### Interacting with it
+
+Your six containers are running. To monitor their status, and confirm that they are running, you can use the provided Docker container interface.
+
+Now you can connect to `node-carol` to start interacting with the blockchain as you would a normal node. For instance, to ask a simple `status`:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local Mac">
+
+```sh
+$ ./build/checkersd-darwin-amd64 status \
+  --node "tcp://localhost:26657"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Windows Powershell">
+
+```sh
+> ./build/checkersd-windows-amd64 status \
+  --node "tcp://localhost:26657"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="In net-public">
+
+```sh
+$ docker run --rm -it \
+  --network checkers-prod_net-public \
+  checkersd_i status \
+  --node "tcp://node-carol:26657"
+```
+
+Note how the `net-public` network name is prefixed with the Compose project name.
+
+</CodeGroupItem>
+
+<CodeGroupItem title="In plain Docker">
+
+```sh
+$ docker run --rm -it \
+  checkersd_i status \
+  --node "tcp://192.168.0.2:26657"
+```
+
+Where you replace `192.168.0.2` with the actual IP address of your host computer
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+From this point on, everything you know how to do such as connecting to your local node applies.
+
+Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onwards to the validators.
+
+Is it still possible to run a full game in almost a single block as you did earlier in the CosmJS integration tests? After all, when `node-carol` passes on the transactions as they come, it is not sure that the recipients will honor the order in which they were received. Of course they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
+
+To find out:
+
+* Update `client/.env` so that:
+    * You connect within `net-public` to [`RPC_URL="http://node-carol:26657"`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L1).
+    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `docker/val-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Same for Bob.
+    * Update the [`ADDRESS_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L4) address to contain the correct ones. Same for Bob.
+* Skip the call to the (Ignite) faucet by adding a `return` in the relevant `before` in the test file:
+
+  ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L63]
+  before("credit test accounts", async function () {
+      return
+      ...
+  }
+  ```
+
+* Double all the timeouts. For instance:
+
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L84]
+    this.timeout(10_000) // instead of 5_000
+    ```
+
+* Text-replace all the [`token`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L89) with `upawn`.
+
+* Launch the lot within `net-public`:
+
+  ```sh
+  $ docker run --rm -it \
+    -v $(pwd)/client:/client -w /client \
+    --network checkers-prod_net-public \
+    node:18.7 \
+    npm test
+  ```
+
+  Tests should pass. _Should_ as in, there is no protocol guarantee that they will, but it looks like they do.
 
 ### Stopping it
 
@@ -1204,6 +1358,7 @@ To summarize, this section has explored:
 * How to prepare Docker images.
 * How to prepare nodes for a simulated production setup.
 * How to prepare a Tendermint Key Management System for a simulated production setup.
+* How to prepare a blockchain genesis with multiple parties.
 * How to launch all that with the help of Docker Compose.
 
 </HighlightBox>
