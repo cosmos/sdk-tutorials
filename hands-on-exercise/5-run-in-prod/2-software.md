@@ -75,7 +75,8 @@ windows/arm64
 As a side note, some of these platforms are first-class ports of Go while the others are not. If you want to only see the first class ports and have installed the `jq` tool, you can run:
 
 ```sh
-$ go tool dist list -json | jq -r '.[] | select(.FirstClass) | [.GOOS , .GOARCH] | join("/")'
+$ go tool dist list -json \
+  | jq -r '.[] | select(.FirstClass) | [.GOOS , .GOARCH] | join("/")'
 ```
 
 <HighlightBox type="note">
@@ -152,7 +153,9 @@ You need to adjust the syntax of targets from `linux/amd64` to `linux:amd64`. Al
 
 ```sh
 $ ignite chain build \
-    --release.targets linux:amd64 --release.targets linux:arm64 --release.targets darwin:amd64 \
+    --release.targets linux:amd64 \
+    --release.targets linux:arm64 \
+    --release.targets darwin:amd64 \
     --output ./release \
     --release
 ```
@@ -198,16 +201,16 @@ This creates a `myprojectd` executable file.
 
 ### With a Makefile
 
-A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project:
+A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project with:
 
 ```make
 build-all:
-	GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
-	GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
-	GOOS=darwin GOARCH=amd64 go build -o ./build/myproject-darwin-amd64 ./cmd/myprojectd/main.go
+    GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
+    GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
+    GOOS=darwin GOARCH=amd64 go build -o ./build/myproject-darwin-amd64 ./cmd/myprojectd/main.go
 
 do-checksum:
-	cd build && sha256sum myproject-linux-amd64 myproject-linux-arm64 myproject-darwin-amd64 > myproject_checksum
+    cd build && sha256sum myproject-linux-amd64 myproject-linux-arm64 myproject-darwin-amd64 > myproject_checksum
 
 build-with-checksum: build-all do-checksum
 ```
@@ -234,7 +237,7 @@ If you want to see what a vastly more complex `Makefile` looks like, head to the
 
 ### With a Makefile within Docker
 
-If you do not want to install Go or `make` on your computer, and [have Docker](https://docs.docker.com/engine/install/), you can:
+If you do not want to install Go or `make` on your build computer, and [have Docker](https://docs.docker.com/engine/install/), you can:
 
 * Reuse the `Makefile` from above.
 * Pick a Docker image that already has Go 1.18.3 and `make`. [`golang:1.18.3`](https://hub.docker.com/layers/golang/library/golang/1.18.3/images/sha256-ea66badd7cf7b734e2484a1905b6545bd944ef3bdeea18be833db3e2219f1153?context=explore) is a good choice.
@@ -242,7 +245,11 @@ If you do not want to install Go or `make` on your computer, and [have Docker](h
 Run the command:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/myproject -w /myproject golang:1.18.3 make build-with-checksum
+$ docker run --rm -it \
+  -v $(pwd):/myproject \
+  -w /myproject \
+  golang:1.18.3 \
+  make build-with-checksum
 ```
 
 ## Deploy
