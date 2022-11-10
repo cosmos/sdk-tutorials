@@ -591,12 +591,6 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
   priv_validator_laddr = "tcp://0.0.0.0:26659"
   ```
 
-  <HighlightBox type="note">
-
-  Make it listen on an IP address that is within the KMS private network.
-
-  </HighlightBox>
-
   </CodeGroupItem>
 
   <CodeGroupItem title="One-liner">
@@ -610,16 +604,16 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
       /root/.checkers/config/config.toml
     ```
 
+  </CodeGroupItem>
+
+  </CodeGroup>
+
   <HighlightBox type="note">
 
   Make it listen on an IP address that is within the KMS private network.
 
   </HighlightBox>
     
-  </CodeGroupItem>
-
-  </CodeGroup>
-
   `0.0.0.0` represents all addresses of the node. In a real production setup, you would choose the IP address of the network card that is on the network common with `kms-alice`.
 
 * Make sure it will not look for the consensus key on file:
