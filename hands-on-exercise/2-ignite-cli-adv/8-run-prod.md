@@ -72,7 +72,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make build-wit
 $ docker run --rm -it -v $(pwd):/checkers -w /checkers golang:1.18.7 make build-with-checksum
 ```
 
-You pick a 1.18 version because some modules actually need it, although 1.16 is mentioned in [`go.mod`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/go.mod#L3)
+Pick the 1.18 version because some modules actually need it, although 1.16 is mentioned in [`go.mod`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/go.mod#L3)
 
 </CodeGroupItem>
 

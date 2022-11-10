@@ -38,8 +38,8 @@ Before you launch yourself fully into production, it would be interesting to sim
 
 In order to mimic a real setup, find an objective on which to focus. Here the objective is:
 
-* Three independent parties, Alice, Bob and Carol.
-* Two independent validator nodes, run by Alice and Bob, that can only communicate with their own sentries and do not expose RPC end points.
+* Three independent parties, Alice, Bob, and Carol.
+* Two independent validator nodes, run by Alice and Bob respectively, that can only communicate with their own sentries and do not expose RPC end points.
 * Additionally, Alice's validator node uses Tendermint KMS on a separate machine.
 * The two sentry nodes, run by Alice and Bob, expose end points to the _world_.
 * A regular node, run by Carol, that can communicate with only the sentries and exposes end points for use by clients.
@@ -48,29 +48,29 @@ In order to mimic a real setup, find an objective on which to focus. Here the ob
 
 Before looking at the specific Compose elements, you need to define what the _regular_ Docker elements are.
 
-You will run containers. You can start giving them meaningful names:
+You will run containers. You can start by giving them meaningful names:
 
 * Alice's containers: `sentry-alice`, `val-alice`, and `kms-alice`.
-* Bob's containers: `sentry-bob`, and `val-bob`.
+* Bob's containers: `sentry-bob` and `val-bob`.
 * Carol's containers: `node-carol`.
 
 Docker lets you simulate private networks. To meaningfully achieve the above target setup in terms of network separation, you use Docker's user-defined networks. This means:
 
-* Alice's validator and KMS are on their own private network, name it `net-alice-kms`.
-* Alice's validator and sentry are on their own private network, name it `net-alice`.
-* Bob's validator and sentry are on their own private network, name it `net-bob`.
-* There is a public network on which sentries and Carol's node run, name it `net-public`.
+* Alice's validator and KMS are on their own private network: name it `net-alice-kms`.
+* Alice's validator and sentry are on their own private network: name it `net-alice`.
+* Bob's validator and sentry are on their own private network: name it `net-bob`.
+* There is a public network on which both sentries and Carol's node run: name it `net-public`.
 
-Although every machine on the network is a bit different, in terms of Docker images, there are only two image types:
+Although every machine on the network is a bit different, in terms of Docker images there are only two image types:
 
-1. The Tendermint nodes, i.e. validators, sentries and regular nodes will run `checkersd` within containers created from a single Docker image.
+1. The Tendermint nodes (i.e. validators, sentries, and regular nodes) will run `checkersd` within containers created from a single Docker image.
 2. The Tendermint KMS node will run TMKMS from a different Docker image.
 
 ### The node image
 
 The node image contains, and runs by default, the Checkers executable. You first have to compile it, and then build the image.
 
-Build the executable(s) that will be launched by Docker Compose within Docker images. Depending on your platform, you would use `checkersd-linux-amd64` or `checkersd-linux-arm64`.
+First build the executable(s) that will be launched by Docker Compose within the Docker images. Depending on your platform, you will use `checkersd-linux-amd64` or `checkersd-linux-arm64`.
 
 Update your `Makefile` with:
 
@@ -91,9 +91,14 @@ build-with-checksum: build-all do-checksum
 ```
 
 If you have a CPU architecture that is neither `amd64` nor `arm64`, update your `Makefile` accordingly.
-And if you copied-pasted directly into `Makefile`, do not forget to convert the spaces into tabs.
 
-Then run either command:
+<HighlightBox type="note">
+
+If you copy-pasted directly into `Makefile`, do not forget to convert the spaces into tabs.
+
+</HighlightBox>
+
+Now run either command:
 
 <CodeGroup>
 
@@ -107,7 +112,7 @@ $ docker run --rm -it \
     make build-with-checksum
 ```
 
-If you already built this `checkers_i` image as this will take less time.
+Use this command if you already built this `checkers_i` image, as this will take less time.
 
 </CodeGroupItem>
 
@@ -121,7 +126,7 @@ $ docker run --rm -it \
     make build-with-checksum
 ```
 
-If you did not already have the `checkers_i` image. This command may take longer but should always works.
+Use this command if you did not already have the `checkers_i` image. This command may take longer but should always work.
 
 </CodeGroupItem>
 
@@ -142,7 +147,7 @@ COPY build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
 ENTRYPOINT [ "checkersd" ]
 ```
 
-And build the image with:
+Build the image with:
 
 ```sh
 $ docker build -f Dockerfile-ubuntu-prod . -t checkersd_i
@@ -168,13 +173,13 @@ $ docker run --rm -it checkersd_i help
 
 You should see a recognizable list of commands.
 
-Each Docker container will run `checkersd` as `root` and it does not matter because it all happens in a container. So there is no need to create a specific additional user like you would in a serious production setting. For the same reason, there is also no need to create a service to launch it.
+Each Docker container will run `checkersd` as `root`, which does not matter because it all happens in a container. Therefore there is no need to create a specific additional user like you would in a serious production setting. For the same reason, there is also no need to create a service to launch it.
 
 ### The key manager image
 
 Alice runs the [Tendermint Key Management System](https://github.com/iqlusioninc/tmkms) on a separate machine. You need to prepare its image. The image will contain the executable, which you have to compile from its Rust code.
 
-There are considerations to clarify:
+There are several considerations to clarify:
 
 * How will you build it?
 * What device will store the key?
@@ -182,14 +187,14 @@ There are considerations to clarify:
 
 The **build step** is a good opportunity to use a [multi-stage Docker build](https://docs.docker.com/build/building/multi-stage/). With this technique:
 
-1. You define a disposable image (the first stage) that clones the code and compiles it. This involves the download of Rust crates (i.e. packages). This image ends up being large but is then disposed of.
+1. You define a disposable image (the first stage) that clones the code and compiles it. This involves the download of Rust crates (i.e. packages). This image ends up being large, but is then disposed of.
 2. You define a slim image (the second stage) in which you only copy the compiled file. This is the image you keep for production. It ends up being small.
 
 The disposable image needs to use Rust of at least version 1.56. Fortunately, there are ready-made Docker images. Pick [`rust:1.64.0`](https://hub.docker.com/layers/library/rust/1.64.0/images/sha256-44ba8b8d8a2993694926cc847e1cce27937550c2e9eade4d9887ba90b2a2063f).
 
 Next, the executable needs to be compiled for the specific **device** onto which your key will be stored. You do not use hardware keys in this setup. So, when building it, you use the [`softsign` extension](https://github.com/iqlusioninc/tmkms/blob/c56b496e1bb1187482d7a6fad23c4566329c951e/src/keyring/providers/softsign.rs). This is achieved by adding the flag `--features=softsign`.
 
-Finally, what **version** of the TMKMS should you compile? A given TMKMS version can work with a limited set of specific Tendermint versions. Find the Tendermint version of your Checkers code:
+Finally, what **version** of the TMKMS should you compile? A given TMKMS version can work with a limited set of specific Tendermint versions. Find the Tendermint version of your Checkers code with:
 
 ```sh
 $ grep tendermint/tendermint go.mod
@@ -228,23 +233,23 @@ COPY --from=builder /root/tmkms/target/release/tmkms ${LOCAL}/bin
 ENTRYPOINT [ "tmkms" ]
 ```
 
-Note how the production stage is only three lines. Build the image as usual with:
+As you can see, the production stage is only three lines. Build the image as usual with:
 
 ```sh
 $ docker build -f Dockerfile-ubuntu-tmkms . -t tmkms_i:v0.12.2
 ```
 
-Now when you run it:
+Now run it:
 
 ```sh
 $ docker run --rm -it tmkms_i:v0.12.2
 ```
 
-It returns you information about usage. You just built the Tendermint Key Management System.
+It returns you information about usage. You have just built the Tendermint Key Management System.
 
 ## Blockchain elements
 
-Each container needs access to its own private information, such as keys and genesis. To facilitate data access and separation between containers, you create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
+Each container needs access to its own private information, such as keys and genesis. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
 
 ```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/docker]
 $ mkdir -p docker/kms-alice
@@ -273,7 +278,7 @@ $ docker run ... \
 
 ### Basic initialization
 
-Before you can change the configuration, you need to initialize it. Do it on all nodes with this one-liner:
+Before you can change the configuration you need to initialize it. Do it on all nodes with this one-liner:
 
 ```sh
 $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
@@ -284,7 +289,7 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
     init checkers
 ```
 
-Accessorily, this has also created the first shot of `config/genesis.json` on every node, although you will start work with the one on `val-alice`.
+As a secondary effect, this also creates the first shot of `config/genesis.json` on every node, although you will start work with the one on `val-alice`.
 
 Early decisions that you can make at this stage are:
 
@@ -293,13 +298,13 @@ Early decisions that you can make at this stage are:
 
 <HighlightBox type="note">
 
-Do you need that many decimals? Yes and no. Depending on your version of the Cosmos SDK, there is a hard-coded value of base token that a validator has to stake, and the number is `10,000,000`. So if you do not have enough decimals, it means that the _human_ token would have to have a lot of zeroes.
+Do you need that many decimals? Yes and no. Depending on your version of the Cosmos SDK, there is a hard-coded value of base tokens that a validator has to stake, and the number is `10,000,000`. If you do not have enough decimals, the _human_ token would have to have a lot of zeroes.
 
 </HighlightBox>
 
-The default initialization set the base token to `stake`, so to get it to be `upawn` you need to make some changes:
+The default initialization sets the base token to `stake`, so to get it to be `upawn` you need to make some changes:
 
-1. In the authoritative [`config/genesis.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/genesis.json#L63), i.e. `val-alice`'s:
+1. In the authoritative [`config/genesis.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/genesis.json#L63) (i.e. `val-alice`'s):
 
   ```sh
   $ docker run --rm -it \
@@ -323,7 +328,7 @@ The default initialization set the base token to `stake`, so to get it to be `up
       -Ei 's/([0-9]+)stake/\1upawn/g' /root/.checkers/config/app.toml
   ```
 
-And make sure that [`config/client.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/client.toml#L9) mentions `checkers-1`, the chain's name:
+Make sure that [`config/client.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/client.toml#L9) mentions `checkers-1`, the chain's name:
 
 ```sh
 $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
@@ -340,17 +345,17 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
 
 Some keys are created automatically, like the [node keys](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/node-carol/config/node_key.json). For others, you have to create them yourself. You will create:
 
-* The validator operators' keys for Alice and Bob.
+* The validator operator keys for Alice and Bob.
 * The consensus keys, whether they stay on Bob's node or are kept inside Alice's KMS.
 
 Start with the keys for the validators and Alice's KMS Tendermint key.
 
 ### Validator operator keys
 
-First, you need to create the two validators' operation keys. Such a key is not meant to stay on the node when it runs. It is meant to be used at certain junctures only, for instance to stake on behalf of Alice (or Bob). Nonetheless, you are going to create them by running containers. Because you want to keep these keys inside and outside of containers:
+First you need to create the two validators' operation keys. Such a key is not meant to stay on the node when it runs, it is meant to be used at certain junctures only, for instance to stake on behalf of Alice (or Bob). Nonetheless, you are going to create them by running containers. Because you want to keep these keys inside and outside of containers, do the following:
 
-1. You use the `--keyring-backend file`.
-2. You keep them in the mapped volume with `--keyring-dir /root/.checkers/keys`.
+1. Use the `--keyring-backend file`.
+2. Keep them in the mapped volume with `--keyring-dir /root/.checkers/keys`.
 
 Create the operator key for `val-alice`:
 
@@ -363,13 +368,13 @@ $ docker run --rm -it \
     add alice
 ```
 
-Use a passphrase you can remember. It does not need to be exceptionally complex as this is all a local simulation. This exercise uses `password` and stores this detail on file, this will become handy.
+Use a passphrase you can remember. It does not need to be exceptionally complex as this is all a local simulation. This exercise uses `password` and stores this detail on file, which will become handy.
 
 ```sh [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/keys/passphrase.txt]
 $ echo -n password > docker/val-alice/keys/passphrase.txt
 ```
 
-And because with this prod simulation you care less about safety, so much less in fact, you can even keep the mnemonic on file too.
+Because with this prod simulation you care less about safety, so much less in fact, you can even keep the mnemonic on file too.
 
 Do the same for `val-bob`:
 
@@ -434,7 +439,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
     
     </CodeGroup>
 
-2. Pick an expressive name for the file that will contain the `softsign` key for `val-alice`.
+2. Pick an expressive name for the file that will contain the `softsign` key for `val-alice`:
 
     <CodeGroup>
 
@@ -463,7 +468,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
     
     </CodeGroup>
 
-3. Replace `cosmoshub-3` with `checkers-1`, the name of your blockchain, wherever the former appears.
+3. Replace `cosmoshub-3` with `checkers-1`, the name of your blockchain, wherever the former appears:
 
     <CodeGroup>
 
@@ -500,7 +505,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
 Now you need to import `val-alice`'s consensus key in `secrets/val-alice-consensus.key`.
 
-The private key will no longer be needed on `val-alice`. However, during the genesis creation, Alice will need access to her consensus public key. Save it in a new [`pub_validator_key.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/pub_validator_key.json) without any new line:
+The private key will no longer be needed on `val-alice`. However, during the genesis creation Alice will need access to her consensus public key. Save it in a new [`pub_validator_key.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/pub_validator_key.json) without any new line:
 
 ```sh
 $ docker run --rm -t \
@@ -518,7 +523,7 @@ $ mv docker/val-alice/config/priv_validator_key.json \
   docker/kms-alice/secrets/priv_validator_key-val-alice.json
 ```
 
-And import it into the `softsign` "device" as defined in [`tmkms.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L19):
+Import it into the `softsign` "device" as defined in [`tmkms.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L19):
 
 ```sh
 $ docker run --rm -i \
@@ -529,20 +534,18 @@ $ docker run --rm -i \
   secrets/val-alice-consensus.key
 ```
 
-On start, `val-alice` may still recreate a missing private key file, due to how defaults are handled in the code. To prevent that, you can instead copy it from `sentry-alice`, where it has no value.
+On start, `val-alice` may still recreate a missing private key file due to how defaults are handled in the code. To prevent that, you can instead copy it from `sentry-alice` where it has no value.
 
 ```sh
 $ cp docker/sentry-alice/config/priv_validator_key.json \
   docker/val-alice/config/
 ```
 
-With the key created, you now set up the connection from `kms-alice` to `val-alice`.
+With the key created you now set up the connection from `kms-alice` to `val-alice`.
 
 ### Set up the KMS connection
 
-Choose a port unused on `val-alice`, for instance `26659`.
-
-Inform `kms-alice` of it:
+Choose a port unused on `val-alice`, for instance `26659`, and inform `kms-alice`:
 
 <CodeGroup>
 
@@ -578,9 +581,7 @@ addr = "tcp://val-alice:26659"
 
 In the above, `val-alice` is the future network name of Alice's validator, and it will indeed be resolved to an IP address via Docker's internal DNS. In a real production setup you would use a fully resolved IP address so as to avoid the vagaries of DNS.
 
-Not to forget, you inform Alice's validator that it should indeed listen on port `26659`. In `val-alice/config/config.toml`:
-
-* Make it listen on its IP address that is within the KMS private network:
+Do not forget, you must inform Alice's validator that it should indeed listen on port `26659`. In `val-alice/config/config.toml`:
 
   <CodeGroup>
 
@@ -589,6 +590,12 @@ Not to forget, you inform Alice's validator that it should indeed listen on port
   ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L68]
   priv_validator_laddr = "tcp://0.0.0.0:26659"
   ```
+
+  <HighlightBox type="note">
+
+  Make it listen on an IP address that is within the KMS private network.
+
+  </HighlightBox>
 
   </CodeGroupItem>
 
@@ -602,6 +609,12 @@ Not to forget, you inform Alice's validator that it should indeed listen on port
       -Ei 's/priv_validator_laddr = ""/priv_validator_laddr = "tcp:\/\/0.0.0.0:26659"/g' \
       /root/.checkers/config/config.toml
     ```
+
+  <HighlightBox type="note">
+
+  Make it listen on an IP address that is within the KMS private network.
+
+  </HighlightBox>
     
   </CodeGroupItem>
 
@@ -609,7 +622,7 @@ Not to forget, you inform Alice's validator that it should indeed listen on port
 
   `0.0.0.0` represents all addresses of the node. In a real production setup, you would choose the IP address of the network card that is on the network common with `kms-alice`.
 
-* Make it not look for the consensus key on file:
+* Make sure it will not look for the consensus key on file:
 
   <CodeGroup>
 
@@ -636,7 +649,7 @@ Not to forget, you inform Alice's validator that it should indeed listen on port
 
   </CodeGroup>
 
-* And make it not look for the consensus state file either, as this is taken care of by the KMS:
+* Make sure it will not look for the consensus state file either, as this is taken care of by the KMS:
 
   <CodeGroup>
 
@@ -672,18 +685,18 @@ $ cp docker/sentry-alice/config/priv_validator_key.json \
 
 ### Genesis
 
-With the keys in, you can start fleshing out the genesis, which is already created.
+With the keys in you can start fleshing out the genesis, which is already created.
 
 You need to:
 
-1. Set up the chain id.
+1. Set up the chain ID.
 2. Add the initial balances.
 3. Add the initial validator stakes.
 4. Distribute the genesis file to all relevant nodes.
 
-### Set up chain id
+### Set up chain ID
 
-Earlier you chose `checkers-1` so you adjust it here too:
+Earlier you chose `checkers-1`, so you adjust it here too:
 
 <CodeGroup>
 
@@ -712,7 +725,7 @@ Earlier you chose `checkers-1` so you adjust it here too:
 
 ### Initial balances
 
-In this setup Alice starts with 1,000 PAWN and Bob 500 PAWN, of which, Alice stakes 60 and Bob 40. With these amounts the network cannot start if either of them is offline. Get their respective addresses:
+In this setup Alice starts with 1,000 PAWN and Bob with 500 PAWN, of which Alice stakes 60 and Bob 40. With these amounts, the network cannot start if either of them is offline. Get their respective addresses:
 
 ```sh
 $ ALICE=$(echo password | docker run --rm -i \
@@ -723,7 +736,7 @@ $ ALICE=$(echo password | docker run --rm -i \
     show alice --address)
 ```
 
-Replace `password` by the passphrase you picked when creating the keys.
+Replace `password` with the passphrase you picked when creating the keys.
 
 Have Alice add her initial balance in the genesis:
 
@@ -741,7 +754,7 @@ $ mv docker/val-alice/config/genesis.json \
     docker/val-bob/config/
 ```
 
-And have Bob add his own initial balance:
+Have Bob add his own initial balance:
 
 ```sh
 $ BOB=$(echo password | docker run --rm -i \
@@ -776,7 +789,7 @@ $ echo password | docker run --rm -i \
     --gas-prices 0.1upawn
 ```
 
-Again, put your correct passphrase instead of `password`. Return the genesis to Alice:
+Again, insert Bob's chosen passphrase instead of `password`. Return the genesis to Alice:
 
 ```sh
 $ mv docker/val-bob/config/genesis.json \
@@ -787,7 +800,7 @@ It is Alice's turn to add her staking transaction.
 
 #### Alice's stake
 
-Create Alice's genesis transaction using the specific validator public key that you saved on file, and not the key that would be taken from `priv_validator_key.json` by default (and now missing):
+Create Alice's genesis transaction using the specific validator public key that you saved on file, and not the key that would be taken from `priv_validator_key.json` by default (and is now missing):
 
 ```sh
 $ echo password | docker run --rm -i \
@@ -804,7 +817,7 @@ $ echo password | docker run --rm -i \
 
 <HighlightBox type="note">
 
-It is useful to know this `--pubkey` method. Indeed, if you were using a hardware key located on the KMS, that would be the canonical way of generating your genesis transaction.
+It is useful to know this `--pubkey` method. If you were using a hardware key located on the KMS, this would be the canonical way of generating your genesis transaction.
 
 </HighlightBox>
 
@@ -866,7 +879,7 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-bob \
 
 ## Network preparation
 
-Because the validators are on a private network and fronted by sentries, you need to set up the configuration of each node so they can find each other. And also to make sure that the sentries keep the validators' addresses private. What are the nodes' public keys? For instance, for `val-alice`, it is:
+Because the validators are on a private network and fronted by sentries, you need to set up the configuration of each node so they can find each other; also to make sure that the sentries keep the validators' addresses private. What are the nodes' public keys? For instance, for `val-alice`, it is:
 
 ```sh
 $ docker run --rm -i \
@@ -875,7 +888,7 @@ $ docker run --rm -i \
     tendermint show-node-id
 ```
 
-It returns something like:
+This returns something like:
 
 ```txt
 f2673103417334a839f5c20096909c3023ba4903
@@ -883,7 +896,7 @@ f2673103417334a839f5c20096909c3023ba4903
 
 ### Set up Alice's sentry
 
-So the nodes that have access to `val-alice` should know it by this identifier:
+The nodes that have access to `val-alice` should know Alice's sentry by this identifier:
 
 ```txt
 f2673103417334a839f5c20096909c3023ba4903@val-alice:26656
@@ -904,7 +917,7 @@ In the case of `val-alice`, only `sentry-alice` has access to it. Moreover, this
 persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 ```
 
-It so happens that `sentry-alice` also has access to `sentry-bob` and `node-carol`, although these nodes probably should not be considered persistent. You will add them under `"seeds"`. First collect the same information from these nodes:
+`sentry-alice` also has access to `sentry-bob` and `node-carol`, although these nodes should probably not be considered persistent. You will add them under `"seeds"`. First collect the same information from these nodes:
 
 ```sh
 $ docker run --rm -i -v $(pwd)/docker/sentry-bob:/root/.checkers \
@@ -930,7 +943,7 @@ private_peer_ids = "f2673103417334a839f5c20096909c3023ba4903"
 
 ### Other nodes
 
-Repeat the procedure for the other nodes taking into account their specific circumstances:
+Repeat the procedure for the other nodes, taking into account their specific circumstances:
 
 * `val-alice`'s:
   
@@ -960,7 +973,7 @@ Repeat the procedure for the other nodes taking into account their specific circ
 
 <HighlightBox type="note">
 
-For the avoidance of doubt, `sentry-alice` has a different address depending on which node resolves the address.
+For the avoidance of doubt, `sentry-alice` has a different address depending on which node resolves the address:
 
 * When it is resolved from `val-alice`, the resolution takes place in `net-alice`.
 * When it is resolved from `sentry-bob`, the resolution takes place in `net-public`.
@@ -1006,7 +1019,7 @@ You have prepared:
 * The blockchain elements.
 * The network elements.
 
-Time to assemble them into Compose.
+Time to assemble them in Compose.
 
 ### The executables that run
 
@@ -1016,7 +1029,7 @@ You define the different containers as `services`. Important elements to start w
 * In `image`, you declare the Docker image to use.
 * In `command`, you define the command to use when launching the image.
 
-So you in a new [`docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml), you write:
+In a new [`docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml), write:
 
 ```yaml
 version: "3.7"
@@ -1054,11 +1067,11 @@ services:
     image: checkersd_i
 ```
 
-You are going to further refine the services definitions, starting with the disk volumes.
+You are next going to further refine the service definitions, starting with the disk volumes.
 
 ### The data each container needs
 
-You want each container to access its own private folder prepared earlier, and only it. So you declare the volume mappings:
+Each container needs to access its own private folder, prepared earlier, and only that folder. Declare the volume mappings:
 
 ```yaml
 services:
@@ -1096,7 +1109,7 @@ services:
 
 ### The networks they run in
 
-The user-defined networks need to mimic the desired separation of machines/containers and can be self-explanatorily declared as:
+The user-defined networks need to mimic the desired separation of machines/containers can be self-explanatorily declared as:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L3-L7]
 networks:
@@ -1106,7 +1119,7 @@ networks:
   net-public:
 ```
 
-With the network declaration done, the belonging of each computer to each network can be written as:
+With the network declaration done, the associating of each computer to each network can be written as:
 
 ```yaml
 services:
@@ -1158,7 +1171,7 @@ services:
       - kms-alice
 ```
 
-With all these computers on their own Docker networks, you may still want to access one of them to query the blockchain, or to play games. In order to make your host computer look like an open node, you expose Carol's node on all addresses of your host:
+With all these computers on their own Docker networks, you may still want to access one of them to query the blockchain, or to play games. In order to make your host computer look like an open node, expose Carol's node on all addresses of your host:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L69-L70]
 services:
@@ -1169,9 +1182,9 @@ services:
       - 0.0.0.0:26657:26657
 ```
 
-### Launching it
+### Launching Compose
 
-After this long preparation and before launch, it could be a good time to make a Git commit, so that you can restore easily.
+After this long preparation, before launch it could be a good time to make a Git commit, so that you can restore easily.
 
 You are now ready to start your setup with a name other than the folder it is running in:
 
@@ -1188,11 +1201,11 @@ docker/*/data/*
 !docker/*/data/priv_validator_state.json
 ```
 
-Note how `priv_validator_state.json` is necessary if you want to try again on another host, so it should not be ignored by Git.
+Note how `priv_validator_state.json` is necessary if you want to try again on another host, otherwise it would be ignored by Git.
 
-### Interacting with it
+### Interacting with Compose
 
-Your six containers are running. To monitor their status, and confirm that they are running, you can use the provided Docker container interface.
+Your six containers are running. To monitor their status, and confirm that they are running, use the provided Docker container interface.
 
 Now you can connect to `node-carol` to start interacting with the blockchain as you would a normal node. For instance, to ask a simple `status`:
 
@@ -1237,7 +1250,7 @@ $ docker run --rm -it \
   --node "tcp://192.168.0.2:26657"
 ```
 
-Where you replace `192.168.0.2` with the actual IP address of your host computer
+Here you would replace `192.168.0.2` with the actual IP address of your host computer.
 
 </CodeGroupItem>
 
@@ -1245,18 +1258,18 @@ Where you replace `192.168.0.2` with the actual IP address of your host computer
 
 ---
 
-From this point on, everything you know how to do such as connecting to your local node applies.
+From this point on everything you alread know how to do, such as connecting to your local node, applies.
 
 Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onwards to the validators.
 
-Is it still possible to run a full game in almost a single block as you did earlier in the CosmJS integration tests? After all, when `node-carol` passes on the transactions as they come, it is not sure that the recipients will honor the order in which they were received. Of course they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
+At this juncture you may ask: Is it still possible to run a full game in almost a single block as you did earlier in the CosmJS integration tests? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
 To find out:
 
 * Update `client/.env` so that:
     * You connect within `net-public` to [`RPC_URL="http://node-carol:26657"`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L1).
-    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `docker/val-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Same for Bob.
-    * Update the [`ADDRESS_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L4) address to contain the correct ones. Same for Bob.
+    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `docker/val-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Then do the same for Bob.
+    * Update the [`ADDRESS_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L4) address to contain the correct ones, and repeat the same for Bob.
 * Skip the call to the (Ignite) faucet by adding a `return` in the relevant `before` in the test file:
 
   ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L63]
@@ -1284,9 +1297,9 @@ To find out:
     npm test
   ```
 
-  Tests should pass. _Should_ as in, there is no protocol guarantee that they will, but it looks like they do.
+  Tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
 
-### Stopping it
+### Stopping Compose
 
 To stop your whole setup, run:
 
@@ -1298,13 +1311,13 @@ $ docker compose --project-name checkers-prod down
 
 <PanelListItem number="1">
 
-If you get something like:
+You may encounter an error such as:
 
 ```txt
 Error: error during handshake: error on replay: validator set is nil in genesis and still empty after InitChain
 ```
 
-Or other errors, you may want to do a state reset on all nodes:
+If encountering this or other errors, you may want to do a state reset on all nodes:
 
 ```sh
 $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
@@ -1320,7 +1333,7 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
 
 <PanelListItem number="2">
 
-If one of your services fails to start because it could not resolve one of the other containers, you can restart it, and only it, with, for instance:
+If one of your services (for example `sentry-bob`) fails to start because it could not resolve one of the other containers, you can restart that service independently with:
 
 ```sh
 $ docker compose restart sentry-bob
@@ -1345,7 +1358,7 @@ services:
 
 <PanelListItem number="4" :last="true">
 
-If you want to erase all state after a good run, and if you have a git commit to which to restore the state files, you can create a [new script](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/unsafe-reset-state.sh) for that.
+If you want to erase all states after a good run, and if you have a Git commit from which to restore the state files, you can create a [new script](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/unsafe-reset-state.sh) for that.
 
 </PanelListItem>
 
