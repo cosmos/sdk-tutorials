@@ -1258,9 +1258,9 @@ Here you would replace `192.168.0.2` with the actual IP address of your host com
 
 ---
 
-From this point on everything you alread know how to do, such as connecting to your local node, applies.
+From this point on everything you already know how to do, such as connecting to your local node, applies.
 
-Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onwards to the validators.
+Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onward to the validators.
 
 At this juncture you may ask: Is it still possible to run a full game in almost a single block as you did earlier in the CosmJS integration tests? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
