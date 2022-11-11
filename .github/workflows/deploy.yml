@@ -1,7 +1,9 @@
 name: Build & Deploy Docs
 # This job builds and deploys documentation to github pages.
 # It runs on every push to master.
-# Note: A git update is required by the checkout action to enable submodule checkout via http(s)
+# Notes:
+# * A git update is required by the checkout action to enable submodule checkout via http(s)
+# * git config update is required as workaround for https://github.com/npm/cli/issues/2610 https://github.com/npm/cli/issues/4305
 on:
   push:
     branches:
@@ -22,6 +24,7 @@ jobs:
           wget http://ppa.launchpad.net/git-core/ppa/ubuntu/pool/main/g/git/git_2.18.0-0ppa1~ubuntu17.10.1_amd64.deb -O /tmp/git
           dpkg -i /tmp/git-man
           dpkg -i /tmp/git
+          git config --global url."https://".insteadOf ssh:// 
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1

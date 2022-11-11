@@ -163,11 +163,11 @@ When messages and queries are received by the application, they must be routed a
 
 <HighlightBox type="docs">
 
-Are you looking for more information on `BaseApp`? See the [Cosmos SDK documentation](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md).
+Are you looking for more information on `BaseApp`? See the [Cosmos SDK documentation](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/core/00-baseapp.md).
 
 </HighlightBox>
 
-The main ABCI messages that `BaseApp` implements are [`CheckTx`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md#checktx) and [`DeliverTx`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/core/baseapp.md#delivertx).
+The main ABCI messages that `BaseApp` implements are [`CheckTx`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/core/00-baseapp.md#checktx) and [`DeliverTx`](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/core/00-baseapp.md#delivertx).
 
 Other ABCI message handlers being implemented are:
 

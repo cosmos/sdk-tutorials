@@ -31,6 +31,7 @@
   "dependencies": {
     "@cosmos-ui/vue": "^0.35.0",
     "@vuepress/plugin-google-analytics": "1.7.1",
+    "@vuepress/plugin-html-redirect": "^0.1.4",
     "algoliasearch": "^4.2.0",
     "axios": "^0.26.1",
     "check-md": "^1.0.2",
@@ -68,6 +69,9 @@
     "set-value": "^4.1.0",
     "ssri": "^8.0.1",
     "watchpack": "^2.0.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
   },
   "engines": {
     "node": ">=14 <15"

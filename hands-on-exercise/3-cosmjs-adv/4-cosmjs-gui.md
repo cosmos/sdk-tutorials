@@ -829,7 +829,7 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 
-    ![Checkers network in beta support list](//hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
+    ![Checkers network in beta support list](/hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
 
 3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 

@@ -633,7 +633,7 @@ Correct: this time Bob could not reject the game because the state recorded his 
 <HighlightBox type="warning">
 
 To belabor the point made in the earlier box: if you change your code, think about what it means for the current state of the chain and whether you end up in a broken state.
-
+<br/><br/>
 In this case, you could first introduce the `MoveCount` and its handling. Then when all games have been correctly counted, you introduce the rejection mechanism.
 
 </HighlightBox>
