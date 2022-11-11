@@ -94,7 +94,7 @@ The ready-built modules of the Cosmos SDK are easy to import, adapt, and use. De
 
 <HighlightBox type="tip">
 
-*Building on modular components, many of which you did not write yourself* - does this increase the potential for attacks, and faulty or malicious nodes operating undetected? No need to worry.
+_Building on modular components, many of which you did not write yourself_ - does this increase the potential for attacks, and faulty or malicious nodes operating undetected? No need to worry.
 
 The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.network/main/core/ocap.html). It not only favors modularity but also encapsulates code implementation. An object-capability model ensures that:
 
@@ -240,4 +240,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./3-atom-staking.md).-->
+In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->

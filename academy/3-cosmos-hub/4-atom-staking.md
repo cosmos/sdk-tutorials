@@ -173,7 +173,7 @@ You can do this by delegating some of your ATOM as stake to a network validator.
 When considering staking, keep the following factors in mind:
 
 * Unlike a centralized exchange that holds your assets in a custodial wallet, when you delegate your ATOM **you remain in charge of your ATOM**. The validator does not have access to your assets. Think of your stake as a weighted vote of confidence.
-* There is a non-zero risk that the validator you chose behaves incorrectly or even maliciously, which exposes the faulty validator *and you* to **protocol penalties**.
+* There is a non-zero risk that the validator you chose behaves incorrectly or even maliciously, which exposes the faulty validator _and you_ to **protocol penalties**.
 * When you delegate ATOM to a validator, it becomes **locked**. You cannot use it for anything else, and **there is a time commitment**. Should you decide to un-delegate your stake, you will have to wait **three weeks** to regain access to your delegated stake.
 
 </HighlightBox>
@@ -248,4 +248,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->
+In the [next chapter](../4-ibc/index.md), you will learn about the Inter-Blockchain Communication Protocol.-->
