@@ -55,9 +55,9 @@ module.exports = {
     label: "sdk",
     isIDAMode: false,
     algolia: {
-      id: "BH4D9OD16A",
-      key: "7976d773390a0be350dc24b0571eee15",
-      index: "cosmos-sdk_tutorials",
+      id: "QLS2QSP47E",
+      key: "ca3a435a218a2eb0f99a31f83b2ec309",
+      index: "cosmos_network_tutorials",
     },
     topbar: {
       banner: true,
