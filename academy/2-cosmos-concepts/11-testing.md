@@ -57,7 +57,7 @@ Integration tests are one step wider in scope. It is still focused on your modul
 
 In a well-thought-out environment, providing such a dependency should not be a concern of your module's tests. All the more so that your dependency has dependencies of its own. You want to avoid such deep correlations between modules, even their tests.
 
-This is why from version 0.47 of the Cosmos SDK, each module exposes functions to provision a minimally viable module. This way, your module only knows to call the right functions in its dependent module but no further down the line. For instance, when (integration-)testing the bank module, no staking module is provisioned as it is a side concern instead of a dependency. To facilitate these integration tests, the Cosmos team has also developed an in-house dependency injection. Note that integration tests do not create an application, but instead a chain of dependencies.
+This is why from version 0.47 of the Cosmos SDK, each module exposes functions to provision a minimally viable module. This way, your module only knows to call the right functions in its dependent module but no further down the line. For instance, when (integration-)testing the bank module, no slashing module is provisioned as it is a side concern instead of a dependency. To facilitate these integration tests, the Cosmos team has also developed an in-house dependency injection. Note that integration tests do not create an application, but instead a chain of dependencies.
 
 In versions of the Cosmos SDK 0.46 and earlier, what are called integration tests really are full tests where a full application is being instantiated.
 
