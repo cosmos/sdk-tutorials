@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   theme: "cosmos",
@@ -45,21 +45,21 @@ module.exports = {
       "script",
       {},
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
-      document.documentElement.className = userThemeMode`
+      document.documentElement.className = userThemeMode`,
     ],
     [
-      'script',
+      "script",
       {
         async: true,
-        src: 'https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG',
+        src: "https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG",
       },
     ],
     [
-        'script',
-        {},
-        [
-          "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
-        ],
+      "script",
+      {},
+      [
+        "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+      ],
     ],
   ],
   themeConfig: {
@@ -148,7 +148,11 @@ module.exports = {
                   title: "Good-To-Know Dev Terms",
                   path: "/tutorials/1-tech-terms/",
                 },
-              ]
+                {
+                  title: "Docker Introduction",
+                  path: "/tutorials/5-docker-intro/1-overview.html",
+                },
+              ],
             },
 
             {
@@ -217,6 +221,10 @@ module.exports = {
                   path: "/academy/2-cosmos-concepts/11-context.html",
                 },
                 {
+                  title: "Testing",
+                  path: "/academy/2-cosmos-concepts/11-testing.html", // TODO uncomment when #1266 merged
+                },
+                {
                   title: "Migrations",
                   path: "/academy/2-cosmos-concepts/12-migrations.html",
                 },
@@ -228,7 +236,7 @@ module.exports = {
                   title: "Mandatory Quiz",
                   path: "/ida-course/quiz-week1.html",
                 },
-              ]
+              ],
             },
             {
               title: "Week 2 - First Steps",
@@ -283,7 +291,7 @@ module.exports = {
                   title: "Mandatory Exercise",
                   path: "/ida-course/exercise-week2.html",
                 },
-              ]
+              ],
             },
             {
               title: "Week 3 - Introduction to IBC and CosmJS",
@@ -342,7 +350,7 @@ module.exports = {
                   title: "Create Custom CosmJS Interfaces",
                   path: "/tutorials/6-cosmjs/5-create-custom.html",
                 },
-              ]
+              ],
             },
             {
               title: "Week 4 - Ignite CLI and IBC Advanced",
@@ -382,10 +390,6 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
                 },
                 {
-                  title: "Move to Production",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/8-run-prod.html",
-                },   
-                {
                   title: "Understand IBC Denoms",
                   path: "/tutorials/5-ibc-dev/",
                 },
@@ -405,7 +409,7 @@ module.exports = {
                   title: "Hermes Relayer",
                   path: "/hands-on-exercise/4-ibc-adv/4-hermes-relayer.html",
                 },
-              ]
+              ],
             },
             {
               title: "Week 5 - CosmJS Advanced",
@@ -436,11 +440,7 @@ module.exports = {
                   title: "Backend Script for Game Indexing",
                   path: "/hands-on-exercise/3-cosmjs-adv/5-server-side.html",
                 },
-                {
-                  title: "Introduce a Leaderboard After Production",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/9-migration.html",
-                },
-              ]
+              ],
             },
             {
               title: "Week 6 - IBC Deep Dive",
@@ -475,56 +475,60 @@ module.exports = {
                   title: "Integrating IBC Middleware Into a Chain",
                   path: "/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html",
                 },
-              ]
+              ],
             },
             {
-              title: "Week 7 - Run in Production",
+              title: "Week 7 - From code to MVP to Production and migrations",
               directory: true,
               order: 8,
               children: [
                 {
-                  title: "Run in Production",
+                  title: "From code to MVP to Production and migrations",
                   path: "/ida-course/LPs/week-7/",
                 },
                 {
                   title: "Overview",
-                  path: "/hands-on-exercise/5-run-in-prod/1-overview.html",
+                  path: "/tutorials/8-path-to-prod/1-overview.html",
                 },
                 {
                   title: "Prepare the Software to Run",
-                  path: "/hands-on-exercise/5-run-in-prod/2-software.html",
+                  path: "/tutorials/8-path-to-prod/2-software.html",
                 },
                 {
                   title: "Prepare a Validator and Keys",
-                  path: "/hands-on-exercise/5-run-in-prod/3-keys.html",
+                  path: "/tutorials/8-path-to-prod/3-keys.html",
                 },
                 {
                   title: "Prepare Where the Node Starts",
-                  path: "/hands-on-exercise/5-run-in-prod/4-genesis.html",
+                  path: "/tutorials/8-path-to-prod/4-genesis.html",
                 },
                 {
                   title: "Prepare and Connect to Other Nodes",
-                  path: "/hands-on-exercise/5-run-in-prod/5-network.html",
+                  path: "/tutorials/8-path-to-prod/5-network.html",
                 },
                 {
                   title: "Configure, Run, and Set Up a Service",
-                  path: "/hands-on-exercise/5-run-in-prod/6-run.html",
+                  path: "/tutorials/8-path-to-prod/6-run.html",
+                },
+                {
+                  title: "Introduce a Leaderboard After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
                 },
                 {
                   title: "Prepare and Do Migrations",
-                  path: "/hands-on-exercise/5-run-in-prod/7-migration.html",
+                  path: "/tutorials/8-path-to-prod/7-migration.html",
                 },
                 {
                   title: "Final Exam",
-                  path: "/ida-course/final-exam/index.html"
+                  path: "/ida-course/final-exam/index.html",
                 },
-              ]
+              ],
             },
             {
               title: "What's Next?",
               directory: true,
               order: 9,
-              path: "/academy/whats-next/"
+              path: "/academy/whats-next/",
             },
           ],
         },
@@ -554,8 +558,7 @@ module.exports = {
     footer: {
       privacy: "https://v1.cosmos.network/privacy",
       question: {
-        text:
-          "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
+        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
       logo: "/brand.png",
       textLink: {
@@ -573,7 +576,7 @@ module.exports = {
         },
         {
           service: "discord",
-          url: "https://discord.gg/cosmosnetwork"
+          url: "https://discord.gg/cosmosnetwork",
         },
         {
           service: "linkedin",
@@ -590,7 +593,7 @@ module.exports = {
         {
           service: "youtube",
           url: "https://www.youtube.com/c/CosmosProject",
-        }
+        },
       ],
       smallprint:
         "† This website is maintained by the Interchain Foundation (ICF). The contents and opinions of this website are those of the ICF. The ICF provides links to cryptocurrency exchanges as a service to the public. The ICF does not warrant that the information provided by these websites is correct, complete, and up-to-date. The ICF is not responsible for their content and expressly rejects any liability for damages of any kind resulting from the use, reference to, or reliance on any information contained within these websites.",
@@ -645,14 +648,14 @@ module.exports = {
       ],
     },
     tags: {
-      'deep-dive': {
-        color: 'var(--color-secondary)',
-        label: 'Deep dive'
+      "deep-dive": {
+        color: "var(--color-secondary)",
+        label: "Deep dive",
       },
-      'fast-track': {
-        color: 'var(--color-primary)',
-        label: 'Fast track'
-      }
+      "fast-track": {
+        color: "var(--color-primary)",
+        label: "Fast track",
+      },
     },
     feedback: {
       formId: "xyylrkbl",
@@ -662,61 +665,77 @@ module.exports = {
       {
         title: "Cosmos SDK",
         description: "A framework to build application-specific blockchains",
-        links: [{
-          name: "Documentation",
-          url: "https://docs.cosmos.network/"
-        }],
-        image: "/cosmos-sdk-icon.svg"
+        links: [
+          {
+            name: "Documentation",
+            url: "https://docs.cosmos.network/",
+          },
+        ],
+        image: "/cosmos-sdk-icon.svg",
       },
       {
         title: "Tendermint Core",
         description: "Blockchain consensus engine and application interface",
-        links: [{
-          name: "Documentation",
-          url: "https://docs.tendermint.com/"
-        }],
-        image: "/tendermint-icon.svg"
+        links: [
+          {
+            name: "Documentation",
+            url: "https://docs.tendermint.com/",
+          },
+        ],
+        image: "/tendermint-icon.svg",
       },
       {
         title: "Cosmos Hub",
-        description: "First interconnected public blockchain on the Cosmos network",
-        links: [{
-          name: "Documentation",
-          url: "https://hub.cosmos.network/"
-        }],
-        image: "/generic-star-icon.svg"
+        description:
+          "First interconnected public blockchain on the Cosmos network",
+        links: [
+          {
+            name: "Documentation",
+            url: "https://hub.cosmos.network/",
+          },
+        ],
+        image: "/generic-star-icon.svg",
       },
       {
         title: "IBC",
-        description: "Industry standard protocol for inter-blockchain communication",
-        links: [{
-          name: "Documentation",
-          url: "https://ibc.cosmos.network/"
-        }],
-        image: "/ibc-icon.svg"
-      }
+        description:
+          "Industry standard protocol for inter-blockchain communication",
+        links: [
+          {
+            name: "Documentation",
+            url: "https://ibc.cosmos.network/",
+          },
+        ],
+        image: "/ibc-icon.svg",
+      },
     ],
     assetsOptimization: {
       breakpoints: [200, 600, 988, 1200],
-      blacklist: ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p']
-    }
+      blacklist: [
+        "node_modules",
+        ".vuepress/dist",
+        ".vuepress/theme",
+        ".vuepress/public/resized-images",
+        ".vuepress/public/h5p",
+      ],
+    },
   },
   plugins: [
     [
       "@vuepress/google-analytics",
       {
         ga: "UA-62891515-12",
-      }
+      },
     ],
     [
       "@vuepress/medium-zoom",
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {
-          background: "#000000"
-        }
-      }
-    ]
+          background: "#000000",
+        },
+      },
+    ],
   ],
   patterns: [
     "README.md",
@@ -729,6 +748,6 @@ module.exports = {
     "ida-course/*.md",
     "course-ida/*/*.md",
     "course-ida/*.md",
-    "hands-on-exercise/*/*.md"
-  ]
+    "hands-on-exercise/*/*.md",
+  ],
 };

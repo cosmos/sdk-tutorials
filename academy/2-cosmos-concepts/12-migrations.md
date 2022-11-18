@@ -1,6 +1,6 @@
 ---
 title: "Migrations"
-order: 13
+order: 14
 description: How to handle on-chain upgrades
 tags: 
   - concepts

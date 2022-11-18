@@ -86,6 +86,8 @@ customModules:
             path: /ida-course/0-blockchain-basics/1-blockchain.html
           - title: Golang
             path: /tutorials/4-golang-intro/1-install.html
+          - title: Docker introduction
+            path: /tutorials/5-docker-intro/1-overview.html
           - title: Good-to-know dev terms
             path: /tutorials/1-tech-terms/
       - image: /cosmos_dev_portal_module-03-lp.svg
@@ -114,6 +116,8 @@ customModules:
             path: /academy/2-cosmos-concepts/8-base-app.html
           - title: Queries, events, and context
             path: /academy/2-cosmos-concepts/9-queries.html
+          - title: Testing
+            path: /academy/2-cosmos-concepts/11-testing.html
           - title: Migrations
             path: /academy/2-cosmos-concepts/12-migrations.html
           - title: Bridges
@@ -178,10 +182,8 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
-          - title: Move your chain to production
-            path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
           - title: Understand IBC denoms
-            path: /tutorials/5-ibc-dev
+            path: /tutorials/5-ibc-dev/index.html
           - title: Play with cross-chain tokens
             path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Work with IBC relayers
@@ -202,8 +204,6 @@ customModules:
             path: /hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html
           - title: Using CosmJS for game indexing
             path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
-          - title: Introducing a leaderboard after production
-            path: /hands-on-exercise/2-ignite-cli-adv/9-migration.html
       - image: /moving-objects.svg
         title: Week 6 - IBC Deep Dive
         href: /ida-course/LPs/week-6/
@@ -223,25 +223,29 @@ customModules:
           - title: Integrating IBC middleware into a chain - OPTIONAL
             path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
       - image: /universe.svg
-        title: Week 7 - Run in Production
+        title: Week 7 - From code to MVP to Production and migrations
         href: /ida-course/LPs/week-7/
         description: |
           In this chapter, you will build on your previous work for the checkers blockchain to adapt your blockchain to the demands of running in production:
         links: 
           - title: Get a quick overview
-            path: /hands-on-exercise/5-run-in-prod/1-overview.html
+            path: /tutorials/8-path-to-prod/1-overview.html
           - title: Prepare the software to run
-            path: /hands-on-exercise/5-run-in-prod/2-software.html
+            path: /tutorials/8-path-to-prod/2-software.html
           - title: Prepare a validator and keys
-            path: /hands-on-exercise/5-run-in-prod/3-keys.html
+            path: /tutorials/8-path-to-prod/3-keys.html
           - title: Prepare where the node starts
-            path: /hands-on-exercise/5-run-in-prod/4-genesis.html
+            path: /tutorials/8-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
-            path: /hands-on-exercise/5-run-in-prod/5-network.html
+            path: /tutorials/8-path-to-prod/5-network.html
           - titles: Run and set up a service
-            path: /hands-on-exercise/5-run-in-prod/6-run.html
+            path: /tutorials/8-path-to-prod/6-run.html
+          - title: Simulate a production setup with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
+          - title: Introducing a leaderboard after production
+            path: hands-on-exercise/4-run-in-prod/2-migration.html
           - titles: Prepare and do migrations
-            path: /hands-on-exercise/5-run-in-prod/7-migration.html
+            path: /tutorials/8-path-to-prod/7-migration.html
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

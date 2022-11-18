@@ -1,6 +1,6 @@
 ---
 title: "Introduce a Leaderboard After Production"
-order: 10
+order: 3
 description: A leaderboard for your in-production blockchain via state migration
 tags: 
   - guided-coding
