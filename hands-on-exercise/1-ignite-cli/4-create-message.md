@@ -192,15 +192,25 @@ As an interface, it does not describe what should happen when called. With the h
 
 ## Unit tests
 
-The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you should add a test file for that. Add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
+The code of this section was created by Ignite CLI, so there is no point in testing it. However, since you are going to adjust the keeper to do what you want, you should add a test file for that.
+
+First, recall your address constants in the `keeper_test` package:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/common_test.go]
+package keeper_test
+
+import "github.com/b9lab/checkers/x/checkers/testutil"
+
+const (
+    alice = testutil.Alice
+    bob   = testutil.Bob
+    carol = testutil.Bob
+)
+```
+
+Next, add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/msg_server_create_game_test.go]
-const (
-    alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
-    bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
-    carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
-)
-
 func TestCreateGame(t *testing.T) {
     msgServer, context := setupMsgServer(t)
     createResponse, err := msgServer.CreateGame(context, &types.MsgCreateGame{

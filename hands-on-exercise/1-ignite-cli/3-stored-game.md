@@ -651,13 +651,27 @@ If you are struggling with a test, create separate variables in order to inspect
 
 ### More unit tests
 
-With a simple yet successful unit test, you can add more consequential ones to test your helper methods. Create a new file `x/checkers/types/full_game_test.go` and declare it in [`package types_test`](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L1). Since you are going to repeat some actions, it is worth adding a reusable function:
+With a simple yet successful unit test, you can add more consequential ones to test your helper methods.
+
+First create a file that declares some constants that you will reuse throughout:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/testutil/constants.go]
+package testutil
+
+const (
+    Alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
+    Bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
+    Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+)
+```
+
+
+Create a new file `x/checkers/types/full_game_test.go` and declare it in [`package types_test`](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L1). Since you are going to repeat some actions, it is worth adding a reusable function:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L13-L27]
 const (
-    alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
-    bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
-    carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+    alice = testutil.Alice
+    bob   = testutil.Bob
 )
 
 func GetStoredGame1() *types.StoredGame {

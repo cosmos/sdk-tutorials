@@ -345,11 +345,11 @@ Note how all test cases are run within a single unit test. In other words, the k
 
 ## Integration tests
 
-You can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
+You can also add integration tests on top of your unit tests. Put them alongside your other integration tests. Create `grpc_query_can_play_move_test.go`.
 
 Test if it is possible to play on the first game that is created in the system:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_integration_test.go#L8-L21]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/tests/integration/checkers/keeper/grpc_query_can_play_move_test.go#L13-L26]
 func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
     suite.setupSuiteWithOneGameForPlayMove()
     goCtx := sdk.WrapSDKContext(suite.ctx)
