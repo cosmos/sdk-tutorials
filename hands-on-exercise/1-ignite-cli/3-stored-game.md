@@ -120,7 +120,9 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold single systemInfo nextId:uint --module checkers --no-message
+    $ ignite scaffold single systemInfo nextId:uint \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -128,7 +130,13 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold single systemInfo nextId:uint --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold single systemInfo nextId:uint \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -147,7 +155,10 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold map storedGame board turn black red --index index --module checkers --no-message
+    $ ignite scaffold map storedGame board turn black red \
+        --index index \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -155,7 +166,14 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold map storedGame board turn black red --index index --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold map storedGame board turn black red \
+        --index index \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -370,7 +388,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -507,7 +529,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -554,7 +580,11 @@ $ go test github.com/alice/checkers/x/checkers/types
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/types
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/types
 ```
 
 </CodeGroupItem>
@@ -582,7 +612,11 @@ $ cd x/checkers/types/ && go test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers/x/checkers/types checkers_i go test
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers/x/checkers/types \
+    checkers_i \
+    go test
 ```
 
 </CodeGroupItem>
@@ -733,7 +767,12 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+    $ docker run --rm -it \
+        --name checkers \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite chain serve --reset-once
     ```
 
     <HighlightBox type="note">
@@ -770,7 +809,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers --help
+    $ docker exec -it checkers \
+        checkersd query checkers --help
     ```
 
     Note how it connects to the newly created container named `checkers`.
@@ -802,7 +842,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info
     ```
 
     </CodeGroupItem>
@@ -833,7 +874,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info --help
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info --help
     ```
 
     </CodeGroupItem>
@@ -862,7 +904,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info --output json
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info --output json
     ```
 
     </CodeGroupItem>
@@ -890,7 +933,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers list-stored-game
+    $ docker exec -it checkers \
+        checkersd query checkers list-stored-game
     ```
 
     </CodeGroupItem>
@@ -921,7 +965,8 @@ $ checkersd tx checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers --help
+$ docker exec -it checkers \
+    checkersd tx checkers --help
 ```
 
 </CodeGroupItem>

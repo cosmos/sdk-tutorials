@@ -97,7 +97,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -547,7 +551,11 @@ $ make mock-expected-keepers
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i make mock-expected-keepers
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    make mock-expected-keepers
 ```
 
 </CodeGroupItem>
@@ -849,7 +857,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -1264,8 +1276,10 @@ $ checkersd query bank balances $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
-$ docker exec -it checkers checkersd query bank balances $bob
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $bob
 ```
 
 </CodeGroupItem>
@@ -1308,7 +1322,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 ```
 
 </CodeGroupItem>
@@ -1345,7 +1360,8 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 ```
 
 </CodeGroupItem>
@@ -1367,7 +1383,8 @@ $ checkersd query bank balances $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
 ```
 
 </CodeGroupItem>
@@ -1402,7 +1419,8 @@ $ checkersd query bank balances $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
 ```
 
 </CodeGroupItem>
@@ -1439,9 +1457,12 @@ $ checkersd tx checkers play-move 2 0 5 1 4 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 2 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 0 5 1 4 --from $bob
 ```
 
 </CodeGroupItem>
@@ -1465,8 +1486,10 @@ $ checkersd query bank balances $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
-$ docker exec -it checkers checkersd query bank balances $bob
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $bob
 ```
 
 </CodeGroupItem>

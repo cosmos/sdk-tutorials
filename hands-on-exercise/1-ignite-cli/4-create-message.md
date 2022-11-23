@@ -77,7 +77,9 @@ Instruct Ignite CLI to do all of this:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ignite scaffold message createGame black red --module checkers --response gameIndex
+$ ignite scaffold message createGame black red \
+    --module checkers \
+    --response gameIndex
 ```
 
 </CodeGroupItem>
@@ -85,7 +87,13 @@ $ ignite scaffold message createGame black red --module checkers --response game
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold message createGame black red --module checkers --response gameIndex
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite scaffold message createGame black red \
+    --module checkers \
+    --response gameIndex
 ```
 
 </CodeGroupItem>
@@ -240,7 +248,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -266,7 +278,12 @@ $ ignite chain serve
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve
 ```
 
 </CodeGroupItem>
@@ -288,7 +305,8 @@ $ checkersd tx checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers --help
+$ docker exec -it checkers \
+    checkersd tx checkers --help
 ```
 
 </CodeGroupItem>
@@ -318,7 +336,8 @@ $ checkersd tx checkers create-game --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game --help
+$ docker exec -it checkers \
+    checkersd tx checkers create-game --help
 ```
 
 </CodeGroupItem>
@@ -398,7 +417,8 @@ $ checkersd tx checkers create-game $alice $bob --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice --dry-run
 ```
 
 </CodeGroupItem>
@@ -426,7 +446,8 @@ $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice --gas auto
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 ```
 
 </CodeGroupItem>
@@ -500,8 +521,10 @@ $ echo Y3JlYXRlX2dhbWU= | base64 -d
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "echo YWN0aW9u | base64 -d"
-$ docker exec -it checkers bash -c "echo Y3JlYXRlX2dhbWU= | base64 -d"
+$ docker exec -it checkers \
+    bash -c "echo YWN0aW9u | base64 -d"
+$ docker exec -it checkers \
+    bash -c "echo Y3JlYXRlX2dhbWU= | base64 -d"
 ```
 
 </CodeGroupItem>
@@ -534,7 +557,8 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -567,7 +591,8 @@ $ checkersd query checkers list-stored-game
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers list-stored-game
+$ docker exec -it checkers \
+    checkersd query checkers list-stored-game
 ```
 
 </CodeGroupItem>

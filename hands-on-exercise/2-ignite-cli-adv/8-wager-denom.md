@@ -95,7 +95,11 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite generate proto-go
     ```
 
     </CodeGroupItem>
@@ -338,7 +342,8 @@ $ checkersd query bank balances $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
 ```
 
 </CodeGroupItem>
@@ -373,7 +378,8 @@ $ checkersd tx checkers create-game $alice $bob 1 token --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1 token --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1 token --from $alice
 ```
 
 </CodeGroupItem>
@@ -406,7 +412,8 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 ```
 
 </CodeGroupItem>
@@ -441,7 +448,8 @@ $ checkersd query bank balances $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances $alice
+$ docker exec -it checkers \
+    checkersd query bank balances $alice
 ```
 
 </CodeGroupItem>
@@ -478,7 +486,8 @@ $ checkersd query bank balances cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query bank balances cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3
+$ docker exec -it checkers \
+    checkersd query bank balances cosmos16xx0e457hm8mywdhxtmrar9t09z0mqt9x7srm3
 ```
 
 </CodeGroupItem>
