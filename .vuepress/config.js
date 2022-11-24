@@ -112,11 +112,11 @@ module.exports = {
               path: "/tutorials/4-golang-intro/",
               directory: true,
             },
-            // {
-            //   title: "Docker Introduction",
-            //   path: "/tutorials/5-docker-intro/", // TODO create content
-            //   directory: true,
-            // },
+            {
+              title: "Docker Introduction",
+              path: "/tutorials/5-docker-intro/",
+              directory: true,
+            },
             {
               title: "IBC Developers",
               path: "/tutorials/5-ibc-dev/",
