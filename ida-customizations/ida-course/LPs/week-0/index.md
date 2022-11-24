@@ -23,6 +23,12 @@ Do you want to refresh your blockchain knowledge? This chapter provides a genera
 
 Working with Cosmos also means working with Golang. If you have not worked much with Go, do not worry.
 
+<HighlightBox type="info">
+
+Cosmos is known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers can be referred to collectively as the **Interchain Stack**.
+
+</HighlightBox>
+
 This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
 
 <HighlightBox type="tip">
