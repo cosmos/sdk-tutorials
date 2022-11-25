@@ -13,57 +13,57 @@ title: Docker introduction
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Know your way around Docker</div>
 <h1 class="mt-4 mb-6">Docker Introduction</h1>
 
-[Docker](https://www.docker.com) is a kind of virtualization, with performance benefits.
+[Docker](https://www.docker.com) is a kind of computer virtualization that provides valuable performance benefits.
 
 ## Concepts
 
-Being different, Docker introduces new concepts with their own vocabulary.
+Being different from classic forms of virtualization, Docker introduces new concepts with their own vocabulary.
 
 ### Containers
 
-You know how a **computer** operates. It uses a disk and memory to run an operating system and then programs within it.
+You know how a **computer** operates: it uses a disk and memory to run an operating system and the programs within it.
 
-You know how a **virtual machine** works. Its computer host offers it a virtual disk and memory, and the virtual machine uses both to run its own operating system and programs. Virtualization mimics a full computer, this takes disk space and memory. It also takes time to start because the virtualized operating system needs to start from scratch.
+You know how a **virtual machine** works: its computer host offers it a _virtual_ disk and memory, and the virtual machine uses both to run its own operating system and programs. Virtualization mimics a full computer, which requires disk space and memory. It also takes time to start because the virtualized operating system needs to start from scratch.
 
-Docker uses a feature of Linux called [_namespaces_](https://docs.docker.com/get-started/overview/#the-underlying-technology) and _control groups_. With this feature, Linux can launch programs (even low-level ones of the operating system) in an environment where the programs believe they are in a complete Linux environment on their own, i.e. sandboxed. This is also called containerization. A **container** does not have full disk or full memory access to its host (the Linux environment that started it) only to a subset of it. A Linux system can launch multiple containers at a time.
+Docker uses a feature of Linux called [_namespaces_](https://docs.docker.com/get-started/overview/#the-underlying-technology) and _control groups_. With this feature, Linux can launch programs (even low-level ones of the operating system) in an environment where the programs believe they are in a complete Linux environment on their own, i.e. sandboxed. This is also called containerization. A **container** does not have full disk or full memory access to its host (the Linux environment that started it), only to a subset of it. A Linux system can launch multiple containers at a time.
 
-As opposed to proper virtualization, containerization is fast.
+As opposed to proper virtualization, containerization is fast:
 
 * You do not need to start a whole operating system, only to isolate a new container and run its own programs. You now count the start-up time in seconds instead of minutes.
 * The memory used by the container is only that of the programs it runs while benefiting from the rest of the Linux system in an isolated way.
 
 ### Images
 
-Instead of a virtual disk with a full operating system, a container starts from an **image**. The image contains the files that are specific to the container and different from its Linux host. Think of tracing paper with only the differences on top of the hosts's file system. This can be very small.
+Instead of a virtual disk with a full operating system, a container starts from an **image**. The image contains the files that are specific to the container and different from its Linux host. Think of tracing paper recording only the differences laid on top of the host's file system. These can be very small.
 
-You can either create images locally via a **`Dockerfile`** containing the commands that create the image, or you can use an existing image. There are registries that store and/or reference them, like your regular package manager. [Docker Hub](https://hub.docker.com) is the main one and your local Docker knows how to download directly from it.
+You can either create images locally via a **`Dockerfile`** containing the commands that create the image, or you can use an existing image. There are registries that store and/or reference them, like your regular package manager. [Docker Hub](https://hub.docker.com) is the main one, and your local Docker knows how to download directly from it.
 
 This introduces an interesting concept whereby [a machine is described as a file](https://twitter.com/FrancescoCiull4/status/1509458241524224005). This is very useful for reproducibility and DevOps. Further, the images are optimized so that each image is a _diff_ of a parent one.
 
-Images can be versioned, and even be referenced by their content hash, so that you can be sure to use the expected one. For instance [Node.js](https://hub.docker.com/_/node) has a long list of images. Do you want [Node 19.1](https://hub.docker.com/layers/library/node/19.1/images/sha256-fcf7d55d2bea9d86f6890a8c44aec9a9ae2cb8f6351aae50e9d684fc81a4415f) or [Node 19.1 built specifically on Debian Buster](https://hub.docker.com/layers/library/node/19.1-buster/images/sha256-9d37aa88366e0a26b621c84e6cb9aff5bee5589d1e783f84d053f7ffe93cfb82)?
+Images can be versioned, and even be referenced by their content hash, so that you can be sure to use the expected one. For instance, [Node.js](https://hub.docker.com/_/node) has a long list of images. Do you want [Node 19.1](https://hub.docker.com/layers/library/node/19.1/images/sha256-fcf7d55d2bea9d86f6890a8c44aec9a9ae2cb8f6351aae50e9d684fc81a4415f), or [Node 19.1 built specifically on Debian Buster](https://hub.docker.com/layers/library/node/19.1-buster/images/sha256-9d37aa88366e0a26b621c84e6cb9aff5bee5589d1e783f84d053f7ffe93cfb82)?
 
-Because images contain files to be executed, the files also need to have been compiled for the CPU architecture of your Linux machine. This is why images are often uploaded in different "OS/ARCH" versions as can be seen [from their page](https://hub.docker.com/layers/library/node/19.1-buster/images/sha256-9d37aa88366e0a26b621c84e6cb9aff5bee5589d1e783f84d053f7ffe93cfb82?context=explore).
+Because images contain files to be executed, the files also need to have been compiled for the CPU architecture of your Linux machine. This is why images are often uploaded in different "OS/ARCH" versions, as can be seen [from their page](https://hub.docker.com/layers/library/node/19.1-buster/images/sha256-9d37aa88366e0a26b621c84e6cb9aff5bee5589d1e783f84d053f7ffe93cfb82?context=explore).
 
 For the avoidance of doubt:
 
-* An image is read-only and when you container starts, its read-write file system is a separate entity.
-* There can be more than one container started from the same image at the same time.
+* An image is read-only, and when your container starts its read-write file system is a separate entity.
+* More than one container can be started from the same image at the same time.
 
 ## How to use it
 
-What if you do not have a Linux operating system? Not to worry, Docker is simplifying your life by installing and running a virtual machine running a barebones Linux on your host computer.
+What if you do not have a Linux operating system? Not to worry, Docker simplifies your life by installing and running a virtual machine running a barebones Linux on your host computer.
 
-After installation, when you want to use Docker, you _start Docker_, i.e. you start the virtual machine running Linux, which is the part that takes time. After it has started you can use commands to run containers. And when you no longer need to use Docker, you can stop it and regain the memory it used.
+After installation, when you want to use Docker, you _start Docker_, i.e. you start the virtual machine running Linux, which is the part that takes time. After it has started you can use commands to run containers; and when you no longer need to use Docker, you can stop it and regain the memory it used.
 
-In these tutorials, you will come across a lot of Docker commands so it makes sense to familiarize yourself with it. [Install it](https://www.docker.com/get-started).
+In these tutorials, you will come across a lot of Docker commands, so it makes sense to familiarize yourself with it. First, [install it](https://www.docker.com/get-started).
 
-Start Docker. When it has started, you can run your first container. For instance with Node.js' `lts-slim` image:
+Next start Docker. When it has started you can run your first container. For instance, with Node.js' `lts-slim` image:
 
 ```sh
 $ docker run -it node:lts-slim
 ```
 
-`-it` is short for `--interactive --tty` and means with input and output instead of a fully detached container. Learn more with `docker run --help`. This should return you a Node prompt:
+`-it` is short for `--interactive --tty` and means "with input and output" instead of a fully detached container. Learn more with `docker run --help`. This should return you a Node prompt:
 
 ```javascript
 Welcome to Node.js v18.12.1.
@@ -71,9 +71,11 @@ Type ".help" for more information.
 >
 ```
 
-Version 18 is a long-term support (`lts`) one. If you type `.help` it tells you what you need. Exit with `.exit`.
+Version 18 is a long-term support (`lts`) version. If you type `.help` it will tell you what you need. Exit with `.exit`.
 
-That was fast. What happened? Docker downloaded this image from the hub, and launched it. By default the image is configured so that the container launches `node`, which is what you got. You did not do much interesting, though.
+That was fast. What happened? 
+
+Docker downloaded the image from the hub and launched it. By default the image is configured so that the container launches `node`, which is what you got. You did not do anything interesting, though. Yet.
 
 ### Open a shell
 
@@ -89,9 +91,9 @@ Now you see something different:
 root@bd3982cf3d68:/#
 ```
 
-You are `root`! But only in the container, not in the Linux host. Typically, programs running in a container are left running with `root` as the container takes care of the isolation.
+You are `root`! But you are `root` **only in the container**, not in the Linux host. Typically, programs running in a container are left running with `root`, as the container takes care of the isolation.
 
-The image `node:lts-slim`, as the `slim` part lets on, does not have much else beside Node. Try:
+The image `node:lts-slim`, as the `slim` part indicates, does not have much else beside Node. Try:
 
 ```sh
 $ curl
@@ -103,7 +105,7 @@ It should tell you:
 bash: curl: command not found
 ```
 
-This means that you need to pick your image carefully and even sometimes you will also have to install the tools you need. Exit with a regular `exit`.
+This means that you need to pick your image carefully, and even then sometimes you will also have to install the tools you need. Exit with a regular `exit`.
 
 ### Your own image
 
@@ -137,11 +139,11 @@ Use "--help category" to get an overview of all categories.
 For all options use the manual or "--help all".
 ```
 
-So yes, you now have `curl` and Node on the same container.
+So yes, you now have `curl` and Node in the same container.
 
 ### Hello World
 
-What if you wanted to use Node to print `Hello World`? Create the Javascript file that can do that:
+What if you wanted to use Node to print `Hello World`? Create the JavaScript file that can do that:
 
 ```sh
 $ echo "console.log(\"Hello World\");" > test.js
@@ -150,7 +152,7 @@ $ echo "console.log(\"Hello World\");" > test.js
 Now pass it to your container:
 
 ```sh
-$ docker run -i node:lts-slim test.js
+$ docker run -it node:lts-slim test.js
 ```
 
 This does not work:
@@ -159,7 +161,7 @@ This does not work:
 Error: Cannot find module '/test.js'
 ```
 
-That is because Docker took the words `test.js` and passed them to Node as a string within the context of the container, which has no `test.js`. So the container in effect ran `node test.js`. The file is currently only in your host computer.
+This is because Docker took the words `test.js` and passed them to Node as a string within the context of the container, which has no `test.js`. In effect, the container ran `node test.js`. The file is currently only in your host computer.
 
 Try again:
 
@@ -199,7 +201,7 @@ It should complain again:
 Error: Cannot find module '/test.js'
 ```
 
-For that, you have to also tell it to work (`-w`) in the right folder: `/root/temp` that you created to access your local files:
+To progress you also have to tell it to work (`-w`) in the right folder: `/root/temp`, that you created to access your local files:
 
 ```sh
 $ docker run -it -v $(pwd):/root/temp -w /root/temp node:lts-slim test.js
@@ -219,7 +221,7 @@ You ran quite a few commands. Where did you containers go?
 $ docker ps --all
 ```
 
-You should see a long list like:
+You should see a long list like this:
 
 ```txt
 CONTAINER ID   IMAGE           COMMAND                  CREATED          STATUS                        PORTS     NAMES
@@ -228,19 +230,19 @@ e3f58f2cb118   node:lts-slim   "docker-entrypoint.s…"   5 minutes ago    Exite
 ...
 ```
 
-All stopped and exited. When you create a container, it is not removed by default so it can be reused (see `docker exec --help`). For now, you will clean up these pointless containers (if you have containers that are not part of this introduction, do not run the command):
+All have stopped and exited. When you create a container, it is not removed by default so it can be reused (see `docker exec --help`). For now, you should clean up these pointless containers (**however**, if you have containers that are not part of this introduction, do not run the command):
 
 ```sh
 $ docker container prune
 ```
 
-Having a ton of stopped containers is not ideal, which is why when you want to run a container for a single command, the practice is to add `--rm`, like so:
+Having many stopped containers is not ideal, which is why when you want to run a container for a single command the practice is to add `--rm`, like so:
 
 ```sh
 $ docker run --rm -it -v $(pwd):/root/temp -w /root/temp node:lts-slim test.js
 ```
 
-You can confirm that there are no remaining containers.
+Including `--rm` automatically removes the container at the moment it is stopped and exited. You can confirm that there are no remaining containers.
 
 What about the images?
 
@@ -275,13 +277,13 @@ To summarize, this section has explored:
 * How to create an image.
 * How to clean up.
 
-With these basics, you are equipped to handle the Docker examples of these tutorials.
+With these basics, you are equipped to handle the Docker examples of these tutorials!
 
 </HighlightBox>
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further reading:**
 
 * [Under the hood](https://www.codementor.io/blog/docker-technology-5x1kilcbow).
 
