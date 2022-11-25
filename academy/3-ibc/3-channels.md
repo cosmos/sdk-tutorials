@@ -2,7 +2,7 @@
 title: "IBC/TAO - Channels"
 order: 4
 description: The role of channels in IBC
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops
@@ -14,37 +14,44 @@ tags:
 
 In this section, you will:
 
-* Establish a channel.
-* Learn about the application packet flow.
+- Establish a channel.
+- Learn about the application packet flow.
 
 </HighlightBox>
 
 Connections and clients comprise the main components of the transport layer in IBC. However, application to application communication in IBC is conducted over **channels**, which route between an application module such as the module which handles Interchain Standard (ICS) 20 token transfers on one chain, and the corresponding application module on another one. These applications are namespaced by **port identifiers** such as 'transfer' for ICS-20 token transfers.
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
-Note that, in the case of interchain accounts, there are two different port IDs for host and controller modules:
+Note that it's possible to have either a symmetric case, where the application logic is independent of the direction of the packet being sent, as well as an asymmetric case where packets should only be sent in one direction or the logic can be different depending on the send direction. It makes sense (but is not imposed) to use the same port ID on both application modules in the symmetric case, and different port ID on either chain in the asymmetric.
 <br/><br/>
+For example, in the case of interchain accounts, there are two different port IDs for host and controller modules:
 `icahost` is the default port id that the interchain accounts host submodule binds to, whereas `icacontroller-` is the default port prefix that the interchain accounts controller submodule binds to.
 
 </HighlightBox>
 
-Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application-specific logic which interprets the packets that have been sent over the transport layer. This split between transport and application layer in IBC is similar to the split between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
+Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application-specific logic which interprets the packets that have been sent over the transport layer. This concern separation between transport and application layer in IBC is similar to the concern separation between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
+
+<HighlightBox type="remember">
 
 A connection may have any number of associated channels. However, each channel is associated with only one connection ID, which indicates which light client it is secured by, and one port ID which indicates the application that it is connected to.
+
+</HighlightBox>
 
 As mentioned above, channels are payload agnostic. The application modules sending and receiving IBC packets decide how to interpret and act upon the incoming packet data, and use their own application logic and handlers to determine which state transitions to apply according to the data contained in each received packet.
 
 <HighlightBox type="info">
 
-* An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
-* An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
+Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There's currently two different types of channels in terms of ordering.
+
+- An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
+- An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
 
 ## Establishing a Channel
 
-Similarly to how connections are established, channels are established through a four-way handshake, in which each step is initiated by a relayer:
+Similarly to how connections are established, **channels are established through a four-way handshake**, in which each step is initiated by a relayer:
 
 ![Channel Handshake](/academy/3-ibc/images/channelhandshake.png)
 
@@ -53,11 +60,11 @@ Similarly to how connections are established, channels are established through a
 3. `ChanOpenAck`: will set the chain A into `OPEN` state. This will call `OnChanOpenAck` which will be implemented by the application. Application version negotiation is finalised during this step.
 4. `ChanOpenConfirm`: will set chain B into `OPEN` state so application B can apply its `CONFIRM` logic.
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
 "Crossing Hellos" refers to a situation when both chains attempt the same handshake step at the same time.
 <br/><br/>
-If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides will need to confirm with an `OpenAck`, and then no `OpenConfirm` is required because both ConnectionEnds will be in state OPEN after the successful `OpenAck`.
+Crossing hellos, have been removed from ibc-go v4 onwards, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1317). The `PreviousChannelId` in `MsgChannelOpenTry` has been deprecated.
 
 </HighlightBox>
 
@@ -66,6 +73,8 @@ If both chains submit `OpenInit` then `OpenTry` at same time, there should be no
 You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go)
 
 The important part to note in this code snippet is that an application module has capabilities for the requested port. Therefore, an application module can only use a channel and port if the application owns the capability for that port and the module which attempting to open a channel is the module we have granted capabilities to in `app.go`:
+
+<!-- TODO: add more content on capabilites based on Colin's deep dive -->
 
 ```go
 // ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
@@ -146,7 +155,9 @@ func NewPacket(
 
 `Sequence` denotes the sequence number of the packet in the channel.
 
-`TimeoutTimestamp` and `TimeoutHeight` dictate the time before which the receiving module must process a packet.
+`TimeoutTimestamp` and `TimeoutHeight` (pick one of these) dictate the time before which the receiving module must process a packet.
+
+The diagram below shows the application packet flow for the success case (top) and unsuccessful or timeout case (bottom). Both cases will be discussed in more detail in the next paragraphs.
 
 ![Packet flow](/academy/3-ibc/images/packetflow.png)
 
@@ -178,22 +189,21 @@ In either case, even if there is no application specific logic to be initiated a
 
 In the case that a packet is time-sensitive and the timeout block height or timeout timestamp specified in the packet parameters **based on chain B's time** has elapsed, whatever state transitions have occured as a result of the sent packet should be reversed.
 
-In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a  `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS-20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
+In these cases, the initial flow is the same, with core IBC A first committing the packet to its own state. However, instead of querying for the packet, a relayer will submit a `QueryNonReceipt` to receive a proof that the packet was not received by core IBC B. It can then send the `TimeoutPacket` to core IBC A, which will then trigger the relevant `OnTimeoutPacket` application logic. For example, the ICS-20 token transfer application will unescrow the locked up tokens and send these back to the original sender `OnTimeoutPacket`.
 
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
 
-* How application to application communication in IBC is conducted over channels, which route data between corresponding modules on different chains, and how a single connection between applications can have any number of associated channels.
-* How channels are payload agnostic and simply deliver data packets over the transport layer which application modules use their own logic and handlers to interpret and act upon.
-* How channels can be **ordered** (where data packets are delivered exactly in the order they were sent) or **unordered** (where packets can be delivered in any order, which may differ from that in which they were sent).
-* How channels are established through a four-way handshake, which allows only the two end modules to make use of the channel, securing them against malicious entities.
-* How packet flow between modules is not direct - instead, the sending module commits some particular state, thus emitting an event which is detected by a relayer, which delivers to the destination module both the packet data and a proof of the sending module's state commit, which is then verified on the destination chain.
-* How it is possible for time-sensitive packets to trigger a reversal of the sending module's state change in the event that a timeout block height or timestamp has elapsed.
+- How application to application communication in IBC is conducted over channels, which route data between corresponding modules on different chains, and how a single connection between applications can have any number of associated channels.
+- How channels are payload agnostic and simply deliver data packets over the transport layer which application modules use their own logic and handlers to interpret and act upon.
+- How channels can be **ordered** (where data packets are delivered exactly in the order they were sent) or **unordered** (where packets can be delivered in any order, which may differ from that in which they were sent).
+- How channels are established through a four-way handshake, which allows only the two end modules to make use of the channel, securing them against malicious entities.
+- How packet flow between modules is not direct - instead, the sending module commits some particular state, thus emitting an event which is detected by a relayer, which delivers to the destination module both the packet data and a proof of the sending module's state commit, which is then verified on the destination chain.
+- How it is possible for time-sensitive packets to trigger a reversal of the sending module's state change in the event that a timeout block height or timestamp has elapsed.
 
 </HighlightBox>
 
 <!--## Next up
 
 You learned how to establish a channel and discovered the application packet flow. In the [next section](./4-clients.md), you get to explore clients in IBC/TAO.-->
-

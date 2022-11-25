@@ -2,7 +2,7 @@
 title: "IBC/TAO - Connections"
 order: 3
 description: Establishing connections in IBC
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops
@@ -14,9 +14,9 @@ tags:
 
 IBC in depth. Discover the IBC protocol in detail:
 
-* Learn more about connection negotiation.
-* Explore connection states.
-* How IBC repels hostile connection attempts.
+- Learn more about connection negotiation.
+- Explore connection states.
+- How IBC repels hostile connection attempts.
 
 </HighlightBox>
 
@@ -56,9 +56,9 @@ type Version struct {
 
 Protocol versioning is important to establish, as different protocol versions may not be compatible, for example due to proofs being stored on a different path. There are three types of protocol version negotiation:
 
-1. *Default, no selection*: only one protocol version is supported. This is default to propose.
-2. *With selection*: two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
-3. *Impossible communication*: a backwards incompatible IBC protocol version. For example, if an IBC module changes where it stores its proofs (proof paths), errors result. There are no plans to upgrade to a backwards incompatible IBC protocol version.
+1. _Default, no selection_: only one protocol version is supported. This is default to propose.
+2. _With selection_: two protocol versions can be proposed, such that the chain initiating `OpenInit` or `OpenTry` has a choice of which version to go with.
+3. _Impossible communication_: a backwards incompatible IBC protocol version. For example, if an IBC module changes where it stores its proofs (proof paths), errors result. There are no plans to upgrade to a backwards incompatible IBC protocol version.
 
 </HighlightBox>
 
@@ -97,6 +97,8 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 3. OpenAck
 4. OpenConfirm
 
+<YoutubePlayer videoId="E3ZvqdY2tL8" />
+
 A high level overview of a successful four-way handshake is as follows:
 
 ### Handshake 1 - OpenInit
@@ -121,7 +123,7 @@ func (k Keeper) ConnOpenInit(
     version *types.Version,
     delayPeriod uint64,
 ) (string, error) {
-  ...
+    ... //version negotiation logic
 
     // connection defines chain A's ConnectionEnd
     connectionID := k.GenerateConnectionIdentifier(ctx)
@@ -150,8 +152,16 @@ This function creates a unique `connectionID`. It adds the connection to a list 
 It creates a new `ConnectionEnd`:
 
 ```go
+//@ func (k Keeper) ConnOpenInit
+...
 connection := types.NewConnectionEnd(types.INIT, clientID, counterparty, types.ExportedVersionsToProto(versions), delayPeriod)
 k.SetConnection(ctx, connectionID, connection)
+...
+```
+
+With the following proto definition:
+
+```go
 
 // ConnectionEnd defines a stateful object on a chain connected to another separate one.
 // NOTE: there must only be 2 defined ConnectionEnds to establish
@@ -172,7 +182,7 @@ message ConnectionEnd {
     // clients.
     uint64 delay_period = 5 [(gogoproto.moretags) = "yaml:\"delay_period\""];
 }
-````
+```
 
 `ConnOpenInit` is triggered by the **relayer**, which constructs the message and sends it to the SDK that uses the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go) previously seen to call `ConnOpenInit`:
 
@@ -203,7 +213,7 @@ With regards to IBC protocol versioning, `OpenTry` either accepts the protocol v
 
 <!-- TODO insert image -->
 
-The implementation of OpenTry is as follows:
+The [implementation of OpenTry](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L61-L148) is as follows:
 
 ```go
 // ConnOpenTry relays notice of a connection attempt on chain A to chain B (this
@@ -214,17 +224,16 @@ The implementation of OpenTry is as follows:
 //  - Identifiers are checked on msg validation
 func (k Keeper) ConnOpenTry(
     ctx sdk.Context,
-    previousConnectionID string, // previousIdentifier
-    counterparty types.Counterparty, // counterpartyConnectionIdentifier, counterpartyPrefix and counterpartyClientIdentifier
-    delayPeriod uint64,
-    clientID string, // clientID of chainA
-    clientState exported.ClientState, // clientState that chain A has for chain B
-    counterpartyVersions []exported.Version, // supported versions of chain A
-    proofInit []byte, // proof that chain A stored connectionEnd in state (on ConnOpenInit)
-    proofClient []byte, // proof that chain A stored a light client of chain B
-    proofConsensus []byte, // proof that chain A stored chainB's consensus state at consensus height
-    proofHeight exported.Height, // height at which relayer constructs proof of A storing connectionEnd in state
-    consensusHeight exported.Height, // latest height of chain B which chain A has stored in its chain B client
+	counterparty types.Counterparty, // counterpartyConnectionIdentifier, counterpartyPrefix and counterpartyClientIdentifier
+	delayPeriod uint64,
+	clientID string, // clientID of chainA
+	clientState exported.ClientState, // clientState that chainA has for chainB
+	counterpartyVersions []exported.Version, // supported versions of chain A
+	proofInit []byte, // proof that chainA stored connectionEnd in state (on ConnOpenInit)
+	proofClient []byte, // proof that chainA stored a light client of chainB
+	proofConsensus []byte, // proof that chainA stored chainB's consensus state at consensus height
+	proofHeight exported.Height, // height at which relayer constructs proof of A storing connectionEnd in state
+	consensusHeight exported.Height, // latest height of chain B which chain A has stored in its chain B client
 ) ...
 ```
 
@@ -234,13 +243,13 @@ func (k Keeper) ConnOpenTry(
 
 ![OpenAck](/academy/3-ibc/images/open_ack.png)
 
-The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain *must* have a `TRY` connection state in order for the handshake and connection state update to be successful.
+The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain _must_ have a `TRY` connection state in order for the handshake and connection state update to be successful.
 
 With regards to version negotiation, `OpenAck` must confirm the protocol version which has been proposed in `OpenTry`. It ends the connection handshake process if the version is unwanted or unsupported.
 
 <!-- TODO insert image -->
 
-The `OpenAck` code is very similar to `OpenTry`:
+The [`OpenAck` code](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L154-L247) is very similar to `OpenTry`:
 
 ```go
 func (k Keeper) ConnOpenAck(
@@ -260,6 +269,8 @@ func (k Keeper) ConnOpenAck(
 Both functions do the same checks, except that `OpenTry` takes `proofInit` as a parameter, and `OpenAck` takes `proofTry`:
 
 ```go
+// @ func (k Keeper) ConnOpenAck
+
 // This function verifies that the snapshot we have of the counter-party chain looks like the counter-party chain, verifies the light client we have of the counter-party chain
 // Check that Chain A committed expectedConnectionEnd to its state
 if err := k.VerifyConnectionState(
@@ -292,7 +303,7 @@ Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the
 
 ![OpenConfirm](/academy/3-ibc/images/open_confirm.png)
 
-The conclusion of this handshake results in the successful establishing of an IBC connection:
+The [conclusion of this handshake](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L253-L297) results in the successful establishing of an IBC connection:
 
 ```go
 func (k Keeper) ConnOpenConfirm(
@@ -303,19 +314,29 @@ func (k Keeper) ConnOpenConfirm(
 )
 ```
 
-The initiation of this handshake from chain B updates its connection state from `TRY` to `OPEN`. The counterparty chain *must* have an `OPEN` connection state in order for the handshake and connection state update to be successful.
+The initiation of this handshake from chain B updates its connection state from `TRY` to `OPEN`. The counterparty chain _must_ have an `OPEN` connection state in order for the handshake and connection state update to be successful.
 
-<!-- TODO insert image -->
+<HighlightBox type="remember">
 
-The successful four-way handshake described establishes an IBC connection between the two chains. Now consider two related circumstances: simultaneous attempts by the chains to perform the same handshake, and attempts by an imposter to interfere.
+The successful four-way handshake described establishes an IBC connection between the two chains.
+
+</HighlightBox>
+
+Now consider two edge circumstances: simultaneous attempts by the chains to perform the same handshake, and attempts by an imposter to interfere.
 
 ### Crossing hellos
 
 "Crossing Hellos" refers to when both chains attempt the same handshake step at the same time.
 
-If both chains submit `OpenInit` then `OpenTry` at same time, there should be no error. In this case, both sides still need to confirm with a successful `OpenAck`, but no `OpenConfirm` is required because both ConnectionEnds will update to an OPEN state.
+<HighlightBox type="warning">
+
+Crossing hellos (while still discussed in the video), have been removed from ibc-go v4 onwards, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1672). The `PreviousConnectionId` in `MsgConnectionOpenTry` has been deprecated.
+
+</HighlightBox>
 
 ### An imposter
+
+What if an imposter tried to open a connection pretending to be another chain?
 
 In fact this is not an issue. Any attempted `OpenInit` from an imposter will fail on `OpenTry`, because it will not contain valid proofs of `Client/Connection/ConsensusState`.
 
@@ -323,8 +344,8 @@ In fact this is not an issue. Any attempted `OpenInit` from an imposter will fai
 
 To summarize, this section has explored:
 
-* How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
-* How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
+- How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
+- How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
 
 </HighlightBox>
 
