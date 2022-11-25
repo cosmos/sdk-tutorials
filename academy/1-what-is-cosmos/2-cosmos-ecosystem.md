@@ -109,6 +109,15 @@ The default consensus mechanism available when developing with the SDK is the [T
 
 </HighlightBox>
 
+<HighlightBox type="info">
+
+If you are interested in hearing more from the Cosmos SDK team itself, in the following video Marko Baricevic, Cosmos SDK Project Lead at Interchain, delivers a comprehensive breakdown of the Cosmos SDK.
+
+<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+
+</HighlightBox>
+
+
 ## The Inter-Blockchain Communication Protocol
 
 The [Inter-Blockchain Communication Protocol (IBC)](https://ibcprotocol.org/) is the basis for **interoperability** in Cosmos. It leverages the instant finality of Tendermint to allow for the transfer of value (token transfers) and communication between heterogeneous chains. Blockchains with different applications and architecture specifications become interoperable whether or not they share a validator set.
