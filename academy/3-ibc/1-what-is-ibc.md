@@ -90,7 +90,7 @@ While this background information is useful, IBC modules do not need to interact
 
 In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, explains how different blockchains can be connected with the Inter-Blockchain Communication (IBC) protocol, with a particular focus on light clients, connections, channels, and packet commitments.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="zUVPkEzGJzA"/>
 
 </HighlightBox>
 
@@ -147,7 +147,7 @@ Note that this effect would only affect the network if all relayers were Byzanti
 
 In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, looks at the IBC packet lifecycle and the security properties of a light client.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="X5mPQrCLLWE"/>
 
 </HighlightBox>
 
@@ -224,7 +224,7 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 If you're interested in another detailed overview of the IBC protocol, in the following video Callum Waters, Engineering Manager for the Tendermind Core, gives a talk on the methodology allowing interoperability between countless sovereign blockchains and how to build an IBC-compatible app.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="OSMH5uwTssk"/>
 
 </HighlightBox>
 

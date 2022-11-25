@@ -714,7 +714,7 @@ When you are done with this exercise you can stop Ignite's `chain serve.`
 
 Want another demonstration? In the following video Denis Fadeev, creator of and core contributor to Ignite CLI, explains how to create and interact with a Cosmos SDK blockchain using just a few basic commands, then provides a real-time demonstration of Ignite CLI in action.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="aQuHeE7fWK0"/>
 
 </HighlightBox>
 

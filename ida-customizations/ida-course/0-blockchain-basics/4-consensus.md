@@ -32,7 +32,7 @@ In addition to the chain of blocks, one of the innovations introduced by Bitcoin
 
 In the following video Jae Kwon, founder and CEO of Tendermint, discusses finding an alternative solution to the energy intensive Proof-of-Work consensus methodology that still maintains the provable security benefits of distributed networking: Tendermint.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="T_FYBKJxlbk"/>
 
 </HighlightBox>
 

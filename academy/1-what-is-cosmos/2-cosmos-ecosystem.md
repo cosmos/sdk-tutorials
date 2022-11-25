@@ -113,7 +113,7 @@ The default consensus mechanism available when developing with the SDK is the [T
 
 If you are interested in hearing more from the Cosmos SDK team itself, in the following video Marko Baricevic, Cosmos SDK Project Lead at Interchain, delivers a comprehensive breakdown of the Cosmos SDK.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="1_ottIKPfI4"/>
 
 </HighlightBox>
 

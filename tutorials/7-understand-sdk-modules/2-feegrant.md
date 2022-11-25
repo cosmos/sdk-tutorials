@@ -252,7 +252,7 @@ By completing this tutorial, you have learned how to use the `feegrant` module!
 
 Want a demonstration of x/feegrant and x/authz? In the following video Amaury Martiny, Core Developer at Parity Technologies, and Likhita Polavarapu, Software Developer at Vitwit, present a workshop on the significant UX benefits of both modules and how to integrate them into blockchain applications.
 
-<YoutubePlayer videoId="XXXXXXXXXXXXXXXXX"/>
+<YoutubePlayer videoId="g6t5ZJSQDus"/>
 
 </HighlightBox>
 
