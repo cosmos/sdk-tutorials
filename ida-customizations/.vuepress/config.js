@@ -154,7 +154,6 @@ module.exports = {
                 },
               ],
             },
-
             {
               title: "Week 1 - Introduction to Cosmos",
               directory: true,
@@ -509,6 +508,10 @@ module.exports = {
                 {
                   title: "Configure, Run, and Set Up a Service",
                   path: "/tutorials/8-path-to-prod/6-run.html",
+                },
+                {
+                  title: "Simulate Production in Docker",
+                  path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
                   title: "Introduce a Leaderboard After Production",
