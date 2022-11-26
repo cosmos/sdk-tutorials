@@ -608,7 +608,7 @@ You may not have used Docker up to this point. The following paragraphs acquaint
 
 Install [Docker](https://docs.docker.com/get-docker/).
 
-To run the checkers chain with Ignite CLI you have the choice of two Docker images:
+To run the checkers chain with Ignite CLI you have the choice between two Docker images:
 
 1. You can use the one published by Ignite themselves, for version `0.22.1`: [`ignitehq/cli:0.22.1`](https://hub.docker.com/layers/ignitehq/cli/0.22.1/images/sha256-8e2f353f943227488f966dd02558b718766a17dd8b611bccd2789facdceef0cf). This may be faster the first time you run it, but can become annoying if you plan on doing it many times as it will download the Go dependencies every time.
 2. You can build it yourself from the checkers [`Dockerfile-ubuntu`](https://github.com/cosmos/b9-checkers-academy-draft/blob/main/Dockerfile-ubuntu), with the command:
@@ -617,7 +617,11 @@ To run the checkers chain with Ignite CLI you have the choice of two Docker imag
     $ docker build -f Dockerfile-ubuntu . -t checkers_i
     ```
 
+    <HighlightBox type="best-practice">
+
     This is the preferred method if you plan on using the image many times, as it downloads all Go dependencies once.
+
+    </HighlightBox>
 
 Now that you have decided which Docker image to use, you can run the tests.
 
@@ -653,7 +657,7 @@ Because `ignite` is already the image's entry point, you only need to pass `chai
 
 <HighlightBox type="Note">
 
-This time no ports are published (`-p`) back to the host. Indeed, the communication for the NodeJs tests will take place within the `checkers-net` network.
+This time no ports are published (`-p`) back to the host. Indeed, the communication for the Node.js tests will take place within the `checkers-net` network.
 
 </HighlightBox>
 
@@ -696,7 +700,7 @@ Again in your `client` folder, you can now run the tests within the same `checke
 $ docker run --rm -v $(pwd):/client -w /client --network checkers-net node:18.7 npm test
 ```
 
-And that is it. You defined a network over which the NodeJs tests' container could easily access the chain's container.
+And that is it. You defined a network over which the Node.js tests' container could easily access the chain's container.
 
 To clean up after you have stopped the containers, you can safely delete the network:
 
@@ -709,7 +713,7 @@ $ docker network rm checkers-net
 To summarize, this section has explored:
 
 * The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your checkers application.
-* How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your checkers module.
+* How to create the necessary Protobuf objects and clients in TypeScript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your checkers module.
 * How to use Docker to define a network to orchestrate and launch separate containers that mimic a production setup.
 
 </HighlightBox>
