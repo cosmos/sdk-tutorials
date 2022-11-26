@@ -117,11 +117,11 @@ customModules:
           - title: Queries, events, and context
             path: /academy/2-cosmos-concepts/9-queries.html
           - title: Testing
-            path: /academy/2-cosmos-concepts/11-testing.html
+            path: /academy/2-cosmos-concepts/12-testing.html
           - title: Migrations
-            path: /academy/2-cosmos-concepts/12-migrations.html
+            path: /academy/2-cosmos-concepts/13-migrations.html
           - title: Bridges
-            path: /academy/2-cosmos-concepts/13-bridges.html
+            path: /academy/2-cosmos-concepts/14-bridges.html
       - image: /cosmos_dev_portal_module-05-lp.png
         title: Week 2 - First Steps
         href: /ida-course/LPs/week-2/
@@ -153,15 +153,15 @@ customModules:
           - title: IBC tooling
             path: /academy/3-ibc/7-ibc-tooling.html
           - title: What is CosmJS?
-            path: /tutorials/6-cosmjs/1-cosmjs-intro.html
+            path: /tutorials/7-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
-            path: /tutorials/6-cosmjs/2-first-steps.html
+            path: /tutorials/7-cosmjs/2-first-steps.html
           - title: Compose complex transactions
-            path: /tutorials/6-cosmjs/3-multi-msg.html
+            path: /tutorials/7-cosmjs/3-multi-msg.html
           - title: Learn to integrate Keplr
-            path: /tutorials/6-cosmjs/4-with-keplr.html
+            path: /tutorials/7-cosmjs/4-with-keplr.html
           - title: Create custom CosmJS interfaces
-            path: /tutorials/6-cosmjs/5-create-custom.html
+            path: /tutorials/7-cosmjs/5-create-custom.html
       - image: /planet-collection.svg
         title: Week 4 - Ignite CLI and IBC
         href: /ida-course/LPs/week-4/
@@ -183,11 +183,11 @@ customModules:
           - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Understand IBC denoms
-            path: /tutorials/5-ibc-dev/index.html
+            path: /tutorials/6-ibc-dev/index.html
           - title: Play with cross-chain tokens
             path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Work with IBC relayers
-            path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
+            path: /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
       - image: /cosmos_dev_portal_module-04-lp.png
         title: Week 5 - CosmJS Advanced
         href: /ida-course/LPs/week-5/
@@ -211,41 +211,41 @@ customModules:
           Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
         links: 
           - title: Writing a custom IBC application
-            path: /hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html
+            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: How to make a module IBC-enabled
-            path: /hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html
+            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
           - title: Adding packet and acknowledgment data
-            path: /hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html
+            path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: Exploring IBC middlewares - OPTIONAL
-            path: /hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html
+            path: /hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.html
           - title: Creating a custom IBC middleware - OPTIONAL
-            path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
+            path: /hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.html
           - title: Integrating IBC middleware into a chain - OPTIONAL
-            path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
+            path: /hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.html
       - image: /universe.svg
-        title: Week 7 - From code to MVP to Production and migrations
+        title: Week 7 - From Code to MVP to Production and Migrations
         href: /ida-course/LPs/week-7/
         description: |
           In this chapter, you will build on your previous work for the checkers blockchain to adapt your blockchain to the demands of running in production:
         links: 
           - title: Get a quick overview
-            path: /tutorials/8-path-to-prod/1-overview.html
+            path: /tutorials/9-path-to-prod/1-overview.html
           - title: Prepare the software to run
-            path: /tutorials/8-path-to-prod/2-software.html
+            path: /tutorials/9-path-to-prod/2-software.html
           - title: Prepare a validator and keys
-            path: /tutorials/8-path-to-prod/3-keys.html
+            path: /tutorials/9-path-to-prod/3-keys.html
           - title: Prepare where the node starts
-            path: /tutorials/8-path-to-prod/4-genesis.html
+            path: /tutorials/9-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
-            path: /tutorials/8-path-to-prod/5-network.html
-          - titles: Run and set up a service
-            path: /tutorials/8-path-to-prod/6-run.html
+            path: /tutorials/9-path-to-prod/5-network.html
+          - titles: Configure, run and set up a service
+            path: /tutorials/9-path-to-prod/6-run.html
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introducing a leaderboard after production
+          - title: Introduce a leaderboard after production
             path: hands-on-exercise/4-run-in-prod/2-migration.html
           - titles: Prepare and do migrations
-            path: /tutorials/8-path-to-prod/7-migration.html
+            path: /tutorials/9-path-to-prod/7-migration.html
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

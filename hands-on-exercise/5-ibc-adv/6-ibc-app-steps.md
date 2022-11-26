@@ -370,7 +370,7 @@ However, the version string can also include metadata to indicate attributes of 
 
 The general application packet flow was discussed in [a previous section](https://tutorials.cosmos.network/academy/3-ibc/3-channels.html#application-packet-flow). As a refresher, let's take a look at the diagram:
 
-![Packet flow](/hands-on-exercise/4-ibc-adv/images/packetflow.png)
+![Packet flow](/hands-on-exercise/5-ibc-adv/images/packetflow.png)
 
 The packet callbacks in the packet flow can now be identified by investigating the `IBCModule` interface.
 

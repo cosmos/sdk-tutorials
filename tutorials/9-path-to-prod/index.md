@@ -13,7 +13,7 @@ title: Chapter Overview - See your chain in action
 
 After having developed your chain, now you will take the next step to move your chain into production.
 
-![](/tutorials/8-path-to-prod/images/universe.svg)
+![](/tutorials/9-path-to-prod/images/universe.svg)
 
 ## In this chapter
 

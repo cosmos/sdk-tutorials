@@ -127,4 +127,4 @@ Your file is now pinned to the remote node.
 By completing this tutorial, you have learned how to use IPFS for storing files, notably for proposal metadata.
 
 To learn more about IPFS in general, you can check their [documentation](https://docs.ipfs.io/).
-Additionally, you can learn more about how to use the `CID` in the [group](/tutorials/7-understand-sdk-modules/3-group.md) module tutorial.
+Additionally, you can learn more about how to use the `CID` in the [group](/tutorials/8-understand-sdk-modules/3-group.md) module tutorial.

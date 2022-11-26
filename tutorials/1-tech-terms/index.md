@@ -141,7 +141,7 @@ For more information on the Tendermint RPC, gRPC, and the REST server, a closer 
 
 <HighlightBox type="info">
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 

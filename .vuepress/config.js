@@ -119,22 +119,22 @@ module.exports = {
             },
             {
               title: "IBC Developers",
-              path: "/tutorials/5-ibc-dev/",
+              path: "/tutorials/6-ibc-dev/",
               directory: true,
             },
             {
               title: "Introduction to CosmJS",
-              path: "/tutorials/6-cosmjs/",
+              path: "/tutorials/7-cosmjs/",
               directory: true,
             },
             {
               title: "Understand SDK modules",
-              path: "/tutorials/7-understand-sdk-modules/",
+              path: "/tutorials/8-understand-sdk-modules/",
               directory: true,
             },
             {
               title: "The Path to Production",
-              path: "/tutorials/8-path-to-prod/",
+              path: "/tutorials/9-path-to-prod/",
               directory: true,
             },
           ],
@@ -165,7 +165,7 @@ module.exports = {
             },
             {
               title: "IBC Advanced",
-              path: "/hands-on-exercise/4-ibc-adv/",
+              path: "/hands-on-exercise/5-ibc-adv/",
               directory: true,
             },
           ],

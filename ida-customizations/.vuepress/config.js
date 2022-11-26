@@ -221,15 +221,15 @@ module.exports = {
                 },
                 {
                   title: "Testing",
-                  path: "/academy/2-cosmos-concepts/11-testing.html", // TODO uncomment when #1266 merged
+                  path: "/academy/2-cosmos-concepts/12-testing.html", // TODO uncomment when #1266 merged
                 },
                 {
                   title: "Migrations",
-                  path: "/academy/2-cosmos-concepts/12-migrations.html",
+                  path: "/academy/2-cosmos-concepts/13-migrations.html",
                 },
                 {
                   title: "Bridges",
-                  path: "/academy/2-cosmos-concepts/13-bridges.html",
+                  path: "/academy/2-cosmos-concepts/14-bridges.html",
                 },
                 {
                   title: "Mandatory Quiz",
@@ -331,23 +331,23 @@ module.exports = {
                 },
                 {
                   title: "What is CosmJS?",
-                  path: "/tutorials/6-cosmjs/1-cosmjs-intro.html",
+                  path: "/tutorials/7-cosmjs/1-cosmjs-intro.html",
                 },
                 {
                   title: "Your First CosmJS Actions",
-                  path: "/tutorials/6-cosmjs/2-first-steps.html",
+                  path: "/tutorials/7-cosmjs/2-first-steps.html",
                 },
                 {
                   title: "Compose Complex Transactions",
-                  path: "/tutorials/6-cosmjs/3-multi-msg.html",
+                  path: "/tutorials/7-cosmjs/3-multi-msg.html",
                 },
                 {
                   title: "Learn to Integrate Keplr",
-                  path: "/tutorials/6-cosmjs/4-with-keplr.html",
+                  path: "/tutorials/7-cosmjs/4-with-keplr.html",
                 },
                 {
                   title: "Create Custom CosmJS Interfaces",
-                  path: "/tutorials/6-cosmjs/5-create-custom.html",
+                  path: "/tutorials/7-cosmjs/5-create-custom.html",
                 },
               ],
             },
@@ -390,7 +390,7 @@ module.exports = {
                 },
                 {
                   title: "Understand IBC Denoms",
-                  path: "/tutorials/5-ibc-dev/",
+                  path: "/tutorials/6-ibc-dev/",
                 },
                 {
                   title: "Play With Cross-Chain Tokens",
@@ -398,15 +398,15 @@ module.exports = {
                 },
                 {
                   title: "Relaying With IBC",
-                  path: "/hands-on-exercise/4-ibc-adv/2-relayer-intro.html",
+                  path: "/hands-on-exercise/5-ibc-adv/2-relayer-intro.html",
                 },
                 {
                   title: "Go Relayer",
-                  path: "/hands-on-exercise/4-ibc-adv/3-go-relayer.html",
+                  path: "/hands-on-exercise/5-ibc-adv/3-go-relayer.html",
                 },
                 {
                   title: "Hermes Relayer",
-                  path: "/hands-on-exercise/4-ibc-adv/4-hermes-relayer.html",
+                  path: "/hands-on-exercise/5-ibc-adv/4-hermes-relayer.html",
                 },
               ],
             },
@@ -452,62 +452,62 @@ module.exports = {
                 },
                 {
                   title: "IBC Application Developer Introduction",
-                  path: "/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html",
+                  path: "/hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html",
                 },
                 {
                   title: "Make a Module IBC-Enabled",
-                  path: "/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html",
+                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html",
                 },
                 {
                   title: "Adding Packet and Acknowledgment Data",
-                  path: "/hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html",
+                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html",
                 },
                 {
                   title: "IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html",
+                  path: "/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.html",
                 },
                 {
                   title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html",
+                  path: "/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.html",
                 },
                 {
                   title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html",
+                  path: "/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.html",
                 },
               ],
             },
             {
-              title: "Week 7 - From code to MVP to Production and migrations",
+              title: "Week 7 - From Code to MVP to Production and Migrations",
               directory: true,
               order: 8,
               children: [
                 {
-                  title: "From code to MVP to Production and migrations",
+                  title: "From Code to MVP to Production and Migrations",
                   path: "/ida-course/LPs/week-7/",
                 },
                 {
                   title: "Overview",
-                  path: "/tutorials/8-path-to-prod/1-overview.html",
+                  path: "/tutorials/9-path-to-prod/1-overview.html",
                 },
                 {
                   title: "Prepare the Software to Run",
-                  path: "/tutorials/8-path-to-prod/2-software.html",
+                  path: "/tutorials/9-path-to-prod/2-software.html",
                 },
                 {
                   title: "Prepare a Validator and Keys",
-                  path: "/tutorials/8-path-to-prod/3-keys.html",
+                  path: "/tutorials/9-path-to-prod/3-keys.html",
                 },
                 {
                   title: "Prepare Where the Node Starts",
-                  path: "/tutorials/8-path-to-prod/4-genesis.html",
+                  path: "/tutorials/9-path-to-prod/4-genesis.html",
                 },
                 {
                   title: "Prepare and Connect to Other Nodes",
-                  path: "/tutorials/8-path-to-prod/5-network.html",
+                  path: "/tutorials/9-path-to-prod/5-network.html",
                 },
                 {
                   title: "Configure, Run, and Set Up a Service",
-                  path: "/tutorials/8-path-to-prod/6-run.html",
+                  path: "/tutorials/9-path-to-prod/6-run.html",
                 },
                 {
                   title: "Simulate Production in Docker",
@@ -519,7 +519,7 @@ module.exports = {
                 },
                 {
                   title: "Prepare and Do Migrations",
-                  path: "/tutorials/8-path-to-prod/7-migration.html",
+                  path: "/tutorials/9-path-to-prod/7-migration.html",
                 },
                 {
                   title: "Final Exam",
@@ -561,7 +561,7 @@ module.exports = {
     footer: {
       privacy: "https://v1.cosmos.network/privacy",
       question: {
-        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
+        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out in the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
       logo: "/brand.png",
       textLink: {

@@ -1,6 +1,6 @@
 ---
 parent:
-  title: From code to MVP to Production and migrations
+  title: From Code to MVP to Production and Migrations
   description: See your chain in action
   number: 8
 tags:
@@ -9,7 +9,7 @@ title: Week 5 - See Your Chain in Action
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See your chain in action</div>
-<h1 class="mt-4 mb-6">From code to MVP to Production and migrations</h1>
+<h1 class="mt-4 mb-6">From Code to MVP to Production and Migrations</h1>
 
 After having developed your chain, now you will take the next step to move your chain to a proof-of-concept and into production.
 
@@ -35,7 +35,7 @@ In this chapter, you will learn:
 
 ## Next up
 
-It is time to move your checkers blockchain into production. In the [next section](/tutorials/8-path-to-prod/1-overview.md), you can find an overview of the different aspects one needs to address to move a Cosmos blockchain into production.
+It is time to move your checkers blockchain into production. In the [next section](/tutorials/9-path-to-prod/1-overview.md), you can find an overview of the different aspects one needs to address to move a Cosmos blockchain into production.
 
 ## Developer Resources
 
