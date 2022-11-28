@@ -42,7 +42,7 @@ You can either create images locally via a **`Dockerfile`** containing the comma
 
 <HighlightBox type="info">
 
-Some registries store and/or reference them, like your regular package manager. [Docker Hub](https://hub.docker.com) is the main one, and your local Docker knows how to download directly from it.
+There exist registries that store and/or reference them, like your regular package manager. [Docker Hub](https://hub.docker.com) is the main one, and your local Docker knows how to download directly from it.
 
 </HighlightBox>
 
