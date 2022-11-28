@@ -4,7 +4,6 @@ order: 3
 description: Introduce the message to create a game in your checkers blockchain
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
