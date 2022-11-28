@@ -15,6 +15,12 @@ Enjoy an introduction to the main components of the Cosmos SDK.
 
 From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
 
+<HighlightBox type="info">
+
+As all blockchain ecosystems keep on growing and maturing, product stacks and terminologies evolve. Thus, please be aware that Cosmos is also known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers ("the stack") can be referred to collectively as the **Interchain Stack**.
+
+</HighlightBox>
+
 ![LP image - Week 1](/ida-course/LPs/week-1/images/cosmos_dev_portal_module-03-lp.png)
 
 ## In this chapter
