@@ -523,7 +523,7 @@ module.exports = {
                 },
                 {
                   title: "Final Exam",
-                  path: "/ida-course/final-exam/index.html",
+                  path: "/ida-course/final-exam/",
                 },
               ],
             },
