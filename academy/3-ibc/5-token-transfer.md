@@ -72,7 +72,7 @@ The prefix determines the **source** chain. If the module sends the token from a
 
 ![Source sink logic](/academy/3-ibc/images/sourcesinklogic.png)
 
-You already know that an application needs to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go), so have a look at the [implementation for the token transfer](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/ibc_module.go), e.g. for `OnChanOpenInit`:
+You already know that an application needs to implement the [IBC Module Interface](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/05-port/types/module.go), so have a look at the [implementation for the token transfer](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/ibc_module.go), e.g. for `OnChanOpenInit`:
 
 ```go
 // OnChanOpenInit implements the IBCModule interface
@@ -113,7 +113,7 @@ You've seen an introduction to application packet flow in [the section on channe
 
 After a channel is established, the module can start sending and receiving packets.
 
-So where does the module send a token? Take a look at the [msg_server.go](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
+So where does the module send a token? Take a look at the [msg_server.go](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
 
 ```go
 // Transfer defines a rpc handler method for MsgTransfer.
@@ -129,7 +129,7 @@ func (k Keeper) Transfer(goCtx context.Context, msg *types.MsgTransfer) (*types.
 }
 ```
 
-There you see `SendTransfer`, which implements the application logic after [checking if the sender is a source or sink chain](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/types/coin.go):
+There you see `SendTransfer`, which implements the application logic after [checking if the sender is a source or sink chain](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/types/coin.go):
 
 ```go
 func (k Keeper) SendTransfer(
@@ -187,7 +187,7 @@ func (k Keeper) SendTransfer(
 }
 ```
 
-Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
+Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
 
 ```protobuf
 syntax = "proto3";
@@ -215,7 +215,7 @@ message FungibleTokenPacketData {
 
 <HighlightBox type="note">
 
-Note that an optional _memo_ field was recently added to the packet definition. More details on the motivation, use cases and consequences will follow shortly.
+Note that an optional _memo_ field was recently added to the packet definition. More details on the motivation, use cases and consequences can be found in the [accompanying blog post](https://medium.com/the-interchain-foundation/moving-beyond-simple-token-transfers-d42b2b1dc29b).
 
 </HighlightBox>
 
@@ -282,8 +282,8 @@ Remember that when a packet times out, the submission of a `MsgTimeoutPacket` is
 
 To summarize, this section has explored:
 
-- How IBC provides a reliable solution to the technical challenge of transferring fungible and non-fungible tokens between two different blockchains, freeing up great potential for cross-chain Decentralized Finance (DeFi) applications.
-- How the process for transferring value differs based on whether or not the IBC tokens are native to the source chain, or whether or not they are being sent on a channel they were previously received on.
+* How IBC provides a reliable solution to the technical challenge of transferring fungible and non-fungible tokens between two different blockchains, freeing up great potential for cross-chain Decentralized Finance (DeFi) applications.
+* How the process for transferring value differs based on whether or not the IBC tokens are native to the source chain, or whether or not they are being sent on a channel they were previously received on.
 
 </HighlightBox>
 

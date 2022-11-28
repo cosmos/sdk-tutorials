@@ -97,14 +97,14 @@ The required steps to implement can be found in the [ibc-go docs](https://ibc.co
 
 **To have your module interact over IBC you must:**
 
-- Implement the `IBCModule` interface:
-  - Channel (opening) handshake callbacks
-  - Channel closing handshake callbacks
-  - Packet callbacks
-- Bind to a port(s).
-- Add keeper methods.
-- Define your packet data and acknowledgment structs as well as how to encode/decode them.
-- Add a route to the IBC router.
+* Implement the `IBCModule` interface:
+    * Channel (opening) handshake callbacks
+    * Channel closing handshake callbacks
+    * Packet callbacks
+* Bind to a port(s).
+* Add keeper methods.
+* Define your packet data and acknowledgment structs as well as how to encode/decode them.
+* Add a route to the IBC router.
 
 </HighlightBox>
 
@@ -120,9 +120,9 @@ For a full explanation, visit the [ibc-go docs](https://ibc.cosmos.network/main/
 
 The Cosmos SDK expects all IBC modules to implement the [`IBCModule` interface](https://github.com/cosmos/ibc-go/tree/main/modules/core/05-port/types/module.go). This interface contains all of the callbacks IBC expects modules to implement. This includes callbacks related to:
 
-- Channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, and `OnChanOpenConfirm`)
-- Channel closing (`OnChanCloseInit` and `OnChanCloseConfirm`)
-- Packets (`OnRecvPacket`, `OnAcknowledgementPacket`, and `OnTimeoutPacket`).
+* Channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, and `OnChanOpenConfirm`)
+* Channel closing (`OnChanCloseInit` and `OnChanCloseConfirm`)
+* Packets (`OnRecvPacket`, `OnAcknowledgementPacket`, and `OnTimeoutPacket`).
 
 Ignite CLI implements this in the file `x/leaderboard/module_ibc.go`.
 
@@ -368,11 +368,11 @@ var (
 Application modules are expected to verify the versioning used during the channel handshake procedure:
 
 * `OnChanOpenInit` will verify that the relayer-chosen parameters are valid and perform any custom `INIT` logic.
-  * It may return an error if the chosen parameters are invalid, in which case the handshake is aborted. If the provided version string is non-empty, `OnChanOpenInit` should return the version string if valid or an error if the provided version is invalid.
-  * **If the version string is empty, `OnChanOpenInit` is expected to return a default version string representing the version(s) it supports.** If there is no default version string for the application, it should return an error if the provided version is an empty string.
+    * It may return an error if the chosen parameters are invalid, in which case the handshake is aborted. If the provided version string is non-empty, `OnChanOpenInit` should return the version string if valid or an error if the provided version is invalid.
+    * **If the version string is empty, `OnChanOpenInit` is expected to return a default version string representing the version(s) it supports.** If there is no default version string for the application, it should return an error if the provided version is an empty string.
 * `OnChanOpenTry` will verify the relayer-chosen parameters along with the counterparty-chosen version string and perform custom `TRY` logic.
-  * If the relayer-chosen parameters are invalid, the callback must return an error to abort the handshake. If the counterparty-chosen version is not compatible with this module's supported versions, the callback must return an error to abort the handshake.
-  * If the versions are compatible, the try callback must select the final version string and return it to core IBC.`OnChanOpenTry` may also perform custom initialization logic.
+    * If the relayer-chosen parameters are invalid, the callback must return an error to abort the handshake. If the counterparty-chosen version is not compatible with this module's supported versions, the callback must return an error to abort the handshake.
+    * If the versions are compatible, the try callback must select the final version string and return it to core IBC.`OnChanOpenTry` may also perform custom initialization logic.
 * `OnChanOpenAck` will error if the counterparty selected version string is invalid and abort the handshake. It may also perform custom `ACK` logic.
 
 <HighlightBox type="info">

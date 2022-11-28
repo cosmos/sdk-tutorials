@@ -14,9 +14,9 @@ tags:
 
 IBC in depth. Discover the IBC protocol in detail:
 
-- Learn more about connection negotiation.
-- Explore connection states.
-- How IBC repels hostile connection attempts.
+* Learn more about connection negotiation.
+* Explore connection states.
+* How IBC repels hostile connection attempts.
 
 </HighlightBox>
 
@@ -39,7 +39,7 @@ In the IBC stack, connections are built on top of clients, so technically there 
 
 <HighlightBox type="note">
 
-**Version negotiation**
+### Version negotiation
 
 Note that versioning here refers to the IBC protocol spec and not the ibc-go module. A backwards incompatible update is currently not planned.
 
@@ -66,7 +66,7 @@ As discussed previously, the opening handshake protocol allows each chain to ver
 
 ![Connection state](/academy/3-ibc/images/connectionstate.png)
 
-With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/core/connection/v1/connection.proto) contains the `Counterparty` definition:
+With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/v5.1.0/proto/ibc/core/connection/v1/connection.proto) contains the `Counterparty` definition:
 
 ```go
 // Counterparty defines the counterparty chain associated with a connection end.
@@ -113,7 +113,7 @@ The initiation of this handshake from chain A updates its connection state to `I
 
 <!-- TODO insert image -->
 
-The reference implementation for the connection handshake is found in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go). Examine `ConnOpenInit`:
+The reference implementation for the connection handshake is found in the [IBC module repository](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/03-connection/keeper/handshake.go). Examine `ConnOpenInit`:
 
 ```go
 func (k Keeper) ConnOpenInit(
@@ -184,7 +184,7 @@ message ConnectionEnd {
 }
 ```
 
-`ConnOpenInit` is triggered by the **relayer**, which constructs the message and sends it to the SDK that uses the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go) previously seen to call `ConnOpenInit`:
+`ConnOpenInit` is triggered by the **relayer**, which constructs the message and sends it to the SDK that uses the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go) previously seen to call `ConnOpenInit`:
 
 ```go
 // ConnectionOpenInit defines a rpc handler method for MsgConnectionOpenInit.
@@ -213,7 +213,7 @@ With regards to IBC protocol versioning, `OpenTry` either accepts the protocol v
 
 <!-- TODO insert image -->
 
-The [implementation of OpenTry](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L61-L148) is as follows:
+The [implementation of OpenTry](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/03-connection/keeper/handshake.go#L61-L147) is as follows:
 
 ```go
 // ConnOpenTry relays notice of a connection attempt on chain A to chain B (this
@@ -249,7 +249,7 @@ With regards to version negotiation, `OpenAck` must confirm the protocol version
 
 <!-- TODO insert image -->
 
-The [`OpenAck` code](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L154-L247) is very similar to `OpenTry`:
+The [`OpenAck` code](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/03-connection/keeper/handshake.go#L154-L247) is very similar to `OpenTry`:
 
 ```go
 func (k Keeper) ConnOpenAck(
@@ -303,7 +303,7 @@ Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the
 
 ![OpenConfirm](/academy/3-ibc/images/open_confirm.png)
 
-The [conclusion of this handshake](https://github.com/cosmos/ibc-go/blob/main/modules/core/03-connection/keeper/handshake.go#L253-L297) results in the successful establishing of an IBC connection:
+The [conclusion of this handshake](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/03-connection/keeper/handshake.go#L253-L297) results in the successful establishing of an IBC connection:
 
 ```go
 func (k Keeper) ConnOpenConfirm(
@@ -344,8 +344,8 @@ In fact this is not an issue. Any attempted `OpenInit` from an imposter will fai
 
 To summarize, this section has explored:
 
-- How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
-- How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
+* How a connection between two blockchains with IBC is established by a four-way handshake, thereby establishing the identity of the counterparty chain and preventing any malicious entity from pretending to be the counterparty.
+* How versioning is important to establish, to ensure that only compatible protocol versions attempt to connect.
 
 </HighlightBox>
 

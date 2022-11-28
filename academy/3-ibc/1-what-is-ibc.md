@@ -15,9 +15,9 @@ Inter-Blockchain Communication Protocol solves for communication between blockch
 <br/><br/>
 In this section, you will learn:
 
-- What IBC is.
-- How IBC works.
-- More about the IBC security guarantees.
+* What IBC is.
+* How IBC works.
+* More about the IBC security guarantees.
 
 </HighlightBox>
 
@@ -61,8 +61,8 @@ The great promise of IBC is providing a reliable, permissionless, and generic ba
 
 This separation is reflected in the categories of the ICS in the [general ICS definition](https://github.com/cosmos/ibc/blob/master/spec/ics-001-ics-standard/README.md):
 
-- **IBC/TAO:** Standards defining the Transport, Authentication, and Ordering of packets, i.e. the infrastructure layer. In the ICS, this is comprised by the categories _Core_, _Client_, and _Relayer_.
-- **IBC/APP:** Standards defining the application handlers for the data packets being passed over the transport layer. These include but are not limited to fungible token transfers (ICS-20), NFT transfers (ICS-721), and interchain accounts (ICS-27), and can be found in the ICS in the _App_ category.
+* **IBC/TAO:** Standards defining the Transport, Authentication, and Ordering of packets, i.e. the infrastructure layer. In the ICS, this is comprised by the categories _Core_, _Client_, and _Relayer_.
+* **IBC/APP:** Standards defining the application handlers for the data packets being passed over the transport layer. These include but are not limited to fungible token transfers (ICS-20), NFT transfers (ICS-721), and interchain accounts (ICS-27), and can be found in the ICS in the _App_ category.
 
 The following diagram shows how IBC works at a high level:
 
@@ -70,9 +70,9 @@ The following diagram shows how IBC works at a high level:
 
 Note three crucial elements in the diagram:
 
-- The chains depend on relayers to communicate. Relayer algorithms ([ICS-18](https://github.com/cosmos/ibc/tree/master/spec/relayer/ics-018-relayer-algorithms)) are the "physical" connection layer of IBC: off-chain processes responsible for relaying data between two chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as is allowed by the protocol.
-- Many relayers can serve one or more channels to send messages between the chains.
-- Each side of the relay uses the light client of the other chain to quickly verify incoming messages.
+* The chains depend on relayers to communicate. Relayer algorithms ([ICS-18](https://github.com/cosmos/ibc/tree/master/spec/relayer/ics-018-relayer-algorithms)) are the "physical" connection layer of IBC: off-chain processes responsible for relaying data between two chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as is allowed by the protocol.
+* Many relayers can serve one or more channels to send messages between the chains.
+* Each side of the relay uses the light client of the other chain to quickly verify incoming messages.
 
 ### IBC/TAO - transport layer
 
@@ -80,13 +80,13 @@ In the diagram, the relationship between the ICS definitions in the category TAO
 
 Simply put, the transport layer includes:
 
-- **Light Clients** - [ICS-2](https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics), [6](https://github.com/cosmos/ibc/tree/master/spec/client/ics-006-solo-machine-client), [7](https://github.com/cosmos/ibc/tree/master/spec/client/ics-007-tendermint-client), [8](https://github.com/cosmos/ibc/tree/master/spec/client/ics-008-wasm-client), [9](https://github.com/cosmos/ibc/tree/master/spec/client/ics-009-loopback-client), [10](https://github.com/cosmos/ibc/tree/master/spec/client/ics-010-grandpa-client): IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus state of other blockchains and the proof specs of those blockchains required to properly verify proofs against the client's consensus state. A client can be associated with any number of connections to the counterparty chain.
-- **Connections** - [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics): connections, once established, are responsible for facilitating all cross-chain verifications of an IBC state. A connection can be associated with any number of channels. Connections encapsulate two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a light client of the other blockchain - for example, the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are the correct ones for their respective counterparties.
-- **Channels** - [ICS-4](https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics): a module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake.
+* **Light Clients** - [ICS-2](https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics), [6](https://github.com/cosmos/ibc/tree/master/spec/client/ics-006-solo-machine-client), [7](https://github.com/cosmos/ibc/tree/master/spec/client/ics-007-tendermint-client), [8](https://github.com/cosmos/ibc/tree/master/spec/client/ics-008-wasm-client), [9](https://github.com/cosmos/ibc/tree/master/spec/client/ics-009-loopback-client), [10](https://github.com/cosmos/ibc/tree/master/spec/client/ics-010-grandpa-client): IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus state of other blockchains and the proof specs of those blockchains required to properly verify proofs against the client's consensus state. A client can be associated with any number of connections to the counterparty chain.
+* **Connections** - [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics): connections, once established, are responsible for facilitating all cross-chain verifications of an IBC state. A connection can be associated with any number of channels. Connections encapsulate two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a light client of the other blockchain - for example, the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are the correct ones for their respective counterparties.
+* **Channels** - [ICS-4](https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics): a module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake.
 
   A channel can be `ORDERED`, where packets from a sending module must be processed by the receiving module in the order they were sent, or `UNORDERED`, where packets from a sending module are processed in the order they arrive (which might be different from the order they were sent).
 
-- **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation): an IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.
+* **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation): an IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.
 
 <HighlightBox type="note">
 
@@ -98,13 +98,13 @@ While this background information is useful, IBC has been designed in such a way
 
 The ICS also offer definitions for IBC applications:
 
-- **Fungible token transfer** - [ICS-20](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer): The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS-20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain: the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain.
+* **Fungible token transfer** - [ICS-20](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer): The first and most apparent application for IBC is the transfer of fungible tokens across chains. With the standards set out by ICS-20, a user can send tokens across IBC-enabled chains. This is achieved by escrowing tokens on the source chain: the proof along with the token metadata is relayed to the destination chain, upon which the proof is verified by the light client of the source chain, stored on the destination chain. If the verification passes, vouchers for the tokens on the destination chains are minted and an acknowledgment is sent back to the source chain.
 
   Packet flow is explored in more detail in a later section, but you can the steps when following the progress of the IBC token transfer on [Mintscan](https://www.mintscan.io/cosmos). The following example shows the transactions submitted for the original `Transfer` on the source, the `Receive` message on the destination, and the `Acknowledgement` again on the source:
 
 ![Fungible token transfer via IBC on Mintscan](/academy/3-ibc/images/mintscanIBC.png)
 
-- **Interchain accounts** - [ICS-27](https://github.com/cosmos/ibc/tree/master/spec/app/ics-027-interchain-accounts): interchain accounts outlines a cross-chain account management protocol built on IBC. Chains having enabled ICS-27 can programmatically create accounts on other ICS-27-enabled chains and control these accounts via IBC transactions, instead of having to sign with a private key. Interchain accounts contain all of the capabilities of a normal account (i.e. stake, send, vote) but instead are managed by a separate chain via IBC in a way such that the owner account on the controller chain retains full control over any interchain accounts it registers on host chains.
+* **Interchain accounts** - [ICS-27](https://github.com/cosmos/ibc/tree/master/spec/app/ics-027-interchain-accounts): interchain accounts outlines a cross-chain account management protocol built on IBC. Chains having enabled ICS-27 can programmatically create accounts on other ICS-27-enabled chains and control these accounts via IBC transactions, instead of having to sign with a private key. Interchain accounts contain all of the capabilities of a normal account (i.e. stake, send, vote) but instead are managed by a separate chain via IBC in a way such that the owner account on the controller chain retains full control over any interchain accounts it registers on host chains.
 
 <HighlightBox type="info">
 
@@ -122,8 +122,8 @@ Along with protocol extensibility, reliability, and security without the need fo
 
 The design of IBC security is centered around **two main principles**:
 
-- Trust in (the consensus of) the chains you connect with.
-- The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior.
+* Trust in (the consensus of) the chains you connect with.
+* The implementation of fault isolation mechanisms, in order to limit any damage done should these chains be subject to malicious behavior.
 
 </HighlightBox>
 
@@ -141,9 +141,7 @@ In IBC, blockchains do not directly pass messages to each other over the network
 
 <HighlightBox type="docs">
 
-- The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements).
-- The proof format that all implementations must produce and verify is defined in the [ICS-23 implementation documentation](https://github.com/cosmos/ibc/blob/master/spec/core/ics-023-vector-commitments/README.md).
-<!-- Is this still up-to-date after dragonberry? -->
+The paths that all IBC implementations must support for committing IBC messages are defined in the [ICS-24 host state machine requirements](https://github.com/cosmos/ibc/tree/master/spec/core/ics-024-host-requirements).
 
 </HighlightBox>
 
@@ -199,30 +197,30 @@ The following decision tree helps visualize the roadmap towards an IBC-enabled c
 <br/><br/>
 Do you have access to an existing chain?
 
-- **No.** You will have to build a chain:
-  - Cosmos SDK chain: see the [previous chapters](/hands-on-exercise/1-ignite-cli/index.md).
-  - Another chain.
-    - Is there a Tendermint light client implementation available for your chain?
-      - Yes. Continue.
-      - No. Build a custom Tendermint light client implementation.
-    - Is there a light client implementation for your chain’s consensus available in the SDK's IBC module?
-      - Yes. Continue.
-      - No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module).
-    - Implement IBC core:
-      - Source code.
-      - Smart contract based.
-- **Yes.** Is it a Cosmos SDK chain?
-  - Yes. Move on to application development.
-  - No.
-    - Does your chain support a Tendermint light client?
-      - Yes. Continue.
-      - No. Source a Tendermint light client implementation for your chain.
-    - Is there a Cosmos SDK light client implementation for your chain’s consensus?
-      - Yes. Continue.
-      - No. Build a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of the Cosmos SDK chains you want to connect to.
-    - Does your chain have a core IBC module available (connection, channels, ports)? Source code or smart contract based?
-      - Yes. Move on to application development.
-      - No. Build IBC Core implementation (source code or smart contract).
+* **No.** You will have to build a chain:
+    * Cosmos SDK chain: see the [previous chapters](/hands-on-exercise/1-ignite-cli/index.md).
+    * Another chain.
+        * Is there a Tendermint light client implementation available for your chain?
+            * Yes. Continue.
+            * No. Build a custom Tendermint light client implementation.
+        * Is there a light client implementation for your chain’s consensus available in the SDK's IBC module?
+            * Yes. Continue.
+            * No. Build a custom light client for your consensus to be used on a Cosmos SDK chain (with IBC module).
+        * Implement IBC core:
+            * Source code.
+            * Smart contract based.
+* **Yes.** Is it a Cosmos SDK chain?
+    * Yes. Move on to application development.
+    * No.
+        * Does your chain support a Tendermint light client?
+            * Yes. Continue.
+            * No. Source a Tendermint light client implementation for your chain.
+        * Is there a Cosmos SDK light client implementation for your chain’s consensus?
+            * Yes. Continue.
+            * No. Build a custom light client implementation of your chain's consensus + governance proposal to implement it on the IBC clients of the Cosmos SDK chains you want to connect to.
+        * Does your chain have a core IBC module available (connection, channels, ports)? Source code or smart contract based?
+            * Yes. Move on to application development.
+            * No. Build IBC Core implementation (source code or smart contract).
 
 </ExpansionPanel>
 
@@ -232,12 +230,12 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 To summarize, this section has explored:
 
-- How the Inter-Blockchain Communication Protocol (IBC) solves the problem of cross-chain communication by handling the authentication and transport of data between two blockchains through a minimal set of functions specified in the Interchain Standards (ICS).
-- How the IBC functions permissionlessly and can be used with a wide range of blockchains or state machines regardless of their network topologies or consensus algorithms, with IBC security reduced to that of the participating chains.
-- How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which do not meet the criteria of Proof-of-Stake (PoS)finality.
-- How a Cosmos blockchain's transport layer (TAO) provides the infrastructure for establishing secure connections to other chains, while the application layer built on top defines how authenticated data packets should be packaged and interpreted.
-- How relayer algorithms provide the essential off-chain processes that share data between chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as permitted by the protocol.
-- How the Byzantine behavior that leads to forking is prevented within the fast finality Cosmos Ecosystem, and how the IBC protocol can achieve fork prevention outside the ecosystem by submitting proof of validator misbehavior and freezing affected light clients until an issue or attack has been neutralized.
+* How the Inter-Blockchain Communication Protocol (IBC) solves the problem of cross-chain communication by handling the authentication and transport of data between two blockchains through a minimal set of functions specified in the Interchain Standards (ICS).
+* How the IBC functions permissionlessly and can be used with a wide range of blockchains or state machines regardless of their network topologies or consensus algorithms, with IBC security reduced to that of the participating chains.
+* How IBC is the foundation of interoperability in the Cosmos Ecosystem, with relayers such as light clients verifying the validity of cross-chain transactions, while also offering solutions to the issue of communicating with non-Cosmos blockchains including those which do not meet the criteria of Proof-of-Stake (PoS)finality.
+* How a Cosmos blockchain's transport layer (TAO) provides the infrastructure for establishing secure connections to other chains, while the application layer built on top defines how authenticated data packets should be packaged and interpreted.
+* How relayer algorithms provide the essential off-chain processes that share data between chains running the IBC protocol by scanning the state of each chain, constructing appropriate datagrams, and executing them on the opposite chain as permitted by the protocol.
+* How the Byzantine behavior that leads to forking is prevented within the fast finality Cosmos Ecosystem, and how the IBC protocol can achieve fork prevention outside the ecosystem by submitting proof of validator misbehavior and freezing affected light clients until an issue or attack has been neutralized.
 
 </HighlightBox>
 

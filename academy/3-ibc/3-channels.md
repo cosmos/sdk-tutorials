@@ -14,8 +14,8 @@ tags:
 
 In this section, you will:
 
-- Establish a channel.
-- Learn about the application packet flow.
+* Establish a channel.
+* Learn about the application packet flow.
 
 </HighlightBox>
 
@@ -44,8 +44,8 @@ As mentioned above, channels are payload agnostic. The application modules sendi
 
 Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There's currently two different types of channels in terms of ordering.
 
-- An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
-- An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
+* An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
+* An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
 
 </HighlightBox>
 
@@ -70,11 +70,11 @@ Crossing hellos, have been removed from ibc-go v4 onwards, as referenced in [thi
 
 ## Example code: ChannelOpenInit
 
-You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/main/modules/core/keeper/msg_server.go)
+You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go)
 
 The important part to note in this code snippet is that an application module has capabilities for the requested port. Therefore, an application module can only use a channel and port if the application owns the capability for that port and the module which attempting to open a channel is the module we have granted capabilities to in `app.go`:
 
-<!-- TODO: add more content on capabilites based on Colin's deep dive -->
+<!-- TODO: add more content on capabilites based on Colin's deep dive https://github.com/cosmos/sdk-tutorials/issues/1277-->
 
 ```go
 // ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
@@ -115,7 +115,7 @@ func (k Keeper) ChannelOpenInit(goCtx context.Context, msg *channeltypes.MsgChan
 
 <HighlightBox type="info">
 
-**Capabilities**
+### Capabilities
 
 IBC is intended to work in execution environments where modules do not necessarily trust each other. This security is accomplished using a [dynamic capability store](https://github.com/cosmos/cosmos-sdk/blob/master/docs/architecture/adr-003-dynamic-capability-store.md). This binding strategy prevents other modules from using the particular port or channel since those modules do not own the appropriate capability.
 <br/><br/>
@@ -129,7 +129,7 @@ As stated previously, application modules communicate with each other by sending
 
 A relayer will monitor channels for events emitted when updates have been submitted to these paths, and (after first submitting an `UpdateClient` to update the sending chain light client on the destination chain) relay the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
-Take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/main/modules/core/04-channel/types/packet.go) to see the packet structure:
+Take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/04-channel/types/packet.go) to see the packet structure:
 
 ```go
 // NewPacket creates a new Packet instance. It panics if the provided
@@ -173,7 +173,7 @@ After receiving the packet data from core IBC, application B will then marshal t
 
 <HighlightBox type="info">
 
-**Synchronous and asynchronous acknowledgements**
+### Synchronous and asynchronous acknowledgementsÒ
 
 Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
 <br/><br/>
@@ -195,12 +195,12 @@ In these cases, the initial flow is the same, with core IBC A first committing t
 
 To summarize, this section has explored:
 
-- How application to application communication in IBC is conducted over channels, which route data between corresponding modules on different chains, and how a single connection between applications can have any number of associated channels.
-- How channels are payload agnostic and simply deliver data packets over the transport layer which application modules use their own logic and handlers to interpret and act upon.
-- How channels can be **ordered** (where data packets are delivered exactly in the order they were sent) or **unordered** (where packets can be delivered in any order, which may differ from that in which they were sent).
-- How channels are established through a four-way handshake, which allows only the two end modules to make use of the channel, securing them against malicious entities.
-- How packet flow between modules is not direct - instead, the sending module commits some particular state, thus emitting an event which is detected by a relayer, which delivers to the destination module both the packet data and a proof of the sending module's state commit, which is then verified on the destination chain.
-- How it is possible for time-sensitive packets to trigger a reversal of the sending module's state change in the event that a timeout block height or timestamp has elapsed.
+* How application to application communication in IBC is conducted over channels, which route data between corresponding modules on different chains, and how a single connection between applications can have any number of associated channels.
+* How channels are payload agnostic and simply deliver data packets over the transport layer which application modules use their own logic and handlers to interpret and act upon.
+* How channels can be **ordered** (where data packets are delivered exactly in the order they were sent) or **unordered** (where packets can be delivered in any order, which may differ from that in which they were sent).
+* How channels are established through a four-way handshake, which allows only the two end modules to make use of the channel, securing them against malicious entities.
+* How packet flow between modules is not direct - instead, the sending module commits some particular state, thus emitting an event which is detected by a relayer, which delivers to the destination module both the packet data and a proof of the sending module's state commit, which is then verified on the destination chain.
+* How it is possible for time-sensitive packets to trigger a reversal of the sending module's state change in the event that a timeout block height or timestamp has elapsed.
 
 </HighlightBox>
 
