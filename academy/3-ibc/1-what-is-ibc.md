@@ -37,7 +37,9 @@ While such bridges between blockchains can be built and do exist, they are gener
 
 <HighlightBox type="info">
 
-More details on the specifications will follow in the next section, but notice that IBC is not limited to Cosmos blockchains. Solutions can even be found for cases where some requirements are not initially met. An example of such a case is the use of IBC for Proof-of-Work (PoW) blockchains like Ethereum. As a PoW consensus algorithm does not ensure finality, one of the main requirements to use IBC is not met. Still, Ethereum-compatibility is enabled by creating a peg-zone where probabilistic finality is considered deterministic (irreversible) after a given threshold of block confirmations.
+More details on the specifications will follow in the next section, but notice that IBC is not limited to Cosmos blockchains. Solutions can even be found for cases where some requirements are not initially met. For example, IBC was already providing connectivity between Cosmos and the Ethereum blockchain before "the Merge", which saw Ethereum migrate from a Proof-of-Work (PoW) model to Proof-of-Stake (PoS).
+
+As a PoW consensus algorithm does not ensure finality, one of the main requirements to use IBC is not met. Therefore, compatibility with Ethereum was enabled by creating a peg-zone where probabilistic finality is considered deterministic (irreversible) after a given threshold of block confirmations. This solution can serve any IBC connection to a PoW blockchain.
 
 </HighlightBox>
 
@@ -83,6 +85,14 @@ Simply put, the transport layer includes:
 * **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation): an IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.  
 
 While this background information is useful, IBC modules do not need to interact at all with these lower-level abstractions.
+
+<HighlightBox type="info">
+
+In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, explains how different blockchains can be connected with the Inter-Blockchain Communication (IBC) protocol, with a particular focus on light clients, connections, channels, and packet commitments.
+
+<YoutubePlayer videoId="zUVPkEzGJzA"/>
+
+</HighlightBox>
 
 ### IBC/APP - application layer
 
@@ -132,6 +142,14 @@ In IBC, blockchains do not directly pass messages to each other over the network
 This is important because it ensures the IBC protocol remains secure even in Byzantine environments where relayers could act in a malicious or faulty manner. You do not need to trust the relayers; instead, you trust the proof verification provided by the light client. In the worst case situation where all relayers are acting in a Byzantine fashion, the packets sent would get rejected because they do not have the correct proof. This would affect only the liveness, not the security, of the particular part of the Interchain network where the relayers are malicious.
 
 Note that this effect would only affect the network if all relayers were Byzantine. As relaying is permissionless, a simple fix would be to spin up a non-malicious relayer to relay packets with the correct proof. This fits the *security over liveness* philosophy that IBC and the wider Interchain ecosystem adopts.
+
+<HighlightBox type="info">
+
+In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, looks at the IBC packet lifecycle and the security properties of a light client.
+
+<YoutubePlayer videoId="X5mPQrCLLWE"/>
+
+</HighlightBox>
 
 ### Trust the chains, not the bridge
 
@@ -201,6 +219,15 @@ Do you have access to an existing chain?
 </ExpansionPanel>
 
 The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when examining the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components; go to the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
+
+<HighlightBox type="info">
+
+If you're interested in another detailed overview of the IBC protocol, in the following video Callum Waters, Engineering Manager for the Tendermind Core, gives a talk on the methodology allowing interoperability between countless sovereign blockchains and how to build an IBC-compatible app.
+
+<YoutubePlayer videoId="OSMH5uwTssk"/>
+
+</HighlightBox>
+
 
 <HighlightBox type="synopsis">
 
