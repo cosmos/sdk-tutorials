@@ -105,74 +105,15 @@ func (im IBCModule) OnChanOpenInit(
 
 `OnChanOpenAck`, `OnChanOpenConfirm`, `OnChanCloseInit`, and `OnChanCloseConfirm` will do (almost) no checks.
 
-After a channel is established, the module can start sending and receiving packets. `OnRecvPacket` will decode a packet and apply the transfer token application logic:
+## Transfer packet flow
 
-```go
-// OnRecvPacket implements the IBCModule interface. A successful acknowledgement
-// is returned if the packet data is successfully decoded and the receive application
-// logic returns without error.
-func (im IBCModule) OnRecvPacket(
-    ctx sdk.Context,
-    packet channeltypes.Packet,
-    relayer sdk.AccAddress,
-) ibcexported.Acknowledgement {
-    ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
+You've seen an introduction to application packet flow in [the section on channels](./3-channels.md/#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
 
-    var data types.FungibleTokenPacketData
-    if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-        ack = channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
-    }
+### Sending a transfer packet
 
-    // only attempt the application logic if the packet data
-    // was successfully decoded
-    if ack.Success() {
-        err := im.keeper.OnRecvPacket(ctx, packet, data)
-        if err != nil {
-            ack = types.NewErrorAcknowledgement(err)
-        }
-    }
+After a channel is established, the module can start sending and receiving packets.
 
-    ctx.EventManager().EmitEvent(
-        sdk.NewEvent(
-            types.EventTypePacket,
-            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-            sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
-            sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
-            sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
-            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
-        ),
-    )
-
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
-    return ack
-}
-```
-
-Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
-
-```protobuf
-syntax = "proto3";
-
-package ibc.applications.transfer.v2;
-
-option go_package = "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types";
-
-// FungibleTokenPacketData defines a struct for the packet payload
-// See FungibleTokenPacketData spec:
-// https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
-message FungibleTokenPacketData {
-    // the token denomination to be transferred
-    string denom = 1;
-    // the token amount to be transferred
-    string amount = 2;
-    // the sender address
-    string sender = 3;
-    // the recipient address on the destination chain
-    string receiver = 4;
-}
-```
-
-So where does the module send a token? Take a look at the [msg_serve.go](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
+So where does the module send a token? Take a look at the [msg_server.go](https://github.com/cosmos/ibc-go/blob/main/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
 
 ```go
 // Transfer defines a rpc handler method for MsgTransfer.
@@ -245,6 +186,97 @@ func (k Keeper) SendTransfer(
     }
 }
 ```
+
+Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/main/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
+
+```protobuf
+syntax = "proto3";
+
+package ibc.applications.transfer.v2;
+
+option go_package = "github.com/cosmos/ibc-go/v3/modules/apps/transfer/types";
+
+// FungibleTokenPacketData defines a struct for the packet payload
+// See FungibleTokenPacketData spec:
+// https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer#data-structures
+message FungibleTokenPacketData {
+    // the token denomination to be transferred
+    string denom = 1;
+    // the token amount to be transferred
+    string amount = 2;
+    // the sender address
+    string sender = 3;
+    // the recipient address on the destination chain
+    string receiver = 4;
+    // optional memo
+    string memo = 5;
+}
+```
+
+<HighlightBox type="note">
+
+Note that an optional _memo_ field was recently added to the packet definition. More details on the motivation, use cases and consequences will follow shortly.
+
+</HighlightBox>
+
+### Receiving a transfer packet
+
+A relayer will then pick up the `SendPacket` event and submit a `MsgRecvPacket` on the destination chain.
+
+This will then trigger an `OnRecvPacket` callback that will decode a packet and apply the transfer token application logic:
+
+```go
+// OnRecvPacket implements the IBCModule interface. A successful acknowledgement
+// is returned if the packet data is successfully decoded and the receive application
+// logic returns without error.
+func (im IBCModule) OnRecvPacket(
+    ctx sdk.Context,
+    packet channeltypes.Packet,
+    relayer sdk.AccAddress,
+) ibcexported.Acknowledgement {
+    ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
+
+    var data types.FungibleTokenPacketData
+    if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+        ack = channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
+    }
+
+    // only attempt the application logic if the packet data
+    // was successfully decoded
+    if ack.Success() {
+        err := im.keeper.OnRecvPacket(ctx, packet, data)
+        if err != nil {
+            ack = types.NewErrorAcknowledgement(err)
+        }
+    }
+
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            types.EventTypePacket,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
+            sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
+            sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
+            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
+        ),
+    )
+
+    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    return ack
+}
+```
+
+Note how we redirect to the module keeper's `OnRecvPacket` method, and are constructing the acknowledgment to be sent back.
+
+### Acknowledging or timing out packets
+
+The reader is invited to try to find and analyze the code corresponding to this (remember that the place to start is the packet callbacks, usually defined in a file like `module_ibc.go` or `ibc_module.go`).
+
+<HighlightBox type="remember">
+
+Remember that when a packet times out, the submission of a `MsgTimeoutPacket` is essential to get the locked funds unlocked again. Try to find the code where this is executed as an exercise.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 
