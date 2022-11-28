@@ -150,7 +150,7 @@ module.exports = {
                 },
                 {
                   title: "Docker Introduction",
-                  path: "/tutorials/5-docker-intro/index.html",
+                  path: "/tutorials/5-docker-intro/",
                 },
               ],
             },
@@ -523,7 +523,7 @@ module.exports = {
                 },
                 {
                   title: "Final Exam",
-                  path: "/ida-course/final-exam/index.html",
+                  path: "/ida-course/final-exam/",
                 },
               ],
             },
