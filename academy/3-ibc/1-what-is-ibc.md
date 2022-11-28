@@ -159,7 +159,7 @@ IBC clients and transactions assume the trust model of the chains they are conne
 
 All tokens transferred over a particular channel will be assigned the same denomination as other tokens flowing over the channel, but a different one than the same assets between the same chains would have if they were sent across a different channel. The IBC denom looks like `ibc/<hash of the channel-id & port-id>`.
 <br/><br/>
-You can find more detailed information in the tutorial on [IBC denoms](/tutorials/5-ibc-dev/).
+You can find more detailed information in the tutorial on [IBC denoms](/tutorials/6-ibc-dev/).
 
 </HighlightBox>
 

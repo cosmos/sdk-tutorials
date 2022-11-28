@@ -1,6 +1,6 @@
 ---
 title: "Introduce a Leaderboard After Production"
-order: 10
+order: 3
 description: A leaderboard for your in-production blockchain via state migration
 tags: 
   - guided-coding
@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/12-migrations.md).
+* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
 

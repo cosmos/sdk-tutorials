@@ -17,7 +17,7 @@ You have prepared your machine to be part of the upcoming network. Now it is tim
 
 ## Configuration
 
-Start by putting `myprojectd` into `/usr/local/bin`, or whichever path you put your executables. Confirm it works with:
+Start by putting `myprojectd` into `/usr/local/bin`, or into whichever path you put your executables. Confirm it works with:
 
 ```sh
 $ myprojectd version

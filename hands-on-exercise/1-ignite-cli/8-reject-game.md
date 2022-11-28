@@ -425,7 +425,7 @@ Error: rpc error: code = NotFound desc = rpc error: code = NotFound desc = not f
 
 How is it possible that Bob could reject a game he had already played in, despite the code preventing that? Because game `1` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**, or more precisely with `MoveCount == 0`. When you later added the code for rejection, Ignite CLI kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
 
-To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](/hands-on-exercise/2-ignite-cli-adv/9-migration.md).
+To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](/hands-on-exercise/4-run-in-prod/2-migration.md).
 
 </HighlightBox>
 
