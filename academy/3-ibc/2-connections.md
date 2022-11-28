@@ -103,7 +103,7 @@ A high level overview of a successful four-way handshake is as follows:
 
 ### Handshake step 1 - `ChanOpenInit`
 
-`OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
+`OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit a `MsgUpdateClient` with chain A as the source chain before this handshake. `MsgUpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
 ![OpenInit](/academy/3-ibc/images/open_init.png)
 
@@ -205,7 +205,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 
 ![OpenTry](/academy/3-ibc/images/open_try.png)
 
-The purpose of this step of the handshake is double verification: not only for chain B to verify that chain A is the expected counterparty identity, but also to verify that the counterparty has accurate information about chain B's identity. The relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B in order to make sure that the state verifications in this step are successful.
+The purpose of this step of the handshake is double verification: not only for chain B to verify that chain A is the expected counterparty identity, but also to verify that the counterparty has accurate information about chain B's identity. The relayer also submits two `MsgUpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B in order to make sure that the state verifications in this step are successful.
 
 The initiation of this handshake from chain B updates its connection state to `TRYOPEN`.
 
@@ -239,7 +239,7 @@ func (k Keeper) ConnOpenTry(
 
 ## Handshake step 3 - `ChanOpenAck`
 
-`OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
+`OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `MsgUpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
 ![OpenAck](/academy/3-ibc/images/open_ack.png)
 

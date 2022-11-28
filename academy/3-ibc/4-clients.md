@@ -222,7 +222,7 @@ The objective is to avoid a situation where it is necessary to have a copy of ch
 
 Assume that the initial ConsensusState was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the ConsensusState to reflect all the changes that have happened between block 50 and block 100.
 
-To update the `ConsensusState` of the counterparty on the client, an `UpdateClient` message containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
+To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateClient` containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
 
 For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/tendermint.pb.go#L198):
 
@@ -235,9 +235,9 @@ type Header struct {
 }
 ```
 
-The Tendermint `SignedHeader` is a header and commit that the counterparty chain has created. In the `UpdateClient` example, this would be the header of block 100 which will contain the timestamp of the block, the hash of the next validator set, and the root hash needed to update the `ConensusState` on record for the counterparty chain. The commit will be a signature of at least 2/3 of the validator set over that header, which is guaranteed as part of Tendermint's BFT consensus model.
+The Tendermint `SignedHeader` is a header and commit that the counterparty chain has created. In the `MsgUpdateClient` example, this would be the header of block 100 which will contain the timestamp of the block, the hash of the next validator set, and the root hash needed to update the `ConensusState` on record for the counterparty chain. The commit will be a signature of at least 2/3 of the validator set over that header, which is guaranteed as part of Tendermint's BFT consensus model.
 
-`ValidatorSet` will be the actual validator set, as opposed to the hash of the next validator set stored on the `ConsensusState`. This is important for the Tendermint `UpdateClient` because, in order to preserve the Tendermint security model, it is necessary to be able to prove that at least 2/3 of the validators who signed the initial header at block 50 have signed the header to update the `ConsensusState` to block 100. This `ValidatorSet` will be submitted by the relayer as part of the `UpdateClient` message, as the relayer has access to full nodes from which this information can be extracted.
+`ValidatorSet` will be the actual validator set, as opposed to the hash of the next validator set stored on the `ConsensusState`. This is important for the Tendermint `UpdateClient` method because, in order to preserve the Tendermint security model, it is necessary to be able to prove that at least 2/3 of the validators who signed the initial header at block 50 have signed the header to update the `ConsensusState` to block 100. This `ValidatorSet` will be submitted by the relayer as part of the `MsgUpdateClient`, as the relayer has access to full nodes from which this information can be extracted.
 
 `TrustedValidators` are the validators associated with that height. Note that `TrustedValidators` must hash to the `ConsensusState` `NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
 
@@ -251,7 +251,7 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 ## Verifying packet commitments
 
-As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit an `UpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
+As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit an `MsgUpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
 The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is as follows:
 
