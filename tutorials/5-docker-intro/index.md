@@ -248,7 +248,7 @@ All have stopped and exited. When you create a container, it is not removed by d
 $ docker container prune
 ```
 
-<HighlightBox tyep="best-practice">
+<HighlightBox type="best-practice">
 
 Having many stopped containers is not ideal, which is why when you want to run a container for a single command the practice is to add `--rm`, like so:
 
