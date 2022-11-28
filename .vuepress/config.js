@@ -42,11 +42,11 @@ module.exports = {
       },
     ],
     [
-      "script", 
-      {}, 
+      "script",
+      {},
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
-      document.documentElement.className = userThemeMode`
-    ]
+      document.documentElement.className = userThemeMode`,
+    ],
   ],
   themeConfig: {
     repo: "cosmos/sdk-tutorials",
@@ -85,7 +85,7 @@ module.exports = {
               title: "Introduction to IBC",
               path: "/academy/3-ibc/",
               directory: true,
-            }
+            },
           ],
         },
         {
@@ -113,20 +113,30 @@ module.exports = {
               directory: true,
             },
             {
+              title: "Docker Introduction",
+              path: "/tutorials/5-docker-intro/",
+              directory: true,
+            },
+            {
               title: "IBC Developers",
-              path: "/tutorials/5-ibc-dev/",
+              path: "/tutorials/6-ibc-dev/",
               directory: true,
             },
             {
               title: "Introduction to CosmJS",
-              path: "/tutorials/6-cosmjs/",
+              path: "/tutorials/7-cosmjs/",
               directory: true,
             },
             {
               title: "Understand SDK modules",
-              path: "/tutorials/7-understand-sdk-modules/",
+              path: "/tutorials/8-understand-sdk-modules/",
               directory: true,
-            }
+            },
+            {
+              title: "The Path to Production",
+              path: "/tutorials/9-path-to-prod/",
+              directory: true,
+            },
           ],
         },
         {
@@ -149,13 +159,13 @@ module.exports = {
               directory: true,
             },
             {
-              title: "IBC Advanced",
-              path: "/hands-on-exercise/4-ibc-adv/",
+              title: "From Code to MVP to Production",
+              path: "/hands-on-exercise/4-run-in-prod/",
               directory: true,
             },
             {
-              title: "Run in Production",
-              path: "/hands-on-exercise/5-run-in-prod/",
+              title: "IBC Advanced",
+              path: "/hands-on-exercise/5-ibc-adv/",
               directory: true,
             },
           ],
@@ -168,7 +178,7 @@ module.exports = {
               title: "Continue Your Cosmos Journey",
               path: "/academy/whats-next/",
               directory: false,
-            }
+            },
           ],
         },
       ],
@@ -197,8 +207,7 @@ module.exports = {
     footer: {
       privacy: "https://v1.cosmos.network/privacy",
       question: {
-        text:
-          "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
+        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
       logo: "/brand.png",
       textLink: {
@@ -216,7 +225,7 @@ module.exports = {
         },
         {
           service: "discord",
-          url: "https://discord.gg/cosmosnetwork"
+          url: "https://discord.gg/cosmosnetwork",
         },
         {
           service: "linkedin",
@@ -233,7 +242,7 @@ module.exports = {
         {
           service: "youtube",
           url: "https://www.youtube.com/c/CosmosProject",
-        }
+        },
       ],
       smallprint:
         "† This website is maintained by the Interchain Foundation (ICF). The contents and opinions of this website are those of the ICF. The ICF provides links to cryptocurrency exchanges as a service to the public. The ICF does not warrant that the information provided by these websites is correct, complete, and up-to-date. The ICF is not responsible for their content and expressly rejects any liability for damages of any kind resulting from the use, reference to, or reliance on any information contained within these websites.",
@@ -345,7 +354,7 @@ module.exports = {
           name: "Documentation",
           url: "https://docs.cosmos.network/"
         }],
-        image: "/cosmos-sdk-icon.svg"
+        image: "/cosmos-sdk-icon.svg",
       },
       {
         title: "Tendermint Core",
@@ -354,7 +363,7 @@ module.exports = {
           name: "Documentation",
           url: "https://docs.tendermint.com/"
         }],
-        image: "/tendermint-icon.svg"
+        image: "/tendermint-icon.svg",
       },
       {
         title: "Cosmos Hub",
@@ -363,7 +372,7 @@ module.exports = {
           name: "Documentation",
           url: "https://hub.cosmos.network/"
         }],
-        image: "/generic-star-icon.svg"
+        image: "/generic-star-icon.svg",
       },
       {
         title: "IBC",
@@ -372,35 +381,35 @@ module.exports = {
           name: "Documentation",
           url: "https://ibc.cosmos.network/"
         }],
-        image: "/ibc-icon.svg"
-      }
+        image: "/ibc-icon.svg",
+      },
     ],
     assetsOptimization: {
       breakpoints: [200, 600, 988, 1200],
       blacklist: ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p']
-    }
+    },
   },
   plugins: [
     [
       "@vuepress/google-analytics",
       {
         ga: "UA-51029217-2",
-      }
+      },
     ],
     [
       "vuepress-plugin-google-tag-manager",
       {
         gtm: "UA-51029217-2",
-      }
+      },
     ],
     [
-      "@vuepress/medium-zoom", 
+      "@vuepress/medium-zoom",
       {
         selector: ".layout__main__content :not(a) > img:not(.no-zoom)",
         options: {
-          background: "#000000"
-        }
-      }
+          background: "#000000",
+        },
+      },
     ],
     [
       require("vuepress-reading-time-extended"),
@@ -411,17 +420,17 @@ module.exports = {
         customComponents: [
           {
             name: 'H5PComponent',
-            time: 5
-          }
+            time: 5,
+          },
         ],
-      }
+      },
     ],
     [
       '@vuepress/html-redirect',
       {
-        countdown: 0
-      }
-    ]
+        countdown: 0,
+      },
+    ],
   ],
   patterns: [
     "README.md",
@@ -430,7 +439,6 @@ module.exports = {
     "tutorials/*/*.md",
     "course-ida/*/*.md",
     "course-ida/*.md",
-    "hands-on-exercise/*/*.md"
-
-  ]
+    "hands-on-exercise/*/*.md",
+  ],
 };

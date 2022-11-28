@@ -15,13 +15,13 @@ tags:
 Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
-* You have completed the introductory [CosmJS tutorial](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
 * You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
-With your checkers application ready for use, it is a good time to prepare client elements that eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](/tutorials/6-cosmjs/5-create-custom.md) about creating your own custom CosmJS interfaces.
+With your checkers application ready for use, it is a good time to prepare client elements that eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](/tutorials/7-cosmjs/5-create-custom.md) about creating your own custom CosmJS interfaces.
 
 Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in TypeScript and create extensions that facilitate the use of them.
 

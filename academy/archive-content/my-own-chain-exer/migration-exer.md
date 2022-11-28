@@ -29,4 +29,4 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 ## Next up
 
-When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/2-ignite-cli-adv/9-migration.md).
+When you are satisfied (or not) with what you have, look at [a solution](/hands-on-exercise/4-run-in-prod/2-migration.md).

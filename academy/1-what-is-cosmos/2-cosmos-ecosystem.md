@@ -145,7 +145,7 @@ If the other chain is a **probabilistic-finality chain**, a simple adaptation of
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/13-bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/14-bridges.md).
 
 </HighlightBox>
 

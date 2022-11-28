@@ -65,6 +65,10 @@ _**Introduction to Go**_
 * Learn more about arrays and slices, as well as standard packages Go offers.
 * Take a look at Go's built-in concurrency by exploring Goroutine and channels.
 
+_**Introduction to Docker**_
+
+* Get a high-level introduction to Docker.
+
 _**Technical terms**_
 
 * Review some technical terms essential when developing in Cosmos like LCD, RPC, Protobuf, gRPC, and Amino.
