@@ -146,7 +146,9 @@ Use "ignite [command] --help" for more information about a command.
 
 ## Prepare Docker
 
-If you want portability and to avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
+If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro).
+
+First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
 ```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu]
 FROM --platform=linux ubuntu:22.04
