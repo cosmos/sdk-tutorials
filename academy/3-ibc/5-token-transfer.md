@@ -2,7 +2,7 @@
 title: "IBC Token Transfer"
 order: 6
 description: Fungible token transfers across chains
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops
@@ -48,7 +48,15 @@ Shortly you will see the corresponding code. Now again have a look at a transfer
 
 ![Source to sink](/academy/3-ibc/images/sourcetosink.png)
 
-Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}`. The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **transfer/channel-40/atoms**. The **channel-id** will be increased sequentially per channel on a given connection.
+Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}` (or rather their [IBC denom representation](../../tutorials/5-ibc-dev/index.md) on chain). The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **ibc/<hash of transfer/channel-40/uatom>**. The **channel-id** will be increased sequentially per channel on a given connection.
+
+<HighlightBox type="note">
+
+Note that we can send assets (or their IBC voucher representation) multiple _hops_ across multiple chains. Every single time the path will be prepended with the _port/channel-id/..._ prefix.
+</br></br>
+When sending this IBC denom, having had multiple hops, back to its source chain, for every hop one _port/channel-id/..._ prefix will be taken off. This results back into the original denom if all the hops are reversed.
+
+</HighlightBox>
 
 If the tokens are sent back from the **same channel** as they were received:
 
@@ -242,8 +250,8 @@ func (k Keeper) SendTransfer(
 
 To summarize, this section has explored:
 
-* How IBC provides a reliable solution to the technical challenge of transferring fungible and non-fungible tokens between two different blockchains, freeing up great potential for cross-chain Decentralized Finance (DeFi) applications.
-* How the process for transferring value differs based on whether or not the IBC tokens are native to the source chain, or whether or not they are being sent on a channel they were previously received on.
+- How IBC provides a reliable solution to the technical challenge of transferring fungible and non-fungible tokens between two different blockchains, freeing up great potential for cross-chain Decentralized Finance (DeFi) applications.
+- How the process for transferring value differs based on whether or not the IBC tokens are native to the source chain, or whether or not they are being sent on a channel they were previously received on.
 
 </HighlightBox>
 
