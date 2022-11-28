@@ -114,8 +114,8 @@ To avoid having to copy and paste the user addresses, now is a good time to expo
 </HighlightBox>
 
 ```sh
-$ export ALICE_KEY=$(simd keys show alice -a)
-$ export BOB_KEY=$(simd keys show bob -a)
+$ export ALICE=$(simd keys show alice --address)
+$ export BOB=$(simd keys show bob --address)
 ```
 
 ## Chain setup
@@ -175,13 +175,13 @@ Before Bob can send `kudos` to Alice, you must set up an allowance for Bob so th
 The `BasicAllowance` is a permission for a grantee to use up fees until the `spend_limit` or `expiration` is reached. Open up a new terminal window and create an allowance with a spend limit of `100000stake` and no expiration date:
 
 ```sh
-$ simd tx feegrant grant $ALICE_KEY $BOB_KEY --from alice --spend-limit 100000stake
+$ simd tx feegrant grant $ALICE $BOB --from alice --spend-limit 100000stake
 ```
 
 View the allowance:
 
 ```sh
-$ simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB
 ```
 
 ## Send tokens
@@ -189,8 +189,8 @@ $ simd query feegrant grants $BOB_KEY
 First, check the balances of Alice and Bob. Verifying the initial balance provides a baseline so that you can later confirm if your transaction was successful:
 
 ```sh
-$ simd query bank balances $ALICE_KEY
-$ simd query bank balances $BOB_KEY
+$ simd query bank balances $ALICE
+$ simd query bank balances $BOB
 ```
 
 <HighlightBox type="note">
@@ -204,14 +204,14 @@ Any transaction that is sent using the `tx` command can use the `--fee-account` 
 Send `kudos` tokens from Bob to Alice, while Alice pays the fees:
 
 ```sh
-$ simd tx bank send $BOB_KEY $ALICE_KEY 100kudos --from bob --fee-account $ALICE_KEY --fees 500stake
+$ simd tx bank send $BOB $ALICE 100kudos --from bob --fee-account $ALICE --fees 500stake
 ```
 
 Look at the balances again:
 
 ```sh
-$ simd query bank balances $ALICE_KEY
-$ simd query bank balances $BOB_KEY
+$ simd query bank balances $ALICE
+$ simd query bank balances $BOB
 ```
 
 Notice how Alice has `500stake` less than before. The `500stake` was added to the transaction that Bob signed.
@@ -219,7 +219,7 @@ Notice how Alice has `500stake` less than before. The `500stake` was added to th
 View the allowance again:
 
 ```sh
-$ simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB
 ```
 
 <HighlightBox type="note">
@@ -235,13 +235,13 @@ The granter can revoke the allowance from the grantee using the `revoke` command
 Revoke allowance:
 
 ```sh
-$ simd tx feegrant revoke $ALICE_KEY $BOB_KEY --from alice
+$ simd tx feegrant revoke $ALICE $BOB --from alice
 ```
 
 View the allowance:
 
 ```sh
-$ simd query feegrant grants $BOB_KEY
+$ simd query feegrant grants $BOB
 ```
 
 ## 🎉 Congratulations 🎉

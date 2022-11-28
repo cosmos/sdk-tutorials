@@ -1,6 +1,6 @@
 ---
 title: Prepare Where the Node Starts
-order: 3
+order: 5
 description: Genesis preparation and insertion
 tags:
   - guided-coding

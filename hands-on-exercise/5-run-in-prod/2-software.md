@@ -1,6 +1,6 @@
 ---
 title: Prepare the Software to Run
-order: 1
+order: 3
 description: Build and deploy
 tags:
   - guided-coding

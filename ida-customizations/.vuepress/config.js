@@ -391,7 +391,7 @@ module.exports = {
                 },
                 {
                   title: "Play With Cross-Chain Tokens",
-                  path: "/hands-on-exercise/4-ibc-adv/1-wager-denom.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html",
                 },
                 {
                   title: "Relaying With IBC",
@@ -438,7 +438,7 @@ module.exports = {
                 },
                 {
                   title: "Introduce a Leaderboard After Production",
-                  path: "/hands-on-exercise/3-cosmjs-adv/6-migration.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/9-migration.html",
                 },
               ]
             },
@@ -516,7 +516,7 @@ module.exports = {
                 },
                 {
                   title: "Final Exam",
-                  path: "/ida-course/final-exam.html"
+                  path: "/ida-course/final-exam/index.html"
                 },
               ]
             },

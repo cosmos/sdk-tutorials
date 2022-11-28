@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Build applicatiosn that interact with the Keplr browser extension.
-<br></br> 
+<br/><br/> 
 In this section, you will learn more about: 
     
 * Detecting Keplr.
@@ -38,7 +38,7 @@ $ npx create-next-app@latest --typescript
 
 Which guides you with:
 
-```
+```txt
 ...
 ? What is your project named? › cosmjs-keplr
 ```
@@ -53,7 +53,7 @@ $ npm run dev
 
 Which returns:
 
-```
+```txt
 ready - started server on 0.0.0.0:3000, url: http://localhost:3000
 ...
 ```
@@ -242,7 +242,7 @@ Hopefully, when you click on the button it does not show an alert. It does not d
 
 ## Prepare Keplr
 
-Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/v7-theta#add-to-keplr-1). Add a new function for them as shown in the expandable box:
+Keplr is now detected. By default, Keplr lets its users only connect to the blockchains it knows about. Unfortunately, the Cosmos Hub Testnet is not one of them, but there is a feature where you can instruct it to handle any Cosmos blockchain, provided you give its parameters. Here is [an example](https://github.com/chainapsis/keplr-example/blob/master/src/main.js). In the case of Cosmos Hub Testnet, these parameters are available, as mentioned on the [testnet page](https://github.com/cosmos/testnets/tree/master/public#add-to-keplr). Add a new function for them as shown in the expandable box:
 
 <ExpansionPanel title="getTestnetChainInfo">
 

@@ -135,7 +135,7 @@ Exposed by Tendermint, the Tendermint RPC endpoint is an HTTP1.1 server. The def
 
 <HighlightBox type="tip">
 
-For more information on the Tendermint RPC, gRPC, and the REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/grpc_rest.html) is recommended.
+For more information on the Tendermint RPC, gRPC, and the REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/main/core/grpc_rest.html) is recommended.
 
 </HighlightBox>
 
@@ -206,7 +206,7 @@ The Cosmos SDK uses two binary wire encoding protocols:
 
 Due to reasons such as performance drawbacks and missing cross-language/client support, Protocol Buffers are used more and more over Amino.
 
-For more information on encoding in the Cosmos SDK, see the [Cosmos SDK documentation](https://docs.cosmos.network/master/core/encoding.html).
+For more information on encoding in the Cosmos SDK, see the [Cosmos SDK documentation](https://docs.cosmos.network/main/core/encoding.html).
 
 </ExpansionPanel>
 

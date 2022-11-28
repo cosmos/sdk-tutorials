@@ -35,23 +35,12 @@ Following the hands-on exercises, you will discover how IBC denoms work and get 
 
 </HighlightBox>
 
-<HighlightBox type="info">
-
-**Live Session**
-<br/>
-This week you can join the fourth live session on **October 3rd, 3 pm UTC**: _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
-<br/>
-Detailed information on how to join the session will be provided via email and Discord.
-<br/>
-You should have received an email with a link to each session to be added to your calendar. We will post the session links on the day of the session on discord. Do not worry if you cannot make it to the session, we will record and publish them in the Academy.
-
-</HighlightBox>
 
 ## Next up
 
 In this chapter, continue working on your checkers blockchain by first [putting your games in order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md), then [introducing a game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), [recording a game winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md), and some other important aspects important to develop your checkers blockchain.
 
-After, take a deeper dive into all that IBC has to offer by first tackling [IBC denoms](/tutorials/5-ibc-dev/index.md), [playing with some cross-chain tokens](/hands-on-exercise/4-ibc-adv/1-wager-denom.md), and [taking a look at relaying with IBC](/hands-on-exercise/4-ibc-adv/2-relayer-intro.md).
+After, take a deeper dive into all that IBC has to offer by first tackling [IBC denoms](/tutorials/5-ibc-dev/index.md), [playing with some cross-chain tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), and [taking a look at relaying with IBC](/hands-on-exercise/4-ibc-adv/2-relayer-intro.md).
 
 ## Developer Resources
 

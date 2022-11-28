@@ -1,6 +1,6 @@
 ---
 title: "Introduce a Leaderboard After Production"
-order: 7
+order: 10
 description: A leaderboard for your in-production blockchain via state migration
 tags: 
   - guided-coding
@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/12-migrations.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/4-ibc-adv/1-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
+* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
 
 </HighlightBox>
 
@@ -112,7 +112,7 @@ To give the new v2 information a data structure, you need the following:
     <HighlightBox type="info">
 
     The new `PlayerInfo/value/` prefix for players helps differentiate between the value for players and the value for games prefixed with `StoredGame/value/`.
-    
+    <br/><br/>
     Now you can safely have both `StoredGame/value/123/` and `PlayerInfo/value/123/` side by side in storage.
 
     </HighlightBox>
@@ -1292,7 +1292,7 @@ You have in place the functions that will handle the store migration. Now you ha
 
 ### Consensus version and name
 
-The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/master/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First, keep both these values in their respective locations:
+The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. Change it from `2` to `3`, or whichever number works for you. First, keep both these values in their respective locations:
 
 <CodeGroup>
 

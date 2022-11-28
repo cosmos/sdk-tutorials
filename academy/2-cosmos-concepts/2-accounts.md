@@ -92,13 +92,13 @@ Private keys are used to **prove** that messages originate from the owners of ac
 ## Hierarchical-deterministic wallets
 
 Blockchains generally maintain ledgers of user accounts and rely on public key cryptography for user authentication. Knowledge of one's public and private keys is a requirement to execute transactions. Client software applications known as wallets provide methods to generate new key pairs and store them, as well as basic services such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
-<br></br>
+<br/><br/>
 Although it is technically feasible to generate and store multiple key pairs in a wallet, key management quickly becomes tedious and error-prone for users. Given that all keys would exist only in one place, users would need to devise ways to recover their keys in adverse situations such as the loss or destruction of the computer. The more accounts, the more keys to back up.
 
 ### Do I need many addresses?
 
 Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos Ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
-<br></br>
+<br/><br/>
 A **hierarchical-deterministic wallet** uses a single seed phrase to generate many key pairs to reduce this complexity. Only the seed phrase needs to be backed up.
 
 ### Cryptographic standards
@@ -189,9 +189,9 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [previous section](/academy/2-cosmos-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
-<br></br>
+<br/><br/>
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
-<br></br>
+<br/><br/>
 **Game object**
 
 First define some elements of the eventual stored game:
@@ -199,8 +199,8 @@ First define some elements of the eventual stored game:
 ```go
 type StoredGame struct {
     Creator string // A stringified address for the creator of the game.
-    Red string // A stringified address for the player playing reds.
     Black string // A stringified address for the player playing blacks.
+    Red string // A stringified address for the player playing reds.
     ...
 }
 ```
@@ -225,7 +225,7 @@ storedGame.Creator = creator.String()
 ```
 
 You will only accept the right players when it comes to transactions.
-<br></br>
+<br/><br/>
 **Remaining game object**
 
 Defining the players is good, but the stored game is not complete unless you add game details like the current board state and the game's unique identifier. Conveniently, you can [serialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L303) and [deserialize](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L331) the board state. You can already confirm the following struct:
@@ -234,10 +234,10 @@ Defining the players is good, but the stored game is not complete unless you add
 type StoredGame struct {
     Creator string
     Index string // The unique id that identifies this game.
-    Game string // The serialized board.
-    Turn string // "red" or "black"
-    Red string
+    Board string // The serialized board.
+    Turn string // "black" or "red"
     Black string
+    Red string
 }
 ```
 

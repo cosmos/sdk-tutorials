@@ -212,7 +212,7 @@ This demonstrates some missing information:
   ...
 ```
 
-In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/3-cosmjs-adv/6-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
+In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/2-ignite-cli-adv/9-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 <CodeGroup>
 
@@ -262,5 +262,4 @@ To summarize, this section has explored:
 
 You have created and updated the deadline. The [section two steps ahead](./1-game-forfeit.md) describes how to use the deadline.
 
-Before you can do that, there is one other field you need to add. Discover which in the [next section](./3-game-winner.md).-->
 Before you can do that, there is one other field you need to add. Discover which in the [next section](./3-game-winner.md).-->

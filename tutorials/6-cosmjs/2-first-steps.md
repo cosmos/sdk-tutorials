@@ -13,7 +13,7 @@ tags:
 <HighlightBox type="learning">
 
 Take your first steps with CosmJS. Use it to send some simple transactions.
-<br></br>
+<br/><br/>
 In this section, you will:
 
 * Download and install CosmJS.
@@ -74,7 +74,7 @@ $ npm run experiment
 
 This returns:
 
-```
+```txt
 > cosmjs-sandbox@1.0.0 experiment
 > ts-node experiment.ts
 
@@ -85,9 +85,9 @@ You will soon make this script more meaningful. With the basic script ready, you
 
 ## Testnet preparation
 
-The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/v7-theta#theta-public-testnet) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/public) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
-```[https://github.com/cosmos/testnets/tree/master/v7-theta#endpoints-1]
+```[https://github.com/cosmos/testnets/tree/master/public#endpoints]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
 ```
 
@@ -108,15 +108,19 @@ generateKey()
 
 Now create a **key** for our imaginary user **Alice**:
 
-*Note: You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
-
 ```sh
 $ npx ts-node generate_mnemonic.ts > testnet.alice.mnemonic.key
 ```
 
+<HighlightBox type="Note">
+
+You likely need to update Node.js to a later version if this fails. Find a guide [here](https://phoenixnap.com/kb/update-node-js-version).
+
+</HighlightBox>
+
 When done, it should also tell you the address of the first account:
 
-```
+```txt
 Mnemonic with 1st account: cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf
 ```
 
@@ -175,7 +179,7 @@ const runAll = async(): Promise<void> => {
 
 Run again to check with `npm run experiment`, and you get:
 
-```
+```txt
 With client, chain id: theta-testnet-001 , height: 9507032
 ```
 
@@ -192,7 +196,7 @@ console.log(
 
 `getAllBalances` is used because the default token name is not yet known. When you run it again, you get:
 
-```
+```txt
 Alice balances: []
 ```
 
@@ -202,7 +206,7 @@ The Cosmos Hub Testnet faucet has a dedicated [Discord channel](https://discord.
 
 Go to the faucet channel and request tokens for Alice by entering this command in the channel:
 
-```
+```txt
 $request [Alice's address] theta
 
 // For example:
@@ -211,13 +215,13 @@ $request cosmos17tvd4hcszq7lcxuwzrqkepuau9fye3dal606zf theta
 
 The faucet bot replies with a link to the transaction from the block explorer:
 
-```
+```txt
 ✅  https://explorer.theta-testnet.polypore.xyz/transactions/540484BDD342702F196F84C2FD42D63FA77F74B26A8D7383FAA5AB46E4114A9B
 ```
 
 Check that Alice received the tokens with `npm run experiment`, which should return:
 
-```
+```txt
 Alice balances: [ { denom: 'uatom', amount: '10000000' } ]
 ```
 
@@ -410,14 +414,14 @@ const faucet: string = sendMessage.fromAddress
 
 Similar to how you got the balance for Alice, you get the faucet's balance as well. Try this by [copying](https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/experiment.ts#L24) the code to print Alice's balances. When running, you should get:
 
-```
+```txt
 Faucet balances: [ { denom: 'uatom', amount: '867777337235' } ]
 ```
 
 <ExpansionPanel title="Getting the faucet address another way">
 
 Instead of using the `decode` functions that come with the `Tx` and `MsgSend` imports, you process the data yourself via alternative means. If you would like to experiment more, parse the `rawLog` manually as opposed to deserializing the transaction as suggested previously.
-<br></br>
+<br/><br/>
 Note the conceptual difference between `Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an input to the computation that takes place when the transaction is included in a block. The `rawLog` is the resulting output of said computation and its content depends on what the blockchain code emitted when executing the transaction.
 
 From the `IndexedTx` you see that there is a [`rawLog`](https://github.com/cosmos/cosmjs/blob/13ce43c/packages/stargate/src/stargateclient.ts#L64), which happens to be a stringified JSON.
@@ -493,7 +497,7 @@ When you instantiate `SigningStargateClient` by using the [`connectWithSigner`](
 
 The recommended way to encode messages is by using `OfflineDirectSigner`, which uses Protobuf. However, hardware wallets such as Ledger do not support this and still require the legacy Amino encoder. If your app requires Amino support, you have to use the `OfflineAminoSigner`.
 <br></br>
-Read more about encoding [here](https://docs.cosmos.network/master/core/encoding.html).
+Read more about encoding [here](https://docs.cosmos.network/main/core/encoding.html).
 
 </HighlightBox>
 
@@ -571,7 +575,7 @@ console.log("Gas limit:", decodedTx.authInfo!.fee!.gasLimit.toString(10))
 
 When you run it, it prints:
 
-```
+```txt
 Gas fee: [ { denom: 'uatom', amount: '500' } ]
 Gas limit: 200000
 ```
@@ -620,7 +624,7 @@ console.log("Faucet balance after:", await client.getAllBalances(faucet))
 
 Run this with `npm run experiment` and you should get:
 
-```
+```txt
 ...
 Transfer result: {
   code: 0,
@@ -654,10 +658,31 @@ You connected to a publicly running testnet. Therefore, you depended on someone 
 
 The easiest option is to reuse the `simd` chain that you started in a [previous module](/tutorials/3-run-node/index.md). Make sure that you have created two accounts, Alice and Bob. You also sent tokens using `simd`. Be sure to credit enough tokens to Alice.
 
-When you finally launch `simd`, you see the line:
+When you finally launch `simd`:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```sh
 $ ./build/simd start
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd start --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+You see the line:
+
+```txt
 ...
 4:37PM INF Starting RPC HTTP server on 127.0.0.1:26657 module=rpc-server
 ...
@@ -682,9 +707,25 @@ Make a copy of your `experiment.ts` script, with some adjustments. Name it `expe
 
 Although you have Alice's address, you may not have her mnemonic or private key. The private key is stored in your operating system's keyring backend. For the purpose of this exercise, extract it - generally this is an unsafe operation:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./build/simd keys export alice --unsafe --unarmored-hex
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd keys export alice --unsafe --unarmored-hex --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 You get a 64-digit-long hex value. Copy-paste it into a new `simd.alice.private.key` file in your `cosmjs-sandbox` folder. The `.gitignore` was already configured earlier to ignore it, which mitigates the risk.
 
@@ -692,8 +733,29 @@ You get a 64-digit-long hex value. Copy-paste it into a new `simd.alice.private.
 
 If you cannot remember which alias you gave your keys, `list` them:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ ./build/simd keys list
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="WSL2">
+
+```sh
+$ ./build/simd keys list --keyring-backend test
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Which returns:
+
+```yaml
 - address: cosmos1c3srguwnzah5nd4cn49shltvr6tsrcl2jwn8je
   name: alice
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"AhR7SWWDsaSxBD9r/mIhbVOWap70jA3WpBIqjOJo4Dwp"}'
@@ -759,7 +821,7 @@ $ npm run experiment-local
 
 And confirm the output is as expected. For instance something like:
 
-```
+```txt
 > cosmjs-sandbox@1.0.0 experiment-local
 > ts-node experiment-local.ts
 

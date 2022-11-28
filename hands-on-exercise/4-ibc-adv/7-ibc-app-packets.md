@@ -1,6 +1,6 @@
 ---
 title: "Adding Packet and Acknowledgment Data"
-order: 8
+order: 7
 description: 
 tags: 
   - guided-coding
@@ -365,7 +365,7 @@ Again, the reader is invited to check these out independently.
 <HighlightBox type="info">
 
 Events in IBC are important because relayers process events to check if there are packets (or acknowledgments) to relay.
-
+<br/><br/>
 Ignite CLI has scaffolded some events in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet which you have defined:
 
 ```go
@@ -384,7 +384,7 @@ const (
 ```
 
 Here are found both the `Event` type and the attributes it contains.
-
+<br/><br/>
 These are not the only relevant events for IBC, though, the others can be found in the core IBC source code:
 
 * [Client events](https://github.com/cosmos/ibc-go/blob/main/modules/core/02-client/types/events.go)
@@ -419,7 +419,7 @@ Even though the ability to send and receive packets is now enabled, no applicati
 <HighlightBox type="note">
 
 When scaffolding a packet, Ignite CLI will ensure the chain can act both as the sender or receiver of a packet by default. This is a symmetrical setup which makes sense for some applications, like ICS20.
-
+<br/><br/>
 However, it's also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
 
 </HighlightBox>

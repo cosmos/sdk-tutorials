@@ -15,7 +15,7 @@ The Interchain vision set out by the original [Cosmos whitepaper](https://v1.cos
 
 _Sounds great, right? But wait, what does that actually mean?_
 
-Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solomachine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-fb55ba0b0234)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
+Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solo machine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-fb55ba0b0234)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
 
 However, the first and still most dominant example to date is to transfer a (fungible) token from a source chain to a destination chain.
 
@@ -139,7 +139,7 @@ ibc_denom := 'ibc/' + hash('path' + 'base_denom')
 <HighlightBox type="best-practice">
 
 In the example from earlier, with `transfer/channel-141/uosmo`, the corresponding IBC denom is: `ibc/14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF17CF2F5008FC085218811CC`.
-
+<br/><br/>
 Note that the assets transferred over IBC are stored on-chain as IBC denoms. It is however up to developers of frontends and user interfaces to decide whether they will use the human-readable form instead to fit their UX needs.
 
 </HighlightBox>
@@ -151,7 +151,7 @@ It is possible to use a query to find the hash based on the path information of 
 **So...why use a hash?**
 
 Hashing functions have many desirable properties that make them often used in cryptography. The property most useful in this discussion is that the hashed output is always reduced to a fixed length (256 bits in the case of SHA256), no matter the length of the input.
-
+<br/><br/>
 Consider the following:
 
 * The hash could contain paths that track the token on multiple hops from chain to chain.
@@ -167,7 +167,7 @@ The trade-off when using a hash is that you cannot compute the input given the o
 <HighlightBox type="docs">
 
 With IBC denoms, there is a special meaning for the `/` character. It is used to parse port and channel identifiers from the base denom. Hence it was initially forbidden to use forward slashes in the base denomination of tokens.
-<br>
+<br/><br/>
 However, due to a requirement from the Evmos chain (which uses forward slashes in contract-based denoms), support for base denominations containing `/` has been added. For more information, check the [ibc-go documentation](https://ibc.cosmos.network/main/migrations/support-denoms-with-slashes.html).
 
 </HighlightBox>

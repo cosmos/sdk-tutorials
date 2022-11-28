@@ -4,7 +4,7 @@ parent:
   description: Discover some of the Cosmos SDK modules
   number: 1
 tags:
-order:
+order: 1
 title: Chapter Overview - Understand SDK Modules
 ---
 

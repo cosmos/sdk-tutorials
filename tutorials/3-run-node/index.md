@@ -314,8 +314,10 @@ Despite this initial balance, before you run your blockchain you still need to e
 
 <HighlightBox type="note">
 
-In this scenario you must meet the 2/3 threshold for validation, so you must stake at least `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all your stake, so you still have tokens to pay for gas.
-<br></br>
+In this scenario, for your network to even run, you must meet the 2/3 threshold of the weighted validators.
+<br/><br/>
+However you will be alone on the network, so you can stake any number at or above the [minimum enforced](https://github.com/cosmos/cosmos-sdk/blob/66ca3e8/types/staking.go#L21-L22), i.e. `1000000stake`. However, to remind yourself that it is important that honest nodes stake a large amount, you stake `70000000stake` of your `100000000stake` in the `b9lab` account you just created. Make sure to not use all of your tokens so you can still pay for gas and so you don't run out of tokens later.
+<br/><br/>
 Do not forget to use your own `--chain-id`.
 
 </HighlightBox>
@@ -565,7 +567,7 @@ To summarize, this section has explored:
 * How to make yourself a proper validator, by adding and confirming the presence of an initial balance and including bootstrap transactions in the genesis file.
 * How to start your single-node blockchain, observe blocks being created through the terminal window, and check the balances.
 * How to practice sending transactions by creating another account and transferring tokens to it, and checking the balance of the new account to confirm the successful transfer.
-* CLI routing with the examination of the initial Go code, revealing carious aspects of your nascent chain.
+* CLI routing with the examination of the initial Go code, revealing various aspects of your nascent chain.
 
 </HighlightBox>
 

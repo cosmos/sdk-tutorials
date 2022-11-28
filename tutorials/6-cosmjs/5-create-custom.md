@@ -54,7 +54,7 @@ $ ./node_modules/protoc/protoc/bin/protoc --version
 
 This returns something like:
 
-```
+```txt
 libprotoc 3.11.2
 ```
 
@@ -82,7 +82,7 @@ $ grep cosmos-sdk go.mod
 
 This returns something like:
 
-```
+```txt
 github.com/cosmos/cosmos-sdk v0.42.6
 ```
 

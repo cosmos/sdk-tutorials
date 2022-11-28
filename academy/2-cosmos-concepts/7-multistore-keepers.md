@@ -23,7 +23,7 @@ Look at the following sections before you begin:
 <HighlightBox type="learning">
 
 Keepers are responsible for managing access to states defined by modules. Because states are accessed through keepers, they are an ideal place to ensure that invariants are enforced and security principles are always applied.
-<br></br>
+<br/><br/>
 You can find a code example for your checkers blockchain at the end of the section that explores dealing with storage elements, message handling, and gas costs.
 
 </HighlightBox>
@@ -164,8 +164,8 @@ The `AnteHandler` is theoretically optional but still a very important component
 
 For more information on the subject, see the following resources:
 
-* [Cosmos SDK documentation: Gas and Fees](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md)
-* [Cosmos SDK documentation: AnteHandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/basics/gas-fees.md#antehandler)
+* [Cosmos SDK documentation: Gas and Fees](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/basics/04-gas-fees.md)
+* [Cosmos SDK documentation: AnteHandler](https://github.com/cosmos/cosmos-sdk/blob/master/docs/docs/basics/04-gas-fees.md#antehandler)
 
 </HighlightBox>
 
@@ -174,11 +174,11 @@ For more information on the subject, see the following resources:
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
 In the [Accounts section](./2-accounts.md), you were shown the elements of the stored game but not where this game is stored. This will now be explained.
-<br></br>
+<br/><br/>
 **Game object in storage**
 
 You need to decide under what structure you want to store a game in the storage. The Cosmos SDK partitions the global storage per module, with `checkers` being its own module. You need to take care of how to store games in the checkers module's corner of the key/value pair storage.
-<br></br>
+<br/><br/>
 The first idea is to attribute a unique ID to a game, and to store the game value at that ID. For the sake of clarity, and to differentiate between other stored elements in the future, you add a prefix to each ID. The storage structure looks like this:
 
 ```go
@@ -211,7 +211,7 @@ The Cosmos SDK provides much support; you only need to define the required prefi
 package types
 
 const (
-    StoredGameKey = "StoredGame-value-"
+    StoredGameKeyPrefix = "StoredGame/value/"
 )
 ```
 
@@ -228,10 +228,10 @@ import (
 
 func (k Keeper) GetStoredGame(ctx sdk.Context, gameId string) (storedGame types.StoredGame, found bool) {
     checkersStore := ctx.KVStore(k.storeKey)
-    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKey))
+    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKeyPrefix))
     gameBytes := gamesStore.Get([]byte(gameId))
     if gameBytes == nil {
-        return nil, false
+        return storedGame, false
     }
     k.cdc.MustUnmarshalBinaryBare(gameBytes, &storedGame)
     return storedGame, true
@@ -243,20 +243,20 @@ If you want to save a game:
 ```go
 func (k Keeper) SetStoredGame(ctx sdk.Context, storedGame types.StoredGame) {
     checkersStore := ctx.KVStore(k.storeKey)
-    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKey))
+    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKeyPrefix))
     gameBytes := k.cdc.MustMarshalBinaryBare(&storedGame)
     gamesStore.Set(byte[](storedGame.Index), gameBytes)
 }
 ```
 
 If you want to delete a stored game, you call `gamesStore.Delete(byte[](storedGame.Index))`.
-<br></br>
+<br/><br/>
 The `KVStore` allows you to obtain an iterator on a given prefix. You can list all stored games because they share the same prefix, which you do with:
 
 ```go
 func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
     checkersStore := ctx.KVStore(k.storeKey)
-    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKey))
+    gamesStore := prefix.NewStore(checkersStore, []byte(types.StoredGameKeyPrefix))
     iterator := sdk.KVStorePrefixIterator(gamesStore, []byte{}) // []byte{} is an empty array
 
     defer iterator.Close() // Think of it as: try { everything below } finally { iterator.Close() }
@@ -284,7 +284,7 @@ See the [previous section on Protobuf](./6-protobuf.md) to explore how Protobuf 
 Note how the `Set`, `Get`, `Remove`, and `GetAll` functions shown previously look like boilerplate too. Do you have to redo these functions for every type? *No* - it was all created with this Ignite CLI command:
 
 ```sh
-$ ignite scaffold map storedGame game turn red black wager:uint --module checkers --no-message
+$ ignite scaffold map storedGame board turn black red wager:uint --module checkers --no-message
 ```
 
 `map` is the command that tells Ignite CLI to add an `Index` and store all elements under a map-like structure.
@@ -297,15 +297,15 @@ To create the above boilerplate in your module, you can use Ignite CLI. Go to [R
 
 **Other storage elements**
 
-How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `NextGame` object has to be at a unique location in the storage.
-<br></br>
+How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `SystemInfo` object has to be at a unique location in the storage.
+<br/><br/>
 First define the object:
 
 ```go
 package types
 
-type NextGame struct {
-    IdValue uint64
+type SystemInfo struct {
+    NextId uint64
 }
 ```
 
@@ -313,26 +313,26 @@ Then define the key where it resides:
 
 ```go
 const (
-    NextGameKey = "NextGame-value-"
+    SystemInfoKey = "SystemInfo-value-"
 )
 ```
 
 Then define the functions to get and set:
 
 ```go
-func (k Keeper) SetNextGame(ctx sdk.Context, nextGame types.NextGame) {
-    nextGameStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.NextGameKey))
-    nextBytes := k.cdc.MustMarshalBinaryBare(&nextGame)
-    nextGameStore.Set([]byte{0}, nextBytes)
+func (k Keeper) SetSystemInfo(ctx sdk.Context, systemInfo types.SystemInfo) {
+    systemInfoStore := prefix.NewStore(ctx.KVStore(k.storeKey), []byte(types.SystemInfoKey))
+    nextBytes := k.cdc.MustMarshalBinaryBare(&systemInfo)
+    systemInfoStore.Set([]byte{0}, nextBytes)
 }
 ```
 
-Remember that `NextGame` needs an initial value, which is the role of the genesis block definition:
+Remember that `SystemInfo` needs an initial value, which is the role of the genesis block definition:
 
 ```go
 type GenesisState struct {
-    StoredGameList []*StoredGame
-    NextGame *NextGame
+    SystemInfo SystemInfo
+    StoredGameList []StoredGame
 }
 ```
 
@@ -341,10 +341,10 @@ Now initialize:
 ```go
 func DefaultGenesis() *GenesisState {
     return &GenesisState{
-        StoredGameList: []*StoredGame{}, // Starts empty
-        NextGame: &NextGame{
-            IdValue:  uint64(0), // Starts at 0
+        SystemInfo: SystemInfo{
+            NextId:  uint64(1), // Starts at 1
         },
+        StoredGameList: []StoredGame{}, // Starts empty
     }
 }
 ```
@@ -352,7 +352,7 @@ func DefaultGenesis() *GenesisState {
 **What about message handling**
 
 You go from the message to the game in storage with `MsgCreateGame`, which was defined in an earlier [section on messages](./4-messages.md). That is also the role of the keeper.
-<br></br>
+<br/><br/>
 Define a handling function such as:
 
 ```go
@@ -370,12 +370,12 @@ You now have all the pieces necessary to replace the `TODO`.
 Get the next game ID:
 
 ```go
-    nextGame, found := k.GetNextGame(ctx)
+    systemInfo, found := k.GetSystemInfo(ctx)
     if !found {
         // Panic because this should never happen.
-        panic("NextGame not found")
+        panic("SystemInfo not found")
     }
-    newIndex := strconv.FormatUint(nextGame.IdValue, 10)
+    newIndex := strconv.FormatUint(systemInfo.NextId, 10)
 ```
 
 Extract and sanitize the message elements:
@@ -385,14 +385,14 @@ Extract and sanitize the message elements:
     if err != nil {
         return nil, errors.New("Creator address invalid")
     }
-    red, err := sdk.AccAddressFromBech32(msg.Red)
-    if err != nil {
-        // Standard error because users can make mistakes.
-        return nil, errors.New("Red address invalid")
-    }
     black, err := sdk.AccAddressFromBech32(msg.Black)
     if err != nil {
+        // Standard error because users can make mistakes.
         return nil, errors.New("Black address invalid")
+    }
+    red, err := sdk.AccAddressFromBech32(msg.Red)
+    if err != nil {
+        return nil, errors.New("Red address invalid")
     }
 ```
 
@@ -402,9 +402,10 @@ Create the stored game object:
     storedGame := types.StoredGame{
         Creator: msg.Creator,
         Index:   newIndex,
-        Game:    rules.New().String(),
-        Red:     msg.Red,
+        Board:   rules.New().String(),
+        Turn:    "b",
         Black:   msg.Black,
+        Red:     msg.Red,
         Wager:   msg.Wager,
     }
 ```
@@ -418,20 +419,20 @@ Save the stored game object in storage:
 Prepare for the next created game:
 
 ```go
-    nextGame.IdValue++
-    k.SetNextGame(ctx, nextGame)
+    systemInfo.NextId++
+    k.SetSystemInfo(ctx, systemInfo)
 ```
 
 Return the game ID for reference:
 
 ```go
     return &types.MsgCreateGameResponse{
-        IdValue: newIndex,
+        GameIndex: newIndex,
     }, nil
 ```
 
 You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise?
-<br></br>
+<br/><br/>
 **More on game theory**
 
 Time to introduce a game deadline:
@@ -477,17 +478,17 @@ if deadline.Before(ctx.BlockTime()) {
 **How to expire games**
 
 How can you know what games should be removed? Should you load *all* games and filter for those that have expired? That would be extremely expensive. Better is to keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
-<br></br>
+<br/><br/>
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game IDs:
 
 ```go
 const (
-    NoFifoIdKey = "-1"
+    NoFifoIndex = "-1"
 )
-type NextGame struct {
+type SystemInfo struct {
     ...
-    FifoHead string
-    FifoTail string
+    FifoHeadIndex string
+    FifoTailIndex string
 }
 ```
 
@@ -496,9 +497,9 @@ Each game must know its relative position and the number of moves done, to assis
 ```go
 type StoredGame struct {
     ...
-    MoveCount uint64
-    BeforeId  string
-    AfterId   string
+    MoveCount   uint64
+    BeforeIndex string
+    AfterIndex  string
 }
 ```
 
@@ -525,9 +526,9 @@ am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
 ```
 
 How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
-<br></br>
+<br/><br/>
 The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`.
-<br></br>
+<br/><br/>
 These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
 
 <HighlightBox type="warn">
@@ -540,17 +541,17 @@ Be careful about letting the game creator pick a timeout duration. This could al
 
 The keeper also makes it easy to charge the gas to the players as required. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
 
-* **Create a game:** costs **10**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
-* **Play a move:** costs **one**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
-* **Reject a game:** costs **zero**, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions.
+* **Create a game:** costs **15_000**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
+* **Play a move:** costs **1_000**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
+* **Reject a game:** could cost **zero**, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions. So you can in fact refund some gas to the player, for instance **14_000**.
 
 So you define the cost:
 
 ```go
 const (
-    CreateGameGas = 10
-    PlayMoveGas   = 1
-    RejectGameGas = 0
+    CreateGameGas = 15_000
+    PlayMoveGas   = 1_000
+    RejectGameRefundGas = 14_000
 )
 ```
 
@@ -560,6 +561,20 @@ Then, you add the line in your `MsgCreateGame` handler:
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
     ...
     ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+    ...
+}
+```
+
+As for the refund when rejecting, you have to make sure that you are not trying to refund more than what was already consumed:
+
+```go
+func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
+    ...
+	refund := uint64(types.RejectGameRefundGas)
+	if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
+		refund = consumed
+	}
+	ctx.GasMeter().RefundGas(refund, "Reject game")
     ...
 }
 ```

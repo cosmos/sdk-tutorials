@@ -36,7 +36,7 @@ A blockchain node for an application-focused Cosmos blockchain consists of a sta
 <ExpansionPanel title="What is the Tendermint Core?">
 
 The Tendermint Core is a blockchain application platform which supports state machines in any language. The language-agnostic Tendermint Core helps developers securely and consistently replicate deterministic, finite state machines.
-<br></br>
+<br/><br/>
 Tendermint BFT is maintained even when 1/3rd of all machines fail, by providing two components:
 
 * A blockchain consensus engine.
@@ -52,7 +52,7 @@ Want to continue exploring this useful component of the Cosmos SDK? Find further
 
 ## Consensus in Tendermint Core and Cosmos
 
-The Tendermint Core is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM, or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the supported node become unreliable.
+The Tendermint Core is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://arxiv.org/abs/1807.04938). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM, or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the supported node become unreliable.
 
 Network participants are incentivized to stake their ATOM with nodes which are the most likely to provide dependable service, and to withdraw their support should those conditions change. A Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
 
@@ -230,7 +230,7 @@ You will continue to apply what you learn in later sections to your checkers gam
 <ExpansionPanel title="Creating a checkers blockchain">
 
 *Why develop a game of checkers?*
-<br></br>
+<br/><br/>
 This **design project** will evolve in stages as you learn more about the Cosmos SDK. You will better understand and experience how the Cosmos SDK improves your productivity by handling the boilerplate as you progress through the sections and explore what the boilerplate does.
 
 <HighlightBox type="tip">
@@ -242,7 +242,7 @@ This is meant as a design exercise. If you want to go from the design phase to t
 ### The setup
 
 You are going to design a blockchain that lets people play checkers against each other. There are many versions of checkers, so choose [these simple rules](https://www.ducksters.com/games/checkers_rules.php) for this exercise. The object of the exercise is to understand ABCI and learn more about working with the Cosmos SDK, not to get lost in the proper implementation of the board state or the rules of the game.
-<br></br>
+<br/><br/>
 Use and adapt [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), including the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you progress. Do not worry about implementing a marketable GUI, that is a separate design project in itself. You must first create the foundation that will ensure a GUI is _possible_.
 
 <HighlightBox type="info">
@@ -256,13 +256,13 @@ There is a lot you need to do beyond implementing the rules of the game, so simp
 ### "Make" the state machine
 
 You want to have a minimum viable ABCI state machine. Tendermint does not concern itself with whether proposed transactions are valid or how the state changes after each transaction. It delegates this to the state machine, which _interprets_ transactions as game moves and states.
-<br></br>
+<br/><br/>
 The following are the important junctures at which the application must act:
 
 #### Start the application
 
 This state machine is an application that must start before it can receive any requests from Tendermint. It must load into the memory static elements representing the acceptable general moves.
-<br></br>
+<br/><br/>
 This code exists already and is run automatically when the module is loaded:
 
 ```go [https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L75]
@@ -284,13 +284,13 @@ func Parse(s string) (*Game, error)
 ```
 
 The `String()` function does not save the `.Turn` field. You must store whose turn it is to play on your own. Choose a `string` at `/store/turn` for the color of the player.
-<br></br>
+<br/><br/>
 Your application needs its own database to store the state. The application must store a state at a certain Merkle root value to be able to recall past states at a later date. This is another implementation _detail_ that you must address when creating your application.
 
 #### `InitChain` - the initial chain state
 
 [This is where](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#initchain) your only game is initialized. Tendermint sends `app_state_bytes: bytes` to your application with the initial (genesis) state of the blockchain. You already know what it would look like to represent a single game.
-<br></br>
+<br/><br/>
 Your application:
 
 * Takes in the initial state.
@@ -310,15 +310,15 @@ Next you must decide how to represent a move. In the ready-made implementation, 
 > `AppHash: []byte`: an arbitrary byte array returned by the application after executing and committing the previous block. This serves as the basis to validate any Merkle proofs that come from the ABCI application, and represents the state of the actual application rather than the state of the blockchain itself. The first block's `block.Header.AppHash` is given by `ResponseInitChain.app_hash`.
 
 This _implementation detail_ was skipped before instructing the application to load the right state of the application from its database, which includes the correct `/store/board`. It is important that the application is able to load a known state at **any** point in time. There could have been a crash or a restore of some sort that de-synchronized Tendermint and the application.
-<br></br>
+<br/><br/>
 The application should work off the last state it has arrived at, in case the header has omitted the `AppHash` (which should never happen).
-<br></br>
+<br/><br/>
 The application is now ready to respond to the upcoming `CheckTx` and `DeliverTx` with the state loaded.
 
 #### `CheckTx` - a new transaction appears in the transaction pool
 
 Tendermint [asks](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#checktx-1) your application whether the transaction is worth keeping at all. For maximum simplification, you are only concerned with whether there is a valid move in the transaction. You check whether there are four `int` in the serialized information for this. You can also check that the `int` themselves are within the boundaries of the board, for example between `0` and `7`.
-<br></br>
+<br/><br/>
 It is better **not** to check if the move is valid according to the rules of the application.
 
 ```go [https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L168]
@@ -326,7 +326,7 @@ func (game *Game) ValidMove(src, dst Pos) bool
 ```
 
 Checking whether a move is valid with regards to the board requires knowledge of the board state *when the transaction is included in a block*. The board is updated only up to the point where the transactions have been delivered. You may have a situation where two transactions are sent, one after the other, and both are valid. If you tested the move in the second transaction against the board state before the first unconfirmed move, it would appear that the second move is invalid. Testing a move on the board at `CheckTx` time should be avoided.
-<br></br>
+<br/><br/>
 Check the _possibility_ of validity of the transaction in `CheckTx`: reject the transaction if it is malformed, contains invalid inputs, etc., and therefor cannot _possibly_ be acceptable; but refrain from confirming that it will be successful according to concerns that depend on context.
 
 #### `DeliverTx` - a transaction is added and needs to be processed
@@ -338,9 +338,9 @@ func (game *Game) Move(src, dst Pos) (captured Pos, err error)
 ```
 
 Resolve any error if necessary.
-<br></br>
+<br/><br/>
 You need to see whether it makes sense to send the transaction back through ABCI. If the transaction succeeded, you keep the new board state in memory ready for the next delivered transaction. You do not save to the storage at this point.
-<br></br>
+<br/><br/>
 You can also choose to define which information should be indexed via `events: repeated Event` in the response. The returned values are intended to return information that could be tedious to collect otherwise. This allows fast searches across blocks for values of relevance if indexed.
 
 <HighlightBox type="docs">
@@ -354,46 +354,46 @@ For the sake of the exercise imagine that you emit some information in two event
 ```
 [
     { key: "name", value: "moveMetadata", index: true },
-    { key: "whoPlayer", value: bool, index: true },
-    { key: "isJump", value: bool, index: false},
-    { key: "madeKing", value: bool, index: false},
-    { key: "hasCaptured", value: bool, index: false},
-    { key: "hasCapturedKing", value: bool, index: false},
-    { key: "isWinning", value: bool, index: true}
+    { key: "who-player", value: bool, index: true },
+    { key: "is-jump", value: bool, index: false},
+    { key: "made-king", value: bool, index: false},
+    { key: "has-captured", value: bool, index: false},
+    { key: "has-captured-king", value: bool, index: false},
+    { key: "is-winning", value: bool, index: true}
 ],
 [
     { key: "name", value: "boardState", index: true },
-    { key: "blackCount", value: uint32, index: false },
-    { key: "blackKingCount", value: uint32, index: false },
-    { key: "redCount", value: uint32, index: false },
-    { key: "redKingCount", value: uint32, index: false }
+    { key: "black-count", value: uint32, index: false },
+    { key: "black-king-count", value: uint32, index: false },
+    { key: "red-count", value: uint32, index: false },
+    { key: "red-king-count", value: uint32, index: false }
 ]
 ```
 
-If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs.
-<br></br>
+If you come from the Ethereum world, you will recognize these as Solidity _events_ with indexed fields that are _topics_ in the transaction receipt logs. Unlike Ethereum, though, events are not part of the consensus (the block) but instead are handled purely on the node.
+<br/><br/>
 It would be judicious to inform Tendermint about the `GasUsed (int64)`. Each move costs the same, so you can return `1`.
 
 #### `EndBlock` - the block is being finished
 
 Ignoring the issue of validators for now, [this is used](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#endblock) to let Tendermint know what events should be emitted (similarly to how `DeliverTx` was handled). You have only checkers moves, so it is not very clear what could be interesting at a later date.
-<br></br>
+<br/><br/>
 Assume that you want to tally what happened in the block. You return this aggregate event:
 
 ```
 [
     { key: "name", value: "aggregateAction", index: true },
-    { key: "blackCapturedCount", value: uint32, index: false },
-    { key: "blackKingCapturedCount", value: uint32, index: false },
-    { key: "redCapturedCount", value: uint32, index: false },
-    { key: "redKingCapturedCount", value: uint32, index: false }
+    { key: "black-captured-count", value: uint32, index: false },
+    { key: "black-king-captured-count", value: uint32, index: false },
+    { key: "red-captured-count", value: uint32, index: false },
+    { key: "red-king-captured-count", value: uint32, index: false }
 ]
 ```
 
 #### `Commit` - your work here is done
 
 The block is now [confirmed](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#commit). The application needs to save its state to storage, i.e. to its database. The state, which includes `/store/board`, is uniquely identified by its Merkle root hash. As per the ABCI, this hash has to be returned in a `[]byte` form. For a consensus to be able to emerge, the hash needs to be deterministic after the sequence of the same `BeginBlock`, the same `DeliverTx` methods in the same order and the same `EndBlock` as mentioned in [the documentation](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md#determinism).
-<br></br>
+<br/><br/>
 The application may also keep a pointer in its database regarding which state is the latest, so it can purge the board from its memory after having returned and saved. The next `BeginBlock` will inform the application about which state to load. The application should keep the state in memory to quickly build on it if the next `BeginBlock` fails to mention `AppHash` or mentions the same `AppHash` previously calculated.
 
 ### What if you like extreme serialization?
@@ -404,9 +404,9 @@ This `data` does not strictly need to be a Merkle root hash. It could well be an
 * The application can recover the state out of it.
 
 If you took your single board and serialized it differently, you could return the board state as such.
-<br></br>
+<br/><br/>
 You have 64 cells out of which only 32 are being used. Each cell is occupied by either nothing, a black pawn, a black king, a red pawn, or a red king. There are five possibilities, which can easily fit in a byte, so you need 32 bytes to describe the board. Perhaps you can use the very first bit to indicate whose turn it is to play, as the first bit of a byte is never used when counting to five.
-<br></br>
+<br/><br/>
 You now have:
 
 * A deterministic blockchain state.
