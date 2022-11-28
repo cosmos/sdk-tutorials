@@ -18,20 +18,20 @@ overview:
     - title: Timeline and deadlines
       description: |
         Academy start: December 1st<br/><br/>
-        Program duration: December 1st 2022 till February 2nd 2023 (7+2 weeks including a holiday period from December 22nd till January 5th)<br/><br/>
-        Exam period: February 2nd 2023 - March 2nd 2023<br/><br/>
+        Program duration: December 1st, 2022 till February 2nd, 2023 (seven weeks, including a two-week holiday period from December 22nd till January 5th)<br/><br/>
+        Exam period: February 2nd, 2023 - March 2nd, 2023<br/><br/>
         Results available: March 16th 2023<br/><br/>
     - title: What you will learn
       description: |
-        Over the next 9 weeks (7+2), you will dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol. You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
+        Over the next nine weeks (7+2), you will dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next, you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol (IBC). You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
     - title: How to get the most out of the Academy
       description: |
           The Academy is self-paced and flexible, so you do not have to be online at particular times. You can follow the weekly plan or go through the learning material at your own pace. We recommend allocating about 10 to 15 hours a week to get through all the material.<br/><br/>
           We will offer some live sessions with Cosmos experts about various topics. These live sessions will be announced via email and discord. The sessions will be recorded in case you cannot join them live.<br/><br/>
           The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There is plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who will point you in the right direction!<br/><br/>
           <b>Hands-on exercises</b><br/><br/>
-          In each module, you will find quizzes and/or code exercises. In the first 2 weeks you can submit a quiz (end of week 1) and an exercise (end of week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
-          Week 1: Quiz - due date: Friday, December  9th<br/><br/>
+          In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
+          Week 1: Quiz - due date: Friday, December 9th<br/><br/>
           Week 2: Exercise - due date: Friday, December 16th<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
@@ -56,7 +56,7 @@ overview:
         We have put together a <a href="/ida-course/discord-info.html">quick guide explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
-        After the seven-week program (7+2 weeks due to holiday break), you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>February 2nd 2023</b> and you have to complete it by <b>March 2nd 2023</b>.<br/><br/>
+        After the seven-week program (7+2 weeks due to holiday break), you will have two weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>February 2nd, 2023</b> and you have to complete it by <b>March 2nd, 2023</b>.<br/><br/>
         You will receive an email and notification via Discord closer to the date.<br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
         You will receive an email with further instructions on how to launch the exam request.<br/><br/>
@@ -66,7 +66,7 @@ overview:
 customModules:
   - title: Weekly Plan
     description: |
-      This cohort of the Academy runs for 9 weeks (7+2 weeks due to holiday break). You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
+      This cohort of the Academy runs for nine weeks (7 weeks and a two-week holiday break). You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
     sections:
       - image: /cosmos_dev_portal_module-02-lp.png
         title: Week 0 -   Getting Started
