@@ -236,33 +236,46 @@ func (im IBCModule) OnRecvPacket(
 ) ibcexported.Acknowledgement {
     ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
 
-    var data types.FungibleTokenPacketData
-    if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-        ack = channeltypes.NewErrorAcknowledgement("cannot unmarshal ICS-20 transfer packet data")
-    }
+	var data types.FungibleTokenPacketData
+	var ackErr error
+	if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+		ackErr = sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
+		ack = channeltypes.NewErrorAcknowledgement(ackErr)
+	}
 
-    // only attempt the application logic if the packet data
-    // was successfully decoded
-    if ack.Success() {
-        err := im.keeper.OnRecvPacket(ctx, packet, data)
-        if err != nil {
-            ack = types.NewErrorAcknowledgement(err)
-        }
-    }
+	// only attempt the application logic if the packet data
+	// was successfully decoded
+	if ack.Success() {
+		err := im.keeper.OnRecvPacket(ctx, packet, data)
+		if err != nil {
+			ack = channeltypes.NewErrorAcknowledgement(err)
+			ackErr = err
+		}
+	}
 
-    ctx.EventManager().EmitEvent(
-        sdk.NewEvent(
-            types.EventTypePacket,
-            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-            sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
-            sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
-            sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
-            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
-        ),
-    )
+	eventAttributes := []sdk.Attribute{
+		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+		sdk.NewAttribute(sdk.AttributeKeySender, data.Sender),
+		sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
+		sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
+		sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
+		sdk.NewAttribute(types.AttributeKeyMemo, data.Memo),
+		sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
+	}
 
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
-    return ack
+	if ackErr != nil {
+		eventAttributes = append(eventAttributes, sdk.NewAttribute(types.AttributeKeyAckError, ackErr.Error()))
+	}
+
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypePacket,
+			eventAttributes...,
+		),
+	)
+
+	// NOTE: acknowledgement will be written synchronously during IBC handler execution.
+	return ack
 }
 ```
 
@@ -274,7 +287,7 @@ The reader is invited to try to find and analyze the code corresponding to this 
 
 <HighlightBox type="remember">
 
-Remember that when a packet times out, the submission of a `MsgTimeoutPacket` is essential to get the locked funds unlocked again. Try to find the code where this is executed as an exercise.
+Remember that when a packet times out, the submission of a `MsgTimeout` is essential to get the locked funds unlocked again. Try to find the code where this is executed as an exercise.
 
 </HighlightBox>
 

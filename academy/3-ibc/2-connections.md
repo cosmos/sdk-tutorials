@@ -101,7 +101,7 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 
 A high level overview of a successful four-way handshake is as follows:
 
-### Handshake 1 - OpenInit
+### Handshake step 1 - `ChanOpenInit`
 
 `OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit an `UpdateClient` with chain A as the source chain before this handshake. `UpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
@@ -199,7 +199,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-### Handshake 2 - OpenTry
+### Handshake step 2 - `ChanOpenTry`
 
 `OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A.
 
@@ -207,7 +207,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 
 The purpose of this step of the handshake is double verification: not only for chain B to verify that chain A is the expected counterparty identity, but also to verify that the counterparty has accurate information about chain B's identity. The relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B in order to make sure that the state verifications in this step are successful.
 
-The initiation of this handshake from chain B updates its connection state to `TRY`.
+The initiation of this handshake from chain B updates its connection state to `TRYOPEN`.
 
 With regards to IBC protocol versioning, `OpenTry` either accepts the protocol version which has been proposed in `OpenInit` or proposes another protocol version from the versions available to chain A to be used for the IBC connection. A relayer-submitted `OpenTry` which contains an unsupported protocol version will be expected to fail.
 
@@ -237,13 +237,13 @@ func (k Keeper) ConnOpenTry(
 ) ...
 ```
 
-## Handshake 3 - OpenAck
+## Handshake step 3 - `ChanOpenAck`
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `UpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
 ![OpenAck](/academy/3-ibc/images/open_ack.png)
 
-The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain _must_ have a `TRY` connection state in order for the handshake and connection state update to be successful.
+The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain _must_ have a `TRYOPEN` connection state in order for the handshake and connection state update to be successful.
 
 With regards to version negotiation, `OpenAck` must confirm the protocol version which has been proposed in `OpenTry`. It ends the connection handshake process if the version is unwanted or unsupported.
 
@@ -297,7 +297,7 @@ if err := k.VerifyClientConsensusState(
 
 Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the `ConsensusState` of the other chain. Note that after this step the connection state on chain A updates from `INIT` to `OPEN`.
 
-### Handshake 4 - OpenConfirm
+### Handshake step 4 - `ChanOpenConfirm`
 
 `OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful.
 
@@ -314,7 +314,7 @@ func (k Keeper) ConnOpenConfirm(
 )
 ```
 
-The initiation of this handshake from chain B updates its connection state from `TRY` to `OPEN`. The counterparty chain _must_ have an `OPEN` connection state in order for the handshake and connection state update to be successful.
+The initiation of this handshake from chain B updates its connection state from `TRYOPEN` to `OPEN`. The counterparty chain _must_ have an `OPEN` connection state in order for the handshake and connection state update to be successful.
 
 <HighlightBox type="remember">
 

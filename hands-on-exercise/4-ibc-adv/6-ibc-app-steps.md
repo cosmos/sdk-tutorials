@@ -57,18 +57,18 @@ The code in this section was scaffolded with Ignite CLI v0.22. This includes ibc
 For example, channel callbacks from v4 onwards now return a _version_ string next to an error:
 
 ```go
-    func (im IBCModule) OnChanOpenInit(ctx sdk.Context,
-        order channeltypes.Order,
-        connectionHops []string,
-        portID string,
-        channelID string,
-        channelCap *capabilitytypes.Capability,
-        counterparty channeltypes.Counterparty,
-        version string,
-    ) (string, error) {
+func (im IBCModule) OnChanOpenInit(ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID string,
+    channelID string,
+    channelCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    version string,
+) (string, error) {
     ...
     return version, nil
-    }
+}
 ```
 
 </HighlightBox>
