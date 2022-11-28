@@ -150,7 +150,7 @@ module.exports = {
                 },
                 {
                   title: "Docker Introduction",
-                  path: "/tutorials/5-docker-intro/index.html",
+                  path: "/tutorials/5-docker-intro/",
                 },
               ],
             },
