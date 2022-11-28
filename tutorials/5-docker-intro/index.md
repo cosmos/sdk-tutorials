@@ -73,7 +73,7 @@ When it has started you can run your first container. For instance, with Node.js
 $ docker run -it node:lts-slim
 ```
 
-`-it` is short for `--interactive --tty` and means "with input and output", instead of a fully detached container. Learn more with `docker run --help`. This should return you a Node (Node.js) prompt:
+`-it` is short for `--interactive --tty` and means "with input and output", instead of a fully detached container. Learn more with `docker run --help`. This should return you a Node.js prompt:
 
 ```javascript
 Welcome to Node.js v18.12.1.
