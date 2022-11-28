@@ -31,11 +31,17 @@ The genesis only needs to be generated once, then it is distributed and copied o
 
 One of the simpler parameters that you can decide on is the name of the staking token. The name you choose is for the indivisible denomination. For the Cosmos Hub that is `uatom`, which is understood as a millionth of an ATOM.
 
-For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit `nstone`, as in a _nano STONE_. The chain only cares about this `nstone` unit. The STONE will be an artifact reserved for human interaction.
+For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit `nstone`, as in a _nano STONE_. The chain only cares about this `nstone` unit. The `STONE` will be an artifact reserved for human interaction.
 
-Be sure to have enough decimals as there is a hard-coded 10,000,000 number which is the minimum stake required where creating a validator.
+Be sure to have enough decimals as there is a hard-coded 10,000,000 number, which is the minimum stake required where creating a validator.
 
-Keeping on-brand, your new chain is named _stone-age_. It is customary to append a number to your chain name. Whenever a hard fork happens, you can increment this number for easier identification.
+Keeping on-brand, your new chain is named _stone-age_.
+
+<HighlightBox type="best-practice">
+
+It is customary to append a number to your chain name. Whenever a hard fork happens, you can increment this number for easier identification.
+
+</HighlightBox>
 
 To create a brand new genesis file for your chain, run:
 
