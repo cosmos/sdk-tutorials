@@ -67,7 +67,7 @@ overview:
 customModules:
   - title: Weekly Plan
     description: |
-      This cohort of the Academy runs for nine weeks (7 weeks and a two-week holiday break). You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
+      This cohort of the Academy runs for nine weeks (seven weeks and a two-week holiday break). You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
     sections:
       - image: /cosmos_dev_portal_module-02-lp.png
         title: Week 0 -   Getting Started
