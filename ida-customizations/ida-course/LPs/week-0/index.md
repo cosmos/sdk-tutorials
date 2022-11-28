@@ -25,7 +25,7 @@ Working with Cosmos also means working with Golang. If you have not worked much 
 
 This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
 
-The Docker introduction will help you to understand the concepts behind this tool, as the upcoming tutorials will make use of Docker.
+The Docker introduction will help you understand the concepts behind this tool, as you will be using Docker in the upcoming tutorials.
 
 <HighlightBox type="tip">
 
@@ -67,7 +67,7 @@ _**Technical terms**_
   
 _**Docker intro**
   
-* Get an introduction to the concept of Docker and see how to use it. The main tutorials to come will make use of it.
+* Get an introduction to Docker and explore how to use it. The main tutorials to come will also rely on using Docker.
 
 </HighlightBox>
 
@@ -85,7 +85,7 @@ Then, for a quick overview on Golang, begin with the section [Go Introduction - 
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
 
-Finally, so you're ready for the hands-on-exercises to come, go here for an [introduction to Docker](tutorials/5-docker-intro/).
+Finally, so you are ready for the hands-on-exercises, consult the [introduction to Docker](tutorials/5-docker-intro/).
 
 ## Developer Resources
 
