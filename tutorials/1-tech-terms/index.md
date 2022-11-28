@@ -30,17 +30,21 @@ Let's dive right into it.
 
 ## Cosmos and Interchain
 
-**Cosmos** refers to _the network of all IBC-connected blockchains_. However, Cosmos will soon become known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other.
+**Cosmos** refers to _the network of application-specific blockchains_, built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC). However, Cosmos will soon become known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" can be understood as synonyms.
 
 ### The Interchain Stack
 
 The various tools available to Interchain developers can be referred to collectively as the **Interchain Stack**.
 
-Tools within the Interchain Stack which contain "Cosmos" in their name remain unchanged, such as the **Cosmos SDK** and **CosmWasm**. Any chain built with the Cosmos SDK can typically be referred to as "a Cosmos Chain" or "Appchain".
+<HighlightBox type="info">
+
+Tools within the Interchain Stack, which contain "Cosmos" in their name will remain unchanged by current terminology changes, such as the **Cosmos SDK** and **CosmWasm**. Any chain built with the Cosmos SDK can typically be referred to as "a Cosmos chain" or "appchain".
+
+</HighlightBox>
 
 ### Cosmos Hub
 
-The Cosmos Hub is a chain that serves as an economic hub of the Interchain and service provider to other Cosmos chains. Built with the Interchain Stack, the Hub is home to the ATOM token, Interchain Security, and builders of Cosmos SDK, Tendermint, and IBC.
+The Cosmos Hub is a chain that serves as an economic hub of the Interchain and service provider to other Cosmos chains. Built with the Interchain Stack, the Hub is home to the ATOM token, Interchain Security, and builders of the Cosmos SDK, Tendermint, and IBC.
 
 ## Light client daemon (LCD)
 

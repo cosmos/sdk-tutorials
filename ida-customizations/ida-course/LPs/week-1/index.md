@@ -17,7 +17,7 @@ From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a 
 
 <HighlightBox type="info">
 
-Cosmos is also known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other. The various tools available to developers, including the Cosmos SDK, can be referred to collectively as the **Interchain Stack**.
+As all blockchain ecosystems keep on growing and maturing, product stacks and terminologies evolve. Thus, please be aware that Cosmos is also known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers ("the stack") can be referred to collectively as the **Interchain Stack**.
 
 </HighlightBox>
 
