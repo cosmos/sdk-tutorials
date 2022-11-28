@@ -5,13 +5,13 @@ parent:
   number: 1
 tags:
 order: 0
-title: Week 0 - A Short Introduction to Blockchain and Golang
+title: Week 0 - A Short Introduction to Blockchain, Golang and Docker
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A short introduction to blockchain and Golang</div>
 <h1 class="mt-4 mb-6">Getting Started</h1>
 
-This chapter provides an introduction to blockchain, Golang, and some of the technical terms you will encounter throughout the Academy program. 
+This chapter provides an introduction to blockchain, Golang, Docker, and some of the technical terms you will encounter throughout the Academy program. 
 
 <HighlightBox type="info">
 
@@ -19,11 +19,13 @@ This chapter provides an introduction to blockchain, Golang, and some of the tec
 
 </HighlightBox>
 
-Do you want to refresh your blockchain knowledge? This chapter provides a general introduction to blockchain technology. Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by September 15th at 4 pm UTC when the program officially starts.
+Do you want to refresh your blockchain knowledge? This chapter provides a general introduction to blockchain technology. Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by December 1st at 4 pm UTC when the program officially starts.
 
 Working with Cosmos also means working with Golang. If you have not worked much with Go, do not worry.
 
 This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
+
+The Docker introduction will help you to understand the concepts behind this tool, as the upcoming tutorials will make use of Docker.
 
 <HighlightBox type="tip">
 
@@ -62,12 +64,16 @@ _**Introduction to Go**_
 _**Technical terms**_
 
 * Review some technical terms essential when developing in Cosmos like LCD, RPC, Protobuf, gRPC, and Amino.
+  
+_**Docker intro**
+  
+* Get an introduction to the concept of Docker and see how to use it. The main tutorials to come will make use of it.
 
 </HighlightBox>
 
 <HighlightBox type="info">
 
-All other Academy chapters will be displayed on this page starting **September 15th**.
+All other Academy chapters will be displayed on this page starting **December 1st**.
 
 </HighlightBox>
 
@@ -78,6 +84,8 @@ First, you can take a look at blockchain technology by starting with the section
 Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
+
+Finally, so you're ready for the hands-on-exercises to come, go here for an [introduction to Docker](tutorials/5-docker-intro/index.md).
 
 ## Developer Resources
 
