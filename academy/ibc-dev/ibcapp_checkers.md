@@ -1,6 +1,6 @@
 ## Extend the Checkers Game with a Leaderboard
 
-Go to your checkers folder and make sure that you are checked out on the [v1-cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
+Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
 In the Checkers chain folder, you can scaffold a Leaderboard module with Ignite:
 
 ```bash
@@ -146,6 +146,15 @@ const (
     TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
     LeaderboardWinnerLength = uint64(100)
 )
+```
+
+Check your `x/checkers/types/errors.go` and make sure that it includes:
+
+```golang
+    ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
+    ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
+    ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+    ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
 ```
 
 Now it is time to allow Checkers module the access to the Leaderboard module. Therefore look for the `app.CheckersKeeper` in `app/app.go` and modify it in order to include `app.LeaderboardKeeper`:
