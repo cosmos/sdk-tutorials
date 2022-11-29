@@ -79,7 +79,7 @@ The Cosmos SDK enables the creation of application-specific blockchains. That is
 
 <HighlightBox type="info">
 
-Blockchain technology changes fast, but the basics are here to stay. This video provides a quick introduction to the basic concepts that underpin blockchain, including how data is encoded in transactions and added to a block, and how blocks and transactions spread through a network.
+Blockchain technology changes fast, but the basics are here to stay. This video provides a quick introduction to the concepts that underpin blockchain, including how data is encoded in transactions and added to a block, and how blocks and transactions spread through a network.
 
 <YoutubePlayer videoId="s1ZUe7aBAE4"/>
 
