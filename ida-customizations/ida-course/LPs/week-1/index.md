@@ -46,7 +46,7 @@ This week you were able to join the first live session on **September 19th, 2PM 
 <br/>
 In case you want to recap the live session or could not attend: this is the **recording** of the session _Introduction to Cosmos_ with Billy Rennekamp:
 
-<YoutubePlayer videoId="rz2oPXqMJlU"/>
+<YoutubePlayer videoId="5_ZkZ-NF184"/>
   
 </HighlightBox>
 
