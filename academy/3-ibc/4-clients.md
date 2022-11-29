@@ -177,7 +177,7 @@ The following is an example of how the Tendermint client handles this Merkle [pr
 
 <HighlightBox type="note">
 
-Note that non-Tendermint client types may choose to handle proof verification differently.
+Non-Tendermint client types may choose to handle proof verification differently.
 
 </HighlightBox>
 

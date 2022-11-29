@@ -97,7 +97,13 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 3. OpenAck
 4. OpenConfirm
 
+<HighlightBox type="info">
+
+Colin Axnér of Interchain gives an overview of how IBC Connections work (ICS-03), along with a code walkthrough, in the context of Inter-Blockchain Communications (IBC) Protocol.
+
 <YoutubePlayer videoId="E3ZvqdY2tL8" />
+
+</HighlightBox>
 
 A high level overview of a successful four-way handshake is as follows:
 
@@ -326,11 +332,11 @@ Now consider two edge circumstances: simultaneous attempts by the chains to perf
 
 ### Crossing hellos
 
-"Crossing Hellos" refers to when both chains attempt the same handshake step at the same time.
+"Crossing hellos" refers to when both chains attempt the same handshake step at the same time.
 
 <HighlightBox type="warning">
 
-Crossing hellos (while still discussed in the video), have been removed from ibc-go v4 onwards, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1672). The `PreviousConnectionId` in `MsgConnectionOpenTry` has been deprecated.
+While still discussed in the video earlier, crossing hellos have been removed from ibc-go v4 onward, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1672). The `PreviousConnectionId` in `MsgConnectionOpenTry` has been deprecated.
 
 </HighlightBox>
 

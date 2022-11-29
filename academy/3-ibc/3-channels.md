@@ -23,10 +23,9 @@ Connections and clients comprise the main components of the transport layer in I
 
 <HighlightBox type="note">
 
-Note that it's possible to have either a symmetric case, where the application logic is independent of the direction of the packet being sent, as well as an asymmetric case where packets should only be sent in one direction or the logic can be different depending on the send direction. It makes sense (but is not imposed) to use the same port ID on both application modules in the symmetric case, and different port ID on either chain in the asymmetric.
+Note that it's possible to have either a _symmetric_ case, where the application logic is independent of the direction of the packet being sent, or an _asymmetric_ case, where packets should only be sent in one direction (or the logic can be different depending on the send direction). It makes sense (but is not imposed) to use the same port ID on both application modules in the symmetric case, and different port IDs on either chain in the asymmetric.
 <br/><br/>
-For example, in the case of interchain accounts, there are two different port IDs for host and controller modules:
-`icahost` is the default port id that the interchain accounts host submodule binds to, whereas `icacontroller-` is the default port prefix that the interchain accounts controller submodule binds to.
+For example, in the case of interchain accounts, there are two different port IDs for the host and controller submodules: in the interchain accounts module, `icahost` is the default port ID that the host submodule binds to, whereas `icacontroller-...` is the default port prefix that the controller submodule binds to.
 
 </HighlightBox>
 
@@ -42,7 +41,7 @@ As mentioned above, channels are payload agnostic. The application modules sendi
 
 <HighlightBox type="info">
 
-Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There's currently two different types of channels in terms of ordering.
+Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There are currently two different types of channels in terms of ordering:
 
 * An **ordered channel** is _a channel where packets are delivered exactly in the order in which they were sent_.
 * An **unordered channel** is _a channel where packets can be delivered in any order_, which may differ from the order in which they were sent.
@@ -62,9 +61,9 @@ Similarly to how connections are established, **channels are established through
 
 <HighlightBox type="note">
 
-"Crossing Hellos" refers to a situation when both chains attempt the same handshake step at the same time.
+"Crossing hellos" refers to a situation when both chains attempt the same handshake step at the same time.
 <br/><br/>
-Crossing hellos, have been removed from ibc-go v4 onwards, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1317). The `PreviousChannelId` in `MsgChannelOpenTry` has been deprecated.
+Crossing hellos have been removed from ibc-go v4 onward, as referenced in [this PR](https://github.com/cosmos/ibc-go/pull/1317). The `PreviousChannelId` in `MsgChannelOpenTry` has been deprecated.
 
 </HighlightBox>
 
@@ -173,7 +172,7 @@ After receiving the packet data from core IBC, application B will then marshal t
 
 <HighlightBox type="info">
 
-### Synchronous and asynchronous acknowledgementsÒ
+### Synchronous and asynchronous acknowledgements
 
 Acknowledgements can either take place synchronously or asynchronously. What this means is that the `OnRecvPacket` callback has a return value `Acknowledgement` which is optional.
 <br/><br/>

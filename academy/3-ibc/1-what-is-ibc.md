@@ -109,7 +109,7 @@ The ICS also offer definitions for IBC applications:
 <HighlightBox type="info">
 
 This list can be and will be extended with time. New concepts such as interchain accounts will continue to increase adoption and provide application diversity in the Interchain ecosystem.
-<br />
+<br/><br/>
 Find a list of ecosystem efforts on IBC applications and light clients on the ibc-go repo's [readme](https://github.com/cosmos/ibc-go#ecosystem).
 
 </HighlightBox>
@@ -209,6 +209,7 @@ Do you have access to an existing chain?
         * Implement IBC core:
             * Source code.
             * Smart contract based.
+            
 * **Yes.** Is it a Cosmos SDK chain?
     * Yes. Move on to application development.
     * No.

@@ -52,9 +52,9 @@ Above the **source** is chain A. The source channel is **channel-2** and the des
 
 <HighlightBox type="note">
 
-Note that we can send assets (or their IBC voucher representation) multiple _hops_ across multiple chains. Every single time the path will be prepended with the _port/channel-id/..._ prefix.
+Note that we can send assets (or their IBC voucher representation) in multiple _hops_ across multiple chains. Every single time the path will be prepended with the _port/channel-id/..._ prefix.
 </br></br>
-When sending this IBC denom, having had multiple hops, back to its source chain, for every hop one _port/channel-id/..._ prefix will be taken off. This results back into the original denom if all the hops are reversed.
+When sending this IBC denom (having had multiple hops) back to its source chain, for every hop back one _port/channel-id/..._ prefix will be taken off. This results in a return to the original denom if all the hops are reversed.
 
 </HighlightBox>
 
@@ -187,7 +187,7 @@ func (k Keeper) SendTransfer(
 }
 ```
 
-Take a look at the type [definition of a token packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
+Take a look at the [type definition of a token packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/proto/ibc/applications/transfer/v2/packet.proto) before diving further into the code:
 
 ```protobuf
 syntax = "proto3";
@@ -215,7 +215,7 @@ message FungibleTokenPacketData {
 
 <HighlightBox type="note">
 
-Note that an optional _memo_ field was recently added to the packet definition. More details on the motivation, use cases and consequences can be found in the [accompanying blog post](https://medium.com/the-interchain-foundation/moving-beyond-simple-token-transfers-d42b2b1dc29b).
+An optional _memo_ field was recently added to the packet definition. More details on the motivation, use cases, and consequences can be found in the [accompanying blog post](https://medium.com/the-interchain-foundation/moving-beyond-simple-token-transfers-d42b2b1dc29b).
 
 </HighlightBox>
 
@@ -223,7 +223,7 @@ Note that an optional _memo_ field was recently added to the packet definition. 
 
 A relayer will then pick up the `SendPacket` event and submit a `MsgRecvPacket` on the destination chain.
 
-This will then trigger an `OnRecvPacket` callback that will decode a packet and apply the transfer token application logic:
+This will trigger an `OnRecvPacket` callback that will decode a packet and apply the transfer token application logic:
 
 ```go
 // OnRecvPacket implements the IBCModule interface. A successful acknowledgement
@@ -279,15 +279,19 @@ func (im IBCModule) OnRecvPacket(
 }
 ```
 
-Note how we redirect to the module keeper's `OnRecvPacket` method, and are constructing the acknowledgment to be sent back.
+<HighlightBox type="note">
+
+Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method, and are constructing the acknowledgment to be sent back.
+
+</HighlightBox>
 
 ### Acknowledging or timing out packets
 
-The reader is invited to try to find and analyze the code corresponding to this (remember that the place to start is the packet callbacks, usually defined in a file like `module_ibc.go` or `ibc_module.go`).
+A useful exercise is to try to find and analyze the code corresponding to this. The place to start is the packet callbacks, usually defined in a file like `module_ibc.go` or `ibc_module.go`.
 
 <HighlightBox type="remember">
 
-Remember that when a packet times out, the submission of a `MsgTimeout` is essential to get the locked funds unlocked again. Try to find the code where this is executed as an exercise.
+When a packet times out, the submission of a `MsgTimeout` is essential to get the locked funds unlocked again. As an exercise, try to find the code where this is executed.
 
 </HighlightBox>
 
