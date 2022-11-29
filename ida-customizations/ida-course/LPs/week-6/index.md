@@ -34,23 +34,23 @@ This chapter covers quite a lot of content that goes very deep into the intricac
 
 Please be aware that the recommended **essentials** for IBC are:
 
-* [IBC Application Developer Introduction](/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.md)
-* [Make a Module IBC-Enabled](/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.md)
-* [Adding Packet and Acknowledgement Data](/hands-on-exercise/4-ibc-adv/7-ibc-app-packets.md)
+* [IBC Application Developer Introduction](/hands-on-exercise/5-ibc-adv/5-ibc-app-intro.md)
+* [Make a Module IBC-Enabled](/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.md)
+* [Adding Packet and Acknowledgement Data](/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.md)
 
 The following sections are optional and **NOT** final exam relevant:
 
-* [IBC Middleware](/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.md)
-* [Create a Custom IBC Middleware](/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.md)
-* [Integrating IBC Middleware Into a Chain](/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.md)
+* [IBC Middleware](/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.md)
+* [Create a Custom IBC Middleware](/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.md)
+* [Integrating IBC Middleware Into a Chain](/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.md)
 
 </HighlightBox>
 
 ## Next up
 
-To start with custom IBC applications, begin with an [introduction to IBC application development](/hands-on-exercise/4-ibc-adv/5-ibc-app-intro.md) to then dive into [making an IBC-enabled module](/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.md) and [adding packet and acknowledgment data](/hands-on-exercise/4-ibc-adv/7-ibc-app-packets.md).
+To start with custom IBC applications, begin with an [introduction to IBC application development](/hands-on-exercise/5-ibc-adv/5-ibc-app-intro.md) to then dive into [making an IBC-enabled module](/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.md) and [adding packet and acknowledgment data](/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.md).
 
-After, take a look at [IBC middleware](/hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.md). You will first [create a custom IBC middleware](/hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.md) and then [integrate it into a chain](/hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.md).
+After, take a look at [IBC middleware](/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.md). You will first [create a custom IBC middleware](/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.md) and then [integrate it into a chain](/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.md).
 
 ## Developer Resources
 

@@ -119,7 +119,7 @@ customModules:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmo stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
         tags:
           - guided-coding
       - image:
@@ -169,10 +169,12 @@ customModules:
             path: /academy/2-cosmos-concepts/8-base-app.html
           - title: Queries, events, and context
             path: /academy/2-cosmos-concepts/9-queries.html
+          - title: Testing
+            path: /academy/2-cosmos-concepts/12-testing.html
           - title: Migrations
-            path: /academy/2-cosmos-concepts/12-migrations.html
+            path: /academy/2-cosmos-concepts/13-migrations.html
           - title: Bridges
-            path: /academy/2-cosmos-concepts/13-bridges.html
+            path: /academy/2-cosmos-concepts/14-bridges.html
       - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/
@@ -215,38 +217,63 @@ customModules:
         description: |
           Take your first steps with Go to discover the basics, including a look at Go interfaces, structures, arrays, slices, and much more.
       - image:
-        title: IBC Developers
-        href: /tutorials/5-ibc-dev/
+        title: Docker introduction
+        href: /tutorials/5-docker-intro/
+        description: |
+          Learn enough about Docker so as to conveniently do the hands-on exercises.
+      - image:
+        title: IBC developers
+        href: /tutorials/6-ibc-dev/
         description: |
           Want to become an IBC developer? Take a closer look at IBC denoms.
       - image: /lp-images/planet-pod.svg
         title: Introduction to CosmJS
-        href: /tutorials/6-cosmjs/
+        href: /tutorials/7-cosmjs/
         description: |
           Want to integrate frontend user interfaces and backend servers with you Cosmos chain? Take a closer look at:
         links:
           - title: What is CosmJS?
-            path: /tutorials/6-cosmjs/1-cosmjs-intro.html
+            path: /tutorials/7-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
-            path: /tutorials/6-cosmjs/2-first-steps.html
+            path: /tutorials/7-cosmjs/2-first-steps.html
           - title: Compose complex transactions
-            path: /tutorials/6-cosmjs/3-multi-msg.html
+            path: /tutorials/7-cosmjs/3-multi-msg.html
           - title: Learn to integrate Keplr
-            path: /tutorials/6-cosmjs/4-with-keplr.html
+            path: /tutorials/7-cosmjs/4-with-keplr.html
           - title: Create custom CosmJS interfaces
-            path: /tutorials/6-cosmjs/5-create-custom.html
+            path: /tutorials/7-cosmjs/5-create-custom.html
       - image: /lp-images/planets-large.svg
         title: Understand SDK modules
-        href: /tutorials/7-understand-sdk-modules/
+        href: /tutorials/8-understand-sdk-modules/
         description: |
           Discover several tutorials on specific SDK modules:
         links:
           - title: The authz module
-            path: /tutorials/7-understand-sdk-modules/1-authz.html
+            path: /tutorials/8-understand-sdk-modules/1-authz.html
           - title: The feegrant module
-            path: /tutorials/7-understand-sdk-modules/2-feegrant.html
+            path: /tutorials/8-understand-sdk-modules/2-feegrant.html
           - title: The group module
-            path: /tutorials/7-understand-sdk-modules/3-group.html
+            path: /tutorials/8-understand-sdk-modules/3-group.html
+      - image: /universe.svg
+        title: The Path to Production
+        href: /tutorials/9-path-to-prod
+        description: |
+          Prepare your blockchain to run in production:
+        links:
+          - title: Overview
+            path: /tutorials/9-path-to-prod/1-overview.html
+          - title: Prepare the software
+            path: /tutorials/9-path-to-prod/2-software.html
+          - title: Prepare a validator and keys
+            path: /tutorials/9-path-to-prod/3-keys.html
+          - title: Prepare the node start
+            path: /tutorials/9-path-to-prod/4-genesis.html
+          - title: Prepare and connect to other nodes
+            path: /tutorials/9-path-to-prod/5-network.html
+          - title: Configure, run, and set up a service
+            path: /tutorials/9-path-to-prod/6-run
+          - title: Prepare and do migrations
+            path: /tutorials/9-path-to-prod/7-migration.html
   - title: Hands-on Exercise
     description: |
       From zero to hero - work with the full Cosmos stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -293,8 +320,8 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find correct moves
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
-          - title: Preparing to move into production
-            path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
+          - title: Play with cross-chain tokens
+            path: hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
       - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
@@ -311,54 +338,40 @@ customModules:
             path: /hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html
           - title: Use CosmJS for game indexing
             path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
+      - image: /lp-images/universe.svg
+        title: From Code to MVP to Production
+        href: /hands-on-exercise/4-run-in-prod/
+        description: |
+          Show your checkers blockchain to investors and progressively the world:
+        links:
+          - title: Simulate a production setup with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/2-ignite-cli-adv/9-migration.html
+            path: /hands-on-exercise/4-run-in-prod/2-migration.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
-        href: /hands-on-exercise/4-ibc-adv/
+        href: /hands-on-exercise/5-ibc-adv/
         description: |
           Test your IBC knowledge by developing your checkers blockchain further:
         links:
-          - title: Play with cross-chain tokens
-            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Relaying with IBC
-            path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
+            path: /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
           - title: Go relayer
-            path: /hands-on-exercise/4-ibc-adv/3-go-relayer.html
+            path: /hands-on-exercise/5-ibc-adv/3-go-relayer.html
           - title: Hermes relayer
-            path: /hands-on-exercise/4-ibc-adv/4-hermes-relayer.html
+            path: /hands-on-exercise/5-ibc-adv/4-hermes-relayer.html
           - title: IBC app development
-            path: /hands-on-exercise/4-ibc-adv/5-ibc-app-intro.html
+            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: Make a module IBC-enabled
-            path: /hands-on-exercise/4-ibc-adv/6-ibc-app-steps.html
+            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
           - title: Add packet and Acknowledgement data
-            path: /hands-on-exercise/4-ibc-adv/7-ibc-app-packets.html
+            path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: IBC middleware
-            path: /hands-on-exercise/4-ibc-adv/8-ibc-mw-intro.html
+            path: /hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.html
           - title: Create custom IBC middleware
-            path: /hands-on-exercise/4-ibc-adv/9-ibc-mw-develop.html
+            path: /hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.html
           - title: Integrate IBC middleware into a chain
-            path: /hands-on-exercise/4-ibc-adv/10-ibc-mw-integrate.html
-      - image: /lp-images/universe.svg
-        title: Run in Production
-        href: /hands-on-exercise/5-run-in-prod
-        description: |
-          Prepare your checkers blockchain to run in production:
-        links:
-          - title: Overview
-            path: /hands-on-exercise/5-run-in-prod/1-overview.html
-          - title: Prepare the software
-            path: /hands-on-exercise/5-run-in-prod/2-software.html
-          - title: Prepare a validator and keys
-            path: /hands-on-exercise/5-run-in-prod/3-keys.html
-          - title: Prepare the node start
-            path: /hands-on-exercise/5-run-in-prod/4-genesis.html
-          - title: Prepare and connect to other nodes
-            path: /hands-on-exercise/5-run-in-prod/5-network.html
-          - title: Configure, run, and set up a service
-            path: /hands-on-exercise/5-run-in-prod/6-run.html
-          - title: Prepare and do migrations
-            path: /hands-on-exercise/5-run-in-prod/7-migration.html
+            path: /hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.html
 ---
 
 This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).
