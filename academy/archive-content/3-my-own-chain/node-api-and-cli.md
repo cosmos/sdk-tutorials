@@ -20,7 +20,7 @@ There are different ways to run a node of a Cosmos blockchain. You will explore 
 
 Before you start working with `simapp`, take a look at what you are going to do:
 
-<YoutubePlayer videoId="qzUgh8mvyJE"/>
+<YoutubePlayer videoId="wNUjkp2PFQI"/>
 
 ## Compile `simapp`
 
