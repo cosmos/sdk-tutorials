@@ -67,6 +67,8 @@ Crossing hellos have been removed from ibc-go v4 onward, as referenced in [this 
 
 </HighlightBox>
 
+Similarly, there's also [callbacks for the closing of channels](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/05-port/types/module.go#L71-L81). However, it's up to the application developers to decide if it makes sense for users to be able to trigger the closing of a channel. For token transfers for example, this is not desirable due to the risk of locking liquidity on a closed channel, hence [why this feature has been disallowed in the canonical `transfer` module](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/ibc_module.go#L146-L153).
+
 ## Example code: ChannelOpenInit
 
 You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go)
