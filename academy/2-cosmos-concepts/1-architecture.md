@@ -52,7 +52,7 @@ Want to continue exploring this useful component of the Cosmos SDK? Find further
 
 ## Consensus in Tendermint Core and Cosmos
 
-The Tendermint Core is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://github.com/tendermint/tendermint). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM, or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the supported node become unreliable.
+The Tendermint Core is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://arxiv.org/abs/1807.04938). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM, or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the supported node become unreliable.
 
 Network participants are incentivized to stake their ATOM with nodes which are the most likely to provide dependable service, and to withdraw their support should those conditions change. A Cosmos blockchain is expected to adjust the validator configuration and continue even in adverse conditions.
 
@@ -441,4 +441,4 @@ The following sections will extend your comprehension of the Cosmos SDK and the 
 * If you need to handle validator lists during communication, Cosmos does this out of the box with [BaseApp](./8-base-app.md).
 * Do you want the player's GUI to easily reload any pending games, or let them know whether a move is valid or not? These are good uses of Cosmos SDK [queries](./9-queries.md).
 * If you want to use Tendermint to notify players when it's their turn, Cosmos SDK provides that option with [events](./10-events.md).
-* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./12-migrations.md).
+* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./13-migrations.md).

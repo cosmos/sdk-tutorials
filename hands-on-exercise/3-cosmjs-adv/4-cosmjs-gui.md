@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
@@ -633,7 +633,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutorials/6-cosmjs/4-with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutorials/7-cosmjs/4-with-keplr.md) section.
 
 </HighlightBox>
 
@@ -829,7 +829,7 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 
-    ![Checkers network in beta support list](//hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
+    ![Checkers network in beta support list](/hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
 
 3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 

@@ -37,7 +37,9 @@ While such bridges between blockchains can be built and do exist, they are gener
 
 <HighlightBox type="info">
 
-More details on the specifications will follow in the next section, but notice that IBC is not limited to Cosmos blockchains. Solutions can even be found for cases where some requirements are not initially met. An example of such a case is the use of IBC for Proof-of-Work (PoW) blockchains like Ethereum. As a PoW consensus algorithm does not ensure finality, one of the main requirements to use IBC is not met. Still, Ethereum-compatibility is enabled by creating a peg-zone where probabilistic finality is considered deterministic (irreversible) after a given threshold of block confirmations.
+More details on the specifications will follow in the next section, but notice that IBC is not limited to Cosmos blockchains. Solutions can even be found for cases where some requirements are not initially met. For example, IBC was already providing connectivity between Cosmos and the Ethereum blockchain before "the Merge", which saw Ethereum migrate from a Proof-of-Work (PoW) model to Proof-of-Stake (PoS).
+
+As a PoW consensus algorithm does not ensure finality, one of the main requirements to use IBC is not met. Therefore, compatibility with Ethereum was enabled by creating a peg-zone where probabilistic finality is considered deterministic (irreversible) after a given threshold of block confirmations. This solution can serve any IBC connection to a PoW blockchain.
 
 </HighlightBox>
 
@@ -83,6 +85,14 @@ Simply put, the transport layer includes:
 * **Ports** - [ICS-5](https://github.com/cosmos/ibc/tree/master/spec/core/ics-005-port-allocation): an IBC module can bind to any number of ports. Each port must be identified by a unique `portID`. The `portID` denotes the type of application, for example in fungible token transfers the `portID` is `transfer`.  
 
 While this background information is useful, IBC modules do not need to interact at all with these lower-level abstractions.
+
+<HighlightBox type="info">
+
+In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, explains how different blockchains can be connected with the Inter-Blockchain Communication (IBC) protocol, with a particular focus on light clients, connections, channels, and packet commitments.
+
+<YoutubePlayer videoId="zUVPkEzGJzA"/>
+
+</HighlightBox>
 
 ### IBC/APP - application layer
 
@@ -133,6 +143,14 @@ This is important because it ensures the IBC protocol remains secure even in Byz
 
 Note that this effect would only affect the network if all relayers were Byzantine. As relaying is permissionless, a simple fix would be to spin up a non-malicious relayer to relay packets with the correct proof. This fits the *security over liveness* philosophy that IBC and the wider Interchain ecosystem adopts.
 
+<HighlightBox type="info">
+
+In the following video Colin Axnér of Interchain, a core contributor to ibc-go in the Cosmos SDK, looks at the IBC packet lifecycle and the security properties of a light client.
+
+<YoutubePlayer videoId="X5mPQrCLLWE"/>
+
+</HighlightBox>
+
 ### Trust the chains, not the bridge
 
 IBC clients and transactions assume the trust model of the chains they are connected to. In order to represent this accurately in assets which have been passed through the Interchain, the information of the path that an asset has traveled (the security guarantee of the asset) is stored in the denomination of the asset itself. In the case that  the end user or an application does not trust a specific origin chain, they would be able to verify that their asset has not come from the untrusted chain simply by looking at the denomination of the asset, rather than referring to the validator set of a bridge or some other trusted third party verifier.
@@ -141,7 +159,7 @@ IBC clients and transactions assume the trust model of the chains they are conne
 
 All tokens transferred over a particular channel will be assigned the same denomination as other tokens flowing over the channel, but a different one than the same assets between the same chains would have if they were sent across a different channel. The IBC denom looks like `ibc/<hash of the channel-id & port-id>`.
 <br/><br/>
-You can find more detailed information in the tutorial on [IBC denoms](/tutorials/5-ibc-dev/).
+You can find more detailed information in the tutorial on [IBC denoms](/tutorials/6-ibc-dev/).
 
 </HighlightBox>
 
@@ -201,6 +219,15 @@ Do you have access to an existing chain?
 </ExpansionPanel>
 
 The most straightforward way to use IBC is to build a chain with the Cosmos SDK, which already includes the IBC module - as you can see when examining the [IBC-Go repository](https://github.com/cosmos/ibc-go). The IBC module supports an out-of-the-box Tendermint light client. Other implementations are possible but may require further development of the necessary components; go to the [IBC website](https://ibcprotocol.org/implementations) to see which implementations are available in production or are being developed.
+
+<HighlightBox type="info">
+
+If you're interested in another detailed overview of the IBC protocol, in the following video Callum Waters, Engineering Manager for the Tendermind Core, gives a talk on the methodology allowing interoperability between countless sovereign blockchains and how to build an IBC-compatible app.
+
+<YoutubePlayer videoId="OSMH5uwTssk"/>
+
+</HighlightBox>
+
 
 <HighlightBox type="synopsis">
 

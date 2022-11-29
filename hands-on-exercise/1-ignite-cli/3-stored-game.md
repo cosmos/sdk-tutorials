@@ -168,7 +168,7 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     * `index` is the id field picked, and anyway is the default name when scaffolding a map. `id` cannot be chosen when scaffolding with Ignite.
     * `--no-message` prevents game objects from being created or overwritten with a simple `sdk.Msg`. The application instead creates and updates the objects when receiving properly crafted messages like [_create game_](./4-create-message.md) or [_play a move_](./6-play-game.md).
 
-The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/d5a93bf) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/4249ce1).
+The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/d5a93bf) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/8679295).
 
 ### Looking around
 
