@@ -422,9 +422,13 @@ func main() {
 
 Pointers are important.
 
-## Rob demonstrates Go functions and methods on play.golang.org
+<HighlightBox type="info">
 
-<YoutubePlayer videoId="Dt7GZZaxN00"/>
+This video provides a simple demonstration of functional programming in Golang, to clarify how functions interact to produce particular results.
+
+<YoutubePlayer videoId="kaUULN0V4Gs"/>
+
+</HighlightBox>
 
 <HighlightBox type="reading">
 

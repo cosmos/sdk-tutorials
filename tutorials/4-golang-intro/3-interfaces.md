@@ -144,9 +144,13 @@ A benchmark function has the syntax `BenchXXX`.
 
 Use `go test -help` to see what you need to run benchmarks.
 
-## Rob demonstrates Go interfaces
+<HighlightBox type="info">
 
-<YoutubePlayer videoId="dnOCJApbJB8"/>
+This video provides a quick demonstration of working with interfaces in Golang.
+
+<YoutubePlayer videoId="F3k9lGOuLnw"/>
+
+</HighlightBox>
 
 <HighlightBox type="reading">
 

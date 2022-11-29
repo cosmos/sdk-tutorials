@@ -77,7 +77,13 @@ As promising as this sounds, the technology is **not without limitations**. Chie
 
 The Cosmos SDK enables the creation of application-specific blockchains. That is to say that Cosmos blockchains do not need smart contracts because application-level concerns are defined at the protocol level. This offers developers the possibility of enabling transactions with complexity far above what is possible on general-purpose blockchains. Because Cosmos chains can interact with other public networks like Ethereum through the Inter-Blockchain Communication Protocol (IBC), Cosmos blockchains can also be used to offload processes that are either too complex or too expensive to run on other networks.
 
-<YoutubePlayer videoId="Za5lPKNV_Mk"/>
+<HighlightBox type="info">
+
+Blockchain technology changes fast, but the basics are here to stay. This video provides a quick introduction to the basic concepts that underpin blockchain, including how data is encoded in transactions and added to a block, and how blocks and transactions spread through a network.
+
+<YoutubePlayer videoId="s1ZUe7aBAE4"/>
+
+</HighlightBox>
 
 ## Managed blockchain networks
 
