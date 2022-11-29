@@ -46,18 +46,9 @@ overview:
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6 AM UTC and 4 PM UTC. We do not provide support during the weekends.<br/><br/>
         Click <a href="/ida-course/discord-info.html">here</a> to learn how to join and use Discord.<br/><br/>
         You will get detailed information on how to join and use Discord via email.
-    - title: How do I access Discord?
-      description: |
-        Follow these two steps to join the private Academy channels on Discord:<br/><br/>
-        1. Join the <a href="https://discord.gg/cosmosnetwork" target="_blank">official Cosmos Discord</a>.<br/><br/>
-        2. Follow the verification process. It is straightforward but if you need guidance, read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839" target="_blank">this article</a>.<br/><br/>
-        3. After joining the Discord server, go to <a href="https://academy.cosmos.network/onboarding/" target="_blank">academy.cosmos.network/onboarding</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
-        If you have any problems, email us at <a href="mailto:academy@interchain.io">academy@interchain.io</a>.<br/><br/>
-        We have put together a <a href="/ida-course/discord-info.html">quick guide explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program (7+2 weeks due to holiday break), you will have four weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>February 2nd, 2023</b> and you have to complete it by <b>March 2nd, 2023</b>.<br/><br/>
-
         You will receive an email and notification via Discord closer to the date.<br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
         You will receive an email with further instructions on how to launch the exam request.<br/><br/>
