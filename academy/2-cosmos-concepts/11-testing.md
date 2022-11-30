@@ -65,7 +65,7 @@ In a well-designed testing environment, providing such fully-fledged dependencie
 
 This is why, to minimize correlations, from version 0.47 of the Cosmos SDK on each module exposes functions to provide a minimal viable module. This way, your module only knows how to instantiate itself given fully-fledged dependencies, the _inputs_. An added benefit is that your module exposes explicitly the inputs it needs to instantiate.
 
-Your integration tests start by creating an app that instantiates the list of explicitly defined inputs required. For instance, when creating a minimal-viable app to integration-test the bank module, no slashing module is provisioned, as slashing is a side concern instead of a dependency. Of course, each module requires a different minimal-viable app. To facilitate the creation of such an app and therefore, of integration tests, the Cosmos SDK team has also developed an in-house dependency injection.
+Your integration tests start by creating an app that instantiates the list of explicitly defined inputs required. For instance, when creating a minimum-viable app to integration-test the bank module, no slashing module is provisioned, as slashing is a side concern instead of a dependency. Of course, each module requires a different minimum-viable app. To facilitate the creation of such an app and therefore, of integration tests, the Cosmos SDK team has also developed an in-house dependency injection.
 
 To fit in the context of Go testing, modules provide testing suites that encapsulate the test instantiations.
 
