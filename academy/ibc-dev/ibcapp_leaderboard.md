@@ -169,7 +169,7 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
 
     // Here we can fetch the PlayerInfo and update the board
     playerInfoList := k.GetAllPlayerInfo(ctx)
-    k.updateBoard(ctx, playerInfoList)
+    k.UpdateBoard(ctx, playerInfoList)
 
     return packetAck, nil
 }
