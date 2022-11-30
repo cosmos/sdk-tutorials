@@ -57,7 +57,7 @@ Integration tests are one step wider in scope. They are still focused on your mo
 
 <HighlightBox type="info">
 
-A minimal-viable application contains your module and all its dependencies, as well as their dependencies, but nothing more.
+A minimum-viable application contains your module and all its dependencies, as well as their dependencies, but nothing more.
 
 </HighlightBox>
 
