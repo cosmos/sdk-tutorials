@@ -94,7 +94,7 @@ Now your leaderboard chain can receive player information from chains with the l
 
 There are two places where you can call for an update on the board structure: in the `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard; or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain, like you did for the checkers chain. 
 
-Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in the `OnRecvCandidatePacket`. First you need to create some helper functions in `x/leaderboard/keeper/board.go`, therefore you can use the same file as in the checkers extension:
+Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in the `OnRecvCandidatePacket`. You need to create some helper functions in `x/leaderboard/keeper/board.go` and to adjust the `updateBoard` function.
 
 
 ```golang
