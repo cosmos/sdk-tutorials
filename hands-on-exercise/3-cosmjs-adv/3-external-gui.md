@@ -4,8 +4,6 @@ order: 4
 description: Find a checkers GUI before integrating with CosmJS
 tags: 
   - guided-coding
-  - cosmos-sdk
-  - cosm-js
 ---
 
 # Get an External GUI

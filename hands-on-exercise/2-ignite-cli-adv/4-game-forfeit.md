@@ -410,7 +410,12 @@ $ ignite chain serve --reset-once
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve --reset-once
 ```
 
 </CodeGroupItem>
@@ -462,7 +467,8 @@ $ checkersd tx checkers create-game $alice $bob --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
 ```
 
 </CodeGroupItem>
@@ -489,8 +495,10 @@ $ checkersd tx checkers play-move 2 1 2 2 3 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
-$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 1 2 2 3 --from $alice
 ```
 
 </CodeGroupItem>
@@ -518,9 +526,12 @@ $ checkersd tx checkers play-move 3 0 5 1 4 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 3 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 3 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 3 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 3 0 5 1 4 --from $bob
 ```
 
 </CodeGroupItem>
@@ -550,7 +561,8 @@ $ checkersd tx checkers create-game --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game --help
+$ docker exec -it checkers \
+    checkersd tx checkers create-game --help
 ```
 
 </CodeGroupItem>
@@ -572,7 +584,8 @@ $ checkersd query account $alice --output json | jq -r '.sequence'
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query account $alice --output json | jq -r '.sequence'"
+$ docker exec -it checkers \
+    bash -c "checkersd query account $alice --output json | jq -r '.sequence'"
 ```
 
 </CodeGroupItem>
@@ -602,7 +615,8 @@ $ checkersd query checkers list-stored-game
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers list-stored-game
+$ docker exec -it checkers \
+    checkersd query checkers list-stored-game
 ```
 
 </CodeGroupItem>
@@ -624,7 +638,8 @@ $ checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.wi
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.winner'"
+$ docker exec -it checkers \
+    bash -c "checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.winner'"
 ```
 
 </CodeGroupItem>
@@ -652,7 +667,8 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>

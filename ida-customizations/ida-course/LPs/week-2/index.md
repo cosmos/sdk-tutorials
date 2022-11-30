@@ -44,7 +44,7 @@ Do not worry if you do not pass the exercise: it is simply meant to be an opport
 <br/>
 You can watch the recordings of the live session: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK, in case you want to recap or could not join the session:
 
-<YoutubePlayer videoId="xE_nSdwls90"/>
+<YoutubePlayer videoId="G6QUIUwYaSU"/>
 
 <br/>
 

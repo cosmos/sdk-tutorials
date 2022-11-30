@@ -76,7 +76,9 @@ Ignite CLI can create the message and the response objects with a single command
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint --module checkers --response capturedX:int,capturedY:int,winner
+$ ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint \
+    --module checkers \
+    --response capturedX:int,capturedY:int,winner
 ```
 
 </CodeGroupItem>
@@ -84,7 +86,13 @@ $ ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint --module checkers --response capturedX:int,capturedY:int,winner
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite scaffold message playMove gameIndex fromX:uint fromY:uint toX:uint toY:uint \
+    --module checkers \
+    --response capturedX:int,capturedY:int,winner
 ```
 
 </CodeGroupItem>
@@ -316,7 +324,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -340,7 +352,12 @@ $ ignite chain serve
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve
 ```
 
 </CodeGroupItem>
@@ -364,7 +381,8 @@ $ checkersd tx checkers play-move --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move --help
+$ docker exec -it checkers \
+    checkersd tx checkers play-move --help
 ```
 
 </CodeGroupItem>
@@ -402,13 +420,14 @@ $ checkersd tx checkers play-move 1 0 5 1 4 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob
-                                                           ^ ^ ^ ^ ^
-                                                           | | | | To Y
-                                                           | | | To X
-                                                           | | From Y
-                                                           | From X
-                                                           Game id
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 0 5 1 4 --from $bob
+                                    ^ ^ ^ ^ ^
+                                    | | | | To Y
+                                    | | | To X
+                                    | | From Y
+                                    | From X
+                                    Game id
 ```
 
 </CodeGroupItem>
@@ -442,7 +461,8 @@ $ checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
+$ docker exec -it checkers \
+    checkersd query tx D10BB8A706870F65F19E4DF48FB870E4B7D55AF4232AE0F6897C23466FF7871B
 ```
 
 </CodeGroupItem>
@@ -474,7 +494,8 @@ $ checkersd tx checkers play-move 1 1 0 0 1 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 0 0 1 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 0 0 1 --from $alice
 ```
 
 </CodeGroupItem>
@@ -506,7 +527,8 @@ $ checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
 ```
 
 </CodeGroupItem>
@@ -535,7 +557,8 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.bo
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
+$ docker exec -it checkers \
+    bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
 ```
 
 </CodeGroupItem>

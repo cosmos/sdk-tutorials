@@ -1,6 +1,6 @@
 ---
 title: "Migrations"
-order: 13
+order: 14
 description: How to handle on-chain upgrades
 tags: 
   - concepts
@@ -371,4 +371,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./13-bridges.md) to discover bridges in the Cosmos SDK.-->
+You are now up-to-date on migrations. Look at the above code samples, or go to the [next section](./14-bridges.md) to discover bridges in the Cosmos SDK.-->

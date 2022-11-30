@@ -70,7 +70,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -195,9 +199,9 @@ require.EqualValues(t, types.StoredGame{
 }, game1)
 ```
 
-This `"*"` means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `msg_server_play_move_winner_test.go` file, prepare all the moves that will be played in the test. For convenience, a move will be written as:
+This `"*"` means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `full_game_helpers.go` file, prepare all the moves that will be played in the test. For convenience, a move will be written as:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L11-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L11-L17]
 type GameMoveTest struct {
     player string
     fromX  uint64
@@ -209,9 +213,9 @@ type GameMoveTest struct {
 
 If you do not want to create a complete game yourself, you can choose this one:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L19-L63]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L19-L63]
 var (
-    game1Moves = []GameMoveTest{
+    Game1Moves = []GameMoveTest{
         {"b", 1, 2, 2, 3}, // "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*"
         {"r", 0, 5, 1, 4}, // "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|*r******|**r*r*r*|*r*r*r*r|r*r*r*r*"
         {"b", 2, 3, 0, 5}, // "*b*b*b*b|b*b*b*b*|***b*b*b|********|********|b*r*r*r*|*r*r*r*r|r*r*r*r*"
@@ -224,22 +228,22 @@ var (
 
 You may want to add a small function that converts `"b"` and `"r"` into their respective player addresses:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L66-L71]
-func getPlayer(color string) string {
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L65-L70]
+func GetPlayer(color string) string {
     if color == "b" {
-        return bob
+        return Bob
     }
-    return carol
+    return Carol
 }
 ```
 
 And another that applies all the moves. This could become handy if you have multiple games in the future:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L73-L85]
-func playAllMoves(t *testing.T, msgServer types.MsgServer, context context.Context, gameIndex string, moves []GameMoveTest) {
-    for _, move := range game1Moves {
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L72-L84]
+func PlayAllMoves(t *testing.T, msgServer types.MsgServer, context context.Context, gameIndex string, moves []GameMoveTest) {
+    for _, move := range Game1Moves {
         _, err := msgServer.PlayMove(context, &types.MsgPlayMove{
-            Creator:   getPlayer(move.player),
+            Creator:   GetPlayer(move.player),
             GameIndex: gameIndex,
             FromX:     move.fromX,
             FromY:     move.fromY,
@@ -251,14 +255,14 @@ func playAllMoves(t *testing.T, msgServer types.MsgServer, context context.Conte
 }
 ```
 
-Now create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
+Now, in a new file, create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L87-L127]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L12-L52]
 func TestPlayMoveUpToWinner(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
 
     systemInfo, found := keeper.GetSystemInfo(ctx)
     require.True(t, found)
@@ -276,7 +280,7 @@ func TestPlayMoveUpToWinner(t *testing.T) {
         Turn:        "b",
         Black:       bob,
         Red:         carol,
-        MoveCount:   uint64(len(game1Moves)),
+        MoveCount:   uint64(len(testutil.Game1Moves)),
         BeforeIndex: "-1",
         AfterIndex:  "-1",
         Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
@@ -293,7 +297,7 @@ func TestPlayMoveUpToWinner(t *testing.T) {
         {Key: "captured-y", Value: "5"},
         {Key: "winner", Value: "b"},
         {Key: "board", Value: "*b*b****|**b*b***|*****b**|********|***B****|********|*****b**|********"},
-    }, event.Attributes[(len(game1Moves)-1)*6:])
+    }, event.Attributes[(len(testutil.Game1Moves)-1)*6:])
 }
 ```
 
@@ -322,7 +326,12 @@ $ ignite chain serve --reset-once
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve --reset-once
 ```
 
 </CodeGroupItem>
@@ -347,8 +356,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -379,8 +390,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>

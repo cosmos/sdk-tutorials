@@ -424,7 +424,7 @@ Pointers are important.
 
 ## Rob demonstrates Go functions and methods on play.golang.org
 
-<YoutubePlayer videoId="Dt7GZZaxN00"/>
+<YoutubePlayer videoId="kaUULN0V4Gs"/>
 
 <HighlightBox type="reading">
 

@@ -17,7 +17,7 @@ You have prepared your machine to be part of the upcoming network. Now it is tim
 
 ## Configuration
 
-Start by putting `myprojectd` into `/usr/local/bin`, or whichever path you put your executables. Confirm it works with:
+Start by putting `myprojectd` into `/usr/local/bin`, or into whichever path you put your executables. Confirm it works with:
 
 ```sh
 $ myprojectd version
@@ -109,6 +109,8 @@ Now that you have a running network, you may consider coming back to it and try 
 * See what [other projects](https://github.com/cosmos/awesome-cosmos) can benefit you.
 
 This is just an extract of the different customizations that are available to you. For more ideas, peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
+
+When your network has been running sufficiently to be considered "established", your next steps are to advertise it and facilitate its eventual integration within the ecosystem. A good way to achieve this is to open a pull request on the [chain registry repository](https://github.com/cosmos/chain-registry) with `chain.json` and `assetlist.json` files that describe your chain in a systematic way. Make sure that your JSON files follow the given schemas, for instance by checking with this [online validator](https://www.jsonschemavalidator.net).
 
 <HighlightBox type="synopsis">
 

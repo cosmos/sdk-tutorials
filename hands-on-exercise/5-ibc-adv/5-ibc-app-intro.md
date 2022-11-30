@@ -10,7 +10,7 @@ tags:
 
 # IBC Application Developer Introduction
 
-You might have already dived into [how to create custom SDK modules](/tutorials/7-understand-sdk-modules/index.md). Additionally, you had an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), the ibc-go module in the SDK, and how to [spin up a relayer to send IBC packets](/hands-on-exercise/4-ibc-adv/2-relayer-intro.md).
+You might have already dived into [how to create custom SDK modules](/tutorials/8-understand-sdk-modules/index.md). Additionally, you had an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), the ibc-go module in the SDK, and how to [spin up a relayer to send IBC packets](/hands-on-exercise/5-ibc-adv/2-relayer-intro.md).
 
 Remember the separation of concerns in the Inter-Blockchain Communication Protocol (IBC) between the transport layer (IBC/TAO) and the application layer (IBC/APP). The transport layer provides the basic infrastructure layer to _transport_, _authenticate_, and _order_ arbitrary packets of data. The encoding, decoding, and interpretation of the data to trigger the custom application logic is then up to the application layer. The examples of token transfer sent over IBC implicitly used the ICS-20 or _transfer_ IBC application module provided by the **ibc-go** SDK module (which also provides the core transport layer functionality).
 
