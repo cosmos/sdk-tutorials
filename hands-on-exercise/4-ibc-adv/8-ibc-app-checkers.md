@@ -10,6 +10,19 @@ tags:
 
 # Extend the Checkers Game With a Leaderboard
 
+<HighlightBox type="learning">
+
+In this section, you will learn:
+
+* How to make an existing chain IBC-enabled.
+* How to extend your chains with additional modules.
+
+</<HighlightBox>
+
+Currently, your checkers game contains the checkers module but is not IBC-enabled. It is now time to extend your checkers game with a leaderboard by adding a new module to make it IBC-enabled.
+
+Let’s dive right into it.
+
 Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
 
 In the checkers chain folder, you can scaffold a leaderboard module with Ignite:
@@ -373,7 +386,7 @@ That is it! Now the checkers blockchain can keep track of player information, an
 
 ### Forwarding player information via IBC
 
-It is time to look at how you can forward the player information via the Inter-Blockchain Communication Protocol (IBC).
+It is time to look at how you can forward the player information via IBC.
 
 <HighlightBox type="remember">
 
