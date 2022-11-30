@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Thus, you could expand the pool of your potential players by extending the pool of possible wager denominations via the use of IBC. How can you do this?
 

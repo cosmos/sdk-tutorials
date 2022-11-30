@@ -745,7 +745,7 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
 
 ## Interact via the CLI
 

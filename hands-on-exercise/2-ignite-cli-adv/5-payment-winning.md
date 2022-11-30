@@ -1,21 +1,21 @@
 ---
-title: "Let Players Set a Wager"
+title: "Handle Wager Payments"
 order: 6
-description: Token - players set a wager
-tags: 
+description: Token - wagers go around
+tags:
   - guided-coding
   - cosmos-sdk
 ---
 
-# Let Players Set a Wager
+# Handle Wager Payments
 
 <HighlightBox type="prerequisite">
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md), [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md), and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
+* You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md) and [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to game expiry handling. If not, follow the [previous steps](./4-game-forfeit.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/forfeit-game).
+* You have the checkers blockchain codebase up to the game wager. If not, follow the [previous steps](./4-game-wager.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
 </HighlightBox>
 
@@ -23,7 +23,6 @@ Make sure you have everything you need before proceeding:
 
 In this section, you will:
 
-* Add wagers.
 * Work with the Bank module.
 * Handle money.
 * Use mocks.
@@ -31,25 +30,24 @@ In this section, you will:
 
 </HighlightBox>
 
-With the introduction of game expiry in the [previous section](./4-game-forfeit.md) and other features, you have now addressed the cases when two players start a game and finish it, or let it expire.
+In the [previous section](./4-game-wager.md), you introduced the wager. On its own, having a `Wager` field is just a piece of information, it does not transfer tokens just by existing.
 
-In this section, you will add an extra layer to a game, with wagers or stakes. Your application already includes all the necessary modules. This section relies on the `bank` module in particular.
-
-Players choose to wager _money_ or not, and the winner gets both wagers. The forfeiter loses their wager. To reduce complexity, start by letting players wager in the staking token of your application.
-
-Now that no games can be left stranded, it is possible for players to safely wager on their games. How could this be implemented?
+Transferring tokens is what this section is about.
 
 ## Some initial thoughts
 
 When thinking about implementing a wager on games, ask:
 
-* What form will a wager take?
-* Who decides on the amount of wagers?
-* Where is a wager recorded?
 * Is there any desirable atomicity of actions?
 * At what junctures do you need to handle payments, refunds, and wins?
 * Are there errors to report back?
 * What event should you emit?
+
+In the case of this example, you can consider that:
+
+* Although a game creator can decide on a wager, it should only be the holder of the tokens that can decide when they are being taken from their balance.
+* You might think of adding a new message type, one that indicates that a player puts its wager in escrow. On the other hand, you can leverage the existing messages and consider that when a player makes their first move, this expresses a willingness to participate, and therefore the tokens can be transferred at this juncture.
+* For wins and losses, it is easy to imagine that the code handles the payout at the time a game is resolved.
 
 ## Code needs
 
@@ -62,144 +60,24 @@ When it comes to your code:
 * Are unit tests sufficient here?
 * How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
-## New information
+Here are some elements of response:
 
-Add this wager value to the `StoredGame`'s Protobuf definition:
+* Your module needs to call the bank to tell it to move tokens.
+* Your module needs to be allowed by the bank to keep tokens in escrow.
+* How would you test your module when it has such dependencies on the bank?
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/stored_game.proto#L17]
-message StoredGame {
-    ...
-    uint64 wager = 11;
-}
-```
+## What is to be done
 
-You can let players choose the wager they want by adding a dedicated field in the message to create a game, in `proto/checkers/tx.proto`:
+A lot is to be done. In order you will:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/tx.proto#L20]
-message MsgCreateGame {
-    ...
-    uint64 wager = 4;
-}
-```
-
-Have Ignite CLI and Protobuf recompile these two files:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ ignite generate proto-go
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
-    checkers_i \
-    ignite generate proto-go
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-Now add a helper function to `StoredGame` using the Cosmos SDK `Coin` in `full_game.go`:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/full_game.go#L68-L70]
-func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
-    return sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(int64(storedGame.Wager)))
-}
-```
-
-This encapsulates information about the wager (where `sdk.DefaultBondDenom` is most likely `"stake"`).
-
-## Saving the wager
-
-Time to ensure that the new field is saved in the storage and it is part of the creation event.
-
-1. Define a new event key as a constant:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/keys.go#L36]
-    const (
-        GameCreatedEventWager = "wager"
-    )
-    ```
-
-2. Set the actual value in the new `StoredGame` as it is instantiated in the create game handler:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L33]
-    storedGame := types.StoredGame{
-        ...
-        Wager: msg.Wager,
-    }
-    ```
-
-3. And in the event:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L52]
-    ctx.EventManager().EmitEvent(
-        sdk.NewEvent(sdk.EventTypeMessage,
-            ...
-            sdk.NewAttribute(types.GameCreatedEventWager, strconv.FormatUint(msg.Wager, 10)),
-        )
-    )
-    ```
-
-4. Modify the constructor among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go` to avoid surprises:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/message_create_game.go#L12-L19]
-    func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
-        return &MsgCreateGame{
-            ...
-            Wager: wager,
-        }
-    }
-    ```
-
-5. Adjust the CLI client accordingly:
-
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/client/cli/tx_create_game.go#L17-L38]
-    func CmdCreateGame() *cobra.Command {
-        cmd := &cobra.Command{
-            Use:   "create-game [black] [red] [wager]",
-            Short: "Broadcast message createGame",
-            Args:  cobra.ExactArgs(3),
-            RunE: func(cmd *cobra.Command, args []string) (err error) {
-                argBlack := args[0]
-                argRed := args[1]
-                argWager, err := strconv.ParseUint(args[2], 10, 64)
-                if err != nil {
-                    return err
-                }
-
-                clientCtx, err := client.GetClientTxContext(cmd)
-                if err != nil {
-                    return err
-                }
-
-                msg := types.NewMsgCreateGame(
-                    clientCtx.GetFromAddress().String(),
-                    argBlack,
-                    argRed,
-                    argWager,
-                )
-                if err := msg.ValidateBasic(); err != nil {
-                    return err
-                }
-                return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-            },
-        }
-
-        flags.AddTxFlagsToCmd(cmd)
-
-        return cmd
-    }
-    ```
+* Make it possible for your checkers module to call certain functions of the bank to transfer tokens.
+* Tell the bank to allow your checkers module to hold tokens in escrow.
+* Create helper functions that encapsulate some knowledge about when and how to transfer tokens.
+* Use these helper functions at the right places in your code.
+* Update your unit tests and make use of mocks for that. You will create the mocks, create helper functions and use all that.
+* Prepare your code to accept integration tests.
+* Create helper functions that will make your integration tests more succinct.
+* Add integration tests that create a full app and test proper token bank balances.
 
 ## Declaring expectations
 
@@ -213,7 +91,7 @@ The only way to have access to a capability with the object-capability model of 
 
 Payment handling is implemented by having your keeper hold wagers **in escrow** while the game is being played. The `bank` module has functions to transfer tokens from any account to your module and vice-versa.
 
-Alternatively, your keeper could burn tokens when playing and mint them again when paying out. However, this makes your blockchain's total supply _falsely_ fluctuate. Additionally, this burning and minting may prove questionable when you later introduce IBC tokens.
+Alternatively, your keeper could burn tokens instead of keeping them in escrow and mint them again when paying out. However, this makes your blockchain's total supply _falsely_ fluctuate. Additionally, this burning and minting may prove questionable when you later introduce IBC tokens.
 
 <HighlightBox type="best-practice">
 
@@ -371,7 +249,11 @@ Now set up collecting a wager, paying winnings, and refunding a wager:
     }
     ```
 
-    You double the wager only if the red player has also played and therefore both players have paid their wagers. Then pay the winner:
+    You double the wager only if the red player has also played and therefore both players have paid their wagers.
+    
+    If you did this wrongly, you could end up in a situation where a game with a single move pays out as if both players had played. This would be a serious bug that an attacker could exploit to drain your module's escrow fund.
+    
+    Then pay the winner:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler.go#L50-L53]
     err = k.bank.SendCoinsFromModuleToAccount(ctx, types.ModuleName, winnerAddress, sdk.NewCoins(winnings))
@@ -460,7 +342,9 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 ## Unit tests
 
-If you try running your existing tests you get a compilation error on the [test keeper builder](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L39-L44). Passing `nil` will not get you far and creating a full-fledged bank keeper would be a lot of work.
+If you try running your existing tests you get a compilation error on the [test keeper builder](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L44-L49). Passing `nil` would not get you far with the tests and creating a full-fledged bank keeper would be a lot of work and not a unit test. See the integration tests below for that.
+
+Instead, you create mocks and use them in unit tests, not only to get the existing tests to pass, but also to verify that the bank is called as expected.
 
 ### Prepare mocks
 
@@ -830,7 +714,7 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
 
 Now that the wager handling has been convincingly tested, you want to confirm that its functions are called at the right junctures. Add dedicated tests with message servers that confirm how the bank is called. Add them in existing files, for instance:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_play_move_winner_test.go#L132-L140]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_play_move_winner_test.go#L57-L65]
 func TestPlayMoveUpToWinnerCalledBank(t *testing.T) {
     msgServer, _, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
     defer ctrl.Finish()
@@ -838,7 +722,7 @@ func TestPlayMoveUpToWinnerCalledBank(t *testing.T) {
     payCarol := escrow.ExpectPay(context, carol, 45).Times(1).After(payBob)
     escrow.ExpectRefund(context, bob, 90).Times(1).After(payCarol)
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    playAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
 }
 ```
 
@@ -1064,8 +948,8 @@ Your upcoming integration tests will include checks on wagers being paid, lost, 
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L19-L28]
     import (
-        "github.com/b9lab/checkers/x/checkers/testutil"
-    )
+        "github.com/alice/checkers/x/checkers/testutil"
+    ) 
 
     const (
         alice = testutil.Alice
@@ -1126,7 +1010,7 @@ With the preparation done, what does an integration test method look like?
 
 ### Anatomy of an integration suite test
 
-Now you must add integration tests for your keeper in new files. What does an integration test look like? Take the example of a [simple unit test](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_create_game_test.go#L41-L72) ported to the integration test suite:
+Now you must add integration tests for your keeper in new files. What does an integration test look like? Take the example of a [simple unit test](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/msg_server_create_game_test.go#L35-L66) ported to the integration test suite:
 
 1. The method has a declaration:
 
@@ -1152,7 +1036,7 @@ Now you must add integration tests for your keeper in new files. What does an in
         Black:   carol,
         Wager:   45,
     })
-	keeper := suite.app.CheckersKeeper
+    keeper := suite.app.CheckersKeeper
     ```
 
 4. The **verification** is done with `suite.Require().X`, but otherwise looks similar to the shorter `require.X` of unit tests:
@@ -1212,7 +1096,7 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 * [Creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_create_game_test.go#L42-L59).
 * [Playing the first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L56-L75), [the second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L209-L236), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L308-L315). You can also [check the events](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L129-L164).
-* Failing to play a game because of a failure to pay the wager on the [first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L104-L127) and the [second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L238-L2689).
+* Failing to play a game because of a failure to pay the wager on the [first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L104-L127) and the [second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_play_move_test.go#L238-L269).
 * [Rejecting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_reject_game_test.go#L30-L41), including when [there have been moves played](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/msg_server_reject_game_test.go#L56-L79).
 * [Forfeiting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/end_block_server_game_test.go#L10-L30), including when [there has been one move played](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/end_block_server_game_test.go#L32-L60) or [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/tests/integration/checkers/keeper/end_block_server_game_test.go#L185-L222).
 
@@ -1220,7 +1104,7 @@ How you subdivide your tests and where you insert these balance checks is up to 
 
 With the new tests, you may think that the events are compromised. For instance, the event type `"transfer"` normally comes with three attributes, but when the bank has made two transfers the `"transfer"` event ends up with 6 attributes. This is just the way events are organized: per type, with the attributes piled in.
 
-When checking emitted events, you need to skip over the attributes you are not checking. You can easily achieve that with [Go slices](https://go.dev/tour/moretypes/7).
+When checking emitted events, you need to skip over the attributes you are not checking. You can easily achieve that with [Go slices](/tutorials/4-golang-intro/5-arrays.md).
 
 For instance, here `transferEvent.Attributes[6:]` discards the first six attributes:
 
@@ -1262,7 +1146,7 @@ You learned in a [previous section](/hands-on-exercise/1-ignite-cli/3-stored-gam
 
 With the tests done, see what happens at the command-line.
 
-Keep the game expiry at 5 minutes to be able to test a forfeit, as done in the [previous section](./4-game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.
+Keep the game expiry at 5 minutes to be able to test a forfeit, as done in a [previous section](./4-game-forfeit.md). Now, you need to check balances after relevant steps to test that wagers are being withheld and paid.
 
 How much do Alice and Bob have to start with?
 
@@ -1311,6 +1195,8 @@ balances:
   total: "0"
 ```
 
+### A game that expires
+
 Create a game on which the wager will be refunded because the player playing `red` did not join:
 
 <CodeGroup>
@@ -1333,13 +1219,6 @@ $ docker exec -it checkers \
 </CodeGroupItem>
 
 </CodeGroup>
-
-Which mentions the wager:
-
-```txt
-...
-raw_log: '[{"events":[{"type":"message","attributes":[{"key":"action","value":"create_game"}]},{"type":"new-game-created","attributes":[{"key":"creator","value":"cosmos1yysy889jzf4kgd84mf6649gt6024x6upzs6pde"},{"key":"game-index","value":"1"},{"key":"black","value":"cosmos1yysy889jzf4kgd84mf6649gt6024x6upzs6pde"},{"key":"red","value":"cosmos1ktgz57udyk4sprkpm5m6znuhsm904l0een8k6y"},{"key":"wager","value":"1000000"}]}]}]'
-```
 
 Confirm that the balances of both Alice and Bob are unchanged - as they have not played yet.
 
@@ -1444,6 +1323,8 @@ pagination:
   total: "0"
 ```
 
+### A game played twice
+
 Now create a game in which both players only play once each, i.e. where the player playing `black` forfeits:
 
 <CodeGroup>
@@ -1523,9 +1404,7 @@ It would be difficult to test by CLI when there is a winner after a full game. T
 
 To summarize, this section has explored:
 
-* How to work with the Bank module and handle players making wagers on games, now that the application supports live games playing to completion (with the winner claiming both wagers) or expiring through inactivity (with the inactive player forfeiting their wager as if losing), and no possibility of staked value being stranded in inactive games.
-* How to add the new "wager" value, modify the "create a game" message, and add a helper function to allow players to choose the wager they want to make.
-* How to save the wager by defining a new event key, modifying the create game handler and the event to set the wager value, and modifying the constructor in the `MsgCreateGame` interface definition.
+* How to work with the Bank module and handle players making wagers on games, now that the application supports live games playing to completion (with the winner claiming both wagers) or expiring through inactivity (with the inactive player forfeiting their wager as if losing), and no possibility of withheld value being stranded in inactive games.
 * How to add handling actions which ask the `bank` module to perform the token transfers required by the wager, and where to invoke them in the message handlers.
 * How to create a new wager-handling file with functions to collect a wager, refund a wager, and pay winnings, in which `must` prefixes indicate either a user-side error (leading to a failed transaction) or a failure of the application's escrow account (requiring the whole application be terminated).
 * How to run integration tests, which requires you to first build a proper bank keeper, create new helpers, refactor your existing keeper tests, account for the new events being emitted from the bank, and add extra checks of money handling.

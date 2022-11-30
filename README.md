@@ -314,8 +314,10 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
           - title: Including auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
-          - title: Allowing wagers
-            path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
+          - title: Including a wager
+            path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
+          - title: Handling wager payments
+            path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
           - title: Incentiving players
             path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find correct moves
