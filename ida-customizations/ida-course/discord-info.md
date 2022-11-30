@@ -15,7 +15,8 @@ Include for Week 0 start, later back into comment, plus everything below needs t
 -->
 
 The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
-There are 3 channels where you can post messages, ask questions, request support, and get important information about the program.
+
+There are three channels where you can post messages, ask questions, request support, and get important information regarding the program.
 
 ## How to join the Academy Discord
 
@@ -33,8 +34,8 @@ Within the Academy Discord, you will find the following topic-specific channels:
 ![IMAGE DESCRIPTION](/ida-course/images/discord-ida-c3-channels.jpg)
 
 * We will share regular program updates via the **c3-announcements-and-organization** channel. Make sure to check it regularly.
-* The **c3-lounge** channel is dedicated to off-topic discussions. Introduce yourself and feel free to relax and chat about your favorite TV shows, films, and books, share pet photos, and anything else that comes to mind!
-* You should ask all content-related questions within the **c3-support forum** channel. There you will find tags which correspond to the main topics covered in the Academy content. These will allow you and the support team to keep track of your queries.
+* The **c3-lounge** channel is dedicated to off-topic discussions. Introduce yourself, and feel free to relax and chat about your favorite TV shows, films, and books, share pet photos, and anything else that comes to mind.
+* You should ask all content-related questions within the **c3-support forum** channel. There you will find tags corresponding to the main topics covered in the Academy content. These will allow you and the support team to keep track of your queries.
 
 ## How to ask a question
 
