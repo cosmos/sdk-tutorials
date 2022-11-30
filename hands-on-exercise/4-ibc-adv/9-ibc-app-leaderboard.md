@@ -10,6 +10,15 @@ tags:
 
 # Create a Leaderboard Chain
 
+<HighlightBox type="learning">
+
+In this section, you will learn:
+
+* How to create a chain that can receive information from other chains.
+* How to send player scores from your checkers chain to a global leaderboard chain via IBC. 
+
+</<HighlightBox>
+
 After the extension of the checkers chain with a leaderboard module, the checkers game can keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via the Inter-Blockchain Communication Protocol (IBC) to another chain.
 
 You will now create a leaderboard chain that can receive the `Candidate` packets to store a **global leaderboard**.
