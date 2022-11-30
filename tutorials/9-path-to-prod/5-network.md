@@ -22,7 +22,7 @@ In this section, you concern yourself with Tendermint and the peer-to-peer netwo
 As a node operator, from the time of genesis or at any time in the future, and on each machine, you first run an `init` command to at least set up the folders and pick an ASCII-only moniker:
 
 ```sh
-$ ./myprojectd init stone-age
+$ ./myprojectd init stone-age-1
 ```
 
 Overwrite the genesis created with the actual agreed one. While you are doing so, you can make it read-only:
@@ -56,6 +56,8 @@ priv_validator_key.json
 In the [`config.toml` file](https://docs.tendermint.com/v0.34/tendermint-core/using-tendermint.html#configuration) you can configure the open ports. The important piece is your **listen address**:
 
 ```toml
+[p2p]
+
 # Address to listen for incoming connections
 laddr = "tcp://0.0.0.0:26656"
 ```
@@ -68,7 +70,7 @@ Keep in mind that a name is subject to the DNS being well configured and working
 external_address = "172.217.22.14:26656" # replace by your own
 ```
 
-The other piece of information that uniquely identifies your node is your **node key**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public key is that by which your peers will know your node. You can compute the public key with the Tendermint command:
+The other piece of information that uniquely identifies your node is your **node ID**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public ID is that by which your peers will know your node. You can compute the public ID with the Tendermint command:
 
 ```sh
 $ ./myprojectd tendermint show-node-id
@@ -80,16 +82,16 @@ This should return something like:
 ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a
 ```
 
-If you lose `node_key.json` or have it stolen, it is not as serious as if you lost your token's private key. Your node can always recreate it and let your peers know about the new key, with no problems. Its location is mentioned in `config.toml` on the line `node_key_file = "config/node_key.json"`.
+If you lose `node_key.json` or have it stolen, it is not as serious as if you lost your token's private key. Your node can always recreate a new one and let your peers know about the new ID, with no problems. The file location is mentioned in `config.toml` on the line `node_key_file = "config/node_key.json"`.
 
 The node key also exists so that your own node can identify itself, in the event that it tried to connect to itself via a circuitous peer-to-peer route and therefore ought to cut the useless connection.
 
 In short, here is the information you need to share with other early participants in the network:
 
 * Listen address, for instance: `"tcp://172.217.22.14:26656"`.
-* Node key, for instance: `ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a`.
+* Node ID, for instance: `ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a`.
 
-The shorthand for this information is written and exchanged in the format _node-key@listen-address_, like this:
+The shorthand for this information is written and exchanged in the format _node-id@listen-address_, like this:
 
 ```txt
 ce1c54ea7a2c50b4b9f2f869faf8fa4d1a1cf43a@172.217.22.14:26656
@@ -167,7 +169,7 @@ First, be aware that regular nodes and validator nodes face different risks:
 
 It is common practice to expose your regular nodes and to hide your validator nodes. The latter hide behind a [_sentry_ node](https://hub.cosmos.network/main/validators/security.html#sentry-nodes-ddos-protection), such that:
 
-1. Your [sentry nodes](https://forum.cosmos.network/t/sentry-node-architecture-overview/454) are located in a cloud infrastructure, where the database (or filesystem) and the software part of the node are separated. With this, the same sentry node can release its old IP address and receive a new one within a few seconds; or a new sentry node can spring up at a different IP address by using the same database (or filesystem), as in a game of whack-a-mole.
+1. Your [sentry nodes](https://forum.cosmos.network/t/sentry-node-architecture-overview/454) are located in a cloud infrastructure, where the database (or filesystem) and the software part of the node are separated. With this, the same sentry node can release its old public IP address and receive a new one within a few seconds; or a new sentry node can spring up at a different IP address by using the same database (or filesystem), as in a game of whack-a-mole.
 2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked unless the validator node can connect to the sentry node over the same private IP address.
 3. Your sentry nodes never gossip your validators' addresses over the peer-to-peer network, thanks to the use of `private_peer_ids` in `config.toml`.
 
@@ -180,6 +182,6 @@ To summarize, this section has explored:
 * The use of a publicly accessible IP address or DNS-resolvable name, along with the public half of your public-private node key, to uniquely identify your node to others.
 * How the node key can also prevent inadvertent attempts by the node to connect to itself via an unforeseen peer-to-peer route.
 * The option of further configuring your network via **network scoped** and **single node scoped** parameters.
-* How to mitigate the risks of Distributed denial-of-service (DDoS) attacks through the use of sentry nodes.
+* How to mitigate the risks of distributed denial-of-service (DDoS) attacks through the use of sentry nodes.
 
 </HighlightBox>

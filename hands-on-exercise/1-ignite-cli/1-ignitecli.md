@@ -47,7 +47,7 @@ Ignite CLI also handles some compilation, runs a local blockchain node, and help
 
 </HighlightBox>
 
-<YoutubePlayer videoId="MTUQQ6nOkZo"/>
+<YoutubePlayer videoId="z1HDh2KdiGI"/>
 
 ## Install
 
@@ -146,7 +146,9 @@ Use "ignite [command] --help" for more information about a command.
 
 ## Prepare Docker
 
-If you want portability and to avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
+If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro).
+
+First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
 ```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu]
 FROM --platform=linux ubuntu:22.04
@@ -709,6 +711,15 @@ async MsgCreatePost({ rootGetters }, { value }) {
 </CodeGroup>
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
+
+<HighlightBox type="info">
+
+Want another demonstration? In the following video Denis Fadeev, creator of and core contributor to Ignite CLI, explains how to create and interact with a Cosmos SDK blockchain using just a few basic commands, then provides a real-time demonstration of Ignite CLI in action.
+
+<YoutubePlayer videoId="aQuHeE7fWK0"/>
+
+</HighlightBox>
+
 
 <HighlightBox type="synopsis">
 

@@ -31,21 +31,29 @@ The genesis only needs to be generated once, then it is distributed and copied o
 
 One of the simpler parameters that you can decide on is the name of the staking token. The name you choose is for the indivisible denomination. For the Cosmos Hub that is `uatom`, which is understood as a millionth of an ATOM.
 
-For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit `nstone`, as in a _nano STONE_.
+For instance, if you decide that your token is the STONE and that each STONE contains a billion indivisible units, by convention you would name the unit `nstone`, as in a _nano STONE_. The chain only cares about this `nstone` unit. The `STONE` will be an artifact reserved for human interaction.
+
+Be sure to have enough decimals as there is a hard-coded 10,000,000 number, which is the minimum stake required where creating a validator.
 
 Keeping on-brand, your new chain is named _stone-age_.
+
+<HighlightBox type="best-practice">
+
+It is customary to append a number to your chain name. Whenever a hard fork happens, you can increment this number for easier identification.
+
+</HighlightBox>
 
 To create a brand new genesis file for your chain, run:
 
 ```sh
-$ ./myprojectd init --chain-id stone-age --staking-bond-denom nstone
+$ ./myprojectd init stone-age-1
 ```
 
-This creates a large genesis file with the default values of the Cosmos SDK.
+This creates a large genesis file with the default values of the Cosmos SDK. You can start replacing all occurrences of `stake` (the default token name) with `nstone` in the genesis file.
 
 <HighlightBox type="remember">
 
-Correctly identify where this genesis file is located. Most likely it is in `~/.myprojectd/config/genesis.json`. If this is not where you want to prepare your genesis file, you can add `--home another_folder` to all your commands.
+Correctly identify where this genesis file is located. Most likely it is in `~/.myprojectd/config/genesis.json`. If this is not where you want to prepare your genesis file, you can add `--home another/folder` to all your commands.
 
 </HighlightBox>
 
@@ -63,14 +71,16 @@ If these genesis accounts are third parties, make sure in more ways than one tha
 
 </HighlightBox>
 
-Your addresses have a prefix, which you can define instead of the Cosmos Hub default of `cosmos`. Your blockchain may use the prefix `cavedweller` for example. 
+Your addresses have a prefix, which you can define instead of the Cosmos Hub default of `cosmos`. Your blockchain may use the prefix `cavedweller` for example. This is typically defined in `app/app.go`.
 
 You can also decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts or the number of extra tokens in the genesis. 
 
 If you introduce another token named `nflint`, and Alice has the address `cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq`, you could make her a genesis account with:
 
 ```sh
-$ ./myprojectd add-genesis-account cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq 5000000000stone 2000000000nflint
+$ ./myprojectd add-genesis-account \
+  cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
+  5000000000nstone 2000000000nflint
 ```
 
 This credits her with 5 STONE and 2 FLINT. It has also given her an `account_number` in the genesis.
@@ -110,12 +120,11 @@ $ ./myprojectd gentx cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
     3000000000stone \
     --account-number 0 --sequence 0 \
     --chain-id stone-age \
-    --pubkey '{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}'
+    --pubkey '{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}' \
+    --gas 1000000 \
+    --gas-prices 0.1nstone \
+    --keyring-backend os
 ```
-
-<!--
-TODO Detail which keyring to use
--->
 
 This creates a JSON file on the validator's computer, typically in `~/.myprojectd/config/gentx/` with the following form:
 
@@ -200,7 +209,7 @@ Each validator then returns to you their transaction file(s).
 
 ### Validators aggregation
 
-When a validator returns a signed transaction to you, make sure that it is the one you expect and add the JSON in the `~/.myprojectd/config/gentx` folder along with all the others in your server.
+When a validator returns a signed transaction to you, make sure that it is the one you expect and add the JSON file in the `~/.myprojectd/config/gentx` folder along with all the others in your server.
 
 When you have all of the validator responses, you add them all in the genesis like so:
 

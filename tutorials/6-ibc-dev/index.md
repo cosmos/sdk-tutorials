@@ -21,7 +21,7 @@ However, the first and still most dominant example to date is to transfer a (fun
 
 Take this example: you have some ATOM on the Cosmos Hub but would like to swap this for some other token on a DEX (**D**ecentralized **Ex**change) like [Osmosis](https://app.osmosis.zone/). This can be illustrated with a random IBC transfer between the Hub and Osmosis using Mintscan, a popular block explorer.
 
-![IBC token transfer](/tutorials/5-ibc-dev/images/ibc_token.png)
+![IBC token transfer](/tutorials/6-ibc-dev/images/ibc_token.png)
 
 _Sending token from blockchain A to blockchain B_
 
@@ -75,7 +75,7 @@ Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3
 
 Imagine two blockchains, blockchain A and blockchain B. As a starting point, you have some tokens on blockchain A you want to send to blockchain B. You can follow the steps in the image below:
 
-![IBC token transfer](/tutorials/5-ibc-dev/images/ibc_token.png)
+![IBC token transfer](/tutorials/6-ibc-dev/images/ibc_token.png)
 
 _Sending tokens from blockchain A to blockchain B_
 

@@ -28,6 +28,14 @@ Remember, individual transactions are sent to the network from individual nodes.
 
 In addition to the chain of blocks, one of the innovations introduced by Bitcoin was to use **proof-of-work (PoW)** to reach consensus. Since then, many other consensus algorithms have been proposed and employed. One should note that there were consensus algorithms presented in the academic community _before_ Bitcoin.
 
+<HighlightBox type="info">
+
+In the following video Jae Kwon, founder and CEO of Tendermint, discusses finding an alternative solution to the energy intensive Proof-of-Work consensus methodology that still maintains the provable security benefits of distributed networking: Tendermint.
+
+<YoutubePlayer videoId="T_FYBKJxlbk"/>
+
+</HighlightBox>
+
 Many teams have experimented with distributed consensus using many algorithms deployed to different chains. The algorithms that exist can be compared in terms of the distribution of authority, expected performance, and transaction finality. Transaction finality can be categorized as:
 
 * **Probabilistic:** it is exponentially more improbable that a seen transaction will be reversed.
