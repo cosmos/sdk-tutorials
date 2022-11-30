@@ -50,7 +50,7 @@ Make sure you mark your message as a question by adding the question emoticon (?
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question-add.png)
 
-Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Tricia | Support Bot_, our support bot, which confirms that a ticket has been opened.
+Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Tricia_, our support bot, which confirms that a ticket has been opened.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-tricia-pm.png)
 
@@ -58,7 +58,7 @@ After your question has been answered, the ticket can be closed by you, the tuto
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-close.png)
 
-When the ticket is closed, you will receive a direct message from _Tricia | Support Bot_, confirming the ticket was closed.
+When the ticket is closed, you will receive a direct message from _Tricia_, confirming the ticket was closed.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-close-notification.png)
 
