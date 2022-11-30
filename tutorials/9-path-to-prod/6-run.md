@@ -110,7 +110,7 @@ Now that you have a running network, you may consider coming back to it and try 
 
 This is just an extract of the different customizations that are available to you. For more ideas, peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
 
-After your network has been running, and in a way established itself, your next steps are to advertise about it, and facilitate eventual integration within the ecosystem. A good way to achieve this, is to open a pull request on the [chain registry](https://github.com/cosmos/chain-registry) repository with a `chain.json` and an `assetlist.json` files that describe your chain in a systematic way. Make sure that your JSON files follow the given schemas, for instance by checking with this [online validator](https://www.jsonschemavalidator.net).
+When your network has been running sufficiently to be considered "established", your next steps are to advertise it, and facilitate its eventual integration within the ecosystem. A good way to achieve this is to open a pull request on the [chain registry](https://github.com/cosmos/chain-registry) repository with `chain.json` and `assetlist.json` files that describe your chain in a systematic way. Make sure that your JSON files follow the given schemas, for instance by checking with this [online validator](https://www.jsonschemavalidator.net).
 
 <HighlightBox type="synopsis">
 
