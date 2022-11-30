@@ -4,6 +4,7 @@
 *.swo
 .vscode/settings.json
 .idea
+.vscode/
 
 # Build
 vendor
