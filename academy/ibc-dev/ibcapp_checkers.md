@@ -7,9 +7,7 @@ In the Checkers chain folder, you can scaffold a Leaderboard module with Ignite:
 $ ignite scaffold module leaderboard --ibc
 ```
 
-In order to create and maintain a leaderboard, you need to store the player information.
-
-Scaffold a structure with:
+In order to create and maintain a leaderboard, you need to store the player information. Scaffold a structure with:
 
 ```bash
 $ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
@@ -21,9 +19,11 @@ Now you can use this structure to create the board itself:
 $ ignite scaffold single board PlayerInfo:PlayerInfo --module leaderboard --no-message
 ```
 
-You want the structures as [nullable types](https://en.wikipedia.org/wiki/Nullable_type), so a few adjustments are needed - especially because you do not have a null value for an address.
+You want the structures to be [nullable types](https://en.wikipedia.org/wiki/Nullable_type), so a few adjustments are needed - especially because you do not have a null value for an address.
 
-You need to do the adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`, like:
+You need to make the adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`.
+
+For example, for `proto/leaderboard/board.proto` try this:
 
 ```protobuf
 syntax = "proto3";
@@ -39,9 +39,7 @@ message Board {
 }
 ```
 
-for `proto/leaderboard/board.proto`.
-
-You want to store a win, a loss, or a draw if a game ends. Therefore, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
+You want to store a win, a loss, or a draw when a game ends. Therefore, you should create some helper functions first. Create an `x/checkers/keeper/player_info_handler.go` file with the following code:
 
 ```golang
 package keeper
@@ -93,9 +91,9 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 
 ```
 
-You can see that the checkers module will need to access the leaderboard methods, like `k.board.MustAddWonGameResultToPlayer(...)`.
+The checkers module will need to access the leaderboard methods, like `k.board.MustAddWonGameResultToPlayer(...)`.
 
-First, you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
+To achieve this, first you need to write those functions. Create an `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
 
 ```golang
 package keeper
@@ -143,7 +141,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 }
 ```
 
-For the code above to function, you need to define `TimeLayout` in the `x/leaderboard/types/keys.go`. Add the following piece of code at the end of the file:
+For the code above to function, you need to define `TimeLayout` in `x/leaderboard/types/keys.go`. Add the following piece of code at the end of the file:
 
 ```golang
 const (
@@ -152,7 +150,7 @@ const (
 )
 ```
 
-Check your `x/checkers/types/errors.go` and make sure that it includes:
+Check your `x/checkers/types/errors.go` and make sure that it includes the following:
 
 ```golang
     ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
@@ -161,7 +159,7 @@ Check your `x/checkers/types/errors.go` and make sure that it includes:
     ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
 ```
 
-Now it is time to allow the checkers module access to the leaderboard module. Therefore, look for the `app.CheckersKeeper` in `app/app.go` and modify it in order to include `app.LeaderboardKeeper`:
+Now it is time to allow the checkers module access to the leaderboard module. Look for the `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
 
 ```golang
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -225,7 +223,7 @@ func NewKeeper(
 
 ```
 
-Now the checkers module can call the keeper of the leaderboard module, so add the call for a win in `x/checkers/keeper/msg_server_play_move.go`:
+Now the checkers module can call the keeper of the leaderboard module, so add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
 
 ```golang
 
@@ -250,7 +248,7 @@ func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*typ
     ...
 ```
 
-and the call for a draw in `x/checkers/keeper/end_block_server_game.go`:
+Now add the call for a _draw_ in `x/checkers/keeper/end_block_server_game.go`:
 
 ```golang
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
@@ -285,9 +283,9 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
     ...
 ```
 
-That will get the job done and add the player win, loss, or forfeit counts to the store.
+That will get the job done and add the player's _win_, _lose_, or _forfeit_ counts to the store.
 
-It is time to sort the players and clip the leaderboard to the best 100(`LeaderboardWinnerLength`) players. Thus, scaffold a new transaction:
+It is time to sort the players and clip the leaderboard to the best 100(`LeaderboardWinnerLength`) players. Scaffold a new transaction:
 
 ```bash
 $ ignite scaffold message updateBoard --module leaderboard
@@ -338,7 +336,7 @@ If it cannot parse the date information, it will throw an error that you need to
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
-And you need to call `updateBoard` in `x/leaderboard/keeper/msg_server_update_board.go`:
+Now you need to call `updateBoard` in `x/leaderboard/keeper/msg_server_update_board.go`:
 
 ```golang
 package keeper
@@ -360,7 +358,9 @@ func (k msgServer) UpdateBoard(goCtx context.Context, msg *types.MsgUpdateBoard)
 }
 ```
 
-That is it! Now the checkers blockchain can keep track of the player information, and create or update the leaderboard based on the player information if requested via the CLI.
+That is it! Now the checkers blockchain can keep track of player information, and create or update the leaderboard based on player information if requested via the CLI.
+
+### Forwarding player information via IBC
 
 It is time to look at how you can forward the player information via the IBC protocol.
 
@@ -376,7 +376,7 @@ You can scaffold an IBC transaction with:
 $ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard
 ```
 
-Of course, you do not want arbitrary player information but instead want to fetch the player information from the store, so make a small adjustment in `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
+You do not want arbitrary player information, but instead want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
 ```golang
     argPlayerInfo := new(types.PlayerInfo)
@@ -386,7 +386,7 @@ Of course, you do not want arbitrary player information but instead want to fetc
     }
 ```
 
-You will also need to remove the import of `encoding/json` because it is not used anymore and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call.
+You will also need to remove the import of `encoding/json` because it is not used anymore, and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call.
 
 The last step is to implement the logic to fetch and send player information in `x/leaderboard/keeper/msg_server_candidate.go`:
 
@@ -426,19 +426,21 @@ func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandid
 
 ```
 
-You do not handle received packages because this module is only meant for sending player information to a separate leaderboard chain, which you will create next.
+You do not handle received packages, because this module is only meant for sending player information to a separate leaderboard chain, which you will create next.
 
 ## Create a leaderboard chain
 
-After extending the checkers chain with a leaderboard module, the checkers game can keep track of the player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via IBC to another chain.
+After extending the checkers chain with a leaderboard module, the checkers game can keep track of player stats and maintain (on request) a sorted leaderboard.
 
-You will now create a leaderboard chain that can receive the packages. Determine another folder for your leaderboard chain, and scaffold a chain via Ignite:
+In addition, it can send player stats via IBC to another chain. You will now create a leaderboard chain that can receive the packages. 
+
+Determine another folder for your leaderboard chain, and scaffold a chain via Ignite:
 
 ```bash
 ignite scaffold chain leaderboard --no-module
 ```
 
-And again, you can include a leaderboard module with IBC enabled in it:
+Again, you can include a leaderboard module with IBC enabled in it:
 
 ```bash
 ignite scaffold module leaderboard --ibc
@@ -450,7 +452,7 @@ You need a structure to keep track of the player information too:
 $ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
 ```
 
-and of course a board structure:
+And of course a board structure:
 
 ```bash
 $ ignite scaffold single board PlayerInfo:PlayerInfo --module leaderboard --no-message
@@ -462,7 +464,7 @@ In addition, you want to receive candidate packages:
 ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no-message
 ```
 
-This time you use the `--no-message` flag because this chain is not going to send any player information to another chain.
+This time use the `--no-message` flag, because this chain is not going to send any player information to another chain.
 
 Implement the logic for the packet received in `x/leaderboard/keeper/candidate.go`:
 
@@ -520,14 +522,12 @@ func (p CandidatePacketData) ValidateBasic() error {
 }
 ```
 
-Now your leaderboard chain can receive player information from chains with the leaderboard module.
+Now your leaderboard chain can receive player information from chains with the leaderboard module. However, You need to do some more work to update the board with this information.
 
-You need to do some more work to update the board with that information.
+There are two places at which you can call for an update on the board structure: in `OnRecvCandidatePacket`, so each player sending their information will pay the fee for sorting and clipping the leaderboard; or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain, like you did for the checkers chain.
 
-There are two places at which you can call for an update on the board structure, in `OnRecvCandidatePacket` so each player sending his/her information will pay the fee for sorting and clipping the leaderboard, or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain like you did for the checkers chain.
+Take this as an opportunity to practice and implement this in `OnRecvCandidatePacket`.
 
-Take this as an opportunity to practice and implement it in `OnRecvCandidatePacket`.
+## Testing
 
-## Test it
-
-You can find the sample implementation of the checkers chain extension and the leaderboard chain on a [repository we provide](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a Docker network and the relayer settings for an easy test. In addition, the repository includes a script to create and run games. Follow the steps described in the repository to run a few tests and to see it in action.
+You can find the sample implementation of the checkers chain extension and the leaderboard chain in this [repository](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a Docker network and the relayer settings for an easy test. In addition, the repository includes a script to create and run games. Follow the steps described in the repository to run a few tests and to see it in action.
