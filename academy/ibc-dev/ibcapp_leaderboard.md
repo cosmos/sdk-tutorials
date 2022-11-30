@@ -1,8 +1,8 @@
 ## Create a Leaderboard chain
 
-After the extension of the checkers chain with a leaderboard module, the checkers game is able to keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via IBC to another chain. You will now create a leaderboard chain which can receive those packages. 
+After the extension of the checkers chain with a leaderboard module, the checkers game is able to keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via IBC to another chain. You will now create a leaderboard chain which can receive the `Candidate` packets to store a global leaderboard. 
 
-Determine another folder for your leaderboard chain, and scaffold a chain via Ignite:
+Determine another folder for your leaderboard chain, and scaffold a chain via Ignite CLI:
 
 ```bash
 ignite scaffold chain leaderboard --no-module
@@ -26,7 +26,7 @@ And of course a board structure:
 $ ignite scaffold single board PlayerInfo:PlayerInfo --module leaderboard --no-message
 ```
 
-In addition, you want to receive candidate packages:
+In addition, you want to receive candidate packets:
 
 ```bash
 ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no-message
@@ -34,7 +34,7 @@ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no
 
 This time you use the `--no-message` flag because this chain is not going to send any player information to another chain.
 
-Implement the logic for packet receiving in the `x/leaderboard/keeper/candidate.go`:
+Implement the logic for receiving packets in the `x/leaderboard/keeper/candidate.go`:
 
 ```golang
 ...
@@ -44,8 +44,6 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
     if err := data.ValidateBasic(); err != nil {
         return packetAck, err
     }
-
-    // TODO: packet reception logic
 
     allPlayerInfo := k.GetAllPlayerInfo(ctx)
 
@@ -78,8 +76,6 @@ import (
 
 // ValidateBasic is used for validating the packet
 func (p CandidatePacketData) ValidateBasic() error {
-
-    // TODO: Validate the packet data
 
   // return error if player address is empty
   if p.PlayerInfo.Index == "" {
@@ -149,8 +145,6 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
     if err := data.ValidateBasic(); err != nil {
         return packetAck, err
     }
-
-    // TODO: packet reception logic
 
     allPlayerInfo := k.GetAllPlayerInfo(ctx)
 
