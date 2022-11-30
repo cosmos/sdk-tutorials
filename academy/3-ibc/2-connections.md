@@ -99,7 +99,7 @@ Establishing an IBC connection (for example, between chain A and chain B) requir
 
 <HighlightBox type="info">
 
-Colin Axnér of Interchain gives an overview of how IBC Connections work (ICS-03), along with a code walkthrough, in the context of Inter-Blockchain Communications (IBC) Protocol.
+Colin Axnér of Interchain gives an overview of how IBC Connections work (ICS-03), along with a code walkthrough, in the context of the Inter-Blockchain Communications Protocol (IBC).
 
 <YoutubePlayer videoId="E3ZvqdY2tL8" />
 

@@ -220,7 +220,7 @@ The objective is to avoid a situation where it is necessary to have a copy of ch
 
 ## Updating a client
 
-Assume that the initial ConsensusState was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the ConsensusState to reflect all the changes that have happened between block 50 and block 100.
+Assume that the initial `ConsensusState` was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the `ConsensusState` to reflect all the changes that have happened between block 50 and block 100.
 
 To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateClient` containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
 
@@ -251,9 +251,9 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 ## Verifying packet commitments
 
-As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit an `MsgUpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its ConsensusState root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
+As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit a `MsgUpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its `ConsensusState` root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
-The code snippet which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is as follows:
+The code snippet, which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go), is as follows:
 
 <!-- TODO: update for client refactor v7 https://github.com/cosmos/sdk-tutorials/issues/1278-->
 

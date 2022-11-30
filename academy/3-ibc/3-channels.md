@@ -23,7 +23,7 @@ Connections and clients comprise the main components of the transport layer in I
 
 <HighlightBox type="note">
 
-Note that it's possible to have either a _symmetric_ case, where the application logic is independent of the direction of the packet being sent, or an _asymmetric_ case, where packets should only be sent in one direction (or the logic can be different depending on the send direction). It makes sense (but is not imposed) to use the same port ID on both application modules in the symmetric case, and different port IDs on either chain in the asymmetric.
+Note that it is possible to have either a _symmetric_ case, where the application logic is independent of the direction of the packet being sent, or an _asymmetric_ case, where packets should only be sent in one direction (or the logic can be different depending on the send direction). It makes sense (but is not imposed) to use the same port ID on both application modules in the symmetric case, and different port IDs on either chain in the asymmetric.
 <br/><br/>
 For example, in the case of interchain accounts, there are two different port IDs for the host and controller submodules: in the interchain accounts module, `icahost` is the default port ID that the host submodule binds to, whereas `icacontroller-...` is the default port prefix that the controller submodule binds to.
 
@@ -48,7 +48,7 @@ Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There a
 
 </HighlightBox>
 
-## Establishing a Channel
+## Establishing a channel
 
 Similarly to how connections are established, **channels are established through a four-way handshake**, in which each step is initiated by a relayer:
 
@@ -67,9 +67,9 @@ Crossing hellos have been removed from ibc-go v4 onward, as referenced in [this 
 
 </HighlightBox>
 
-Similarly, there's also [callbacks for the closing of channels](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/05-port/types/module.go#L71-L81). However, it's up to the application developers to decide if it makes sense for users to be able to trigger the closing of a channel. For token transfers for example, this is not desirable due to the risk of locking liquidity on a closed channel, hence [why this feature has been disallowed in the canonical `transfer` module](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/ibc_module.go#L146-L153).
+Similarly, there are also [callbacks for the closing of channels](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/05-port/types/module.go#L71-L81). However, it is up to the application developers to decide if it makes sense for users to be able to trigger the closing of a channel. For token transfers for example, this is not desirable due to the risk of locking liquidity on a closed channel, hence that is [why this feature has been disallowed in the canonical `transfer` module](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/ibc_module.go#L146-L153).
 
-## Example code: ChannelOpenInit
+## Example code: `ChannelOpenInit`
 
 You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go)
 

@@ -52,7 +52,7 @@ Above the **source** is chain A. The source channel is **channel-2** and the des
 
 <HighlightBox type="note">
 
-Note that we can send assets (or their IBC voucher representation) in multiple _hops_ across multiple chains. Every single time the path will be prepended with the _port/channel-id/..._ prefix.
+We can send assets (or their IBC voucher representation) in multiple _hops_ across multiple chains. Every single time the path will be prepended with the _port/channel-id/..._ prefix.
 </br></br>
 When sending this IBC denom (having had multiple hops) back to its source chain, for every hop back one _port/channel-id/..._ prefix will be taken off. This results in a return to the original denom if all the hops are reversed.
 
@@ -107,7 +107,7 @@ func (im IBCModule) OnChanOpenInit(
 
 ## Transfer packet flow
 
-You've seen an introduction to application packet flow in [the section on channels](./3-channels.md/#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
+You have seen an introduction to the application packet flow in [the section on channels](./3-channels.md/#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
 
 ### Sending a transfer packet
 
@@ -281,7 +281,7 @@ func (im IBCModule) OnRecvPacket(
 
 <HighlightBox type="note">
 
-Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method, and are constructing the acknowledgment to be sent back.
+Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method and are constructing the acknowledgment to be sent back.
 
 </HighlightBox>
 
