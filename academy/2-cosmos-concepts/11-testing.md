@@ -83,7 +83,7 @@ Simulation tests are similar in scope to integration tests, where they reuse you
 
 ### End-to-end tests
 
-End-to-end (E2E) tests are at the top of the testing pyramid. Unlike integration and simulation tests, they work by testing the _full_ application, not a minimal-viable one.
+End-to-end (E2E) tests are at the top of the testing pyramid. Unlike integration and simulation tests, they work by testing the _full_ application, not a minimum-viable one.
 
 Your E2E tests should test flows that mirror what users would experience, and therefore, should not limit themselves to minute interactions. Conceptually, they are for your whole application, and not per module.
 
