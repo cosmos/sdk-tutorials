@@ -687,7 +687,7 @@ If you are struggling with a test, create separate variables in order to inspect
 
 With a simple yet successful unit test, you can add more consequential ones to test your helper methods.
 
-First create a file that declares some constants that you will reuse throughout:
+First, create a file that declares some constants that you will reuse throughout:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/testutil/constants.go]
 package testutil
@@ -698,7 +698,6 @@ const (
     Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
 )
 ```
-
 
 Create a new file `x/checkers/types/full_game_test.go` and declare it in [`package types_test`](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L1). Since you are going to repeat some actions, it is worth adding a reusable function:
 

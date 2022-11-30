@@ -872,10 +872,14 @@ $ docker run --rm -it \
 
 Your unit tests pass, and they confirm that the bank is called as per your expectations. It would be nice to add further tests that use a _real_ bank. This is possible with the help of integration tests.
 
+<HighlightBox type="remember">
+
 As a reminder:
 
 * At version 0.45.4 of the Cosmos SDK, an integration test creates a full app.
-* At version 0.47 of the SDK, an integration test creates a minimal app, and a test that creates a full app is called an end-to-end test.
+* At version 0.47 of the SDK, an integration test creates a minimal app, and a test that creates a full app is called an end-to-end test (E2E).
+
+</HighlightBox>
 
 Fortunately, you do not have to do this from scratch: taking inspiration from [tests on the bank module](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/bank/keeper/keeper_test.go#L66-L110), prepare your code so as to accommodate and create a full app that will contain a bank keeper, and add new tests.
 
@@ -1010,7 +1014,7 @@ var (
 
 ### Test the test suite
 
-You can confirm you did all this correctly by running these new keeper integration tests now, although the suite has no tests. Note how the path to call has changed:
+You can now confirm you did all this correctly by running these new keeper integration tests, although the suite has no tests. Note how the path to call has changed:
 
 <CodeGroup>
 
