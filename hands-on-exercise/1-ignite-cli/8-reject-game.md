@@ -78,7 +78,11 @@ $ ignite scaffold message rejectGame gameIndex --module checkers
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold message rejectGame gameIndex --module checkers
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite scaffold message rejectGame gameIndex --module checkers
 ```
 
 </CodeGroupItem>
@@ -124,7 +128,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -235,7 +243,11 @@ $ ignite chain build
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite chain build
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain build
 ```
 
 </CodeGroupItem>
@@ -290,7 +302,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -316,7 +332,8 @@ $ checkersd tx checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers --help
+$ docker exec -it checkers \
+    checkersd tx checkers --help
 ```
 
 </CodeGroupItem>
@@ -348,7 +365,8 @@ $ checkersd tx checkers reject-game --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game --help
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game --help
 ```
 
 </CodeGroupItem>
@@ -378,7 +396,8 @@ $ checkersd tx checkers reject-game 1 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 1 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 1 --from $bob
 ```
 
 </CodeGroupItem>
@@ -407,7 +426,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -451,8 +471,10 @@ $ checkersd tx checkers reject-game 2 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 2 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 2 --from $alice
 ```
 
 </CodeGroupItem>
@@ -488,8 +510,10 @@ $ checkersd tx checkers reject-game 3 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 3 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 3 --from $bob
 ```
 
 </CodeGroupItem>
@@ -526,9 +550,12 @@ $ checkersd tx checkers reject-game 4 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 4 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 4 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 4 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 4 --from $alice
 ```
 
 </CodeGroupItem>
@@ -565,9 +592,12 @@ $ checkersd tx checkers reject-game 5 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 5 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 5 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 5 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 5 --from $bob
 ```
 
 </CodeGroupItem>
@@ -605,10 +635,14 @@ $ checkersd tx checkers reject-game 6 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 6 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 6 0 5 1 4 --from $bob
-$ docker exec -it checkers checkersd tx checkers reject-game 6 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 6 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 6 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 6 --from $bob
 ```
 
 </CodeGroupItem>
