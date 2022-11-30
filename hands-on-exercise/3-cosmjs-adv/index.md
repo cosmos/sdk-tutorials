@@ -15,7 +15,7 @@ You will continue your work on CosmJS and explore how to use CosmJS and apply it
 
 The end of this chapter will deal with backend scripts and demonstrate how to use them for game indexing so that you are all set to continue developing using CosmJS.
 
-![](/hands-on-exercise/3-cosmjs-adv/images/green-planet.svg)
+![](/lp-images/green-planet.svg)
 
 ## In this chapter
 
