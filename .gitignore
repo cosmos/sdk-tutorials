@@ -3,6 +3,7 @@
 *.swp
 *.swo
 .vscode/settings.json
+.vscode/
 .idea
 
 # Build
