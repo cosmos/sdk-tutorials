@@ -1,5 +1,5 @@
 ---
-title: Mandatory Exercise
+title: Week 2 Exercise
 order:
 description: From simple creation to practice
 tag: deep-dive
@@ -97,14 +97,14 @@ In fact, `score.sh` is what we run in the Hackerrank environment.
 
 The HackerRank environment presents an online IDE to you, which already contains all the project files. We have also already installed all packages and modules for you.
 
-You can start a new Terminal windows by selecting _Terminal_ -> _New Terminal_ in the top menu.
+You can start a new Terminal window by selecting _Terminal_ -> _New Terminal_ in the top menu.
 
 You can run all tests to check your code by clicking on the _Run Tests_ button at the bottom right corner of the IDE.
 
 ## When you are ready
 
-Please submit your exercise via the following link: [HackerRank week 2 exercise submission](https://hr.gs/ida-c3-week-2-ex).
+Please submit your exercise via the following link: [HackerRank Week 2 Exercise submission](https://hr.gs/ida-c3-week-2-ex).
 
-**Please make sure to submit your exercise by Friday, December the 16th.** Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
+**Please make sure to submit your exercise by Friday, December 16th, 23:59 UTC.**
 
-
+Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
