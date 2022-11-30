@@ -1,7 +1,18 @@
+---
+title: "Extend the Checkers Game With a Leaderboard"
+order: 8
+description: Make your checkers game IBC-enabled
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
+---
+
 # Extend the Checkers Game With a Leaderboard
 
 Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
-In the Checkers chain folder, you can scaffold a Leaderboard module with Ignite:
+
+In the checkers chain folder, you can scaffold a leaderboard module with Ignite:
 
 ```bash
 $ ignite scaffold module leaderboard --ibc
@@ -39,7 +50,7 @@ message Board {
 }
 ```
 
-You want to store a win, a loss, or a draw when a game ends. Therefore, you should create some helper functions first. Create an `x/checkers/keeper/player_info_handler.go` file with the following code:
+You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
 ```golang
 package keeper
@@ -93,7 +104,7 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 
 The checkers module will need to access the leaderboard methods, like `k.board.MustAddWonGameResultToPlayer(...)`.
 
-To achieve this, first you need to write those functions. Create an `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
+To achieve this, first, you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
 
 ```golang
 package keeper
@@ -159,7 +170,7 @@ Check your `x/checkers/types/errors.go` and make sure that it includes the follo
     ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
 ```
 
-Now it is time to allow the checkers module access to the leaderboard module. Look for the `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
+Now it is time to allow the checkers module access to the leaderboard module. Look for `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
 
 ```golang
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
@@ -285,7 +296,7 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 
 That will get the job done and add the player's _win_, _lose_, or _forfeit_ counts to the store.
 
-It is time to sort the players and clip the leaderboard to the best 100(`LeaderboardWinnerLength`) players. Scaffold a new transaction:
+It is time to sort the players and clip the leaderboard to the best 100 (`LeaderboardWinnerLength`) players. Scaffold a new transaction:
 
 ```bash
 $ ignite scaffold message updateBoard --module leaderboard
@@ -362,7 +373,7 @@ That is it! Now the checkers blockchain can keep track of player information, an
 
 ### Forwarding player information via IBC
 
-It is time to look at how you can forward the player information via the IBC protocol.
+It is time to look at how you can forward the player information via the Inter-Blockchain Communication Protocol (IBC).
 
 <HighlightBox type="remember">
 
@@ -376,7 +387,7 @@ You can scaffold an IBC transaction with:
 $ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard
 ```
 
-You do not want arbitrary player information, but instead want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
+You do not want arbitrary player information, but instead, want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
 ```golang
     argPlayerInfo := new(types.PlayerInfo)

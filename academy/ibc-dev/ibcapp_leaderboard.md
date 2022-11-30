@@ -1,6 +1,18 @@
-## Create a Leaderboard chain
+---
+title: "Create a Leaderboard Chain"
+order: 9
+description: A global leaderboard for your games
+tags: 
+  - concepts
+  - ibc
+  - dev-ops
+---
 
-After the extension of the checkers chain with a leaderboard module, the checkers game is able to keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via IBC to another chain. You will now create a leaderboard chain which can receive the `Candidate` packets to store a global leaderboard. 
+# Create a Leaderboard Chain
+
+After the extension of the checkers chain with a leaderboard module, the checkers game can keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via the Inter-Blockchain Communication Protocol (IBC) to another chain.
+
+You will now create a leaderboard chain that can receive the `Candidate` packets to store a **global leaderboard**.
 
 Determine another folder for your leaderboard chain, and scaffold a chain via Ignite CLI:
 
@@ -8,7 +20,7 @@ Determine another folder for your leaderboard chain, and scaffold a chain via Ig
 ignite scaffold chain leaderboard --no-module
 ```
 
-Again, you can include a leaderboard module with IBC enabled in it:
+Again, you can include an IBC-enabled leaderboard module in it:
 
 ```bash
 ignite scaffold module leaderboard --ibc
@@ -34,7 +46,7 @@ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no
 
 This time you use the `--no-message` flag because this chain is not going to send any player information to another chain.
 
-Implement the logic for receiving packets in the `x/leaderboard/keeper/candidate.go`:
+Implement the logic for receiving packets in `x/leaderboard/keeper/candidate.go`:
 
 ```golang
 ...
@@ -86,11 +98,14 @@ func (p CandidatePacketData) ValidateBasic() error {
 }
 ```
 
-Now your leaderboard chain can receive player information from chains with the leaderboard module! However, you need to do some more work in order to update the board from this information. 
+Now your leaderboard chain can receive player information from chains with the leaderboard module! However, you need to do some more work in order to update the board on this information.
 
-There are two places where you can call for an update on the board structure: in the `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard; or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain, like you did for the checkers chain. 
+There are two places where you can call for an update on the board structure:
 
-Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in the `OnRecvCandidatePacket`. You need to create some helper functions in `x/leaderboard/keeper/board.go` and to adjust the `updateBoard` function.
+* In `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard.
+* Or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain as you did for the checkers chain.
+
+Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in `OnRecvCandidatePacket`. You need to create some helper functions in `x/leaderboard/keeper/board.go` and adjust the `updateBoard` function.
 
 
 ```golang
@@ -135,7 +150,7 @@ Again, you need to include it in `x/leaderboard/types/errors.go`:
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
-Then you can include an `updateBoard` call in `x/leaderboard/keeper/candidate.go`:
+Then you can include a `updateBoard` call in `x/leaderboard/keeper/candidate.go`:
 
 ```golang
 ...
@@ -172,4 +187,6 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
 
 ## Test it
 
-You can find the sample implementation of the checkers chain extension and the leaderboard chain in this [repository](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a docker network and the relayer settings for an easy test. It also includes a script to create and run games. Follow the steps described in the repository to run a few tests and to see it in action.
+You can find the sample implementation of the checkers chain extension and the leaderboard chain in [this repository](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a Docker network and the relayer settings for an easy test. It also includes a script to create and run games.
+
+Follow the steps described in the repository to run a few tests and to see it in action.
