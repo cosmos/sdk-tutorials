@@ -543,6 +543,6 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](/hands-on-exercise/2-ignite-cli-adv/9-migration.md), you will learn how to conduct chain upgrades through migrations.-->
+In the [next section](/hands-on-exercise/4-run-in-prod/2-migration.md), you will learn how to conduct chain upgrades through migrations.-->
 
 Alternatively, you can learn how to create the [TypeScript client elements](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) for your blockchain.
