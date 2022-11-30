@@ -71,7 +71,7 @@ To fit in the context of Go testing, modules provide testing suites that encapsu
 
 <HighlightBox type="note">
 
-In Cosmos SDK version 0.46 and earlier, what are called "integration tests" are really full tests, where a full application is being instantiated. The reason behind this is that in these versions the coding effort to create a minimal-viable app was not commensurate with the benefit it provided compared to a full app.
+In Cosmos SDK version 0.46 and earlier, what are called "integration tests" are really full tests, where a full application is being instantiated. The reason behind this is that in these versions the coding effort to create a minimum-viable app was not commensurate with the benefit it provided compared to a full app.
 
 </HighlightBox>
 
