@@ -376,26 +376,6 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html
           - title: Integrate IBC middleware into a chain
             path: /hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html
-      - image: /lp-images/universe.svg
-        title: Run in Production
-        href: /hands-on-exercise/5-run-in-prod
-        description: |
-          Prepare your checkers blockchain to run in production:
-        links:
-          - title: Overview
-            path: /hands-on-exercise/5-run-in-prod/1-overview.html
-          - title: Prepare the software
-            path: /hands-on-exercise/5-run-in-prod/2-software.html
-          - title: Prepare a validator and keys
-            path: /hands-on-exercise/5-run-in-prod/3-keys.html
-          - title: Prepare the node start
-            path: /hands-on-exercise/5-run-in-prod/4-genesis.html
-          - title: Prepare and connect to other nodes
-            path: /hands-on-exercise/5-run-in-prod/5-network.html
-          - title: Configure, run, and set up a service
-            path: /hands-on-exercise/5-run-in-prod/6-run.html
-          - title: Prepare and do migrations
-            path: /hands-on-exercise/5-run-in-prod/7-migration.html
 ---
 
 This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).
