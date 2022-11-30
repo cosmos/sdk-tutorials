@@ -15,7 +15,7 @@ Include for Week 0 start, later back into comment, plus everything below needs t
 -->
 
 The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
-There are 3 channels where you can post messages, ask questions, and request support or get important information around the program.
+There are 3 channels where you can post messages, ask questions, request support, and get important information about the program.
 
 ## How to join the Academy Discord
 
@@ -46,11 +46,11 @@ When posting a question in the **c3-support-forum**, you need to add a title and
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-howto-supportforum.jpg)
 
-Make sure you mark your message as a question by adding the question emoticon (?) to it. This will create a new support ticket.
+Make sure you mark your message as a question by adding the question emoticon (?) to it **_as a react_**. This will create a new support ticket.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question-add.png)
 
-Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Trisha | Support Bot_, our support bot, which confirms that a ticket has been opened.
+Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Tricia | Support Bot_, our support bot, which confirms that a ticket has been opened.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-tricia-pm.png)
 
