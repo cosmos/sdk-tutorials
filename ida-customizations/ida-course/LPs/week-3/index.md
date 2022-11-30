@@ -81,11 +81,11 @@ This are the recordings in case you want to recap the live sessions of this week
  
 * _Introduction to CosmJS_ with Noam Cohen:
 
-<YoutubePlayer videoId="edKgSwCUQNU"/>
+<YoutubePlayer videoId="RlqjEVIv1Pg"/>
   
 * _Introduction to IBC_ with Thomas Dekeyser:
 
-<YoutubePlayer videoId="tNeh7Js-wfM"/>
+<YoutubePlayer videoId="HCO7qTOdNGI"/>
   
 </HighlightBox>
 

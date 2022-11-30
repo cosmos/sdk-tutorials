@@ -146,7 +146,7 @@ Use `go test -help` to see what you need to run benchmarks.
 
 ## Rob demonstrates Go interfaces
 
-<YoutubePlayer videoId="dnOCJApbJB8"/>
+<YoutubePlayer videoId="F3k9lGOuLnw"/>
 
 <HighlightBox type="reading">
 
