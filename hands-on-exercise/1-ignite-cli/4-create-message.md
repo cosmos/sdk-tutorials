@@ -216,7 +216,7 @@ const (
 )
 ```
 
-Next, add `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`, and add in:
+Next, create a new `keeper/msg_server_create_game_test.go`, declared with `package keeper_test`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/msg_server_create_game_test.go]
 func TestCreateGame(t *testing.T) {
