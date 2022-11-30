@@ -216,12 +216,16 @@ customModules:
           path: /hands-on-exercise/4-ibc-dev/6-ibc-app-steps.html
         - title: Adding packet and acknowledgment data
           path: /hands-on-exercise/4-ibc-dev/7-ibc-app-packets.html
+        - title: Extend the checkers game with a leaderboard
+          path: /hands-on-exercise/4-ibc-dev/8-ibc-app-checkers.html
+        - title: Create a leaderboard chain
+          path: /hands-on-exercise/4-ibc-dev/9-ibc-app-leaderboard.html
         - title: Exploring IBC middlewares - OPTIONAL
-          path: /hands-on-exercise/4-ibc-dev/8-ibc-mw-intro.html
+          path: /hands-on-exercise/4-ibc-dev/10-ibc-mw-intro.html
         - title: Creating a custom IBC middleware - OPTIONAL
-          path: /hands-on-exercise/4-ibc-dev/9-ibc-mw-develop.html
+          path: /hands-on-exercise/4-ibc-dev/11-ibc-mw-develop.html
         - title: Integrating IBC middleware into a chain - OPTIONAL
-          path: /hands-on-exercise/4-ibc-dev/10-ibc-mw-integrate.html
+          path: /hands-on-exercise/4-ibc-dev/12-ibc-mw-integrate.html
     - image: /universe.png
       title: Week 7 - Run in Production
       href: /ida-course/LPs/week-7/
