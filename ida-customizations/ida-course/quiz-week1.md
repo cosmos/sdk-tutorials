@@ -14,7 +14,7 @@ Follow this link: [Week 1 Quiz](https://hr.gs/ida-c3-week1-quiz), to submit a po
 
 <HighlightBox type="note">
 
-Make sure to submit the quiz by **December 8th** to get the results. We highly recommend to submit the quiz as an opportunity to practice and demonstrate your engagement with the program.
+Make sure to submit the quiz by **December 9th** to get the results. We highly recommend to submit the quiz as an opportunity to practice and demonstrate your engagement with the program.
 <br/><br/>
 You have only **1** attempt to do the quiz. It does not have any impact on your program participation in case you do not pass the quiz.
 
