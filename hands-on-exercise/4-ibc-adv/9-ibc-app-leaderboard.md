@@ -14,8 +14,8 @@ tags:
 
 In this section, you will learn:
 
-* How to create a chain that can receive information from other chains.
-* How to send player scores from your checkers chain to a global leaderboard chain via IBC. 
+* How to create an IBC-enabled chain that can receive information from other chains.
+* How to send player scores from your extended checkers chain to a global leaderboard chain via IBC.
 
 </<HighlightBox>
 
