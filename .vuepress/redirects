@@ -61,9 +61,9 @@
 /academy/3-my-own-chain/can-play.html /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
 /academy/3-my-own-chain/wager-denom.html /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
 /academy/3-my-own-chain/migration.html /hands-on-exercise/2-ignite-cli-adv/9-migration.html
-/academy/4-ibc/relayer-intro.html /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
-/academy/4-ibc/go-relayer.html /hands-on-exercise/4-ibc-adv/3-go-relayer.html
-/academy/4-ibc/hermes-relayer.html /hands-on-exercise/4-ibc-adv/4-hermes-relayer.html
+/academy/4-ibc/relayer-intro.html /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
+/academy/4-ibc/go-relayer.html /hands-on-exercise/5-ibc-adv/3-go-relayer.html
+/academy/4-ibc/hermes-relayer.html /hands-on-exercise/5-ibc-adv/4-hermes-relayer.html
 /academy/6-whats-next/ /academy/whats-next/
 /hands-on-exercise/5-run-in-prod/ /tutorials/8-path-to-prod/
 /hands-on-exercise/2-ignite-cli-adv/9-migration.html /hands-on-exercise/4-run-in-prod/2-migration.html

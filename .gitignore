@@ -5,6 +5,7 @@
 .vscode/settings.json
 .vscode/
 .idea
+.vscode/
 
 # Build
 vendor

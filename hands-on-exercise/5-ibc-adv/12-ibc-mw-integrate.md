@@ -1,6 +1,6 @@
 ---
 title: "Integrating IBC Middleware Into a Chain"
-order: 10
+order: 12
 description: Integrate IBC middleware with a base application
 tags: 
   - guided-coding
@@ -103,7 +103,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   <HighlightBox type="tip">
 
-  In addition to the diagram shown in the [introduction](./8-ibc-mw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
+  In addition to the diagram shown in the [introduction](./10-ibc-mw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
 
   ```go
       type Middleware interface {

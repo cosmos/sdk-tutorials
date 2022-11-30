@@ -13,7 +13,7 @@ title: Chapter Overview - Relaying, custom application, and middleware
 
 It is time to dive deeper into IBC!
 
-As you probably already can imagine, relayers are an important concept when dealing with inter-blockchain communication. Thus, you can have a more detailed look at relaying with IBC in the following sections. Then an introduction into IBC custom applications follows. At the end of the chapter, you can find some sections on IBC middleware elaborating on how you can create a custom IBC middleware and integrate it into your chains.
+As you probably already can imagine, relayers are an important concept when dealing with inter-blockchain communication. Thus, you can have a more detailed look at relaying with IBC in the following sections. Then an introduction into IBC custom applications follows, including hands-on exercises on how to extend your checkers blockchain. At the end of the chapter, you can find some sections on IBC middleware elaborating on how you can create a custom IBC middleware and integrate it into your chains.
 
 ![](/hands-on-exercise/5-ibc-adv/images/cosmos_dev_portal_module-04-lp.png)
 
@@ -26,6 +26,8 @@ In this chapter, you will:
 * Explore relaying with IBC, including how to work with the Go and Hermes relayers.
 * Take a closer look at custom IBC apps and how to make a module IBC-enabled.
 * Discover how to add packet and acknodledgment data.
+* Dive into adding modules to existing chains to make them IBC-enabled.
+* Understand how to send information from one IBC-enabled chain to another.
 * Learn what an IBC middleware is and how to create a custom middleware to integrate it into your chain.
 
 </HighlightBox>
