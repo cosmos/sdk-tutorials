@@ -7,7 +7,6 @@ tags:
   - cosmos-sdk
 ---
 
-# Context
 # Testing
 
 <HighlightBox type="prerequisite">
