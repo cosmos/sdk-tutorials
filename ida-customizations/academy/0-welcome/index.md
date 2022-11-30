@@ -185,7 +185,7 @@ customModules:
         - title: Play with cross-chain tokens
           path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
         - title: Work with IBC relayers
-          path: /hands-on-exercise/4-ibc-adv/2-relayer-intro.html
+          path: /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
     - image: /cosmos_dev_portal_module-04-lp.png
       title: Week 5 - CosmJS Advanced
       href: /ida-course/LPs/week-5/

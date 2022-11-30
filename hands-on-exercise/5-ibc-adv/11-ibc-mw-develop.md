@@ -10,7 +10,7 @@ tags:
 
 # Create a Custom IBC Middleware
 
-When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/4-ibc-adv/6-ibc-app-steps.md).
+When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.md).
 
 The interface can be found [here](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
@@ -70,7 +70,7 @@ Below you will take a closer look at how to implement the handshake callbacks an
 
 As a reminder, review once more the diagram representing the information flow between core IBC and the base application with a middleware (stack) applied:
 
-![middleware_stack](/hands-on-exercise/4-ibc-adv/images/middleware-stack.png)
+![middleware_stack](/hands-on-exercise/5-ibc-adv/images/middleware-stack.png)
 
 ## Channel handshake callbacks
 
