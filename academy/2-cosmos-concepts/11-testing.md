@@ -53,7 +53,7 @@ As an example, imagine that your module moves tokens on behalf of your users. Yo
 
 ### Integration tests
 
-Integration tests are one step wider in scope. They are still focused on your module but, instead of mocking the dependencies, now your test provisions a **minimal-viable application** that includes fully-fledged dependencies, including – crucially – those your own module needs.
+Integration tests are one step wider in scope. They are still focused on your module but, instead of mocking the dependencies, now your test provisions a **minimum-viable application** that includes fully-fledged dependencies, including – crucially – those your own module needs.
 
 <HighlightBox type="info">
 
