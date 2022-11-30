@@ -19,15 +19,15 @@ In this section, you will learn:
 
 </HighlightBox>
 
-## What you'll be building and why
+## What you will be building and why
 
-The checkers blockchain you've built has the ability to create games, play them, forfeit them, wager on them (potentialy with cross-chain tokens). A further optimization is would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization is would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
 
-But what if there's more than one checkers chain? Or better yet, other game chains that allow players to play a competitive game. Would it not be great to enable a standard to send the game data from the local game chain to an application specific chain that keeps a global leaderboard? This is exactly what you'll be building in the next few sections.
+But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play a competitive game. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
 <HighlightBox type="remember">
 
-Remember the [appchain thesis that is an integral part of the Cosmos philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains). Where every application has its own chain, and can be optimized for the application specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialised functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
+Remember the [appchain thesis that is an integral part of the Cosmos philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains) - where every application has its own chain and can be optimized for the application-specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialised functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
 
 </HighlightBox>
 
