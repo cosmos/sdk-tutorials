@@ -8,7 +8,7 @@ intro:
     image: /graphics-sdk-course.png
     description: |
       Welcome to the Interchain Developer Academy!<br/><br/>
-      Over the next seven weeks, you will dive deep into the Cosmos Ecosystem. Let's get started!
+      Over the next nine (7+2) weeks, you will dive deep into the Cosmos Ecosystem. Let's get started!
     action:
       label: Start learning!
       url: /ida-course/LPs/week-0/
@@ -46,6 +46,14 @@ overview:
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6 AM UTC and 4 PM UTC. We do not provide support during the weekends.<br/><br/>
         Click <a href="/ida-course/discord-info.html">here</a> to learn how to join and use Discord.<br/><br/>
         You will get detailed information on how to join and use Discord via email.
+    - title: How do I access Discord?
+    Follow these two steps to join the private Academy channels on Discord: 
+Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork).
+Follow the verification process. It is straightforward but if you need guidance, read [this article](https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839]).
+After joining the Discord server, go [here](https://academy.cosmos.network/onboarding/?token=%7B$b9_uuid%7D) and enter your Discord ID. You will automatically be added to the Discord area for participants called “Interchain Developer Academy”.
+If you have any problems, email us at [academy@interchain.io].
+
+We have put together a [quick guide](ida-customization/ida-course/discord-info.md) explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program (7+2 weeks due to holiday break), you will have four weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>February 2nd, 2023</b> and you have to complete it by <b>March 2nd, 2023</b>.<br/><br/>
