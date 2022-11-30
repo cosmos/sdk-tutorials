@@ -107,6 +107,8 @@ In the context of Go, just like for integration tests, you provide testing suite
 
 To summarize, this section has explored:
 
-* 
+* Why testing is important
+* How the Cosmos SDK conceptually divides its tests.
+* What is the scope and what happens in each test category.
 
 </HighlightBox>
