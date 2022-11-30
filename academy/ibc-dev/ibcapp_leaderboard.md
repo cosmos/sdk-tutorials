@@ -120,7 +120,7 @@ Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to ca
         })
     }
 
-    func (k Keeper) updateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
+    func (k Keeper) UpdateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
         SortPlayerInfo(playerInfoList)
 
         if types.LeaderboardWinnerLength < uint64(len(playerInfoList)) {
