@@ -76,6 +76,14 @@ Note three crucial elements in the diagram:
 * Many relayers can serve one or more channels to send messages between the chains.
 * Each side of the relay uses the light client of the other chain to quickly verify incoming messages.
 
+<HighlightBox type="info">
+
+If you're interested in another overview of the IBC protocol, in the following video Callum Waters, Engineering Manager for the Tendermind Core, gives a talk on the methodology allowing interoperability between countless sovereign blockchains and how to build an IBC-compatible app.
+
+<YoutubePlayer videoId="OSMH5uwTssk"/>
+
+</HighlightBox>
+
 ### IBC/TAO - transport layer
 
 In the diagram, the relationship between the ICS definitions in the category TAO are illustrated - the arrows illustrating the requirements.
@@ -247,12 +255,11 @@ The most straightforward way to use IBC is to build a chain with the Cosmos SDK,
 
 <HighlightBox type="info">
 
-If you're interested in another detailed overview of the IBC protocol, in the following video Callum Waters, Engineering Manager for the Tendermind Core, gives a talk on the methodology allowing interoperability between countless sovereign blockchains and how to build an IBC-compatible app.
+If you're interested in a detailed introduction to Inter-Blockchain Communication, check out the following video Thomas Dekeyser, Developer Relations Engineer for IBC.
 
-<YoutubePlayer videoId="OSMH5uwTssk"/>
+<YoutubePlayer videoId="HCO7qTOdNGI"/>
 
 </HighlightBox>
-
 
 <HighlightBox type="synopsis">
 
