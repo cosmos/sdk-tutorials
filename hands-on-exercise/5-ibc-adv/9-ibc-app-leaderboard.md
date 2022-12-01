@@ -57,7 +57,7 @@ This time you use the `--no-message` flag because this chain is not going to sen
 
 Implement the logic for receiving packets in `x/leaderboard/keeper/candidate.go`:
 
-```golang
+```go
 ...
 // OnRecvCandidatePacket processes packet reception
 func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {
@@ -88,7 +88,7 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
 
 In addition, add a basic validation into `x/leaderboard/types/packet_candidate.go`:
 
-```golang
+```go
 package types
 
 import (
@@ -117,7 +117,7 @@ There are two places where you can call for an update on the board structure:
 Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in `OnRecvCandidatePacket`. You need to create some helper functions in `x/leaderboard/keeper/board.go` and adjust the `updateBoard` function.
 
 
-```golang
+```go
 ...
 
     func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
@@ -155,13 +155,13 @@ Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to ca
 
 Again, you need to include it in `x/leaderboard/types/errors.go`:
 
-```golang
+```go
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
 Then you can include a `updateBoard` call in `x/leaderboard/keeper/candidate.go`:
 
-```golang
+```go
 ...
 // OnRecvCandidatePacket processes packet reception
 func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {

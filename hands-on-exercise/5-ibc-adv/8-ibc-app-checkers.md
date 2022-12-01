@@ -79,7 +79,7 @@ message Board {
 
 You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
-```golang
+```go
 package keeper
 
 import (
@@ -133,7 +133,7 @@ The checkers module will need to access the leaderboard methods, like `k.board.M
 
 To achieve this, first, you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
 
-```golang
+```go
 package keeper
 
 import (
@@ -181,7 +181,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 
 For the code above to function, you need to define `TimeLayout` in `x/leaderboard/types/keys.go`. Add the following piece of code at the end of the file:
 
-```golang
+```go
 const (
     TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
     LeaderboardWinnerLength = uint64(100)
@@ -190,7 +190,7 @@ const (
 
 Check your `x/checkers/types/errors.go` and make sure that it includes the following:
 
-```golang
+```go
     ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
     ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
     ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
@@ -199,7 +199,7 @@ Check your `x/checkers/types/errors.go` and make sure that it includes the follo
 
 Now it is time to allow the checkers module access to the leaderboard module. Look for `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
 
-```golang
+```go
 app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
         app.BankKeeper,
         app.LeaderboardKeeper,
@@ -213,7 +213,7 @@ app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
 
 In addition, you need to modify `x/checkers/keeper/keeper.go` and include the leaderboard keeper:
 
-```golang
+```go
 import(
     ...
 
@@ -263,7 +263,7 @@ func NewKeeper(
 
 Now the checkers module can call the keeper of the leaderboard module, so add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
 
-```golang
+```go
 
 func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
@@ -288,7 +288,7 @@ func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*typ
 
 Now add the call for a _draw_ in `x/checkers/keeper/end_block_server_game.go`:
 
-```golang
+```go
 func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
     ctx := sdk.UnwrapSDKContext(goCtx)
 
@@ -332,7 +332,7 @@ $ ignite scaffold message updateBoard --module leaderboard
 Again, you can first create some helper functions in `x/leaderboard/keeper/board.go`:
 
 
-```golang
+```go
 ...
 
     func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
@@ -370,13 +370,13 @@ Again, you can first create some helper functions in `x/leaderboard/keeper/board
 
 If it cannot parse the date information, it will throw an error that you need to include in `x/leaderboard/types/errors.go`:
 
-```golang
+```go
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
 Now you need to call `updateBoard` in `x/leaderboard/keeper/msg_server_update_board.go`:
 
-```golang
+```go
 package keeper
 
 import (
@@ -416,7 +416,7 @@ $ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard
 
 You do not want arbitrary player information, but instead, want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
-```golang
+```go
     argPlayerInfo := new(types.PlayerInfo)
     err = json.Unmarshal([]byte(args[2]), argPlayerInfo)
     if err != nil {
@@ -428,7 +428,7 @@ You will also need to remove the import of `encoding/json` because it is not use
 
 The last step is to implement the logic to fetch and send player information in `x/leaderboard/keeper/msg_server_candidate.go`:
 
-```golang
+```go
 package keeper
 
 import (

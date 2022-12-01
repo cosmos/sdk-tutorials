@@ -1,6 +1,6 @@
 ---
-title: Simulate Production in Docker
-order: 12
+title: "Simulate Production in Docker"
+order: 2
 description: Run your checkers in a simulated production with Docker Compose
 tags:
   - guided-coding

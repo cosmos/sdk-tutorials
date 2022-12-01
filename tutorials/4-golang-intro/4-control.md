@@ -14,7 +14,7 @@ It is time to discuss control structures in Go. You will start with the `if` sta
 
 The syntax is as follows:
 
-```golang
+```go
 if boolean_expression_1 {
     // execute, if boolean_expression_1 is true
 } else if boolean_expression_2 {
@@ -35,7 +35,7 @@ If you want to use an `else if` or `else` statement, note that they have to be o
 
 You can also give `if` or `else if` a short statement to execute before the condition:
 
-```golang
+```go
 if s := 10%2; s==0 {
     fmt.Println(s)
 }
@@ -43,7 +43,7 @@ if s := 10%2; s==0 {
 
 Boolean expressions evaluate for `true` or `false`. The comparison operators are:
 
-```golang
+```go
 == equal
 != not equal
 < less
@@ -54,7 +54,7 @@ Boolean expressions evaluate for `true` or `false`. The comparison operators are
 
 The `if` statement is also used for error handling. You will often see code like:
 
-```golang
+```go
  if err != nil {
         fmt.Printf(err)
     }
@@ -64,7 +64,7 @@ The `if` statement is also used for error handling. You will often see code like
 
 The syntax of a `switch` statement is as follows:
 
-```golang
+```go
 switch expression {
     case value_1:
         // do something if expression is equal to value_1
@@ -88,7 +88,7 @@ Cases are evaluated from top to bottom. The `switch` finishes if a `case` succee
 
 If you do not give an expression to `switch`, then Go interprets it as `switch true`. This provides another way to write `if-else if-else` chains:
 
-```golang
+```go
 switch {
     case boolean_expression_1:
         // if true is equal to boolean_expression_1
@@ -111,7 +111,7 @@ Unlike other languages (for example **C**), you do not need to `break` to avoid 
 
 There are so-called type switches in Go:
 
-```golang
+```go
 var i interface{}
 switch i.(type) {
     case bool:
@@ -135,7 +135,7 @@ You can use multiple value cases, like `case 1, 2, 4, 9, 16:`.
 
 `for` is the only looping statement in Go. The syntax is as follows:
 
-```golang
+```go
 for init_statement; condition_expression; post_statement {
     // do something
 }
