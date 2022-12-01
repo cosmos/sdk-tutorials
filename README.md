@@ -254,6 +254,8 @@ customModules:
             path: /tutorials/8-understand-sdk-modules/2-feegrant.html
           - title: The group module
             path: /tutorials/8-understand-sdk-modules/3-group.html
+          - title: The gov module
+            path: /tutorials/8-understand-sdk-modules/4-gov.html
       - image: /universe.svg
         title: The Path to Production
         href: /tutorials/9-path-to-prod
@@ -262,16 +264,16 @@ customModules:
         links:
           - title: Overview
             path: /tutorials/9-path-to-prod/1-overview.html
-          - title: Prepare the software
+          - title: Prepare the software to run
             path: /tutorials/9-path-to-prod/2-software.html
           - title: Prepare a validator and keys
             path: /tutorials/9-path-to-prod/3-keys.html
-          - title: Prepare the node start
+          - title: Prepare where the node start
             path: /tutorials/9-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
             path: /tutorials/9-path-to-prod/5-network.html
           - title: Configure, run, and set up a service
-            path: /tutorials/9-path-to-prod/6-run
+            path: /tutorials/9-path-to-prod/6-run.html
           - title: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
   - title: Hands-on Exercise

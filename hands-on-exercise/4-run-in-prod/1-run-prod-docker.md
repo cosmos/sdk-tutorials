@@ -57,8 +57,8 @@ You will run containers. You can start by giving them meaningful names:
 Docker lets you simulate private networks. To meaningfully achieve the above target setup in terms of network separation, you use Docker's user-defined networks. This means:
 
 * Alice's validator and key management system (KMS) are on their private network: name it `net-alice-kms`.
-* Alice's validator and sentry are on own private network: name it `net-alice`.
-* Bob's validator and sentry are on own private network: name it `net-bob`.
+* Alice's validator and sentry are on their private network: name it `net-alice`.
+* Bob's validator and sentry are on their private network: name it `net-bob`.
 * There is a public network on which both sentries and Carol's node run: name it `net-public`.
 
 Although every machine on the network is a bit different, in terms of Docker images there are only two image types:
@@ -253,7 +253,7 @@ It returns you information about usage. You have just built the Tendermint Key M
 
 ## Blockchain elements
 
-Each container needs access to its private information, such as keys and genesis. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
+Each container needs access to its private information, such as keys, genesis and database. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
 
 ```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/docker]
 $ mkdir -p docker/kms-alice
