@@ -232,7 +232,7 @@ module.exports = {
                   path: "/academy/2-cosmos-concepts/14-bridges.html",
                 },
                 {
-                  title: "Mandatory Quiz",
+                  title: "Week 1 Quiz",
                   path: "/ida-course/quiz-week1.html",
                 },
               ],
@@ -287,7 +287,7 @@ module.exports = {
                   path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
                 },
                 {
-                  title: "Mandatory Exercise",
+                  title: "Week 2 Exercise",
                   path: "/ida-course/exercise-week2.html",
                 },
               ],

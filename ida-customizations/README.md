@@ -19,8 +19,8 @@ overview:
       description: |
         Academy start: December 1st<br/><br/>
         Program duration: December 1st, 2022 till February 2nd, 2023 (seven weeks, including a two-week holiday period from December 22nd till January 5th)<br/><br/>
-        Exam period: February 2nd, 2023 - March 2nd, 2023<br/><br/>
-        Results available: March 16th 2023<br/><br/>
+        Exam period: February 2nd, 2023 to March 2nd, 2023<br/><br/>
+        Results available: March 16th, 2023<br/><br/>
     - title: What you will learn
       description: |
         Over the next nine weeks (7+2), you will dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next, you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol (IBC). You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
