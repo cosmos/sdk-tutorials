@@ -55,7 +55,7 @@ This chapter covers quite a lot of content that goes very deep into the intricac
 Please be aware that the recommended **essentials** for IBC are:
 
 * [What is IBC?](/academy/3-ibc/1-what-is-ibc.md)
-* [IBC Fungible Token Transfer](/academy/3-ibc/5-token-transfer.md)
+* [IBC Token Transfer](/academy/3-ibc/5-token-transfer.md)
 * [IBC Tooling](/academy/3-ibc/7-ibc-tooling.md)
 
 The following sections are optional and **NOT** final exam relevant:
@@ -66,29 +66,6 @@ The following sections are optional and **NOT** final exam relevant:
 * [Interchain Accounts](/academy/3-ibc/6-ica.md)
 
 </HighlightBox>
-
-<HighlightBox type="info">
-
-**Live Sessions**
-
-<br/>
-
-This week you were able to join the two live sessions on **September 29th**, _Introduction to CosmJS_ with Noam Cohen, Developer Relations Lead for Cosmos Hub and on **October 3rd**, _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
-
-<br/>
-
-This are the recordings in case you want to recap the live sessions of this week or could not attend:
- 
-* _Introduction to CosmJS_ with Noam Cohen:
-
-<YoutubePlayer videoId="RlqjEVIv1Pg"/>
-  
-* _Introduction to IBC_ with Thomas Dekeyser:
-
-<YoutubePlayer videoId="HCO7qTOdNGI"/>
-  
-</HighlightBox>
-
 
 ## Next up
 
