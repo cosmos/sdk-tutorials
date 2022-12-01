@@ -851,6 +851,14 @@ Find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tr
 
 </HighlightBox>
 
+<HighlightBox type="info">
+
+If you want a detailed introduction to CosmJS, check out the following video with Noam Cohan, Developer Relations Lead for Cosmos Hub.
+  
+<YoutubePlayer videoId="RlqjEVIv1Pg"/>
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
