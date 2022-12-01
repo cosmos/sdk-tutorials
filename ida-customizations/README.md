@@ -75,7 +75,7 @@ customModules:
         links: 
           - title: Blockchain basics
             path: /ida-course/0-blockchain-basics/1-blockchain.html
-          - title: Golang
+          - title: Golang introduction
             path: /tutorials/4-golang-intro/1-install.html
           - title: Docker introduction
             path: /tutorials/5-docker-intro/
