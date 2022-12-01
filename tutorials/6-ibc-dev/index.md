@@ -397,4 +397,8 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
+<HighlightBox type="tip">
+
 If your interest in IBC has been piqued, go to the IBC introduction and learn the intricacies of the IBC protocol and IBC applications, start [here](/academy/3-ibc/index.md).
+
+</HighlightBox>
