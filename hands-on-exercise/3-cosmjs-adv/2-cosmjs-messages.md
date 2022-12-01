@@ -292,7 +292,7 @@ If the running chain allows it, and to make your life easier, you can set the ga
 
 ### Token preparation
 
-Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet end point for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
+Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet endpoint for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
 
 Add the faucet address in `.env`:
 
