@@ -38,7 +38,6 @@ In this chapter, you will:
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
 
-
 ## Next up
 
 Before you begin [running a node](/tutorials/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](/tutorials/2-setup/index.md).

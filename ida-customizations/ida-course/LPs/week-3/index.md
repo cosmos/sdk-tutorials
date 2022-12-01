@@ -55,7 +55,7 @@ This chapter covers quite a lot of content that goes very deep into the intricac
 Please be aware that the recommended **essentials** for IBC are:
 
 * [What is IBC?](/academy/3-ibc/1-what-is-ibc.md)
-* [IBC Fungible Token Transfer](/academy/3-ibc/5-token-transfer.md)
+* [IBC Token Transfer](/academy/3-ibc/5-token-transfer.md)
 * [IBC Tooling](/academy/3-ibc/7-ibc-tooling.md)
 
 The following sections are optional and **NOT** final exam relevant:

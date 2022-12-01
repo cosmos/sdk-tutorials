@@ -29,6 +29,8 @@ As all blockchain ecosystems keep on growing and maturing, product stacks and te
 
 In this chapter, you will:
 
+* Explore how Cosmos fits into the overall development of blockchain technology.
+* Begin to discover the Cosmos Ecosystem.
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
 

@@ -35,7 +35,6 @@ Following the hands-on exercises, you will discover how IBC denoms work and get 
 
 </HighlightBox>
 
-
 ## Next up
 
 In this chapter, continue working on your checkers blockchain by first [putting your games in order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md), then [introducing a game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), [recording a game winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md), and some other important aspects to develop your checkers blockchain.
