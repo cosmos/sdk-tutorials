@@ -114,47 +114,47 @@ These two functions must exactly match the functions declared in the [`bank`'s k
 
 With your requirements declared, it is time to make sure your keeper receives a reference to a bank keeper. First add a `BankEscrowKeeper` to your keeper in `x/checkers/keeper/keeper.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/keeper.go#L16]
-type (
-    Keeper struct {
-        bank types.BankEscrowKeeper
-        ...
-    }
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/keeper.go#L16]
+    type (
+        Keeper struct {
++          bank types.BankEscrowKeeper
+            ...
+        }
+    )
 ```
 
 This `BankEscrowKeeper` is your newly declared narrow interface. Do not forget to adjust the constructor accordingly:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/keeper.go#L25-L38]
-func NewKeeper(
-    bank types.BankEscrowKeeper,
-    ...
-) *Keeper {
-    return &Keeper{
-        bank: bank,
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/keeper.go#L25-L38]
+    func NewKeeper(
++      bank types.BankEscrowKeeper,
         ...
+    ) *Keeper {
+        return &Keeper{
++          bank: bank,
+            ...
+        }
     }
-}
 ```
 
 Next, update where the constructor is called and pass a proper instance of `BankKeeper`. This happens in `app/app.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/app.go#L418-L419]
-app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
-    app.BankKeeper,
-    ...
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/app.go#L418-L419]
+    app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
++      app.BankKeeper,
+        ...
+    )
 ```
 
 This `app.BankKeeper` is a full `bank` keeper that also conforms to your `BankEscrowKeeper` interface.
 
 Finally, inform the app that your checkers module is going to hold balances in escrow by adding it to the **whitelist** of permitted modules:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/app.go#L173]
-maccPerms = map[string][]string{
-    ...
-    checkersmoduletypes.ModuleName: nil,
-}
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/app/app.go#L173]
+    maccPerms = map[string][]string{
+        ...
++      checkersmoduletypes.ModuleName: nil,
+    }
 ```
 
 If you compare it to the other `maccperms` lines, the new line does not mention any `authtypes.Minter` or `authtypes.Burner`. Indeed `nil` is what you need to keep in escrow. For your information, the bank creates an _address_ for your module's escrow account. When you have the full `app`, you can access it with:
@@ -170,13 +170,16 @@ checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
 
 There are several new error situations that you can enumerate with new variables:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/types/errors.go#L23-L28]
-ErrBlackCannotPay    = sdkerrors.Register(ModuleName, 1112, "black cannot pay the wager")
-ErrRedCannotPay      = sdkerrors.Register(ModuleName, 1113, "red cannot pay the wager")
-ErrNothingToPay      = sdkerrors.Register(ModuleName, 1114, "there is nothing to pay, should not have been called")
-ErrCannotRefundWager = sdkerrors.Register(ModuleName, 1115, "cannot refund wager to: %s")
-ErrCannotPayWinnings = sdkerrors.Register(ModuleName, 1116, "cannot pay winnings to winner: %s")
-ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1117, "game is not in a state to refund, move count: %d")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/types/errors.go#L23-L28]
+    var (
+        ...
++      ErrBlackCannotPay    = sdkerrors.Register(ModuleName, 1112, "black cannot pay the wager")
++      ErrRedCannotPay      = sdkerrors.Register(ModuleName, 1113, "red cannot pay the wager")
++      ErrNothingToPay      = sdkerrors.Register(ModuleName, 1114, "there is nothing to pay, should not have been called")
++      ErrCannotRefundWager = sdkerrors.Register(ModuleName, 1115, "cannot refund wager to: %s")
++      ErrCannotPayWinnings = sdkerrors.Register(ModuleName, 1116, "cannot pay winnings to winner: %s")
++      ErrNotInRefundState  = sdkerrors.Register(ModuleName, 1117, "game is not in a state to refund, move count: %d")
+    )
 ```
 
 ## Money handling steps

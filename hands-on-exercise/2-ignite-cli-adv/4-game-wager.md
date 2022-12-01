@@ -67,20 +67,20 @@ When it comes to your code:
 
 Add this wager value to the `StoredGame`'s Protobuf definition:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/stored_game.proto#L17]
-message StoredGame {
-    ...
-    uint64 wager = 11;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/stored_game.proto#L17]
+    message StoredGame {
+        ...
++      uint64 wager = 11;
+    }
 ```
 
 You can let players choose the wager they want by adding a dedicated field in the message to create a game, in `proto/checkers/tx.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/tx.proto#L20]
-message MsgCreateGame {
-    ...
-    uint64 wager = 4;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/tx.proto#L20]
+    message MsgCreateGame {
+        ...
++      uint64 wager = 4;
+    }
 ```
 
 Have Ignite CLI and Protobuf recompile these two files:
@@ -125,81 +125,81 @@ Time to ensure that the new field is saved in the storage and it is part of the 
 
 1. Define a new event key as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/keys.go#L36]
-    const (
-        GameCreatedEventWager = "wager"
-    )
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/keys.go#L36]
+        const (
+            ...
+    +      GameCreatedEventWager = "wager"
+        )
     ```
 
 2. Set the actual value in the new `StoredGame` as it is instantiated in the create game handler:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L33]
-    storedGame := types.StoredGame{
-        ...
-        Wager: msg.Wager,
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L33]
+        storedGame := types.StoredGame{
+            ...
+    +      Wager: msg.Wager,
+        }
     ```
 
 3. And in the event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L52]
-    ctx.EventManager().EmitEvent(
-        sdk.NewEvent(sdk.EventTypeMessage,
-            ...
-            sdk.NewAttribute(types.GameCreatedEventWager, strconv.FormatUint(msg.Wager, 10)),
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game.go#L52]
+        ctx.EventManager().EmitEvent(
+            sdk.NewEvent(sdk.EventTypeMessage,
+                ...
+    +          sdk.NewAttribute(types.GameCreatedEventWager, strconv.FormatUint(msg.Wager, 10)),
+            )
         )
-    )
     ```
 
 4. Modify the constructor among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go` to avoid surprises:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/message_create_game.go#L17]
-    func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
-        return &MsgCreateGame{
-            ...
-            Wager: wager,
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/message_create_game.go#L17]
+        func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
+            return &MsgCreateGame{
+                ...
+    +          Wager: wager,
+            }
         }
-    }
     ```
 
 5. Adjust the CLI client accordingly:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/client/cli/tx_create_game.go#L17-L38]
-    func CmdCreateGame() *cobra.Command {
-        cmd := &cobra.Command{
-            Use:   "create-game [black] [red] [wager]",
-            Short: "Broadcast message createGame",
-            Args:  cobra.ExactArgs(3),
-            RunE: func(cmd *cobra.Command, args []string) (err error) {
-                argBlack := args[0]
-                argRed := args[1]
-                argWager, err := strconv.ParseUint(args[2], 10, 64)
-                if err != nil {
-                    return err
-                }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/compare/forfeit-game..game-wager#diff-499219a70e143a1a848af38d250273a6de287507bfc67f89ff0f46cc8222a7a1]
+        func CmdCreateGame() *cobra.Command {
+            cmd := &cobra.Command{
+    -          Use:   "create-game [black] [red]",
+    +          Use:   "create-game [black] [red] [wager]",
+                Short: "Broadcast message createGame",
+    -          Args:  cobra.ExactArgs(2),
+    +          Args:  cobra.ExactArgs(3),
+                RunE: func(cmd *cobra.Command, args []string) (err error) {
+                    argBlack := args[0]
+                    argRed := args[1]
+    +              argWager, err := strconv.ParseUint(args[2], 10, 64)
+    +              if err != nil {
+    +                  return err
+    +              }
 
-                clientCtx, err := client.GetClientTxContext(cmd)
-                if err != nil {
-                    return err
-                }
-
-                msg := types.NewMsgCreateGame(
-                    clientCtx.GetFromAddress().String(),
-                    argBlack,
-                    argRed,
-                    argWager,
-                )
-                if err := msg.ValidateBasic(); err != nil {
-                    return err
-                }
-                return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
-            },
+                    clientCtx, err := client.GetClientTxContext(cmd)
+                    if err != nil {
+                        return err
+                    }
+                    msg := types.NewMsgCreateGame(
+                        clientCtx.GetFromAddress().String(),
+                        argBlack,
+                        argRed,
+    +                  argWager,
+                    )
+                    if err := msg.ValidateBasic(); err != nil {
+                        return err
+                    }
+                    return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+                },
+            }
+            flags.AddTxFlagsToCmd(cmd)
+            return cmd
         }
-
-        flags.AddTxFlagsToCmd(cmd)
-
-        return cmd
-    }
     ```
 
 That is it. Adding _just a field_ is quick.
@@ -210,32 +210,32 @@ Some of your unit tests no longer pass because of this new field. Ajust accordin
 
 1. When creating a game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L27]
-    createResponse, err := msgServer.CreateGame(context, &types.MsgCreateGame{
-        ...
-        Wager: 45,
-    })
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L27]
+        createResponse, err := msgServer.CreateGame(context, &types.MsgCreateGame{
+            ...
+    +      Wager: 45,
+        })
     ```
 
 2. When checking that it was saved correctly:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L64]
-    require.EqualValues(t, types.StoredGame{
-        ...
-        Wager: 45,
-    }, game1)
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L64]
+        require.EqualValues(t, types.StoredGame{
+            ...
+    +      Wager: 45,
+        }, game1)
     ```
 
 3. When checking that the event was emitted correctly:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L114]
-    require.EqualValues(t, sdk.StringEvent{
-        Type: "new-game-created",
-        Attributes: []sdk.Attribute{
-            ...
-            {Key: "wager", Value: "45"},
-        },
-    }, event)
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/keeper/msg_server_create_game_test.go#L114]
+        require.EqualValues(t, sdk.StringEvent{
+            Type: "new-game-created",
+            Attributes: []sdk.Attribute{
+                ...
+    +          {Key: "wager", Value: "45"},
+            },
+        }, event)
     ```
 
 Go ahead and make the rest of the changes as necessary.
