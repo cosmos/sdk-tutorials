@@ -2,11 +2,11 @@
 parent:
   title: Golang Introduction
   description: Know your way around Golang
-  number: 
-tags:
-  - tutorial
+  number: 4
 order: 0
 title: Chapter Overview - Introduction to Go
+tags:
+  - tutorial
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Know your way around Golang</div>

@@ -1,8 +1,10 @@
 ---
 parent:
-title: Good-To-Know Dev Terms
+  title: Good-To-Know Dev Terms
+  description: Review some technical terms essential when developing in Cosmos
+  number: 1
 order: 0
-description: Review some technical terms essential when developing in Cosmos
+title:
 tags:
   - tutorial
 ---

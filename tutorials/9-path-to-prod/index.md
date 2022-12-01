@@ -2,10 +2,10 @@
 parent:
   title: Run in Production
   description: See your chain in action
-  number: 1
-tag:
-order: 1
+  number: 9
+order: 0
 title: Chapter Overview - See your chain in action
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See your chain in action</div>

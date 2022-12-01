@@ -1,7 +1,10 @@
 ---
-title: "Set Up Your Work Environment"
+parent:
+  title: Set Up Your Work Environment
+  description: All you need for the hands-on sections
+  number: 2
 order: 0
-description: All you need for the hands-on sections
+title:
 tags: 
   - tutorial
   - dev-ops

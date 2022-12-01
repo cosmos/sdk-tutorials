@@ -3,9 +3,9 @@ parent:
   title: Ignite CLI and IBC Advanced
   description: Let's get serious!
   number: 5
-tags:
 order: 0
 title: Week 4 - Let's Get Serious!
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Let's get serious!</div>

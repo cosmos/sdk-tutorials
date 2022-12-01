@@ -3,9 +3,9 @@ parent:
   title: From Code to MVP to Production and Migrations
   description: See your chain in action
   number: 8
-tags:
 order: 0
 title: Week 5 - See Your Chain in Action
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See your chain in action</div>

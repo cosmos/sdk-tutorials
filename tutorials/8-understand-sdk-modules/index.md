@@ -2,10 +2,10 @@
 parent:
   title: Understand SDK Modules
   description: Discover some of the Cosmos SDK modules
-  number: 1
-tags:
-order: 1
+  number: 8
+order: 0
 title: Chapter Overview - Understand SDK Modules
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Discover some of the Cosmos SDK modules</div>

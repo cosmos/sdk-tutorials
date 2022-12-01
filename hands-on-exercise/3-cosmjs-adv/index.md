@@ -2,10 +2,10 @@
 parent:
   title: CosmJS for Your Chain
   description: Deep dive into CosmJS - Implement a game GUI and backend script
-  number: 1
-tag:
-order: 1
+  number: 3
+order: 0
 title: Chapter Overview - Implement a game GUI and backend script
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Deep dive into CosmJS - implement a game GUI and backend script</div>

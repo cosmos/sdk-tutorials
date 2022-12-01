@@ -2,10 +2,10 @@
 parent:
   title: Introduction to CosmJS
   description: The TypeScript library for the Cosmos SDK
-  number: 1
-tags:
-order: 1
+  number: 7
+order: 0
 title: Chapter Overview - Introduction to CosmJS
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">The TypeScript library for the Cosmos SDK</div>

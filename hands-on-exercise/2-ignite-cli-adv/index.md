@@ -2,10 +2,10 @@
 parent:
   title: Ignite CLI Advanced
   description: Continue developing your own Cosmos chain
-  number: 1
-tag:
-order: 1
+  number: 2
+order: 0
 title: Chapter Overview - Continue developing your own Cosmos chain
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Continue developing your own Cosmos chain</div>

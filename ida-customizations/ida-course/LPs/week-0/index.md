@@ -3,9 +3,9 @@ parent:
   title: Getting Started
   description: A short introduction to blockchain and Golang
   number: 1
-tags:
 order: 0
 title: Week 0 - A Short Introduction to Blockchain, Golang and Docker
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A short introduction to blockchain and Golang</div>

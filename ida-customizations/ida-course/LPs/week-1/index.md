@@ -3,9 +3,9 @@ parent:
   title: Introduction to Cosmos
   description: A universe of limitless possibilities
   number: 2
-tags:
 order: 0
 title: Week 1 - A Universe of Limitless Possibilities
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A universe of limitless possibilities</div>

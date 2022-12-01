@@ -3,9 +3,9 @@ parent:
   title: CosmJS Advanced
   description: Deep dive into CosmJS
   number: 6
-tags:
 order: 0
 title: Week 5 - Deep Dive Into CosmJS
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Deep dive into CosmJS</div>

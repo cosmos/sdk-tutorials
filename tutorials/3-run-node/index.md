@@ -1,7 +1,10 @@
 ---
-title: "Run a Node, API, and CLI"
+parent:
+  title: Run a Node, API, and CLI
+  description: Interact with a Cosmos SDK chain through simapp
+  number: 3
 order: 0
-description: Interact with a Cosmos SDK chain through simapp
+title:
 tags: 
   - tutorial
   - dev-ops

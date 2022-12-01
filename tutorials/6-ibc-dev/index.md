@@ -1,8 +1,10 @@
 ---
 parent:
-title: "Understanding IBC Denoms"
+  title: Understand IBC Denoms
+  description: Send tokens with IBC, trace a denom, and understand how denoms work.
+  number: 6
 order: 0
-description: Send tokens with IBC, trace a denom, and understand how denoms work.
+title:
 tags:
   - tutorial
   - dev-ops

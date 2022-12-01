@@ -3,9 +3,9 @@ parent:
   title: IBC Deep Dive
   description: IBC custom app and IBC middleware
   number: 7
-tags:
 order: 0
 title: Week 6 - IBC Custom App and IBC Middleware
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">IBC custom app and IBC middleware</div>

@@ -3,9 +3,9 @@ parent:
   title: First Steps
   description: Get started with Ignite CLI and then run your own chain
   number: 3
-tags:
 order: 0
 title: Week 2 - Get Started With Ignite Cli and Then Run Your Own Chain
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Get started with Ignite CLI and then run your own chain</div>

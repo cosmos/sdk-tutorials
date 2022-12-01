@@ -74,7 +74,7 @@ This needs to be repeated for each of the messages that you require. To refresh 
 * [`MsgRejectGame`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L71-L80)
 * [`MsgRejectGameResponse`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L82-L91)
 
-## A signing Stargate for Checkers
+## A signing Stargate for checkers
 
 This process again takes inspiration from [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L55-L69). Prepare by registering your new types in addition to the others, so that your client knows them all:
 

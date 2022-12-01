@@ -3,9 +3,9 @@ parent:
   title: Introduction to IBC and CosmJS
   description: Learn how to connect chains and how to use CosmJS for the Cosmos SDK
   number: 4
-tags:
 order: 0
 title: Week 3 - Learn How to Connect Chains and How to Use CosmJS for the Cosmos SDK
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Learn how to connect chains and how to use CosmJS for the Cosmos SDK</div>

@@ -2,10 +2,10 @@
 parent:
   title: IBC Advanced
   description: Deep dive into IBC - Relaying, custom application, and middleware
-  number: 1
-tag:
-order: 1
+  number: 5
+order: 0
 title: Chapter Overview - Relaying, custom application, and middleware
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Deep dive into IBC - relaying, custom application, and middleware</div>
