@@ -81,8 +81,6 @@ customModules:
             path: /tutorials/5-docker-intro/
           - title: Good-to-know dev terms
             path: /tutorials/1-tech-terms/
-          - title: Docker intro
-            path: /tutorials/5-docker-intro/
       - image: /cosmos_dev_portal_module-03-lp.svg
         title: Week 1 - Introduction to Cosmos
         href: /ida-course/LPs/week-1/
