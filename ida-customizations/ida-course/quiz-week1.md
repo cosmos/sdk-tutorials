@@ -1,5 +1,5 @@
 ---
-title: "Mandatory Quiz"
+title: "Week 1 Quiz"
 order:
 description: Quiz time
 ---
