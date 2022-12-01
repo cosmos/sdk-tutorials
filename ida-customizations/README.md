@@ -78,11 +78,11 @@ customModules:
           - title: Golang
             path: /tutorials/4-golang-intro/1-install.html
           - title: Docker introduction
-            path: /tutorials/5-docker-intro/1-overview.html
+            path: /tutorials/5-docker-intro/
           - title: Good-to-know dev terms
             path: /tutorials/1-tech-terms/
           - title: Docker intro
-            path: /tutorials/5-docker-intro/index.md
+            path: /tutorials/5-docker-intro/
       - image: /cosmos_dev_portal_module-03-lp.svg
         title: Week 1 - Introduction to Cosmos
         href: /ida-course/LPs/week-1/
@@ -122,9 +122,9 @@ customModules:
           You will discover how to run a node and learn how to build your own chain by following the example implementation of a checkers blockchain:
         links: 
           - title: How to set up your work environment
-            path: /tutorials/2-setup
+            path: /tutorials/2-setup/
           - title: How to run a node, API, and CLI
-            path: /tutorials/3-run-node
+            path: /tutorials/3-run-node/
           - title: Introduction to Ignite CLI
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
           - title: First steps for your checkers blockchain
@@ -176,7 +176,7 @@ customModules:
           - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Understand IBC denoms
-            path: /tutorials/6-ibc-dev/index.html
+            path: /tutorials/6-ibc-dev/
           - title: Play with cross-chain tokens
             path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
           - title: Work with IBC relayers
@@ -240,7 +240,7 @@ customModules:
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
-            path: hands-on-exercise/4-run-in-prod/2-migration.html
+            path: /hands-on-exercise/4-run-in-prod/2-migration.html
           - titles: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
 ---

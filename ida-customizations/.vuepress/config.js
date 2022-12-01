@@ -79,7 +79,7 @@ module.exports = {
     sidebar: {
       auto: false,
       hideProducts: true,
-      filterByTagEnabled: false,
+      filterByTagEnabled: true,
       nav: [
         {
           title: "Cosmos Developer Academy",
@@ -659,13 +659,49 @@ module.exports = {
       ],
     },
     tags: {
-      "deep-dive": {
-        color: "var(--color-secondary)",
-        label: "Deep dive",
+      'dev-ops': {
+        color: '#54ffe0',
+        label: 'DevOps',
+        isBright: true
       },
-      "fast-track": {
-        color: "var(--color-primary)",
-        label: "Fast track",
+      'cosmos-sdk': {
+        color: '#F69900',
+        label: 'Cosmos SDK',
+        isBright: true
+      },
+      'ibc': {
+        color: '#ff1717',
+        label: 'IBC'
+      },
+      'cosm-js': {
+        color: '#6836D0',
+        label: 'CosmJS'
+      },
+      'cosm-wasm': {
+        color: '#05BDFC',
+        label: 'CosmWasm'
+      },
+      'tendermint': {
+        color: '#00B067',
+        label: 'Tendermint'
+      },
+      'cosmos-hub': {
+        color: '#f7f199',
+        label: 'Cosmos Hub',
+        isBright: true
+      },
+      'concepts': {
+        color: '#AABAFF',
+        label: 'Concept',
+        isBright: true
+      },
+      'tutorial': {
+        color: '#F46800',
+        label: 'Tutorial'
+      },
+      'guided-coding': {
+        color: '#F24CF4',
+        label: 'Guided Coding'
       },
     },
     feedback: {
