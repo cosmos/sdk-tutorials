@@ -173,7 +173,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
 </CodeGroupItem>
@@ -195,7 +196,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
 </CodeGroupItem>
@@ -219,7 +221,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 ```
 
 </CodeGroupItem>
@@ -251,7 +254,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 ```
 
 </CodeGroupItem>
@@ -281,7 +285,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -309,7 +314,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -339,7 +345,8 @@ $ checkersd tx checkers reject-game 9 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 9 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 9 --from $alice
 ```
 
 </CodeGroupItem>

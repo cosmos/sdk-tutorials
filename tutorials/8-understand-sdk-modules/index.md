@@ -13,7 +13,7 @@ title: Chapter Overview - Understand SDK Modules
 
 In the following pages, explore some of the Cosmos SDK modules in more detail. This gives you good practice when it comes to working with modules.
 
-![](/tutorials/8-understand-sdk-modules/images/planets-large.svg)
+![](/lp-images/planets-large-2.svg)
 
 ## In this chapter
 

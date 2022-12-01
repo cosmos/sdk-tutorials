@@ -152,7 +152,11 @@ How do you implement a FIFO from which you extract elements at random positions?
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite generate proto-go
     ```
 
     </CodeGroupItem>
@@ -547,7 +551,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -571,7 +579,12 @@ $ ignite chain serve --reset-once
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve --reset-once
 ```
 
 </CodeGroupItem>
@@ -603,7 +616,8 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -639,8 +653,10 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -675,7 +691,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -711,8 +728,10 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -749,7 +768,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -779,7 +799,8 @@ $ checkersd query checkers show-stored-game 2
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 2
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 2
 ```
 
 </CodeGroupItem>
@@ -818,8 +839,10 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -854,7 +877,8 @@ $ checkersd query checkers show-stored-game 3
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 3
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 3
 ```
 
 </CodeGroupItem>
@@ -892,8 +916,10 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -926,7 +952,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -957,7 +984,8 @@ $ checkersd query checkers show-stored-game 2
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 2
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 2
 ```
 
 </CodeGroupItem>

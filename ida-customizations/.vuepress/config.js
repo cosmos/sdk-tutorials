@@ -463,16 +463,24 @@ module.exports = {
                   path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html",
                 },
                 {
+                  title: "Extend the Checkers Game With a Leaderboard"
+                  path: "/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html"
+                },
+                {
+                  title: "Create a Leaderboard Chain"
+                  path: "/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html"
+                },
+                {
                   title: "IBC Middleware",
-                  path: "/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.html",
+                  path: "/hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.html",
                 },
                 {
                   title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.html",
+                  path: "/hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html",
                 },
                 {
                   title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.html",
+                  path: "/hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html",
                 },
               ],
             },

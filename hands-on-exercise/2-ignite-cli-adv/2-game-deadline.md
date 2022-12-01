@@ -59,7 +59,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -158,7 +162,12 @@ $ ignite chain build
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain build
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain build
 ```
 
 </CodeGroupItem>
@@ -197,7 +206,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -228,8 +238,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>

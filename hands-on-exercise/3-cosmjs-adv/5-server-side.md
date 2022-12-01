@@ -4,7 +4,6 @@ order: 6
 description: Introduce a Web2.0 server to track games per player
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 

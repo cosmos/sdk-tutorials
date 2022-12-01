@@ -4,7 +4,6 @@ order: 5
 description: Take a checkers GUI and use the elements
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 

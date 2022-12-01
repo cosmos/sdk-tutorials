@@ -32,8 +32,7 @@ In this part of the chapter, you will first investigate the code you have to add
 
 A similar approach will be taken to check what Ignite CLI implements when scaffolding an IBC packet.
 
-After finishing the conceptual part, you are going to expand the checkers blockchain you created to turn it into an IBC module, and will create an additional leaderboard blockchain to act as a separate appchain that can interact via IBC with the checkers blockchain.
+After finishing the conceptual part, you are going to [expand the checkers blockchain you created](./8-ibc-app-checkers.md) to include an IBC module in it, and will [create an additional leaderboard blockchain](./9-ibc-app-leaderboard.md) to act as a separate appchain that can interact via IBC with the checkers blockchain.
 
-<!-- TODO: add link to checkers extension tutorial -->
 
 Let's dive into it!

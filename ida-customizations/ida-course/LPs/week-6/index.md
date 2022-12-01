@@ -43,9 +43,9 @@ Please be aware that the recommended **essentials** for IBC are:
 
 The following sections are optional and **NOT** final exam relevant:
 
-* [IBC Middleware](/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.md)
-* [Create a Custom IBC Middleware](/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.md)
-* [Integrating IBC Middleware Into a Chain](/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.md)
+* [IBC Middleware](/hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.md)
+* [Create a Custom IBC Middleware](/hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.md)
+* [Integrating IBC Middleware Into a Chain](/hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.md)
 
 </HighlightBox>
 
@@ -55,7 +55,7 @@ To start with custom IBC applications, begin with an [introduction to IBC applic
 
 You are then ready to dive into [extending your checkers game with a leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.md) making it IBC-enabled. Once, you made an existing chain IBC-enabled, it is time to [create a global leaderboard chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.md) that can receive information (player scores) from other chains.
 
-After, take a look at [IBC middleware](/hands-on-exercise/5-ibc-adv/8-ibc-mw-intro.md). You will first [create a custom IBC middleware](/hands-on-exercise/5-ibc-adv/9-ibc-mw-develop.md) and then [integrate it into a chain](/hands-on-exercise/5-ibc-adv/10-ibc-mw-integrate.md).
+After, take a look at [IBC middleware](/hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.md). You will first [create a custom IBC middleware](/hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.md) and then [integrate it into a chain](/hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.md).
 
 ## Developer Resources
 

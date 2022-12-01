@@ -10,7 +10,15 @@ tags:
 
 # Adding Packet and Acknowledgment Data
 
-This section demonstrates how to define packets and acks (acknowledgments) for the leaderboard blockchain. Remember that this blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains. This will be handled in the checkers blockchain extension tutorial. In this section, you will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings.
+This section demonstrates how to define packets and acks (acknowledgments) for the leaderboard blockchain.
+
+<HighlightBox type="note">
+
+This blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains, not sending them. This will be handled in the [checkers blockchain extension section](./9-ibc-app-leaderboard.md). 
+
+</HighlightBox>
+
+In this section, you will add an additional packet definition that will enable the Leaderboard chain to send a packet to connected game chains when a player has entered the top of the rankings. It is up to you if you want to include this in the Leaderboard chain you will build in the checkers extension exercise.
 
 The documentation on how to define packets and acks in the Inter-Blockchain Communication Protocol (IBC) can be found in [the ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/packets_acks.html).
 
@@ -136,7 +144,7 @@ $ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] 
 
 ## `SendPacket` and packet callback logic
 
-When scaffolding an IBC module with Ignite CLI, you already saw the implementation of the `IBCModule` interface, including a bare-bones packet callbacks structure. Now that you've also scaffolded a packet (and ack), the callbacks have been added with logic to handle the receive, ack, and timeout scenarios.
+When scaffolding an IBC module with Ignite CLI, you already saw the implementation of the `IBCModule` interface, including a bare-bones packet callbacks structure. Now that you have also scaffolded a packet (and ack), the callbacks have been added with logic to handle the receive, ack, and timeout scenarios.
 
 Additionally, for the sending of a packet, a message server has been added that handles a SendPacket message, in this case `MsgSendIbcTopRank`.
 
@@ -412,7 +420,7 @@ To summarize, this section has explored:
 
 <HighlightBox type="note">
 
-Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the checkers blockchain extension tutorial [insert link].
+Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the [checkers blockchain extension exercise](8-ibc-app-checkers.md).
 
 </HighlightBox>
 
@@ -420,6 +428,6 @@ Even though the ability to send and receive packets is now enabled, no applicati
 
 When scaffolding a packet, Ignite CLI will ensure the chain can act both as the sender or receiver of a packet by default. This is a symmetrical setup which makes sense for some applications, like ICS20.
 <br/><br/>
-However, it's also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension tutorial.
+However, it is also possible to have an asymmetrical setup where one chain will always be the source _or_ destination chain for a given packet, not both. In this case, the message server and packet callbacks can be updated to error when, for example, a chain receives a packet though it is supposed to exclusively be the destination chain. Interchain Accounts or ICS27 is an example of this asymmetrical situation, as is the checkers extension exercise.
 
 </HighlightBox>

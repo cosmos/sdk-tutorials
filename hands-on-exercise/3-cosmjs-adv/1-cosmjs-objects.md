@@ -143,7 +143,7 @@ You should now have your TypeScript files.
 
 In order to easily repeat these steps in the future, you can add them to your existing `Makefile` with slight modifications:
 
-```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Makefile#L4-L31]
+```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Makefile#L6-L31]
 install-protoc-gen-ts:
     cd scripts && npm install
     mkdir -p scripts/protoc
