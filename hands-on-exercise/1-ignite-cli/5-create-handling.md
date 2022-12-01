@@ -73,10 +73,12 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
 1. First, `rules` represents the ready-made file with the imported rules of the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game.go#L7]
-    import (
-        "github.com/alice/checkers/x/checkers/rules"
-    )
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game.go#L7]
+        import (
+            ...
+    +      "github.com/alice/checkers/x/checkers/rules"
+            ...
+        )
     ```
 
 2. Get the new game's ID with the [`Keeper.GetSystemInfo`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/system_info.go#L17) function created by the `ignite scaffold single systemInfo...` command:
@@ -199,7 +201,7 @@ Your keeper was initialized with an empty genesis. You must fix that one way or 
 
 You can fix this by always initializing the keeper with the default genesis. However such a default initialization may not always be desirable. So it is better to keep this default initialization closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_test.go#L13-L16) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L21-L25]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L15-L19]
 func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
     k, ctx := keepertest.CheckersKeeper(t)
     checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
@@ -221,7 +223,7 @@ import (
 
 Do not forget to replace `setupMsgServer(t)` with this new function everywhere in the file. For instance:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L28]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L22]
 msgServer, _, context := setupMsgServerCreateGame(t)
 ```
 
@@ -253,7 +255,7 @@ $ docker run --rm -it \
 
 The error has changed to `Not equal`, and you need to adjust the expected value as per the default genesis:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L35-L37]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L29-L31]
 require.EqualValues(t, types.MsgCreateGameResponse{
     GameIndex: "1",
 }, *createResponse)
@@ -261,7 +263,7 @@ require.EqualValues(t, types.MsgCreateGameResponse{
 
 One unit test is good, but you can add more, in particular testing whether the values in storage are as expected when you create a single game:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L40-L62]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L34-L56]
 func TestCreate1GameHasSaved(t *testing.T) {
     msgSrvr, keeper, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
@@ -286,7 +288,7 @@ func TestCreate1GameHasSaved(t *testing.T) {
 }
 ```
 
-Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L108-L133) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L64-L80), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L187-L227), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L229-L258). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L82-L93) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L95-L106).
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L252). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
 
 ## Interact via the CLI
 

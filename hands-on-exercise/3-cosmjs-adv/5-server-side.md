@@ -235,11 +235,11 @@ Prepare these files around the `indexer` to run it in the terminal:
 
 3. In `package.json`, add a `run` target:
 
-    ```json [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/package.json#L13]
-    "scripts": {
-        ...
-        "indexer-dev": "npx ts-node src/server/index.ts"
-    }
+    ```diff-json [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/package.json#L13]
+        "scripts": {
+            ...
+    +      "indexer-dev": "npx ts-node src/server/index.ts"
+        }
     ```
 
 4. Add your _database_, `db.json` by making a copy of the sample:
@@ -394,7 +394,7 @@ Add the following to `indexer.ts`:
 
 2. The modified `init`:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L63-L67]
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L64-L68]
     const init = async() => {
         client = await CheckersStargateClient.connect(process.env.RPC_URL!)
         console.log("Connected to chain-id:", await client.getChainId())

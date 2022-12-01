@@ -198,27 +198,28 @@ You can reuse the setup you prepared in the previous section. There is an added 
 
 You would not treat mainnet keys in this way, but here you save testing keys on disk. Update `.env` with the test mnemonics of your choice:
 
-```txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L3-L6]
-MNEMONIC_TEST_ALICE="theory arrow blue much illness carpet arena thought clay office path museum idea text foot bacon until tragic inform stairs pitch danger spatial slight"
-ADDRESS_TEST_ALICE="cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql"
-MNEMONIC_TEST_BOB="apple spoil melody venture speed like dawn cherry insane produce carry robust duck language next electric episode clinic acid sheriff video knee spoil multiply"
-ADDRESS_TEST_BOB="cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22"
+```diff-txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L3-L6]
+    RPC_URL="http://localhost:26657"
++  MNEMONIC_TEST_ALICE="theory arrow blue much illness carpet arena thought clay office path museum idea text foot bacon until tragic inform stairs pitch danger spatial slight"
++  ADDRESS_TEST_ALICE="cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql"
++  MNEMONIC_TEST_BOB="apple spoil melody venture speed like dawn cherry insane produce carry robust duck language next electric episode clinic acid sheriff video knee spoil multiply"
++  ADDRESS_TEST_BOB="cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22"
 ```
 
 If you use different mnemonics and do not yet know the corresponding addresses, you can get them from the `before` action (below) when it fails. Also adjust `environment.d.ts` to inform the TypeScript compiler:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L6-L9]
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            ...
-            MNEMONIC_TEST_ALICE: string
-            ADDRESS_TEST_ALICE: string
-            MNEMONIC_TEST_BOB: string
-            ADDRESS_TEST_BOB: string
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L6-L9]
+    declare global {
+        namespace NodeJS {
+            interface ProcessEnv {
+                ...
++              MNEMONIC_TEST_ALICE: string
++              ADDRESS_TEST_ALICE: string
++              MNEMONIC_TEST_BOB: string
++              ADDRESS_TEST_BOB: string
+            }
         }
     }
-}
 ...
 ```
 
@@ -296,22 +297,24 @@ Just saving keys on disk does not magically make these keys hold tokens on your 
 
 Add the faucet address in `.env`:
 
-```txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L2]
-FAUCET_URL="http://localhost:4500"
+```diff-txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L2]
+    RPC_URL="http://localhost:26657"
++  FAUCET_URL="http://localhost:4500"
+    ...
 ```
 
 Also add the faucet address to `environment.d.ts`:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L5]
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            RPC_URL: string
-            FAUCET_URL: string
-            ...
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L5]
+    declare global {
+        namespace NodeJS {
+            interface ProcessEnv {
+                RPC_URL: string
++              FAUCET_URL: string
+                ...
+            }
         }
     }
-}
 ...
 ```
 

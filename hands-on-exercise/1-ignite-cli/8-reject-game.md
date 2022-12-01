@@ -106,11 +106,11 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 A new rule of the game should be that a player cannot reject a game once they begin to play. When loading a `StoredGame` from storage you have no way of knowing whether a player already played or not. To access this information add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/proto/checkers/stored_game.proto#L12]
-message StoredGame {
-    ...
-    uint64 moveCount = 6;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/proto/checkers/stored_game.proto#L12]
+    message StoredGame {
+        ...
++      uint64 moveCount = 6;
+    }
 ```
 
 Run Protobuf to recompile the relevant Go files:
@@ -143,20 +143,20 @@ $ docker run --rm -it \
 
 1. Adjust it first in the handler when creating the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game.go#L28]
-    storedGame := types.StoredGame{
-        ...
-        MoveCount: 0,
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game.go#L28]
+        storedGame := types.StoredGame{
+            ...
+    +      MoveCount: 0,
+        }
     ```
 
 2. Before saving to the storage, adjust it in the handler when playing a move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L57]
-    ...
-    storedGame.MoveCount++
-    storedGame.Game = game.String()
-    ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L57]
+        ...
+    +  storedGame.MoveCount++
+        storedGame.Board = game.String()
+        ...
     ```
 
 With `MoveCount` counting properly, you are now ready to handle a rejection request.
@@ -165,9 +165,12 @@ With `MoveCount` counting properly, you are now ready to handle a rejection requ
 
 To follow the Cosmos SDK conventions, declare the following new errors:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/types/errors.go#L18-L19]
-ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1107, "black player has already played")
-ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/types/errors.go#L18-L19]
+    var (
+        ...
++      ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1107, "black player has already played")
++      ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
+    )
 ```
 
 This time you will add an event for rejection. Begin by preparing the new keys:

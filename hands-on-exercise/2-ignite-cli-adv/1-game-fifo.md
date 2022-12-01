@@ -111,22 +111,22 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `SystemInfo` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
-    message SystemInfo {
-        ...
-        string fifoHeadIndex = 2; // Will contain the index of the game at the head.
-        string fifoTailIndex = 3; // Will contain the index of the game at the tail.
-    }
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
+        message SystemInfo {
+            ...
+    +      string fifoHeadIndex = 2; // Will contain the index of the game at the head.
+    +      string fifoTailIndex = 3; // Will contain the index of the game at the tail.
+        }
     ```
 
 2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double-link information in `StoredGame`. Add them to the game's Protobuf declaration:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/stored_game.proto#L13-L14]
-    message StoredGame {
-        ...
-        string beforeIndex = 7; // Pertains to the FIFO. Toward head.
-        string afterIndex = 8; // Pertains to the FIFO. Toward tail.
-    }
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/stored_game.proto#L13-L14]
+        message StoredGame {
+            ...
+    +      string beforeIndex = 7; // Pertains to the FIFO. Toward head.
+    +       string afterIndex = 8; // Pertains to the FIFO. Toward tail.
+        }
     ```
 
 3. There must be an "ID" that indicates _no game_. Use `"-1"`, which you save as a constant:
@@ -165,16 +165,17 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 5. Adjust the default genesis values, so that it has a proper head and tail:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/genesis.go#L15-L16]
-    func DefaultGenesis() *GenesisState {
-    return &GenesisState{
-        SystemInfo: SystemInfo{
-            NextId:        uint64(DefaultIndex),
-            FifoHeadIndex: NoFifoIndex,
-            FifoTailIndex: NoFifoIndex,
-        },
-        ...
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/genesis.go#L15-L16]
+        func DefaultGenesis() *GenesisState {
+            return &GenesisState{
+                SystemInfo: SystemInfo{
+                    NextId:        uint64(DefaultIndex),
+    +              FifoHeadIndex: NoFifoIndex,
+    +              FifoTailIndex: NoFifoIndex,
+                },
+                ...
+            }
+        }
     ```
 
 ## FIFO management
@@ -261,55 +262,55 @@ With these functions ready, it is time to use them in the message handlers.
 
 1. In the handler when creating a new game, set default values for `BeforeIndex` and `AfterIndex`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L29-L30]
-    ...
-    storedGame := types.StoredGame{
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L29-L30]
         ...
-        BeforeIndex: types.NoFifoIndex,
-        AfterIndex:  types.NoFifoIndex,
-    }
+        storedGame := types.StoredGame{
+            ...
+    +      BeforeIndex: types.NoFifoIndex,
+    +      AfterIndex:  types.NoFifoIndex,
+        }
     ```
 
     Send the new game to the tail because it is freshly created:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L38]
-    ...
-    k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
-    k.Keeper.SetStoredGame(ctx, storedGame)
-    ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L38]
+        ...
+    +  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+        k.Keeper.SetStoredGame(ctx, storedGame)
+        ...
     ```
 
 2. In the handler, when playing a move send the game back to the tail because it was freshly updated:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L57-L67]
-    ...
-    systemInfo, found := k.Keeper.GetSystemInfo(ctx)
-    if !found {
-        panic("SystemInfo not found")
-    }
-    k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L57-L67]
+        ...
+    +  systemInfo, found := k.Keeper.GetSystemInfo(ctx)
+    +  if !found {
+    +      panic("SystemInfo not found")
+    +  }
+    +  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
 
-    storedGame.MoveCount++
-    ...
-    k.Keeper.SetSystemInfo(ctx, systemInfo)
-    ...
+        storedGame.MoveCount++
+        ...
+        k.Keeper.SetStoredGame(ctx, storedGame)
+    +  k.Keeper.SetSystemInfo(ctx, systemInfo)
+        ...
     ```
 
     Note that you also need to call `SetSystemInfo`.
 
 3. In the handler, when rejecting a game remove the game from the FIFO:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game.go#L31-L37]
-    ...
-    systemInfo, found := k.Keeper.GetSystemInfo(ctx)
-    if !found {
-        panic("SystemInfo not found")
-    }
-    k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-    k.Keeper.RemoveStoredGame(ctx, msg.GameIndex)
-    ...
-    k.Keeper.SetSystemInfo(ctx, systemInfo)
-    ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game.go#L31-L37]
+        ...
+    +  systemInfo, found := k.Keeper.GetSystemInfo(ctx)
+    +  if !found {
+    +      panic("SystemInfo not found")
+    +  }
+    +  k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
+        k.Keeper.RemoveStoredGame(ctx, msg.GameIndex)
+    +  k.Keeper.SetSystemInfo(ctx, systemInfo)
+        ...
     ```
 
 You have implemented a FIFO that is updated but never really used. It will be used in a [later section](./4-game-forfeit.md).

@@ -137,11 +137,14 @@ Where the `TODO` is replaced as per the following.
 
 The `rules` represent the ready-made file containing the rules of the game you imported earlier. Declare your new errors in `x/checkers/types/errors.go`, given your code has to handle new error situations:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/errors.go#L14-L17]
-ErrGameNotFound     = sdkerrors.Register(ModuleName, 1103, "game by id not found")
-ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1104, "message creator is not a player")
-ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1105, "player tried to play out of turn")
-ErrWrongMove        = sdkerrors.Register(ModuleName, 1106, "wrong move")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/errors.go#L14-L17]
+    var (
+        ...
++      ErrGameNotFound     = sdkerrors.Register(ModuleName, 1103, "game by id not found")
++      ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1104, "message creator is not a player")
++      ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1105, "player tried to play out of turn")
++      ErrWrongMove        = sdkerrors.Register(ModuleName, 1106, "wrong move")
+    )
 ```
 
 Take the following steps to replace the `TODO`:
