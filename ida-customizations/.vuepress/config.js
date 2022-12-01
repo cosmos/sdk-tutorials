@@ -463,11 +463,11 @@ module.exports = {
                   path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html",
                 },
                 {
-                  title: "Extend the Checkers Game With a Leaderboard"
+                  title: "Extend the Checkers Game With a Leaderboard",
                   path: "/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html"
                 },
                 {
-                  title: "Create a Leaderboard Chain"
+                  title: "Create a Leaderboard Chain",
                   path: "/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html"
                 },
                 {
