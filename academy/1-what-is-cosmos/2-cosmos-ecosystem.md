@@ -22,6 +22,8 @@ tags:
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
 
+<YoutubePlayer videoId="5_ZkZ-NF184"/>
+
 </HighlightBox>
 
 <HighlightBox type="learning">
