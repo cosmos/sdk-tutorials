@@ -1,5 +1,5 @@
 ---
-title: Week 2 Exercise
+title: "Week 2 Exercise"
 order:
 description: From simple creation to practice
 tag: deep-dive
