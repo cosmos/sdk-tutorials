@@ -105,6 +105,6 @@ You can run all tests to check your code by clicking on the _Run Tests_ button a
 
 Please submit your exercise via the following link: [HackerRank Week 2 Exercise submission](https://hr.gs/ida-c3-week-2-ex).
 
-**Please make sure to submit your exercise by Friday, December 16th, 23:59 UTC.**
+**Please make sure to submit your exercise by Thursday, December 15th, 23:59 UTC.**
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
