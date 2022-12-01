@@ -43,6 +43,10 @@ As well as an ABCI implementation, `BaseApp` also provides a state machine imple
 
 `BaseApp` provides a secure interface between the application, the blockchain, and the state machine while defining as little as possible about the state machine.
 
+Watch Julien Robert, Developer Relations Engineer for the Cosmos SDK, introduce BaseApp.
+
+<YoutubePlayer videoId="G6QUIUwYaSU"/>
+
 ## Defining an application
 
 Developers usually create a custom type for their application by referencing `BaseApp` and declaring store keys, keepers, and a module manager, like this:
