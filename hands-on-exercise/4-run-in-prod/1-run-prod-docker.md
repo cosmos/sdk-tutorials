@@ -253,7 +253,7 @@ It returns you information about usage. You have just built the Tendermint Key M
 
 ## Blockchain elements
 
-Each container needs access to its private information, such as keys, genesis and database. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
+Each container needs access to its private information, such as keys, genesis, and database. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
 
 ```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/docker]
 $ mkdir -p docker/kms-alice
