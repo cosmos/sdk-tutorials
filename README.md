@@ -268,7 +268,7 @@ customModules:
             path: /tutorials/9-path-to-prod/2-software.html
           - title: Prepare a validator and keys
             path: /tutorials/9-path-to-prod/3-keys.html
-          - title: Prepare where the node start
+          - title: Prepare where the node starts
             path: /tutorials/9-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
             path: /tutorials/9-path-to-prod/5-network.html
