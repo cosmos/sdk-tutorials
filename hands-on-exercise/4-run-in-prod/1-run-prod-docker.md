@@ -495,10 +495,10 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     ```sh
     $ docker run --rm -i \
-      -v $(pwd)/docker/kms-alice:/root/tmkms \
-      --entrypoint sed \
-      tmkms_i:v0.12.2 \
-      -Ei 's/cosmoshub-3/checkers-1/g' /root/tmkms/tmkms.toml
+        -v $(pwd)/docker/kms-alice:/root/tmkms \
+        --entrypoint sed \
+        tmkms_i:v0.12.2 \
+        -Ei 's/cosmoshub-3/checkers-1/g' /root/tmkms/tmkms.toml
     ```
 
     </CodeGroupItem>
@@ -513,11 +513,11 @@ The private key will no longer be needed on `val-alice`. However, during the gen
 
 ```sh
 $ docker run --rm -t \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
-  checkersd_i \
-  tendermint show-validator \
-  | tr -d '\n' | tr -d '\r' \
-  > docker/val-alice/config/pub_validator_key.json
+    -v $(pwd)/docker/val-alice:/root/.checkers \
+    checkersd_i \
+    tendermint show-validator \
+    | tr -d '\n' | tr -d '\r' \
+    > docker/val-alice/config/pub_validator_key.json
 ```
 
 The consensus private key should not reside on the validator. You can simulate that by moving it out:
@@ -531,18 +531,18 @@ Import it into the `softsign` "device" as defined in [`tmkms.toml`](https://gith
 
 ```sh
 $ docker run --rm -i \
-  -v $(pwd)/docker/kms-alice:/root/tmkms \
-  -w /root/tmkms \
-  tmkms_i:v0.12.2 \
-  softsign import secrets/priv_validator_key-val-alice.json \
-  secrets/val-alice-consensus.key
+    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -w /root/tmkms \
+    tmkms_i:v0.12.2 \
+    softsign import secrets/priv_validator_key-val-alice.json \
+    secrets/val-alice-consensus.key
 ```
 
 On start, `val-alice` may still recreate a missing private key file due to how defaults are handled in the code. To prevent that, you can instead copy it from `sentry-alice` where it has no value.
 
 ```sh
 $ cp docker/sentry-alice/config/priv_validator_key.json \
-  docker/val-alice/config/
+    docker/val-alice/config/
 ```
 
 With the key created you now set up the connection from `kms-alice` to `val-alice`.
@@ -566,12 +566,12 @@ addr = "tcp://val-alice:26659"
 <CodeGroupItem title="One-liner">
 
 ```sh
-  $ docker run --rm -i \
+$ docker run --rm -i \
     -v $(pwd)/docker/kms-alice:/root/tmkms \
     --entrypoint sed \
     tmkms_i:v0.12.2 \
     -Ei 's/^addr = "tcp:.*$/addr = "tcp:\/\/val-alice:26659"/g' /root/tmkms/tmkms.toml
-  ```
+```
   
 </CodeGroupItem>
 
@@ -600,13 +600,13 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
   <CodeGroupItem title="One-liner">
 
   ```sh
-    $ docker run --rm -i \
+  $ docker run --rm -i \
       -v $(pwd)/docker/val-alice:/root/.checkers \
       --entrypoint sed \
       checkersd_i \
       -Ei 's/priv_validator_laddr = ""/priv_validator_laddr = "tcp:\/\/0.0.0.0:26659"/g' \
       /root/.checkers/config/config.toml
-    ```
+  ```
 
   </CodeGroupItem>
 
@@ -635,13 +635,13 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
   <CodeGroupItem title="One-liner">
 
   ```sh
-    $ docker run --rm -i \
+  $ docker run --rm -i \
       -v $(pwd)/docker/val-alice:/root/.checkers \
       --entrypoint sed \
       checkersd_i \
       -Ei 's/^priv_validator_key_file/# priv_validator_key_file/g' \
       /root/.checkers/config/config.toml
-    ```
+  ```
     
   </CodeGroupItem>
 
@@ -662,13 +662,13 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
   <CodeGroupItem title="One-liner">
 
   ```sh
-    $ docker run --rm -i \
+  $ docker run --rm -i \
       -v $(pwd)/docker/val-alice:/root/.checkers \
       --entrypoint sed \
       checkersd_i \
       -Ei 's/^priv_validator_state_file/# priv_validator_state_file/g' \
       /root/.checkers/config/config.toml
-    ```
+  ```
     
   </CodeGroupItem>
 
@@ -701,7 +701,7 @@ Earlier you chose `checkers-1`, so you adjust it here too:
 <CodeGroupItem title="JSON">
 
 ```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/genesis.json#L3]
-  "chain_id": "checkers-1",
+"chain_id": "checkers-1",
 ```
 
 </CodeGroupItem>
@@ -709,13 +709,13 @@ Earlier you chose `checkers-1`, so you adjust it here too:
 <CodeGroupItem title="One-liner">
 
 ```sh
-  $ docker run --rm -i \
+$ docker run --rm -i \
     -v $(pwd)/docker/val-alice:/root/.checkers \
     --entrypoint sed \
     checkersd_i \
     -Ei 's/"chain_id": "checkers"/"chain_id": "checkers-1"/g' \
     /root/.checkers/config/genesis.json
-  ```
+```
 
 </CodeGroupItem>
 
@@ -835,9 +835,9 @@ As an added precaution, confirm that it is a valid genesis:
 
 ```sh
 $ docker run --rm -it \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
-  checkersd_i \
-  validate-genesis
+    -v $(pwd)/docker/val-alice:/root/.checkers \
+    checkersd_i \
+    validate-genesis
 ```
 
 It should return:
@@ -996,11 +996,11 @@ laddr = "tcp://0.0.0.0:26657"
 
 ```sh
 $ docker run --rm -i \
-  -v $(pwd)/docker/node-carol:/root/.checkers \
-  --entrypoint sed \
-  checkersd_i \
-  -Ei '0,/^laddr = .*$/{s/^laddr = .*$/laddr = "tcp:\/\/0.0.0.0:26657"/}' \
-  /root/.checkers/config/config.toml
+    -v $(pwd)/docker/node-carol:/root/.checkers \
+    --entrypoint sed \
+    checkersd_i \
+    -Ei '0,/^laddr = .*$/{s/^laddr = .*$/laddr = "tcp:\/\/0.0.0.0:26657"/}' \
+    /root/.checkers/config/config.toml
 ```
 
 Note that it has to replace only the first occurrence in the whole.
@@ -1217,7 +1217,7 @@ Now you can connect to `node-carol` to start interacting with the blockchain as 
 
 ```sh
 $ ./build/checkersd-darwin-amd64 status \
-  --node "tcp://localhost:26657"
+    --node "tcp://localhost:26657"
 ```
 
 </CodeGroupItem>
@@ -1226,7 +1226,7 @@ $ ./build/checkersd-darwin-amd64 status \
 
 ```sh
 > ./build/checkersd-windows-amd64 status \
-  --node "tcp://localhost:26657"
+     --node "tcp://localhost:26657"
 ```
 
 </CodeGroupItem>
@@ -1235,9 +1235,9 @@ $ ./build/checkersd-darwin-amd64 status \
 
 ```sh
 $ docker run --rm -it \
-  --network checkers-prod_net-public \
-  checkersd_i status \
-  --node "tcp://node-carol:26657"
+    --network checkers-prod_net-public \
+    checkersd_i status \
+    --node "tcp://node-carol:26657"
 ```
 
 Note how the `net-public` network name is prefixed with the Compose project name.
@@ -1248,8 +1248,8 @@ Note how the `net-public` network name is prefixed with the Compose project name
 
 ```sh
 $ docker run --rm -it \
-  checkersd_i status \
-  --node "tcp://192.168.0.2:26657"
+    checkersd_i status \
+    --node "tcp://192.168.0.2:26657"
 ```
 
 Here you would replace `192.168.0.2` with the actual IP address of your host computer.
@@ -1293,10 +1293,10 @@ To find out:
 
   ```sh
   $ docker run --rm -it \
-    -v $(pwd)/client:/client -w /client \
-    --network checkers-prod_net-public \
-    node:18.7 \
-    npm test
+      -v $(pwd)/client:/client -w /client \
+      --network checkers-prod_net-public \
+      node:18.7 \
+      npm test
   ```
 
   Tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
