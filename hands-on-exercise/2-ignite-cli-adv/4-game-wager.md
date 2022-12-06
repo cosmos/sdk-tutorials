@@ -1,7 +1,7 @@
 ---
 title: "Let Players Set a Wager"
-order: 5
-description: Token - players set a wager
+order: 6
+description: Token - Players set a wager
 tags: 
   - guided-coding
   - cosmos-sdk
@@ -45,7 +45,7 @@ When thinking about implementing a wager on games, ask:
 * Where is a wager recorded?
 * At what junctures do you need to handle payments, refunds, and wins?
 
-This is a lot to go through. Therefore, the work is divided into two sections. In this section you only add new information, while the [next section](./5-payment-winning.md) is where the tokens are actually handled.
+This is a lot to go through. Therefore, the work is divided into two sections. In this section, you only add new information, while the [next section](./5-payment-winning.md) is where the tokens are actually handled.
 
 Some answers:
 
@@ -242,9 +242,9 @@ Go ahead and make the rest of the changes as necessary.
 
 ## Interact via the CLI
 
-With the tests done, see what happens at the command-line. All there is to check at this stage is that the wager field appears where expected.
+With the tests done, see what happens at the command line. All there is to check at this stage is that the wager field appears where expected.
 
-After restarting Ignite CLI, how much do Alice and Bob have to start with?
+After restarting the Ignite CLI, how much do Alice and Bob have to start with?
 
 <CodeGroup>
 
@@ -363,6 +363,6 @@ To summarize, this section has explored:
 * How to add the new "wager" value, modify the "create a game" message to allow players to choose the wager they want to make, and add a helper function.
 * How to save the wager and adjust an event, modifying the create game handler.
 * How to minimally adjust unit tests.
-* How to interact via the CLI to check that wager valuess are being recorded.
+* How to interact via the CLI to check that wager values are being recorded.
 
 </HighlightBox>

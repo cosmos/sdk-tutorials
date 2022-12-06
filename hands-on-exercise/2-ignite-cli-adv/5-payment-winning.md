@@ -1,7 +1,7 @@
 ---
 title: "Handle Wager Payments"
-order: 6
-description: Token - wagers go around
+order: 7
+description: Token - Wagers go around
 tags:
   - guided-coding
   - cosmos-sdk
@@ -23,14 +23,14 @@ Make sure you have everything you need before proceeding:
 
 In this section, you will:
 
-* Work with the Bank module.
+* Work with the bank module.
 * Handle money.
 * Use mocks.
 * Add integration tests.
 
 </HighlightBox>
 
-In the [previous section](./4-game-wager.md), you introduced the wager. On its own, having a `Wager` field is just a piece of information, it does not transfer tokens just by existing.
+In the [previous section](./4-game-wager.md), you introduced a wager. On its own, having a `Wager` field is just a piece of information, it does not transfer tokens just by existing.
 
 Transferring tokens is what this section is about.
 
@@ -81,7 +81,7 @@ A lot is to be done. In order you will:
 
 ## Declaring expectations
 
-On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add handling actions which ask the `bank` module to perform the required token transfers. For that, your keeper needs to ask for a `bank` instance during setup.
+On its own the `Wager` field does not make players pay the wager or receive rewards. You need to add handling actions that ask the `bank` module to perform the required token transfers. For that, your keeper needs to ask for a `bank` instance during setup.
 
 <HighlightBox type="info">
 
@@ -347,7 +347,7 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 If you try running your existing tests you get a compilation error on the [test keeper builder](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L44-L49). Passing `nil` would not get you far with the tests and creating a full-fledged bank keeper would be a lot of work and not a unit test. See the integration tests below for that.
 
-Instead, you create mocks and use them in unit tests, not only to get the existing tests to pass, but also to verify that the bank is called as expected.
+Instead, you create mocks and use them in unit tests, not only to get the existing tests to pass but also to verify that the bank is called as expected.
 
 ### Prepare mocks
 
@@ -1408,7 +1408,7 @@ It would be difficult to test by CLI when there is a winner after a full game. T
 To summarize, this section has explored:
 
 * How to work with the Bank module and handle players making wagers on games, now that the application supports live games playing to completion (with the winner claiming both wagers) or expiring through inactivity (with the inactive player forfeiting their wager as if losing), and no possibility of withheld value being stranded in inactive games.
-* How to add handling actions which ask the `bank` module to perform the token transfers required by the wager, and where to invoke them in the message handlers.
+* How to add handling actions that ask the `bank` module to perform the token transfers required by the wager, and where to invoke them in the message handlers.
 * How to create a new wager-handling file with functions to collect a wager, refund a wager, and pay winnings, in which `must` prefixes indicate either a user-side error (leading to a failed transaction) or a failure of the application's escrow account (requiring the whole application be terminated).
 * How to run integration tests, which requires you to first build a proper bank keeper, create new helpers, refactor your existing keeper tests, account for the new events being emitted from the bank, and add extra checks of money handling.
 * How to interact with the CLI to check account balances to test that wagers are being withheld and paid.
