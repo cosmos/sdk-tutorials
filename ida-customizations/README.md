@@ -68,7 +68,7 @@ customModules:
       This cohort of the Academy runs for nine weeks (seven weeks and a two-week holiday break). You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
     sections:
       - image: /cosmos_dev_portal_module-02-lp.png
-        title: Week 0 -   Getting Started
+        title: Week 0 - Getting Started
         href: /ida-course/LPs/week-0/
         description: |
           This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Cosmos:
@@ -77,10 +77,10 @@ customModules:
             path: /ida-course/0-blockchain-basics/1-blockchain.html
           - title: Golang introduction
             path: /tutorials/4-golang-intro/1-install.html
-          - title: Docker introduction
-            path: /tutorials/5-docker-intro/
           - title: Good-to-know dev terms
             path: /tutorials/1-tech-terms/
+          - title: Docker introduction
+            path: /tutorials/5-docker-intro/
       - image: /cosmos_dev_portal_module-03-lp.svg
         title: Week 1 - Introduction to Cosmos
         href: /ida-course/LPs/week-1/
