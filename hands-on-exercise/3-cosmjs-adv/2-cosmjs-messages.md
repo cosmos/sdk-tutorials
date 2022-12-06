@@ -4,7 +4,6 @@ order: 3
 description: Introduce the message to create a game in your checkers blockchain
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
@@ -14,7 +13,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have generated the necessary TypeScript types in [the previous tutorial](./1-cosmjs-objects.md).
 * You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
 
@@ -75,7 +74,7 @@ This needs to be repeated for each of the messages that you require. To refresh 
 * [`MsgRejectGame`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L71-L80)
 * [`MsgRejectGameResponse`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L82-L91)
 
-## A signing Stargate for Checkers
+## A signing Stargate for checkers
 
 This process again takes inspiration from [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L55-L69). Prepare by registering your new types in addition to the others, so that your client knows them all:
 
@@ -293,7 +292,7 @@ If the running chain allows it, and to make your life easier, you can set the ga
 
 ### Token preparation
 
-Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet end point for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
+Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet endpoint for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
 
 Add the faucet address in `.env`:
 

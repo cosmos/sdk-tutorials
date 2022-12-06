@@ -13,7 +13,7 @@ This section introduces basic types and string formatting. After that, you will 
 
 Integer types are:
 
-```golang
+```go
 int         int8        int16       int32       int64
 uint        uint8       uint16      uint32      uint64      uintptr
 ```
@@ -45,19 +45,19 @@ In Go, the name comes before the type in the declaration. There are two ways to 
 
 First:
 
-```golang
+```go
 var s string = "initial"
 ```
 
 Second:
 
-```golang
+```go
 s := "initial"
 ```
 
 You can also use **var** to define variables without initialization:
 
-```golang
+```go
 var (
     a, b int
     s string
@@ -67,7 +67,7 @@ var (
 
 This is equivalent to:
 
-```golang
+```go
 var a, b int
 var s string
 var c complex64
@@ -81,7 +81,7 @@ To define constants, you must use the `const` keyword instead of `var` or `:=` k
 
 Constants can be *typed* or *untyped*. For example, an untyped constant:
 
-```golang
+```go
 const hello = "Hello, World!"
 ```
 
@@ -91,14 +91,14 @@ The untyped constant means that the type of `hello` is not defined yet.
 
 Because of static types in Go, you have more freedom with untyped constants than with typed ones. Compare the following two examples:
 
-```golang
+```go
 const number = 2
 var f float64 = number
 ```
 
 This first example **works**: the "number" constant is untyped, so the variable "f" can accept it (despite itself being typed `float64`).
 
-```golang
+```go
 const number int = 2
 var f float64 = number
 ```
@@ -109,7 +109,7 @@ This second example **does not work**: the "number" constant and the variable "f
 
 `fmt.Printf` writes to standard output and returns the number of bytes written and the write error. The string formatting is:
 
-```golang
+```go
 %v for a value, which will be converted into a string with default options. 
 %T for the type of a value
 %x for the hex encoding
@@ -121,7 +121,7 @@ This second example **does not work**: the "number" constant and the variable "f
 
 Here is an example code:
 
-```golang
+```go
 package main
 import "fmt"
 func main() {
@@ -143,7 +143,7 @@ Compile this to see the output.
 
 Functions can take zero or more arguments and can return zero or more arguments. The syntax looks like the following:
 
-```golang
+```go
 func myFunc(v1, v2 type12, v3 type3, v4 type3,....) (ret1 returntype1, ret2 returntype2, ...) {
     return
 }
@@ -153,7 +153,7 @@ If return variable names are given in the declaration, you do not need to explic
 
 For example, consider a swap function that switches the values of `x` and `y`:
 
-```golang
+```go
 func swap(x, y string) (string, string) {
     return y, x
 }
@@ -161,7 +161,7 @@ func swap(x, y string) (string, string) {
 
 You could also write:
 
-```golang
+```go
 func swap(x, y string) (r1 string, r2 string) {
     r1, r2 = y, x
     return
@@ -170,7 +170,7 @@ func swap(x, y string) (r1 string, r2 string) {
 
 Go also offers function closures:
 
-```golang
+```go
 func fibonacci() func() int {
     x, y := 0, 1
     return func() int {
@@ -193,7 +193,7 @@ Let's walk through `func fibonacci()` in more detail:
 
 Now write less idiomatic code to highlight some more aspects:
 
-```golang
+```go
 package main
 import "fmt"
 func fibonacci() func() int {
@@ -230,7 +230,7 @@ Important here is that `fibonacci()` returns a function, and this function is pa
 
 Here you used the control statement `if` for the first time, to break out of the recursion. Each `fibonacci()`, stored as `f` in `loop`, has its own `x` and `y` - this is called a **closure**. So, what happens if you split the loop into 2?
 
-```golang
+```go
 func main() {
     loop(5, fibonacci())
     loop(5, fibonacci())
@@ -241,7 +241,7 @@ This will give the first 5 Fibonacci numbers twice.
 
 To get the first 10, try the following:
 
-```golang
+```go
 func main() {
     f:= fibonacci()
     loop(5, f)
@@ -255,7 +255,7 @@ Do you see why that works?
 
 Methods are defined on types. Go does not have classes. First, define a structure type:
 
-```golang
+```go
 type Rectangle struct {
     a, b int
 }
@@ -263,19 +263,19 @@ type Rectangle struct {
 
 You can use this structure for a variable declaration:
 
-```golang
+```go
 r1 := Rectangle{2, 3}
 ```
 
 You also have access to members through the `.` operator:
 
-```golang
+```go
 fmt.Println(r1.a, r1.b)
 ```
 
 Now you can declare a method on it:
 
-```golang
+```go
 func (r Rectangle) Area() int {
     return r.a * r.b
 }
@@ -283,7 +283,7 @@ func (r Rectangle) Area() int {
 
 Methods are functions, but they have a so-called *receiver* argument (in the previous example `r Rectangle`). You can use such a method with the `.` operator:
 
-```golang
+```go
 fmt.Println(r1.Area())
 ```
 
@@ -297,7 +297,7 @@ You can declare a method with a receiver only in the same package as the type is
 
 The following example is not declared on a `struct` type:
 
-```golang
+```go
 package main
 import "fmt"
 type MyNumber int
@@ -325,7 +325,7 @@ Do you see how `Abs()` became a method of the new type, `MyNumber`?
 
 A function argument is copied into the function. If you want to change the argument, you will require pointers. Pointers are addresses of variables. Look at an example:
 
-```golang
+```go
 func increase(i int) {
     i= i + 1
 }
@@ -333,13 +333,13 @@ func increase(i int) {
 
 The following function will not change `i`:
 
-```golang
+```go
 increase(i int)
 ```
 
 Instead, try it this way:
 
-```golang
+```go
 package main
 import "fmt"
 func increase(i int) {
@@ -363,7 +363,7 @@ The previous attempt will get the same result (`0`) twice. Nothing happened to `
 
 Now see what happens if you include a pointer:
 
-```golang
+```go
 package main
 import "fmt"
 func increase(i *int) {
@@ -390,7 +390,7 @@ Now you see that the value of `i` changes. What happened is as follows:
 
 You can also use pointers in methods to modify the receiver:
 
-```golang
+```go
 package main
 import "fmt"
 type Rectangle struct {
@@ -432,7 +432,7 @@ This video provides a simple demonstration of functional programming in Golang, 
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 * [Go Playground](https://play.golang.org/)
 * [Go by Example: Pointers](https://gobyexample.com/pointers)

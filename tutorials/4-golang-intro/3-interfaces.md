@@ -12,7 +12,7 @@ It is time to look at interfaces in Go. After that, you will briefly examine tes
 
 Go offers the so-called "interface type". This is a collection of method signatures. An interface value can hold any value that implements those methods. Try it:
 
-```golang
+```go
 package main
 import (
     "fmt"
@@ -60,8 +60,8 @@ func main() {
 You see the declaration of the three types and methods as before. You have also declared an additional interface, `Euclid`, which includes a method signature `Norm() float64`. Since all defined types implement the `Norm` method, You can now use the `Euclid` interface to hold the instances of those types.
 
 There is a special empty interface: `interface{}`. Because it has no method signatures, it is implemented by all types and can be used to hold values of any type:
-    
-```golang
+
+```go
 package main
 import "fmt"
 func main() {
@@ -154,7 +154,7 @@ This video provides a quick demonstration of working with interfaces in Golang.
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 * [Testing package](https://golang.org/pkg/testing/)
 * [Writing unit tests](https://blog.alexellis.io/golang-writing-unit-tests/)

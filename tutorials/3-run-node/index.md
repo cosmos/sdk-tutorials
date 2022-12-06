@@ -1,7 +1,10 @@
 ---
-title: "Run a Node, API, and CLI"
+parent:
+  title: Run a Node, API, and CLI
+  description: Interact with a Cosmos SDK chain through simapp
+  number: 3
 order: 0
-description: Interact with a Cosmos SDK chain through simapp
+title:
 tags: 
   - tutorial
   - dev-ops
@@ -20,7 +23,7 @@ There are different ways to run a node of a Cosmos blockchain. You will explore 
 
 Before you start working with `simapp`, take a look at what you are going to do:
 
-<YoutubePlayer videoId="qzUgh8mvyJE"/>
+<YoutubePlayer videoId="wNUjkp2PFQI"/>
 
 ## Compile `simapp`
 

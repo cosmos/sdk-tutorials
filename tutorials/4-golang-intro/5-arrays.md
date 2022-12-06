@@ -14,13 +14,13 @@ In this section, arrays and slices are introduced.
 
 In Go, the size of an array is a part of the type. Therefore, arrays have a fixed size. The declaration has the following syntax:
 
-```golang
+```go
 var array [size]type
 ```
 
 You can access the data with `array[index]`. You can see this with a cross product:
 
-```golang
+```go
 package main
 import (
     "fmt"
@@ -60,7 +60,7 @@ In Go, a *slice* is an abstraction built on top of arrays. Slices are more flexi
 
 A slice does not have a fixed size. To declare a slice, use the following:
 
-```golang
+```go
 var slice []type
 ```
 
@@ -70,7 +70,7 @@ You can also use a built-in function to declare a slice: `func make([]type, leng
 
 Now create a simple slice with three vectors, and then add a vector with the built-in `func append(s []T, vs ...T) [] T` function:
 
-```golang
+```go
 package main
 import "fmt"
 func main() {
@@ -111,19 +111,19 @@ There is also a built-in `func copy(dst, src []T) int` to copy one slice into an
 
 Maps are stored key/value pairs. The declaration is as follows:
 
-```golang
+```go
 var m map[keyType]valueType
 ```
 
 However, this creates a `nil` map, which is not so useful. You can read such a map but not write to it. You use `make` to initialize a map so you can write to it. The following is more useful:
 
-```golang
+```go
 m := make(map[keyType]valueType)
 ```
 
 Now you can work with maps:
 
-```golang
+```go
 package main
 import "fmt"
 func main() {

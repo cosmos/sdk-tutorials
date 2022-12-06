@@ -44,7 +44,7 @@ These three functions return the number of items scanned and an error if the cou
 
 Perhaps you noticed a kind of function declaration we did not speak about: the *variadic function* can be called with any number of arguments. You can iterate over the arguments as follows:
 
-```golang
+```go
 func variadicFunction(a ...interface{}) {
     for _,s:= range a {
         // do something
@@ -71,7 +71,7 @@ The function `Errorf` formats according to a format and returns it as an error.
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 * [String formatting example](https://gobyexample.com/string-formatting)
 * [Go walkthrough fmt](https://medium.com/go-walkthrough/go-walkthrough-fmt-55a14bbbfc53)
@@ -89,7 +89,7 @@ The package *strconv* offers conversions to and from strings of basic data types
 
 Start with an example for using [strconv](https://golang.org/pkg/strconv):
 
-```golang
+```go
 package main
 import (
     "fmt"
@@ -143,7 +143,7 @@ func main() {
 
 In Go, errors are values. The convention is that the last return value of a function is the error. This is the entire code of errors package:
 
-```golang
+```go
 // Copyright 2011 The Go Authors. All rights reserved.
   // Use of this source code is governed by a BSD-style
   // license that can be found in the LICENSE file.
@@ -168,7 +168,7 @@ In Go, errors are values. The convention is that the last return value of a func
 
 You use `func New(text string) error` to create an error. An example is as follows:
 
-```golang
+```go
 package main
 import (
     "errors"

@@ -4,7 +4,6 @@ order: 5
 description: Take a checkers GUI and use the elements
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
@@ -14,7 +13,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 
 </HighlightBox>
@@ -118,7 +117,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
     Be careful to leave the `"eject"` unchanged.
 
-See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC end point that runs the checkers blockchain, as explained in the previous section.
+See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC endpoint that runs the checkers blockchain, as explained in the previous section.
 
 ### GUI data structures
 
@@ -633,7 +632,7 @@ Note the use of `process.env.RPC_URL` again.
 
 <HighlightBox type="note">
 
-The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutorials/6-cosmjs/4-with-keplr.md) section.
+The `chainId` value has to **match exactly** that returned by `client.getChainId()`, or the transaction signer will balk. The `ChainInfo` object is copied from the one you used for Theta in the [first steps with Keplr](/tutorials/7-cosmjs/4-with-keplr.md) section.
 
 </HighlightBox>
 
@@ -1037,7 +1036,7 @@ With this done:
 
     <HighlightBox type="tip">
 
-    There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC end point, the `playGuiMoves` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
+    There is a potentially hard-to-reproduce-in-production **race condition** bug here. The `loadGame` is done immediately after the transaction has completed. However, depending on the implementation of the RPC endpoint, the `playGuiMoves` and `loadGame` calls may hit two different servers on the backend. In some instances, the server that answers your `loadGame` may not have fully updated its store and may in fact serve you the **old** version of your game.
     <br/><br/>
     As your GUI matures, you may want to show the _expected_ state of the game before you eventually show its _finalized_ state. Sometimes you may want to show the expected state of the game even before the transaction has completed, and add visual cues hinting at the fact that it is a **provisional** state.
     <br/><br/>

@@ -4,7 +4,6 @@ order: 6
 description: Introduce a Web2.0 server to track games per player
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
@@ -960,7 +959,7 @@ The events that you have converted are compatible with those emanating from tran
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
 const handleEvent = async (event: StringEvent): Promise<void> => {
     ...
-    if (isActionOf("GameForfeited")) {
+    if (event.type == "game-forfeited") {
         // Function yet to be declared
         await handleEventForfeit(event)
     }

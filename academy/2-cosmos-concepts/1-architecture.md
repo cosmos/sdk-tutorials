@@ -441,4 +441,4 @@ The following sections will extend your comprehension of the Cosmos SDK and the 
 * If you need to handle validator lists during communication, Cosmos does this out of the box with [BaseApp](./8-base-app.md).
 * Do you want the player's GUI to easily reload any pending games, or let them know whether a move is valid or not? These are good uses of Cosmos SDK [queries](./9-queries.md).
 * If you want to use Tendermint to notify players when it's their turn, Cosmos SDK provides that option with [events](./10-events.md).
-* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./12-migrations.md).
+* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./13-migrations.md).

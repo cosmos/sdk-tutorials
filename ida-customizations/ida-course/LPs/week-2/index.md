@@ -3,9 +3,9 @@ parent:
   title: First Steps
   description: Get started with Ignite CLI and then run your own chain
   number: 3
-tags:
 order: 0
 title: Week 2 - Get Started With Ignite Cli and Then Run Your Own Chain
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Get started with Ignite CLI and then run your own chain</div>
@@ -15,7 +15,7 @@ Do you want to find out how to interact with Cosmos chains? Let's take it step-b
 
 Make sure to set up your Work Environment. We have put together some useful information to get everything ready before you start.
 
-Begin by interacting with a chain using simapp. In the end, you will know how to run a node, create blocks, and send transactions.
+Begin by interacting with a chain using simapp. By the end, you will know how to run a node, create blocks, and send transactions.
 
 Then discover the first steps to building an application-specific blockchain from scratch, using Ignite to implement a checkers game and to interact with a running local blockchain from the command line.
 
@@ -34,21 +34,9 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by September 30th, 23:59 UTC.**
+**This week, make sure to submit your exercise by Thursday, 15th of December, 23:59 UTC.**
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
-
-<HighlightBox type="info">
-  
-**Live Session**
-<br/>
-You can watch the recordings of the live session: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK, in case you want to recap or could not join the session:
-
-<YoutubePlayer videoId="xE_nSdwls90"/>
-
-<br/>
-
-</HighlightBox>
 
 ## Next up
 

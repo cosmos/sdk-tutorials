@@ -26,7 +26,7 @@ A version control system is helpful because you have only one workspace. You sho
 
 Let's start with the ever-popular "Hello, World!" program. Let's see how it looks in Go:
 
-```golang
+```go
 package main
 import "fmt"
 func main() {
@@ -79,7 +79,7 @@ If you use `go install` instead of `go build`, Go installs the executable in `$G
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 * [Go's Getting Started Page](https://golang.org/doc/install)
 * [Understanding Golang Packages](https://thenewstack.io/understanding-golang-packages/)

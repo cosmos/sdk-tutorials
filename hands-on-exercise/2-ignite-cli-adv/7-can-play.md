@@ -73,7 +73,9 @@ As with other data structures, you can create the query message object with Igni
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool,reason
+$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
+    --module checkers \
+    --response possible:bool,reason
 ```
 
 </CodeGroupItem>
@@ -81,7 +83,13 @@ $ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:u
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool,reason
+$ docker run --rm -it 
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
+    --module checkers \
+    --response possible:bool,reason
 ```
 
 </CodeGroupItem>
@@ -345,11 +353,11 @@ Note how all test cases are run within a single unit test. In other words, the k
 
 ## Integration tests
 
-You can also add integration tests on top of your unit tests. Although not compulsory, it is preferable that you put them in a separate file. Pick `grpc_query_can_play_move_integration_test.go`.
+You can also add integration tests on top of your unit tests. Put them alongside your other integration tests. Create `grpc_query_can_play_move_test.go`.
 
 Test if it is possible to play on the first game that is created in the system:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_integration_test.go#L8-L21]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/tests/integration/checkers/keeper/grpc_query_can_play_move_test.go#L13-L26]
 func (suite *IntegrationTestSuite) TestCanPlayAfterCreate() {
     suite.setupSuiteWithOneGameForPlayMove()
     goCtx := sdk.WrapSDKContext(suite.ctx)
@@ -385,7 +393,8 @@ $ checkersd query checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers --help
+$ docker exec -it checkers \
+    checkersd query checkers --help
 ```
 
 </CodeGroupItem>
@@ -416,7 +425,8 @@ $ checkersd query checkers can-play-move --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move --help
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move --help
 ```
 
 </CodeGroupItem>
@@ -453,7 +463,8 @@ $ checkersd query checkers can-play-move 2048 red 1 2 2 3
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move 2048 red 1 2 2 3
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 2048 red 1 2 2 3
 ```
 
 </CodeGroupItem>
@@ -501,8 +512,10 @@ $ checkersd query checkers can-play-move 1 w 1 2 2 3
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
-$ docker exec -it checkers checkersd query checkers can-play-move 1 w 1 2 2 3
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 1 w 1 2 2 3
 ```
 
 </CodeGroupItem>
@@ -537,7 +550,8 @@ $ checkersd query checkers can-play-move 1 r 0 5 1 4
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move 1 r 0 5 1 4
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 1 r 0 5 1 4
 ```
 
 </CodeGroupItem>
@@ -570,7 +584,8 @@ $ checkersd query checkers can-play-move 1 b 0 5 1 4
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move 1 b 0 5 1 4
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 1 b 0 5 1 4
 ```
 
 </CodeGroupItem>
@@ -603,7 +618,8 @@ $ checkersd query checkers can-play-move 1 b 1 2 2 3
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move 1 b 1 2 2 3
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 1 b 1 2 2 3
 ```
 
 </CodeGroupItem>
@@ -638,9 +654,12 @@ $ checkersd query checkers can-play-move 1 b 2 3 3 4
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice -y
-$ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob -y
-$ docker exec -it checkers checkersd query checkers can-play-move 1 b 2 3 3 4
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice -y
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 0 5 1 4 --from $bob -y
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 1 b 2 3 3 4
 ```
 
 </CodeGroupItem>
@@ -678,10 +697,14 @@ $ checkersd query checkers can-play-move 2 b 2 3 0 5
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
-$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice -y
-$ docker exec -it checkers checkersd tx checkers play-move 2 0 5 1 4 --from $bob -y
-$ docker exec -it checkers checkersd query checkers can-play-move 2 b 2 3 0 5
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 1 2 2 3 --from $alice -y
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 0 5 1 4 --from $bob -y
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 2 b 2 3 0 5
 ```
 
 </CodeGroupItem>
@@ -710,7 +733,8 @@ $ checkersd query checkers can-play-move 2 b 2 3 0 5
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers can-play-move 2 b 2 3 0 5
+$ docker exec -it checkers \
+    checkersd query checkers can-play-move 2 b 2 3 0 5
 ```
 
 </CodeGroupItem>

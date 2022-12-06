@@ -81,6 +81,10 @@ function checkNavItem(item) {
 
 			//if (!fs.existsSync)
 		}
+		if (/index\.html$/.test(item.path)) {
+			console.log("ERROR: Directory nav item path should not end with index.html - link to the folder instead");
+			reportError();
+		}
 		if (!fs.existsSync(`.${item.path.replace(".html", ".md")}`)) {
 			console.log("ERROR: invalid nav item file path:");
 			console.log(item.path);

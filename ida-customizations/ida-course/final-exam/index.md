@@ -2,11 +2,14 @@
 title: Final Exam
 order:
 description: 
-tag: 
+tags: 
 ---
 
 # Final Exam
 
+The Final Exam will be released on **Thursday, February 2nd, 2023**.
+
+<!--
 Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until the **1st of December** and can submit your exam whenever you feel ready. Importantly, the 1st of December is a hard cut-off, and we are not granting extensions.
 
 The exam is composed of two parts:
@@ -62,3 +65,5 @@ There are a number of emails that you have received, will receive, or could rece
 4. A _pass_ or _fail_ email, that you will receive after the deadline.
 
 Good luck!
+
+-->

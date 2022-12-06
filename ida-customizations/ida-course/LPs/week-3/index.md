@@ -3,9 +3,9 @@ parent:
   title: Introduction to IBC and CosmJS
   description: Learn how to connect chains and how to use CosmJS for the Cosmos SDK
   number: 4
-tags:
 order: 0
 title: Week 3 - Learn How to Connect Chains and How to Use CosmJS for the Cosmos SDK
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Learn how to connect chains and how to use CosmJS for the Cosmos SDK</div>
@@ -55,7 +55,7 @@ This chapter covers quite a lot of content that goes very deep into the intricac
 Please be aware that the recommended **essentials** for IBC are:
 
 * [What is IBC?](/academy/3-ibc/1-what-is-ibc.md)
-* [IBC Fungible Token Transfer](/academy/3-ibc/5-token-transfer.md)
+* [IBC Token Transfer](/academy/3-ibc/5-token-transfer.md)
 * [IBC Tooling](/academy/3-ibc/7-ibc-tooling.md)
 
 The following sections are optional and **NOT** final exam relevant:
@@ -67,32 +67,9 @@ The following sections are optional and **NOT** final exam relevant:
 
 </HighlightBox>
 
-<HighlightBox type="info">
-
-**Live Sessions**
-
-<br/>
-
-This week you were able to join the two live sessions on **September 29th**, _Introduction to CosmJS_ with Noam Cohen, Developer Relations Lead for Cosmos Hub and on **October 3rd**, _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
-
-<br/>
-
-This are the recordings in case you want to recap the live sessions of this week or could not attend:
- 
-* _Introduction to CosmJS_ with Noam Cohen:
-
-<YoutubePlayer videoId="edKgSwCUQNU"/>
-  
-* _Introduction to IBC_ with Thomas Dekeyser:
-
-<YoutubePlayer videoId="tNeh7Js-wfM"/>
-  
-</HighlightBox>
-
-
 ## Next up
 
-First, begin with an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), then you can go ahead an head to the section on [fungible token transfers](/academy/3-ibc/5-token-transfer.md). After getting an [overview on helpful tools for IBC](/academy/3-ibc/7-ibc-tooling.md), you can start your ComsJS journey with an [introduction section](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+First, begin with an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), then you can go ahead an head to the section on [fungible token transfers](/academy/3-ibc/5-token-transfer.md). After getting an [overview on helpful tools for IBC](/academy/3-ibc/7-ibc-tooling.md), you can start your ComsJS journey with an [introduction section](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 
 ## Developer Resources
 
