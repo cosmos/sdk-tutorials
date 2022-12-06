@@ -1,6 +1,6 @@
 ---
 title: "Play With Cross-Chain Tokens"
-order: 9
+order: 10
 description: Let players wager any fungible token
 tags: 
   - guided-coding

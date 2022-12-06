@@ -1,6 +1,6 @@
 ---
 title: "Incentivize Players"
-order: 7
+order: 8
 description: Gas - reward validators proportional to their effort
 tags: 
   - guided-coding
