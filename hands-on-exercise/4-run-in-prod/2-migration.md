@@ -130,25 +130,31 @@ To give the new v2 information a data structure, you need the following:
 
     It also added the map of new objects to the genesis, effectively your v2 genesis:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/genesis.proto#L19]
-    import "checkers/player_info.proto";
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/genesis.proto#L19]
+        import "checkers/player_info.proto";
 
-    message GenesisState {
-        ...
-        repeated PlayerInfo playerInfoList = 4 [(gogoproto.nullable) = false];
-    }
+        message GenesisState {
+            ...
+    +      repeated PlayerInfo playerInfoList = 4 [(gogoproto.nullable) = false];
+        }
     ```
 
     You will use the player's address as a key to the map.
 
 2. Adjust in `types/genesis_test.go` for the expectation that you get an empty list to start with:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis_test.go#L124]
-    func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
-        ...
-        PlayerInfoList: []types.PlayerInfo{},
-        ...
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis_test.go#L124]
+        func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
+            require.EqualValues(t,
+                &types.GenesisState{
+                    ...
+                    SystemInfo: types.SystemInfo{
+                        ...
+                    },
+    +              PlayerInfoList: []types.PlayerInfo{},
+                },
+                types.DefaultGenesis())
+        }
     ```
 
 3. Add a **leaderboard rung structure** to be repeated inside the leaderboard: this stores the information of a player scoring high enough to be included in the leaderboard. It is not meant to be kept directly in storage as it is only a part of the leaderboard. Instead of involving Ignite CLI, create the structure by hand in a new file:
@@ -205,41 +211,41 @@ To give the new v2 information a data structure, you need the following:
 
 6. The v2 genesis was also updated with the leaderboard. Tell it that the leaderboard should always be there (even if empty):
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/genesis.proto#L20]
-    import "checkers/leaderboard.proto";
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/proto/checkers/genesis.proto#L20]
+    +  import "checkers/leaderboard.proto";
 
-    message GenesisState {
-        ...
-        Leaderboard leaderboard = 5 [(gogoproto.nullable) = false];
-    }
+        message GenesisState {
+            ...
+    +      Leaderboard leaderboard = 5 [(gogoproto.nullable) = false];
+        }
     ```
 
     At this point, you should run `ignite generate proto-go` so that the corresponding Go objects are re-created.
 
 7. Remember to make sure the initial value stored for the leaderboard is not `nil` but instead is empty. In `genesis.go` adjust:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis.go#L20-L22]
-    func DefaultGenesis() *GenesisState {
-        return &GenesisState{
-            ...
-            Leaderboard: Leaderboard{
-                Winners: []WinningPlayer{},
-            },
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis.go#L20-L22]
+        func DefaultGenesis() *GenesisState {
+            return &GenesisState{
+                ...
+    +          Leaderboard: Leaderboard{
+    +              Winners: []WinningPlayer{},
+    +          },
+            }
         }
-    }
     ```
 
     This function returns a default genesis. This step is important if you start fresh. In your case, you do not begin with an "empty" genesis but with one resulting from the upcoming genesis migration in this exercise.
 
     In particular, update the initial genesis test:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis_test.go#L125-L127]
-    func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
-        ...
-            Leaderboard: types.Leaderboard{
-                Winners: []types.WinningPlayer{},
-            },
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis_test.go#L125-L127]
+        func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
+            ...
+    +          Leaderboard: types.Leaderboard{
+    +              Winners: []types.WinningPlayer{},
+    +          },
+        }
     ```
 
 8. Also adjust the compilation errors:
@@ -252,19 +258,21 @@ To give the new v2 information a data structure, you need the following:
 
     On `genesis_test.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/genesis_test.go#L36-L45]
-    ...
-    Leaderboard: &types.Leaderboard{
-        Winners: []*types.WinningPlayer{
-            {
-                PlayerAddress: "cosmos123",
-            },
-            {
-                PlayerAddress: "cosmos456",
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/genesis_test.go#L36-L45]
+        ...
+    -  Leaderboard: &types.Leaderboard{
+    -      Winners: []*types.WinningPlayer{
+    +  Leaderboard: types.Leaderboard{
+    +      Winners: []types.WinningPlayer{
+                {
+                    PlayerAddress: "cosmos123",
+                },
+                {
+                    PlayerAddress: "cosmos456",
+                },
             },
         },
-    },
-    ...
+        ...
     ```
 
     At this point you can add a test case that catches a duplicated winner player:
@@ -308,12 +316,16 @@ To give the new v2 information a data structure, you need the following:
 
     After this, you can adjust the `types/genesis.go` files:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis.go#L51-L54]
-    ...
-    // Validate Leaderboard
-    if err := gs.Leaderboard.Validate(); err != nil {
-        return err
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/genesis.go#L51-L54]
+        func (gs GenesisState) Validate() error {
+            ...
+    +      // Validate Leaderboard
+    +      if err := gs.Leaderboard.Validate(); err != nil {
+    +          return err
+    +      }
+            // this line is used by starport scaffolding # genesis/types/validate
+            ...
+        }
     ```
 
 With the structure set up, it is time to add the code using these new elements in normal operations.
@@ -426,30 +438,30 @@ Now call your helper functions:
 
 1. On a win:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move.go#L80]
-    ...
-    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move.go#L80]
         ...
-    } else {
+        if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+            ...
+        } else {
+            ...
+            k.Keeper.MustPayWinnings(ctx, &storedGame)
+    +      k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
+        }
         ...
-        k.Keeper.MustPayWinnings(ctx, &storedGame)
-        k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
-    }
-    ...
     ```
 
 2. On a forfeit:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game.go#L57]
-    ...
-    if storedGame.MoveCount <= 1 {
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game.go#L57]
         ...
-    } else {
+        if storedGame.MoveCount <= 1 {
+            ...
+        } else {
+            ...
+            k.MustPayWinnings(ctx, &storedGame)
+    +      k.MustRegisterPlayerForfeit(ctx, &storedGame)
+        }
         ...
-        k.MustPayWinnings(ctx, &storedGame)
-        k.MustRegisterPlayerForfeit(ctx, &storedGame)
-    }
-    ...
     ```
 
 ## v2 leaderboard helpers
@@ -480,10 +492,11 @@ type WinningPlayerParsed struct {
 
 You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md):
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/keys.go#L84]
-const (
-    DateAddedLayout = DeadlineLayout
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/keys.go#L84]
+    const (
+        ...
++      DateAddedLayout = DeadlineLayout
+    )
 ```
 
 Add similar functions to it, as you did when adding a deadline:
@@ -509,8 +522,11 @@ func FormatDateAdded(dateAdded time.Time) string {
 
 Do the same for the new error message:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L31]
-ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L31]
+    var (
+        ...
++      ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+    )
 ```
 
 </ExpansionPanel>
@@ -688,26 +704,30 @@ This completes most of the leaderboard preparation. The only task left is to cal
 
 1. On a win:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move.go#L80-L81]
-    if storedGame.Winner == rules.NO_PLAYER.Color {
-        ...
-    } else {
-        ...
-        winnerInfo, _ := k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
-        k.Keeper.MustAddToLeaderboard(ctx, winnerInfo)
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move.go#L80-L81]
+        if storedGame.Winner == rules.NO_PLAYER.Color {
+            ...
+        } else {
+            ...
+            k.Keeper.MustPayWinnings(ctx, &storedGame)
+    +      winnerInfo, _ := k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
+    +      k.Keeper.MustAddToLeaderboard(ctx, winnerInfo)
+        }
     ```
 
 2. On a forfeit:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game.go#L57-L58]
-    if storedGame.MoveCount <= 1 {
-        ...
-    } else {
-        ...
-        winnerInfo, _ := k.MustRegisterPlayerForfeit(ctx, &storedGame)
-        k.MustAddToLeaderboard(ctx, winnerInfo)
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game.go#L57-L58]
+        if storedGame.MoveCount <= 1 {
+            ...
+        } else {
+            ...
+            k.MustPayWinnings(ctx, &storedGame)
+    +      winnerInfo, _ := k.MustRegisterPlayerForfeit(ctx, &storedGame)
+    +      k.MustAddToLeaderboard(ctx, winnerInfo)
+            storedGame.Board = ""
+            ...
+        }
     ```
 
 Your leaderboard will now be updated and saved on an on-going basis as part of your v2 blockchain.
@@ -720,7 +740,7 @@ With all these changes, it is worthwhile adding tests.
 
 Confirm with new tests that the player's information is created or updated on a win, a loss, and a forfeit. For instance, after a winning move:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L143-L206]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L68-L131]
 func TestCompleteGameAddPlayerInfo(t *testing.T) {
     msgServer, keeper, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -787,7 +807,7 @@ func TestCompleteGameUpdatePlayerInfo(t *testing.T) {
 }
 ```
 
-You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L419-L498), a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L307-L381), or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
+You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L413-L492), a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L307-L381), or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
 
 ### Leaderboard handling unit tests
 
@@ -914,11 +934,11 @@ func TestUpdatePlayerInfoAtNowTooLongNoAdd(t *testing.T) {
 }
 ```
 
-With the tests at the leaderboard level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L500-L553), [rejecting one](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L383-L444), and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
+With the tests at the leaderboard level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L494-L547), [rejecting one](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L383-L444), and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
 
-Confirm that a new winner is either [added](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L208-L225) or updated in the leaderboard:
+Confirm that a new winner is either [added](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L133-L182) or updated in the leaderboard:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L227-L257]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L152-L182]
 func TestCompleteGameLeaderboardUpdatedWinner(t *testing.T) {
     msgServer, keeper, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -1142,6 +1162,16 @@ func MapStoredGamesReduceToPlayerInfo(ctx sdk.Context, k keeper.Keeper, chunk ui
 }
 ```
 
+Not to forget a suggested chunk size when fetching stored games:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/constants.go#L6]
+const (
+    StoredGameChunkSize = 1_000
+)
+```
+
+To find the ideal value, you would have to test with the real state and try different values.
+
 ## v1 to v2 leaderboard migration helper
 
 You could decide to build the leaderboard as the player stats list is being built, mimicking the regular operation of your v2 checkers blockchain. Unfortunately, that would entail a lot of array sorting for what are just intermediate player stats. Instead, it is better to build the v2 leaderboard only after all player stats have been gathered.
@@ -1155,8 +1185,11 @@ It looks beneficial to use a Go routine in this case too, and a _player info_ ch
 
 In practice, repeatedly building the intermediate leaderboard means adding _k_ new `winningPlayerParsed` to the sorted array, sorting it, clipping it to `LeaderboardWinnerLength`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in a new file created for this purpose:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/constants.go#L7]
-const PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/migrations/v1tov2/constants.go#L7]
+    const (
+        StoredGameChunkSize = 1_000
++      PlayerInfoChunkSize = types.LeaderboardWinnerLength * 2
+    )
 ```
 
 ### Implementation
@@ -1322,8 +1355,9 @@ The consensus version number bears no resemblance to v1 or v2. The consensus ver
 
 Now that you are in v2, have the module return it when asked:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/module.go#L175]
-func (AppModule) ConsensusVersion() uint64 { return v2.TargetConsensusVersion }
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/module.go#L175]
+-  func (AppModule) ConsensusVersion() uint64 { return 2 }
++  func (AppModule) ConsensusVersion() uint64 { return v2.TargetConsensusVersion }
 ```
 
 You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan`, i.e. an upgrade governance proposal. This is a name relevant at the application level:
@@ -1343,15 +1377,16 @@ Prepare these in turn.
 
 Indicate that the checkers module needs to perform some upgrade steps when it is coming out of the old consensus version by calling `RegisterMigration`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/module.go#L146-L150]
-func (am AppModule) RegisterServices(cfg module.Configurator) {
-    ...
-    if err := cfg.RegisterMigration(types.ModuleName, v1.TargetConsensusVersion, func(ctx sdk.Context) error {
-        return v1tov2.PerformMigration(ctx, am.keeper, v1tov2.StoredGameChunkSize, v1tov2.PlayerInfoChunkSize)
-    }); err != nil {
-        panic(fmt.Errorf("failed to register migration of %s to v2: %w", types.ModuleName, err))
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/module.go#L146-L150]
+    func (am AppModule) RegisterServices(cfg module.Configurator) {
+        types.RegisterQueryServer(cfg.QueryServer(), am.keeper)
+
++      if err := cfg.RegisterMigration(types.ModuleName, v1.TargetConsensusVersion, func(ctx sdk.Context) error {
++          return v1tov2.PerformMigration(ctx, am.keeper, v1tov2.StoredGameChunkSize, v1tov2.PlayerInfoChunkSize)
++      }); err != nil {
++          panic(fmt.Errorf("failed to register migration of %s to v2: %w", types.ModuleName, err))
++      }
     }
-}
 ```
 
 Note it decides on the chunk sizes to use.
@@ -1360,18 +1395,20 @@ Note it decides on the chunk sizes to use.
 
 The command that you are going to write needs a `Configurator`. This is already created as part of your `app` preparation but is not kept. Instead of recreating one, adjust your code to make it easily available. Add this field to your `app`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L246]
-type App struct {
-    ...
-    configurator module.Configurator
-}
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L246]
+    type App struct {
+        ...
+        sm *module.SimulationManager
++      configurator module.Configurator
+    }
 ```
 
 Now adjust the place where the configurator is created:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L560-L561]
-app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
-app.mm.RegisterServices(app.configurator)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L560-L561]
+-  app.mm.RegisterServices(module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter()))
++  app.configurator = module.NewConfigurator(app.appCodec, app.MsgServiceRouter(), app.GRPCQueryRouter())
++  app.mm.RegisterServices(app.configurator)
 ```
 
 Create a function that encapsulates knowledge about all possible upgrades, although there is a single one here. Since it includes _empty code_ for future use, avoid cluttering the already long `NewApp` function:
@@ -1413,15 +1450,15 @@ func (app *App) setupUpgradeHandlers() {
 
 Now you are ready to inform the app proper. You do this towards the end, after the call to `app.SetEndBlocker` and before `if loadLatest`. At the correct location:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L610]
-...
-app.SetEndBlocker(app.EndBlocker)
-
-app.setupUpgradeHandlers()
-
-if loadLatest {
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/app/app.go#L610]
     ...
-}
+    app.SetEndBlocker(app.EndBlocker)
+
++  app.setupUpgradeHandlers()
+
+    if loadLatest {
+        ...
+    }
 ```
 
 Be aware that the `monitoring` module added by Ignite causes difficulty when experimenting below with the CLI. To make it simple, you should remove [all references to `monitoring`](https://github.com/cosmos/b9-checkers-academy-draft/compare/leaderboard-handling..migration#diff-0f1d2976054440336a576d47a44a37b80cdf6701dd9113012bce0e3c425819b7L159) from `app.go`.

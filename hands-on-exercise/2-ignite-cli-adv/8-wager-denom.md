@@ -64,20 +64,20 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 
 1. Update the stored game:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/stored_game.proto#L18]
-    message StoredGame {
-        ...
-        string denom = 12;
-    }
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/stored_game.proto#L18]
+        message StoredGame {
+            ...
+    +      string denom = 12;
+        }
     ```
 
 2. Update the message to create a game:
 
-    ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/tx.proto#L21]
-    message MsgCreateGame {
-        ...
-        string denom = 5;
-    }
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/tx.proto#L21]
+        message MsgCreateGame {
+            ...
+    +      string denom = 5;
+        }
     ```
 
 3. Instruct the Ignite CLI and Protobuf to recompile both files:
@@ -108,42 +108,63 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 
 4. It is recommended to also update the `MsgCreateGame` constructor:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/message_create_game.go#L12-L18]
-    func NewMsgCreateGame(creator string, black string, red string, wager uint64, denom string) *MsgCreateGame {
-        return &MsgCreateGame{
-            ...
-            Denom: denom,
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/message_create_game.go#L12-L18]
+        func NewMsgCreateGame(creator string, black string, red string, wager uint64, denom string) *MsgCreateGame {
+            return &MsgCreateGame{
+                ...
+    +          Denom: denom,
+            }
         }
-    }
     ```
 
 5. Not to forget the CLI client:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/client/cli/tx_create_game.go#L17-L39]
-    cmd := &cobra.Command{
-        Use:   "create-game [black] [red] [wager] [denom]",
-        Short: "Broadcast message createGame",
-        Args:  cobra.ExactArgs(4),
-        RunE: func(cmd *cobra.Command, args []string) (err error) {
-            ...
-            argDenom := args[3]
-            ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/compare/can-play-move-handler..wager-denomination#diff-499219a70e143a1a848af38d250273a6de287507bfc67f89ff0f46cc8222a7a1]
+        func CmdCreateGame() *cobra.Command {
+            cmd := &cobra.Command{
+    -          Use:   "create-game [black] [red] [wager]",
+    +          Use:   "create-game [black] [red] [wager] [denom]",
+                Short: "Broadcast message createGame",
+    -          Args:  cobra.ExactArgs(3),
+    +          Args:  cobra.ExactArgs(4),
+                RunE: func(cmd *cobra.Command, args []string) (err error) {
+                    argBlack := args[0]
+                    argRed := args[1]
+                    argWager, err := strconv.ParseUint(args[2], 10, 64)
+                    if err != nil {
+                        return err
+                    }
+    +              argDenom := args[3]
 
-            msg := types.NewMsgCreateGame(
-                ...
-                argDenom,
-            )
-            ...
-        },
-    }
+                    clientCtx, err := client.GetClientTxContext(cmd)
+                    if err != nil {
+                        return err
+                    }
+                    msg := types.NewMsgCreateGame(
+                        clientCtx.GetFromAddress().String(),
+                        argBlack,
+                        argRed,
+                        argWager,
+    +                  argDenom,
+                    )
+                    if err := msg.ValidateBasic(); err != nil {
+                        return err
+                    }
+                    return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+                },
+            }
+            flags.AddTxFlagsToCmd(cmd)
+            return cmd
+        }
     ```
 
 6. This new field will be emitted during game creation, so add a new event key as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/keys.go#L37]
-    const (
-        GameCreatedEventDenom = "denom"
-    )
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/keys.go#L37]
+        const (
+            ...
+    +      GameCreatedEventDenom = "denom"
+        )
     ```
 
 ## Additional handling
@@ -160,22 +181,22 @@ The token denomination has been integrated into the relevant data structures. No
 
 2. In the handler that instantiates a game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game.go#L34]
-    storedGame := types.StoredGame{
-        ...
-        Denom:       msg.Denom,
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game.go#L34]
+        storedGame := types.StoredGame{
+            ...
+    +      Denom:       msg.Denom,
+        }
     ```
 
     Also where it emits an event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game.go#L56]
-    ctx.EventManager().EmitEvent(
-        sdk.NewEvent(sdk.EventTypeMessage,
-            ...
-            sdk.NewAttribute(types.GameCreatedEventDenom, msg.Denom),
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game.go#L56]
+        ctx.EventManager().EmitEvent(
+            sdk.NewEvent(sdk.EventTypeMessage,
+                ...
+    +          sdk.NewAttribute(types.GameCreatedEventDenom, msg.Denom),
+            )
         )
-    )
     ```
 
 ## Unit tests

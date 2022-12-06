@@ -82,20 +82,23 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 
 This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact, yours has already been placed at the end by Ignite:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
-app.mm.SetOrderEndBlockers(
-    crisistypes.ModuleName,
-    ...
-    checkersmoduletypes.ModuleName,
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
+    app.mm.SetOrderEndBlockers(
+        crisistypes.ModuleName,
+        ...
++      checkersmoduletypes.ModuleName,
+    )
 ```
 
 Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 Also prepare a new error:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L22]
-ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1111, "cannot find winner by color: %s")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L22]
+    var (
+        ...
++      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1111, "cannot find winner by color: %s")
+    )
 ```
 
 ## Expire games handler

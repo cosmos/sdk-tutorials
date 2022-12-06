@@ -365,12 +365,13 @@ return &GenesisState{
 
 This is not correct. Your chain needs to start with an initial system info. This raises the point that the genesis' `SystemInfo` should in fact [never be null](https://pkg.go.dev/github.com/gogo/protobuf/gogoproto). You can enforce that in `genesis.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/proto/checkers/genesis.proto#L15]
-message GenesisState {
-    ...
-    SystemInfo systemInfo = 2 [(gogoproto.nullable) = false];
-    ...
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/proto/checkers/genesis.proto#L15]
+    message GenesisState {
+        ...
+-      SystemInfo systemInfo = 2;
++      SystemInfo systemInfo = 2 [(gogoproto.nullable) = false];
+        ...
+    }
 ```
 
 After compilation, this `nullable = false` flag changes the `SystemInfo` type in genesis from a pointer to a straight value. Make sure you recompile:
@@ -401,18 +402,19 @@ $ docker run --rm -it \
 
 Then set a default value for `SystemInfo`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/genesis.go#L13-L15]
-const DefaultIndex uint64 = 1
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/genesis.go#L13-L15]
+    const DefaultIndex uint64 = 1
 
-func DefaultGenesis() *GenesisState {
-    return &GenesisState{
-        SystemInfo: SystemInfo{
-            NextId: uint64(DefaultIndex),
-        },
-        StoredGameList: []StoredGame{},
-        ...
+    func DefaultGenesis() *GenesisState {
+        return &GenesisState{
+-          SystemInfo:     nil,
++          SystemInfo: SystemInfo{
++              NextId: uint64(DefaultIndex),
++          },
+            StoredGameList: []StoredGame{},
+            ...
+        }
     }
-}
 ```
 
 You can choose to start with no games or insert a number of games to start with. In either case, you must choose the first ID of the first future created game, which here is set at `1` by reusing the `DefaultIndex` value.
