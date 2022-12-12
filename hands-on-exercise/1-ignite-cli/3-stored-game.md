@@ -858,6 +858,18 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
 
     This is as expected. No games have been created yet, so the game counter is still at `1`.
 
+    <HighlightBox type="note">
+
+    If you get an error that reads like:
+
+    ```txt
+    command not found checkersd
+    ```
+
+    Then you likely have not configured Go correctly. Refer back to `GOPATH` in our [Go introduction](/tutorials/4-golang-intro/1-install.md).
+
+    </HighlightBox>
+
 3. The `--output` flag allows you to get your results in a JSON format, which might be useful if you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 
     <CodeGroup>
