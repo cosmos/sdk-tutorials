@@ -860,13 +860,13 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
 
     <HighlightBox type="note">
 
-    If you get an error that reads like:
+    You may encounter an error like the following:
 
     ```txt
     command not found checkersd
     ```
 
-    Then you likely have not configured Go correctly. Refer back to `GOPATH` in our [Go introduction](/tutorials/4-golang-intro/1-install.md).
+    This indicates that you likely have not configured Go correctly. Refer back to `GOPATH` in our [Go introduction](/tutorials/4-golang-intro/1-install.md).
 
     </HighlightBox>
 
