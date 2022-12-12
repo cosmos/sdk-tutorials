@@ -150,7 +150,7 @@ If you want to allow for portability and avoid version issues, it is advisable t
 
 First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
-```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu]
+```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu#L1-L33]
 FROM --platform=linux ubuntu:22.04
 ARG BUILDARCH
 
@@ -185,6 +185,8 @@ EXPOSE 1317 3000 4500 5000 26657
 
 WORKDIR /checkers
 ```
+
+Note that the linked code contains more lines than shown above. Because you do not yet have a `go.mod` file, stick to the lines in the quoted code above for now.
 
 Next you need to create the Docker image:
 
