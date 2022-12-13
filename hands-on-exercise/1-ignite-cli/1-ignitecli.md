@@ -547,6 +547,12 @@ Navigate to [localhost:3000](http://localhost:3000/), or to whichever address wa
 
 ![My Keplr account with nothing](/hands-on-exercise/1-ignite-cli/images/ignite-vue-keplr-no-assets.png)
 
+<HighlightBox type="tip">
+
+If you want Keplr to separate your mainnet keys and tokens from those you use for tests, have a look at [Google Chrome's profiles](https://www.techradar.com/how-to/how-to-use-profiles-in-chrome-to-keep-work-and-home-separate).
+
+</HighlightBox>
+
 Your account is connected but has no balance. This is a good opportunity to use the faucet:
 
 1. Head to [http://localhost:4500](http://localhost:4500)
