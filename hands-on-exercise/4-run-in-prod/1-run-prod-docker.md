@@ -587,92 +587,92 @@ In the above, `val-alice` is the future network name of Alice's validator, and i
 
 Do not forget, you must inform Alice's validator that it should indeed listen on port `26659`. In `val-alice/config/config.toml`:
 
-  <CodeGroup>
+<CodeGroup>
 
-  <CodeGroupItem title="TOML">
+<CodeGroupItem title="TOML">
 
-  ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L68]
-  priv_validator_laddr = "tcp://0.0.0.0:26659"
-  ```
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L68]
+priv_validator_laddr = "tcp://0.0.0.0:26659"
+```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 
-  <CodeGroupItem title="One-liner">
+<CodeGroupItem title="One-liner">
 
-  ```sh
-  $ docker run --rm -i \
-      -v $(pwd)/docker/val-alice:/root/.checkers \
-      --entrypoint sed \
-      checkersd_i \
-      -Ei 's/priv_validator_laddr = ""/priv_validator_laddr = "tcp:\/\/0.0.0.0:26659"/g' \
-      /root/.checkers/config/config.toml
-  ```
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  --entrypoint sed \
+  checkersd_i \
+  -Ei 's/priv_validator_laddr = ""/priv_validator_laddr = "tcp:\/\/0.0.0.0:26659"/g' \
+  /root/.checkers/config/config.toml
+```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 
-  </CodeGroup>
+</CodeGroup>
 
-  <HighlightBox type="note">
+<HighlightBox type="note">
 
-  Make it listen on an IP address that is within the KMS private network.
+Make it listen on an IP address that is within the KMS private network.
 
-  </HighlightBox>
-    
-  `0.0.0.0` represents all addresses of the node. In a real production setup, you would choose the IP address of the network card that is on the network common with `kms-alice`.
+</HighlightBox>
+
+`0.0.0.0` represents all addresses of the node. In a real production setup, you would choose the IP address of the network card that is on the network common with `kms-alice`.
 
 * Make sure it will not look for the consensus key on file:
 
-  <CodeGroup>
+<CodeGroup>
 
-  <CodeGroupItem title="TOML">
+<CodeGroupItem title="TOML">
 
-  ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L61]
-  # priv_validator_key_file = "config/priv_validator_key.json"
-  ```
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L61]
+# priv_validator_key_file = "config/priv_validator_key.json"
+```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 
-  <CodeGroupItem title="One-liner">
+<CodeGroupItem title="One-liner">
 
-  ```sh
-  $ docker run --rm -i \
-      -v $(pwd)/docker/val-alice:/root/.checkers \
-      --entrypoint sed \
-      checkersd_i \
-      -Ei 's/^priv_validator_key_file/# priv_validator_key_file/g' \
-      /root/.checkers/config/config.toml
-  ```
-    
-  </CodeGroupItem>
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  --entrypoint sed \
+  checkersd_i \
+  -Ei 's/^priv_validator_key_file/# priv_validator_key_file/g' \
+  /root/.checkers/config/config.toml
+```
 
-  </CodeGroup>
+</CodeGroupItem>
+
+</CodeGroup>
 
 * Make sure it will not look for the consensus state file either, as this is taken care of by the KMS:
 
-  <CodeGroup>
+<CodeGroup>
 
-  <CodeGroupItem title="TOML">
+<CodeGroupItem title="TOML">
 
-  ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L64]
-  # priv_validator_state_file = "data/priv_validator_state.json"
-  ```
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L64]
+# priv_validator_state_file = "data/priv_validator_state.json"
+```
 
-  </CodeGroupItem>
+</CodeGroupItem>
 
-  <CodeGroupItem title="One-liner">
+<CodeGroupItem title="One-liner">
 
-  ```sh
-  $ docker run --rm -i \
-      -v $(pwd)/docker/val-alice:/root/.checkers \
-      --entrypoint sed \
-      checkersd_i \
-      -Ei 's/^priv_validator_state_file/# priv_validator_state_file/g' \
-      /root/.checkers/config/config.toml
-  ```
-    
-  </CodeGroupItem>
+```sh
+$ docker run --rm -i \
+  -v $(pwd)/docker/val-alice:/root/.checkers \
+  --entrypoint sed \
+  checkersd_i \
+  -Ei 's/^priv_validator_state_file/# priv_validator_state_file/g' \
+  /root/.checkers/config/config.toml
+```
 
-  </CodeGroup>
+</CodeGroupItem>
+
+</CodeGroup>
 
 Before moving on, make sure that the validator still has a `priv_validator_key.json` because the code may complain if the file cannot be found. You can copy the key from `sentry-alice`, which does not present any risk:
 
