@@ -49,7 +49,7 @@ When you click on a specific chain with your mouse cursor, an overview of data f
 
 The information displayed includes:
 
-* The number of transaction on that chain (for the selected time period)
+* The number of transactions on that chain (for the selected time period)
 * The number of IBC transfers (for the selected time period)
 * The number of peers
 * The number of channels
