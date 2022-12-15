@@ -81,7 +81,7 @@ The list includes very useful information, such as:
 * `IBC volume in, $`: USD value of tokens successfully received from other zones with pertinent volume in progress.
 * `IBC volume out, $`: USD value of tokens successfully transferred to other zones with pertinent volume in progress.
 * `IBC transfer`: number of successfully relayed IBC transfers with pertinent quantity in progress.
-* `IBC DAU`: number of zone's unique addresses initiated outward IBC transfer(s).
+* `IBC DAU`: number of unique addresses within the zone that have initiated outward IBC transfers.
 
 You can also sort the list in either ascending or descending order with a click on the label.
 
