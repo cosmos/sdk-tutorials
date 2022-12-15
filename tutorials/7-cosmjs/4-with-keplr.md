@@ -297,6 +297,11 @@ getTestnetChainInfo = (): ChainInfo => ({
             coinMinimalDenom: "uatom",
             coinDecimals: 6,
             coinGeckoId: "cosmos",
+            gasPriceStep: {
+                low: 1,
+                average: 1,
+                high: 1,
+            },
         },
     ],
     stakeCurrency: {
