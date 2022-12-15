@@ -33,7 +33,7 @@ By default, the explorer shows you a visual overview of the IBC network for the 
 
 ![MapOfZones](/academy/3-ibc/images/mapofzones1.png)
 
-You can also change the time being visualized by the MapOfZones in the lower right side of the display. You can chose between:
+You can also change the time being visualized by the MapOfZones in the lower right side of the display. You can choose between:
 
 * 24 hours
 * Seven days
