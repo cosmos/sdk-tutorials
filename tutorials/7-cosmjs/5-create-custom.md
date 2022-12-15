@@ -31,7 +31,7 @@ This section assumes that you have a working Cosmos blockchain with its own modu
 
 ## Compiling the Protobuf objects and clients
 
-You can choose which library you use to compile your Protobuf objects into TypeScript or JavaScript. Reproducing [what Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) or [`cosmjs-types`](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.sh) do is a good choice.
+You can choose which library you use to compile your Protobuf objects into TypeScript or JavaScript. Reproducing [what Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) or [`cosmjs-types`](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.js) do is a good choice.
 
 ### Preparation
 
