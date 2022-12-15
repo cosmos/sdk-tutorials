@@ -130,7 +130,7 @@ Temporarily keep this address for convenience, although CosmJS can always recalc
 
 Important considerations:
 
-1. `process.stdout.write` was used to avoid any line return. Be careful not to add any empty lines or any other character in your `.key` file (this occurs with VSCode under certain conditions). If you add any characters, CosmJs may not be able to parse it.
+1. `process.stdout.write` was used to avoid any line return. Be careful not to add any empty lines or any other character in your `.key` file (this occurs with VSCode under certain conditions). If you add any characters, CosmJS may not be able to parse it.
 2. Adjust the `.gitignore` file to not commit your `.key` file by mistake:
 
     ``` [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/.gitignore#L2]
