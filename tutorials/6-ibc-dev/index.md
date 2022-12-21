@@ -229,6 +229,17 @@ denom_trace:
   path: transfer/channel-141
 ```
 
+<HighlightBox type="info">
+
+It happens that an endpoint cannot be reached. If you do not receive an appropriate response, take a look at the [chain registry](https://github.com/cosmos/chain-registry/blob/master/cosmoshub/chain.json) and try to use another node for the commands, e.g. to test against the testnet:
+
+```sh
+$ gaiad query ibc-transfer denom-trace 14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF17CF2F5008FC085218811CC --node https://cosmos-testnet-rpc.allthatnode.com:26657
+```
+
+</HighlightBox>
+
+
 From the terminal output, you now know that there is an IBC port `transfer` and channel `channel-141` that corresponds to the IBC connection between the Hub and Osmosis. To learn the IBC light client behind the port and channel, you need to perform another query.
 
 <HighlightBox type="info">
