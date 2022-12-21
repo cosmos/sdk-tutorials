@@ -256,7 +256,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
 
   By default, the relayer will relay packets over all channels on a given connection.
 
-  Each path has an `src-channel-filter`, which you can utilize to specify which channels you would like to relay on.
+  Each path has a `src-channel-filter`, which you can utilize to specify which channels you would like to relay on.
 
   The `rule` can be one of three values:
 
