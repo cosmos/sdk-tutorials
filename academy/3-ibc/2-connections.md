@@ -107,7 +107,7 @@ Colin Axnér of Interchain gives an overview of how IBC Connections work (ICS-03
 
 A high level overview of a successful four-way handshake is as follows:
 
-### Handshake step 1 - `ChanOpenInit`
+### Handshake step 1 - `ConnOpenInit`
 
 `OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit a `MsgUpdateClient` with chain A as the source chain before this handshake. `MsgUpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
@@ -205,7 +205,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 }
 ```
 
-### Handshake step 2 - `ChanOpenTry`
+### Handshake step 2 - `ConnOpenTry`
 
 `OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A.
 
@@ -243,7 +243,7 @@ func (k Keeper) ConnOpenTry(
 ) ...
 ```
 
-## Handshake step 3 - `ChanOpenAck`
+## Handshake step 3 - `ConnOpenAck`
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `MsgUpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
@@ -303,7 +303,7 @@ if err := k.VerifyClientConsensusState(
 
 Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the `ConsensusState` of the other chain. Note that after this step the connection state on chain A updates from `INIT` to `OPEN`.
 
-### Handshake step 4 - `ChanOpenConfirm`
+### Handshake step 4 - `ConnOpenConfirm`
 
 `OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful.
 
