@@ -42,11 +42,7 @@ Do not worry if you do not pass the quiz: it is simply meant to be an opportunit
 
 <HighlightBox type="info">
 
-**Live Session**
-<br/>
-This week's live session is: _Introduction to Cosmos_ with Billy Rennekamp, Product Lead for Cosmos Hub.
-<br/>
-This is the **recording** of the session _Introduction to Cosmos_ with Billy Rennekamp:
+This is a **recording** of the live session _Introduction to Cosmos_ with Billy Rennekamp:
 
 <YoutubePlayer videoId="5_ZkZ-NF184"/>
 
