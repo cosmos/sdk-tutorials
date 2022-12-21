@@ -69,7 +69,7 @@ The following sections are optional and **NOT** final exam relevant:
 
 <HighlightBox type="info">
 
-This are **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
+Here you can find **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
   
 * _Introduction to CosmJS_ with Noam Cohen:
 
