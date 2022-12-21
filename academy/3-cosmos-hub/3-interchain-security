@@ -23,7 +23,7 @@ However, Cosmos chains have historically had a major challenge to overcome: they
 
 With Interchain Security, developers will be able to launch a chain running their EVM, CosmWasm, or Cosmos SDK application. This chain will be secured by the validator set of the Cosmos Hub and the full market cap of the ATOM. This is known as a _consumer chain_, since it "consumes" security from the Hub (the _provider chain_).
 
-### Sovereignty and Incentivization
+### Sovereignty and incentivization
 
 It is important to note that each consumer chain's transactions are _not_ being executed on the provider chain. Each chain retains its sovereignty because both the execution layer and the data layer are independently hosted on-chain. This means that the Cosmos Hub maintains enough blockspace to keep executing its core functions, and that netto blockspace for the total Interchain Secured network is effectively increased. To achieve this, validators are obligated to run a separate validator node for the consumer chain, once this chain has been approved through an on-chain governance process.
 
@@ -31,7 +31,7 @@ As you might imagine, the validators and ATOM delegators who get to vote on such
 
 ![Interchain Security Diagram](/academy/3-cosmos-hub/images/interchain_security.jpg)
 
-## How it Works
+## How it works
 
 At its core, Interchain Security is an implementation of the Cross Chain Validation (CCV) specification. Using the [Inter-Blockchain Communication](../4-ibc/1-what-is-ibc.md) (IBC) protocol, packets are relayed to make sure the consumer chain knows which validators are securing the Cosmos Hub and how much voting power they have. At the same time, the consumer chains need to tell the provider chain when there is evidence of misbehavior so that validators can get slashed on their ATOM tokens on the Cosmos Hub - an essential mechanism under Proof-of-Stake.
 
@@ -54,7 +54,7 @@ If you would like to learn more about how these tasks are executed, you can find
 
 </HighlightBox>
 
-## Why Use Interchain Security?
+## Why use Interchain Security?
 
 There are many benefits for application developers who consume their security through the Cosmos Hub. Besides the obvious security bootstrapping that it enables, chains obtain a strong brand association with the Hub as well.
 
@@ -64,7 +64,7 @@ This was an argument that was made apparent when [a governance proposal](https:/
 
 As such, one of the primary questions app developers need to answer when considering Interchain Security is whether or not your application is aligned with the Cosmos Hub's mission.
 
-## Building With Interchain Security
+## Building with Interchain Security
 
 Before building out your chain to run on Interchain Security, it is recommended to make your intentions clear through a post on the [Cosmos Hub forum](https://forum.cosmos.network/), and potentially in the future through a governance proposal. 
 
