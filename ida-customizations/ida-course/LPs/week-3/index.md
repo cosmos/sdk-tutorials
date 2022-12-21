@@ -69,16 +69,8 @@ The following sections are optional and **NOT** final exam relevant:
 
 <HighlightBox type="info">
 
-**Live Sessions**
-
-<br/>
-
-This week you, you can watch two live sessions: _Introduction to CosmJS_ with Noam Cohen, Developer Relations Lead for Cosmos Hub and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC.
-
-<br/>
-
-This are the recordings:
-
+This are **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
+  
 * _Introduction to CosmJS_ with Noam Cohen:
 
 <YoutubePlayer videoId="RlqjEVIv1Pg"/>
