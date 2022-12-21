@@ -44,8 +44,6 @@ This is a **recording** of the live session _Introduction to app.go_ with Julien
 
 <YoutubePlayer videoId="G6QUIUwYaSU"/>
 
-<br/>
-
 </HighlightBox>
 
 ## Next up
