@@ -40,9 +40,7 @@ Do not worry if you do not pass the exercise: it is simply meant to be an opport
 
 <HighlightBox type="info">
 
-**Live Session**
-<br/>
-You can watch the recordings of the live session: _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK, in case you want to recap or could not join the session:
+This is a **recording** of the live session _Introduction to app.go_ with Julien Robert, Developer Relations Engineer for the Cosmos SDK:
 
 <YoutubePlayer videoId="G6QUIUwYaSU"/>
 
