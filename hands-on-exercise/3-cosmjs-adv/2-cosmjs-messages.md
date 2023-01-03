@@ -15,7 +15,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have generated the necessary TypeScript types in [the previous tutorial](./1-cosmjs-objects.md).
-* You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
+* You have the finished checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -635,7 +635,7 @@ it("can continue the game up to before the double capture", async function () {
         r: await getShortAccountInfo(bob),
     }
     // TODO
-}
+});
 ```
 
 Now get all 22 signed transactions, from index 2 to index 23:
@@ -740,7 +740,7 @@ it("can send a double capture move", async function () {
     const firstCaptureMove: GameMove = completeGame[24]
     const secondCaptureMove: GameMove = completeGame[25]
     // TODO
-}
+});
 ```
 
 In it, make the call with the correctly crafted messages.
