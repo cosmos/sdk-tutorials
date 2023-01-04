@@ -29,54 +29,37 @@ These types of tools help maintain an overview of the overall IBC network, but c
 
 [MapOfZones](https://mapofzones.com/) is a Cosmos network explorer.
 
-By default, the explorer shows you a visual overview of the IBC network for the last seven days:
+By default, the explorer shows you a visual overview of the IBC network for the last 24 hours:
 
 ![MapOfZones](/academy/3-ibc/images/mapofzones1.png)
 
-You can also change the time being visualized by the MapOfZones in the lower right-hand corner of the display. You can chose between:
+You can also change the time being visualized by the MapOfZones in the lower right side of the display. You can choose between:
 
 * 24 hours
 * Seven days
 * 30 days
 
-The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains. You can also include testnet chains in the overview - you just have to enable it by activating `Show testnet` in the upper right-hand corner of the overview. The MapOfZones also lets you:
+The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains. 
 
-* See the overview in full-screen mode
-* Zoom in and out
-* See the overview in 2D and 3D
-* Filter the zones you see by:
-    * Activity: you can select all, most active, or least active chains.
-    * Trendline: you can chose between uptrend and downtrend.
+The individual chains are visualized by circle icons, sometimes including the chain's logo. Additionally, you can see connecting lines between the different chains. These lines represent connections between chains.
 
-All of which can be found on the right-hand side of the overview display.
-
-The individual chains are visualized by circle icons, sometimes including the chain's logo. Additionally, you can see connecting lines between the different chains. These lines represent transactions between chains.
-
-<HighlightBox type="note">
-
-In the overview display of the Cosmos network, the lines are colored to signal the main direction of the transactions. The coloring goes from red to green. The "redder" a line, the more transactions are mainly sends. The "greener" it becomes, the more transactions are mainly receives.
-
-</HighlightBox>
-
-When you hover over a specific chain with your mouse cursor, a small overview of data for that chain is displayed.
+When you click on a specific chain with your mouse cursor, an overview of data for that chain is displayed on the right side.
 
 ![MapOfZones - hovering over a zone](/academy/3-ibc/images/mapofzones2.png)
 
 The information displayed includes:
 
-* The number of peers
+* The number of transactions on that chain (for the selected time period)
 * The number of IBC transfers (for the selected time period)
-* The IBC volume (in USD)
-* The success rate (in %)
-* The IBC volume out (in USD)
-* The IBC volume in (in USD)
-* A button for more `Details`
+* The number of peers
+* The number of channels
+* A button for more `Learn more`
 
-If you click on the `Details`, you are directed to an overview with more in-depth information about the chain selected:
+If you click on the `Learn more`, you are directed to an overview with more in-depth information about the chain selected:
 
 ![Detailed list for the Cosmos Hub](/academy/3-ibc/images/detailscosmoszone.png)
 
-In the overview, you can find a list of all the chains the selected chain is connected to. When you click on a specific chain, you can see the channels between the selected chain and another chain:
+In the peers section, you can find a list of all the chains the selected chain is connected to. When you click on a specific chain, you can see the channels between the selected chain and another chain:
 
 ![Channels between the Cosmos Hub and Osmosis](/academy/3-ibc/images/cosmososmasischannels.png)
 
@@ -88,20 +71,19 @@ There are canonical channels for ICS-20. All other channels will have been creat
 
 </HighlightBox>
 
-When you go back to the overview, below the visual overview of the entire network you can find a list of the most active zones by IBC volume in USD:
+When you go to the `Zones`, you can find a list of the most active zones by IBC volume in USD:
 
 ![Most active zones](/academy/3-ibc/images/mostactivezones.png)
 
 The list includes very useful information, such as:
 
 * `IBC volume, $`: USD value of tokens successfully relayed via IBC transfer with pertinent volume in progress.
-* `IBC transfer`: number of successfully relayed IBC transfers with pertinent quantity in progress.
-* `IBC volume out, $`: USD value of tokens successfully transferred to other zones with pertinent volume in progress.
 * `IBC volume in, $`: USD value of tokens successfully received from other zones with pertinent volume in progress.
-* `IBC WAU`: number of zone's unique addresses initiated outward IBC transfer(s).
-* `IBC volume activity`: graph visualizing the activity.
+* `IBC volume out, $`: USD value of tokens successfully transferred to other zones with pertinent volume in progress.
+* `IBC transfer`: number of successfully relayed IBC transfers with pertinent quantity in progress.
+* `IBC DAU`: number of unique addresses within the zone that have initiated outward IBC transfers.
 
-For the first five categories, you can also sort the list in either ascending or descending order.
+You can also sort the list in either ascending or descending order with a click on the label.
 
 ## Mintscan
 
