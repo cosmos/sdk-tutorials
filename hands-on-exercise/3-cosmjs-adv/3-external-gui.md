@@ -90,7 +90,7 @@ Move the files from the `react-checkers` folder into the repo that contains your
 * For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
     * Copy and paste the `"scripts"`. Rename the incoming `"test"` to `"test-react"`.
-    * Copy and paste the `"browserlist"`.
+    * Copy and paste the `"browserslist"`.
     * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
     * Copy only the missing `dependencies` and `devDependencies`. If there is a conflict between versions, overwrite with the highest version.
 
