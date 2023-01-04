@@ -102,7 +102,11 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -184,7 +188,11 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold single leaderboard winners --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold single leaderboard winners --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -1472,7 +1480,11 @@ $ go build -o release/v1/checkersd cmd/checkersd/main.go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go build -o release/v1/checkersd cmd/checkersd/main.go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go build -o release/v1/checkersd cmd/checkersd/main.go
 ```
 
 </CodeGroupItem>
@@ -1767,7 +1779,11 @@ $ pushd client && npm test && popd
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd)/client:/client -w /client node:18.7 npm test
+$ docker run --rm -it \
+    -v $(pwd)/client:/client \
+    -w /client \
+    node:18.7 \
+    npm test
 ```
 
 <HighlightBox type="note">
@@ -2160,7 +2176,11 @@ $ go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
 ```
 
 </CodeGroupItem>

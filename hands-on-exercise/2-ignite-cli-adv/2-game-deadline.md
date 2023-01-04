@@ -61,9 +61,9 @@ $ ignite generate proto-go
 ```sh
 $ docker run --rm -it \
     -v $(pwd):/checkers \
-        -w /checkers \
-        checkers_i \
-        ignite generate proto-go
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>

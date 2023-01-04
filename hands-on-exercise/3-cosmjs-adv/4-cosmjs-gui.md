@@ -61,7 +61,11 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install react-app-rewired@2.2.1 --save-dev --save-exact
+    $ docker run --rm -it \
+        -v $(pwd):/client \
+        -w /client \
+        node:18.7 \
+        npm install react-app-rewired@2.2.1 --save-dev --save-exact
     ```
 
     </CodeGroupItem>
@@ -558,7 +562,11 @@ $ npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
 ```
 
 </CodeGroupItem>

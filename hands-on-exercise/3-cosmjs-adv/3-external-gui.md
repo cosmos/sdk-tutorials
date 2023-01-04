@@ -51,7 +51,11 @@ $ npm install
 
 ```sh
 $ cd react-checkers
-$ docker run --rm -it -v $(pwd):/react-checkers -w /react-checkers node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/react-checkers \
+    -w /react-checkers \
+    node:18.7 \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -73,7 +77,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7 \
+    npm start
 ```
 
 </CodeGroupItem>
@@ -113,7 +122,11 @@ $ npm install
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -135,7 +148,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7 \
+    npm start
 ```
 
 </CodeGroupItem>

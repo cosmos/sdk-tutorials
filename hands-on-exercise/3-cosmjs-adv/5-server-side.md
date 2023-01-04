@@ -47,8 +47,16 @@ $ npm install @types/express@4.17.13 --save-dev --save-exact
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install express@4.18.1 --save-exact
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @types/express@4.17.13 --save-dev --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install express@4.18.1 --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install @types/express@4.17.13 --save-dev --save-exact
 ```
 
 </CodeGroupItem>
@@ -275,7 +283,12 @@ $ npm run indexer-dev
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3001:3001 node:18.7 npm run indexer-dev
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3001:3001 \
+    node:18.7 \
+    npm run indexer-dev
 ```
 
 </CodeGroupItem>
@@ -435,7 +448,15 @@ The `.env` file contains the `RPC_URL`, adjust it to your situation, in particul
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 4500:4500 -p 5000:5000 -p 26657:26657 checkers_i ignite chain serve
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        -p 1317:1317 \
+        -p 4500:4500 \
+        -p 5000:5000 \
+        -p 26657:26657 \
+        checkers_i \
+        ignite chain serve
     ```
 
     </CodeGroupItem>
