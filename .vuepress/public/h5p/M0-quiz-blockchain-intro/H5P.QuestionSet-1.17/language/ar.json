@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "مقدمة المسابقة",
+      "fields": [
+        {
+          "label": "عرض المقدمة"
+        },
+        {
+          "label": "العنوان",
+          "description": "سيتم عرض هذا العنوان فوق النص المقدمة"
+        },
+        {
+          "label": "مقدمة النص",
+          "description": "سيتم عرض هذا النص قبل أن تبدأ هذه المسابقة"
+        },
+        {
+          "label": "بدء زر النص",
+          "default": "Start Quiz"
+        },
+        {
+          "label": "صورة الخلفية",
+          "description": "إدخال صورة خلفية اختيارية"
+        }
+      ]
+    },
+    {
+      "label": "صورة الخلفية",
+      "description": "صورة خلفية اختيارية لأسئلة"
+    },
+    {
+      "label": "مؤشر التقدم",
+      "description": "أسئلة لتعيين نمط مؤشر التقدم",
+      "options": [
+        {
+          "label": "النصية"
+        },
+        {
+          "label": "النقاط"
+        }
+      ]
+    },
+    {
+      "label": "نسبة النجاح",
+      "description": "النسبة المئوية لمجموع النقاط المطلوبة لاجتياز الاختبار"
+    },
+    {
+      "label": "الأسئلة",
+      "widgets": [
+        {
+          "label": "الافتراضي"
+        },
+        {
+          "label": "النصية"
+        }
+      ],
+      "entity": "السؤال",
+      "field": {
+        "label": "نوع السؤال",
+        "description": "مكتبة لهذا السؤال"
+      }
+    },
+    {
+      "label": "واجهة النصوص لهذه المسابقة",
+      "fields": [
+        {
+          "label": "زر العودة",
+          "default": "Previous question"
+        },
+        {
+          "label": "زر التقدم",
+          "default": "Next question"
+        },
+        {
+          "label": "زر الانتهاء",
+          "default": "Finish"
+        },
+        {
+          "label": "نص التقدم",
+          "description": "النص المستخدم إذا تم تحديد التقدم نصيا",
+          "default": "Question: @current of @total questions"
+        },
+        {
+          "label": "Label for jumping to a certain question",
+          "description": "You must use the placeholder '%d' instead of the question number, and %total instead of total amount of questions.",
+          "default": "Question %d of %total"
+        },
+        {
+          "label": "Copyright dialog question label",
+          "default": "السؤال"
+        },
+        {
+          "label": "Readspeaker progress",
+          "description": "May use @current and @total question variables",
+          "default": "Question @current of @total"
+        },
+        {
+          "label": "Unanswered question text",
+          "default": "Unanswered"
+        },
+        {
+          "label": "Answered question text",
+          "default": "Answered"
+        },
+        {
+          "label": "Current question text",
+          "default": "Current question"
+        }
+      ]
+    },
+    {
+      "label": "Disable backwards navigation",
+      "description": "This option will only allow you to move forward in Question Set"
+    },
+    {
+      "label": "Randomize questions",
+      "description": "تمكين العرض بطريقة عشوائية وترتيب الأسئلة على الشاشة"
+    },
+    {
+      "label": "Number of questions to be shown:",
+      "description": "Create a randomized batch of questions from the total."
+    },
+    {
+      "label": "انتهاء المسابقة",
+      "fields": [
+        {
+          "label": "عرض النتائج"
+        },
+        {
+          "label": "Display solution button"
+        },
+        {
+          "label": "Display retry button"
+        },
+        {
+          "label": "No results message",
+          "description": "Text displayed on end page when \"Display results\" is disabled",
+          "default": "Finished"
+        },
+        {
+          "label": "نص راس الملاحظات",
+          "default": "Your result:",
+          "description": "سيتم عرض هذا العنوان في نهاية هذه المسابقة حيثما أجاب المستخدم على جميع الأسئلة المستعملة"
+        },
+        {
+          "label": "شفافية خلفية العناصر",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Default"
+                }
+              ],
+              "label": "Define custom feedback for any score range",
+              "description": "Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
+              "entity": "range",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Score Range"
+                  },
+                  {},
+                  {
+                    "label": "Feedback for defined score range",
+                    "placeholder": "Fill in the feedback"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Old Feedback",
+          "fields": [
+            {
+              "label": "تعليق النجاح بالمسابقة",
+              "description": "سيتم عرض هذا النص أعلاه النتيجة إذا انقضى المستخدم بنجاح هذه المسابقة"
+            },
+            {
+              "label": "ملاحظة النجاح",
+              "description": "سيتم عرض هذه الملاحظة بعد النتيجة إذا انقضى المستخدم بنجاح هذه المسابقة"
+            },
+            {
+              "label": "تعليق الرسوب بالمسابقة",
+              "description": "سيتم عرض هذا النص أعلاه النتيجة إذا كان المستخدم قد فشلت في المسابقة"
+            },
+            {
+              "label": "ملاحظة الرسوب",
+              "description": "سيتم عرض هذه الملاحظة بعد النتيجة إذا كان المستخدم قد فشلت في المسابقة"
+            }
+          ]
+        },
+        {
+          "label": "تسمية زر اظهار الحل",
+          "default": "مشاهدة الحل",
+          "description": "نص زر الحل"
+        },
+        {
+          "label": "تسمية زر إعادة المحاولة",
+          "default": "إعادة المحاولة",
+          "description": "نص زر إعادة المحاولة"
+        },
+        {
+          "label": "نص زر الانتهاء",
+          "default": "Finish"
+        },
+        {
+          "label": "عرض الفيديو قبل نتائج المسابقة"
+        },
+        {
+          "label": "تفعيل زر  تخطى الفيديو"
+        },
+        {
+          "label": "تسمية زر  تخطى الفيديو",
+          "default": "Skip video"
+        },
+        {
+          "label": "فيديو النجاح بالمسابقة",
+          "description": "سيتم تشغيل هذا الفيديو إذا كان المستخدم ناجحا بهذه المسابقة"
+        },
+        {
+          "label": "فيديو الرسوب بالمسابقة",
+          "description": "سيتم تشغيل هذا الفيديو إذا كان المستخدم راسبا بهذه المسابقة"
+        }
+      ]
+    },
+    {
+      "label": "إعدادات زر \"مشاهدة حل \" وزر \"إعادة المحاولة\" ",
+      "fields": [
+        {
+          "label": "Show \"Check\" buttons",
+          "description": "This option determines if the \"Check\" button will be shown for all questions."
+        },
+        {
+          "label": "Override \"Show Solution\" button",
+          "description": "This option determines if the \"Show Solution\" button will be shown for all questions, disabled for all or configured for each question individually.",
+          "options": [
+            {
+              "label": "Enabled"
+            },
+            {
+              "label": "Disabled"
+            }
+          ]
+        },
+        {
+          "label": "Override \"Retry\" button",
+          "description": "This option determines if the \"Retry\" button will be shown for all questions, disabled for all or configured for each question individually.",
+          "options": [
+            {
+              "label": "Enabled"
+            },
+            {
+              "label": "Disabled"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

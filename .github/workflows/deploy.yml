@@ -1,6 +1,9 @@
-name: Documentation
+name: Build & Deploy Docs
 # This job builds and deploys documentation to github pages.
 # It runs on every push to master.
+# Notes:
+# * A git update is required by the checkout action to enable submodule checkout via http(s)
+# * git config update is required as workaround for https://github.com/npm/cli/issues/2610 https://github.com/npm/cli/issues/4305
 on:
   push:
     branches:
@@ -12,7 +15,7 @@ jobs:
     container:
       image: node:14
     steps:
-      - name: Prepare build container ⚙️
+      - name: ⚙️ Prepare build container
         run: |
           apt-key adv --recv-keys --keyserver keyserver.ubuntu.com A1715D88E1DF1F24
           apt update
@@ -21,6 +24,7 @@ jobs:
           wget http://ppa.launchpad.net/git-core/ppa/ubuntu/pool/main/g/git/git_2.18.0-0ppa1~ubuntu17.10.1_amd64.deb -O /tmp/git
           dpkg -i /tmp/git-man
           dpkg -i /tmp/git
+          git config --global url."https://".insteadOf ssh:// 
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
@@ -29,11 +33,15 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: Install and Build 🔧
+      - name: 🔧 Install and Build 
         run: make build-website
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+      - name: ✅ Verify valid config.js
+        run: npm run check-config
+
+      - name: 🚀 Deploy
+        if: ${{ success() }}
+        uses: JamesIves/github-pages-deploy-action@v4.3.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages

@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Medium",
+      "fields": [
+        {
+          "label": "Typ",
+          "description": "Optionales Medium, das über der Frage dargestellt wird."
+        },
+        {
+          "label": "Bild-Zoom deaktivieren"
+        }
+      ]
+    },
+    {
+      "label": "Frage"
+    },
+    {
+      "label": "Verfügbare Optionen",
+      "entity": "Option",
+      "field": {
+        "label": "Option",
+        "fields": [
+          {
+            "label": "Text"
+          },
+          {
+            "label": "Richtig!"
+          },
+          {
+            "label": "Tipps und Rückmeldung",
+            "fields": [
+              {
+                "label": "Tipp-Text",
+                "description": "Hinweis für die Lernenden. Wird angezeigt, bevor sie ihre Antwort/en prüfen."
+              },
+              {
+                "label": "Nachricht, wenn Antwort gewählt wurde",
+                "description": "Nachricht wird unter der Antwort nach dem Klicken auf \"Überprüfen\" angezeigt, wenn die Antwort gewählt wurde."
+              },
+              {
+                "label": "Nachricht, wenn Antwort nicht gewählt wurde",
+                "description": "Nachricht wird unter der Antwort nach dem Klicken auf \"Überprüfen\" angezeigt, wenn die Antwort nicht gewählt wurde."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Gesamtrückmeldung",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Voreinstellung"
+            }
+          ],
+          "label": "Lege Rückmeldungen für einzelne Punktebereiche fest",
+          "description": "Klicke auf den \"Bereich hinzufügen\"-Button, um so viele Bereiche hinzuzufügen, wie du brauchst. Beispiel: 0-20% Schlechte Punktzahl, 21-91% Durchschnittliche Punktzahl, 91-100% Großartige Punktzahl!",
+          "entity": "Bereich",
+          "field": {
+            "fields": [
+              {
+                "label": "Punktebereich"
+              },
+              {},
+              {
+                "label": "Rückmeldung für jeweiligen Punktebereich",
+                "placeholder": "Trage die Rückmeldung ein"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Bezeichnungen und Beschriftungen",
+      "fields": [
+        {
+          "label": "Beschriftung des \"Überprüfen\"-Buttons",
+          "default": "Überprüfen"
+        },
+        {
+          "label": "Beschriftung des \"Lösung anzeigen\"-Buttons",
+          "default": "Lösung anzeigen"
+        },
+        {
+          "label": "Beschriftung des \"Wiederholen\"-Buttons",
+          "default": "Wiederholen"
+        },
+        {
+          "label": "Beschriftung des \"Hinweis anzeigen\"-Buttons",
+          "default": "Hinweis anzeigen"
+        },
+        {
+          "label": "Text der Punkteleiste für Vorlesewerkzeuge (Barrierefreiheit)",
+          "description": ":num wird durch die erreichten Punkte ersetzt. :total wird durch die maximal mögliche Punktzahl ersetzt",
+          "default": "Du hast :num von :total Punkten erreicht."
+        },
+        {
+          "label": "Hinweis verfügbar (nicht dargestellt)",
+          "default": "Hinweis verfügbar",
+          "description": "Text für Vorlesewerkzeuge (Barrierefreiheit)"
+        },
+        {
+          "label": "Rückmeldung verfügbar (nicht dargestellt)",
+          "default": "Rückmeldung verfügbar",
+          "description": "Text für Vorlesewerkzeuge (Barrierefreiheit)"
+        },
+        {
+          "label": "Rückmeldung vorlesen (nicht dargestellt)",
+          "default": "Rückmeldung vorlesen",
+          "description": "Text für Vorlesewerkzeuge (Barrierefreiheit)"
+        },
+        {
+          "label": "Falsche Antwort (nicht dargestellt)",
+          "default": "Falsche Antwort",
+          "description": "Text für Vorlesewerkzeuge (Barrierefreiheit)"
+        },
+        {
+          "label": "Richtige Antwort (nicht dargestellt)",
+          "default": "Richtige Antwort",
+          "description": "Text für Vorlesewerkzeuge (Barrierefreiheit)"
+        },
+        {
+          "label": "Option hätte gewählt werden müssen",
+          "default": "Hätte gewählt werden müssen"
+        },
+        {
+          "label": "Option hätte nicht gewählt werden sollen",
+          "default": "Hätte nicht gewählt werden sollen"
+        },
+        {
+          "label": "Text für \"Erfordert Antwort\"-Hinweis",
+          "default": "Bitte antworte, bevor du die Lösung ansiehst"
+        },
+        {
+          "label": "Beschreibung des \"Überprüfen\"-Buttons (für Hilfsmittel zur Barrierefreiheit)",
+          "default": "Die Antworten überprüfen. Die Auswahlen werden als richtig, falsch oder fehlend markiert."
+        },
+        {
+          "label": "Beschreibung des \"Lösung anzeigen\"-Buttons (für Hilfsmittel zur Barrierefreiheit)",
+          "default": "Die Lösung anzeigen. Die richtigen Lösungen werden in der Aufgabe angezeigt."
+        },
+        {
+          "label": "Beschreibung des \"Wiederholen\"-Buttons (für Hilfsmittel zur Barrierefreiheit)",
+          "default": "Die Aufgabe wiederholen. Alle Versuche werden zurückgesetzt und die Aufgabe wird erneut gestartet."
+        }
+      ]
+    },
+    {
+      "label": "Verhaltenseinstellungen",
+      "description": "Diese Optionen legen fest, wie die Aufgabe im Detail funktioniert.",
+      "fields": [
+        {
+          "label": "\"Wiederholen\"-Button anzeigen"
+        },
+        {
+          "label": "Aktiviere \"Lösung anzeigen\"-Button"
+        },
+        {
+          "label": "\"Überprüfen\"-Button anzeigen"
+        },
+        {
+          "label": "Frageart",
+          "description": "Wähle Aussehen und Verhalten der Frage.",
+          "options": [
+            {
+              "label": "Automatisch"
+            },
+            {
+              "label": "Multiple Choice (Checkboxen)"
+            },
+            {
+              "label": "Single Choice (Radio Buttons)"
+            }
+          ]
+        },
+        {
+          "label": "Einen Punkt für die ganze Aufgabe vergeben",
+          "description": "Aktivieren, um bei mehreren korrekten Antworten insgesamt nur einen Punkt zu vergeben. Nur aktiv in Multiple Choice-Fragen."
+        },
+        {
+          "label": "Zufällige Reihenfolge der Antworten",
+          "description": "Aktivieren, um die Fragen in zufälliger Reihenfolge anzuzeigen."
+        },
+        {
+          "label": "Lösung wird erst angezeigt, wenn eine Antwort eingegeben wurde."
+        },
+        {
+          "label": "Zeige Bestätigungsdialog bei \"Überprüfen\""
+        },
+        {
+          "label": "Zeige Bestätigungsdialog bei \"Wiederholen\""
+        },
+        {
+          "label": "Antworten nach Eingabe automatisch prüfen",
+          "description": "Bitte berücksichtige, dass durch diese Option die Barrierefreiheit beeinträchtigt wird."
+        },
+        {
+          "label": "Prozentsatz zum Bestehen",
+          "description": "Diese Einstellung hat oft keinen Effekt. Wenn aktiviert ist, dass es nur einen einzigen Punkt für die ganze Aufgabe gibt, dann wird dieser nur vergeben, wenn die hier angegebene Prozentanzahl der Gesamtwertung erreicht wurde."
+        },
+        {
+          "label": "Zeige erreichte Punkte",
+          "description": "Zeige die erreichten Punkte für jede Antwort."
+        }
+      ]
+    },
+    {
+      "label": "Bestätigungsdialog beim Überprüfen",
+      "fields": [
+        {
+          "label": "Text der Überschrift",
+          "default": "Beenden?"
+        },
+        {
+          "label": "Text des Hauptteils",
+          "default": "Ganz sicher beenden?"
+        },
+        {
+          "label": "Beschriftung des \"Abbrechen\"-Buttons",
+          "default": "Abbrechen"
+        },
+        {
+          "label": "Beschriftung des \"Bestätigen\"-Buttons",
+          "default": "Beenden"
+        }
+      ]
+    },
+    {
+      "label": "Bestätigungsdialog beim Wiederholen",
+      "fields": [
+        {
+          "label": "Text der Überschrift",
+          "default": "Wiederholen?"
+        },
+        {
+          "label": "Text des Hauptteils",
+          "default": "Ganz sicher wiederholen?"
+        },
+        {
+          "label": "Beschriftung des \"Abbrechen\"-Buttons",
+          "default": "Abbrechen"
+        },
+        {
+          "label": "Beschriftung des \"Bestätigen\"-Buttons",
+          "default": "Bestätigen"
+        }
+      ]
+    }
+  ]
+}

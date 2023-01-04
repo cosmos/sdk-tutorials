@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Sources vidéo",
+      "description": "Selectionnez les fichiers vidéo que vous souhaitez utiliser. Pour assurer une compatibilité maximum avec les navigateurs, merci d'utiliser des vidéos au format mp4 ou webm."
+    },
+    {
+      "label": "Visuels",
+      "fields": [
+        {
+          "label": "Image à la une"
+        },
+        {
+          "label": "Le lecteur vidéo utilise toute la place disponible",
+          "description": "Si non précisé, le lecteur aura la même taille que la vidéo."
+        },
+        {
+          "label": "Montrer les boutons de contrôle de la vidéo",
+          "description": "Montre les boutons de contrôle de la vidéo : lecture, pause..."
+        }
+      ]
+    },
+    {
+      "label": "Playback",
+      "fields": [
+        {
+          "label": "Démarrage automatique",
+          "description": "La vidéo démarre automatiquement. Peut ne pas fonctionner sur certains appareils mobiles."
+        },
+        {
+          "label": "Rejouer la vidéo",
+          "description": "La vidéo est rejouée quand elle est terminée."
+        }
+      ]
+    },
+    {
+      "label": "Localisation de la vidéo",
+      "fields": [
+        {
+          "label": "Nom",
+          "default": "Video",
+          "description": "Aide à identifier le type de contenu."
+        },
+        {
+          "label": "Chargement",
+          "default": "Chargement du lecteur vidéo..."
+        },
+        {
+          "label": "Aucun lecteur vidéo trouvé",
+          "default": "Aucun lecteur vidéo trouvé pour supporter le format video utilisé."
+        },
+        {
+          "label": "Aucune source vidéo",
+          "default": "La vidéo n'a pas de source associée."
+        },
+        {
+          "label": "Abandonné",
+          "default": "La lecture du média a été abandonnée."
+        },
+        {
+          "label": "Erreur de réseau",
+          "default": "Problème de connexion au réseau."
+        },
+        {
+          "label": "Impossible de décoder la vidéo",
+          "default": "Impossible de décoder la vidéo."
+        },
+        {
+          "label": "Format vidéo non supporté",
+          "default": "Format vidéo non supporté."
+        },
+        {
+          "label": "Vidéo cryptée",
+          "default": "Vidéo cryptée."
+        },
+        {
+          "label": "Erreur inconnue",
+          "default": "Erreur inconnue."
+        },
+        {
+          "label": "ID YouTube invalide",
+          "default": "Identifiant YouTube invalide."
+        },
+        {
+          "label": "ID YouTube inconnue",
+          "default": "Impossible de trouver la vidéo avec cet identifiant YouTube."
+        },
+        {
+          "label": "Vidéo YouTube à accès restreint",
+          "default": "Le propriétaire de cette vidéo n'autorise pas son inclusion."
+        }
+      ]
+    },
+    {
+      "label": "Accessibilité",
+      "fields": [
+        {
+          "label": "Ajouter une piste vidéo",
+          "entity": "Piste",
+          "field": {
+            "label": "Piste",
+            "fields": [
+              {
+                "label": "Intitulé de la piste"
+              },
+              {
+                "label": "Type de piste, voir <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">standard HTML actuel</a>",
+                "options": [
+                  {
+                    "label": "Sous-titres"
+                  },
+                  {
+                    "label": "Audio description"
+                  },
+                  {
+                    "label": "Descriptions"
+                  },
+                  {
+                    "label": "Chapitres"
+                  }
+                ]
+              },
+              {
+                "label": "Fichier de la piste (format WebVTT)",
+                "description": "Doit être un code langage conforme à la norme BCP 47. Si le type de piste est défini à \"Sous-titres\", alors la langue doit être définie."
+              },
+              {
+                "label": "Fichier de la piste (format WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

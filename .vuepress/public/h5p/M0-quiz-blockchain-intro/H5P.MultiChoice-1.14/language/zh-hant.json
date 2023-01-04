@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "媒體",
+      "fields": [
+        {
+          "label": "類型",
+          "description": "在問題的上方顯示額外的媒體。"
+        },
+        {
+          "label": "停用題目上圖片的放大功能"
+        }
+      ]
+    },
+    {
+      "label": "問題"
+    },
+    {
+      "label": "可用的所有選項",
+      "entity": "選項",
+      "field": {
+        "label": "類型",
+        "fields": [
+          {
+            "label": "文字"
+          },
+          {
+            "label": "正解"
+          },
+          {
+            "label": "提示或回饋",
+            "fields": [
+              {
+                "label": "訊息文字",
+                "description": "給用戶的提示或回饋訊息，核對答案前可顯示。"
+              },
+              {
+                "label": "給已選項目的訊息",
+                "description": "如果用戶已經選擇這個項目，核對答案後會出現。"
+              },
+              {
+                "label": "給未選項目的訊息",
+                "description": "如果用戶沒有選擇這個項目，核對答案後會出現。"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "結果回饋",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "預設"
+            }
+          ],
+          "label": "為不同分數區間的用戶分別回饋訊息",
+          "description": "點擊「添加範圍」按鈕，加入你想要的範圍，例如 0%-59% 請加油、60%-79% 再努力、80%-100% 太棒了。",
+          "entity": "範圍",
+          "field": {
+            "fields": [
+              {
+                "label": "分數區間"
+              },
+              {},
+              {
+                "label": "自訂區間回饋訊息",
+                "placeholder": "填入回饋訊息"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "用戶介面顯示文字 多選",
+      "fields": [
+        {
+          "label": "核對答案按鈕文字",
+          "default": "核對答案"
+        },
+        {
+          "label": "顯示正解按鈕文字",
+          "default": "顯示正解"
+        },
+        {
+          "label": "再試一次按鈕文字",
+          "default": "再試一次"
+        },
+        {
+          "label": "顯示提示按鈕文字",
+          "default": "顯示提示"
+        },
+        {
+          "label": "報讀器得分條文本",
+          "description": "Available variables are :num and :total",
+          "default": "你得到 :num 分，共 :total 分。"
+        },
+        {
+          "label": "報讀器可用提示文本",
+          "default": "有可用提示",
+          "description": "用於報讀器的輔助文本，非顯示用。"
+        },
+        {
+          "label": "報讀器可用回饋文本",
+          "default": "有可用的回饋",
+          "description": "用於報讀器的輔助文本，非顯示用。"
+        },
+        {
+          "label": "報讀器總體回饋文本",
+          "default": "報讀回饋內容",
+          "description": "用於報讀器的輔助文本，非顯示用。"
+        },
+        {
+          "label": "報讀器錯誤答案文本",
+          "default": "答案不正確",
+          "description": "用於報讀器的輔助文本，非顯示用。"
+        },
+        {
+          "label": "報讀器正確答案文本",
+          "default": "答案正確",
+          "description": "用於報讀器的輔助文本，非顯示用。"
+        },
+        {
+          "label": "已選選項顯示文字",
+          "default": "已選擇的項目"
+        },
+        {
+          "label": "未選選項顯示文字",
+          "default": "未選擇的項目"
+        },
+        {
+          "label": "需要回答顯示文字",
+          "default": "觀看正解前請先回答"
+        },
+        {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The task will be marked with its correct solution."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all responses and start the task over again."
+        }
+      ]
+    },
+    {
+      "label": "行為設置",
+      "description": "這些設定可以讓你控制任務的行為。",
+      "fields": [
+        {
+          "label": "啟用「再試一次」按鈕"
+        },
+        {
+          "label": "啟用「顯示正解」按鈕"
+        },
+        {
+          "label": "啟用「核對答案」按鈕"
+        },
+        {
+          "label": "題型",
+          "description": "挑選問題的類型（選項的樣式）",
+          "options": [
+            {
+              "label": "自動"
+            },
+            {
+              "label": "複選（勾選方塊）"
+            },
+            {
+              "label": "單選（單選按鈕）"
+            }
+          ]
+        },
+        {
+          "label": "整個任務只給一分",
+          "description": "預設在複選情況下，答對一個加一分，答錯一個扣一分；若勾選此設定，在作答完全正確時才會給一分。"
+        },
+        {
+          "label": "隨機排序選項",
+          "description": "勾選後，選項每次顯示的順序會隨機排列。"
+        },
+        {
+          "label": "顯示解答前必須先回答"
+        },
+        {
+          "label": "核對答案前彈出確認視窗"
+        },
+        {
+          "label": "再試一次前彈出確認視窗"
+        },
+        {
+          "label": "自動核對答案",
+          "description": "勾選後會導致無障礙功能失效"
+        },
+        {
+          "label": "通過門檻（%）",
+          "description": "此設置在一般時無效，只有在啟用「整個任務只給一分」時有效，還有用在獲取 xAPI 中的 result.success 陳述句。"
+        },
+        {
+          "label": "顯示計分狀態",
+          "description": "在每個項目旁顯示加分或減分情形，若題型為單選，或是整個任務只給一分，就不會額外顯示這個狀態。"
+        }
+      ]
+    },
+    {
+      "label": "核對答案前的確認視窗",
+      "fields": [
+        {
+          "label": "標題文字",
+          "default": "確定要核對嗎？"
+        },
+        {
+          "label": "內文文字",
+          "default": "完成後記得再仔細檢查，避免粗心！"
+        },
+        {
+          "label": "取消按鈕顯示文字",
+          "default": "取消"
+        },
+        {
+          "label": "確定按鈕顯示文字",
+          "default": "確定"
+        }
+      ]
+    },
+    {
+      "label": "再試一次前的確認視窗",
+      "fields": [
+        {
+          "label": "標題文字",
+          "default": "確定要重試嗎？"
+        },
+        {
+          "label": "內文文字",
+          "default": "準備好了？挑戰吧！"
+        },
+        {
+          "label": "取消按鈕顯示文字",
+          "default": "取消"
+        },
+        {
+          "label": "確定按鈕顯示文字",
+          "default": "確定"
+        }
+      ]
+    }
+  ]
+}

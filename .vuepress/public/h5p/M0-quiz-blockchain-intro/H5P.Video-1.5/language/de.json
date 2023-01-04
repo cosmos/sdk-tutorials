@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Videoquellen",
+      "description": "Um sicher zu stellen, dass das Video in allen Browsern funktioniert, sollten sowohl Quellen im Format WebM und MP4 hinzugefügt werden."
+    },
+    {
+      "label": "Darstellung",
+      "fields": [
+        {
+          "label": "Vorschaubild"
+        },
+        {
+          "label": "Den Videoplayer in den verfügbaren Platz einpassen",
+          "description": "Wird dies nicht ausgewählt, hat der Videoplayer das gleiche Seitenverhältnis wie das Video."
+        },
+        {
+          "label": "Videoplayer-Steuerelemente anzeigen",
+          "description": "Dies ermöglicht den Lernenden das Abspielen, Pausieren, usw."
+        }
+      ]
+    },
+    {
+      "label": "Abspielen",
+      "fields": [
+        {
+          "label": "Video automatisch abspielen",
+          "description": "Die Videowiedergabe beginnt nach dem Laden automatisch. Funktioniert auf mobilen Geräten evtl. nicht."
+        },
+        {
+          "label": "Videoschleife",
+          "description": "Startet das Video erneut, sobald es vorbei ist."
+        }
+      ]
+    },
+    {
+      "label": "Übersetzungen der Videobibliothek",
+      "fields": [
+        {
+          "label": "Name",
+          "default": "Video",
+          "description": "Hilft dabei, Inhalte dieses Typs als solche zu erkennen."
+        },
+        {
+          "label": "Lädt",
+          "default": "Videoplayer lädt..."
+        },
+        {
+          "label": "Keine Videoplayer gefunden",
+          "default": "Keine Videoplayer gefunden, die das vorliegende Videoformat unterstützen."
+        },
+        {
+          "label": "Keine Quellen",
+          "default": "Es wurden für das Video keine Quellen angegeben."
+        },
+        {
+          "label": "Abgebrochen",
+          "default": "Das Abspielen des Videos wurde abgebrochen."
+        },
+        {
+          "label": "Netzwerkfehler",
+          "default": "Netzwerkfehler."
+        },
+        {
+          "label": "Videoquelle kann nicht dekodiert werden",
+          "default": "Dekodierung des Mediums nicht möglich."
+        },
+        {
+          "label": "Format wird nicht unterstützt",
+          "default": "Videoformat wird nicht unterstützt."
+        },
+        {
+          "label": "Medium verschlüsselt",
+          "default": "Medium verschlüsselt."
+        },
+        {
+          "label": "Unbekannter Fehler",
+          "default": "Unbekannter Fehler."
+        },
+        {
+          "label": "Ungültige YouTube-ID",
+          "default": "Ungültige YouTube-ID."
+        },
+        {
+          "label": "Unbekannte YouTube-ID",
+          "default": "Video mit dieser YouTube-ID konnte nicht gefunden werden."
+        },
+        {
+          "label": "Eingeschränktes YouTube Video",
+          "default": "Der Besitzer dieses Videos erlaubt kein Einbetten."
+        }
+      ]
+    },
+    {
+      "label": "Barrierefreiheit",
+      "fields": [
+        {
+          "label": "(Text-)Spur hinzufügen",
+          "entity": "Spur",
+          "field": {
+            "label": "Spur",
+            "fields": [
+              {
+                "label": "Spurbeschriftung"
+              },
+              {
+                "label": "Spurart (weitere Informationen im <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>)",
+                "options": [
+                  {
+                    "label": "Untertitel (subtitles)"
+                  },
+                  {
+                    "label": "Untertitel für Hörgeschädigte (captions)"
+                  },
+                  {
+                    "label": "Beschreibungen für Vorlesewerkzeuge (descriptions)"
+                  },
+                  {
+                    "label": "Kapitel (chapters)"
+                  }
+                ]
+              },
+              {
+                "label": "Sprache der Spur",
+                "description": "Muss ein gültiger BCP 47 Sprach-Tag sein. Wenn die Spurart auf \"Untertitel (subtitles)\" gestellt ist, muss die Sprache definiert werden."
+              },
+              {
+                "label": "Spurdatei (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

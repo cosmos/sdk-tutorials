@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Vir videoposnetka",
+      "description": "Zagotovilo za delovanje videoposnetka v vseh spletnih brskalnikih sta formata WebM in MP4."
+    },
+    {
+      "label": "Vizualna podoba",
+      "fields": [
+        {
+          "label": "Naslovna slika"
+        },
+        {
+          "label": "Prilagodi predvajalnik razpoložljivemu prostoru",
+          "description": "V nasprotnem primeru bo predvajalnik prevzel velikost videoposnetka."
+        },
+        {
+          "label": "Prikaži kontrolnike v predvajalniku",
+          "description": "Kontrolniki na primer uporabniku dovoljujejo začasno prekinitev predvajanja."
+        }
+      ]
+    },
+    {
+      "label": "Predvajanje",
+      "fields": [
+        {
+          "label": "Samodejno predvajanje.",
+          "description": "Nastavitev samodejnega predvajanja. Ne deluje na vseh mobilnih napravah."
+        },
+        {
+          "label": "Predvajanje v zanki",
+          "description": "Vklop predvajanja videoposnetka v zanki."
+        }
+      ]
+    },
+    {
+      "label": "Določitev videoposnetka",
+      "fields": [
+        {
+          "label": "Ime",
+          "default": "Videoposnetek",
+          "description": "Služi za identifikacijo vsebine tipa medija."
+        },
+        {
+          "label": "Nalaganje",
+          "default": "Videopredvajalnik se nalaga ..."
+        },
+        {
+          "label": "Predvajalnik videoposnetka manjka",
+          "default": "Ni mogoče najti predvajalnika, ki bi podpiral format tega videoposnetka."
+        },
+        {
+          "label": "Ni virov",
+          "default": "Manjkajo viri za videoposnetek."
+        },
+        {
+          "label": "Prekinjeno",
+          "default": "Predvajanje je bilo prekinjeno."
+        },
+        {
+          "label": "Napaka v omrežju",
+          "default": "Napaka v omrežju."
+        },
+        {
+          "label": "Videoposnetka ni mogoče dekodirati",
+          "default": "Videoposnetka ni mogoče dekodirati."
+        },
+        {
+          "label": "Format ni podprt",
+          "default": "Videoformat ni podprt."
+        },
+        {
+          "label": "Medij je šifriran",
+          "default": "Medij je šifriran."
+        },
+        {
+          "label": "Neznana napaka",
+          "default": "Neznana napaka."
+        },
+        {
+          "label": "Neveljaven YouTube ID",
+          "default": "Neveljaven YouTube ID."
+        },
+        {
+          "label": "Nepoznan YouTube ID",
+          "default": "Videoposnetka z danim YouTube ID-jem ni mogoče najti."
+        },
+        {
+          "label": "Omejen YouTube videoposnetek",
+          "default": "Lastnik tega videoposnetka ne dovoljuje vdelave."
+        }
+      ]
+    },
+    {
+      "label": "Dostopnost",
+      "fields": [
+        {
+          "label": "Dodaj sled z besedilom",
+          "entity": "Sled",
+          "field": {
+            "label": "Sled",
+            "fields": [
+              {
+                "label": "Naslov sledi"
+              },
+              {
+                "label": "Izbor tipa (vir: <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>)",
+                "options": [
+                  {
+                    "label": "Podnapisi"
+                  },
+                  {
+                    "label": "Napisi"
+                  },
+                  {
+                    "label": "Opisi"
+                  },
+                  {
+                    "label": "Poglavja"
+                  }
+                ]
+              },
+              {
+                "label": "Za podnapise mora biti določen jezik vira",
+                "description": "Veljavne so oznake jezikov po BCP 47."
+              },
+              {
+                "label": "Datoteka za sled (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Medya",
+      "fields": [
+        {
+          "label": "Tipi",
+          "description": "Soru üzerinde görüntülenecek isteğe bağlı medya."
+        },
+        {
+          "label": "Görsel yakınlaştırmasını devre dışı bırakın"
+        }
+      ]
+    },
+    {
+      "label": "Soru"
+    },
+    {
+      "label": "Kullanılabilir seçenekler",
+      "entity": "seçenek",
+      "field": {
+        "label": "Seçenek",
+        "fields": [
+          {
+            "label": "Metin"
+          },
+          {
+            "label": "Doğru"
+          },
+          {
+            "label": "İpuçları ve geri bildirim",
+            "fields": [
+              {
+                "label": "İpucu metni",
+                "description": "Kullanıcı için ipucu. Kullanıcı cevabını/cevaplarını kontrol etmeden önce bu görünecektir."
+              },
+              {
+                "label": "Cevap seçilirse görüntülenecek ileti",
+                "description": "Bu cevap seçilirse \"kontrol et\" üzerindeki cevabın altında ileti görünecek."
+              },
+              {
+                "label": "Cevap seçilmezse görüntülenecek ileti",
+                "description": "Bu cevap seçilmezse \"kontrol et\" üzerindeki cevabın altında ileti görünecek."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Toplam Geribildirim",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Varsayılan"
+            }
+          ],
+          "label": "Herhangi bir puan aralığı için özelleştirilmiş geribildirim tanımlayın",
+          "description": "Örnek: 0-%20 Kötü puan, 21-%91 Ortalama puan, 91-%100 Çok iyi puan!",
+          "entity": "range",
+          "field": {
+            "fields": [
+              {
+                "label": "Puan Aralığı"
+              },
+              {},
+              {
+                "label": "Tanımlı puan aralığı için geribildirim",
+                "placeholder": "Geribildirimi doldurun"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Çokluseçim için arayüz çevirileri",
+      "fields": [
+        {
+          "label": "Cevabı kontrol et düğmesi etiketi",
+          "default": "Kontrol et"
+        },
+        {
+          "label": "Çözümü göster düğmesi etiketi",
+          "default": "Çözümü göster"
+        },
+        {
+          "label": "Yeniden dene düğmesi etiketi",
+          "default": "Yeniden dene"
+        },
+        {
+          "label": "İpucu etiketi",
+          "default": "İpucu göster"
+        },
+        {
+          "label": "Ekran okuma kullananlar için puan cetvelinin yazıyla gösterimi",
+          "description": "Mevcut değişkenler: :num and :total",
+          "default": "Toplam :total puan üzerinden :num puan aldınız"
+        },
+        {
+          "label": "İpucu Mevcut (gösterilmez)",
+          "default": "İpucu mevcut",
+          "description": "Ekran okuyucular için erişilebilirlik metni"
+        },
+        {
+          "label": "Geribildirim Mevcut (gösterilmez)",
+          "default": "Geribildirim mevcut",
+          "description": "Ekran okuyucular için erişilebilirlik metni"
+        },
+        {
+          "label": "Geribildirimi Oku (gösterilmez)",
+          "default": "Geribildirimi oku",
+          "description": "Ekran okuyucular için erişilebilirlik metni"
+        },
+        {
+          "label": "Yanlış Cevap (gösterilmez)",
+          "default": "Yanlış cevap",
+          "description": "Ekran okuyucular için erişilebilirlik metni"
+        },
+        {
+          "label": "Doğru Cevap (gösterilmez)",
+          "default": "Doğru cevap",
+          "description": "Ekran okuyucular için erişilebilirlik metni"
+        },
+        {
+          "label": "Seçeneğin seçilmesi gerekirdi",
+          "default": "Seçilmesi gerekirdi"
+        },
+        {
+          "label": "Seçeneğin seçilmemesi gerekirdi",
+          "default": "Seçilmemesi gerekirdi"
+        },
+        {
+          "label": "\"Cevap Gerekir\" mesajı metni",
+          "default": "Lütfen çözümü görüntülemeden önce cevap verin"
+        },
+        {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The task will be marked with its correct solution."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all responses and start the task over again."
+        }
+      ]
+    },
+    {
+      "label": "Davranış ayarları",
+      "description": "Bu seçenekler sizin görevin nasıl davranacağını kontrol etmenize izin verir.",
+      "fields": [
+        {
+          "label": "\"Yeniden dene\" düğmesini etkinleştir"
+        },
+        {
+          "label": "\"Çözümü Göster\" düğmesini etkinleştir"
+        },
+        {
+          "label": "\"Kontrol et\" düğmesini etkinleştir"
+        },
+        {
+          "label": "Soru Tipi",
+          "description": "Sorunun görünüşünü ve davranışını seçin.",
+          "options": [
+            {
+              "label": "Otomatik"
+            },
+            {
+              "label": "Çoklu Seçim (Onay kutucukları)"
+            },
+            {
+              "label": "Tekli Seçim (Radyo Düğmeleri)"
+            }
+          ]
+        },
+        {
+          "label": "Bütün görev için bir puan verin",
+          "description": "Birden çok doğru cevap için toplam bir puan vermek için etkinleştirin. \"Tek cevap\" kipinde böyle bir seçenek olmayacak."
+        },
+        {
+          "label": "Cevapları rastgele dizin",
+          "description": "Gösterimde cevapları rastgele dizmek için etkinleştirin."
+        },
+        {
+          "label": "Çözüm görüntülenmeden önce cevap gereksin"
+        },
+        {
+          "label": "\"Kontrol et\" diyalog kutunuda teyit iste"
+        },
+        {
+          "label": "\"Yeniden dene\" diyalog kutunuda teyit iste"
+        },
+        {
+          "label": "Cevapları otomatik olarak kontrol et",
+          "description": "Bu seçeneği etkinleştirmek erişilebilirlik açısından iyi değildir, ne yaptığınızı bildiğinizden emin olun."
+        },
+        {
+          "label": "Geçme yüzdesi",
+          "description": "Bu ayarın hiçbir etkisi yok. Bütün görev için bir puan alma etkinleştirildiği zaman 1 puan almak ve xAPI ifadelerinde result.success almak için gereken toplam puanın yüzdesidir, ."
+        },
+        {
+          "label": "Puanları göster",
+          "description": "Her bir cevap için kazanılan puanları göster."
+        }
+      ]
+    },
+    {
+      "label": "Kontrol etme teyit diyalog kutusu",
+      "fields": [
+        {
+          "label": "Üstbaşlık Metni",
+          "default": "Bitir?"
+        },
+        {
+          "label": "Gövde Metni",
+          "default": "Bitirmek istediğinize emin misiniz?"
+        },
+        {
+          "label": "İptal et düğmesi etiketi",
+          "default": "İptal et"
+        },
+        {
+          "label": "Onay düğmesi etiketi",
+          "default": "Finish"
+        }
+      ]
+    },
+    {
+      "label": "Yeniden dene teyit diyalog kutusu",
+      "fields": [
+        {
+          "label": "Üstbaşlık metni",
+          "default": "Yeniden dene?"
+        },
+        {
+          "label": "Gövde metni",
+          "default": "Yeniden denemek istediğinize emin misiniz?"
+        },
+        {
+          "label": "İptal düğmesi etiketi",
+          "default": "İptal"
+        },
+        {
+          "label": "Onay düğmesi etiketi",
+          "default": "Onay"
+        }
+      ]
+    }
+  ]
+}

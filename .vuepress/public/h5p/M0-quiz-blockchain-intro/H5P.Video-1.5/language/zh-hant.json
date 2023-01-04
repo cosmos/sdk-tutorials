@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "影片來源",
+      "description": "為確保並同瀏覽器都可播放，請使用格式為 WebM 或 MP4 的影片。"
+    },
+    {
+      "label": "外觀",
+      "fields": [
+        {
+          "label": "影片縮圖"
+        },
+        {
+          "label": "影片播放器自動調整成最大畫面",
+          "description": "如果不勾選，影片會依原始尺寸比例播放。"
+        },
+        {
+          "label": "顯示影片播放控制項",
+          "description": "在播放器下顯示影片控制項，讓用戶能夠使用暫停、靜音等功能。"
+        }
+      ]
+    },
+    {
+      "label": "播放",
+      "fields": [
+        {
+          "label": "影片自動播放",
+          "description": "在連結影片後自動播放。在行動裝置上可能無效。"
+        },
+        {
+          "label": "影片循環播放",
+          "description": "在影片播放完後會重新播放。"
+        }
+      ]
+    },
+    {
+      "label": "本地化",
+      "fields": [
+        {
+          "label": "形式的名稱",
+          "default": "影片",
+          "description": "幫助識別這個內容的形式。"
+        },
+        {
+          "label": "正在載入的顯示文字",
+          "default": "影片播放器正在載入…"
+        },
+        {
+          "label": "找不到播放器的顯示文字",
+          "default": "找不到支援此影片格式的播放器。"
+        },
+        {
+          "label": "找不到來源的顯示文字",
+          "default": "找不到影片來源。"
+        },
+        {
+          "label": "中止的顯示文字",
+          "default": "媒體播放已中止。"
+        },
+        {
+          "label": "網路異常的顯示文字",
+          "default": "網路異常。"
+        },
+        {
+          "label": "無法解析媒體的顯示文字",
+          "default": "無法解析媒體。"
+        },
+        {
+          "label": "不支援的格式的顯示文字",
+          "default": "不支援的格式"
+        },
+        {
+          "label": "媒體已加密的顯示文字",
+          "default": "媒體已加密。"
+        },
+        {
+          "label": "未知的錯誤的顯示文字",
+          "default": "未知的錯誤。"
+        },
+        {
+          "label": "無效的 YouTube ID 的顯示文字",
+          "default": "無效的 YouTube ID。"
+        },
+        {
+          "label": "未知的 YouTube ID 的顯示文字",
+          "default": "無法找到與這個 YouTube ID 關聯的影片。"
+        },
+        {
+          "label": "受限制的 YouTube 影片的顯示文字",
+          "default": "影片的上傳者不允許用嵌入的方式觀看影片。"
+        }
+      ]
+    },
+    {
+      "label": "無障礙功能",
+      "fields": [
+        {
+          "label": "添加影片字軌",
+          "entity": "字軌",
+          "field": {
+            "label": "字軌",
+            "fields": [
+              {
+                "label": "字軌的說明文字"
+              },
+              {
+                "label": "格式請參考 <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML 現況標準</a>",
+                "options": [
+                  {
+                    "label": "字幕"
+                  },
+                  {
+                    "label": "標題"
+                  },
+                  {
+                    "label": "說明"
+                  },
+                  {
+                    "label": "章節"
+                  }
+                ]
+              },
+              {
+                "label": "語言代碼",
+                "description": "若字軌是字幕的話，必須要定義。需符合 BCP 47 的語言標記，例如 en 為英文、zh 為中文。"
+              },
+              {
+                "label": "字軌來源（格式為 WebVTT）"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

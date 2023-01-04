@@ -1,0 +1,15 @@
+name: Verify valid config.js
+on:
+  push:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  verify-config-main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: ✅ Verify valid config.js
+        run: |
+          npm ci
+          npm run check-config

@@ -1,0 +1,255 @@
+.questionset-results h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-bottom: 0.5em;
+}
+
+.questionset, .intro-page, .questionset-results {
+  overflow: hidden;
+}
+.questionset.hidden {
+  display: none;
+}
+.questionset, .intro-page, .questionset-results {
+  position: relative;
+}
+.h5p-multichoice > .h5p-question {
+  text-align: left;
+  margin: 0.5em 0.5em 0.7em;
+  background: rgba(255, 255, 255, 0.9);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#e6FFFFFF,endColorstr=#e6FFFFFF);
+  zoom: 1;
+}
+.dots-container {
+  text-align: center;
+  line-height: 2em;
+  padding: 0;
+  margin: 0;
+}
+.progress-item {
+  list-style: none;
+  display: inline-block;
+}
+.progress-dot {
+  display: inline-block;
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  margin: 0 0.25em;
+  cursor: pointer;
+  background: #fff;
+  background: #cecece;
+}
+
+.progress-dot.disabled {
+  cursor: default;
+}
+
+.progress-dot:not(.disabled):hover {
+  box-shadow: 0 0 0.5em #c7c7c7;
+}
+.progress-dot.answered {
+  background: #73a2d5;
+}
+.progress-dot.current {
+  background: #285585;
+}
+
+.progress-dot.disabled:focus {
+  outline: none
+}
+
+.progress-dot:focus {
+  outline-color: rgb(40, 130, 211);
+  outline-width: thin;
+  outline-style: solid;
+}
+
+.intro-page .title {
+  font-size: 2em;
+  line-height: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+.intro-page .title > span {
+  padding: 0.125em 0.5em;
+  border-radius: 0.125em;
+  background: rgb(255,255,255); /* Fallback for browsers not supporting rgba */
+  background: rgba(255,255,255,0.8); /* Gives WCAG contrast ratio of 5.6:1 with the current font color */
+}
+.intro-page .introduction {
+  font-size: 1.25em;
+  margin: 0 1em;
+  border-radius: 0.25em;
+  background: rgb(255,255,255); /* Fallback for browsers not supporting rgba */
+  background: rgba(255,255,255,0.8); /* Gives WCAG contrast ratio of 5.6:1 with the current font color */
+  padding: 0.25em 0.5em;
+}
+/* Overrides whatever margins have been set in site-CSS, to avoid too much spacing
+   on description field, aswell as getting same padding on top and bottom of field */
+.intro-page .introduction > p {
+  margin: 0 0 0.5em 0;
+}
+.intro-page .introduction > p:last-child {
+  margin: 0;
+}
+.intro-page .buttons {
+  margin: 3em auto;
+  text-align: center;
+}
+.qs-footer {
+  overflow: hidden;
+  clear: both;
+}
+
+.qs-footer > .prev {
+  float: left;
+}
+
+.qs-footer > .qs-solutionbutton {
+  float: none;
+}
+
+.qs-footer > .qs-retrybutton {
+  float: none;
+}
+
+.questionset-results button.h5p-button.qs-retrybutton:before {
+  font-family: 'H5PFontAwesome4';
+  padding-right: 0.5em;
+  content: "\f01e";
+}
+
+/* Need to disable max-height animation stuff, since this will
+   make resizing of iframe in Safari not work! */
+.questionset .h5p-question-buttons.h5p-question-visible {
+  transition: none;
+}
+
+.qs-progress-announcer {
+  height: 0;
+  width: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+.h5p-question .h5p-question-prev,
+.h5p-question .h5p-question-finish,
+.h5p-question .h5p-question-next {
+  float: right;
+}
+
+.h5p-question .h5p-question-prev,
+.h5p-question .h5p-question-next {
+  padding: 0.5em 0;
+  width: 2.1875em;
+}
+
+.h5p-question .h5p-question-prev.truncated,
+.h5p-question .h5p-question-next.truncated {
+  padding: 0;
+  line-height: 2.2335em;
+}
+
+.h5p-question .h5p-question-next:before {
+  content: "\f054";
+  padding-right: 0;
+  position: relative;
+  left: 2px;
+}
+
+.h5p-question .h5p-question-prev:before {
+  content: "\f053";
+  padding-right: 0;
+  position: relative;
+  left: -2px;
+}
+
+.h5p-question .h5p-question-finish:before {
+  content: "\f00c";
+}
+
+.questionset-results button.h5p-button.qs-solutionbutton:before {
+  font-family: 'H5PFontAwesome4';
+  padding-right: 0.5em;
+  content: "\f06e";
+}
+
+.video-container {
+  position: relative;
+}
+.video-container > video {
+  background-color: #000;
+  width: 100%;
+}
+.video-container > .h5p-button {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+
+.qs-progress {
+  text-align: center;
+  line-height: 1.5em;
+}
+
+.questionset-results {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6FFFFFF,endColorstr=#E6FFFFFF);
+}
+
+.questionset-results .feedback-section {
+  margin: 0.75em;
+}
+
+.questionset-results .greeting {
+  margin-top: 1em;
+  color: #777;
+  font-size: 1.25em;
+}
+
+.questionset-results .buttons {
+  margin: 2em 0 1em 0;
+}
+
+.questionset-results .result-header,
+.questionset-results .result-text,
+.questionset-results .feedback-section .feedback-text {
+  color: #1a73d9;
+  font-weight: bold;
+}
+
+.questionset-results .result-header {
+  font-size: 2em;
+  margin: 1em 0.5em 0.5em 0.5em;
+}
+
+.questionset-results .result-text,
+.questionset-results .feedback-section .feedback-text {
+  font-size: 1.25em;
+  line-height: 1.25em;
+  margin: 1em;
+}
+
+/* No margin for questions when no frame */
+.h5p-no-frame .questionset .h5p-question > * {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.h5p-no-frame .questionset-results .feedback-section,
+.h5p-no-frame .questionset .h5p-question > *:first-child {
+  margin-top: 0;
+}
+
+.h5p-no-frame .questionset-results .buttons,
+.h5p-no-frame .questionset .h5p-question > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Hide the fullscreen button rendered by H5P.DragQuestion */
+.questionset .h5p-question.h5p-dragquestion .h5p-my-fullscreen-button-enter,
+.questionset .h5p-question.h5p-dragquestion .h5p-my-fullscreen-button-exit {
+  display: none;
+}

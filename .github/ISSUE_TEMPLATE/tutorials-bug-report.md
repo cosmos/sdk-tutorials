@@ -31,7 +31,7 @@ Include the output of these commands.
 
 Go: `go version`
 
-Starport: `starport version`
+Ignite CLI: `ignite version`
 
 Gaia: `gaiad version --long`
 

@@ -1,6 +1,7 @@
 ---
 order: 1
 description: Test our features
+divider: true
 ---
 
 # Feature test
@@ -11,7 +12,17 @@ This file demonstrates the usage of various components within the Platform.
 
 Images are embedded with a medium-zoom plugin:
 
-![menu sample image](~@images/constellation.png)
+![menu sample image](/feature-test/images/constellation.png)
+
+<HighlightBox type="warn">
+
+Images must be linked using an absolute path! The image above is embedded with:
+
+```markdown
+![menu sample image](/feature-test/images/constellation.png)
+```
+
+</HighlightBox>
 
 ## Video
 
@@ -46,6 +57,36 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed
 
 ## Code group
 
+```diff-ts
+import * as CSS from 'csstype';
+
+const style: CSS.Properties = {
+  colour: 'white', // Type error on property
+  textAlign: 'middle', // Type error on value
+};
+-    return {
+-      placeholderText: "Drag and drop a file here",
+-      hashed: "",
+-      flight: false,
+-    };
++    return {};
+```
+
+```diff
+import * as CSS from 'csstype';
+
+const style: CSS.Properties = {
+  colour: 'white', // Type error on property
+  textAlign: 'middle', // Type error on value
+};
+-    return {
+-      placeholderText: "Drag and drop a file here",
+-      hashed: "",
+-      flight: false,
+-    };
++    return {};
+```
+
 
 ```py [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
 for line in fileinput.input(inplace=1):
@@ -56,7 +97,7 @@ for line in fileinput.input(inplace=1):
 <CodeGroup>
 <CodeGroupItem title="JavaScript" active>
 
-```js 
+```js
 import { SpH3, SpButton } from "@tendermint/vue";
 
 export default {
@@ -212,6 +253,42 @@ This document explains what application-specific blockchains are, and why develo
 
 </HighlightBox>
 
+<HighlightBox type="prerequisite">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="learning">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="best-practice">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="remember">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="note">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
+<HighlightBox type="docs">
+
+This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
+
+</HighlightBox>
+
 
 ## H5P
 
@@ -245,7 +322,7 @@ This document explains what application-specific blockchains are, and why develo
 
 ## Menu
 
-![menu sample image](~@images/menu.png)
+![menu sample image](/feature-test/images/menu.png)
 
 The left sidebar menu supports:
 * Categories (Cosmos Adacemy (beta))
@@ -273,7 +350,7 @@ children: [
   },
   {
     title: "What is Cosmos?",
-    path: "/academy/what-is-cosmos",
+    path: "/academy/1-what-is-cosmos",
     directory: true,
   },
   {
@@ -282,3 +359,39 @@ children: [
     external: true,
   },
 ```
+
+## Panel list
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="2" :last="true">
+  Second step
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+## Expansion Panel list
+
+<ExpansionPanel title="Click to expand">
+
+<PanelListItem number="1">
+  First step
+  ```
+  npm i
+  ```
+</PanelListItem>
+
+<PanelListItem number="check" :last="true">
+  Completed
+  ```
+  npm run dev
+  ```
+</PanelListItem>
+
+</ExpansionPanel>

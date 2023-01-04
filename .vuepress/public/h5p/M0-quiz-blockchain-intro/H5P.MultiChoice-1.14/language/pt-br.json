@@ -1,0 +1,254 @@
+{
+  "semantics": [
+    {
+      "label": "Mídia",
+      "fields": [
+        {
+          "label": "Tipo",
+          "description": "Mídia opcional mostrada acima da questão."
+        },
+        {
+          "label": "Desabilita zoom de imagem para questões com imagens"
+        }
+      ]
+    },
+    {
+      "label": "Questão"
+    },
+    {
+      "label": "Opções disponíveis",
+      "entity": "option",
+      "field": {
+        "label": "Opção",
+        "fields": [
+          {
+            "label": "Texto"
+          },
+          {
+            "label": "Correto"
+          },
+          {
+            "label": "Dicas e feedback",
+            "fields": [
+              {
+                "label": "Texto da dica",
+                "description": "Dica para o usuário. Isso aparecerá antes do usuário marcar sua(s) resposta(s)."
+              },
+              {
+                "label": "Mensagem mostrada se resposta é selecionada",
+                "description": "A mensagem aparecerá embaixo da resposta em \"check\" se esta resposta for selecionada."
+              },
+              {
+                "label": "Mensagem mostrada se resposta não é selecionada",
+                "description": "A mensagem aparecerá embaixo da resposta em \"check\" se esta resposta não for selecionada."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "Feedback geral",
+      "fields": [
+        {
+          "widgets": [
+            {
+              "label": "Padrão"
+            }
+          ],
+          "label": "Defina feedback customizado para qualquer faixa de pontuação",
+          "description": "Exemplo: 0-20% Pontuação ruim, 21-91% Pontuação média, 91-100% Ótima pontuação!",
+          "entity": "range",
+          "field": {
+            "fields": [
+              {
+                "label": "Faixa de pontuação"
+              },
+              {},
+              {
+                "label": "Feedback para uma faixa de pontuação determinada",
+                "placeholder": "Preencha o feedback"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "label": "Tradução da interface de usuário para múltipla escolha",
+      "fields": [
+        {
+          "label": "Rótulo do botão de verificar resposta",
+          "default": "Verificar resposta"
+        },
+        {
+          "label": "Rótulo do botão de mostrar solução",
+          "default": "Mostrar solução"
+        },
+        {
+          "label": "Rótulo do botão de tentar novamente",
+          "default": "Tentar novamente"
+        },
+        {
+          "label": "Rótulo da dica",
+          "default": "Mostrar dica"
+        },
+        {
+          "label": "Representação textual da barra de pontuação para aqueles que usam leitores de telas",
+          "description": "Variáveis disponíveis são :num e :total",
+          "default": "Você marcou :num de :total pontos"
+        },
+        {
+          "label": "Dica disponível (não exibida)",
+          "default": "Dica disponível",
+          "description": "Texto de acessibilidade para leitores de telas"
+        },
+        {
+          "label": "Feedback disponível (não exibido)",
+          "default": "Feedback disponível",
+          "description": "Texto de acessibilidade para leitores de telas"
+        },
+        {
+          "label": "Ler Feedback (não exibido)",
+          "default": "Ler feedback",
+          "description": "Texto de acessibilidade para leitores de telas"
+        },
+        {
+          "label": "Resposta incorreta (não exibido)",
+          "default": "Resposta incorreta",
+          "description": "Texto de acessibilidade para leitores de telas"
+        },
+        {
+          "label": "Resposta correta (não exibido)",
+          "default": "Resposta correta",
+          "description": "Texto de acessibilidade para leitores de telas"
+        },
+        {
+          "label": "Opção deveria ter sido marcada",
+          "default": "Deveria ter sido marcado"
+        },
+        {
+          "label": "Opção deveria ter sido marcada",
+          "default": "Deveria ter sido marcado"
+        },
+        {
+          "label": "Texto para a mensagem \"Requer resposta\"",
+          "default": "Por favor responda antes de visualizar a solução"
+        },
+        {
+          "label": "Assistive technology description for \"Check\" button",
+          "default": "Check the answers. The responses will be marked as correct, incorrect, or unanswered."
+        },
+        {
+          "label": "Assistive technology description for \"Show Solution\" button",
+          "default": "Show the solution. The task will be marked with its correct solution."
+        },
+        {
+          "label": "Assistive technology description for \"Retry\" button",
+          "default": "Retry the task. Reset all responses and start the task over again."
+        }
+      ]
+    },
+    {
+      "label": "Configurações comportamentais",
+      "description": "Estas opções permitirão que você controle como a tarefa se comporta.",
+      "fields": [
+        {
+          "label": "Habilitar o botão \"Tentar novamente\" "
+        },
+        {
+          "label": "Habilitar o botão \"Mostrar solução\" "
+        },
+        {
+          "label": "Habilitar o botão \"Verificar resposta\" "
+        },
+        {
+          "label": "Tipo de questão",
+          "description": "Selecione a aparência e o comportanto da questão.",
+          "options": [
+            {
+              "label": "Automático"
+            },
+            {
+              "label": "Múltipla escolha (Checkboxes)"
+            },
+            {
+              "label": "Escolha única (Botão de opção)"
+            }
+          ]
+        },
+        {
+          "label": "Dar um ponto para toda a tarefa",
+          "description": "Habilita para dar um ponto para respostas múltiplas corretas. Isso não será uma opção no modo \"escolha única\"."
+        },
+        {
+          "label": "Aleatorizar respostas",
+          "description": "Habilita a ordem aleatória das respostas exibidas."
+        },
+        {
+          "label": "Requer resposta antes da visualização da solução"
+        },
+        {
+          "label": "Mostrar diálogo de confirmação em \"Verificar resposta\""
+        },
+        {
+          "label": "Mostrar diálogo de confirmação em \"Tentar novamente\""
+        },
+        {
+          "label": "Marcar respostas automaticamente",
+          "description": "Habilitar esta opção prejudicará a acessibilidade, tenha certeza que deseja marcá-la."
+        },
+        {
+          "label": "Porcentagem para aprovação",
+          "description": "Esta configuração frequentemente não terá nenhum efeito. È a porcentagem da pontuação total requerida quando a opção de um ponto para toda a questão estiver habilitada."
+        },
+        {
+          "label": "Mostrar pontuação",
+          "description": "Mostra pontos ganhos para cada questão."
+        }
+      ]
+    },
+    {
+      "label": "Diálogo de confirmação de verificação de resposta",
+      "fields": [
+        {
+          "label": "Texto de cabeçalho",
+          "default": "Finalizar ?"
+        },
+        {
+          "label": "Texto de corpo",
+          "default": "Tem certeza de que deseja finalizar ?"
+        },
+        {
+          "label": "Rótulo do botão de cancelamento",
+          "default": "Cancelar"
+        },
+        {
+          "label": "Rótulo do botão de confirmação",
+          "default": "Finalizar"
+        }
+      ]
+    },
+    {
+      "label": "Diálogo de confirmação para nova tentativa",
+      "fields": [
+        {
+          "label": "Texto de cabeçalho",
+          "default": "Tentar novamente ?"
+        },
+        {
+          "label": "Texto de corpo",
+          "default": "Tem certeza de que deseja tentar novamente ?"
+        },
+        {
+          "label": "Rótulo do botão de cancelamento",
+          "default": "Cancelar"
+        },
+        {
+          "label": "Rótulo do botão de confirmação",
+          "default": "Confirmar"
+        }
+      ]
+    }
+  ]
+}
