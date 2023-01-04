@@ -378,7 +378,11 @@ module.exports = {
                 },
                 {
                   title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/5-game-wager.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-wager.html",
+                },
+                {
+                  title: "Handle wager payments",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html",
                 },
                 {
                   title: "Incentivize Players",

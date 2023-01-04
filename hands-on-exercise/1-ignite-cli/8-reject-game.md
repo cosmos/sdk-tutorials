@@ -693,6 +693,6 @@ Next week's sections cover forfeits and how games end. In the next section, you 
 
 <HighlightBox type="tip">
 
-If you want to enable token wagers in your games instead, skip ahead to [wagers](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md).
+If you want to enable token wagers in your games instead, skip ahead to [wagers](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md).
 
 </HighlightBox>-->

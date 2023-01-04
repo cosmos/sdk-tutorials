@@ -701,4 +701,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./5-game-wager.md).-->
+With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./4-game-wager.md).-->
