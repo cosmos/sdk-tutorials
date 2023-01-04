@@ -635,7 +635,7 @@ it("can continue the game up to before the double capture", async function () {
         r: await getShortAccountInfo(bob),
     }
     // TODO
-});
+})
 ```
 
 Now get all 22 signed transactions, from index 2 to index 23:
@@ -740,7 +740,7 @@ it("can send a double capture move", async function () {
     const firstCaptureMove: GameMove = completeGame[24]
     const secondCaptureMove: GameMove = completeGame[25]
     // TODO
-});
+})
 ```
 
 In it, make the call with the correctly crafted messages.
