@@ -67,6 +67,20 @@ The following sections are optional and **NOT** final exam relevant:
 
 </HighlightBox>
 
+<HighlightBox type="info">
+
+Here you can find **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
+  
+* _Introduction to CosmJS_ with Noam Cohen:
+
+<YoutubePlayer videoId="RlqjEVIv1Pg"/>
+
+* _Introduction to IBC_ with Thomas Dekeyser:
+
+<YoutubePlayer videoId="HCO7qTOdNGI"/>
+
+</HighlightBox>
+
 ## Next up
 
 First, begin with an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), then you can go ahead an head to the section on [fungible token transfers](/academy/3-ibc/5-token-transfer.md). After getting an [overview on helpful tools for IBC](/academy/3-ibc/7-ibc-tooling.md), you can start your ComsJS journey with an [introduction section](/tutorials/7-cosmjs/1-cosmjs-intro.md).
