@@ -258,12 +258,12 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
     -  const App = () => {
     +  const App = ({ rpcUrl }: AppProps) => {
             ...
-            return (
-                <Container style={styles}>
+                 <Routes>
+    -              <Route path="menu" element={<MenuContainer location={""} />} />
     +              <Route path="menu" element={<MenuContainer location={""} rpcUrl={rpcUrl} />} />
                     ...
-                </Container>
-            )
+                </Routes>
+            ...
         }
     ```
 
