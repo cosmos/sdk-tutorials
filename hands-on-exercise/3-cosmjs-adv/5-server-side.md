@@ -587,12 +587,6 @@ const handleEvents = async (events: StringEvent[]): Promise<void> => {
 }
 ```
 
-This needs a new import:
-
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L4]
-import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
-```
-
 <HighlightBox type="note">
 
 * `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
@@ -638,6 +632,12 @@ Now update your `db` with the information provided. First, define a convenience 
 const getAttributeValueByKey = (attributes: Attribute[], key: string): string | undefined => {
     return attributes.find((attribute: Attribute) => attribute.key === key)?.value
 }
+```
+
+This needs a new import:
+
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L4]
+import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
 ```
 
 Now define `handleEventCreate` as:
