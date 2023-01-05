@@ -21,7 +21,7 @@ In this section, you will learn:
 
 ## What you will be building and why
 
-The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization is would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
 
 But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play a competitive game. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
@@ -37,7 +37,7 @@ Currently, your checkers game contains the checkers module but is not IBC-enable
 
 Let’s dive right into it.
 
-Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
+Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) tag.
 
 In the checkers chain folder, you can scaffold a leaderboard module with Ignite:
 
@@ -48,7 +48,7 @@ $ ignite scaffold module leaderboard --ibc
 In order to create and maintain a leaderboard, you need to store the player information. Scaffold a structure with:
 
 ```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
+$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
 ```
 
 Now you can use this structure to create the board itself:
@@ -457,7 +457,7 @@ func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandid
     }
 
     if !found_in_player_list {
-        errors.New("Player not found")
+        return nil, errors.New("player not found")
     }
 ...
 }
