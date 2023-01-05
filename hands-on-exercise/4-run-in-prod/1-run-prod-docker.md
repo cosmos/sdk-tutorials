@@ -918,10 +918,12 @@ persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 `sentry-alice` also has access to `sentry-bob` and `node-carol`, although these nodes should probably not be considered persistent. You will add them under `"seeds"`. First, collect the same information from these nodes:
 
 ```sh
-$ docker run --rm -i -v $(pwd)/docker/sentry-bob:/root/.checkers \
+$ docker run --rm -i \
+    -v $(pwd)/docker/sentry-bob:/root/.checkers \
     checkersd_i \
     tendermint show-node-id
-$ docker run --rm -i -v $(pwd)/docker/node-carol:/root/.checkers \
+$ docker run --rm -i \
+    -v $(pwd)/docker/node-carol:/root/.checkers \
     checkersd_i \
     tendermint show-node-id
 ```

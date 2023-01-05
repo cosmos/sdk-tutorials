@@ -24,7 +24,11 @@ $ docker build . -t exercise-w2
 We created this repository with Ignite CLI v0.22.1 and the following command:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 ignite scaffold chain github.com/b9lab/other-world
+$ docker run --rm -it \
+    -v $(pwd):/exercise \
+    -w /exercise \
+    exercise-w2 \
+    ignite scaffold chain github.com/b9lab/other-world
 ```
 
 The idea behind it is that this is the blockchain backing a future metaverse. The blockchain will account for anything of value in it.
@@ -58,7 +62,11 @@ Make these tests pass:
 * `x/otherworld/types/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/types
+    $ docker run --rm -it \
+        -v $(pwd):/exercise \
+        -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/types
     ```
 
     Or:
@@ -70,7 +78,11 @@ Make these tests pass:
 * `x/otherworld/keeper/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/keeper
+    $ docker run --rm -it \
+        -v $(pwd):/exercise \
+        -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/keeper
     ```
 
     Or:
@@ -82,7 +94,11 @@ Make these tests pass:
 To run them both at the same time, run:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 /exercise/score.sh
+$ docker run --rm -it \
+    -v $(pwd):/exercise \
+    -w /exercise \
+    exercise-w2 \
+    /exercise/score.sh
 ```
 
 Or:
