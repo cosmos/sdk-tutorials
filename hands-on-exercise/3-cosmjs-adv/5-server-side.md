@@ -637,8 +637,8 @@ const getAttributeValueByKey = (attributes: Attribute[], key: string): string | 
 This needs a new import:
 
 ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L4]
--  import { ABCIMessageLog, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
-+  import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
+- import { ABCIMessageLog, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
++ import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
 ```
 
 Now define `handleEventCreate` as:
