@@ -38,7 +38,7 @@ ignite scaffold module leaderboard --ibc
 You need a structure to keep track of player information too:
 
 ```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
+$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
 ```
 
 And of course a board structure:
@@ -100,7 +100,7 @@ func (p CandidatePacketData) ValidateBasic() error {
 
   // return error if player address is empty
   if p.PlayerInfo.Index == "" {
-      return errors.New("Player address cannot be empty")
+      return errors.New("player address cannot be empty")
   }
 
     return nil
