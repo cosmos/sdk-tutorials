@@ -10,7 +10,7 @@ tags:
 
 # Understand the Authz Module
 
-The [authz](https://docs.cosmos.network/v0.44/modules/authz/) (authorization) module enables one user (the granter) to authorize another (the grantee) to execute messages on their behalf. The authz module is different from the [auth](https://docs.cosmos.network/v0.44/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
+The [authz](https://docs.cosmos.network/main/modules/authz/) (authorization) module enables one user (the granter) to authorize another (the grantee) to execute messages on their behalf. The authz module is different from the [auth](https://docs.cosmos.network/main/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
 
 ## Use authz to grant authorizations
 
