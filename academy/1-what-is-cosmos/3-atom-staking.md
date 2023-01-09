@@ -31,6 +31,8 @@ There are two steps to successfully get ATOM:
 1. Install a wallet application and configure it safely. You will use [Keplr](https://keplr.app/).
 2. Buy some ATOM on an exchange and transfer them to your wallet.
 
+If you prefer to do the same but with test ATOMs, you can use an existing Cosmos Hub testnet. Head to this [later section](/tutorials/7-cosmjs/2-first-steps.md#get-a-balance) for guidance. Then come back here and adjust accordingly for the relevant testnet.
+
 ## Setting up Keplr
 
 Open Google Chrome on your computer and go to the [Keplr extension page](https://chrome.google.com/webstore/detail/keplr/dmkamcknogkgcdfhhbddcghachkejeap). Alternatively, you can search for Keplr in the [Chrome extensions store](https://chrome.google.com/webstore/search/Keplr).

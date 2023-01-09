@@ -1,6 +1,6 @@
 ---
 title: "Incentivize Players"
-order: 7
+order: 8
 description: Gas - reward validators proportional to their effort
 tags: 
   - guided-coding
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Go is installed.
-* You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./5-game-wager.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./5-payment-winning.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/payment-winning).
 
 </HighlightBox>
 
@@ -80,24 +80,33 @@ Add a line that consumes or refunds the designated amount of gas in each relevan
 
 1. When handling a game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game.go#L46]
-    ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game.go#L46]
+        ...
+        k.Keeper.SetSystemInfo(ctx, systemInfo)
+    +  ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+        ...
     ```
 
 2. When handling a move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move.go#L88]
-    ctx.GasMeter().ConsumeGas(types.PlayMoveGas, "Play a move")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move.go#L88]
+        ...
+        k.Keeper.SetSystemInfo(ctx, systemInfo)
+    +  ctx.GasMeter().ConsumeGas(types.PlayMoveGas, "Play a move")
+        ...
     ```
 
 3. When handling a game rejection, you make sure that you are not refunding more than what has already been consumed:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_reject_game.go#L46-L50]
-    refund := uint64(types.RejectGameRefundGas)
-    if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
-        refund = consumed
-    }
-    ctx.GasMeter().RefundGas(refund, "Reject game")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_reject_game.go#L46-L50]
+        ...
+        k.Keeper.SetSystemInfo(ctx, systemInfo)
+    +  refund := uint64(types.RejectGameRefundGas)
+    +  if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
+    +      refund = consumed
+    +  }
+    +  ctx.GasMeter().RefundGas(refund, "Reject game")
+        ...
     ```
 
 You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, it is a service rendered by the network. If you want to account for the gas cost of a game expiration, you have to devise a way to pre-collect it from players as part of the other messages.
@@ -173,7 +182,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
 </CodeGroupItem>
@@ -195,7 +205,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 ```
 
 </CodeGroupItem>
@@ -219,7 +230,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 ```
 
 </CodeGroupItem>
@@ -251,7 +263,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 ```
 
 </CodeGroupItem>
@@ -281,7 +294,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -309,7 +323,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -339,7 +354,8 @@ $ checkersd tx checkers reject-game 9 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 9 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 9 --from $alice
 ```
 
 </CodeGroupItem>

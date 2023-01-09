@@ -4,7 +4,6 @@ order: 3
 description: Introduce the message to create a game in your checkers blockchain
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
@@ -14,9 +13,9 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md).
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have generated the necessary TypeScript types in [the previous tutorial](./1-cosmjs-objects.md).
-* You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination) that contains the final version.
+* You have the finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -75,7 +74,7 @@ This needs to be repeated for each of the messages that you require. To refresh 
 * [`MsgRejectGame`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L71-L80)
 * [`MsgRejectGameResponse`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/types/checkers/messages.ts#L82-L91)
 
-## A signing Stargate for Checkers
+## A signing Stargate for checkers
 
 This process again takes inspiration from [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/signingstargateclient.ts#L55-L69). Prepare by registering your new types in addition to the others, so that your client knows them all:
 
@@ -199,27 +198,28 @@ You can reuse the setup you prepared in the previous section. There is an added 
 
 You would not treat mainnet keys in this way, but here you save testing keys on disk. Update `.env` with the test mnemonics of your choice:
 
-```txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L3-L6]
-MNEMONIC_TEST_ALICE="theory arrow blue much illness carpet arena thought clay office path museum idea text foot bacon until tragic inform stairs pitch danger spatial slight"
-ADDRESS_TEST_ALICE="cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql"
-MNEMONIC_TEST_BOB="apple spoil melody venture speed like dawn cherry insane produce carry robust duck language next electric episode clinic acid sheriff video knee spoil multiply"
-ADDRESS_TEST_BOB="cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22"
+```diff-txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L3-L6]
+    RPC_URL="http://localhost:26657"
++  MNEMONIC_TEST_ALICE="theory arrow blue much illness carpet arena thought clay office path museum idea text foot bacon until tragic inform stairs pitch danger spatial slight"
++  ADDRESS_TEST_ALICE="cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql"
++  MNEMONIC_TEST_BOB="apple spoil melody venture speed like dawn cherry insane produce carry robust duck language next electric episode clinic acid sheriff video knee spoil multiply"
++  ADDRESS_TEST_BOB="cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22"
 ```
 
 If you use different mnemonics and do not yet know the corresponding addresses, you can get them from the `before` action (below) when it fails. Also adjust `environment.d.ts` to inform the TypeScript compiler:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L6-L9]
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            ...
-            MNEMONIC_TEST_ALICE: string
-            ADDRESS_TEST_ALICE: string
-            MNEMONIC_TEST_BOB: string
-            ADDRESS_TEST_BOB: string
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L6-L9]
+    declare global {
+        namespace NodeJS {
+            interface ProcessEnv {
+                ...
++              MNEMONIC_TEST_ALICE: string
++              ADDRESS_TEST_ALICE: string
++              MNEMONIC_TEST_BOB: string
++              ADDRESS_TEST_BOB: string
+            }
         }
     }
-}
 ...
 ```
 
@@ -264,7 +264,11 @@ $ npm test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm test
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm test
 ```
 
 </CodeGroupItem>
@@ -293,26 +297,28 @@ If the running chain allows it, and to make your life easier, you can set the ga
 
 ### Token preparation
 
-Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet end point for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
+Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. If you use Ignite, it has created a faucet endpoint for you at port `4500`. The page `http://localhost:4500` explains how to make the calls. Use that.
 
 Add the faucet address in `.env`:
 
-```txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L2]
-FAUCET_URL="http://localhost:4500"
+```diff-txt [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/.env#L2]
+    RPC_URL="http://localhost:26657"
++  FAUCET_URL="http://localhost:4500"
+    ...
 ```
 
 Also add the faucet address to `environment.d.ts`:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L5]
-declare global {
-    namespace NodeJS {
-        interface ProcessEnv {
-            RPC_URL: string
-            FAUCET_URL: string
-            ...
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/environment.d.ts#L5]
+    declare global {
+        namespace NodeJS {
+            interface ProcessEnv {
+                RPC_URL: string
++              FAUCET_URL: string
+                ...
+            }
         }
     }
-}
 ...
 ```
 

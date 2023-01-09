@@ -47,7 +47,7 @@ Ignite CLI also handles some compilation, runs a local blockchain node, and help
 
 </HighlightBox>
 
-<YoutubePlayer videoId="MTUQQ6nOkZo"/>
+<YoutubePlayer videoId="z1HDh2KdiGI"/>
 
 ## Install
 
@@ -146,9 +146,11 @@ Use "ignite [command] --help" for more information about a command.
 
 ## Prepare Docker
 
-If you want portability and to avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
+If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro).
 
-```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu]
+First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
+
+```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu#L1-L33]
 FROM --platform=linux ubuntu:22.04
 ARG BUILDARCH
 
@@ -183,6 +185,8 @@ EXPOSE 1317 3000 4500 5000 26657
 
 WORKDIR /checkers
 ```
+
+Note that the linked code contains more lines than shown above. Because you do not yet have a `go.mod` file, stick to the lines in the quoted code above for now.
 
 Next you need to create the Docker image:
 
@@ -543,6 +547,12 @@ Navigate to [localhost:3000](http://localhost:3000/), or to whichever address wa
 
 ![My Keplr account with nothing](/hands-on-exercise/1-ignite-cli/images/ignite-vue-keplr-no-assets.png)
 
+<HighlightBox type="tip">
+
+If you want Keplr to separate your mainnet keys and tokens from those you use for tests, have a look at [Google Chrome's profiles](https://www.techradar.com/how-to/how-to-use-profiles-in-chrome-to-keep-work-and-home-separate).
+
+</HighlightBox>
+
 Your account is connected but has no balance. This is a good opportunity to use the faucet:
 
 1. Head to [http://localhost:4500](http://localhost:4500)
@@ -709,6 +719,15 @@ async MsgCreatePost({ rootGetters }, { value }) {
 </CodeGroup>
 
 When you are done with this exercise you can stop Ignite's `chain serve.`
+
+<HighlightBox type="info">
+
+Want another demonstration? In the following video Denis Fadeev, creator of and core contributor to Ignite CLI, explains how to create and interact with a Cosmos SDK blockchain using just a few basic commands, then provides a real-time demonstration of Ignite CLI in action.
+
+<YoutubePlayer videoId="aQuHeE7fWK0"/>
+
+</HighlightBox>
+
 
 <HighlightBox type="synopsis">
 

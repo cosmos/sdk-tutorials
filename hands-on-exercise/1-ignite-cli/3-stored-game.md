@@ -120,7 +120,9 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold single systemInfo nextId:uint --module checkers --no-message
+    $ ignite scaffold single systemInfo nextId:uint \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -128,7 +130,13 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold single systemInfo nextId:uint --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold single systemInfo nextId:uint \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -147,7 +155,10 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold map storedGame board turn black red --index index --module checkers --no-message
+    $ ignite scaffold map storedGame board turn black red \
+        --index index \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -155,7 +166,14 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold map storedGame board turn black red --index index --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold map storedGame board turn black red \
+        --index index \
+        --module checkers \
+        --no-message
     ```
 
     </CodeGroupItem>
@@ -347,12 +365,13 @@ return &GenesisState{
 
 This is not correct. Your chain needs to start with an initial system info. This raises the point that the genesis' `SystemInfo` should in fact [never be null](https://pkg.go.dev/github.com/gogo/protobuf/gogoproto). You can enforce that in `genesis.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/proto/checkers/genesis.proto#L15]
-message GenesisState {
-    ...
-    SystemInfo systemInfo = 2 [(gogoproto.nullable) = false];
-    ...
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/proto/checkers/genesis.proto#L15]
+    message GenesisState {
+        ...
+-      SystemInfo systemInfo = 2;
++      SystemInfo systemInfo = 2 [(gogoproto.nullable) = false];
+        ...
+    }
 ```
 
 After compilation, this `nullable = false` flag changes the `SystemInfo` type in genesis from a pointer to a straight value. Make sure you recompile:
@@ -370,7 +389,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -379,18 +402,19 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generat
 
 Then set a default value for `SystemInfo`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/genesis.go#L13-L15]
-const DefaultIndex uint64 = 1
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/genesis.go#L13-L15]
+    const DefaultIndex uint64 = 1
 
-func DefaultGenesis() *GenesisState {
-    return &GenesisState{
-        SystemInfo: SystemInfo{
-            NextId: uint64(DefaultIndex),
-        },
-        StoredGameList: []StoredGame{},
-        ...
+    func DefaultGenesis() *GenesisState {
+        return &GenesisState{
+-          SystemInfo:     nil,
++          SystemInfo: SystemInfo{
++              NextId: uint64(DefaultIndex),
++          },
+            StoredGameList: []StoredGame{},
+            ...
+        }
     }
-}
 ```
 
 You can choose to start with no games or insert a number of games to start with. In either case, you must choose the first ID of the first future created game, which here is set at `1` by reusing the `DefaultIndex` value.
@@ -507,7 +531,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -554,7 +582,11 @@ $ go test github.com/alice/checkers/x/checkers/types
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/types
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/types
 ```
 
 </CodeGroupItem>
@@ -582,7 +614,11 @@ $ cd x/checkers/types/ && go test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers/x/checkers/types checkers_i go test
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers/x/checkers/types \
+    checkers_i \
+    go test
 ```
 
 </CodeGroupItem>
@@ -651,16 +687,29 @@ If you are struggling with a test, create separate variables in order to inspect
 
 ### More unit tests
 
-With a simple yet successful unit test, you can add more consequential ones to test your helper methods. Create a new file `x/checkers/types/full_game_test.go` and declare it in [`package types_test`](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L1). Since you are going to repeat some actions, it is worth adding a reusable function:
+With a simple yet successful unit test, you can add more consequential ones to test your helper methods.
+
+First, create a file that declares some constants that you will reuse throughout:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/testutil/constants.go]
+package testutil
+
+const (
+    Alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
+    Bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
+    Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+)
+```
+
+Create a new file `x/checkers/types/full_game_test.go` and declare it in [`package types_test`](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L1). Since you are going to repeat some actions, it is worth adding a reusable function:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L13-L27]
 const (
-    alice = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d3"
-    bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
-    carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
+    alice = testutil.Alice
+    bob   = testutil.Bob
 )
 
-func GetStoredGame1() *types.StoredGame {
+func GetStoredGame1() types.StoredGame {
     return types.StoredGame{
         Black: alice,
         Red:   bob,
@@ -698,7 +747,7 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
 
 ## Interact via the CLI
 
@@ -719,7 +768,12 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+    $ docker run --rm -it \
+        --name checkers \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite chain serve --reset-once
     ```
 
     <HighlightBox type="note">
@@ -756,7 +810,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers --help
+    $ docker exec -it checkers \
+        checkersd query checkers --help
     ```
 
     Note how it connects to the newly created container named `checkers`.
@@ -788,7 +843,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info
     ```
 
     </CodeGroupItem>
@@ -803,6 +859,18 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `1`.
+
+    <HighlightBox type="note">
+
+    You may encounter an error like the following:
+
+    ```txt
+    command not found checkersd
+    ```
+
+    This indicates that you likely have not configured Go correctly. Refer back to `GOPATH` in our [Go introduction](/tutorials/4-golang-intro/1-install.md).
+
+    </HighlightBox>
 
 3. The `--output` flag allows you to get your results in a JSON format, which might be useful if you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 
@@ -819,7 +887,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info --help
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info --help
     ```
 
     </CodeGroupItem>
@@ -848,7 +917,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers show-system-info --output json
+    $ docker exec -it checkers \
+        checkersd query checkers show-system-info --output json
     ```
 
     </CodeGroupItem>
@@ -876,7 +946,8 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker exec -it checkers checkersd query checkers list-stored-game
+    $ docker exec -it checkers \
+        checkersd query checkers list-stored-game
     ```
 
     </CodeGroupItem>
@@ -907,7 +978,8 @@ $ checkersd tx checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers --help
+$ docker exec -it checkers \
+    checkersd tx checkers --help
 ```
 
 </CodeGroupItem>

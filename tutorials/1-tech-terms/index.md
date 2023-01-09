@@ -1,8 +1,10 @@
 ---
 parent:
-title: Good-To-Know Dev Terms
+  title: Good-To-Know Dev Terms
+  description: Review some technical terms essential when developing in Cosmos
+  number: 1
 order: 0
-description: Review some technical terms essential when developing in Cosmos
+title:
 tags:
   - tutorial
 ---
@@ -15,6 +17,7 @@ You can find an overview of several technical terms in this section, including a
 
 In this section, you will take a look at the following terms:
 
+* Cosmos and Interchain
 * LCD
 * RPC
 * Protobuf - Protocol Buffers
@@ -26,6 +29,24 @@ All these terms relate to how node interaction is conducted in Cosmos SDK blockc
 </HighlightBox>
 
 Let's dive right into it.
+
+## Cosmos and Interchain
+
+**Cosmos** refers to _the network of application-specific blockchains_, built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC). However, Cosmos will soon become known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" can be understood as synonyms.
+
+### The Interchain Stack
+
+The various tools available to Interchain developers can be referred to collectively as the **Interchain Stack**.
+
+<HighlightBox type="info">
+
+Tools within the Interchain Stack, which contain "Cosmos" in their name will remain unchanged by current terminology changes, such as the **Cosmos SDK** and **CosmWasm**. Any chain built with the Cosmos SDK can typically be referred to as "a Cosmos chain" or "appchain".
+
+</HighlightBox>
+
+### Cosmos Hub
+
+The Cosmos Hub is a chain that serves as an economic hub of the Interchain and service provider to other Cosmos chains. Built with the Interchain Stack, the Hub is home to the ATOM token, Interchain Security, and builders of the Cosmos SDK, Tendermint, and IBC.
 
 ## Light client daemon (LCD)
 
@@ -45,7 +66,7 @@ The **light client daemon (LCD)** is an HTTP1.1 server exposed by the Cosmos SDK
 
 <ExpansionPanel title="Why is it called light client daemon?">
 
-Before SDK v0.40, to get a REST API it was necessary to run another backend service (or _[daemon](https://en.wikipedia.org/wiki/Daemon_(computing))_, a term inherited from Unix), for example using `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`. In Cosmos SDK v0.40, REST was moved inside the node service making it part of the Cosmos SDK, but the term "daemon" stuck, leading to the name _light client daemon_ (LDC).
+Before SDK v0.40, to get a REST API it was necessary to run another backend service (or _[daemon](https://en.wikipedia.org/wiki/Daemon_(computing))_, a term inherited from Unix), for example using `gaiacli rest-server --laddr 0.0.0.0:1317 --node localhost:26657`. In Cosmos SDK v0.40, REST was moved inside the node service making it part of the Cosmos SDK, but the term "daemon" stuck, leading to the name _light client daemon_ (LCD).
 
 </ExpansionPanel>
 
@@ -141,7 +162,7 @@ For more information on the Tendermint RPC, gRPC, and the REST server, a closer 
 
 <HighlightBox type="info">
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/6-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 

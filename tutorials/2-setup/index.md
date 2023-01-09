@@ -1,7 +1,10 @@
 ---
-title: "Set Up Your Work Environment"
+parent:
+  title: Set Up Your Work Environment
+  description: All you need for the hands-on sections
+  number: 2
 order: 0
-description: All you need for the hands-on sections
+title:
 tags: 
   - tutorial
   - dev-ops
@@ -27,7 +30,7 @@ On a general note, it is advisable to **prepare a separate project folder to kee
 
 ## Install Docker
 
-Docker is very helpful to do the exercises. So you may need to install Docker. To install, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/).
+Docker is very helpful to do the exercises. So you may need to install Docker. To install, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/). If you are new to Docker have a look at this [quick introduction](/tutorials/5-docker-intro).
 
 ## Install Go
 

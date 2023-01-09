@@ -48,11 +48,11 @@ To keep a trace of the last state of the board, you emit it with an event.
 
 In the `StoredGame` Protobuf definition file:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/proto/checkers/stored_game.proto#L16]
-message StoredGame {
-    ...
-    string winner = 10;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/proto/checkers/stored_game.proto#L16]
+    message StoredGame {
+        ...
++      string winner = 10;
+    }
 ```
 
 Have Ignite CLI and Protobuf recompile this file:
@@ -70,7 +70,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -107,77 +111,98 @@ This is a two-part update. You set the winner where relevant, but you also intro
 
 Start with a new error that you define as a constant:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L21]
-ErrGameFinished = sdkerrors.Register(ModuleName, 1110, "game is already finished")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L21]
+    var (
+        ...
++      ErrGameFinished = sdkerrors.Register(ModuleName, 1110, "game is already finished")
+    )
 ```
 
 And a new event attribute:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/keys.go#L45]
-const (
-    MovePlayedEventType      = "move-played"
-    ...
-    MovePlayedEventBoard     = "board"
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/keys.go#L45]
+    const (
+        MovePlayedEventType      = "move-played"
+        ...
++      MovePlayedEventBoard     = "board"
+    )
 ```
 
 At creation, in the _create game_ message handler, start with a neutral value:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_create_game.go#L32]
-...
-storedGame := types.StoredGame{
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_create_game.go#L32]
     ...
-    Winner:    rules.PieceStrings[rules.NO_PLAYER],
-}
+    storedGame := types.StoredGame{
+        ...
++      Winner:    rules.PieceStrings[rules.NO_PLAYER],
+    }
+    ...
 ```
 
 With further checks when handling a play in the handler:
 
 1. Check that the game has not finished yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L21-L23]
-    if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
-        return nil, types.ErrGameFinished
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L21-L23]
+        ...
+    +  if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
+    +      return nil, types.ErrGameFinished
+    +  }
+        isBlack := storedGame.Black == msg.Creator
+        ...
     ```
 
 2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/master/checkers/checkers.go#L165) if there is no winner yet:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L61]
-    storedGame.Winner = rules.PieceStrings[game.Winner()]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L61]
+        ...
+    +  storedGame.Winner = rules.PieceStrings[game.Winner()]
+        systemInfo, found := k.Keeper.GetSystemInfo(ctx)
+        ...
     ```
 
 3. Handle the FIFO differently depending on whether the game is finished or not, and adjust the board:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L67-L74]
-    lastBoard := game.String()
-    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
-        k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
-        storedGame.Board = lastBoard
-    } else {
-        k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-        storedGame.Board = ""
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L67-L74]
+        ...
+    -  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+    +  lastBoard := game.String()
+    +  if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+    +      k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+    +      storedGame.Board = lastBoard
+    +  } else {
+    +      k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
+    +      storedGame.Board = ""
+    +  }
+        ...
+    -  storedGame.Board = game.String()
+        ...
     ```
 
 4. Add the new attribute in the event:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L89]
-    	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.MovePlayedEventType,
-			sdk.NewAttribute(types.MovePlayedEventCreator, msg.Creator),
-            ...
-			sdk.NewAttribute(types.MovePlayedEventBoard, lastBoard),
-		),
-	)
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L89]
+        ...
+        ctx.EventManager().EmitEvent(
+            sdk.NewEvent(types.MovePlayedEventType,
+                ...
+                sdk.NewAttribute(types.MovePlayedEventWinner, rules.PieceStrings[game.Winner()]),
+    +          sdk.NewAttribute(types.MovePlayedEventBoard, lastBoard),
+            ),
+        )
+        ...
     ```
 
 And when rejecting a game, in its handler:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_reject_game.go#L20-L22]
-if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
-    return nil, types.ErrGameFinished
-}
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_reject_game.go#L20-L22]
+    ...
++  if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
++      return nil, types.ErrGameFinished
++  }
+    if storedGame.Black == msg.Creator {
+        ...
+    }
 ```
 
 Confirm the code compiles, add unit tests, and you are ready to handle the expiration of games.
@@ -188,16 +213,18 @@ Add [tests](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner
 
 You also need to update your existing tests so that they pass with a new `Winner` value. Most of your tests need to add this line:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_fifo_test.go#L47]
-require.EqualValues(t, types.StoredGame{
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_fifo_test.go#L47]
     ...
-    Winner:    "*",
-}, game1)
+    require.EqualValues(t, types.StoredGame{
+        ...
++      Winner:    "*",
+    }, game1)
+    ...
 ```
 
-This `"*"` means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `msg_server_play_move_winner_test.go` file, prepare all the moves that will be played in the test. For convenience, a move will be written as:
+This `"*"` means that in your tests no games have reached a conclusion with a winner. Time to fix that. In a dedicated `full_game_helpers.go` file, prepare all the moves that will be played in the test. For convenience, a move will be written as:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L11-L17]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L11-L17]
 type GameMoveTest struct {
     player string
     fromX  uint64
@@ -209,9 +236,9 @@ type GameMoveTest struct {
 
 If you do not want to create a complete game yourself, you can choose this one:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L19-L63]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L19-L63]
 var (
-    game1Moves = []GameMoveTest{
+    Game1Moves = []GameMoveTest{
         {"b", 1, 2, 2, 3}, // "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|********|r*r*r*r*|*r*r*r*r|r*r*r*r*"
         {"r", 0, 5, 1, 4}, // "*b*b*b*b|b*b*b*b*|***b*b*b|**b*****|*r******|**r*r*r*|*r*r*r*r|r*r*r*r*"
         {"b", 2, 3, 0, 5}, // "*b*b*b*b|b*b*b*b*|***b*b*b|********|********|b*r*r*r*|*r*r*r*r|r*r*r*r*"
@@ -224,22 +251,22 @@ var (
 
 You may want to add a small function that converts `"b"` and `"r"` into their respective player addresses:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L66-L71]
-func getPlayer(color string) string {
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L65-L70]
+func GetPlayer(color string) string {
     if color == "b" {
-        return bob
+        return Bob
     }
-    return carol
+    return Carol
 }
 ```
 
 And another that applies all the moves. This could become handy if you have multiple games in the future:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L73-L85]
-func playAllMoves(t *testing.T, msgServer types.MsgServer, context context.Context, gameIndex string, moves []GameMoveTest) {
-    for _, move := range game1Moves {
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L72-L84]
+func PlayAllMoves(t *testing.T, msgServer types.MsgServer, context context.Context, gameIndex string, moves []GameMoveTest) {
+    for _, move := range Game1Moves {
         _, err := msgServer.PlayMove(context, &types.MsgPlayMove{
-            Creator:   getPlayer(move.player),
+            Creator:   GetPlayer(move.player),
             GameIndex: gameIndex,
             FromX:     move.fromX,
             FromY:     move.fromY,
@@ -251,14 +278,14 @@ func playAllMoves(t *testing.T, msgServer types.MsgServer, context context.Conte
 }
 ```
 
-Now create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
+Now, in a new file, create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L87-L127]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L12-L52]
 func TestPlayMoveUpToWinner(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
 
     systemInfo, found := keeper.GetSystemInfo(ctx)
     require.True(t, found)
@@ -276,7 +303,7 @@ func TestPlayMoveUpToWinner(t *testing.T) {
         Turn:        "b",
         Black:       bob,
         Red:         carol,
-        MoveCount:   uint64(len(game1Moves)),
+        MoveCount:   uint64(len(testutil.Game1Moves)),
         BeforeIndex: "-1",
         AfterIndex:  "-1",
         Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
@@ -293,7 +320,7 @@ func TestPlayMoveUpToWinner(t *testing.T) {
         {Key: "captured-y", Value: "5"},
         {Key: "winner", Value: "b"},
         {Key: "board", Value: "*b*b****|**b*b***|*****b**|********|***B****|********|*****b**|********"},
-    }, event.Attributes[(len(game1Moves)-1)*6:])
+    }, event.Attributes[(len(testutil.Game1Moves)-1)*6:])
 }
 ```
 
@@ -322,7 +349,12 @@ $ ignite chain serve --reset-once
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve --reset-once
 ```
 
 </CodeGroupItem>
@@ -347,8 +379,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -379,8 +413,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>

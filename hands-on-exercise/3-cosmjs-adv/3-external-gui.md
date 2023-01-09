@@ -4,8 +4,6 @@ order: 4
 description: Find a checkers GUI before integrating with CosmJS
 tags: 
   - guided-coding
-  - cosmos-sdk
-  - cosm-js
 ---
 
 # Get an External GUI
@@ -53,7 +51,11 @@ $ npm install
 
 ```sh
 $ cd react-checkers
-$ docker run --rm -it -v $(pwd):/react-checkers -w /react-checkers node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/react-checkers \
+    -w /react-checkers \
+    node:18.7 \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -75,7 +77,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7 \
+    npm start
 ```
 
 </CodeGroupItem>
@@ -115,7 +122,11 @@ $ npm install
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -137,7 +148,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7 \
+    npm start
 ```
 
 </CodeGroupItem>
@@ -156,4 +172,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./4-cosmjs-gui.md).-->
+You now have a working checkers GUI! You are ready to start interfacing with the checkers blockchain in the [next section](./4-cosmjs-gui.md).-->

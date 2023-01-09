@@ -1,13 +1,13 @@
 ---
-title: Mandatory Exercise
+title: "Week 2 Exercise"
 order:
 description: From simple creation to practice
-tag: deep-dive
+tags: deep-dive
 ---
 
-# Mandatory Exercise
+# Week 2 Exercise
 
-You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! Before you [try](https://hr.gs/ida-c2-exercise-week-2), here is a summary of what you will be asked to do.
+You are about to perform a small, simple exercise on Hackerrank, to confirm your attendance so far and check you're paying attention! Before you [try](https://hr.gs/ida-c3-week-2-ex), here is a summary of what you will be asked to do.
 
 The public repository for this project can be found [here](https://github.com/b9lab/ida-exercise-week-2-student-repo). You may want to clone it to your local computer for practice.
 
@@ -24,7 +24,11 @@ $ docker build . -t exercise-w2
 We created this repository with Ignite CLI v0.22.1 and the following command:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 ignite scaffold chain github.com/b9lab/other-world
+$ docker run --rm -it \
+    -v $(pwd):/exercise \
+    -w /exercise \
+    exercise-w2 \
+    ignite scaffold chain github.com/b9lab/other-world
 ```
 
 The idea behind it is that this is the blockchain backing a future metaverse. The blockchain will account for anything of value in it.
@@ -58,7 +62,11 @@ Make these tests pass:
 * `x/otherworld/types/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/types
+    $ docker run --rm -it \
+        -v $(pwd):/exercise \
+        -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/types
     ```
 
     Or:
@@ -70,7 +78,11 @@ Make these tests pass:
 * `x/otherworld/keeper/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/keeper
+    $ docker run --rm -it \
+        -v $(pwd):/exercise \
+        -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/keeper
     ```
 
     Or:
@@ -82,7 +94,11 @@ Make these tests pass:
 To run them both at the same time, run:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 /exercise/score.sh
+$ docker run --rm -it \
+    -v $(pwd):/exercise \
+    -w /exercise \
+    exercise-w2 \
+    /exercise/score.sh
 ```
 
 Or:
@@ -97,12 +113,14 @@ In fact, `score.sh` is what we run in the Hackerrank environment.
 
 The HackerRank environment presents an online IDE to you, which already contains all the project files. We have also already installed all packages and modules for you.
 
-You can start a new Terminal windows by selecting _Terminal_ -> _New Terminal_ in the top menu.
+You can start a new Terminal window by selecting _Terminal_ -> _New Terminal_ in the top menu.
 
 You can run all tests to check your code by clicking on the _Run Tests_ button at the bottom right corner of the IDE.
 
 ## When you are ready
 
-Please submit your exercise via the following link: [HackerRank week 2 exercise submission](https://hr.gs/ida-c2-exercise-week-2).
+Please submit your exercise via the following link: [HackerRank Week 2 Exercise submission](https://hr.gs/ida-c3-week-2-ex).
 
-**Please make sure to submit your exercise by Friday, September the 30th 23:59 UTC.**
+**Please make sure to submit your exercise by Thursday, December 15th, 23:59 UTC.**
+
+Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.

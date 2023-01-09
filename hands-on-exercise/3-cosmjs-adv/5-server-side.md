@@ -4,7 +4,6 @@ order: 6
 description: Introduce a Web2.0 server to track games per player
 tags: 
   - guided-coding
-  - cosmos-sdk
   - cosm-js
 ---
 
@@ -48,8 +47,16 @@ $ npm install @types/express@4.17.13 --save-dev --save-exact
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install express@4.18.1 --save-exact
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @types/express@4.17.13 --save-dev --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install express@4.18.1 --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install @types/express@4.17.13 --save-dev --save-exact
 ```
 
 </CodeGroupItem>
@@ -236,11 +243,11 @@ Prepare these files around the `indexer` to run it in the terminal:
 
 3. In `package.json`, add a `run` target:
 
-    ```json [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/package.json#L13]
-    "scripts": {
-        ...
-        "indexer-dev": "npx ts-node src/server/index.ts"
-    }
+    ```diff-json [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/package.json#L13]
+        "scripts": {
+            ...
+    +      "indexer-dev": "npx ts-node src/server/index.ts"
+        }
     ```
 
 4. Add your _database_, `db.json` by making a copy of the sample:
@@ -276,7 +283,12 @@ $ npm run indexer-dev
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3001:3001 node:18.7 npm run indexer-dev
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3001:3001 \
+    node:18.7 \
+    npm run indexer-dev
 ```
 
 </CodeGroupItem>
@@ -395,7 +407,7 @@ Add the following to `indexer.ts`:
 
 2. The modified `init`:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L63-L67]
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L64-L68]
     const init = async() => {
         client = await CheckersStargateClient.connect(process.env.RPC_URL!)
         console.log("Connected to chain-id:", await client.getChainId())
@@ -436,7 +448,15 @@ The `.env` file contains the `RPC_URL`, adjust it to your situation, in particul
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 4500:4500 -p 5000:5000 -p 26657:26657 checkers_i ignite chain serve
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        -p 1317:1317 \
+        -p 4500:4500 \
+        -p 5000:5000 \
+        -p 26657:26657 \
+        checkers_i \
+        ignite chain serve
     ```
 
     </CodeGroupItem>
@@ -960,7 +980,7 @@ The events that you have converted are compatible with those emanating from tran
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
 const handleEvent = async (event: StringEvent): Promise<void> => {
     ...
-    if (isActionOf("GameForfeited")) {
+    if (event.type == "game-forfeited") {
         // Function yet to be declared
         await handleEventForfeit(event)
     }

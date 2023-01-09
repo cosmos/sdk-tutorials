@@ -78,7 +78,11 @@ $ ignite scaffold message rejectGame gameIndex --module checkers
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold message rejectGame gameIndex --module checkers
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite scaffold message rejectGame gameIndex --module checkers
 ```
 
 </CodeGroupItem>
@@ -102,11 +106,11 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 A new rule of the game should be that a player cannot reject a game once they begin to play. When loading a `StoredGame` from storage you have no way of knowing whether a player already played or not. To access this information add a new field to the `StoredGame` called `MoveCount`. In `proto/checkers/stored_game.proto`:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/proto/checkers/stored_game.proto#L12]
-message StoredGame {
-    ...
-    uint64 moveCount = 6;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/proto/checkers/stored_game.proto#L12]
+    message StoredGame {
+        ...
++      uint64 moveCount = 6;
+    }
 ```
 
 Run Protobuf to recompile the relevant Go files:
@@ -124,7 +128,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -135,20 +143,20 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generat
 
 1. Adjust it first in the handler when creating the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game.go#L28]
-    storedGame := types.StoredGame{
-        ...
-        MoveCount: 0,
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game.go#L28]
+        storedGame := types.StoredGame{
+            ...
+    +      MoveCount: 0,
+        }
     ```
 
 2. Before saving to the storage, adjust it in the handler when playing a move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L57]
-    ...
-    storedGame.MoveCount++
-    storedGame.Game = game.String()
-    ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L57]
+        ...
+    +  storedGame.MoveCount++
+        storedGame.Board = game.String()
+        ...
     ```
 
 With `MoveCount` counting properly, you are now ready to handle a rejection request.
@@ -157,9 +165,12 @@ With `MoveCount` counting properly, you are now ready to handle a rejection requ
 
 To follow the Cosmos SDK conventions, declare the following new errors:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/types/errors.go#L18-L19]
-ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1107, "black player has already played")
-ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/types/errors.go#L18-L19]
+    var (
+        ...
++      ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1107, "black player has already played")
++      ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
+    )
 ```
 
 This time you will add an event for rejection. Begin by preparing the new keys:
@@ -235,7 +246,11 @@ $ ignite chain build
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite chain build
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain build
 ```
 
 </CodeGroupItem>
@@ -290,7 +305,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -316,7 +335,8 @@ $ checkersd tx checkers --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers --help
+$ docker exec -it checkers \
+    checkersd tx checkers --help
 ```
 
 </CodeGroupItem>
@@ -348,7 +368,8 @@ $ checkersd tx checkers reject-game --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game --help
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game --help
 ```
 
 </CodeGroupItem>
@@ -378,7 +399,8 @@ $ checkersd tx checkers reject-game 1 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 1 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 1 --from $bob
 ```
 
 </CodeGroupItem>
@@ -407,7 +429,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -425,7 +448,7 @@ Error: rpc error: code = NotFound desc = rpc error: code = NotFound desc = not f
 
 How is it possible that Bob could reject a game he had already played in, despite the code preventing that? Because game `1` was created in an earlier version of your code. This earlier version created **a game without any `.MoveCount`**, or more precisely with `MoveCount == 0`. When you later added the code for rejection, Ignite CLI kept the current state of your blockchain. In effect, your blockchain was in a **broken** state, where **the code and the state were out of sync**.
 
-To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](/hands-on-exercise/2-ignite-cli-adv/9-migration.md).
+To see how to properly handle code changes that would otherwise result in a broken state, see the section on [migrations](/hands-on-exercise/4-run-in-prod/2-migration.md).
 
 </HighlightBox>
 
@@ -451,8 +474,10 @@ $ checkersd tx checkers reject-game 2 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 2 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 2 --from $alice
 ```
 
 </CodeGroupItem>
@@ -488,8 +513,10 @@ $ checkersd tx checkers reject-game 3 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 3 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 3 --from $bob
 ```
 
 </CodeGroupItem>
@@ -526,9 +553,12 @@ $ checkersd tx checkers reject-game 4 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 4 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 4 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 4 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 4 --from $alice
 ```
 
 </CodeGroupItem>
@@ -565,9 +595,12 @@ $ checkersd tx checkers reject-game 5 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 5 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers reject-game 5 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 5 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 5 --from $bob
 ```
 
 </CodeGroupItem>
@@ -605,10 +638,14 @@ $ checkersd tx checkers reject-game 6 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 6 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 6 0 5 1 4 --from $bob
-$ docker exec -it checkers checkersd tx checkers reject-game 6 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 6 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 6 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers reject-game 6 --from $bob
 ```
 
 </CodeGroupItem>
@@ -656,6 +693,6 @@ Next week's sections cover forfeits and how games end. In the next section, you 
 
 <HighlightBox type="tip">
 
-If you want to enable token wagers in your games instead, skip ahead to [wagers](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md).
+If you want to enable token wagers in your games instead, skip ahead to [wagers](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md).
 
 </HighlightBox>-->

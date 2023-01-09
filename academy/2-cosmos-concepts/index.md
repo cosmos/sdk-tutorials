@@ -5,6 +5,7 @@ parent:
   number: 2
 order: 0
 title: Chapter Overview - Main Concepts in the Cosmos SDK
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A universe made up of particles</div>

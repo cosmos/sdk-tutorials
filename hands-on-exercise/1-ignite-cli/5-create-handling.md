@@ -73,10 +73,12 @@ Given that you have already done a lot of preparatory work, what coding is invol
 
 1. First, `rules` represents the ready-made file with the imported rules of the game:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game.go#L7]
-    import (
-        "github.com/alice/checkers/x/checkers/rules"
-    )
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game.go#L7]
+        import (
+            ...
+    +      "github.com/alice/checkers/x/checkers/rules"
+            ...
+        )
     ```
 
 2. Get the new game's ID with the [`Keeper.GetSystemInfo`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/system_info.go#L17) function created by the `ignite scaffold single systemInfo...` command:
@@ -176,7 +178,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -195,7 +201,7 @@ Your keeper was initialized with an empty genesis. You must fix that one way or 
 
 You can fix this by always initializing the keeper with the default genesis. However such a default initialization may not always be desirable. So it is better to keep this default initialization closest to the tests. Copy the `setupMsgServer` from [`msg_server_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_test.go#L13-L16) into your `msg_server_create_game_test.go`. Modify it to also return the keeper:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L21-L25]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L15-L19]
 func setupMsgServerCreateGame(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
     k, ctx := keepertest.CheckersKeeper(t)
     checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
@@ -217,7 +223,7 @@ import (
 
 Do not forget to replace `setupMsgServer(t)` with this new function everywhere in the file. For instance:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L28]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L22]
 msgServer, _, context := setupMsgServerCreateGame(t)
 ```
 
@@ -236,7 +242,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -245,7 +255,7 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github
 
 The error has changed to `Not equal`, and you need to adjust the expected value as per the default genesis:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L35-L37]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L29-L31]
 require.EqualValues(t, types.MsgCreateGameResponse{
     GameIndex: "1",
 }, *createResponse)
@@ -253,7 +263,7 @@ require.EqualValues(t, types.MsgCreateGameResponse{
 
 One unit test is good, but you can add more, in particular testing whether the values in storage are as expected when you create a single game:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L40-L62]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L34-L56]
 func TestCreate1GameHasSaved(t *testing.T) {
     msgSrvr, keeper, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
@@ -278,7 +288,7 @@ func TestCreate1GameHasSaved(t *testing.T) {
 }
 ```
 
-Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L108-L133) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L64-L80), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L187-L227), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L229-L258). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L82-L93) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L95-L106).
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L252). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
 
 ## Interact via the CLI
 
@@ -297,7 +307,12 @@ $ ignite chain serve
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve
 ```
 
 </CodeGroupItem>
@@ -319,7 +334,8 @@ $ checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice --gas auto
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice --gas auto
 ```
 
 </CodeGroupItem>
@@ -343,7 +359,8 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -372,7 +389,8 @@ $ checkersd query checkers list-stored-game
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers list-stored-game
+$ docker exec -it checkers \
+    checkersd query checkers list-stored-game
 ```
 
 </CodeGroupItem>
@@ -408,7 +426,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -463,7 +482,8 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.bo
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
+$ docker exec -it checkers \
+    bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
 ```
 
 </CodeGroupItem>
@@ -498,6 +518,6 @@ You will learn how to modify this handling in later sections by:
 * Adding [an event](./7-events.md).
 * Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
-* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md).
+* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md).
 
 <!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./6-play-game.md).-->

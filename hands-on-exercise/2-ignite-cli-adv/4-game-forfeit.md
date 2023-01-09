@@ -82,20 +82,23 @@ func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.Val
 
 This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact, yours has already been placed at the end by Ignite:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
-app.mm.SetOrderEndBlockers(
-    crisistypes.ModuleName,
-    ...
-    checkersmoduletypes.ModuleName,
-)
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/app/app.go#L493]
+    app.mm.SetOrderEndBlockers(
+        crisistypes.ModuleName,
+        ...
++      checkersmoduletypes.ModuleName,
+    )
 ```
 
 Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 Also prepare a new error:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L22]
-ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1111, "cannot find winner by color: %s")
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L22]
+    var (
+        ...
++      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1111, "cannot find winner by color: %s")
+    )
 ```
 
 ## Expire games handler
@@ -410,7 +413,12 @@ $ ignite chain serve --reset-once
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain serve --reset-once
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain serve --reset-once
 ```
 
 </CodeGroupItem>
@@ -462,7 +470,8 @@ $ checkersd tx checkers create-game $alice $bob --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
 ```
 
 </CodeGroupItem>
@@ -489,8 +498,10 @@ $ checkersd tx checkers play-move 2 1 2 2 3 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $bob
-$ docker exec -it checkers checkersd tx checkers play-move 2 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 2 1 2 2 3 --from $alice
 ```
 
 </CodeGroupItem>
@@ -518,9 +529,12 @@ $ checkersd tx checkers play-move 3 0 5 1 4 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 3 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd tx checkers play-move 3 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers create-game $alice $bob --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 3 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 3 0 5 1 4 --from $bob
 ```
 
 </CodeGroupItem>
@@ -550,7 +564,8 @@ $ checkersd tx checkers create-game --help
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game --help
+$ docker exec -it checkers \
+    checkersd tx checkers create-game --help
 ```
 
 </CodeGroupItem>
@@ -572,7 +587,8 @@ $ checkersd query account $alice --output json | jq -r '.sequence'
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query account $alice --output json | jq -r '.sequence'"
+$ docker exec -it checkers \
+    bash -c "checkersd query account $alice --output json | jq -r '.sequence'"
 ```
 
 </CodeGroupItem>
@@ -602,7 +618,8 @@ $ checkersd query checkers list-stored-game
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers list-stored-game
+$ docker exec -it checkers \
+    checkersd query checkers list-stored-game
 ```
 
 </CodeGroupItem>
@@ -624,7 +641,8 @@ $ checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.wi
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.winner'"
+$ docker exec -it checkers \
+    bash -c "checkersd query checkers show-stored-game 3 --output json | jq '.storedGame.winner'"
 ```
 
 </CodeGroupItem>
@@ -652,7 +670,8 @@ $ checkersd query checkers show-system-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-system-info
+$ docker exec -it checkers \
+    checkersd query checkers show-system-info
 ```
 
 </CodeGroupItem>
@@ -682,4 +701,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./5-game-wager.md).-->
+With no games staying in limbo forever, the project is now ready to use token wagers. These are introduced in the [next section](./4-game-wager.md).-->

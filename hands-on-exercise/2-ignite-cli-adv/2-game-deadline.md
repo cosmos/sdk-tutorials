@@ -37,11 +37,11 @@ Just because a game has not been updated in a while does not mean that it has ex
 
 To prepare the field, add in the `StoredGame`'s Protobuf definition:
 
-```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/proto/checkers/stored_game.proto#L15]
-message StoredGame {
-    ...
-    string deadline = 9;
-}
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/proto/checkers/stored_game.proto#L15]
+    message StoredGame {
+        ...
++      string deadline = 9;
+    }
 ```
 
 To have Ignite CLI and Protobuf recompile this file, use:
@@ -59,7 +59,11 @@ $ ignite generate proto-go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite generate proto-go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite generate proto-go
 ```
 
 </CodeGroupItem>
@@ -81,8 +85,11 @@ Helper functions can encode and decode the deadline in the storage.
 
 1. Define a new error:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L20]
-    ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1109, "deadline cannot be parsed: %s")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L20]
+        var (
+            ...
+    +      ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1109, "deadline cannot be parsed: %s")
+        )
     ```
 
 2. Add your date helpers. A reasonable location to pick is `full_game.go`:
@@ -126,21 +133,21 @@ Next, you need to update this new field with its appropriate value:
 
 1. At creation, in the message handler for game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game.go#L31]
-    ...
-    storedGame := types.StoredGame{
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game.go#L31]
         ...
-        Deadline: types.FormatDeadline(types.GetNextDeadline(ctx)),
-    }
+        storedGame := types.StoredGame{
+            ...
+    +      Deadline: types.FormatDeadline(types.GetNextDeadline(ctx)),
+        }
     ```
 
 2. After a move, in the message handler:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move.go#L64]
-    ...
-    storedGame.MoveCount++
-    storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
-    ...
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move.go#L64]
+        ...
+        storedGame.MoveCount++
+    +  storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
+        ...
     ```
 
 Confirm that your project still compiles:
@@ -158,7 +165,12 @@ $ ignite chain build
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_i ignite chain build
+$ docker run --rm -it \
+    --name checkers \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    ignite chain build
 ```
 
 </CodeGroupItem>
@@ -169,13 +181,13 @@ $ docker run --rm -it --name checkers -v $(pwd):/checkers -w /checkers checkers_
 
 After these changes, your previous unit tests fail. Fix them by adding `Deadline` wherever it should be. Do not forget that the time is taken from the block's timestamp. In the case of tests, it is stored in the context's `ctx.BlockTime()`. In effect, you need to add this single line:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L41]
-ctx := sdk.UnwrapSDKContext(context)
-...
-require.EqualValues(t, types.StoredGame{
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L41]
+    ctx := sdk.UnwrapSDKContext(context)
     ...
-    Deadline:  types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
-}, game)
+    require.EqualValues(t, types.StoredGame{
+        ...
++      Deadline:  types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
+    }, game)
 ```
 
 Also add a couple of unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L103-L117) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L327-L339) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L389-L404) are parseable.
@@ -197,7 +209,8 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -206,13 +219,13 @@ $ docker exec -it checkers checkersd query checkers show-stored-game 1
 
 This demonstrates some missing information:
 
-```txt
-...
-  deadline: ""
-  ...
+```diff-txt
+    ...
++  deadline: ""
+    ...
 ```
 
-In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/2-ignite-cli-adv/9-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
+In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 <CodeGroup>
 
@@ -228,8 +241,10 @@ $ checkersd query checkers show-stored-game 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 1 2 2 3 --from $alice
-$ docker exec -it checkers checkersd query checkers show-stored-game 1
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 1 2 2 3 --from $alice
+$ docker exec -it checkers \
+    checkersd query checkers show-stored-game 1
 ```
 
 </CodeGroupItem>
@@ -240,7 +255,7 @@ This contains:
 
 ```txt
 ...
-  deadline: 2022-02-05 15:26:26.832533 +0000 UTC
+deadline: 2022-02-05 15:26:26.832533 +0000 UTC
 ...
 ```
 

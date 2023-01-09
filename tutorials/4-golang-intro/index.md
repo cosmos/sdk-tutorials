@@ -2,11 +2,11 @@
 parent:
   title: Golang Introduction
   description: Know your way around Golang
-  number: 
-tags:
-  - tutorial
+  number: 4
 order: 0
 title: Chapter Overview - Introduction to Go
+tags:
+  - tutorial
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Know your way around Golang</div>
@@ -18,7 +18,7 @@ This introduction to Golang is meant as a useful overview of Go and as such, a s
 
 You can also use it as a refresher if you feel a bit rusty when it comes to Go.
 
-![](/tutorials/4-golang-intro/images/go-lp.svg)
+![](/lp-images/go-lp.svg)
 
 ## In this chapter
 
