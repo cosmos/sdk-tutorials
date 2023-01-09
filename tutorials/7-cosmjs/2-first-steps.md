@@ -130,7 +130,7 @@ Temporarily keep this address for convenience, although CosmJS can always recalc
 
 Important considerations:
 
-1. `process.stdout.write` was used to avoid any line return. Be careful not to add any empty lines or any other character in your `.key` file (this occurs with VSCode under certain conditions). If you add any characters, ComsJs may not be able to parse it.
+1. `process.stdout.write` was used to avoid any line return. Be careful not to add any empty lines or any other character in your `.key` file (this occurs with VSCode under certain conditions). If you add any characters, CosmJS may not be able to parse it.
 2. Adjust the `.gitignore` file to not commit your `.key` file by mistake:
 
     ``` [https://github.com/b9lab/cosmjs-sandbox/blob/723d2a9/.gitignore#L2]
@@ -863,7 +863,7 @@ If you want a detailed introduction to CosmJS, check out the following video wit
 
 To summarize, this section has explored:
 
-* How to gain familiarity with ComsJS by implementing a basic feature of the Cosmos Ecosystem, the ability to send tokens via the `bank` module.
+* How to gain familiarity with CosmJS by implementing a basic feature of the Cosmos Ecosystem, the ability to send tokens via the `bank` module.
 * How to clone a ready-made test repository and install the required modules in order to experiment with CosmJS, for which NodeJs and Visual Studio Code will be required.
 * How to connect to a public node in the Cosmos Ecosystem, acquire a wallet address on a testnet, and create a key for an imaginary user for the purposes of experimenting.
 * How to add your imports, define your connection, get a balance, get the faucet address, prepare a signing client, and successfully send tokens on a chain being run by someone else.
