@@ -35,7 +35,7 @@ In this section, you will learn:
 
 <HighlightBox type="docs">
 
-Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
+Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/quick-start/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
 <br/><br/>
 Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
 
@@ -90,7 +90,7 @@ The config is not added automatically. The first time you run Hermes, you will h
 
 </HighlightBox>
 
-See the [config info](https://hermes.informal.systems/config.html) and the [a sample configuration](https://hermes.informal.systems/example-config.html) for a detailed explanation on all aspects of the config. Take a closer look at the `[[chains]]` section:
+See the [config info](https://hermes.informal.systems/documentation/configuration/configure-hermes.html) and [a sample configuration](https://hermes.informal.systems/documentation/configuration/description.html) for a detailed explanation on all aspects of the config. Take a closer look at the `[[chains]]` section:
 
 ```toml
 [[chains]]
@@ -141,7 +141,7 @@ When the chains have been configured, you can start the relayer with the start c
 $ hermes start
 ```
 
-This powerful command bundles a lot of functionality where Hermes will be listening or events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials, it makes sense to look at the commands in a more granular way to understand what is going on.
+This powerful command bundles a lot of functionality where Hermes will be listening for events signaling IBC packet send requests, submitting `ReceivePacket` and `AcknowledgePacket` messages, and periodically checking if the clients on serviced chains need updating. However, during the tutorials, it makes sense to look at the commands in a more granular way to understand what is going on.
 
 <HighlightBox type="note">
 
@@ -427,7 +427,7 @@ $ docker-compose -f tokentransfer.yml --profile hermes down
 
 To summarize, this section has explored:
 
-* Hermes, an open-source Rust implementation of and IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
+* Hermes, an open-source Rust implementation of an IBC relayer, which is widely used in production by relayer operators due to its great logging and debugging options, but may require more detailed knowledge of IBC for effective use.
 * How to install and configure Hermes, and then perform automated and manual end-to-end testing of Docker containers for two-chain instances and a relayer instance.
 
 </HighlightBox>
