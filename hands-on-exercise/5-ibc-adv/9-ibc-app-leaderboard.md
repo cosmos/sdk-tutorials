@@ -58,7 +58,7 @@ This time you use the `--no-message` flag because this chain is not going to sen
 
 <HighlightBox type="tip">
 
-Like you did in the previous section, you need to make the adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`. And you will need to adjust the `x/leaderboard/genesis_test.go` like you did in the previous section.
+As in the previous section, you need to make adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`. You will also need to adjust the `x/leaderboard/genesis_test.go` like you did in the previous section.
 
 </HighlightBox>
 
@@ -160,13 +160,13 @@ Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to ca
     }
 ```
 
-Again, you need to include the error type into `x/leaderboard/types/errors.go`:
+Again, you need to include the error type in `x/leaderboard/types/errors.go`:
 
 ```go
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
-and you need to define `TimeLayout` in `x/leaderboard/types/keys.go`:
+You also need to define `TimeLayout` in `x/leaderboard/types/keys.go`:
 
 ```go
     TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
@@ -211,4 +211,4 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
 
 You can find the sample implementation of the checkers chain extension and the leaderboard chain in [this repository](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a Docker network and the relayer settings for an easy test. It also includes a script to create and run games.
 
-Follow the steps described in the repository to run a few tests and to see it in action. If you want to do the tests with you chains, replace `modular/b9-checkers-academy-draft` with your checkers chain and `modular/leaderboard` with your leaderboard chain and build the docker images. 
+Follow the steps described in the repository to run a few tests and to see it in action. If you want to do the tests with your chains, replace `modular/b9-checkers-academy-draft` with your checkers chain and `modular/leaderboard` with your leaderboard chain, and build the docker images.

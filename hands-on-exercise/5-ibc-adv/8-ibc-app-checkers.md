@@ -77,7 +77,9 @@ message Board {
 }
 ```
 
-Note that you will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
+<HighlightBox type="note">
+
+You will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
 
 ```golang
     // Set if defined
@@ -86,13 +88,13 @@ Note that you will also have to modify the `x/leaderboard/genesis.go`. In it, lo
     }
 ```
 
-and simply change it into:
+Simply change this to:
 
 ```golang
     k.SetBoard(ctx, genState.Board)
 ```
 
-And in the `x/leaderboard/genesis_test.go`, look for:
+Next, in the `x/leaderboard/genesis_test.go`, look for:
 
 ```golang
     Board: &types.Board{
@@ -100,7 +102,7 @@ And in the `x/leaderboard/genesis_test.go`, look for:
     },
 ```
 
-and instead use:
+Instead use:
 
 ```golang
     Board: types.Board{
@@ -108,7 +110,7 @@ and instead use:
    },
 ```
 
-We gave checker's module access to leaderboard's keeper. Therfore you will need to modify `testutils/keeper/checkers.go`, find:
+We gave the checkers' module access to the leaderboard's keeper. Therefore you will need to modify `testutils/keeper/checkers.go`. Locate:
 
 ```golang
     k := keeper.NewKeeper(
@@ -118,7 +120,7 @@ We gave checker's module access to leaderboard's keeper. Therfore you will need 
             memStoreKey,
 ```
 
-and add leaderboard's keeper into it:
+Now add the leaderboard's keeper into it:
 
 ```golang
     leaderboardKeeper,_ := LeaderboardKeeper(t);
@@ -129,6 +131,7 @@ and add leaderboard's keeper into it:
         storeKey,
         memStoreKey,
 ```
+</HighlightBox>
 
 You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
