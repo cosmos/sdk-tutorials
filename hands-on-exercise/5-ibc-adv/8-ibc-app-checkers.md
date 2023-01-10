@@ -80,7 +80,7 @@ message Board {
 Note that you will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
 
 ```golang
-// Set if defined
+    // Set if defined
     if genState.Board != nil {
         k.SetBoard(ctx, *genState.Board)
     }
@@ -95,9 +95,9 @@ and simply change it into:
 And in the `x/leaderboard/genesis_test.go`, look for:
 
 ```golang
-        Board: &types.Board{
-            PlayerInfo: new(types.PlayerInfo),
-        },
+    Board: &types.Board{
+        PlayerInfo: new(types.PlayerInfo),
+    },
 ```
 
 and instead use:
@@ -111,11 +111,11 @@ and instead use:
 We gave checker's module access to leaderboard's keeper. Therfore you will need to modify `testutils/keeper/checkers.go`, find:
 
 ```golang
-k := keeper.NewKeeper(
-        bank,
-        cdc,
-        storeKey,
-        memStoreKey,
+    k := keeper.NewKeeper(
+            bank,
+            cdc,
+            storeKey,
+            memStoreKey,
 ```
 
 and add leaderboard's keeper into it:
