@@ -77,6 +77,62 @@ message Board {
 }
 ```
 
+<HighlightBox type="note">
+
+You will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
+
+```golang
+    // Set if defined
+    if genState.Board != nil {
+        k.SetBoard(ctx, *genState.Board)
+    }
+```
+
+Simply change this to:
+
+```golang
+    k.SetBoard(ctx, genState.Board)
+```
+
+Next, in the `x/leaderboard/genesis_test.go`, look for:
+
+```golang
+    Board: &types.Board{
+        PlayerInfo: new(types.PlayerInfo),
+    },
+```
+
+Instead use:
+
+```golang
+    Board: types.Board{
+     PlayerInfo: []types.PlayerInfo{},
+   },
+```
+
+We gave the checkers' module access to the leaderboard's keeper. Therefore you will need to modify `testutils/keeper/checkers.go`. Locate:
+
+```golang
+    k := keeper.NewKeeper(
+            bank,
+            cdc,
+            storeKey,
+            memStoreKey,
+```
+
+Now add the leaderboard's keeper into it:
+
+```golang
+    leaderboardKeeper,_ := LeaderboardKeeper(t);
+    k := keeper.NewKeeper(
+        bank,
+        *leaderboardKeeper,
+        cdc,
+        storeKey,
+        memStoreKey,
+```
+</HighlightBox>
+
 You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
 ```go
