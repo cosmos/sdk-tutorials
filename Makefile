@@ -1,8 +1,15 @@
 #!/usr/bin/make -f
 
 build-website:
-	npm ci
-	npm run build
+	echo "\nBuild current version\n"
+	npm ci && npm run build
+	echo "\nBuild other versions\n"
+	for branch in ${DOCS_VERSIONS}; do \
+		echo "\nBuild docs version $$branch\n" ; \
+		git clean -fdx && git reset --hard && git checkout $$branch && git submodule sync ; \
+		npm ci && VUEPRESS_BASE="/$$branch/" npm run build --no-cache ; \
+		mkdir -p ~/output/$$branch && cp -r .vuepress/dist/* ~/output/$$branch/ ; \
+	done
 
 build-ida-website: fs-activate-ida-files build-website
 
