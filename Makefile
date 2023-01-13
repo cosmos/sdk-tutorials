@@ -3,6 +3,7 @@
 build-website:
 	echo "\nBuild current version\n"
 	npm ci && npm run build
+	mkdir -p ~/output && cp -r .vuepress/dist/* ~/output/ ; \
 	echo "\nBuild other versions\n"
 	for branch in ${DOCS_VERSIONS}; do \
 		echo "\nBuild docs version $$branch\n" ; \
