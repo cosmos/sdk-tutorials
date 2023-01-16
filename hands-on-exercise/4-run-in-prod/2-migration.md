@@ -1731,8 +1731,8 @@ From another shell, create a few un-played games with:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ export alice=$(./release/v1/checkersd keys show alice -a)
-$ export bob=$(./release/v1/checkersd keys show bob -a)
+$ export alice=$(./release/v1/checkersd keys show alice -a --keyring-backend test)
+$ export bob=$(./release/v1/checkersd keys show bob -a --keyring-backend test)
 $ ./release/v1/checkersd tx checkers create-game \
     $alice $bob 10 stake \
     --from $alice --keyring-backend test --yes \
