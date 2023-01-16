@@ -1,4 +1,5 @@
 const path = require('path');
+require("dotenv").config();
 
 module.exports = {
   theme: "cosmos",
@@ -50,6 +51,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    siteVersions: JSON.parse(process.env.DOCS_VERSIONS || '[]'),
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
