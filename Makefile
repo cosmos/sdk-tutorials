@@ -7,7 +7,7 @@ build-website:
 	echo "\nBuild other versions\n"
 	for branch in ${DOCS_VERSIONS}; do \
 		echo "\nBuild docs version $$branch\n" ; \
-		git clean -fdx && git reset --hard && git checkout $$branch && git submodule sync ; \
+		git clean -fdx && git reset --hard && git checkout $$branch && git submodule update ; \
 		npm ci && VUEPRESS_BASE="/$$branch/" npm run build --no-cache ; \
 		mkdir -p ~/output/$$branch && cp -r .vuepress/dist/* ~/output/$$branch/ ; \
 	done
