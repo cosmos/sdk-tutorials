@@ -51,7 +51,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    siteVersions: JSON.parse(process.env.DOCS_VERSIONS || '[]'),
+    siteVersions: (process.env.DOCS_VERSIONS || "").split(" "),
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
