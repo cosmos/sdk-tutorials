@@ -14,7 +14,7 @@
         .tutorials__wrapper.mt-10(v-if="$frontmatter.tutorials")
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials
-                a.tutorials__item__small(v-for="tutorial in $frontmatter.tutorials")(:href="$withBase(tutorial.url)")
+                a.tutorials__item__small(v-for="tutorial in $frontmatter.tutorials")(:href="tutorial.url && $withBase(tutorial.url)")
                     card
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{tutorial.level}}
                         h4.mt-7 {{tutorial.title}}
@@ -26,7 +26,7 @@
             .articles.mt-8
                 .articles__item(v-for="article in $frontmatter.articles")
                     a.articles__item__container(:href="article.url" target="_blank")
-                        .articles__item__image(v-bind:style="{'background-image': `url(${$withBase(article.image)})`}")
+                        .articles__item__image(v-bind:style="{'background-image': `url(${article.image && $withBase(article.image)})`}")
                         .articles__item__content
                             .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
                             h4.articles__item__content__title.mx-5 {{article.title}}
