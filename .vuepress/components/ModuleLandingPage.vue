@@ -6,9 +6,9 @@
 				h2.home__content__intro__content__title {{intro.title}}
 				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
 				.home__content__intro__content__links
-					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="$withBase(intro.action.url)")
 						span {{intro.action.label}}
-					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7.resources-link(:href="$withBase('/#developer-resources')") Resources
 			.home__content__overview(v-if="$frontmatter.overview" id="overview")
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.overline") {{$frontmatter.overview.overline}}
 				h2.home__content__overview__title(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
@@ -22,7 +22,7 @@
 			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'--custom-module-background-image-url': `url(${customModule.image})`, '--custom-module-background-image-light-url': `url(${customModule.imageLightMode || customModule.image})`}")
 				h2(v-if="customModule.title") {{customModule.title}}
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
-				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
+				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="$withBase(customModule.action.url)")
 					span {{customModule.action.label}}
 				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections && !customModule.hideFilter")
 					.tags-filter__item(
