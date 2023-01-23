@@ -1,22 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
-echo "\nBuild platform versions start\n"
+echo -e "\nBuild platform versions start\n"
 
-echo "\nBuild current version\n"
+echo "Build current version"
 npm ci && npm run build
 
-echo "\nMove generated files to ~/output/ folder\n"
+echo "Move generated files to ~/output/ folder"
 mkdir -p ~/output && cp -r .vuepress/dist/* ~/output/
 
-echo "\nBuild other versions\n"
+echo -e "\nBuild other versions\n"
 versions=${DOCS_VERSIONS[@]}
 for branch in $versions; do \
-    echo "\nSwitch to $branch version\n" ; \
+    echo "Switch to $branch version" ; \
     git clean -fdx && git reset --hard && git checkout $branch && git submodule update ; \
-    echo "\nBuild $branch version\n" ; \
+    echo "Build $branch version" ; \
     npm ci && VUEPRESS_BASE="/$branch/" npm run build --no-cache ; \
-    echo "\nMove generated files to ~/output/$branch/ folder\n"
+    echo "Move generated files to ~/output/$branch/ folder"
     mkdir -p ~/output/$branch && cp -r .vuepress/dist/* ~/output/$branch/ ; \
 done
 
-echo "\nBuild platform versions end\n"
+echo -e "\nBuild platform versions end\n"

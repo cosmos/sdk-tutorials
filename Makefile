@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 build-website: 
-	sh build-versions.sh
+	./build-versions.sh
 
 build-ida-website: fs-activate-ida-files build-website
 
