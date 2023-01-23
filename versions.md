@@ -46,8 +46,9 @@ When selecting the version of this portal you want to work with, please be aware
 		* _Understand the Feegrant Module_: Cosmos SDK v0.44
 		* _Understand the Group Module_: Cosmos SDK v0.46
 * **Hands-on**:
-<--	Confirm with Xavier: * General: Node.js LTS (long-term support v18) -->
 	* Guided exercise - Checkers blockchain:
 		* Ignite v0.17.3
 		* Cosmos SDK v0.42.6
 		* CosmosJS v0.28.02
+
+<--	Confirm with Xavier: * General: Node.js LTS (long-term support v18) -->
