@@ -10,8 +10,7 @@ echo "Move generated files to ~/output/ folder"
 mkdir -p ~/output && cp -r .vuepress/dist/* ~/output/
 
 echo -e "\nBuild other versions\n"
-DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
-export DOCS_VERSIONS=$DOCS_VERSIONS
+export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
 versions=${DOCS_VERSIONS[@]}
 
