@@ -1,5 +1,6 @@
 #!/bin/bash
 VERSIONS_FILE="./versions.txt"
+export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
 echo -e "\nBuild platform versions start\n"
 
@@ -10,7 +11,6 @@ echo "Move generated files to ~/output/ folder"
 mkdir -p ~/output && cp -r .vuepress/dist/* ~/output/
 
 echo -e "\nBuild other versions\n"
-export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
 versions=${DOCS_VERSIONS[@]}
 
