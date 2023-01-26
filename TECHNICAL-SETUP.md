@@ -206,7 +206,7 @@ There is a version switch drop down at the top right in the navbar which allows 
 
 Note: versions are deployed as sub-folders in the main dist package, with a different site (path) configuration. Therefore, version branch names must not collide with content folder names.
 
-The output is copied into `~/output/`
+The build output is collected in `/tmp/versions-build` and finally copied into `.vuepress/dist/versions-build`. You can adjust the temporary build folder by setting `VERSIONS_BUILD_PATH`.
 
 
 # Environments
