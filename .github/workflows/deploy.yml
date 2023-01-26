@@ -33,11 +33,11 @@ jobs:
           fetch-depth: 0
           submodules: true
 
-      - name: 🔧 Install and Build 
-        run: make build-website
-
       - name: ✅ Verify valid config.js
         run: npm run check-config
+
+      - name: 🔧 Install and Build 
+        run: make build-website
 
       - name: 🚀 Deploy
         if: ${{ success() }}
