@@ -3,6 +3,8 @@
 VERSIONS_FILE="./versions.txt"
 export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
 if [ -z "${VERSIONS_BUILD_PATH}" ]; then
     export VERSIONS_BUILD_PATH="/tmp/versions-build"
 fi
@@ -34,3 +36,7 @@ mkdir -p .vuepress/dist/versions-build
 cp -r $VERSIONS_BUILD_PATH/* .vuepress/dist/versions-build/
 
 echo -e "\nBuild platform versions end\n"
+
+echo "switching back to $CURRENT_BRANCH branch"
+
+git checkout $CURRENT_BRANCH
