@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Abschnitte",
+      "entity": "Abschnitt",
+      "field": {
+        "label": "Inhalt",
+        "entity": "Inhalt",
+        "fields": [
+          {
+            "label": "Titel"
+          },
+          {
+            "label": "Inhaltstyp",
+            "entity": "Inhalt"
+          }
+        ]
+      }
+    },
+    {
+      "label": "H-Tags für die Leisten (hat keinen Einfluss auf die Größe der Leiste)",
+      "description": "Das H-Tag, das für die Leisten verwendet wird. Normalerweise H2, aber falls das Akkordeon unterhalb einer H2-Überschrift steht, kannst du H3 nutzen. Es hat keinen Einfluss auf die Größe der Leiste und wird nur für semantische Zwecke verwendet.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

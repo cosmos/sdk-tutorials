@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Panele",
+      "entity": "paneel",
+      "field": {
+        "label": "Inhoud",
+        "entity": "inhoud",
+        "fields": [
+          {
+            "label": "Titel"
+          },
+          {
+            "label": "Inhoud tipe",
+            "entity": "inhoud"
+          }
+        ]
+      }
+    },
+    {
+      "label": "H merker vir etiket (verander nie die grote van die etiket nie)",
+      "description": "Die h-tag wat op die etikette gebruik word. Normaalweg H2, maar as dit onder 'n H2-opskrif hoort, gebruik H3. Beïnvloed nie die grootte van die etikette nie, slegs vir semantiese doeleindes.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

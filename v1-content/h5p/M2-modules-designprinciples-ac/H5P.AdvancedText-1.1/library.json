@@ -1,0 +1,1 @@
+{"title":"Text","description":"A simple library that displays text with all kinds of styling.","majorVersion":1,"minorVersion":1,"patchVersion":11,"runnable":0,"machineName":"H5P.AdvancedText","author":"Joubel","preloadedJs":[{"path":"text.js"}],"preloadedCss":[{"path":"text.css"}],"metadataSettings":{"disable":0,"disableExtraTitleField":1}}

@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Imagem de fundo",
+      "description": "Imagem exibida no fundo."
+    },
+    {
+      "label": "Texto alternativo para a imagem de fundo",
+      "description": "Se o navegador não puder carregar a imagem, este texto será exibido no lugar. Também utilizado por tecnologias assistivas."
+    },
+    {
+      "label": "Ícone de ponto de acesso",
+      "options": [
+        {
+          "label": "Ícone pré-definido"
+        },
+        {
+          "label": "Imagem carregada"
+        }
+      ]
+    },
+    {
+      "label": "Ícone pré-definido",
+      "description": "Usando um ícone pré-definido para o ponto de acesso.",
+      "options": [
+        {
+          "label": "Mais"
+        },
+        {
+          "label": "Menos"
+        },
+        {
+          "label": "Vezes"
+        },
+        {
+          "label": "Sinal de visto"
+        },
+        {
+          "label": "Questão"
+        },
+        {
+          "label": "Informação"
+        },
+        {
+          "label": "Exclamação"
+        }
+      ]
+    },
+    {
+      "label": "Imagem carregada",
+      "description": "Use a sua própria imagem para o ícone do ponto de acesso.<br />75px por 75px é o tamanho recomendado para a imagem."
+    },
+    {
+      "label": "Cor do ponto de acesso",
+      "description": "A cor dos pontos de acessos"
+    },
+    {
+      "entity": "hotspot",
+      "label": "Pontos de acesso",
+      "field": {
+        "label": "Ponto de acesso",
+        "fields": [
+          {
+            "label": "Posição do ponto de acesso",
+            "description": "Clique na miniatura da imagem para posicionar o ponto de acesso"
+          },
+          {
+            "label": "Cobrir a imagem de fundo inteira",
+            "description": "Quando o usuário clicar no ponto de acesso, o popup cobrirá toda a imagem de fundo"
+          },
+          {
+            "label": "Cabeçalho",
+            "description": "Cabeçalho opcional para o popup"
+          },
+          {
+            "label": "Conteúdo do popup",
+            "field": {
+              "label": "Item do conteúdo"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Rótulo para pontos de acesso para tecnologias assistivas",
+      "default": "Ponto de acesso #num",
+      "description": "Ajudará a anunciar qual elemento de ponto de acesso está sendo navegado ou se não há um cabeçalho especificado para um ponto de acesso. #num pode ser usado para susbtituir o número do ponto de acesso."
+    },
+    {
+      "label": "Rótulo do botão de Fechar para tecnologias assistivas",
+      "default": "Fechar"
+    }
+  ]
+}

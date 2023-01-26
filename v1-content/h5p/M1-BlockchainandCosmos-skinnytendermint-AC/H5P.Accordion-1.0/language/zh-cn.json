@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "面板",
+      "entity": "panel",
+      "field": {
+        "label": "内容",
+        "entity": "content",
+        "fields": [
+          {
+            "label": "标题"
+          },
+          {
+            "label": "内容类型",
+            "entity": "content"
+          }
+        ]
+      }
+    },
+    {
+      "label": "标题标签（不影响标签的大小）",
+      "description": "标签使用的H标签。标签上使用的H标签。通常为H2，但如果属于H2标题，则使用H3。不影响标签的大小，仅用于语义目的。",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

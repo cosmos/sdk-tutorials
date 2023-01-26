@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "所有區塊",
+      "entity": "panel",
+      "field": {
+        "label": "區塊",
+        "entity": "content",
+        "fields": [
+          {
+            "label": "標題"
+          },
+          {
+            "label": "內容",
+            "entity": "content"
+          }
+        ]
+      }
+    },
+    {
+      "label": "字級設定",
+      "description": "這個設定與顯示的字體尺寸無關，只是用來作為語義比重用途，一般是用 H2（標題2），但如果在通篇內容有更重要的字是 H2 時，就可改成 H3，依此類推。 ",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

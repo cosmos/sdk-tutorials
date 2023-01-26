@@ -1,0 +1,17 @@
+.h5p-text ul,
+.h5p-text li {
+    padding-left: 0;
+}
+.h5p-text ul li {
+  list-style-type: circle;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
+.h5p-text ol li {
+  list-style-type: decimal;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
+.h5p-text.h5p-frame {
+  margin: 1em;
+}

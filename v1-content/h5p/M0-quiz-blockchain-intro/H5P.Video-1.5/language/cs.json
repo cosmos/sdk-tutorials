@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Zdroje videa",
+      "description": "Chcete-li zajistit, aby video fungovalo ve všech prohlížečích, měli byste přidat zdroje ve formátu WebM a MP4."
+    },
+    {
+      "label": "Vizuální",
+      "fields": [
+        {
+          "label": "Plakát"
+        },
+        {
+          "label": "Umístit přehrávač videa tak, aby využíval veškerý dostupný prostor",
+          "description": "Pokud není nastaven, bude mít přehrávač videa stejný poměr stran jako video."
+        },
+        {
+          "label": "Zobrazit ovládací prvky přehrávače videa",
+          "description": "Přidejte do přehrávače videa ovládací prvky. To umožňuje uživatelům spustit, pozastavit atd."
+        }
+      ]
+    },
+    {
+      "label": "Přehrávání",
+      "fields": [
+        {
+          "label": "Automatické přehrávání videa",
+          "description": "Spustit přehrávání videa automaticky. Na mobilních zařízeních nemusí fungovat."
+        },
+        {
+          "label": "Video ve smyčce",
+          "description": "Po skončení se video automaticky spustí znovu."
+        }
+      ]
+    },
+    {
+      "label": "Lokalizace videa",
+      "fields": [
+        {
+          "label": "Název",
+          "default": "Video",
+          "description": "Pomáhá identifikovat obsah tohoto typu."
+        },
+        {
+          "label": "Načítání",
+          "default": "Načítání video přehrávače..."
+        },
+        {
+          "label": "Nebyly nalezeny žádné přehrávače",
+          "default": "Nebyly nalezeny žádné přehrávače videa, které daný formát videa podporují."
+        },
+        {
+          "label": "Žádné zdroje",
+          "default": "Ve videu chybí zdroje."
+        },
+        {
+          "label": "Selhání",
+          "default": "Přehrávání médií selhalo."
+        },
+        {
+          "label": "Chyba sítě",
+          "default": "Chyba sítě."
+        },
+        {
+          "label": "Nelze dekódovat zdroj videa",
+          "default": "Nelze dekódovat média."
+        },
+        {
+          "label": "Formát není podporován",
+          "default": "Formát videa není podporován."
+        },
+        {
+          "label": "Šifrováná média",
+          "default": "Šifrováná média."
+        },
+        {
+          "label": "Neznámá chyba",
+          "default": "Neznámá chyba."
+        },
+        {
+          "label": "Neplatné ID YouTube",
+          "default": "Neplatné ID YouTube."
+        },
+        {
+          "label": "Neznámé YouTube ID",
+          "default": "Video s daným ID YouTube nelze najít."
+        },
+        {
+          "label": "Video YouTube s omezením",
+          "default": "Vlastník tohoto videa neumožňuje jeho vložení."
+        }
+      ]
+    },
+    {
+      "label": "Přístupnost",
+      "fields": [
+        {
+          "label": "Přidat video stopu",
+          "entity": "Stopa",
+          "field": {
+            "label": "Stopa",
+            "fields": [
+              {
+                "label": "Popisek stopy"
+              },
+              {
+                "label": "Typ druhu, viz <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML standard</a>",
+                "options": [
+                  {
+                    "label": "Titulky"
+                  },
+                  {
+                    "label": "Nadpis"
+                  },
+                  {
+                    "label": "Popis"
+                  },
+                  {
+                    "label": "Kapitoly"
+                  }
+                ]
+              },
+              {
+                "label": "Pro titulky musí být definován zdrojový jazyk",
+                "description": "Musí to být platná jazyková značka BCP 47. Pokud je atribut druh nastaven na titulky, musí být definován srclang."
+              },
+              {
+                "label": "Sledovat soubor (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Izvori videa",
+      "description": "Kako bi bili sigurni da video funkcionira u svim pretraživačima izvorni video treba biti postavljen u formatu WebM i MP4."
+    },
+    {
+      "label": "Grafika",
+      "fields": [
+        {
+          "label": "Slika prikaza"
+        },
+        {
+          "label": "Den Videoplayer so anpassen, dass er den insgesamt verfügbaren Platz verwendet",
+          "description": "Wird dies nicht ausgewählt, hat der Videoplayer das gleiche Seitenverhältnis wie das Video."
+        },
+        {
+          "label": "Prikaži podešavanja za video-plajer",
+          "description": "Ovo omogućava da korisnik video pusti, pauzira, isl."
+        }
+      ]
+    },
+    {
+      "label": "Play",
+      "fields": [
+        {
+          "label": "Pusti automatski video",
+          "description": "Ovo moćda neće funkcionirati na mobilnim uređajima."
+        },
+        {
+          "label": "Problem sa videom",
+          "description": "Startaj video ispočetka."
+        }
+      ]
+    },
+    {
+      "label": "Video lokalizacija",
+      "fields": [
+        {
+          "label": "Naziv",
+          "default": "Video",
+          "description": "Pomaže da se identificira tip videa."
+        },
+        {
+          "label": "Učitava se",
+          "default": "Videoplajer se učitava..."
+        },
+        {
+          "label": "Nije pronađen player",
+          "default": "Keine Videoplayer gefunden, die das gegebene Videoformat unterstützen."
+        },
+        {
+          "label": "Nema izvora",
+          "default": "Video nema izvora."
+        },
+        {
+          "label": "Prekinuto",
+          "default": "Video je prekinut."
+        },
+        {
+          "label": "Greška mreže",
+          "default": "Greška mreže."
+        },
+        {
+          "label": "Izvorni video ne može biti dekodiran",
+          "default": "Dekodirajne medija nije moguće."
+        },
+        {
+          "label": "Format videa nije podržan",
+          "default": "Format videa nije podržan."
+        },
+        {
+          "label": "Medij zaključan",
+          "default": "Format videa nije podržan."
+        },
+        {
+          "label": "Nepoznata greška",
+          "default": "Nepoznata greška."
+        },
+        {
+          "label": "Netačan YouTube-ID",
+          "default": "Netačan YouTube-ID."
+        },
+        {
+          "label": "Nepoznat YouTube-ID",
+          "default": "Nepoznat YouTube-ID"
+        },
+        {
+          "label": "Ograničen YouTube Video",
+          "default": "Vlasnik videa je ograničio korištenje istog."
+        }
+      ]
+    },
+    {
+      "label": "Pristup",
+      "fields": [
+        {
+          "label": "Dodaj video",
+          "entity": "Video",
+          "field": {
+            "label": "Video",
+            "fields": [
+              {
+                "label": "Opis videa"
+              },
+              {
+                "label": "Tip \"vrsta\", se odnosi na <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Prijevod"
+                  },
+                  {
+                    "label": "Titlovi"
+                  },
+                  {
+                    "label": "Opis"
+                  },
+                  {
+                    "label": "Dio"
+                  }
+                ]
+              },
+              {
+                "label": "Za prijevod se mora navesti izvorni jezik",
+                "description": "Mora biti ispravan jezički tag BCP 47. Kada \"vrsta\" odredi vrsta prijevoda, onda se mora izvorni jezik odrediti."
+              },
+              {
+                "label": "Fajl (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

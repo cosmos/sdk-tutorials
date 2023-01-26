@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Imagem de fundo",
+      "description": "Imagem a mostrar no fundo."
+    },
+    {
+      "label": "Texto alternativo para imagem de fundo",
+      "description": "Se não foi possível ao browser carregar a imagem, este texto vai ser mostrado em seu lugar. Também é utilizado em tecnologias de apoio."
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "Cor do hotspot",
+      "description": "A cor dos hotspots"
+    },
+    {
+      "entity": "hotspot",
+      "label": "Hotspots",
+      "field": {
+        "label": "Hotspot",
+        "fields": [
+          {
+            "label": "Posição do hotspot",
+            "description": "Clique na miniatura da imagem para definir o hotspot"
+          },
+          {
+            "label": "Cobrir a imagem de fundo",
+            "description": "Quando o utilizador clicar no hotspot a janela popup vai cobrir toda a imagem de fundo"
+          },
+          {
+            "label": "Cabeçalho",
+            "description": "Cabeçalho opcional para a janela popup"
+          },
+          {
+            "label": "Conteúdo da janela popup",
+            "field": {
+              "label": "Item de Conteúdo"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Hotspot para tecnologias de apoio",
+      "default": "Hotspot #num",
+      "description": "Esta etiqueta vai ajudar o leitor de ecrã a anunciar o elemento do hotspot se não existir informação específica. #num pode ser utilizado para substituir o número do hotspot."
+    },
+    {
+      "label": "Etiqueta do botão fechar para tecnologias de apoio",
+      "default": "Fechar"
+    }
+  ]
+}

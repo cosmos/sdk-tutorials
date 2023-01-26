@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Video bronne",
+      "description": "Om te verseker dat die video in alle webblaaiers werk, moet jy die WebM- en MP4-geformateerde bronne byvoeg."
+    },
+    {
+      "label": "Beeldmateriaal",
+      "fields": [
+        {
+          "label": "Plakkaatbeeld"
+        },
+        {
+          "label": "Pas die videospeler aan om alle beskikbare spasie te gebruik",
+          "description": "Indien dit nie ingestel is nie, sal die videospeler dieselfde beeldverhouding as die video hê."
+        },
+        {
+          "label": "Wys videospelerknoppies",
+          "description": "Voeg knoppies by die videospeler. Dit stel gebruikers in staat om te speel, te stop, ens."
+        }
+      ]
+    },
+    {
+      "label": "Terugspeel",
+      "fields": [
+        {
+          "label": "Speel video outomaties",
+          "description": "Begin om die video outomaties te speel. Sal moontlik nie op mobiele toestelle werk nie."
+        },
+        {
+          "label": "Herhaal video",
+          "description": "Begin die video outomaties weer as dit eindig."
+        }
+      ]
+    },
+    {
+      "label": "Videolokalisering",
+      "fields": [
+        {
+          "label": "Naam",
+          "default": "Video",
+          "description": "Help om inhoud van hierdie soort te identifiseer."
+        },
+        {
+          "label": "Besig om te laai",
+          "default": "Videospeler laai..."
+        },
+        {
+          "label": "Geen videospelers gevind",
+          "default": "Geen videospeler gevind wat die huidige formaat kan speel nie."
+        },
+        {
+          "label": "Geen bronne",
+          "default": "Video vermis bronne."
+        },
+        {
+          "label": "Gestaak",
+          "default": "Media terugspeel is gestaak."
+        },
+        {
+          "label": "Netwerkfout",
+          "default": "Netwerkfout."
+        },
+        {
+          "label": "Kan nie videobron dekodeer nie",
+          "default": "Kan nie videobron dekodeer nie."
+        },
+        {
+          "label": "Formaat word nie ondersteun nie",
+          "default": "Videoformaat word nie ondersteun nie."
+        },
+        {
+          "label": "Media geënkripteer",
+          "default": "Media geënkripteer."
+        },
+        {
+          "label": "Onbekende fout",
+          "default": "Onbekende fout."
+        },
+        {
+          "label": "Ongeldige Youtube ID",
+          "default": "Ongeldige YouTube ID."
+        },
+        {
+          "label": "Onbekende YouTube ID",
+          "default": "Kan nie video met die gegewe YouTube ID vind nie."
+        },
+        {
+          "label": "Beperkte YouTube video",
+          "default": "Die eienaar van die video laat nie toe dat ander dit inbed nie."
+        }
+      ]
+    },
+    {
+      "label": "Toeganklikheid",
+      "fields": [
+        {
+          "label": "Voeg videosnit by",
+          "entity": "Snit",
+          "field": {
+            "label": "Snit",
+            "fields": [
+              {
+                "label": "Snitetiket"
+              },
+              {
+                "label": "Tipe verwys na <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML lewensstandaard</a>",
+                "options": [
+                  {
+                    "label": "Byskrif"
+                  },
+                  {
+                    "label": "Onderskrifte"
+                  },
+                  {
+                    "label": "Beskrywings"
+                  },
+                  {
+                    "label": "Hoofstukke"
+                  }
+                ]
+              },
+              {
+                "label": "Brontaal moet deur onderskrifte ondersteun word",
+                "description": "Moet 'n geldige BCP 47 etiket wees. As die soortkenmerk op ondertitels ingestel is, moet brontaal gedefinieer word."
+              },
+              {
+                "label": "Snitleêr (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

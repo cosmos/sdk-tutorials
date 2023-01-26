@@ -1,0 +1,237 @@
+[
+  {
+    "name": "sources",
+    "type": "video",
+    "label": "Video sources",
+    "importance": "high",
+    "description": "To ensure that the video works in all browsers you should add both WebM and MP4 formatted sources.",
+    "disableCopyright": true
+  },
+  {
+    "name": "visuals",
+    "type": "group",
+    "label": "Visuals",
+    "importance": "medium",
+    "fields": [
+      {
+        "name": "poster",
+        "type": "image",
+        "label": "Poster image",
+        "importance": "low"
+      },
+      {
+        "name": "fit",
+        "type": "boolean",
+        "label": "Fit video player to use all available space",
+        "importance": "low",
+        "default": true,
+        "description": "If not set the video player will have the same aspect ratio as the video."
+      },
+      {
+        "name": "controls",
+        "type": "boolean",
+        "label": "Show video player controls",
+        "importance": "low",
+        "default": true,
+        "description": "Add controls to the video player. This allows users to play, pause, etc."
+      }
+    ]
+  },
+  {
+    "name": "playback",
+    "type": "group",
+    "label": "Playback",
+    "importance": "medium",
+    "fields": [
+      {
+        "name": "autoplay",
+        "type": "boolean",
+        "label": "Auto-play video",
+        "importance": "low",
+        "default": false,
+        "description": "Start playing the video automatically. May not work on mobile devices."
+      },
+      {
+        "name": "loop",
+        "type": "boolean",
+        "label": "Loop video",
+        "importance": "low",
+        "default": false,
+        "description": "Automatically start the video over again when it ends."
+      }
+    ]
+  },
+  {
+    "name": "l10n",
+    "type": "group",
+    "label": "Video localization",
+    "importance": "low",
+    "common": true,
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Name",
+        "importance": "low",
+        "default": "Video",
+        "description": "Helps identify content of this type."
+      },
+      {
+        "name": "loading",
+        "type": "text",
+        "label": "Loading",
+        "importance": "low",
+        "default": "Video player loading..."
+      },
+      {
+        "name": "noPlayers",
+        "type": "text",
+        "label": "No players found",
+        "importance": "low",
+        "default": "Found no video players that supports the given video format."
+      },
+      {
+        "name": "noSources",
+        "type": "text",
+        "label": "No sources",
+        "importance": "low",
+        "default": "Video is missing sources."
+      },
+      {
+        "name": "aborted",
+        "type": "text",
+        "label": "Aborted",
+        "importance": "low",
+        "default": "Media playback has been aborted."
+      },
+      {
+        "name": "networkFailure",
+        "type": "text",
+        "label": "Network failure",
+        "importance": "low",
+        "default": "Network failure."
+      },
+      {
+        "name": "cannotDecode",
+        "type": "text",
+        "label": "Cannot decode video source",
+        "importance": "low",
+        "default": "Unable to decode media."
+      },
+      {
+        "name": "formatNotSupported",
+        "type": "text",
+        "label": "Format not supported",
+        "importance": "low",
+        "default": "Video format not supported."
+      },
+      {
+        "name": "mediaEncrypted",
+        "type": "text",
+        "label": "Media encrypted",
+        "importance": "low",
+        "default": "Media encrypted."
+      },
+      {
+        "name": "unknownError",
+        "type": "text",
+        "label": "Unknown error",
+        "importance": "low",
+        "default": "Unknown error."
+      },
+      {
+        "name": "invalidYtId",
+        "type": "text",
+        "label": "Invalid YouTube ID",
+        "importance": "low",
+        "default": "Invalid YouTube ID."
+      },
+      {
+        "name": "unknownYtId",
+        "type": "text",
+        "label": "Unknown YouTube ID",
+        "importance": "low",
+        "default": "Unable to find video with the given YouTube ID."
+      },
+      {
+        "name": "restrictedYt",
+        "type": "text",
+        "label": "Restricted YouTube video",
+        "importance": "low",
+        "default": "The owner of this video does not allow it to be embedded."
+      }
+    ]
+  },
+  {
+    "name": "a11y",
+    "type": "group",
+    "label": "Accessibility",
+    "importance": "medium",
+    "fields": [
+      {
+        "name": "videoTrack",
+        "type": "list",
+        "label": "Add video track",
+        "importance": "low",
+        "optional": true,
+        "entity": "Track",
+        "min": 0,
+        "field": {
+          "name": "track",
+          "type": "group",
+          "label": "Track",
+          "importance": "low",
+          "expanded": false,
+          "fields": [
+            {
+              "name": "label",
+              "type": "text",
+              "label": "Track label",
+              "importance": "low",
+              "optional": true
+            },
+            {
+              "name": "kind",
+              "type": "select",
+              "label": "Type kind, refer to <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+              "importance": "low",
+              "default": "descriptions",
+              "options": [
+                {
+                  "value": "subtitles",
+                  "label": "Subtitles"
+                },
+                {
+                  "value": "captions",
+                  "label": "Captions"
+                },
+                {
+                  "value": "descriptions",
+                  "label": "Descriptions"
+                },
+                {
+                  "value": "chapters",
+                  "label": "Chapters"
+                }
+              ]
+            },
+            {
+              "name": "srcLang",
+              "type": "text",
+              "label": "Source language, must be defined for subtitles",
+              "importance": "low",
+              "default": "en",
+              "description": "Must be a valid BCP 47 language tag. If the kind attribute is set to subtitles, then srclang must be defined."
+            },
+            {
+              "name": "track",
+              "type": "file",
+              "label": "Track file (WebVTT)",
+              "importance": "low"
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

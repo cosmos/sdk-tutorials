@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Introdución ao questionario",
+      "fields": [
+        {
+          "label": "Amosar introdución"
+        },
+        {
+          "label": "Título",
+          "description": "Este título amosarase enriba do texto de introdución."
+        },
+        {
+          "label": "Texto de introdución",
+          "description": "Este texto amosarase antes de que empece o questionario."
+        },
+        {
+          "label": "Texto para o botón empezar",
+          "default": "Empezar o Cuestionario"
+        },
+        {
+          "label": "Imaxe de fondo",
+          "description": "Unha imaxe de fondo opcional para a introdución."
+        }
+      ]
+    },
+    {
+      "label": "Imaxe de fondo",
+      "description": "Unha imaxe de fondo opcional para o grupo de preguntas."
+    },
+    {
+      "label": "Indicador de progreso",
+      "description": "Estilo do indicador de progreso para o grupo de preguntas.",
+      "options": [
+        {
+          "label": "Textual"
+        },
+        {
+          "label": "Puntos"
+        }
+      ]
+    },
+    {
+      "label": "Porcentaxe para aprobar",
+      "description": "Porcentaxe da puntuación total requirida para aprobar o cuestionario."
+    },
+    {
+      "label": "Preguntas",
+      "widgets": [
+        {
+          "label": "Por defecto"
+        },
+        {
+          "label": "Textual"
+        }
+      ],
+      "entity": "pregunta",
+      "field": {
+        "label": "Tipo de pregunta",
+        "description": "Biblioteca para esta pregunta."
+      }
+    },
+    {
+      "label": "Textos da interface no cuestionario",
+      "fields": [
+        {
+          "label": "Botón atrás",
+          "default": "Pregunta anterior"
+        },
+        {
+          "label": "Botón seguinte",
+          "default": "Pregunta seguinte"
+        },
+        {
+          "label": "Botón rematar",
+          "default": "Rematar"
+        },
+        {
+          "label": "Texto de progreso",
+          "description": "Texto usado ao seleccionar progreso textual.",
+          "default": "Pregunta: @current de @total preguntas"
+        },
+        {
+          "label": "Etiqueta para saltar a unha pregunta determinada",
+          "description": "Debes usar o marcador '%d' en lugar do número da pregunta, e %total en lugar do número total de preguntas.",
+          "default": "Pregunta %d de %total"
+        },
+        {
+          "label": "Etiqueta para o diálogo de Copyright da pregunta",
+          "default": "Pregunta"
+        },
+        {
+          "label": "Progreso do lector de pantalla",
+          "description": "Pódense usar as variables de pregunta @current e @total",
+          "default": "Pregunta @current de @total"
+        },
+        {
+          "label": "Texto para preguntas non contestadas",
+          "default": "Non contestada"
+        },
+        {
+          "label": "Texto para preguntas contestadas",
+          "default": "Contestada"
+        },
+        {
+          "label": "Texto para a pregunta actual",
+          "default": "Pregunta actual"
+        }
+      ]
+    },
+    {
+      "label": "Desactivar a navegación cara atrás",
+      "description": "Este opción só permitirá o desprazamento cara adiante no Conxunto de Preguntas"
+    },
+    {
+      "label": "Aleatorizar as preguntas",
+      "description": "Activar para facer aleatoria a orde das preguntas amosadas."
+    },
+    {
+      "label": "Número de preguntas amosadas:",
+      "description": "Crea un grupo de preguntas aleatorias do total de preguntas."
+    },
+    {
+      "label": "Cuestionario rematado",
+      "fields": [
+        {
+          "label": "Amosar resultados"
+        },
+        {
+          "label": "Amosar botón de solución"
+        },
+        {
+          "label": "Amosar o botón reintentar"
+        },
+        {
+          "label": "Mensaxe para resultado non atopado",
+          "description": "Texto amosado ao final da páxina cando \"Amosar resultados\" está desactivado",
+          "default": "Rematado"
+        },
+        {
+          "label": "Cabeceira da retroalimentación",
+          "default": "O teu resultado:",
+          "description": "Amosarase esta cabeceira ao final do cuestionario cando o usuario acabe de contestar todas as preguntas."
+        },
+        {
+          "label": "Retroalimentación Xeral",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Por defecto"
+                }
+              ],
+              "label": "Define a retroalimentación personalizada para calquera rango de puntuación",
+              "description": "Exemplo: 0-20% Puntuación mala, 21-91% Puntuación media, 91-100% Puntuación xenial!",
+              "entity": "rango",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Rango de puntuación"
+                  },
+                  {},
+                  {
+                    "label": "Retroalimentación para o rango de puntuación definido",
+                    "placeholder": "Escribe a retroalimentación"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Antiga Retroalimentación",
+          "fields": [
+            {
+              "label": "Título para cuestionario aprobado",
+              "description": "Amosarase este texto enriba da puntuación se o ususario aproba o cuestionario."
+            },
+            {
+              "label": "Comentario para aprobado",
+              "description": "Este comentario amosarase despois da puntuación se o usuario aproba o cuestionario."
+            },
+            {
+              "label": "Título para cuestionario non aprobado",
+              "description": "Este texto amosarase enriba da puntuación se o usuario non aproba o cuestionario."
+            },
+            {
+              "label": "Comentario para non a probado",
+              "description": "Este comentario amosarase despois da puntuación seo usuario non aproba o cuestionario."
+            }
+          ]
+        },
+        {
+          "label": "Etiqueta do botón da solución",
+          "default": "Amosar a solución",
+          "description": "Texto para o botón da solución."
+        },
+        {
+          "label": "Etiqueta para o botón reintentar",
+          "default": "Reintentar",
+          "description": "Texto para o botón reintentar."
+        },
+        {
+          "label": "Texto para o botón rematar",
+          "default": "Rematar"
+        },
+        {
+          "label": "Amosar vídeo antes dos resultados do cuestionario"
+        },
+        {
+          "label": "Activar botón saltar vídeo"
+        },
+        {
+          "label": "Etiqueta para o botón saltar vídeo",
+          "default": "Saltar vídeo"
+        },
+        {
+          "label": "Vídeo para aprobados",
+          "description": "Reproducirase este vídeo se o usuario aproba o cuestionario."
+        },
+        {
+          "label": "Vídeo para non aprobados",
+          "description": "Reproducirase este vídeo se o usuario non aproba o cuestionario."
+        }
+      ]
+    },
+    {
+      "label": "Configuración para os botóns \"Amosar solución\" e \"Reintentar\"",
+      "fields": [
+        {
+          "label": "Amosar botóns \"Comprobar\"",
+          "description": "Esta opción determina se se amosa o botón \"Comprobar\" para todas as preguntas."
+        },
+        {
+          "label": "Anular botón \"Amosar solución\"",
+          "description": "Esta opción determina se se amosa o botón \"Amosar solución\" para todas as preguntas, se desactiva para todas ou se configura para cada unha individualmente.",
+          "options": [
+            {
+              "label": "Activado"
+            },
+            {
+              "label": "Desactivado"
+            }
+          ]
+        },
+        {
+          "label": "Anular botón \"Reintentar\"",
+          "description": "Esta opción determina se se amosa o botón \"Reintentar\" para todas as preguntas, se desactíva para todas ou se configura para cada unha individualmente.",
+          "options": [
+            {
+              "label": "Activado"
+            },
+            {
+              "label": "Desactivado"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

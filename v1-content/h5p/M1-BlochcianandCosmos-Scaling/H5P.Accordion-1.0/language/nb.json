@@ -1,0 +1,36 @@
+{
+  "semantics": [
+    {
+      "label": "Paneler",
+      "entity": "panel",
+      "field": {
+        "label": "Innhold",
+        "entity": "innhold",
+        "fields": [
+          {
+            "label": "Tittel"
+          },
+          {
+            "label": "Innholdstype",
+            "entity": "innhold"
+          }
+        ]
+      }
+    },
+    {
+      "label": "Header tag for overskrifter (påvirker ikke størrelsen til etiketten)",
+      "description": "H taggen brukes på overskrifter. Vanligvis er H2 korrekt, med mindre overskriften hører til under en H2 tag, bruk da H3. Påvirker ikke størrelsen på overskriftene, brukes bare for semantikk.",
+      "options": [
+        {
+          "label": "H2"
+        },
+        {
+          "label": "H3"
+        },
+        {
+          "label": "H4"
+        }
+      ]
+    }
+  ]
+}

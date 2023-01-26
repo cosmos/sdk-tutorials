@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Hintergrundbild",
+      "description": "Bild, das im Hintergrund angezeigt wird."
+    },
+    {
+      "label": "Alternativtext für das Hintergrundbild",
+      "description": "Wenn der Browser das Bild nicht anzeigen kann, wird dieser Text stattdessen angezeigt. Wird auch zur Barrierefreiheit genutzt."
+    },
+    {
+      "label": "Hotspot-Symbol",
+      "options": [
+        {
+          "label": "Mitgeliefertes Symbol"
+        },
+        {
+          "label": "Hochgeladenes Bild"
+        }
+      ]
+    },
+    {
+      "label": "Mitgeliefertes Symbol",
+      "description": "Wähle eines der mitgelieferten Symbole aus der Liste aus.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Malzeichen (X)"
+        },
+        {
+          "label": "Haken"
+        },
+        {
+          "label": "Fragezeichen"
+        },
+        {
+          "label": "Infozeichen (i)"
+        },
+        {
+          "label": "Ausrufezeichen"
+        }
+      ]
+    },
+    {
+      "label": "Hochgeladenes Bild",
+      "description": "Verwende ein eigenes Bild als Hotspot-Symbol.<br />Als Größe ist 75px mal 75px empfehlenswert."
+    },
+    {
+      "label": "Hotspot-Farbe",
+      "description": "Die Farbe der Hotspots"
+    },
+    {
+      "entity": "Hotspot",
+      "label": "Hotspots",
+      "field": {
+        "label": "Hotspot",
+        "fields": [
+          {
+            "label": "Hotspot-Position",
+            "description": "Klicke auf die gewünschte Stelle im Vorschaubild, um den Hotspot zu platzieren."
+          },
+          {
+            "label": "Überdecke das gesamte Hintergrundbild",
+            "description": "Sobald der Lernende auf den Hotspot klickt, wird das erscheinende Fenster den gesamten Hintergrund überdecken."
+          },
+          {
+            "label": "Überschrift",
+            "description": "Optionale Überschrift für das Fenster"
+          },
+          {
+            "label": "Fensterinhalt",
+            "field": {
+              "label": "Inhaltsobjekt"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Beschriftung von Hotpots für Vorlesewerkzeuge",
+      "default": "Hotspot Nummer #num",
+      "description": "Wenn ein Vorlesewerkzeug (Barrierefreiheit) verwendet wird, verdeutlicht dieser Text, zu welchem Hotspot navigiert wurde, sofern für einen Hotspot keine Überschrift existiert. #num kann als Platzhalter für die Nummer des Hotspots verwendet werden."
+    },
+    {
+      "label": "Beschriftung des \"Schließen\"-Buttons (Barrierefreiheit)",
+      "default": "Schließen"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Bakgrunnsbilde",
+      "description": "Bilde brukt som bakgrunn"
+    },
+    {
+      "label": "Alternative text for background image",
+      "description": "If the browser can't load the image this text will be displayed instead. Also used by assistive technologies."
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "Hotspot color",
+      "description": "The color of the hotspots"
+    },
+    {
+      "entity": "hotspot",
+      "label": "Hotspots",
+      "field": {
+        "label": "Hotspot",
+        "fields": [
+          {
+            "label": "Hotspot position",
+            "description": "Click on the thumbnail image to place the hotspot"
+          },
+          {
+            "label": "Cover entire background image",
+            "description": "When the user clicks the hotspot the popup will cover the entire background image"
+          },
+          {
+            "label": "Header",
+            "description": "Optional header for the popup"
+          },
+          {
+            "label": "Popup content",
+            "field": {
+              "label": "Content Item"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Hotspot label for assistive technologies",
+      "default": "Hotspot #num",
+      "description": "Will help announce what hotspot element has been navigated to if there is no header specified for a hotspot. #num can be used to replace the hotspot number."
+    },
+    {
+      "label": "Close button label for assistive technologies",
+      "default": "Close"
+    }
+  ]
+}

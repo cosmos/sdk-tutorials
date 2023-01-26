@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Background image",
+      "description": "Image shown on background."
+    },
+    {
+      "label": "Alternative text for background image",
+      "description": "If the browser can't load the image this text will be displayed instead. Also used by assistive technologies."
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Icona predefinida"
+        },
+        {
+          "label": "Imatge carregada"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Ús d’una icona predefinida per a la zona sensible.",
+      "options": [
+        {
+          "label": "Més"
+        },
+        {
+          "label": "Menys"
+        },
+        {
+          "label": "Vegades"
+        },
+        {
+          "label": "Comprova"
+        },
+        {
+          "label": "Pregunta"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamació"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "Hotspot color",
+      "description": "Color de les zones sensibles"
+    },
+    {
+      "entity": "zona sensible",
+      "label": "Zones sensibles",
+      "field": {
+        "label": "Zona sensible",
+        "fields": [
+          {
+            "label": "Posició de la zona sensible",
+            "description": "Feu clic a la imatge en miniatura per situar-hi la zona sensible."
+          },
+          {
+            "label": "Imatge que ocupa tot el fons",
+            "description": "Quan l’usuari fa clic a la zona sensible, l’element emergent cobreix tota la imatge de fons"
+          },
+          {
+            "label": "Títol",
+            "description": "Encapçalament opcional per a l’element emergent"
+          },
+          {
+            "label": "Contingut emergent",
+            "field": {
+              "label": "Element de contingut"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Etiqueta de la zona sensible per a tecnologies d’assistència",
+      "default": "Zona sensible #num",
+      "description": "Ajudarà a indicar quin element de la zona sensible s’ha seleccionat si la zona sensible no té cap títol. El número de zona sensible es pot substituir per #num."
+    },
+    {
+      "label": "Etiqueta del botó “Tanca” per a tecnologies d’assistència",
+      "default": "Tanca"
+    }
+  ]
+}

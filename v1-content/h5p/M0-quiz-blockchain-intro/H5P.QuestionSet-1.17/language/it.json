@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Introduzione al compito",
+      "fields": [
+        {
+          "label": "Mostra introduzione"
+        },
+        {
+          "label": "Titolo",
+          "description": "Questo titolo sarà visualizzato sopra il testo introduttivo"
+        },
+        {
+          "label": "Testo di introduzione",
+          "description": "Questo testo sarà visualizzato prima dell'inizio della prova"
+        },
+        {
+          "label": "Testo del pulsante di avvio",
+          "default": "Inizia la prova"
+        },
+        {
+          "label": "Immagine di sfondo",
+          "description": "Immagine di sfondo facoltativa per l'introduzione"
+        }
+      ]
+    },
+    {
+      "label": "Immagine di sfondo",
+      "description": "Immagine di sfondo facoltativa per il gruppo di domande"
+    },
+    {
+      "label": "Indicatore di avanzamento",
+      "description": "Stile dell'indicatore di avanzamento del gruppo di domande",
+      "options": [
+        {
+          "label": "Testuale"
+        },
+        {
+          "label": "Punti"
+        }
+      ]
+    },
+    {
+      "label": "Percentuale di superamento della prova",
+      "description": "Percentuale del punteggio totale richiesto per superare la prova"
+    },
+    {
+      "label": "Domande",
+      "widgets": [
+        {
+          "label": "Predefinito"
+        },
+        {
+          "label": "Testuale"
+        }
+      ],
+      "entity": "domanda",
+      "field": {
+        "label": "Tipo di domanda",
+        "description": "Libreria per questa domanda"
+      }
+    },
+    {
+      "label": "Testi di interfaccia nel compito",
+      "fields": [
+        {
+          "label": "Pulsante indietro",
+          "default": "Domanda precedente"
+        },
+        {
+          "label": "Pulsante avanti",
+          "default": "Prossima domanda"
+        },
+        {
+          "label": "Pulsante fine",
+          "default": "Finito"
+        },
+        {
+          "label": "Testo di avanzamento",
+          "description": "Testo usato se è selezionato l'avanzamento testuale",
+          "default": "Domanda: @current di @total domande totali"
+        },
+        {
+          "label": "Etichetta per saltare a una determinata domanda",
+          "description": "Devi usare il segnaposto '%d' anziché il numero di domanda, e %total invece del numero totale delle domande",
+          "default": "Domanda %d di %total"
+        },
+        {
+          "label": "Etichetta della domanda nella finestra sul diritto d'autore",
+          "default": "Domanda"
+        },
+        {
+          "label": "Stato di avanzamento del lettore vocale",
+          "description": "Puoi utilizzare le variabili di domanda @current e @total",
+          "default": "Domanda @current di @total"
+        },
+        {
+          "label": "Testo della domanda senza risposta",
+          "default": "Senza risposta"
+        },
+        {
+          "label": "Testo della domanda con risposta",
+          "default": "Risposta"
+        },
+        {
+          "label": "Testo della domanda corrente",
+          "default": "Domanda corrente"
+        }
+      ]
+    },
+    {
+      "label": "Disattiva la navigazione all'indietro",
+      "description": "Questa opzione ti permetterà solo di spostarti in avanti in Question Set"
+    },
+    {
+      "label": "Rendi casuale l'ordine delle domande",
+      "description": "Abilita per rendere casuale l'ordine delle domande sullo schermo"
+    },
+    {
+      "label": "Numero di domande da mostrare:",
+      "description": "Crea un raggruppamento casuale dal totale delle domande"
+    },
+    {
+      "label": "Compito terminato",
+      "fields": [
+        {
+          "label": "Visualizza i risultati"
+        },
+        {
+          "label": "Pulsante visualizza soluzione"
+        },
+        {
+          "label": "Mostra pulsante Riprova"
+        },
+        {
+          "label": "Messaggio di nessun risultato",
+          "description": "Testo mostrato nella pagina finale quando \"Visualizza risultati\" è disattivato",
+          "default": "Finito"
+        },
+        {
+          "label": "Intestazione di feedback",
+          "default": "Il tuo risultato:",
+          "description": "Questa intestazione sarà mostrata alla fine del compito, dopo che l'utente avrà risposto a tutte le domande"
+        },
+        {
+          "label": "Feedback generale",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Predefinito"
+                }
+              ],
+              "label": "Definisci un feedback personalizzato per ogni intervallo di punteggio",
+              "description": "Esempio: 0-20%, Punteggio scarso; 21-90%, Punteggio medio; 91-100% Punteggio ottimo!",
+              "entity": "Intervallo",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Intervallo di punteggio"
+                  },
+                  {},
+                  {
+                    "label": "Feedback per un intervallo di punteggio definito",
+                    "placeholder": "Compila il feedback"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Vecchio feedback",
+          "fields": [
+            {
+              "label": "Messaggio di superamento della prova",
+              "description": "Questo testo sarà mostrato sopra il punteggio se l'utente ha superato la prova con successo"
+            },
+            {
+              "label": "Commento di superamento della prova",
+              "description": "Questo commento sarà mostrato dopo il punteggio se l'utente ha superato la prova con successo"
+            },
+            {
+              "label": "Titolo per prova fallita",
+              "description": "Questo messaggio sarà mostrato sopra il punteggio se l'utente non ha superato la prova"
+            },
+            {
+              "label": "Commento per prova fallita",
+              "description": "Questo commento sarà mostrato dopo il punteggio se l'utente non ha superato la prova"
+            }
+          ]
+        },
+        {
+          "label": "Etichetta del pulsante \"Mostra soluzione\"",
+          "default": "Mostra soluzione",
+          "description": "Testo per il pulsante \"Mostra soluzione\""
+        },
+        {
+          "label": "Etichetta del pulsante \"Riprova\"",
+          "default": "Riprova",
+          "description": "Testo per il pulsante \"Riprova\"."
+        },
+        {
+          "label": "Testo del pulsante di fine prova",
+          "default": "Finito"
+        },
+        {
+          "label": "Mostra il video prima dei risultati della prova"
+        },
+        {
+          "label": "Pulsante per attivare \"Salta video\""
+        },
+        {
+          "label": "Etichetta del pulsante \"Salta video\"",
+          "default": "Salta video"
+        },
+        {
+          "label": "Video per superamento della prova",
+          "description": "Questo video sarà mostrato sopra il punteggio se l'utente ha superato la prova con successo"
+        },
+        {
+          "label": "Video per mancato superamento della prova",
+          "description": "Questo testo sarà mostrato se l'utente non ha superato la prova"
+        }
+      ]
+    },
+    {
+      "label": "Impostazioni per i pulsanti \"Mostra soluzione\" e \"Riprova\"",
+      "fields": [
+        {
+          "label": "Mostra pulsanti di \"Verifica\"",
+          "description": "Questa opzione rende disponibile il pulsante di verifica su ogni domanda"
+        },
+        {
+          "label": "Sovrascrivi il pulsante \"Mostra soluzione\"",
+          "description": "Questa opzione stabilisce se il pulsante \"Mostra soluzione\" sarà mostrato su tutte le domande, su nessuna o se decidere caso per caso",
+          "options": [
+            {
+              "label": "Attivato"
+            },
+            {
+              "label": "Disattivato"
+            }
+          ]
+        },
+        {
+          "label": "Sovrascrivi il pulsante \"Riprova\"",
+          "description": "Questa opzione stabilisce se il pulsante \"Riprova\" sarà mostrato su tutte le domande, su nessuna o se sarà configurato caso per caso",
+          "options": [
+            {
+              "label": "Attivato"
+            },
+            {
+              "label": "Disattivato"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

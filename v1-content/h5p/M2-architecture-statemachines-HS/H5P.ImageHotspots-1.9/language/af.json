@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Agtergrond prent",
+      "description": "Prent wat op agtergrond vertoon word."
+    },
+    {
+      "label": "Alternatiewe teks vir agtergrondprent",
+      "description": "Indien die weblaaier nie die teks kan lees nie, sal 'n alternatiewe teks vertoon word. Word ook gebruik deur hulptegnologieë."
+    },
+    {
+      "label": "Warmkol ikoon",
+      "options": [
+        {
+          "label": "Voorafingestelde ikoon"
+        },
+        {
+          "label": "Opgelaaide prent"
+        }
+      ]
+    },
+    {
+      "label": "Voorafopgelaaide prent",
+      "description": "Gebruik 'n voorafopgelaaide prent vir die warmkol.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Maal"
+        },
+        {
+          "label": "Toets"
+        },
+        {
+          "label": "Vraag"
+        },
+        {
+          "label": "Inligting"
+        },
+        {
+          "label": "Uitroepteken"
+        }
+      ]
+    },
+    {
+      "label": "Opgelaaide prent",
+      "description": "Gebruik jou eie prent vir die warmkolprent.<br />75px by 75px word aanbeveel vir die prentgrote."
+    },
+    {
+      "label": "Warmkol kleur",
+      "description": "Die kleur van die warmkol"
+    },
+    {
+      "entity": "warmkol",
+      "label": "Warmkolle",
+      "field": {
+        "label": "Warmkol",
+        "fields": [
+          {
+            "label": "Warmkol plasing",
+            "description": "Klik op die miniatuurbeeld om die warmkol te plaas"
+          },
+          {
+            "label": "Bedek die hele agtergrondprent",
+            "description": "Wanneer die gebruiker op die warmkol klik, sal die opblaasbeeld die hele agtergrondbeeld dek"
+          },
+          {
+            "label": "Hoofopskrif",
+            "description": "Opsionele opblaasbeeld vir die hoofopskrif"
+          },
+          {
+            "label": "Opblaasbeeld inhoud",
+            "field": {
+              "label": "Inhouditem"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Warmkoletiket vir hulptegnologieë",
+      "default": "Warmkol #num",
+      "description": "Dit sal help om aan te kondig na watter warmkol-element u navigeer het as daar geen hoofopskriftekst vir 'n warmkol is nie. #num kan gebruik word om die warmkol-nommer te vervang."
+    },
+    {
+      "label": "Sluitingsknoppie-etiket vir hulptegnologieë",
+      "default": "Sluit"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Fonts de vídeo",
+      "description": "Per assegurar-vos que el vídeo funciona en tots els navegadors, heu d’afegir els orígens en format WebM i MP4."
+    },
+    {
+      "label": "Elements visuals",
+      "fields": [
+        {
+          "label": "Imatge de pòster"
+        },
+        {
+          "label": "Ajusta el reproductor de vídeo perquè ocupi tot l’espai disponible",
+          "description": "Si no està establert, el reproductor de vídeo tindrà la mateixa relació d’aspecte que el vídeo."
+        },
+        {
+          "label": "Mostra els controls del reproductor de vídeo",
+          "description": "Afegeix controls al reproductor de vídeo. Això permet als usuaris iniciar el vídeo, fer pausa, etc."
+        }
+      ]
+    },
+    {
+      "label": "Reproducció",
+      "fields": [
+        {
+          "label": "Reprodueix automàticament el vídeo",
+          "description": "El vídeo començarà a reproduir-se automàticament. Pot ser que no funcioni en dispositius mòbils."
+        },
+        {
+          "label": "Repeteix el vídeo",
+          "description": "Torna a iniciar automàticament el vídeo quan acabi."
+        }
+      ]
+    },
+    {
+      "label": "Localització del vídeo",
+      "fields": [
+        {
+          "label": "Nom",
+          "default": "Video",
+          "description": "Ajuda a identificar el contingut d’aquest estil."
+        },
+        {
+          "label": "S’està carregant",
+          "default": "S’està carregant el reproductor de vídeo..."
+        },
+        {
+          "label": "No s’ha trobat cap reproductor",
+          "default": "No s’ha trobat cap reproductor de vídeo que admeti el format de vídeo indicat."
+        },
+        {
+          "label": "Sense orígens",
+          "default": "El vídeo no disposa d’orígens."
+        },
+        {
+          "label": "Cancel·lada",
+          "default": "La preproducció multimèdia s’ha cancel·lat."
+        },
+        {
+          "label": "Ha fallat la xarxa",
+          "default": "Ha fallat la xarxa."
+        },
+        {
+          "label": "No es pot descodificar l’origen del vídeo",
+          "default": "No s’ha pogut descodificar el fitxer."
+        },
+        {
+          "label": "Format no admès",
+          "default": "El format de vídeo no és compatible."
+        },
+        {
+          "label": "Multimèdia encriptat",
+          "default": "Contingut encriptat."
+        },
+        {
+          "label": "Error desconegut",
+          "default": "Error desconegut."
+        },
+        {
+          "label": "ID de YouTube invàlid",
+          "default": "ID de YouTube invàlid."
+        },
+        {
+          "label": "Identificador de YouTube desconegut",
+          "default": "No es troba el vídeo amb l’identificador de YouTube indicat."
+        },
+        {
+          "label": "Vídeo de YouTube restringit",
+          "default": "El propietari d’aquest vídeo no permet inserir-lo."
+        }
+      ]
+    },
+    {
+      "label": "Accessibilitat",
+      "fields": [
+        {
+          "label": "Afegeix una pista de vídeo",
+          "entity": "Pista",
+          "field": {
+            "label": "Pista",
+            "fields": [
+              {
+                "label": "Etiqueta de la pista"
+              },
+              {
+                "label": "Tipus; consulteu <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Subtítols"
+                  },
+                  {
+                    "label": "Peus de recurs"
+                  },
+                  {
+                    "label": "Descripcions"
+                  },
+                  {
+                    "label": "Capítols"
+                  }
+                ]
+              },
+              {
+                "label": "Idioma d’origen; cal definir-lo per als subtítols",
+                "description": "Ha de ser una etiqueta d’idioma BCP 47 vàlida. Si el tipus d’atribut s’estableix en subtítols, cal definir l’atribut srclang."
+              },
+              {
+                "label": "Fitxer de la pista (WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

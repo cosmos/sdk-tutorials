@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "背景圖片",
+      "description": "背景要顯示的圖片。"
+    },
+    {
+      "label": "替代文字",
+      "description": "當瀏覽器無法載入圖片時會顯示的文字，也用來作為視障者的輔助工具。"
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "熱點顏色",
+      "description": "熱點要顯示的顏色。"
+    },
+    {
+      "entity": "hotspot",
+      "label": "所有熱點",
+      "field": {
+        "label": "熱點",
+        "fields": [
+          {
+            "label": "熱點位置",
+            "description": "在縮圖上點擊以放置熱點。"
+          },
+          {
+            "label": "彈出視窗佈滿整個背景圖片",
+            "description": "當用戶點擊熱點時，彈出的視窗會與背景圖片的尺寸一致。"
+          },
+          {
+            "label": "彈出視窗標題文字",
+            "description": "彈出視窗上顯示的標題。"
+          },
+          {
+            "label": "彈出視窗內文文字",
+            "field": {
+              "label": "項目"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "熱點輔助說明",
+      "default": "Hotspot #num",
+      "description": "如果熱點沒有設定標題，這可以用來幫助說明熱點。#num 參數為熱點的自動編號。"
+    },
+    {
+      "label": "視窗關閉輔助文字",
+      "default": "關閉"
+    }
+  ]
+}

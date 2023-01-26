@@ -1,0 +1,36 @@
+{
+  "semantics":[
+    {
+      "label":"Taulers",
+      "entity":"tauler",
+      "field":{
+        "label":"Contingut",
+        "entity":"contingut",
+        "fields":[
+          {
+            "label":"Títol"
+          },
+          {
+            "label":"Contingut type",
+            "entity":"contingut"
+          }
+        ]
+      }
+    },
+    {
+      "label":"Identificadors H per a les etiquetes (no afecta la mida de l’etiqueta)",
+      "description":"Identificador H que s’utilitza a les etiquetes. Normalment és H2, però si es mostra a sota d’un encapçalament H2, cal fer servir H3. L’identificador no afecta la mida de les etiquetes; només té finalitats semàntiques.",
+      "options":[
+        {
+          "label":"H2"
+        },
+        {
+          "label":"H3"
+        },
+        {
+          "label":"H4"
+        }
+      ]
+    }
+  ]
+}

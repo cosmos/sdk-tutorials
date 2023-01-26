@@ -1,0 +1,136 @@
+{
+  "semantics": [
+    {
+      "label": "Ficheiros de vídeo",
+      "description": "Para assegurar que todos os navegadores suportem o vídeo, deve fazer o upload de ambos os formatos: WebM e MP4."
+    },
+    {
+      "label": "Visuais",
+      "fields": [
+        {
+          "label": "Imagem de capa"
+        },
+        {
+          "label": "Encaixar o leitor de vídeo para ocupar todo o espaço disponível",
+          "description": "Se desativado, o leitor terá o mesmo tamanho do vídeo fornecido."
+        },
+        {
+          "label": "Mostrar controlos do leitor de vídeo",
+          "description": "Adiciona controlos ao leitor de vídeo. Permite que o utilizador reproduza o vídeo, faça pausa, etc."
+        }
+      ]
+    },
+    {
+      "label": "Reprodução",
+      "fields": [
+        {
+          "label": "Reprodução automática do vídeo",
+          "description": "O vídeo é reproduzido automaticamente. Pode não funcionar em dispositivos móveis."
+        },
+        {
+          "label": "Repetição do vídeo",
+          "description": "Reproduz novamenete o vídeo após terminar."
+        }
+      ]
+    },
+    {
+      "label": "Localização do vídeo",
+      "fields": [
+        {
+          "label": "Nome",
+          "default": "Vídeo",
+          "description": "Ajuda a identificar conteúdo deste tipo."
+        },
+        {
+          "label": "A carregar",
+          "default": "A carregar o leitor de vídeo..."
+        },
+        {
+          "label": "Nenhum leitor encontrado",
+          "default": "Nenhum leitor de vídeo foi encontrado para o formato fornecido."
+        },
+        {
+          "label": "Sem fontes",
+          "default": "Vídeo não possui fonte."
+        },
+        {
+          "label": "Cancelado",
+          "default": "A reprodução foi cancelada."
+        },
+        {
+          "label": "Falha na ligação",
+          "default": "Falha de ligação."
+        },
+        {
+          "label": "Não foi possível descodificar o ficheiro",
+          "default": "Não foi possível descodificar o ficheiro multimédia."
+        },
+        {
+          "label": "Formato não suportado",
+          "default": "Formato de vídeo não suportado."
+        },
+        {
+          "label": "Ficheiro protegido",
+          "default": "Ficheiro multimédia protegido."
+        },
+        {
+          "label": "Erro desconhecido",
+          "default": "Erro desconhecido."
+        },
+        {
+          "label": "ID do YouTube inválido",
+          "default": "ID do YouTube inválido."
+        },
+        {
+          "label": "ID do YouTube desconhecido",
+          "default": "Não foi possível encontrar o vídeo com o ID fornecido."
+        },
+        {
+          "label": "Vídeo de YouTube restrito",
+          "default": "O proprietário deste vídeo não permite que seja incorporado."
+        }
+      ]
+    },
+    {
+      "label": "Acessibilidade",
+      "fields": [
+        {
+          "label": "Adicionar faixa de vídeo",
+          "entity": "Faixa",
+          "field": {
+            "label": "Faixa",
+            "fields": [
+              {
+                "label": "Rótulo da faixa"
+              },
+              {
+                "label": "Tipo de categoria, refere-se a <a target=\"_blank\" href=\"https://html.spec.whatwg.org/multipage/embedded-content.html#the-track-element\">HTML living standard</a>",
+                "options": [
+                  {
+                    "label": "Legendas"
+                  },
+                  {
+                    "label": "Legendas (Acessibilidade)"
+                  },
+                  {
+                    "label": "Descrições"
+                  },
+                  {
+                    "label": "Capítulos"
+                  }
+                ]
+              },
+              {
+                "label": "Idioma da fonte, deve ser definido para as legendas",
+                "description": "Deve ser um rótulo de linguagem BCP 47 válido. Se 'Legendas' é o tipo de faixa de texto seleciondo, a linguagem fonte da faixa de texto deve ser definida."
+              },
+              {
+                "label": "Fonte da faixa (ficheiro WebVTT)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

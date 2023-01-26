@@ -1,0 +1,261 @@
+{
+  "semantics": [
+    {
+      "label": "Quiz introduction",
+      "fields": [
+        {
+          "label": "Display introduction"
+        },
+        {
+          "label": "Title",
+          "description": "This title will be displayed above the introduction text."
+        },
+        {
+          "label": "Giriş metni",
+          "description": "This text will be displayed before the quiz starts."
+        },
+        {
+          "label": "Start button text",
+          "default": "Start Quiz"
+        },
+        {
+          "label": "Background image",
+          "description": "An optional background image for the introduction."
+        }
+      ]
+    },
+    {
+      "label": "Background image",
+      "description": "An optional background image for the Question set."
+    },
+    {
+      "label": "Progress indicator",
+      "description": "Question set progress indicator style.",
+      "options": [
+        {
+          "label": "Metin"
+        },
+        {
+          "label": "Dots"
+        }
+      ]
+    },
+    {
+      "label": "Geçiş yüzdesi",
+      "description": "Quizi geçmek için gerekli toplam puan yüzdesi."
+    },
+    {
+      "label": "Questions",
+      "widgets": [
+        {
+          "label": "Varsayılan"
+        },
+        {
+          "label": "Metin"
+        }
+      ],
+      "entity": "question",
+      "field": {
+        "label": "Question type",
+        "description": "Library for this question."
+      }
+    },
+    {
+      "label": "Interface texts in quiz",
+      "fields": [
+        {
+          "label": "Back button",
+          "default": "Previous question"
+        },
+        {
+          "label": "Next button",
+          "default": "Next question"
+        },
+        {
+          "label": "Finish button",
+          "default": "Bitir"
+        },
+        {
+          "label": "Progress text",
+          "description": "Text used if textual progress is selected.",
+          "default": "Question: @current of @total questions"
+        },
+        {
+          "label": "Label for jumping to a certain question",
+          "description": "You must use the placeholder '%d' instead of the question number, and %total instead of total amount of questions.",
+          "default": "Question %d of %total"
+        },
+        {
+          "label": "Copyright dialog question label",
+          "default": "Soru"
+        },
+        {
+          "label": "Readspeaker progress",
+          "description": "May use @current and @total question variables",
+          "default": "Question @current of @total"
+        },
+        {
+          "label": "Unanswered question text",
+          "default": "Unanswered"
+        },
+        {
+          "label": "Answered question text",
+          "default": "Answered"
+        },
+        {
+          "label": "Current question text",
+          "default": "Current question"
+        }
+      ]
+    },
+    {
+      "label": "Disable backwards navigation",
+      "description": "This option will only allow you to move forward in Question Set"
+    },
+    {
+      "label": "Randomize questions",
+      "description": "Soruları sırasını ekranda rasgele gelmesi için etkinleştirin."
+    },
+    {
+      "label": "Number of questions to be shown:",
+      "description": "Create a randomized batch of questions from the total."
+    },
+    {
+      "label": "Quiz finished",
+      "fields": [
+        {
+          "label": "Display results"
+        },
+        {
+          "label": "Display solution button"
+        },
+        {
+          "label": "Display retry button"
+        },
+        {
+          "label": "No results message",
+          "description": "Text displayed on end page when \"Display results\" is disabled",
+          "default": "Finished"
+        },
+        {
+          "label": "Feedback heading",
+          "default": "Your result:",
+          "description": "This heading will be displayed at the end of the quiz when the user has answered all questions."
+        },
+        {
+          "label": "Overall Feedback",
+          "fields": [
+            {
+              "widgets": [
+                {
+                  "label": "Default"
+                }
+              ],
+              "label": "Define custom feedback for any score range",
+              "description": "Example: 0-20% Bad score, 21-91% Average Score, 91-100% Great Score!",
+              "entity": "range",
+              "field": {
+                "fields": [
+                  {
+                    "label": "Score Range"
+                  },
+                  {},
+                  {
+                    "label": "Feedback for defined score range",
+                    "placeholder": "Fill in the feedback"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "label": "Old Feedback",
+          "fields": [
+            {
+              "label": "Quiz passed greeting",
+              "description": "This text will be displayed above the score if the user has successfully passed the quiz."
+            },
+            {
+              "label": "Passed comment",
+              "description": "This comment will be displayed after the score if the user has successfully passed the quiz."
+            },
+            {
+              "label": "Quiz failed title",
+              "description": "This text will be displayed above the score if the user has failed the quiz."
+            },
+            {
+              "label": "Failed comment",
+              "description": "This comment will be displayed after the score if the user has failed the quiz."
+            }
+          ]
+        },
+        {
+          "label": "Solution button label",
+          "default": "Çözümü göster",
+          "description": "Text for the solution button."
+        },
+        {
+          "label": "Yeniden dene buton etiketi",
+          "default": "Yeniden dene",
+          "description": "Text for the retry button."
+        },
+        {
+          "label": "Finish button text",
+          "default": "Bitir"
+        },
+        {
+          "label": "Display video before quiz results"
+        },
+        {
+          "label": "Enable skip video button"
+        },
+        {
+          "label": "Skip video button label",
+          "default": "Skip video"
+        },
+        {
+          "label": "Passed video",
+          "description": "This video will be played if the user successfully passed the quiz."
+        },
+        {
+          "label": "Fail video",
+          "description": "This video will be played if the user fails the quiz."
+        }
+      ]
+    },
+    {
+      "label": "Settings for \"Show solution\" and \"Retry\" buttons",
+      "fields": [
+        {
+          "label": "Show \"Check\" buttons",
+          "description": "This option determines if the \"Check\" button will be shown for all questions."
+        },
+        {
+          "label": "Override \"Show Solution\" button",
+          "description": "This option determines if the \"Show Solution\" button will be shown for all questions, disabled for all or configured for each question individually.",
+          "options": [
+            {
+              "label": "Enabled"
+            },
+            {
+              "label": "Disabled"
+            }
+          ]
+        },
+        {
+          "label": "Override \"Retry\" button",
+          "description": "This option determines if the \"Retry\" button will be shown for all questions, disabled for all or configured for each question individually.",
+          "options": [
+            {
+              "label": "Enabled"
+            },
+            {
+              "label": "Disabled"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

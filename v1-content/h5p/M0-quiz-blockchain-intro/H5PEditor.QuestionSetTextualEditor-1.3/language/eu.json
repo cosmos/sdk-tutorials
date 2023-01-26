@@ -1,0 +1,8 @@
+{
+  "libraryStrings": {
+    "helpText": "Erabili lerro huts bat galdera bakoitza bereizteko. Aukera anitzekoan, lehen lerroa galdera da eta hurrengo lerroak erantzuteko aukerak dira. Aukera zuzenak asterisko batez (*) markaturik daudenak dira, argibideak eta feedbacka ere gehitu daitezke: *aukera:argibidea:feedbacka aukeratua badago :feedbacka aukeratua ez badago. Adibidea:",
+    "example": "Zein zenbaki da PI?\n*3.14\n9.82\n\nZenbat da 4 * 0?\n1\n4\n*0",
+    "warning": "Kontuz! Testu editorean zereginak aldatzen badituzu, testu aberastuko formatuak (lerro jauziak barne) ezabatuko dira.",
+    "unknownQuestionType": "Galdera ez editagarria."
+  }
+}

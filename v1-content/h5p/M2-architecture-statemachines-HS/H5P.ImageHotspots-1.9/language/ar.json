@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "صورة الخلفية",
+      "description": "الصورة التي تظهر على الخلفية."
+    },
+    {
+      "label": "لون نقطة الاتصال",
+      "description": "لون نقاط الاتصال"
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "نقاط الاتصال",
+      "description": "لون نقاط الاتصال"
+    },
+    {
+      "entity": "hotspot",
+      "label": "نقاط الاتصال",
+      "field": {
+        "label": "نقطة اتصال",
+        "fields": [
+          {
+            "label": "موضع نقطة الاتصال",
+            "description": "انقر على الصورة المصغرة لمكان نقطة الاتصال"
+          },
+          {
+            "label": "تغطية صورة الخلفية بأكملها",
+            "description": "عندما ينقر المستخدم على نقطة الاتصال ، ستغطي النافذة المنبثقة صورة الخلفية بأكملها"
+          },
+          {
+            "label": "الترويسة",
+            "description": "ترويسة اختيارية للنوافذ المنبثقة"
+          },
+          {
+            "label": "محتوى منبثق",
+            "field": {
+              "label": "عنصر المحتوى"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "تسمية نقاط الاتصال من اجل التقنيات المساعدة",
+      "default": "Hotspot #num",
+      "description": "سيساعد في الإعلان عن عنصر نقطة الاتصال التي تم الانتقال إليها إذا لم يكن هناك عنوان محدد لنقطة اتصال. #num يمكن استخدامه لاستبدال رقم نقطة الاتصال."
+    },
+    {
+      "label": "تسمية زر الاغلاق من اجل التقنيات المساعدة",
+      "default": "Close"
+    }
+  ]
+}

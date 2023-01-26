@@ -1,0 +1,209 @@
+[
+  {
+    "label": "Background image",
+    "importance": "high",
+    "name": "image",
+    "type": "image",
+    "description": "Image shown on background."
+  },
+  {
+    "name": "backgroundImageAltText",
+    "type": "text",
+    "label": "Alternative text for background image",
+    "description": "If the browser can't load the image this text will be displayed instead. Also used by assistive technologies.",
+    "optional": true
+  },
+  {
+    "name": "iconType",
+    "type": "select",
+    "label": "Hotspot Icon",
+    "options": [
+      {
+        "value": "icon",
+        "label": "Predefined icon"
+      },
+      {
+        "value": "image",
+        "label": "Uploaded image"
+      }
+    ],
+    "default": "icon"
+  },
+  {
+    "name": "icon",
+    "type": "select",
+    "label": "Predefined icon",
+    "importance": "medium",
+    "description": "Using a predefined icon for the hotspot.",
+    "widget": "showWhen",
+    "showWhen": {
+      "rules": [
+        {
+          "field": "iconType",
+          "equals": [
+            "icon"
+          ]
+        }
+      ]
+    },
+    "options": [
+      {
+        "value": "plus",
+        "label": "Plus"
+      },
+      {
+        "value": "minus",
+        "label": "Minus"
+      },
+      {
+        "value": "times",
+        "label": "Times"
+      },
+      {
+        "value": "check",
+        "label": "Check"
+      },
+      {
+        "value": "question",
+        "label": "Question"
+      },
+      {
+        "value": "info",
+        "label": "Info"
+      },
+      {
+        "value": "exclamation",
+        "label": "Exclamation"
+      }
+    ],
+    "default": "plus"
+  },
+  {
+    "name": "iconImage",
+    "type": "image",
+    "label": "Uploaded image",
+    "optional": false,
+    "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image.",
+    "widget": "showWhen",
+    "showWhen": {
+      "rules": [
+        {
+          "field": "iconType",
+          "equals": [
+            "image"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "color",
+    "type": "text",
+    "label": "Hotspot color",
+    "importance": "medium",
+    "description": "The color of the hotspots",
+    "optional": true,
+    "default": "#981d99",
+    "widget": "showWhen",
+    "spectrum": {
+      "showInput": true
+    },
+    "showWhen": {
+      "widget": "colorSelector",
+      "rules": [
+        {
+          "field": "iconType",
+          "equals": [
+            "icon"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "hotspots",
+    "type": "list",
+    "entity": "hotspot",
+    "label": "Hotspots",
+    "importance": "high",
+    "min": 1,
+    "defaultNum": 1,
+    "field": {
+      "name": "hotspot",
+      "type": "group",
+      "label": "Hotspot",
+      "importance": "high",
+      "fields": [
+        {
+          "name": "position",
+          "type": "group",
+          "widget": "imageCoordinateSelector",
+          "imageFieldPath": "../../image",
+          "label": "Hotspot position",
+          "importance": "high",
+          "description": "Click on the thumbnail image to place the hotspot",
+          "fields": [
+            {
+              "name": "x",
+              "type": "number"
+            },
+            {
+              "name": "y",
+              "type": "number"
+            },
+            {
+              "name": "legacyPositioning",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "name": "alwaysFullscreen",
+          "type": "boolean",
+          "label": "Cover entire background image",
+          "importance": "low",
+          "description": "When the user clicks the hotspot the popup will cover the entire background image"
+        },
+        {
+          "name": "header",
+          "type": "text",
+          "label": "Header",
+          "importance": "low",
+          "description": "Optional header for the popup",
+          "optional": true
+        },
+        {
+          "name": "content",
+          "type": "list",
+          "label": "Popup content",
+          "importance": "medium",
+          "field": {
+            "name": "action",
+            "type": "library",
+            "label": "Content Item",
+            "options": [
+              "H5P.Text 1.1",
+              "H5P.Video 1.5",
+              "H5P.Image 1.1"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "hotspotNumberLabel",
+    "type": "text",
+    "label": "Hotspot label for assistive technologies",
+    "default": "Hotspot #num",
+    "description": "Will help announce what hotspot element has been navigated to if there is no header specified for a hotspot. #num can be used to replace the hotspot number.",
+    "common": true
+  },
+  {
+    "name": "closeButtonLabel",
+    "type": "text",
+    "label": "Close button label for assistive technologies",
+    "default": "Close",
+    "common": true
+  }
+]

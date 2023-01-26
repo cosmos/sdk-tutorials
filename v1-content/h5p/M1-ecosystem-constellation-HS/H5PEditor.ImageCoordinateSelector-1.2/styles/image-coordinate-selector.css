@@ -1,0 +1,58 @@
+.image-coordinate-selector {
+  max-width: 250px;
+  position: relative;
+  margin: .5em 0;
+
+  -webkit-box-shadow: 0 0 10px 0 #666666;
+  -moz-box-shadow: 0 0 10px 0 #666666;
+  box-shadow: 0 0 10px 0 #666666;
+  border: 1px solid #fff;
+  transition: max-width 0.4s;
+}
+.image-coordinate-selector.image-coordinate-wider {
+  max-width: 100%;
+}
+.imageCoordinateSelector.no-image .image-coordinate-selector {
+  display: none;
+}
+.image-coordinate-selector > img {
+  width: 100%;
+  cursor: crosshair;
+}
+.image-coordinate-resizer {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.image-coordinate-hotspot {
+  display: none;
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #333;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-shadow: 0px 0px 0px 2px rgba(255,255,255,0.9);
+  background-color: rgba(51,255,0,0);
+  cursor: crosshair;
+
+  -webkit-animation: hotspot-blink 1.5s infinite;
+  -moz-animation:    hotspot-blink 1.5s infinite;
+  -o-animation:      hotspot-blink 1.5s infinite;
+  animation:         hotspot-blink 1.5s infinite;
+}
+
+@-webkit-keyframes hotspot-blink {
+  50% {background-color: rgba(51,255,0,0.7);}
+}
+@-moz-keyframes hotspot-blink {
+  50% {background-color: rgba(51,255,0,0.7);}
+}
+@-o-keyframes hotspot-blink {
+  50% {background-color: rgba(51,255,0,0.7);}
+}
+@keyframes hotspot-blink {
+  50% {background-color: rgba(51,255,0,0.7);}
+}

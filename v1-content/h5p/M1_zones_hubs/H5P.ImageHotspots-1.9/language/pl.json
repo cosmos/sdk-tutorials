@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Zdjęcie w tle",
+      "description": "Zdjęcie, które jest pokazywane w tle"
+    },
+    {
+      "label": "Tekst alternatywny dla zdjęcia w tle",
+      "description": "Gdy przeglądarka nie będzie mogła załadować zdjęcia, ten tekst zostanie wyświetlony zamiast niego."
+    },
+    {
+      "label": "Ikona znacznika",
+      "options": [
+        {
+          "label": "Dostępne ikony"
+        },
+        {
+          "label": "Wgrane zdjęcie"
+        }
+      ]
+    },
+    {
+      "label": "Dostępne ikony",
+      "description": "Użyj jednej z dostępnych ikon dla znacznika.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Czas"
+        },
+        {
+          "label": "Potwierdzenie"
+        },
+        {
+          "label": "Znak zapytania"
+        },
+        {
+          "label": "Informacje"
+        },
+        {
+          "label": "Wykrzynik"
+        }
+      ]
+    },
+    {
+      "label": "Wgrane zdjęcie",
+      "description": "Użyj własnego obrazu jako ikony znacznika. <br /> Zalecane jest zdjęcie w rozdzielczości 75 na 75 pikseli."
+    },
+    {
+      "label": "Kolor znacznika",
+      "description": "Kolor, który będą mieć wszystkie znaczniki"
+    },
+    {
+      "entity": "znacznik",
+      "label": "Znaczniki",
+      "field": {
+        "label": "Znacznik",
+        "fields": [
+          {
+            "label": "Pozycja znacznika",
+            "description": "Kliknij na zdjęcie aby dodać znacznik"
+          },
+          {
+            "label": "Pokryj całe zdjecie w tle",
+            "description": "Kiedy użytkownik kliknie na znacznik, popup pokryje całe zdjęcie w tle."
+          },
+          {
+            "label": "Nagłówek",
+            "description": "Opcjonalny nagłówek dla popupu"
+          },
+          {
+            "label": "Zawartość popupu.",
+            "field": {
+              "label": "Zawartość"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Etykieta znacznika dla technologii wspomagających niewidomych",
+      "default": "Znacznik #num",
+      "description": "Pomoże ogłosić, do którego znacznika przeszedł użytkownik oraz, który popup został właśnie otwarty"
+    },
+    {
+      "label": "Etykieta przycisku dla technologii wspomagających niewidomych",
+      "default": "Zamknij"
+    }
+  ]
+}

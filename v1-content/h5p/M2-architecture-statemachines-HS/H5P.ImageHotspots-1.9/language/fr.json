@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Image d'arrière-plan",
+      "description": "Image affichée en arrière-plan."
+    },
+    {
+      "label": "Texte alternatif pour l'image d'arrière-plan",
+      "description": "Si le navigateur ne peut pas charger l'image, ce texte sera affiché à la place. Également utilisé par les technologies d'accessibilité."
+    },
+    {
+      "label": "Hotspot Icon",
+      "options": [
+        {
+          "label": "Predefined icon"
+        },
+        {
+          "label": "Uploaded image"
+        }
+      ]
+    },
+    {
+      "label": "Predefined icon",
+      "description": "Using a predefined icon for the hotspot.",
+      "options": [
+        {
+          "label": "Plus"
+        },
+        {
+          "label": "Minus"
+        },
+        {
+          "label": "Times"
+        },
+        {
+          "label": "Check"
+        },
+        {
+          "label": "Question"
+        },
+        {
+          "label": "Info"
+        },
+        {
+          "label": "Exclamation"
+        }
+      ]
+    },
+    {
+      "label": "Uploaded image",
+      "description": "Use your own image for the hotspot icon.<br />75px by 75px is recommended for your image."
+    },
+    {
+      "label": "Couleur de la puce cliquable",
+      "description": "Couleur des puces cliquables (en code hexadécimal)."
+    },
+    {
+      "entity": "Puces cliquables",
+      "label": "Puce cliquable",
+      "field": {
+        "label": "Puce cliquable",
+        "fields": [
+          {
+            "label": "Position de la puce cliquable",
+            "description": "Cliquez sur la miniature pour positionner la puce cliquable."
+          },
+          {
+            "label": "Recouvrir toute l'image d'arrière-plan",
+            "description": "Quand l'utilisateur cliquera sur la puce cliquable, le popup recouvrira toute l'image d'arrière-plan."
+          },
+          {
+            "label": "Titre",
+            "description": "Titre facultatif du popup."
+          },
+          {
+            "label": "Contenu du popup",
+            "field": {
+              "label": "Type de contenu"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Intitulé de la puce cliquable pour les technologies d'accessibilité",
+      "default": "Puce #num",
+      "description": "Permet d'annoncer à quelle puce l'utilisateur est parvenu à naviguer s'il n'y a pas de titre spécifié pour cette puce. #num peut être utilisé pour remplacer le numéro de la puce."
+    },
+    {
+      "label": "Intitulé du bouton \"Fermer\" pour les technologies d'accessibilité",
+      "default": "Fermer"
+    }
+  ]
+}

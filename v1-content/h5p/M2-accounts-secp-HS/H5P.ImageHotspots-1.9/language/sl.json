@@ -1,0 +1,94 @@
+{
+  "semantics": [
+    {
+      "label": "Slika za ozadje",
+      "description": "Slika je prikazana v ozadju aktivnosti."
+    },
+    {
+      "label": "Neobvezno besedilo za sliko ozadja",
+      "description": "Besedilo je prikazano v primeru, ko slike ni mogoče naložiti. Uporabljajo ga tudi bralniki zaslona."
+    },
+    {
+      "label": "Ikona interaktivne točke",
+      "options": [
+        {
+          "label": "Prednastavljena ikona"
+        },
+        {
+          "label": "Naložena slika"
+        }
+      ]
+    },
+    {
+      "label": "Prednastavljena ikona",
+      "description": "Izbira iz galerije prednastavljenih ikon.",
+      "options": [
+        {
+          "label": "+"
+        },
+        {
+          "label": "-"
+        },
+        {
+          "label": "x"
+        },
+        {
+          "label": "kljukica"
+        },
+        {
+          "label": "?"
+        },
+        {
+          "label": "i"
+        },
+        {
+          "label": "!"
+        }
+      ]
+    },
+    {
+      "label": "Naložena slika",
+      "description": "Kot ikono je možno naložiti poljubno sliko.<br />Priporočena velikost slike je 75 x 75 px."
+    },
+    {
+      "label": "Barva interaktivne točke",
+      "description": "Barva se izbere v barvni paleti ali z vpisom oznake barve."
+    },
+    {
+      "entity": "interaktivna točka",
+      "label": "Interaktivne točke",
+      "field": {
+        "label": "Interaktivna točka",
+        "fields": [
+          {
+            "label": "Položaj interaktivne točke",
+            "description": "Položaj posamezne točke se določi s klikom na želeno mesto na sličici."
+          },
+          {
+            "label": "Prekrij celotno sliko ozadja",
+            "description": "Ob kliku na točko, bo pojavno okno prekrilo celotno sliko ozadja."
+          },
+          {
+            "label": "Glava pojavnega okna",
+            "description": "Neobvezno. Besedilo se bo pokazalo v pojavnem oknu."
+          },
+          {
+            "label": "Vsebina pojavnega okna",
+            "field": {
+              "label": "Element z vsebino"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "Oznaka interaktivne točke za bralnike zaslona",
+      "default": "Interaktivna točka #num",
+      "description": "Besedilo je v pomoč bralniku zaslona, ko za vsebino v točkah niso dodane glave. Spremenljivka je #num."
+    },
+    {
+      "label": "Besedilo gumba Zapri za bralnike zaslona",
+      "default": "Zapri"
+    }
+  ]
+}
