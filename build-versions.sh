@@ -4,7 +4,7 @@ VERSIONS_FILE="./versions.txt"
 export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
 if [ -z "${VERSIONS_BUILD_PATH}" ]; then
-    export VERSIONS_BUILD_PATH="/tmp/versions-build"
+    export VERSIONS_BUILD_PATH="/tmp/versions-build/"
 fi
 
 echo -e "\nBuild platform versions start\n"
