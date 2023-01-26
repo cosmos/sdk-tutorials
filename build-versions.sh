@@ -1,4 +1,5 @@
 #!/bin/bash
+
 VERSIONS_FILE="./versions.txt"
 export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
