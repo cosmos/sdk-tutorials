@@ -4,7 +4,7 @@ VERSIONS_FILE="./versions.txt"
 export DOCS_VERSIONS=$(cat "$VERSIONS_FILE")
 
 if [ -z "${VERSIONS_BUILD_PATH}" ]; then
-    export VERSIONS_BUILD_PATH="/tmp/version-build"
+    export VERSIONS_BUILD_PATH="/tmp/versions-build"
 fi
 
 echo -e "\nBuild platform versions start\n"
@@ -27,5 +27,10 @@ for branch in $versions; do \
     echo "Move generated files to ${VERSIONS_BUILD_PATH}/${branch}/ folder"
     mkdir -p "${VERSIONS_BUILD_PATH}${branch}" && cp -r .vuepress/dist/* "${VERSIONS_BUILD_PATH}${branch}" ; \
 done
+
+echo -e "\nCopy files back into repo folder\n"
+
+mkdir -p .vuepress/dist/versions-build
+cp -r $VERSIONS_BUILD_PATH/* .vuepress/dist/versions-build/
 
 echo -e "\nBuild platform versions end\n"
