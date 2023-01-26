@@ -1,20 +1,20 @@
 <template lang="pug">
     .content
         h1.tm-title.tm-lh-title.tm-rf6.tm-bold Developer Portal
-        a(href="/academy/0-welcome")
+        a(:href="$withBase('/academy/0-welcome')")
             card.mt-9(imageUrl="/graphics-sdk-course.png")
                 .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted beginner
                 h2.mt-1 Cosmos Academy
                 //- .info-label.tm-lh-title.tm-rf-1.tm-muted ~126 Hours
 
                 .content__intro__desc.tm-measure-narrow.tm-lh-copy.tm-muted Want to discover how to use the Cosmos SDK to build application-specific blockchains? Take your first steps in the Cosmos universe with a look into this complete and comprehensive course.
-                a(href="/academy/0-welcome").tm-button.mt-7.mb-5.tm-button-disclosure
+                a(:href="$withBase('/academy/0-welcome')").tm-button.mt-7.mb-5.tm-button-disclosure
                     span Start learning
 
         .tutorials__wrapper.mt-10(v-if="$frontmatter.tutorials")
             h3.tm-title.tm-lh-title.tm-rf3.tm-bold Tutorials
             .tutorials
-                a.tutorials__item__small(v-for="tutorial in $frontmatter.tutorials")(:href="tutorial.url")
+                a.tutorials__item__small(v-for="tutorial in $frontmatter.tutorials")(:href="tutorial.url && $withBase(tutorial.url)")
                     card
                         .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted {{tutorial.level}}
                         h4.mt-7 {{tutorial.title}}
@@ -26,7 +26,7 @@
             .articles.mt-8
                 .articles__item(v-for="article in $frontmatter.articles")
                     a.articles__item__container(:href="article.url" target="_blank")
-                        .articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+                        .articles__item__image(v-bind:style="{'background-image': `url(${article.image && $withBase(article.image)})`}")
                         .articles__item__content
                             .tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
                             h4.articles__item__content__title.mx-5 {{article.title}}

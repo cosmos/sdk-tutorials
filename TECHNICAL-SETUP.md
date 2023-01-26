@@ -154,13 +154,14 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 ### Vuepress features and issues
 
 
-## Platform Variants
+## Platform Variants and Versions
 
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
 * The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
 
+Furthermore, the platform features different _versions_ of the content to be deployed in one platform.
 
 ### Working with Platform Variants
 
@@ -197,6 +198,15 @@ To work on the IDA platform files, starting from a clean `master`:
 2. You can now run `npm run serve` and work on the files as usual.
 3. Once you are done with your updates, stop your server and run `npm run switch-main`. This will move your changes into the `ida-customizations` folder and restore the main platform files.
 4. Add the files in `ida-customizations` to your commit and push to `master`.
+
+
+## Platform versions
+
+There is a version switch drop down at the top right in the navbar which allows the user to view older versions of the content. The versions are linked to specific branches in the repository, defined in the file `versions.txt` in the root folder. This file lists all versions (next to the master) to be build and added to the dropdown, the list is **space-separated**. The version build can be triggered locally by running `make build-website`, which then triggers the `build-versions.sh` script.
+
+Note: versions are deployed as sub-folders in the main dist package, with a different site (path) configuration. Therefore, version branch names must not collide with content folder names.
+
+The build output is collected in `/tmp/versions-build` and finally copied into `.vuepress/dist/versions-build`. You can adjust the temporary build folder by setting `VERSIONS_BUILD_PATH`.
 
 
 # Environments

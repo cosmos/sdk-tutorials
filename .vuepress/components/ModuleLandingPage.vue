@@ -6,9 +6,9 @@
 				h2.home__content__intro__content__title {{intro.title}}
 				.home__content__intro__content__desc(v-html="intro.description" :class="intro.image ? 'tm-measure-narrower' : ''")
 				.home__content__intro__content__links
-					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url")
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7(v-if="intro.action" :href="intro.action.url && $withBase(intro.action.url)")
 						span {{intro.action.label}}
-					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7.resources-link(href="/#developer-resources") Resources
+					a.home__content__intro__content__link.tm-button.tm-button-disclosure.mt-7.resources-link(:href="$withBase('/#developer-resources')") Resources
 			.home__content__overview(v-if="$frontmatter.overview" id="overview")
 				.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted(v-if="$frontmatter.overview.overline") {{$frontmatter.overview.overline}}
 				h2.home__content__overview__title(v-if="$frontmatter.overview.title") {{$frontmatter.overview.title}}
@@ -19,10 +19,10 @@
 			h2(:id="$frontmatter.weekly ? 'weekly-path' : 'course-modules'") {{$frontmatter.weekly ? "Weekly Plan" : "Course Modules"}}
 			card-module(v-for="module in this.modules" v-if="module.title && module.number" :module="module" :main="$frontmatter.main" :weekly="$frontmatter.weekly || false").modules__item
 		.modules-intro__wrapper.mt-10(v-if="$frontmatter.customModules")
-			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'--custom-module-background-image-url': `url(${customModule.image})`, '--custom-module-background-image-light-url': `url(${customModule.imageLightMode || customModule.image})`}")
+			.modules-intro.mb-10(v-for="(customModule, key) in $frontmatter.customModules" :class="{'custom-module-background-image': customModule.image}" :style="{'--custom-module-background-image-url': `url(${customModule.image && $withBase(customModule.image)})`, '--custom-module-background-image-light-url': `url(${(customModule.imageLightMode || customModule.image) && $withBase(customModule.imageLightMode || customModule.image)})`}")
 				h2(v-if="customModule.title") {{customModule.title}}
 				.modules-intro__description.mt-5(v-if="customModule.description") {{customModule.description}}
-				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url")
+				a.tm-button.tm-button-disclosure.mt-7(v-if="customModule.action" :href="customModule.action.url && $withBase(customModule.action.url)")
 					span {{customModule.action.label}}
 				.tags-filter(v-if="$themeConfig.sidebar.filterByTagEnabled && customModule.sections && !customModule.hideFilter")
 					.tags-filter__item(
@@ -58,7 +58,7 @@
 			.articles.mt-8
 				.articles__item(v-for="article in $frontmatter.articles")
 					a.articles__item__container(:href="article.url" target="_blank")
-						.articles__item__image(v-bind:style="{'background-image': `url(${article.image})`}")
+						.articles__item__image(v-bind:style="{'background-image': `url(${article.image && $withBase(article.image)})`}")
 						.articles__item__content
 							.tm-overline.tm-rf-1.tm-lh-title.tm-medium.tm-muted.articles__item__content__date {{article.date}}
 							h4.articles__item__content__title.mx-5 {{article.title}}

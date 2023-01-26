@@ -86,17 +86,18 @@ overview:
   items:
     - title: Is this portal for me?
       description: |
-        This portal offers an overview of the Cosmos SDK, as well as examples and exercises to help developers get a quick start.
+        This portal offers an overview of the Interchain stack (the Cosmos SDK, Ignite, CosmJS, etc.), as well as examples and exercises to help developers get a quick start.
     - title: How should I go through the portal?
       description: |
-        The portal content unfolds the Cosmos universe, beginning with a big picture perspective and getting into how to create your own application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its components, and dApps in Cosmos, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing, such as managing gas fees and cross-chain communication, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
-        You can follow your own path or go through the content chronologically. To follow your own path, select the tags for the subjects you are interested in and all the chapters and sections relating to that subject will be displayed.
+        The portal content unfolds the Cosmos universe, beginning with a big-picture perspective and getting into how to create your application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its concepts, and dApps built on the Interchain stack, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing such as managing gas fees, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
+        You can follow your own path or go through the content chronologically. To follow your own path, select the tags for the subjects you are interested in and all the chapters and sections relating to that subject will be displayed. <br/>
+        Additionally, you can select a version of the portal if you want to explore the content in a specific Interchain stack version. For more information on which stack version is used in the different versions of the portal, please <a href="/versions.html">go to the page on Platform Versions</a>. In general, we do recommend using the most current version.
     - title: What do I need to know?
       description: |
-        For the fast track, you should have a solid understanding of blockchain technology and be familiar with decentralized applications. The deep dives are specially designed for experienced developers.
+        For the conceptual, high-level sections, you should have a solid understanding of blockchain technology and be familiar with decentralized applications. The deep dives are specially designed for experienced developers.
     - title: How long will it take?
       description: |
-        With the overview sections you will gain a solid understanding of Cosmos and its SDK. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
+        With the concept sections, you will gain a solid understanding of Cosmos and the Interchain stack. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
         Welcome to the cosmos!
 
 customModules:
