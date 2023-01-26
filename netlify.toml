@@ -1,2 +1,5 @@
 [context.deploy-preview.environment]
   NPM_VERSION = "8.19.3"
+
+[build]
+  publish = "/tmp/versions-build/"
