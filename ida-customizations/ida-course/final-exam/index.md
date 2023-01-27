@@ -9,8 +9,7 @@ tags:
 
 The Final Exam will be released on **Thursday, February 2nd, 2023**.
 
-<!--
-Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until the **1st of December** and can submit your exam whenever you feel ready. Importantly, the 1st of December is a hard cut-off, and we are not granting extensions.
+Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until the **2nd of March** and can submit your exam whenever you feel ready. Importantly, the 2nd of March is a hard cut-off, and we are not granting extensions.
 
 The exam is composed of two parts:
 
@@ -19,13 +18,13 @@ The exam is composed of two parts:
 
 ## Coding project
 
-An experienced developer can tackle the coding project in 4 hours or less. We have created a repository for you to upload your work on `git.academy.b9lab.com`. You can find your own repository [here](https://git.academy.b9lab.com/ida-p2-final-exam/student-projects). It was forked from [another repository](https://git.academy.b9lab.com/ida-p2-final-exam/exam-code) to which you have read-only access.
+An experienced developer can tackle the coding project in 4 hours or less. We have created a repository for you to upload your work on `git.academy.b9lab.com`. You can find your own repository [here](https://git.academy.b9lab.com/ida-p3-final-exam/student-projects). It was forked from [another repository](https://git.academy.b9lab.com/ida-p3-final-exam/exam-code) to which you have read-only access.
 
 The detailed steps you need to follow are described in a dedicated `readme.md` file.
 
 This server runs a Gitlab instance that we manage internally. It runs a CI/CD pipeline that grades your submission as soon as you push it to your repository. You can push as many times as you want and, we hope, see your score increase with every push (more details are in the `readme`).
 
-Please do not modify the [`.gitlab-ci.yml`](https://git.academy.b9lab.com/ida-p2-final-exam/exam-code/-/blob/main/.gitlab-ci.yml) file, as doing so would invalidate your score.
+Please do not modify the [`.gitlab-ci.yml`](https://git.academy.b9lab.com/ida-p3-final-exam/exam-code/-/blob/main/.gitlab-ci.yml) file, as doing so would invalidate your score.
 
 The coding project counts for 90% of your overall exam score. This means that if the grading pipeline yields the line `FS_SCORE:100%`, then congratulations, you already have reached 90% for the overall exam.
 
@@ -40,7 +39,7 @@ You should have received an email that provides two pieces of information that a
 1. The recipient address.
 2. The origin denomination.
 
-Head [here](https://git.academy.b9lab.com/ida-p2-final-exam/exam-ibc-operation/-/blob/main/exercise-description.md) for the complete exercise description. Take note of the parts where it mentions the identifiers that are unique to you.
+Head [here](https://git.academy.b9lab.com/ida-p3-final-exam/exam-ibc-operation/-/blob/main/exercise-description.md) for the complete exercise description. Take note of the parts where it mentions the identifiers that are unique to you.
 
 We have a service that runs on a schedule and checks if you completed the expected transfer. After you have completed this part, give or take a few hours, you should receive an email confirming that our server successfully detected the transfer you made.
 
@@ -65,5 +64,3 @@ There are a number of emails that you have received, will receive, or could rece
 4. A _pass_ or _fail_ email, that you will receive after the deadline.
 
 Good luck!
-
--->
