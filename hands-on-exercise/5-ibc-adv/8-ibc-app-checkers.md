@@ -499,15 +499,15 @@ func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandid
     // TODO: logic before transmitting the packet
 
     // get the Player data
-    PlayerInfo, PlayerFound := k.GetPlayerInfo(ctx, msg.Creator)
+    playerInfo, playerFound := k.GetPlayerInfo(ctx, msg.Creator)
 
-    if !PlayerFound {
+    if !playerFound {
         return nil, errors.New("Player not found")
     }
 
     // Construct the packet
     var packet types.CandidatePacketData
-    packet.PlayerInfo = &PlayerInfo
+    packet.PlayerInfo = &playerInfo
 
     // Transmit the packet
     err := k.TransmitCandidatePacket(
