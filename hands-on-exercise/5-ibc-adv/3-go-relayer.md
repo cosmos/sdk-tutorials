@@ -232,7 +232,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
   You can query the balance of each configured key by running:
 
   ```sh
-  $ rly q balance cosmoshub
+  $ rly query balance cosmoshub
   $ rly q balance osmosis
   ```
 
@@ -427,7 +427,7 @@ $ rly tx link demo -d -t 3s
 Next, check the token balances on both chains:
 
 ```sh
-$ rly q balance checkersa -i
+$ rly q balance checkersa --ibc-denoms
 $ rly q bal checkersb -i
 ```
 
