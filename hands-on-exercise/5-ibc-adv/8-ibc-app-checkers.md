@@ -37,25 +37,99 @@ Currently, your checkers game contains the checkers module but is not IBC-enable
 
 Let’s dive right into it.
 
-Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) tag.
+Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) branch.
 
 In the checkers chain folder, you can scaffold a leaderboard module with Ignite:
 
-```bash
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
 $ ignite scaffold module leaderboard --ibc
 ```
 
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold module leaderboard --ibc
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
 In order to create and maintain a leaderboard, you need to store the player information. Scaffold a structure with:
 
-```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold map playerInfo \
+    wonCount:uint lostCount:uint forfeitedCount:uint \
+    dateUpdated:string \
+    --module leaderboard \
+    --no-message
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold map playerInfo \
+    wonCount:uint lostCount:uint forfeitedCount:uint \
+    dateUpdated:string \
+    --module leaderboard \
+    --no-message
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Now you can use this structure to create the board itself:
 
-```bash
-$ ignite scaffold single board PlayerInfo:PlayerInfo --module leaderboard --no-message
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold single board \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold single board \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 You want the structures to be [nullable types](https://en.wikipedia.org/wiki/Nullable_type), so a few adjustments are needed - especially because you do not have a null value for an address.
 
@@ -63,7 +137,7 @@ You need to make the adjustments in the Protobuf files `proto/leaderboard/board.
 
 For example, for `proto/leaderboard/board.proto` try this:
 
-```protobuf
+```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/board.proto#L9]
 syntax = "proto3";
 package b9lab.checkers.leaderboard;
 
@@ -81,115 +155,44 @@ message Board {
 
 You will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
 
-```golang
-    // Set if defined
-    if genState.Board != nil {
-        k.SetBoard(ctx, *genState.Board)
-    }
+```go
+// Set if defined
+if genState.Board != nil {
+    k.SetBoard(ctx, *genState.Board)
+}
 ```
 
 Simply change this to:
 
-```golang
-    k.SetBoard(ctx, genState.Board)
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis.go#L17]
+k.SetBoard(ctx, genState.Board)
 ```
 
 Next, in the `x/leaderboard/genesis_test.go`, look for:
 
-```golang
-    Board: &types.Board{
-        PlayerInfo: new(types.PlayerInfo),
-    },
+```go
+Board: &types.Board{
+    PlayerInfo: new(types.PlayerInfo),
+},
 ```
 
 Instead use:
 
-```golang
-    Board: types.Board{
-     PlayerInfo: []types.PlayerInfo{},
-   },
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis_test.go#L25-L27]
+Board: types.Board{
+    PlayerInfo: []types.PlayerInfo{},
+},
 ```
 
-We gave the checkers' module access to the leaderboard's keeper. Therefore you will need to modify `testutils/keeper/checkers.go`. Locate:
-
-```golang
-    k := keeper.NewKeeper(
-            bank,
-            cdc,
-            storeKey,
-            memStoreKey,
-```
-
-Now add the leaderboard's keeper into it:
-
-```golang
-    leaderboardKeeper,_ := LeaderboardKeeper(t);
-    k := keeper.NewKeeper(
-        bank,
-        *leaderboardKeeper,
-        cdc,
-        storeKey,
-        memStoreKey,
-```
 </HighlightBox>
 
-You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
+Continue preparing your new leaderboard module.
 
-```go
-package keeper
-
-import (
-    "fmt"
-
-    rules "github.com/b9lab/checkers/x/checkers/rules"
-    "github.com/b9lab/checkers/x/checkers/types"
-
-    sdk "github.com/cosmos/cosmos-sdk/types"
-)
-
-func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
-    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
-        panic(types.ErrThereIsNoWinner.Error())
-    }
-    redAddress, err := storedGame.GetRedAddress()
-    if err != nil {
-        panic(err.Error())
-    }
-    blackAddress, err := storedGame.GetBlackAddress()
-    if err != nil {
-        panic(err.Error())
-    }
-    if storedGame.Winner == rules.PieceStrings[rules.RED_PLAYER] {
-        winnerAddress = redAddress
-        loserAddress = blackAddress
-    } else if storedGame.Winner == rules.PieceStrings[rules.BLACK_PLAYER] {
-        winnerAddress = blackAddress
-        loserAddress = redAddress
-    } else {
-        panic(fmt.Sprintf(types.ErrWinnerNotParseable.Error(), storedGame.Winner))
-    }
-    return winnerAddress, loserAddress
-}
-
-func (k *Keeper) MustRegisterPlayerWin(ctx sdk.Context, storedGame *types.StoredGame) {
-    winnerAddress, loserAddress := getWinnerAndLoserAddresses(storedGame)
-    k.board.MustAddWonGameResultToPlayer(ctx, winnerAddress)
-    k.board.MustAddLostGameResultToPlayer(ctx, loserAddress)
-}
-
-func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.StoredGame) {
-    winnerAddress, loserAddress := getWinnerAndLoserAddresses(storedGame)
-    k.board.MustAddWonGameResultToPlayer(ctx, winnerAddress)
-    k.board.MustAddForfeitedGameResultToPlayer(ctx, loserAddress)
-}
-
-```
-
-The checkers module will need to access the leaderboard methods, like `k.board.MustAddWonGameResultToPlayer(...)`.
+The checkers module is the authority when it comes to who won and who lost; the leaderboard module is the authority when it comes to how to tally scores and rank players. Therefore the leaderboard module will only expose to the checkers module functions to inform on wins and losses like `MustAddWonGameResultToPlayer(...)`.
 
 To achieve this, first, you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/player_info_handler.go]
 package keeper
 
 import (
@@ -237,7 +240,7 @@ func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.
 
 For the code above to function, you need to define `TimeLayout` in `x/leaderboard/types/keys.go`. Add the following piece of code at the end of the file:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/keys.go#L39-L42]
 const (
     TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
     LeaderboardWinnerLength = uint64(100)
@@ -246,213 +249,415 @@ const (
 
 Check your `x/checkers/types/errors.go` and make sure that it includes the following:
 
-```go
-    ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
-    ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
-    ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
-    ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/types/errors.go#L29-L32]
+ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
+ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
+ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
 ```
 
-Now it is time to allow the checkers module access to the leaderboard module. Look for `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
+Now it is time to allow the checkers module access to the leaderboard module. This is very similar to what you did when giving access to the bank keeper when handling wager tokens.
 
-```go
-app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
-        app.BankKeeper,
-        app.LeaderboardKeeper,
-        appCodec,
-        keys[checkersmoduletypes.StoreKey],
-        keys[checkersmoduletypes.MemStoreKey],
-        app.GetSubspace(checkersmoduletypes.ModuleName),
-    )
-    checkersModule := checkersmodule.NewAppModule(appCodec, app.CheckersKeeper, app.AccountKeeper, app.BankKeeper)
-```
+Declare the leaderboard functions that the checkers needs:
 
-In addition, you need to modify `x/checkers/keeper/keeper.go` and include the leaderboard keeper:
-
-```go
-import(
-    ...
-
-    leaderBoardKeeper "github.com/b9lab/checkers/x/leaderboard/keeper"
-    )
-
-...
-
-type (
-    Keeper struct {
-        bank       types.BankEscrowKeeper
-        board      leaderBoardKeeper.Keeper
-        cdc        codec.BinaryCodec
-        storeKey   sdk.StoreKey
-        memKey     sdk.StoreKey
-        paramstore paramtypes.Subspace
-    }
-)
-
-...
-
-func NewKeeper(
-    bank types.BankEscrowKeeper,
-    board leaderBoardKeeper.Keeper,
-    cdc codec.BinaryCodec,
-    storeKey,
-    memKey sdk.StoreKey,
-    ps paramtypes.Subspace,
-
-) *Keeper {
-    // set KeyTable if it has not already been set
-    if !ps.HasKeyTable() {
-        ps = ps.WithKeyTable(types.ParamKeyTable())
-    }
-
-    return &Keeper{
-        bank:       bank,
-        board:      board,
-        cdc:        cdc,
-        storeKey:   storeKey,
-        memKey:     memKey,
-        paramstore: ps,
-    }
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/types/expected_keepers.go#L26-L30]
+type CheckersLeaderboardKeeper interface {
+    MustAddWonGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) leaderboardTypes.PlayerInfo
+    MustAddLostGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) leaderboardTypes.PlayerInfo
+    MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) leaderboardTypes.PlayerInfo
 }
-
 ```
 
-Now the checkers module can call the keeper of the leaderboard module, so add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
+Add this keeper interface to checkers, modify `x/checkers/keeper/keeper.go` and include the leaderboard keeper:
 
-```go
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/keeper.go#L19]
+   type (
+       Keeper struct {
+           bank       types.BankEscrowKeeper
++         board      types.CheckersLeaderboardKeeper
+           cdc        codec.BinaryCodec
+           storeKey   sdk.StoreKey
+           memKey     sdk.StoreKey
+           paramstore paramtypes.Subspace
+       }
+   )
 
-func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
-    ctx := sdk.UnwrapSDKContext(goCtx)
+   ...
 
-    ...
+   func NewKeeper(
+       bank types.BankEscrowKeeper,
++     board types.CheckersLeaderboardKeeper,
+       cdc codec.BinaryCodec,
+       storeKey,
+       memKey sdk.StoreKey,
+       ps paramtypes.Subspace,
 
-    lastBoard := game.String()
-    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
-        k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
-        storedGame.Board = lastBoard
-    } else {
-        k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-        storedGame.Board = ""
-        k.Keeper.MustPayWinnings(ctx, &storedGame)
+   ) *Keeper {
+       // set KeyTable if it has not already been set
+       if !ps.HasKeyTable() {
+           ps = ps.WithKeyTable(types.ParamKeyTable())
+       }
 
-        // Here you can register a win
-        k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
-    }
-
-    ...
+       return &Keeper{
+           bank:       bank,
++         board:      board,
+           cdc:        cdc,
+           storeKey:   storeKey,
+           memKey:     memKey,
+           paramstore: ps,
+       }
+   }
 ```
 
-Now add the call for a _draw_ in `x/checkers/keeper/end_block_server_game.go`:
+Make sure the app builds it correctly. Look for `app.CheckersKeeper` in `app/app.go` and modify it to include `app.LeaderboardKeeper`:
 
-```go
-func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
-    ctx := sdk.UnwrapSDKContext(goCtx)
-
-    ...
-    
-    if deadline.Before(ctx.BlockTime()) {
-    // Game is past deadline
-    k.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-    lastBoard := storedGame.Board
-    if storedGame.MoveCount <= 1 {
-        // No point in keeping a game that was never really played
-        k.RemoveStoredGame(ctx, gameIndex)
-        if storedGame.MoveCount == 1 {
-            k.MustRefundWager(ctx, &storedGame)
-        }
-    } else {
-        storedGame.Winner, found = opponents[storedGame.Turn]
-        if !found {
-            panic(fmt.Sprintf(types.ErrCannotFindWinnerByColor.Error(), storedGame.Turn))
-        }
-        k.MustPayWinnings(ctx, &storedGame)
-
-        // Here you can register a draw
-        k.MustRegisterPlayerForfeit(ctx, &storedGame)
-
-        storedGame.Board = ""
-        k.SetStoredGame(ctx, storedGame)
-    }
-    
-    ...
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/app/app.go#L440]
+   app.CheckersKeeper = *checkersmodulekeeper.NewKeeper(
+       app.BankKeeper,
++     app.LeaderboardKeeper,
+       appCodec,
+       ...
+   )
 ```
 
-That will get the job done and add the player's _win_, _lose_, or _forfeit_ counts to the store.
+You want to store a _win_, and a _loss_ or a _forfeit_ when a game ends. Thus, you should create some helper functions in checkers that call the leaderboard module. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
-It is time to sort the players and clip the leaderboard to the best 100 (`LeaderboardWinnerLength`) players. Scaffold a new transaction:
-
-```bash
-$ ignite scaffold message updateBoard --module leaderboard
-```
-
-Again, you can first create some helper functions in `x/leaderboard/keeper/board.go`:
-
-
-```go
-...
-
-    func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
-        dateAddedParsed, errDateAdded := time.Parse(types.TimeLayout, dateAdded)
-        return dateAddedParsed, sdkerrors.Wrapf(errDateAdded, types.ErrInvalidDateAdded.Error(), dateAdded)
-    }
-
-    func SortPlayerInfo(playerInfoList []types.PlayerInfo) {
-        sort.SliceStable(playerInfoList[:], func(i, j int) bool {
-            if playerInfoList[i].WonCount > playerInfoList[j].WonCount {
-                return true
-            }
-            if playerInfoList[i].WonCount < playerInfoList[j].WonCount {
-                return false
-            }
-            firstPlayerTime, _ := ParseDateAddedAsTime(playerInfoList[i].DateUpdated)
-            secondPlayerTime,_ := ParseDateAddedAsTime(playerInfoList[j].DateUpdated)
-
-            return firstPlayerTime.After(secondPlayerTime)
-        })
-    }
-
-    func (k Keeper) updateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
-        SortPlayerInfo(playerInfoList)
-
-        if types.LeaderboardWinnerLength < uint64(len(playerInfoList)) {
-            playerInfoList = playerInfoList[:types.LeaderboardWinnerLength]
-        }
-
-        k.SetBoard(ctx, types.Board {
-            PlayerInfo: playerInfoList,
-        })
-    }
-```
-
-If it cannot parse the date information, it will throw an error that you need to include in `x/leaderboard/types/errors.go`:
-
-```go
-    ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
-```
-
-Now you need to call `updateBoard` in `x/leaderboard/keeper/msg_server_update_board.go`:
-
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/player_info_handler.go]
 package keeper
 
 import (
-    "context"
+    "fmt"
 
-    "github.com/b9lab/checkers/x/leaderboard/types"
+    rules "github.com/b9lab/checkers/x/checkers/rules"
+    "github.com/b9lab/checkers/x/checkers/types"
+
     sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) UpdateBoard(goCtx context.Context, msg *types.MsgUpdateBoard) (*types.MsgUpdateBoardResponse, error) {
-    ctx := sdk.UnwrapSDKContext(goCtx)
+func getWinnerAndLoserAddresses(storedGame *types.StoredGame) (winnerAddress sdk.AccAddress, loserAddress sdk.AccAddress) {
+    if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+        panic(types.ErrThereIsNoWinner.Error())
+    }
+    redAddress, err := storedGame.GetRedAddress()
+    if err != nil {
+        panic(err.Error())
+    }
+    blackAddress, err := storedGame.GetBlackAddress()
+    if err != nil {
+        panic(err.Error())
+    }
+    if storedGame.Winner == rules.PieceStrings[rules.RED_PLAYER] {
+        winnerAddress = redAddress
+        loserAddress = blackAddress
+    } else if storedGame.Winner == rules.PieceStrings[rules.BLACK_PLAYER] {
+        winnerAddress = blackAddress
+        loserAddress = redAddress
+    } else {
+        panic(fmt.Sprintf(types.ErrWinnerNotParseable.Error(), storedGame.Winner))
+    }
+    return winnerAddress, loserAddress
+}
 
-    playerInfoList := k.GetAllPlayerInfo(ctx)
-    k.updateBoard(ctx, playerInfoList)
+func (k *Keeper) MustRegisterPlayerWin(ctx sdk.Context, storedGame *types.StoredGame) {
+    winnerAddress, loserAddress := getWinnerAndLoserAddresses(storedGame)
+    k.board.MustAddWonGameResultToPlayer(ctx, winnerAddress)
+    k.board.MustAddLostGameResultToPlayer(ctx, loserAddress)
+}
 
-    return &types.MsgUpdateBoardResponse{}, nil
+func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.StoredGame) {
+    winnerAddress, loserAddress := getWinnerAndLoserAddresses(storedGame)
+    k.board.MustAddWonGameResultToPlayer(ctx, winnerAddress)
+    k.board.MustAddForfeitedGameResultToPlayer(ctx, loserAddress)
 }
 ```
 
-That is it! Now the checkers blockchain can keep track of player information, and create or update the leaderboard based on player information if requested via the CLI.
+With the helper functions ready, you can call them where needed. Add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move.go#L72-L81]
+   func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
+       ...
+       lastBoard := game.String()
+       if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+           k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+           storedGame.Board = lastBoard
+       } else {
+           k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
+           storedGame.Board = ""
+           k.Keeper.MustPayWinnings(ctx, &storedGame)
+
++         // Here you can register a win
++         k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
+       }
+       ...
+```
+
+Add the call for a _forfeit_ in `x/checkers/keeper/end_block_server_game.go`:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/end_block_server_game.go#L57]
+   func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
+       ...
+       if deadline.Before(ctx.BlockTime()) {
+       // Game is past deadline
+       k.RemoveFromFifo(ctx, &storedGame, &systemInfo)
+       lastBoard := storedGame.Board
+       if storedGame.MoveCount <= 1 {
+           // No point in keeping a game that was never really played
+           k.RemoveStoredGame(ctx, gameIndex)
+           if storedGame.MoveCount == 1 {
+               k.MustRefundWager(ctx, &storedGame)
+           }
+       } else {
+           storedGame.Winner, found = opponents[storedGame.Turn]
+           if !found {
+               panic(fmt.Sprintf(types.ErrCannotFindWinnerByColor.Error(), storedGame.Turn))
+           }
+           k.MustPayWinnings(ctx, &storedGame)
+
++         // Here you can register a forfeit
++         k.MustRegisterPlayerForfeit(ctx, &storedGame)
+
+           storedGame.Board = ""
+           k.SetStoredGame(ctx, storedGame)
+       }
+       ...
+```
+
+That will get the job done and add the player's _win_, _loss_, or _forfeit_ counts to the store.
+
+If you did the migration part of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
+
+Here, the leaderboard is updated on-demand by adding the signers of a message as candidates to the leaderboard. Scaffold a new message:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold message updateBoard --module leaderboard
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold message updateBoard --module leaderboard
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Again, you can first create some helper functions in `x/leaderboard/types/board.go`:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/board.go#L40-L70]
+func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
+    dateAddedParsed, errDateAdded := time.Parse(types.TimeLayout, dateAdded)
+    return dateAddedParsed, sdkerrors.Wrapf(errDateAdded, types.ErrInvalidDateAdded.Error(), dateAdded)
+}
+
+func SortPlayerInfo(playerInfoList []types.PlayerInfo) {
+    sort.SliceStable(playerInfoList[:], func(i, j int) bool {
+        if playerInfoList[i].WonCount > playerInfoList[j].WonCount {
+            return true
+        }
+        if playerInfoList[i].WonCount < playerInfoList[j].WonCount {
+            return false
+        }
+        firstPlayerTime, _ := ParseDateAddedAsTime(playerInfoList[i].DateUpdated)
+        secondPlayerTime,_ := ParseDateAddedAsTime(playerInfoList[j].DateUpdated)
+
+        return firstPlayerTime.After(secondPlayerTime)
+    })
+}
+
+func UpdatePlayerInfoList(winners []PlayerInfo, candidates []PlayerInfo) (updated []PlayerInfo) {
+    found := false
+    for _, candidate := range candidates {
+        for winnerIndex, winner := range winners {
+            if winner.Index == candidate.Index {
+                winners[winnerIndex] = candidate
+                found = true
+                break
+            }
+        }
+        if !found {
+            updated = append(winners, candidate)
+        } else {
+            updated = winners
+        }
+    }
+    SortPlayerInfo(updated)
+    if LeaderboardWinnerLength < uint64(len(updated)) {
+        updated = updated[:LeaderboardWinnerLength]
+    }
+    return updated
+}
+```
+
+Note how the function that sorts players is not as efficient as possible as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the migration section for an example.
+
+If it cannot parse the date information, it will return an error that you need to declare in `x/leaderboard/types/errors.go`:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/errors.go#L14]
+ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+```
+
+Now you need to call what you created in `x/leaderboard/keeper/msg_server_update_board.go`:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/msg_server_update_board.go#L13-L14]
+   package keeper
+
+   import (
+       "context"
+
+       "github.com/b9lab/checkers/x/leaderboard/types"
+       sdk "github.com/cosmos/cosmos-sdk/types"
+   )
+
+   func (k msgServer) UpdateBoard(goCtx context.Context, msg *types.MsgUpdateBoard) (*types.MsgUpdateBoardResponse, error) {
+       ctx := sdk.UnwrapSDKContext(goCtx)
+
++  board, found := k.GetBoard(ctx)
++  if !found {
++      panic(types.ErrBoardNotFound)
++  }
++  playerInfoList := board.PlayerInfo
++  candidates := make([]types.PlayerInfo, 0, len(msg.GetSigners()))
++  for _, signer := range msg.GetSigners() {
++      candidate, found := k.GetPlayerInfo(ctx, signer.String())
++      if found {
++          candidates = append(candidates, candidate)
++      }
++  }
++  if len(candidates) == 0 {
++      return nil, types.ErrCandidateNotFound
++  }
++  updated := types.UpdatePlayerInfoList(playerInfoList, candidates)
++  board.PlayerInfo = updated
++  k.SetBoard(ctx, board)
+
+       return &types.MsgUpdateBoardResponse{}, nil
+   }
+```
+
+That is it! Now the checkers blockchain can keep track of player information, and create or update the leaderboard based on player input.
+
+### Unit tests
+
+You have created a new expected keeper. Have Mockgen create its mocks, by reusing the `make` command prepared earlier:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ make mock-expected-keepers
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    make mock-expected-keepers
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Update the checkers keeper factory for tests:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/testutil/keeper/checkers.go#L21-L60]
+    func CheckersKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+-      return CheckersKeeperWithMocks(t, nil)
++      return CheckersKeeperWithMocks(t, nil, nil)
+    }
+
+-  func CheckersKeeperWithMocks(t testing.TB, bank *mock_types.MockBankEscrowKeeper) (*keeper.Keeper, sdk.Context) {
++  func CheckersKeeperWithMocks(t testing.TB, bank *mock_types.MockBankEscrowKeeper, leaderboard *mock_types.MockCheckersLeaderboardKeeper) (*keeper.Keeper, sdk.Context) {
+        ...
+
+        k := keeper.NewKeeper(
+            bank,
++          leaderboard,
+            cdc,
+            storeKey,
+            memStoreKey,
+            paramsSubspace,
+        )
+
+        ...
+
+        return k, ctx
+    }
+```
+
+Because of the change of signature of this function, you need to adjust wherever it is called, like so:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_test.go#L17-L34]
+    func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context,
+-      *gomock.Controller, *mock_types.MockBankEscrowKeeper) {
++      *gomock.Controller, *mock_types.MockBankEscrowKeeper, *mock_types.MockCheckersLeaderboardKeeper) {
+        ctrl := gomock.NewController(t)
+        bankMock := mock_types.NewMockBankEscrowKeeper(ctrl)
+-      k, ctx := keepertest.CheckersKeeperWithMocks(t, bankMock)
++      leaderboardMock := mock_types.NewMockCheckersLeaderboardKeeper(ctrl)
++      k, ctx := keepertest.CheckersKeeperWithMocks(t, bankMock, leaderboardMock)
+        checkers.InitGenesis(ctx, *k, *types.DefaultGenesis())
+        ...
+-      return server, *k, context, ctrl, bankMock
++      return server, *k, context, ctrl, bankMock, leaderboardMock
+    }
+```
+
+And also to change where it is used. Mostly like this, when the leaderboard is not called:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_test.go#L37]
+    func TestPlayMove(t *testing.T) {
+-      msgServer, _, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
++      msgServer, _, context, ctrl, escrow, _ := setupMsgServerWithOneGameForPlayMove(t)
+        defer ctrl.Finish()
+        ...
+    }
+```
+
+Like this, when the leaderboard is called but you do not want to confirm the calls:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_winner_test.go#L88-L92]
+    func TestPlayMoveUpToWinner(t *testing.T) {
+-      msgServer, keeper, context, ctrl, escrow := setupMsgServerWithOneGameForPlayMove(t)
++      msgServer, keeper, context, ctrl, escrow, board := setupMsgServerWithOneGameForPlayMove(t)
+        ctx := sdk.UnwrapSDKContext(context)
+        defer ctrl.Finish()
+        escrow.ExpectAny(context)
++      board.ExpectAny(context)
+        ...
+    }
+```
+
+Do not forget to add tests to check that the leaderboard is called as expected:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_winner_test.go#L145-L153]
+func TestPlayMoveUpToWinnerCalledLeaderboard(t *testing.T) {
+    msgServer, _, context, ctrl, escrow, board := setupMsgServerWithOneGameForPlayMove(t)
+    defer ctrl.Finish()
+    escrow.ExpectAny(context)
+    board.ExpectWin(context, bob).Times(1)
+    board.ExpectLoss(context, carol).Times(1)
+
+    playAllMoves(t, msgServer, context, "1", game1Moves)
+}
+```
 
 ### Forwarding player information via IBC
 
@@ -466,9 +671,33 @@ Remember, you created the module with the `--ibc` flag.
 
 You can scaffold an IBC transaction with:
 
-```bash
-$ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold packet candidate \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold packet candidate \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 You do not want arbitrary player information, but instead, want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
@@ -484,7 +713,7 @@ You will also need to remove the import of `encoding/json` because it is not use
 
 The last step is to implement the logic to fetch and send player information in `x/leaderboard/keeper/msg_server_candidate.go`:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/msg_server_candidate.go]
 package keeper
 
 import (

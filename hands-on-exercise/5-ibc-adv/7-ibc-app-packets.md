@@ -1,5 +1,5 @@
 ---
-title: "Adding Packet and Acknowledgment Data"
+title: "Adding Packet and Acknowledgement Data"
 order: 7
 description: 
 tags: 
@@ -8,9 +8,9 @@ tags:
   - ibc
 ---
 
-# Adding Packet and Acknowledgment Data
+# Adding Packet and Acknowledgement Data
 
-This section demonstrates how to define packets and acks (acknowledgments) for the leaderboard blockchain.
+This section demonstrates how to define packets and acks (acknowledgements) for the leaderboard blockchain.
 
 <HighlightBox type="note">
 
@@ -26,9 +26,35 @@ The documentation on how to define packets and acks in the Inter-Blockchain Comm
 
 You are now going to scaffold the IBC packet data with Ignite CLI, and compare it once more with _git diff_:
 
-```bash
-$ ignite scaffold packet ibcTopRank playerId rank:uint score:uint --ack playerId --module leaderboard
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold packet ibcTopRank \
+    playerId rank:uint score:uint \
+    --ack playerId \
+    --module leaderboard
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    ignite scaffold packet ibcTopRank \
+    playerId rank:uint score:uint \
+    --ack playerId \
+    --module leaderboard
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 <HighlightBox type="note">
 
@@ -62,20 +88,20 @@ In the next paragraphs, you will investigate each of the most important addition
 
 The first additions are to the proto definitions in the `packet.proto` and `tx.proto` files:
 
-```diff
-@@ message LeaderboardPacketData in proto/leaderboard/packet.proto {
-    oneof packet {
-        NoData noData = 1;
-        // this line is used by starport scaffolding # ibc/packet/proto/field
-+		IbcTopRankPacketData ibcTopRankPacket = 2;
-        // this line is used by starport scaffolding # ibc/packet/proto/field/number
-    }
-}
+```diff-protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/packet.proto#L10]
+   message LeaderboardPacketData {
+       oneof packet {
+           NoData noData = 1;
+           // this line is used by starport scaffolding # ibc/packet/proto/field
++         IbcTopRankPacketData ibcTopRankPacket = 2;
+           // this line is used by starport scaffolding # ibc/packet/proto/field/number
+       }
+   }
 ```
 
 One addition is `IbcTopRankPacketData`:
 
-```protobuf
+```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/packet.proto#L19-L24]
 // IbcTopRankPacketData defines a struct for the packet payload
 message IbcTopRankPacketData {
   string playerId = 1;
@@ -86,26 +112,26 @@ message IbcTopRankPacketData {
 
 The next addition is the ack:
 
-```protobuf
-// IbcTopRankPacketAck defines a struct for the packet acknowledgment
+```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/packet.proto#L27-L29]
+// IbcTopRankPacketAck defines a struct for the packet acknowledgement
 message IbcTopRankPacketAck {
-	  string playerId = 1;
+      string playerId = 1;
 }
 ```
 
 And in `tx.proto` a Message service is added:
 
-```diff
-// Msg defines the Msg service.
-service Msg {
-+   rpc SendIbcTopRank(MsgSendIbcTopRank) returns (MsgSendIbcTopRankResponse);
-    // this line is used by starport scaffolding # proto/tx/rpc
-}
+```diff-protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/tx.proto#L11]
+   // Msg defines the Msg service.
+   service Msg {
++     rpc SendIbcTopRank(MsgSendIbcTopRank) returns (MsgSendIbcTopRankResponse);
+       // this line is used by starport scaffolding # proto/tx/rpc
+   }
 ```
 
 Where:
 
-```protobuf
+```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/tx.proto#L15-L27]
 message MsgSendIbcTopRank {
   string creator = 1;
   string port = 2;
@@ -139,7 +165,8 @@ Ignite CLI also creates CLI commands to send packets and adds them to the `clien
 Packets can be sent from the CLI with the following command:
 
 ```bash
-$ leaderboardd tx leaderboard send-ibc-top-rank [portID] [channelID] [playerId] [rank] [score]
+$ leaderboardd tx leaderboard send-ibc-top-rank \
+    [portID] [channelID] [playerId] [rank] [score]
 ```
 
 ## `SendPacket` and packet callback logic
@@ -158,18 +185,17 @@ IBC allows some freedom to the developers regarding how to implement the custom 
 
 To handle a user submitting a message to send an IBC packet, a message server is added to the handler:
 
-```diff
-    @@ x/leaderboard/handler.go
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/handler.go#L13-L30]
     func NewHandler(k keeper.Keeper) sdk.Handler {
-+        msgServer := keeper.NewMsgServerImpl(k)
++      msgServer := keeper.NewMsgServerImpl(k)
 
         return func(ctx sdk.Context, msg sdk.Msg) (*sdk.Result, error) {
             ctx = ctx.WithEventManager(sdk.NewEventManager())
 
             switch msg := msg.(type) {
-+           case *types.MsgSendIbcTopRank:
-+               res, err := msgServer.SendIbcTopRank(sdk.WrapSDKContext(ctx), msg)
-+               return sdk.WrapServiceResult(ctx, res, err)
++          case *types.MsgSendIbcTopRank:
++              res, err := msgServer.SendIbcTopRank(sdk.WrapSDKContext(ctx), msg)
++              return sdk.WrapServiceResult(ctx, res, err)
                 // this line is used by starport scaffolding # 1
             default:
                 errMsg := fmt.Sprintf("unrecognized %s message type: %T", types.ModuleName, msg)
@@ -181,81 +207,80 @@ To handle a user submitting a message to send an IBC packet, a message server is
 
 It calls the `SendIbcTopRank` method on the message server, defined as:
 
-```go
-// x/leaderboard/keeper/msg_server_ibc_top_rank.go but up to dev
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/keeper/msg_server_ibc_top_rank.go#L11]
 func (k msgServer) SendIbcTopRank(goCtx context.Context, msg *types.MsgSendIbcTopRank) (*types.MsgSendIbcTopRankResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: logic before transmitting the packet
+    // TODO: logic before transmitting the packet
 
-	// Construct the packet
-	var packet types.IbcTopRankPacketData
+    // Construct the packet
+    var packet types.IbcTopRankPacketData
 
-	packet.PlayerId = msg.PlayerId
-	packet.Rank = msg.Rank
-	packet.Score = msg.Score
+    packet.PlayerId = msg.PlayerId
+    packet.Rank = msg.Rank
+    packet.Score = msg.Score
 
-	// Transmit the packet
-	err := k.TransmitIbcTopRankPacket(
-		ctx,
-		packet,
-		msg.Port,
-		msg.ChannelID,
-		clienttypes.ZeroHeight(),
-		msg.TimeoutTimestamp,
-	)
-	if err != nil {
-		return nil, err
-	}
+    // Transmit the packet
+    err := k.TransmitIbcTopRankPacket(
+        ctx,
+        packet,
+        msg.Port,
+        msg.ChannelID,
+        clienttypes.ZeroHeight(),
+        msg.TimeoutTimestamp,
+    )
+    if err != nil {
+        return nil, err
+    }
 
-	return &types.MsgSendIbcTopRankResponse{}, nil
+    return &types.MsgSendIbcTopRankResponse{}, nil
 }
 ```
 
 This in turn calls the `TransmitIbcTopRankPacket` method on the module's keeper, defined in `x/leaderboard/keeper/ibc_top_rank.go`. This method gets all of the required metadata from core IBC before sending the packet using the ChannelKeeper's `SendPacket` function:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/keeper/ibc_top_rank.go#L15]
 func (k Keeper) TransmitIbcTopRankPacket(
-	ctx sdk.Context,
-	packetData types.IbcTopRankPacketData,
-	sourcePort,
-	sourceChannel string,
-	timeoutHeight clienttypes.Height,
-	timeoutTimestamp uint64,
+    ctx sdk.Context,
+    packetData types.IbcTopRankPacketData,
+    sourcePort,
+    sourceChannel string,
+    timeoutHeight clienttypes.Height,
+    timeoutTimestamp uint64,
 ) error {
 
-	sourceChannelEnd, found := k.ChannelKeeper.GetChannel(ctx, sourcePort, sourceChannel)
-	... // error validation
+    sourceChannelEnd, found := k.ChannelKeeper.GetChannel(ctx, sourcePort, sourceChannel)
+    ... // error validation
 
-	destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
-	destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
+    destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
+    destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
 
-	// get the next sequence
-	sequence, found := k.ChannelKeeper.GetNextSequenceSend(ctx, sourcePort, sourceChannel)
-	... // error validation
+    // get the next sequence
+    sequence, found := k.ChannelKeeper.GetNextSequenceSend(ctx, sourcePort, sourceChannel)
+    ... // error validation
 
-	channelCap, ok := k.ScopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(sourcePort, sourceChannel))
-	... // error validation
+    channelCap, ok := k.ScopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(sourcePort, sourceChannel))
+    ... // error validation
 
-	packetBytes, err := packetData.GetBytes()
-	... // error validation
+    packetBytes, err := packetData.GetBytes()
+    ... // error validation
 
-	packet := channeltypes.NewPacket(
-		packetBytes,
-		sequence,
-		sourcePort,
-		sourceChannel,
-		destinationPort,
-		destinationChannel,
-		timeoutHeight,
-		timeoutTimestamp,
-	)
+    packet := channeltypes.NewPacket(
+        packetBytes,
+        sequence,
+        sourcePort,
+        sourceChannel,
+        destinationPort,
+        destinationChannel,
+        timeoutHeight,
+        timeoutTimestamp,
+    )
 
-	if err := k.ChannelKeeper.SendPacket(ctx, channelCap, packet); err != nil {
-		return err
-	}
+    if err := k.ChannelKeeper.SendPacket(ctx, channelCap, packet); err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 ```
 
@@ -269,48 +294,48 @@ When you want to add additional custom logic before transmitting the packet, you
 
 In a previous section you examined the `OnRecvPacket` callback in the `x/leaderboard/module_ibc.go` file. There, Ignite CLI had set up a structure to dispatch the packet depending on packet type through a switch statement. Now by adding the `IbcTopRank` packet, a case has been added:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/module_ibc.go#L144]
 // @ switch packet := modulePacketData.Packet.(type) in OnRecvPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
-	packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
-	if err != nil {
-		ack = channeltypes.NewErrorAcknowledgement(err.Error())
-	} else {
-		// Encode packet acknowledgment
-		packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
-		if err != nil {
-			return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
-		}
-		ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
-	}
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(
-			types.EventTypeIbcTopRankPacket,
-			sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-			sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
-		),
-	)
+    packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
+    if err != nil {
+        ack = channeltypes.NewErrorAcknowledgement(err.Error())
+    } else {
+        // Encode packet acknowledgement
+        packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
+        if err != nil {
+            return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
+        }
+        ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
+    }
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            types.EventTypeIbcTopRankPacket,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
+        ),
+    )
 ```
 
 The first line of code in the case statement calls the application's `OnRecvIbcTopRankPacket` callback on the keeper to process the reception of the packet:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/keeper/ibc_top_rank.go#L70]
 // OnRecvIbcTopRankPacket processes packet reception
 func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcTopRankPacketData) (packetAck types.IbcTopRankPacketAck, err error) {
-	// validate packet data upon receiving
-	if err := data.ValidateBasic(); err != nil {
-		return packetAck, err
-	}
+    // validate packet data upon receiving
+    if err := data.ValidateBasic(); err != nil {
+        return packetAck, err
+    }
 
-	// TODO: packet reception logic
+    // TODO: packet reception logic
 
-	return packetAck, nil
+    return packetAck, nil
 }
 ```
 
 <HighlightBox type="note">
 
-Remember that the `OnRecvPacket` callback writes an acknowledgment as well (this course covers the synchronous write ack case).
+Remember that the `OnRecvPacket` callback writes an acknowledgement as well (this course covers the synchronous write ack case).
 
 </HighlightBox>
 
@@ -318,43 +343,43 @@ Remember that the `OnRecvPacket` callback writes an acknowledgment as well (this
 
 Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the structure of the `OnAcknowledgementPacket` with the switch statement. Again, scaffolding the packet adds a case to the switch:
 
-```go
-// @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgmentPacket
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/module_ibc.go#L197]
+// @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgementPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
-	err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
-	if err != nil {
-		return err
-	}
-	eventType = types.EventTypeIbcTopRankPacket
+    err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
+    if err != nil {
+        return err
+    }
+    eventType = types.EventTypeIbcTopRankPacket
 ```
 
 This calls into the newly created application keeper's ack packet callback:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/keeper/ibc_top_rank.go#L119]
 func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcTopRankPacketData, ack channeltypes.Acknowledgement) error {
-	switch dispatchedAck := ack.Response.(type) {
-	case *channeltypes.Acknowledgement_Error:
+    switch dispatchedAck := ack.Response.(type) {
+    case *channeltypes.Acknowledgement_Error:
 
-		// TODO: failed acknowledgment logic
-		_ = dispatchedAck.Error
+        // TODO: failed acknowledgement logic
+        _ = dispatchedAck.Error
 
-		return nil
-	case *channeltypes.Acknowledgement_Result:
-		// Decode the packet acknowledgment
-		var packetAck types.IbcTopRankPacketAck
+        return nil
+    case *channeltypes.Acknowledgement_Result:
+        // Decode the packet acknowledgement
+        var packetAck types.IbcTopRankPacketAck
 
-		if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
-			// The counter-party module doesn't implement the correct acknowledgment format
-			return errors.New("cannot unmarshal acknowledgment")
-		}
+        if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
+            // The counter-party module doesn't implement the correct acknowledgement format
+            return errors.New("cannot unmarshal acknowledgement")
+        }
 
-		// TODO: successful acknowledgment logic
+        // TODO: successful acknowledgement logic
 
-		return nil
-	default:
-		// The counter-party module doesn't implement the correct acknowledgment format
-		return errors.New("invalid acknowledgment format")
-	}
+        return nil
+    default:
+        // The counter-party module doesn't implement the correct acknowledgement format
+        return errors.New("invalid acknowledgement format")
+    }
 }
 ```
 
@@ -366,28 +391,28 @@ Timing out the packets follows the same flow, adding a case to the switch statem
 
 ### Extra details
 
-Next to the above, some additions have also been made to the `types` package. These include `codec.go`, `events_ibc.go`, and `messages_ibc_top_rank.go`.
+Next to the above, some additions have also been made to the `types` package. These include [`codec.go`](https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/types/codec.go), [`events_ibc.go`](https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/types/events_ibc.go), and [`messages_ibc_top_rank.go`](https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/types/messages_ibc_top_rank.go).
 
 Again, the reader is invited to check these out independently.
 
 <HighlightBox type="info">
 
-Events in IBC are important because relayers process events to check if there are packets (or acknowledgments) to relay.
+Events in IBC are important because relayers process events to check if there are packets (or acknowledgements) to relay.
 <br/><br/>
 Ignite CLI has scaffolded some events in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet which you have defined:
 
-```go
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/types/events_ibc.go]
 package types
 
 // IBC events
 const (
-	EventTypeTimeout          = "timeout"
-	EventTypeIbcTopRankPacket = "ibcTopRank_packet"
-	// this line is used by starport scaffolding # ibc/packet/event
+    EventTypeTimeout          = "timeout"
+    EventTypeIbcTopRankPacket = "ibcTopRank_packet"
+    // this line is used by starport scaffolding # ibc/packet/event
 
-	AttributeKeyAckSuccess = "success"
-	AttributeKeyAck        = "acknowledgement"
-	AttributeKeyAckError   = "error"
+    AttributeKeyAckSuccess = "success"
+    AttributeKeyAck        = "acknowledgement"
+    AttributeKeyAckError   = "error"
 )
 ```
 
