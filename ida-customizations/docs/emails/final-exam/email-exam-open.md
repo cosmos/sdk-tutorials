@@ -37,6 +37,8 @@ We are providing reduced support on Discord during the exam period. However, we 
 
 You will get your results by the 16th of March.
 
+Please do not disclose solutions or details of a solution of the exam on public forums so that it can stay relevant as long as possible.
+
 Good luck with your exam!
 
 _Thomas and the Interchain Developer Academy Team_

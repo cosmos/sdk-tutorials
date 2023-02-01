@@ -28,6 +28,8 @@ Please do not modify the [`.gitlab-ci.yml`](https://git.academy.b9lab.com/ida-p3
 
 The coding project counts for 90% of your overall exam score. This means that if the grading pipeline yields the line `FS_SCORE:100%`, then congratulations, you already have reached 90% for the overall exam.
 
+Please do not disclose solutions or details of a solution of the exam on public forums so that it can stay relevant as long as possible.
+
 ## IBC operations
 
 An experienced developer can tackle the IBC operations exercise in 2 hours or less.
