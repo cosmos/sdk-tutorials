@@ -4,6 +4,7 @@ order: 8
 description: Make your checkers game IBC-enabled
 tags: 
   - concepts
+  - guided-coding
   - ibc
   - dev-ops
 ---
@@ -21,13 +22,13 @@ In this section, you will learn:
 
 ## What you will be building and why
 
-The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain. And indeed this is done in the [migration section](../4-run-in-prod/2-migration.md).
 
-But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play a competitive game. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
+But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play competitive games. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
 <HighlightBox type="remember">
 
-Remember the [appchain thesis that is an integral part of the Cosmos philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains) - where every application has its own chain and can be optimized for the application-specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialised functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
+Remember the [appchain thesis that is an integral part of the Cosmos philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains) - where every application has its own chain and can be optimized for the application-specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialized functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
 
 </HighlightBox>
 
@@ -58,7 +59,7 @@ $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
     ignitehq/cli:0.22.1 \
-    ignite scaffold module leaderboard --ibc
+    scaffold module leaderboard --ibc
 ```
 
 </CodeGroupItem>
@@ -85,10 +86,10 @@ $ ignite scaffold map playerInfo \
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
     ignitehq/cli:0.22.1 \
-    ignite scaffold map playerInfo \
+    scaffold map playerInfo \
     wonCount:uint lostCount:uint forfeitedCount:uint \
     dateUpdated:string \
     --module leaderboard \
@@ -118,10 +119,10 @@ $ ignite scaffold single board \
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
     ignitehq/cli:0.22.1 \
-    ignite scaffold single board \
+    scaffold single board \
     PlayerInfo:PlayerInfo \
     --module leaderboard \
     --no-message
@@ -131,9 +132,9 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-You want the structures to be [nullable types](https://en.wikipedia.org/wiki/Nullable_type), so a few adjustments are needed - especially because you do not have a null value for an address.
+The structures created by Ignite are [nullable types](https://en.wikipedia.org/wiki/Nullable_type) by default, but you do not want that. So a few adjustments are needed - especially because you do not have a null value for an address.
 
-You need to make the adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`.
+You need to make the adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the [`Board`](https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/genesis.proto#L17).
 
 For example, for `proto/leaderboard/board.proto` try this:
 
@@ -147,13 +148,12 @@ import "gogoproto/gogo.proto";
 
 message Board {
   repeated PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false]; 
-  
 }
 ```
 
 <HighlightBox type="note">
 
-You will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
+After re-compilation, you will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
 
 ```go
 // Set if defined
@@ -225,16 +225,16 @@ func mustAddDeltaGameResultToPlayer(
     return playerInfo
 }
 
-func (k *Keeper) MustAddWonGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
-    return mustAddDeltaGameResultToPlayer(k, ctx, player, 1, 0, 0)
+func (k Keeper) MustAddWonGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
+    return mustAddDeltaGameResultToPlayer(&k, ctx, player, 1, 0, 0)
 }
 
-func (k *Keeper) MustAddLostGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
-    return mustAddDeltaGameResultToPlayer(k, ctx, player, 0, 1, 0)
+func (k Keeper) MustAddLostGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
+    return mustAddDeltaGameResultToPlayer(&k, ctx, player, 0, 1, 0)
 }
 
-func (k *Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
-    return mustAddDeltaGameResultToPlayer(k, ctx, player, 0, 0, 1)
+func (k Keeper) MustAddForfeitedGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) types.PlayerInfo {
+    return mustAddDeltaGameResultToPlayer(&k, ctx, player, 0, 0, 1)
 }
 ```
 
@@ -245,15 +245,6 @@ const (
     TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
     LeaderboardWinnerLength = uint64(100)
 )
-```
-
-Check your `x/checkers/types/errors.go` and make sure that it includes the following:
-
-```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/types/errors.go#L29-L32]
-ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
-ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
-ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
-ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
 ```
 
 Now it is time to allow the checkers module access to the leaderboard module. This is very similar to what you did when giving access to the bank keeper when handling wager tokens.
@@ -371,6 +362,15 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 }
 ```
 
+Do not forget to add the new errors in `x/checkers/types/errors.go`:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/types/errors.go#L29-L32]
+ErrWinnerNotParseable      = sdkerrors.Register(ModuleName, 1118, "winner is not parseable: %s")
+ErrThereIsNoWinner         = sdkerrors.Register(ModuleName, 1119, "there is no winner")
+ErrInvalidDateAdded        = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to leaderboard: %s")
+```
+
 With the helper functions ready, you can call them where needed. Add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move.go#L72-L81]
@@ -424,7 +424,7 @@ Add the call for a _forfeit_ in `x/checkers/keeper/end_block_server_game.go`:
 
 That will get the job done and add the player's _win_, _loss_, or _forfeit_ counts to the store.
 
-If you did the migration part of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
+If you did the [migration part](../4-run-in-prod/2-migration.md) of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
 
 Here, the leaderboard is updated on-demand by adding the signers of a message as candidates to the leaderboard. Scaffold a new message:
 
@@ -445,7 +445,7 @@ $ docker run --rm -it \
     -v $(pwd):/leaderboard \
     -w /leaderboard \
     ignitehq/cli:0.22.1 \
-    ignite scaffold message updateBoard --module leaderboard
+    scaffold message updateBoard --module leaderboard
 ```
 
 </CodeGroupItem>
@@ -499,7 +499,7 @@ func UpdatePlayerInfoList(winners []PlayerInfo, candidates []PlayerInfo) (update
 }
 ```
 
-Note how the function that sorts players is not as efficient as possible as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the migration section for an example.
+Note how the function that sorts players is rather inefficient as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the [migration section](../4-run-in-prod/2-migration.md) for an example.
 
 If it cannot parse the date information, it will return an error that you need to declare in `x/leaderboard/types/errors.go`:
 
@@ -522,6 +522,7 @@ Now you need to call what you created in `x/leaderboard/keeper/msg_server_update
    func (k msgServer) UpdateBoard(goCtx context.Context, msg *types.MsgUpdateBoard) (*types.MsgUpdateBoardResponse, error) {
        ctx := sdk.UnwrapSDKContext(goCtx)
 
+-  // TODO
 +  board, found := k.GetBoard(ctx)
 +  if !found {
 +      panic(types.ErrBoardNotFound)
@@ -631,7 +632,7 @@ And also to change where it is used. Mostly like this, when the leaderboard is n
     }
 ```
 
-Like this, when the leaderboard is called but you do not want to confirm the calls:
+Like this, when the leaderboard is called but you are not looking to confirm the calls:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_winner_test.go#L88-L92]
     func TestPlayMoveUpToWinner(t *testing.T) {
@@ -658,6 +659,8 @@ func TestPlayMoveUpToWinnerCalledLeaderboard(t *testing.T) {
     playAllMoves(t, msgServer, context, "1", game1Moves)
 }
 ```
+
+Do not forget to add some [unit tests](https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/msg_server_update_board_test.go) for your leaderboard keeper too.
 
 ### Forwarding player information via IBC
 
@@ -690,7 +693,7 @@ $ docker run --rm -it \
     -v $(pwd):/leaderboard \
     -w /leaderboard \
     ignitehq/cli:0.22.1 \
-    ignite scaffold packet candidate \
+    scaffold packet candidate \
     PlayerInfo:PlayerInfo \
     --module leaderboard
 ```
@@ -699,54 +702,66 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-You do not want arbitrary player information, but instead, want to fetch player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
+You do not want arbitrary player information, but instead, want to fetch the creator's player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
-```go
-    argPlayerInfo := new(types.PlayerInfo)
-    err = json.Unmarshal([]byte(args[2]), argPlayerInfo)
-    if err != nil {
-        return err
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/client/cli/tx_candidate.go#L16]
+func CmdSendCandidate() *cobra.Command {
+    cmd := &cobra.Command{
+-      Use:   "send-candidate [src-port] [src-channel] [player-info]",
++      Use:   "send-candidate [src-port] [src-channel]",
+        Short: "Send a candidate over IBC",
+-      Args:  cobra.ExactArgs(3),
++      Args:  cobra.ExactArgs(2),
+        RunE: func(cmd *cobra.Command, args []string) error {
+            ...
+-          argPlayerInfo := new(types.PlayerInfo)
+-          err = json.Unmarshal([]byte(args[2]), argPlayerInfo)
+-          if err != nil {
+-              return err
+-          }
+            ...
+-          msg := types.NewMsgSendCandidate(creator, srcPort, srcChannel, argPlayerInfo, timeoutTimestamp)
++          msg := types.NewMsgSendCandidate(creator, srcPort, srcChannel, timeoutTimestamp)
+            ...
+        },
     }
-```
-
-You will also need to remove the import of `encoding/json` because it is not used anymore, and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call.
-
-The last step is to implement the logic to fetch and send player information in `x/leaderboard/keeper/msg_server_candidate.go`:
-
-```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/msg_server_candidate.go]
-package keeper
-
-import (
-    "errors"
-    "context"
     ...
-)
-
-func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandidate) (*types.MsgSendCandidateResponse, error) {
-    ctx := sdk.UnwrapSDKContext(goCtx)
-
-    // TODO: logic before transmitting the packet
-
-    // Construct the packet
-    var packet types.CandidatePacketData
-
-    allPlayerInfo := k.GetAllPlayerInfo(ctx)
-
-    found_in_player_list:= false
-    for i := range allPlayerInfo {
-        if allPlayerInfo[i].Index == msg.Creator {
-            packet.PlayerInfo = &allPlayerInfo[i];
-            found_in_player_list = true
-            break
-        }
-    }
-
-    if !found_in_player_list {
-        return nil, errors.New("player not found")
-    }
-...
+    return cmd
 }
-
 ```
 
-You do not handle received packages, because this module is only meant for sending player information to a separate leaderboard chain, which you will create next.
+You will also need to remove the import of `encoding/json` because it is not used anymore, and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call, [function](https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/messages_candidate.go#L12-L22) and not least `MsgSendCandidate` itself:
+
+```diff-protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/tx.proto#L23-L28]
+    message MsgSendCandidate {
+      ...
+      uint64 timeoutTimestamp = 4;
+-    PlayerInfo playerInfo = 5;
+    }
+```
+
+The last step is to implement the logic to fetch and send the player information in `x/leaderboard/keeper/msg_server_candidate.go`:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/msg_server_candidate.go]
+    func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandidate) (*types.MsgSendCandidateResponse, error) {
+        ctx := sdk.UnwrapSDKContext(goCtx)
+
+        // TODO: logic before transmitting the packet
+
++      // get the Player data
++      playerInfo, found := k.GetPlayerInfo(ctx, msg.Creator)
+
++      if !found {
++          return nil, types.ErrCandidateNotFound
++      }
+
++      // Construct the packet
++      var packet = types.CandidatePacketData{
++          PlayerInfo: &playerInfo,
++      }
+
+        ...
+    }
+```
+
+You do not handle received packets, because this module is only meant for sending player information to a separate leaderboard chain, which you will create next.

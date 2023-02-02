@@ -46,7 +46,7 @@ $ docker run --rm -it \
     -v $(pwd):/leaderboard \
     -w /leaderboard \
     ignitehq/cli:0.22.1 \
-    ignite scaffold packet ibcTopRank \
+    scaffold packet ibcTopRank \
     playerId rank:uint score:uint \
     --ack playerId \
     --module leaderboard
