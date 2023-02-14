@@ -138,50 +138,79 @@ You need to make the adjustments in the Protobuf files `proto/leaderboard/board.
 
 For example, for `proto/leaderboard/board.proto` try this:
 
-```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/board.proto#L9]
-syntax = "proto3";
-package b9lab.checkers.leaderboard;
+```diff-protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/board.proto#L9]
+    syntax = "proto3";
+    package b9lab.checkers.leaderboard;
 
-option go_package = "github.com/b9lab/checkers/x/leaderboard/types";
-import "leaderboard/player_info.proto"; 
-import "gogoproto/gogo.proto";
+    option go_package = "github.com/b9lab/checkers/x/leaderboard/types";
+    import "leaderboard/player_info.proto"; 
++  import "gogoproto/gogo.proto";
 
-message Board {
-  repeated PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false]; 
-}
+    message Board {
+-      PlayerInfo playerInfo = 1; 
++      repeated PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false]; 
+    }
 ```
 
 <HighlightBox type="note">
 
 After re-compilation, you will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
 
-```go
-// Set if defined
-if genState.Board != nil {
-    k.SetBoard(ctx, *genState.Board)
-}
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis.go#L17]
+-   if genState.Board != nil {
+-       k.SetBoard(ctx, *genState.Board)
+-   }
++   k.SetBoard(ctx, genState.Board)
 ```
 
-Simply change this to:
+And:
 
-```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis.go#L17]
-k.SetBoard(ctx, genState.Board)
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis.go#L44]
+    if found {
+-      genesis.Board = &board
++      genesis.Board = board
+    }
+
 ```
 
 Next, in the `x/leaderboard/genesis_test.go`, look for:
 
-```go
-Board: &types.Board{
-    PlayerInfo: new(types.PlayerInfo),
-},
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis_test.go#L25-L27]
+-  Board: &types.Board{
+-      PlayerInfo: new(types.PlayerInfo),
++  Board: types.Board{
++      PlayerInfo: []types.PlayerInfo{},
+    },
 ```
 
-Instead use:
+Next, in `x/leaderboard/types/genesis.go`, look for:
 
-```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/genesis_test.go#L25-L27]
-Board: types.Board{
-    PlayerInfo: []types.PlayerInfo{},
-},
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/genesis.go#L16-L18]
+-   Board:          nil,
++   Board: Board{
++       PlayerInfo: []PlayerInfo{},
++   },
+```
+
+And in its associated test:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/genesis_test.go#L33-L35]
+-   Board: &types.Board{
+-       PlayerInfo: new(types.PlayerInfo),
+-   },
++   Board: types.Board{
++       PlayerInfo: []types.PlayerInfo{},
++   },
+```
+
+Lastly in:
+
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/client/cli/query_board_test.go#L24-L30]
+-   board := &types.Board{}
++   board := types.Board{}
+    ...
+-   return network.New(t, cfg), *state.Board
++   return network.New(t, cfg), state.Board
 ```
 
 </HighlightBox>
@@ -252,6 +281,10 @@ Now it is time to allow the checkers module access to the leaderboard module. Th
 Declare the leaderboard functions that the checkers needs:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/types/expected_keepers.go#L26-L30]
+import (
+    leaderboardTypes "github.com/b9lab/checkers/x/leaderboard/types"
+)
+
 type CheckersLeaderboardKeeper interface {
     MustAddWonGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) leaderboardTypes.PlayerInfo
     MustAddLostGameResultToPlayer(ctx sdk.Context, player sdk.AccAddress) leaderboardTypes.PlayerInfo
@@ -373,7 +406,7 @@ ErrCannotAddToLeaderboard  = sdkerrors.Register(ModuleName, 1121, "cannot add to
 
 With the helper functions ready, you can call them where needed. Add the call for a _win_ in `x/checkers/keeper/msg_server_play_move.go`:
 
-```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move.go#L72-L81]
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move.go#LL80]
    func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
        ...
        lastBoard := game.String()
@@ -522,7 +555,8 @@ Now you need to call what you created in `x/leaderboard/keeper/msg_server_update
    func (k msgServer) UpdateBoard(goCtx context.Context, msg *types.MsgUpdateBoard) (*types.MsgUpdateBoardResponse, error) {
        ctx := sdk.UnwrapSDKContext(goCtx)
 
--  // TODO
+-  // TODO: Handling the message
+-  _ = ctx
 +  board, found := k.GetBoard(ctx)
 +  if !found {
 +      panic(types.ErrBoardNotFound)
@@ -544,6 +578,13 @@ Now you need to call what you created in `x/leaderboard/keeper/msg_server_update
 
        return &types.MsgUpdateBoardResponse{}, nil
    }
+```
+
+And the two new errors:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/errors.go#L15-L16]
+ErrBoardNotFound        = sdkerrors.Register(ModuleName, 1502, "board not found")
+ErrCandidateNotFound    = sdkerrors.Register(ModuleName, 1503, "candidate not found")
 ```
 
 That is it! Now the checkers blockchain can keep track of player information, and create or update the leaderboard based on player input.
@@ -646,6 +687,25 @@ Like this, when the leaderboard is called but you are not looking to confirm the
     }
 ```
 
+This introduces a new function, so just like you did for the bank keeper mock, you add the missing helpers to define expectations. For instance:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/testutil/mock_types/leaderboard_helpers.go]
+func (escrow *MockCheckersLeaderboardKeeper) ExpectAny(context context.Context) {
+    escrow.EXPECT().MustAddWonGameResultToPlayer(sdk.UnwrapSDKContext(context), gomock.Any()).AnyTimes()
+    escrow.EXPECT().MustAddLostGameResultToPlayer(sdk.UnwrapSDKContext(context), gomock.Any()).AnyTimes()
+    escrow.EXPECT().MustAddForfeitedGameResultToPlayer(sdk.UnwrapSDKContext(context), gomock.Any()).AnyTimes()
+}
+
+func (escrow *MockCheckersLeaderboardKeeper) ExpectWin(context context.Context, who string) *gomock.Call {
+    whoAddr, err := sdk.AccAddressFromBech32(who)
+    if err != nil {
+        panic(err)
+    }
+    return escrow.EXPECT().MustAddWonGameResultToPlayer(sdk.UnwrapSDKContext(context), whoAddr)
+}
+...
+```
+
 Do not forget to add tests to check that the leaderboard is called as expected:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_winner_test.go#L145-L153]
@@ -702,7 +762,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-You do not want arbitrary player information, but instead, want to fetch the creator's player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
+How the message constructor was created makes the player information a parameter. However, you do not want arbitrary player information, but instead, want to fetch the creator's player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/client/cli/tx_candidate.go#L16]
 func CmdSendCandidate() *cobra.Command {
@@ -746,7 +806,7 @@ The last step is to implement the logic to fetch and send the player information
     func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandidate) (*types.MsgSendCandidateResponse, error) {
         ctx := sdk.UnwrapSDKContext(goCtx)
 
-        // TODO: logic before transmitting the packet
+-      // TODO: logic before transmitting the packet
 
 +      // get the Player data
 +      playerInfo, found := k.GetPlayerInfo(ctx, msg.Creator)
@@ -755,11 +815,11 @@ The last step is to implement the logic to fetch and send the player information
 +          return nil, types.ErrCandidateNotFound
 +      }
 
-+      // Construct the packet
-+      var packet = types.CandidatePacketData{
-+          PlayerInfo: &playerInfo,
-+      }
+        // Construct the packet
+        var packet types.CandidatePacketData
 
+-      packet.PlayerInfo = msg.PlayerInfo
++      packet.PlayerInfo = &playerInfo
         ...
     }
 ```
