@@ -21,40 +21,165 @@ In this section, you will learn:
 
 After the extension of the checkers chain with a leaderboard module, the checkers game can keep track of player stats and it can maintain (on request) a sorted leaderboard. In addition, it can send player stats via the Inter-Blockchain Communication Protocol (IBC) to another chain.
 
-You will now create a leaderboard chain that can receive the `Candidate` packets to store a **global leaderboard**.
+You will now create a leaderboard chain that can receive the `Candidate` packets to store in a **global leaderboard**.
 
-Determine another folder for your leaderboard chain, and scaffold a chain via Ignite CLI:
+Create another folder for your leaderboard chain, and scaffold a chain via Ignite CLI:
 
-```bash
-ignite scaffold chain leaderboard --no-module
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite ignite scaffold chain leaderboard --no-module
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/parent \
+    -w /parent \
+    ignitehq/cli:0.22.1 \
+    scaffold chain leaderboard --no-module
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+Go into it:
+
+```sh
+$ cd leaderboard
 ```
 
 Again, you can include an IBC-enabled leaderboard module in it:
 
-```bash
-ignite scaffold module leaderboard --ibc
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold module leaderboard --ibc
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    scaffold module leaderboard --ibc
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 You need a structure to keep track of player information too:
 
-```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold map playerInfo \
+    wonCount:uint lostCount:uint forfeitedCount:uint \
+    dateUpdated:string \
+    --module leaderboard \
+    --no-message
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    scaffold map playerInfo \
+    wonCount:uint lostCount:uint forfeitedCount:uint \
+    dateUpdated:string \
+    --module leaderboard \
+    --no-message
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 And of course a board structure:
 
-```bash
-$ ignite scaffold single board PlayerInfo:PlayerInfo --module leaderboard --no-message
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold single board \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    scaffold single board \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 In addition, you want to receive candidate packets:
 
-```bash
-ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no-message
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ ignite scaffold packet candidate \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
 ```
 
-This time you use the `--no-message` flag because this chain is not going to send any player information to another chain.
+</CodeGroupItem>
 
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/leaderboard \
+    -w /leaderboard \
+    ignitehq/cli:0.22.1 \
+    scaffold packet candidate \
+    PlayerInfo:PlayerInfo \
+    --module leaderboard \
+    --no-message
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This time you use the `--no-message` flag because this chain is not going to send any player information to other chains.
 
 <HighlightBox type="tip">
 
@@ -64,52 +189,51 @@ As in the previous section, you need to make adjustments in the Protobuf files `
 
 Implement the logic for receiving packets in `x/leaderboard/keeper/candidate.go`:
 
-```go
-...
-// OnRecvCandidatePacket processes packet reception
-func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {
-    // validate packet data upon receiving
-    if err := data.ValidateBasic(); err != nil {
-        return packetAck, err
-    }
-
-    allPlayerInfo := k.GetAllPlayerInfo(ctx)
-
-    found_in_player_list:= false
-    for i := range allPlayerInfo {
-        if allPlayerInfo[i].Index == data.PlayerInfo.Index {
-            allPlayerInfo[i] = *data.PlayerInfo;
-            found_in_player_list = true
-            break
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/keeper/candidate.go#L77-L78]
+    // OnRecvCandidatePacket processes packet reception
+    func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {
+        // validate packet data upon receiving
+        if err := data.ValidateBasic(); err != nil {
+            return packetAck, err
         }
-    }
 
-    if !found_in_player_list {
-        k.SetPlayerInfo(ctx, *data.PlayerInfo)
-    }
+-      // TODO: packet reception logic
++      // Override the entry
++      k.SetPlayerInfo(ctx, *data.PlayerInfo)
 
-    return packetAck, nil
-}
-...
+        return packetAck, nil
+    }
 ```
 
 In addition, add a basic validation into `x/leaderboard/types/packet_candidate.go`:
 
-```go
-package types
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/packet_candidate.go#L10-L14]
++  import (
++      "errors"
++  )
 
-import (
-    "errors"
-)
+    // ValidateBasic is used for validating the packet
+    func (p CandidatePacketData) ValidateBasic() error {
 
-// ValidateBasic is used for validating the packet
-func (p CandidatePacketData) ValidateBasic() error {
+-      // TODO: Validate the packet data
++      // return error if player info is incorrect
++      playerInfoErr := p.PlayerInfo.ValidateBasic()
++      if playerInfoErr != nil {
++          return playerInfoErr
++      }
 
-  // return error if player address is empty
-  if p.PlayerInfo.Index == "" {
-      return errors.New("player address cannot be empty")
-  }
+        return nil
+    }
+```
 
+Which calls up a new validation on the `PlayerInfo`, which you also have to declare:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/player_info.go]
+func (info PlayerInfo) ValidateBasic() error {
+    _, err := sdk.AccAddressFromBech32(info.Index)
+    if err != nil {
+        return err
+    }
     return nil
 }
 ```
@@ -118,94 +242,93 @@ Now your leaderboard chain can receive player information from chains with the l
 
 There are two places where you can call for an update on the board structure:
 
-* In `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard.
-* Or you can again create a separate transaction for anyone to sort and clip the leaderboard on the leaderboard chain as you did for the checkers chain.
+* In `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard. This is the choice here, for simplicity.
+* Or you can change your data structure a little bit and handle the sorting and clipping of the leaderboard in `EndBlock`.
 
-Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for an update in `OnRecvCandidatePacket`. You need to create some helper functions in `x/leaderboard/keeper/board.go` and adjust the `updateBoard` function.
+Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for a leaderboard update in `OnRecvCandidatePacket`. You need to create some helper functions in a new `x/leaderboard/typesboard.go/board.go`:
 
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/board.go]
+func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
+    dateAddedParsed, errDateAdded := time.Parse(TimeLayout, dateAdded)
+    return dateAddedParsed, sdkerrors.Wrapf(errDateAdded, ErrInvalidDateAdded.Error(), dateAdded)
+}
 
-```go
-...
-
-    func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
-        dateAddedParsed, errDateAdded := time.Parse(types.TimeLayout, dateAdded)
-        return dateAddedParsed, sdkerrors.Wrapf(errDateAdded, types.ErrInvalidDateAdded.Error(), dateAdded)
-    }
-
-    func SortPlayerInfo(playerInfoList []types.PlayerInfo) {
-        sort.SliceStable(playerInfoList[:], func(i, j int) bool {
-            if playerInfoList[i].WonCount > playerInfoList[j].WonCount {
-                return true
-            }
-            if playerInfoList[i].WonCount < playerInfoList[j].WonCount {
-                return false
-            }
-            firstPlayerTime, _ := ParseDateAddedAsTime(playerInfoList[i].DateUpdated)
-            secondPlayerTime,_ := ParseDateAddedAsTime(playerInfoList[j].DateUpdated)
-
-            return firstPlayerTime.After(secondPlayerTime)
-        })
-    }
-
-    func (k Keeper) UpdateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
-        SortPlayerInfo(playerInfoList)
-
-        if types.LeaderboardWinnerLength < uint64(len(playerInfoList)) {
-            playerInfoList = playerInfoList[:types.LeaderboardWinnerLength]
+func SortPlayerInfo(playerInfoList []PlayerInfo) {
+    sort.SliceStable(playerInfoList[:], func(i, j int) bool {
+        if playerInfoList[i].WonCount > playerInfoList[j].WonCount {
+            return true
         }
+        if playerInfoList[i].WonCount < playerInfoList[j].WonCount {
+            return false
+        }
+        firstPlayerTime, _ := ParseDateAddedAsTime(playerInfoList[i].DateUpdated)
+        secondPlayerTime, _ := ParseDateAddedAsTime(playerInfoList[j].DateUpdated)
 
-        k.SetBoard(ctx, types.Board {
-            PlayerInfo: playerInfoList,
-        })
-    }
+        return firstPlayerTime.After(secondPlayerTime)
+    })
+}
 ```
 
-Again, you need to include the error type in `x/leaderboard/types/errors.go`:
+And in `x/leaderboard/keeper/board.go`, introduce a new `UpdateBoard` function:
 
-```go
-    ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/keeper/board.go#L36-L46]
+func (k Keeper) UpdateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
+    SortPlayerInfo(playerInfoList)
+
+    if types.LeaderboardWinnerLength < uint64(len(playerInfoList)) {
+        playerInfoList = playerInfoList[:types.LeaderboardWinnerLength]
+    }
+
+    k.SetBoard(ctx, types.Board {
+        PlayerInfo: playerInfoList,
+    })
+}
+```
+
+Again, do not forget to declare the new error type in `x/leaderboard/types/errors.go`:
+
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/errors.go#L14]
+ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
 ```
 
 You also need to define `TimeLayout` in `x/leaderboard/types/keys.go`:
 
-```go
-    TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
+```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/keys.go#L40]
+TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
 ```
 
-Then you can include a `updateBoard` call in `x/leaderboard/keeper/candidate.go`:
+Then you can include a call to `UpdateBoard` call in `x/leaderboard/keeper/candidate.go`:
 
-```go
-...
-// OnRecvCandidatePacket processes packet reception
-func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {
-    // validate packet data upon receiving
-    if err := data.ValidateBasic(); err != nil {
-        return packetAck, err
-    }
-
-    allPlayerInfo := k.GetAllPlayerInfo(ctx)
-
-    found_in_player_list:= false
-    for i := range allPlayerInfo {
-        if allPlayerInfo[i].Index == data.PlayerInfo.Index {
-            allPlayerInfo[i] = *data.PlayerInfo;
-            found_in_player_list = true
-            break
-        }
-    }
-
-    if !found_in_player_list {
+```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/keeper/candidate.go#L80-L97]
+    // OnRecvCandidatePacket processes packet reception
+    func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packet, data types.CandidatePacketData) (packetAck types.CandidatePacketAck, err error) {
+        ...
         k.SetPlayerInfo(ctx, *data.PlayerInfo)
+
++      // Update the board
++      board, found := k.GetBoard(ctx)
++      if !found {
++          panic("Leaderboard not found")
++      }
++      listed := board.PlayerInfo
++      replaced := false
++      for i := range listed {
++          if listed[i].Index == data.PlayerInfo.Index {
++              listed[i] = *data.PlayerInfo
++              replaced = true
++              break
++          }
++      }
++      if !replaced {
++          listed = append(listed, *data.PlayerInfo)
++      }
++      k.UpdateBoard(ctx, listed)
+
+        return packetAck, nil
     }
-
-    // Here we can fetch the PlayerInfo and update the board
-    playerInfoList := k.GetAllPlayerInfo(ctx)
-    k.UpdateBoard(ctx, playerInfoList)
-
-    return packetAck, nil
-}
-...
 ```
+
+With this, your leaderboard chain is ready to update its leaderboard when receiving a candidate packet.
 
 ## Test it
 
