@@ -158,12 +158,14 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 ### Vuepress features and issues
 
 
-## Platform Variants
+## Platform Variants and Versions
 
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
 * The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
+
+Furthermore, the platform features different _versions_ of the content to be deployed in one platform.
 
 
 ### Working with Platform Variants
@@ -209,17 +211,17 @@ To work on the IDA platform files, starting from a clean `master`:
 ## Visual Studio Code 
 
 1. Install [Visual Studio Code](https://vscode-docs.readthedocs.io/en/latest/editor/setup/).
-1. Click **Extensions** in the sidebar. 
-1. Install these extensions:
+2. Click **Extensions** in the sidebar. 
+3. Install these extensions:
     * [Go for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.Go)
     * [markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint) 
-1. When prompted:
-    * `go get -v golang.org/x/tools/gopls`
-    * Select `Install all` for all packages
+4. When prompted:
+    * Enter `go get -v golang.org/x/tools/gopls`.
+    * Select `Install all` for all packages.
 
 Be sure to set up [Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview) for your environment. 
 
-**Tip** On MacOS, install `code` in $PATH to enable [Launching Visual Studio Code from the command line](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line). Open the Command Palette (Cmd+Shift+P) and type 'shell command'.  
+**Tip** On MacOS, install `code` in $PATH to enable [Launching Visual Studio Code from the command line](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line). Open the Command Palette (Cmd+Shift+P) and type 'shell command'.
 
 ### GitHub Integration
 
@@ -228,23 +230,23 @@ Click the GitHub icon in the sidebar for GitHub integration and follow the promp
 
 ## Terminal Tips 
 
-Master your terminal to be happy.
+It is recommended that you master your terminal to be happy.
 
 ### iTerm2 Terminal Emulator
 
-On macOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the Bash shell that supports useful features like programmable completion.
+On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the Bash shell that supports useful features like programmable completion.
 
 ### Using ZSH as Your Default Shell
 
-The Z shell, also known as zsh, is a UNIX shell that is built on top of the macOS default Bourne shell.
+The Z shell, also known as **Zsh**, is a UNIX shell that is built on top of the macOS default Bourne shell.
 
-1. If you want to set your default shell to zsh, install and set up [zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) as the default shell.
+1. If you want to set your default shell to Zsh, [install and set up Zsh](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH) as the default shell.
 
-1. Install these plugins:
-    * [zsh-auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-    * [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
+2. Install these plugins:
+    * [Zsh-auto-suggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
+    * [Zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md#oh-my-zsh)
 
-1. Edit your `~/.zshrc` file to add the plugins to load on startup:
+3. Edit your `~/.zshrc` file to add the plugins to load on startup:
 
     ```sh
     plugins=(
@@ -254,7 +256,7 @@ The Z shell, also known as zsh, is a UNIX shell that is built on top of the macO
     )
     ```
 
-1. Log out and log back in to the terminal to use your new default zsh shell.
+4. Log out and log back in to the terminal to use your new default Zsh shell.
 
 
 ## Install Go 
@@ -262,8 +264,8 @@ The Z shell, also known as zsh, is a UNIX shell that is built on top of the macO
 This installation method removes existing Go installations, installs Go in `/usr/local/go/bin/go`, and sets the environment variables.
 
 1. Go to <https://golang.org/dl>.
-1. Download the binary release that is suitable for your system. 
-1. Follow the installation instructions.
+2. Download the binary release that is suitable for your system. 
+3. Follow the installation instructions.
 
 **Note:** We recommend not using brew to install Go.
 

@@ -57,6 +57,36 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc aliquet ligula sed
 
 ## Code group
 
+```diff-ts
+import * as CSS from 'csstype';
+
+const style: CSS.Properties = {
+  colour: 'white', // Type error on property
+  textAlign: 'middle', // Type error on value
+};
+-    return {
+-      placeholderText: "Drag and drop a file here",
+-      hashed: "",
+-      flight: false,
+-    };
++    return {};
+```
+
+```diff
+import * as CSS from 'csstype';
+
+const style: CSS.Properties = {
+  colour: 'white', // Type error on property
+  textAlign: 'middle', // Type error on value
+};
+-    return {
+-      placeholderText: "Drag and drop a file here",
+-      hashed: "",
+-      flight: false,
+-    };
++    return {};
+```
+
 
 ```py [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
 for line in fileinput.input(inplace=1):
@@ -320,7 +350,7 @@ children: [
   },
   {
     title: "What is Cosmos?",
-    path: "/academy/what-is-cosmos",
+    path: "/academy/1-what-is-cosmos",
     directory: true,
   },
   {

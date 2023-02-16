@@ -2,7 +2,8 @@
 .DS_Store
 *.swp
 *.swo
-.vscode
+.vscode/settings.json
+.vscode/
 .idea
 
 # Build
@@ -24,3 +25,5 @@ dist/
 *.code-workspace 
 
 .vuepress/public/resized-images
+
+.env
