@@ -1,6 +1,9 @@
 # Overview
 
-This Node.js application uses [Vuepress](https://vuepress.vuejs.org/) to render a static documentation page.
+This Node.js 14 application uses [Vuepress](https://vuepress.vuejs.org/) (v. 1.5) to render a static documentation page - the Cosmos developer portal.
+
+
+# Local setup and build
 
 ## Clone
 
@@ -127,16 +130,38 @@ If you create a new folder named `myfiles`, add `"myfiles/*/*.md"` to the list.
 
 ### Landingpages
 
+There are different types of landingpages used on this platform:
+
+* The main landingpages, served under `/`, displays the content defined in [README.MD](README.MD), using the `ModuleLandingPage` layout.
+* Module landingpages (Like the [what is cosmos lp](academy/1-what-is-cosmos/index.md)) are stored as `index.md` file in a subfolder.
+
 #### Main landingpage
 
-#### Sub landingpage
+Please note that the main landingpage file (`README.MD`) contains all the content definitions ans settings in its markdown header (area enclosed between `---`) as well as the text for the main repo readme (content below the markdown header).
 
 #### Module landingpages
 
+Module landingpages can use implement the  `<card-module/>` for an optional display of children pages within that content folder.
 
 ## Content pages
 
+All content pages are implemented in markdown.
+
+
 ### Header
+
+The Page header should expose the following attribtes for all content pages:
+
+```
+---
+title: "Getting ATOM and Staking It"
+order: 4
+description: Stake your first ATOM
+tags: 
+  - concepts
+  - cosmos-hub
+---
+```
 
 ### Images
 
@@ -269,3 +294,6 @@ This installation method removes existing Go installations, installs Go in `/usr
 
 **Note:** We recommend not using brew to install Go.
 
+## Markdown lint
+
+The content is formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md), the config can be found in [markdownlint.json](./markdownlint.json).

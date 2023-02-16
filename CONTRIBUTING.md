@@ -11,9 +11,9 @@ If the tutorial instructs you to download a specific version, that means that th
 
 ## Contributing
 
-Thank you for helping us to create and maintain awesome tutorials.
+Thank you for helping us to create and maintain this awesome developer portal.
 
-- To set up your environment for success, follow the [technical set up](TECHNICAL-SETUP.md) guidelines.
+- To setup the portal lcoally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
 
@@ -53,19 +53,27 @@ The layout metadata at the top of the README.md file controls the main landingpa
 
 ### Folder structure
 
-The published content currently lives in two separate folders:
+The published content currently lives in a few separate folders:
 
 - `academy` contains the _Cosmos Academy_ content
 - `tutorials` contains specific tutorials on different topics
+- `hands-on-exercise` contains the hands-on modules
+
+Note: The folder `ida-customizations` contains files used for the IDA build of the platform.
+
 
 ### Components and advanced features
 
-There is a hidden file (not linked in the main menu) published at [/feature-test](/feature-test/index.md), which demonstrates the use of all custom components used on this platform. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/).
+There is a hidden file (not linked in the main menu) published at [/feature-test](/feature-test/index.md), which demonstrates the use of all custom components used on this platform. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/). You can always refer to this page when you need a reference for a component integration.
 
 
 ## Images
 
 **Please note that images _must_ be linked using an absolute path!**
+
+### SVG Images
+
+A special note on svg images: They are currently not processed by the asset pipeline therefore svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` subfolder. To embed such an images, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
 
 
 ## Who works on the tutorials?
@@ -77,7 +85,7 @@ Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosm
 
 There are two ways to see what your changes will look like in production before the updated pages are published:
 
-- When a PR is ready for review, you can see a deployed preview on a URL that is unique for that PR.
+- When a PR is ready for review, you can see a preview deployment.
 - While a PR is in DRAFT mode, you can preview a local build.
 
 ### Preview PRs on a Deployed Preview
@@ -90,32 +98,14 @@ To view a deployed preview on a **Ready for review** PR, click the **Details** l
 
 ### Preview Draft PRs on a Local Web Browser
 
-Since the deploy preview does not work on Draft PRs, follow these steps to preview the tutorial build on a local web browser.
+To view a local preview of a branch, follow the steps outlined in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) guide to clone and install the app. Then, checkout the branch you would like to preview and run
 
-1. If you have not already, clone the tutorials repo to your local machine and change to that directory. For example:
+```
+npm run serve
+```
 
-    ```bash
-    cd ~/github
-    git clone --recursive https://github.com/cosmos/sdk-tutorials
-    cd sdk-tutorials
-    ```
+to start the local server.
 
-2. Local tutorials require JavaScript. If needed, install [npm](https://docs.npmjs.com/cli/v6/commands/npm-install).
+A successful client compile looks like: `> VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )`
 
-3. For each branch you work in, install the npm packages for the SDK tutorials:
-
-    ```sh
-    $ npm install
-    ```
-
-4. Start the local instance of the tutorial build:
-
-    ```sh
-    $ npm run serve
-    ```
-
-  A successful client compile looks like: `> VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )`
-
-5. You can now view the tutorial build on a local web browser. Isn't this fun?
-
-    **Tip:** On a mac, press the command key and click `http://localhost:8080/` for quick access.
+You can now view the tutorial build on a local web browser at `http://localhost:8080/`.
