@@ -226,7 +226,7 @@ In addition, add a basic validation into `x/leaderboard/types/packet_candidate.g
     }
 ```
 
-Which calls up a new validation on the `PlayerInfo`, which you also have to declare:
+This calls up a new validation on the `PlayerInfo`, which you also have to declare:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/player_info.go]
 func (info PlayerInfo) ValidateBasic() error {
