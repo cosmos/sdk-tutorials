@@ -22,7 +22,7 @@ In this section, you will learn:
 
 ## What you will be building and why
 
-The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain. And indeed this is done in the [migration section](../4-run-in-prod/2-migration.md).
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain. You can see an example of this in the [migration section](../4-run-in-prod/2-migration.md).
 
 But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play competitive games. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
@@ -192,7 +192,7 @@ Next, in `x/leaderboard/types/genesis.go`, look for:
 +   },
 ```
 
-And in its associated test:
+Now, in its associated test:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/genesis_test.go#L33-L35]
 -   Board: &types.Board{
@@ -217,9 +217,9 @@ Lastly in:
 
 Continue preparing your new leaderboard module.
 
-The checkers module is the authority when it comes to who won and who lost; the leaderboard module is the authority when it comes to how to tally scores and rank players. Therefore the leaderboard module will only expose to the checkers module functions to inform on wins and losses like `MustAddWonGameResultToPlayer(...)`.
+The checkers module is the authority when it comes to who won and who lost; the leaderboard module is the authority when it comes to how to tally scores and rank players. Therefore, the leaderboard module will only expose to the checkers module functions to inform on wins and losses, like `MustAddWonGameResultToPlayer(...)`.
 
-To achieve this, first, you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
+To achieve this, first you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/player_info_handler.go]
 package keeper
@@ -292,7 +292,7 @@ type CheckersLeaderboardKeeper interface {
 }
 ```
 
-Add this keeper interface to checkers, modify `x/checkers/keeper/keeper.go` and include the leaderboard keeper:
+Add this keeper interface to checkers, modify `x/checkers/keeper/keeper.go`, and include the leaderboard keeper:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/keeper.go#L19]
    type (
@@ -344,7 +344,7 @@ Make sure the app builds it correctly. Look for `app.CheckersKeeper` in `app/app
    )
 ```
 
-You want to store a _win_, and a _loss_ or a _forfeit_ when a game ends. Thus, you should create some helper functions in checkers that call the leaderboard module. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
+You want to store a _win_ plus either a _loss_ or a _forfeit_ when a game ends. Therefore, you should create some helper functions in checkers that call the leaderboard module. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/player_info_handler.go]
 package keeper
@@ -455,7 +455,7 @@ Add the call for a _forfeit_ in `x/checkers/keeper/end_block_server_game.go`:
        ...
 ```
 
-That will get the job done and add the player's _win_, _loss_, or _forfeit_ counts to the store.
+That will get the job done, and add the player's _win_, _loss_, or _forfeit_ counts to the store.
 
 If you did the [migration part](../4-run-in-prod/2-migration.md) of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
 
@@ -532,7 +532,7 @@ func UpdatePlayerInfoList(winners []PlayerInfo, candidates []PlayerInfo) (update
 }
 ```
 
-Note how the function that sorts players is rather inefficient as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the [migration section](../4-run-in-prod/2-migration.md) for an example.
+The function that sorts players is rather inefficient, as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the [migration section](../4-run-in-prod/2-migration.md) for an example.
 
 If it cannot parse the date information, it will return an error that you need to declare in `x/leaderboard/types/errors.go`:
 
@@ -580,7 +580,7 @@ Now you need to call what you created in `x/leaderboard/keeper/msg_server_update
    }
 ```
 
-And the two new errors:
+Also call the two new errors:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/errors.go#L15-L16]
 ErrBoardNotFound        = sdkerrors.Register(ModuleName, 1502, "board not found")
@@ -591,7 +591,7 @@ That is it! Now the checkers blockchain can keep track of player information, an
 
 ### Unit tests
 
-You have created a new expected keeper. Have Mockgen create its mocks, by reusing the `make` command prepared earlier:
+You have created a new expected keeper. Have Mockgen create its mocks by reusing the `make` command prepared earlier:
 
 <CodeGroup>
 
@@ -662,7 +662,7 @@ Because of the change of signature of this function, you need to adjust wherever
     }
 ```
 
-And also to change where it is used. Mostly like this, when the leaderboard is not called:
+You must also change where it is used. Mostly like this, when the leaderboard is not called:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/checkers/keeper/msg_server_play_move_test.go#L37]
     func TestPlayMove(t *testing.T) {
@@ -687,7 +687,7 @@ Like this, when the leaderboard is called but you are not looking to confirm the
     }
 ```
 
-This introduces a new function, so just like you did for the bank keeper mock, you add the missing helpers to define expectations. For instance:
+This introduces a new function, so (as you did for the bank keeper mock) you add the missing helpers to define expectations. For instance:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/testutil/mock_types/leaderboard_helpers.go]
 func (escrow *MockCheckersLeaderboardKeeper) ExpectAny(context context.Context) {
@@ -762,7 +762,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-How the message constructor was created makes the player information a parameter. However, you do not want arbitrary player information, but instead, want to fetch the creator's player information from the store, so make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
+How the message constructor was created makes the player information a parameter. However, you do not want arbitrary player information, but instead want to fetch the creator's player information from the store. To do this, make a small adjustment to `x/leaderboard/client/cli/tx_candidate.go`. Look for the following lines and remove them:
 
 ```diff-go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/client/cli/tx_candidate.go#L16]
 func CmdSendCandidate() *cobra.Command {
@@ -790,7 +790,7 @@ func CmdSendCandidate() *cobra.Command {
 }
 ```
 
-You will also need to remove the import of `encoding/json` because it is not used anymore, and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call, [function](https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/messages_candidate.go#L12-L22) and not least `MsgSendCandidate` itself:
+You will also need to remove the import of `encoding/json` because it is not used anymore, and you should remove the parameter `argPlayerInfo` from the `types.NewMsgSendCandidate(...)` call, from [function](https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/types/messages_candidate.go#L12-L22), and not least from `MsgSendCandidate` itself:
 
 ```diff-protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/proto/leaderboard/tx.proto#L23-L28]
     message MsgSendCandidate {
