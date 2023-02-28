@@ -218,8 +218,7 @@ There are two helper scripts available to switch between the main platform and t
 
 **NOTE: Your working directory must be clean before switching to the IDA files**.
 
-When you switch back to the main variant, changes will be moved into the `ida-customizations` folder, and the original files are being restored. The script uses `git stash` to restore the main files, so in case of an inadvertently switch (or any error), you can restore your original changes (see `git stash list` and `git stash pop`). Note however that **changes in the `ida-customizations` folder will be overwritten** by this script!
-
+When you switch back to the main variant, changes will be moved into the `ida-customizations` folder, and the original files are being restored. The script uses `git stash` to restore the main files, so in case of an inadvertent switch (or any error), you can restore your original changes (see `git stash list` and `git stash pop`). Note however that **changes in the `ida-customizations` folder will be overwritten** by this script!
 
 ### Workflows
 
