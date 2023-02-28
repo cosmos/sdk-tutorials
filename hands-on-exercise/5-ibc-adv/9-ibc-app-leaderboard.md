@@ -72,21 +72,12 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
     if err := data.ValidateBasic(); err != nil {
         return packetAck, err
     }
+    
+    // Override the entry
+    k.SetPlayerInfo(ctx, *data.PlayerInfo)
 
-    allPlayerInfo := k.GetAllPlayerInfo(ctx)
-
-    found_in_player_list:= false
-    for i := range allPlayerInfo {
-        if allPlayerInfo[i].Index == data.PlayerInfo.Index {
-            allPlayerInfo[i] = *data.PlayerInfo;
-            found_in_player_list = true
-            break
-        }
-    }
-
-    if !found_in_player_list {
-        k.SetPlayerInfo(ctx, *data.PlayerInfo)
-    }
+    // Update the board
+    k.UpdateBoard(ctx, k.GetAllPlayerInfo(ctx))
 
     return packetAck, nil
 }

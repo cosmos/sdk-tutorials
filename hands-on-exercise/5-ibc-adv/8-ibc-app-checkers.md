@@ -498,24 +498,31 @@ func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandid
 
     // TODO: logic before transmitting the packet
 
+    // get the Player data
+    playerInfo, playerFound := k.GetPlayerInfo(ctx, msg.Creator)
+
+    if !playerFound {
+        return nil, errors.New("Player not found")
+    }
+
     // Construct the packet
     var packet types.CandidatePacketData
+    packet.PlayerInfo = &playerInfo
 
-    allPlayerInfo := k.GetAllPlayerInfo(ctx)
-
-    found_in_player_list:= false
-    for i := range allPlayerInfo {
-        if allPlayerInfo[i].Index == msg.Creator {
-            packet.PlayerInfo = &allPlayerInfo[i];
-            found_in_player_list = true
-            break
-        }
+    // Transmit the packet
+    err := k.TransmitCandidatePacket(
+        ctx,
+        packet,
+        msg.Port,
+        msg.ChannelID,
+        clienttypes.ZeroHeight(),
+        msg.TimeoutTimestamp,
+    )
+    if err != nil {
+        return nil, err
     }
 
-    if !found_in_player_list {
-        return nil, errors.New("player not found")
-    }
-...
+    return &types.MsgSendCandidateResponse{}, nil
 }
 
 ```
