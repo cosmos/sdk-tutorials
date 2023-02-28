@@ -211,7 +211,7 @@ There is a separate folder for files with different content for the IDA platform
 
 ### Switching variants
 
-There are two helper scripts available to switch between the main platform and the ida platform variants.
+There are two helper scripts available to switch between the main platform and the IDA platform variants.
 
 * `npm run switch-ida` to change your local filesystem to the IDA platform variant (copy in IDA files).
 * `npm run switch-main` to switch back to the main platform variant (this moves your changes into the `ida-customizations` folder).
