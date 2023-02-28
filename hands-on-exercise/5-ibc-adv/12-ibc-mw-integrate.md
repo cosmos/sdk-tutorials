@@ -58,7 +58,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
       //app.go
 
       // add scoped keepers in case the middleware wishes to
-      // send a packet or acknowledgment without
+      // send a packet or acknowledgement without
       // the involvement of the underlying application
       scopedKeeperTransfer := capabilityKeeper.NewScopedKeeper("transfer")
       scopedKeeperCustom1 := capabilityKeeper.NewScopedKeeper("custom1")

@@ -1,5 +1,5 @@
 ---
-title: "Adding Packet and Acknowledgement Data"
+title: "Adding Packet and Acknowledgment Data"
 order: 7
 description: 
 tags: 
@@ -8,9 +8,9 @@ tags:
   - ibc
 ---
 
-# Adding Packet and Acknowledgement Data
+# Adding Packet and Acknowledgment Data
 
-This section demonstrates how to define packets and acks (acknowledgements) for the leaderboard blockchain.
+This section demonstrates how to define packets and acks (acknowledgments) for the leaderboard blockchain.
 
 <HighlightBox type="note">
 
@@ -335,7 +335,7 @@ func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Pack
 
 <HighlightBox type="note">
 
-Remember that the `OnRecvPacket` callback writes an acknowledgement as well (this course covers the synchronous write ack case).
+Remember that the `OnRecvPacket` callback writes an acknowledgment as well (this course covers the synchronous write ack case).
 
 </HighlightBox>
 
@@ -397,7 +397,7 @@ Again, the reader is invited to check these out independently.
 
 <HighlightBox type="info">
 
-Events in IBC are important because relayers process events to check if there are packets (or acknowledgements) to relay.
+Events in IBC are important because relayers process events to check if there are packets (or acknowledgments) to relay.
 <br/><br/>
 Ignite CLI has scaffolded some events in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet which you have defined:
 
