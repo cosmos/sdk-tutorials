@@ -9,7 +9,7 @@ tags:
 
 # Exercise - Make a Checkers Blockchain
 
-The next sections are all about creating a decentralized game of checkers using Ignite CLI and the Cosmos SDK. Each section progressively advances the project. To learn the most efficiently, you should treat each section as _a solution_ to the questions raised at the start of the section.
+The next sections are all about creating a decentralized game of checkers (see the rules [here](https://www.ducksters.com/games/checkers_rules.php)) using Ignite CLI and the Cosmos SDK. Each section progressively advances the project. To learn the most efficiently, you should treat each section as _a solution_ to the questions raised at the start of the section.
 
 ## Is it for me?
 

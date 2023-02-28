@@ -1,8 +1,10 @@
 const path = require('path');
+require("dotenv").config();
 
 module.exports = {
   theme: "cosmos",
   title: "Developer Portal",
+  base: process.env.VUEPRESS_BASE || "/",
   head: [
     [
       "link",
@@ -49,6 +51,7 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    siteVersions: (process.env.DOCS_VERSIONS || "").split(" "),
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
@@ -434,6 +437,7 @@ module.exports = {
   ],
   patterns: [
     "README.md",
+    "versions.md",
     "feature-test/*.md",
     "academy/*/*.md",
     "tutorials/*/*.md",

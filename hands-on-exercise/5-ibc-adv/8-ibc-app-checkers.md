@@ -21,7 +21,7 @@ In this section, you will learn:
 
 ## What you will be building and why
 
-The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization is would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain.
 
 But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play a competitive game. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
@@ -37,7 +37,7 @@ Currently, your checkers game contains the checkers module but is not IBC-enable
 
 Let’s dive right into it.
 
-Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-cosmjs-elements) tag.
+Go to your checkers folder and make sure that you are checked out on the [cosmjs-elements](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) tag.
 
 In the checkers chain folder, you can scaffold a leaderboard module with Ignite:
 
@@ -48,7 +48,7 @@ $ ignite scaffold module leaderboard --ibc
 In order to create and maintain a leaderboard, you need to store the player information. Scaffold a structure with:
 
 ```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
+$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
 ```
 
 Now you can use this structure to create the board itself:
@@ -76,6 +76,62 @@ message Board {
   
 }
 ```
+
+<HighlightBox type="note">
+
+You will also have to modify the `x/leaderboard/genesis.go`. In it, look for:
+
+```golang
+    // Set if defined
+    if genState.Board != nil {
+        k.SetBoard(ctx, *genState.Board)
+    }
+```
+
+Simply change this to:
+
+```golang
+    k.SetBoard(ctx, genState.Board)
+```
+
+Next, in the `x/leaderboard/genesis_test.go`, look for:
+
+```golang
+    Board: &types.Board{
+        PlayerInfo: new(types.PlayerInfo),
+    },
+```
+
+Instead use:
+
+```golang
+    Board: types.Board{
+     PlayerInfo: []types.PlayerInfo{},
+   },
+```
+
+We gave the checkers' module access to the leaderboard's keeper. Therefore you will need to modify `testutils/keeper/checkers.go`. Locate:
+
+```golang
+    k := keeper.NewKeeper(
+            bank,
+            cdc,
+            storeKey,
+            memStoreKey,
+```
+
+Now add the leaderboard's keeper into it:
+
+```golang
+    leaderboardKeeper,_ := LeaderboardKeeper(t);
+    k := keeper.NewKeeper(
+        bank,
+        *leaderboardKeeper,
+        cdc,
+        storeKey,
+        memStoreKey,
+```
+</HighlightBox>
 
 You want to store a _win_, a _loss_, or a _draw_ when a game ends. Thus, you should create some helper functions first. Create a `x/checkers/keeper/player_info_handler.go` file with the following code:
 
@@ -457,7 +513,7 @@ func (k msgServer) SendCandidate(goCtx context.Context, msg *types.MsgSendCandid
     }
 
     if !found_in_player_list {
-        errors.New("Player not found")
+        return nil, errors.New("player not found")
     }
 ...
 }

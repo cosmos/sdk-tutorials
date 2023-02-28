@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/v1-wager-denomination).
+* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
 
 </HighlightBox>
 
@@ -102,7 +102,11 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -190,7 +194,11 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Docker">
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i ignite scaffold single leaderboard winners --module checkers --no-message
+    $ docker run --rm -it \
+        -v $(pwd):/checkers \
+        -w /checkers \
+        checkers_i \
+        ignite scaffold single leaderboard winners --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -1509,7 +1517,11 @@ $ go build -o release/v1/checkersd cmd/checkersd/main.go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go build -o release/v1/checkersd cmd/checkersd/main.go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go build -o release/v1/checkersd cmd/checkersd/main.go
 ```
 
 </CodeGroupItem>
@@ -1804,7 +1816,11 @@ $ pushd client && npm test && popd
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd)/client:/client -w /client node:18.7 npm test
+$ docker run --rm -it \
+    -v $(pwd)/client:/client \
+    -w /client \
+    node:18.7 \
+    npm test
 ```
 
 <HighlightBox type="note">
@@ -2197,7 +2213,11 @@ $ go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go build -o ./release/v2/checkersd ./cmd/checkersd/main.go
 ```
 
 </CodeGroupItem>

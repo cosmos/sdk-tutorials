@@ -38,7 +38,7 @@ ignite scaffold module leaderboard --ibc
 You need a structure to keep track of player information too:
 
 ```bash
-$ ignite scaffold map playerInfo wonCount:uint lostCount:uint dateUpdated:string --module leaderboard --no-message
+$ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint dateUpdated:string --module leaderboard --no-message
 ```
 
 And of course a board structure:
@@ -54,6 +54,13 @@ ignite scaffold packet candidate PlayerInfo:PlayerInfo --module leaderboard --no
 ```
 
 This time you use the `--no-message` flag because this chain is not going to send any player information to another chain.
+
+
+<HighlightBox type="tip">
+
+As in the previous section, you need to make adjustments in the Protobuf files `proto/leaderboard/board.proto` and `proto/leaderboard/genesis.proto`. Make sure to import `gogoproto/gogo.proto` and use `[(gogoproto.nullable) = false];` for the `PlayerInfo` and the `Board`. You will also need to adjust the `x/leaderboard/genesis_test.go` like you did in the previous section.
+
+</HighlightBox>
 
 Implement the logic for receiving packets in `x/leaderboard/keeper/candidate.go`:
 
@@ -100,7 +107,7 @@ func (p CandidatePacketData) ValidateBasic() error {
 
   // return error if player address is empty
   if p.PlayerInfo.Index == "" {
-      return errors.New("Player address cannot be empty")
+      return errors.New("player address cannot be empty")
   }
 
     return nil
@@ -153,10 +160,16 @@ Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to ca
     }
 ```
 
-Again, you need to include it in `x/leaderboard/types/errors.go`:
+Again, you need to include the error type in `x/leaderboard/types/errors.go`:
 
 ```go
     ErrInvalidDateAdded     = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
+```
+
+You also need to define `TimeLayout` in `x/leaderboard/types/keys.go`:
+
+```go
+    TimeLayout              = "2006-01-02 15:04:05.999999999 +0000 UTC"
 ```
 
 Then you can include a `updateBoard` call in `x/leaderboard/keeper/candidate.go`:
@@ -198,4 +211,4 @@ func (k Keeper) OnRecvCandidatePacket(ctx sdk.Context, packet channeltypes.Packe
 
 You can find the sample implementation of the checkers chain extension and the leaderboard chain in [this repository](https://github.com/b9lab/cosmos-ibc-docker/tree/ao-modular/modular). There you will also find a Docker network and the relayer settings for an easy test. It also includes a script to create and run games.
 
-Follow the steps described in the repository to run a few tests and to see it in action.
+Follow the steps described in the repository to run a few tests and to see it in action. If you want to do the tests with your chains, replace `modular/b9-checkers-academy-draft` with your checkers chain and `modular/leaderboard` with your leaderboard chain, and build the docker images.

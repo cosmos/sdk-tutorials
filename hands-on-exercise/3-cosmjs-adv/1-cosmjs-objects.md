@@ -68,8 +68,16 @@ Rebuild your Docker image and then:
 
 ```sh
 $ mkdir -p scripts/protoc
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers/scripts checkers_i npm install ts-proto@1.121.6 --save-dev --save-exact
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers/scripts/protoc checkers_i bash -c "curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o /root/protoc.zip && unzip /root/protoc.zip"
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers/scripts \
+    checkers_i \
+    npm install ts-proto@1.121.6 --save-dev --save-exact
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers/scripts/protoc \
+    checkers_i \
+    bash -c "curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o /root/protoc.zip && unzip /root/protoc.zip"
 ```
 
 </CodeGroupItem>
@@ -127,7 +135,11 @@ $ ls ../proto/checkers | xargs -I {} ./protoc/bin/protoc \
 <CodeGroupItem title="Docker">
 
 ```sh
-$ ls proto/checkers | xargs -I {} docker run --rm -v $(pwd):/checkers -w /checkers/scripts checkers_i ./protoc/bin/protoc \
+$ ls proto/checkers | xargs -I {} docker run --rm \
+    -v $(pwd):/checkers \
+    -w /checkers/scripts \
+    checkers_i \
+    ./protoc/bin/protoc \
     --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
@@ -187,7 +199,11 @@ $ make gen-protoc-ts
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/checkers -w /checkers checkers_i make gen-protoc-ts
+$ docker run --rm \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    make gen-protoc-ts
 ```
 
 </CodeGroupItem>
@@ -221,7 +237,11 @@ $ npm install protobufjs@7.0.0 --save-exact
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install protobufjs@7.0.0 --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install protobufjs@7.0.0 --save-exact
 ```
 
 </CodeGroupItem>
@@ -254,7 +274,11 @@ $ npm install @cosmjs/stargate@0.28.11 --save-exact
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install @cosmjs/stargate@0.28.11 --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install @cosmjs/stargate@0.28.11 --save-exact
 ```
 
 </CodeGroupItem>
@@ -402,7 +426,11 @@ $ npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-no
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
 ```
 
 </CodeGroupItem>
@@ -557,7 +585,15 @@ $ ignite chain serve
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers -p 1317:1317 -p 4500:4500 -p 5000:5000 -p 26657:26657 checkers_i ignite chain serve
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    -p 1317:1317 \
+    -p 4500:4500 \
+    -p 5000:5000 \
+    -p 26657:26657 \
+    checkers_i \
+    ignite chain serve
 ```
 
 </CodeGroupItem>
@@ -579,7 +615,11 @@ $ npm test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client node:18.7 npm test
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm test
 ```
 
 Make sure your Node container can access the chain, especially if you set the `RPC_URL` at `localhost`.
@@ -638,7 +678,13 @@ Go to the checkers chain project folder. Launch the chain's container in the `ch
 <CodeGroupItem title="With checkers_i">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers --network checkers-net --name chain-serve checkers_i ignite chain serve
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    --network checkers-net \
+    --name chain-serve \
+    checkers_i \
+    ignite chain serve
 ```
 
 </CodeGroupItem>
@@ -646,7 +692,13 @@ $ docker run --rm -it -v $(pwd):/checkers -w /checkers --network checkers-net --
 <CodeGroupItem title="With ignitehq/cli">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers --network checkers-net --name chain-serve ignitehq/cli:0.22.1 chain serve
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    --network checkers-net \
+    --name chain-serve \
+    ignitehq/cli:0.22.1 \
+    chain serve
 ```
 
 Because `ignite` is already the image's entry point, you only need to pass `chain serve`.
@@ -697,7 +749,12 @@ $ sed -i '' -E 's/^FAUCET_URL=.*$/FAUCET_URL="http:\/\/chain-serve:4500"/g' .env
 Again in your `client` folder, you can now run the tests within the same `checkers-net` network:
 
 ```sh
-$ docker run --rm -v $(pwd):/client -w /client --network checkers-net node:18.7 npm test
+$ docker run --rm \
+    -v $(pwd):/client \
+    -w /client \
+    --network checkers-net \
+    node:18.7 \
+    npm test
 ```
 
 And that is it. You defined a network over which the Node.js tests' container could easily access the chain's container.

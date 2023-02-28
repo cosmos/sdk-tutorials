@@ -150,7 +150,7 @@ If you want to allow for portability and avoid version issues, it is advisable t
 
 First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
-```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu]
+```dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/ignite-start/Dockerfile-ubuntu#L1-L33]
 FROM --platform=linux ubuntu:22.04
 ARG BUILDARCH
 
@@ -185,6 +185,8 @@ EXPOSE 1317 3000 4500 5000 26657
 
 WORKDIR /checkers
 ```
+
+Note that the linked code contains more lines than shown above. Because you do not yet have a `go.mod` file, stick to the lines in the quoted code above for now.
 
 Next you need to create the Docker image:
 
@@ -544,6 +546,12 @@ Note the `--host` flag, which is forwarded to the underlying `vite` command than
 Navigate to [localhost:3000](http://localhost:3000/), or to whichever address was listed when running `dev`. The first load may take a few seconds. On the client-side, from the top right you can connect to the page via [Keplr](chrome://extensions/?id=dmkamcknogkgcdfhhbddcghachkejeap) if you are on the Chrome browser. You should see something like this:
 
 ![My Keplr account with nothing](/hands-on-exercise/1-ignite-cli/images/ignite-vue-keplr-no-assets.png)
+
+<HighlightBox type="tip">
+
+If you want Keplr to separate your mainnet keys and tokens from those you use for tests, have a look at [Google Chrome's profiles](https://www.techradar.com/how-to/how-to-use-profiles-in-chrome-to-keep-work-and-home-separate).
+
+</HighlightBox>
 
 Your account is connected but has no balance. This is a good opportunity to use the faucet:
 

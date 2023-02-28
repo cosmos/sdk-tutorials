@@ -40,6 +40,14 @@ In this chapter, you will:
 
 Do not worry if you do not pass the quiz: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
 
+<HighlightBox type="info">
+
+This is a **recording** of the live session _Introduction to Cosmos_ with Billy Rennekamp:
+
+<YoutubePlayer videoId="5_ZkZ-NF184"/>
+
+</HighlightBox>
+
 ## Next up
 
 Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).

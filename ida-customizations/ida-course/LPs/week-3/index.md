@@ -21,7 +21,7 @@ You will learn more about the transportation, authentication, and ordering layer
   
 </HighlightBox>
 
-You will also learn about CosmJS, the TypeScript library for the Cosmos SKD. With step-by-step examples, you will learn how to work with CosmJS when building your application-specific blockchain.
+You will also learn about CosmJS, the TypeScript library for the Cosmos SDK. With step-by-step examples, you will learn how to work with CosmJS when building your application-specific blockchain.
 
 ![LP image - Week 3](/planet-pod.svg)
 
@@ -64,6 +64,20 @@ The following sections are optional and **NOT** final exam relevant:
 * [IBC/TAO - Channels](/academy/3-ibc/3-channels.md)
 * [IBC/TAO - Clients](/academy/3-ibc/4-clients.md)
 * [Interchain Accounts](/academy/3-ibc/6-ica.md)
+
+</HighlightBox>
+
+<HighlightBox type="info">
+
+Here you can find **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
+  
+* _Introduction to CosmJS_ with Noam Cohen:
+
+<YoutubePlayer videoId="RlqjEVIv1Pg"/>
+
+* _Introduction to IBC_ with Thomas Dekeyser:
+
+<YoutubePlayer videoId="HCO7qTOdNGI"/>
 
 </HighlightBox>
 

@@ -116,7 +116,7 @@ After a channel is established, the module can start sending and receiving packe
 So where does the module send a token? Take a look at the [msg_server.go](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/keeper/msg_server.go) of the token transfer module:
 
 ```go
-// Transfer defines a rpc handler method for MsgTransfer.
+// Transfer defines an rpc handler method for MsgTransfer.
 func (k Keeper) Transfer(goCtx context.Context, msg *types.MsgTransfer) (*types.MsgTransferResponse, error) {
     ...
 

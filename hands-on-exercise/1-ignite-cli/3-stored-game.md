@@ -709,7 +709,7 @@ const (
     bob   = testutil.Bob
 )
 
-func GetStoredGame1() *types.StoredGame {
+func GetStoredGame1() types.StoredGame {
     return types.StoredGame{
         Black: alice,
         Red:   bob,
@@ -747,7 +747,7 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
 
 ## Interact via the CLI
 
@@ -859,6 +859,18 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
 
     This is as expected. No games have been created yet, so the game counter is still at `1`.
+
+    <HighlightBox type="note">
+
+    You may encounter an error like the following:
+
+    ```txt
+    command not found checkersd
+    ```
+
+    This indicates that you likely have not configured Go correctly. Refer back to `GOPATH` in our [Go introduction](/tutorials/4-golang-intro/1-install.md).
+
+    </HighlightBox>
 
 3. The `--output` flag allows you to get your results in a JSON format, which might be useful if you would like to use a script to parse the information. When you use the `--help` flag, you see which flags are available for a specific command:
 

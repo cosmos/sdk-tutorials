@@ -264,7 +264,11 @@ $ npm test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm test
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7 \
+    npm test
 ```
 
 </CodeGroupItem>
