@@ -26,7 +26,20 @@ You can run a live preview of the platform using:
 npm run serve
 ```
 
-This will start a local server on [localhost:8081](http://localhost:8081/).
+This will start a local server on [localhost:8080](http://localhost:8080/).
+
+If your build fails with:
+
+```
+Error: error:0308010C:digital envelope routines::unsupported
+    at new Hash (node:internal/crypto/hash:71:19)
+```
+
+You may try:
+
+```
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+```
 
 ## Build
 

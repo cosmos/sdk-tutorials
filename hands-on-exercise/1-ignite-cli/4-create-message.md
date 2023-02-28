@@ -542,6 +542,99 @@ Which can be found again in `.raw_log`.
 
 </ExpansionPanel>
 
+<HighlightBox type="reading">
+
+**Troubleshooting - key not found**
+
+On some systems, you may have errors about _keys not found_. After having verified that you indeed have the correct addresses, it may be because one command uses a keyring while another command uses another keyring. Keyrings do not share keys so this can explain the error message.
+
+In this case, you may need to specify your preferred keyring explicitly so that it is consistent across commands. For instance:
+
+* When creating keys:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ checkersd keys add alice --keyring-backend test
+  $ checkersd keys add bob --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ docker exec checkers checkersd keys add alice --keyring-backend test
+  $ docker exec checkers checkersd keys add bob --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+* When collecting keys:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ export alice=$(checkersd keys show alice -a --keyring-backend test)
+  $ export bob=$(checkersd keys show bob -a --keyring-backend test)
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ export alice=$(docker exec checkers checkersd keys show alice -a --keyring-backend test)
+  $ export bob=$(docker exec checkers checkersd keys show bob -a --keyring-backend test)
+  ```
+
+  `docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+* When sending a transaction:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ checkersd tx \
+      checkers create-game \
+      $alice $bob \
+      --from $alice \
+      --gas auto \
+      --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ docker exec -it checkers \
+      checkersd tx \
+      checkers create-game \
+      $alice $bob \
+      --from $alice \
+      --gas auto \
+      --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+</HighlightBox>
+
 You can query your chain to check whether the system info remains unchanged:
 
 <CodeGroup>

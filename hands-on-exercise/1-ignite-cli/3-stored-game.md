@@ -931,7 +931,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     {"SystemInfo":{"nextId":"1"}}
     ```
 
-3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/client/cli/query_stored_game.go#L14):
+4. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/client/cli/query_stored_game.go#L14):
 
     <CodeGroup>
 
