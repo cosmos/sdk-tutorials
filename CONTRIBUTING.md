@@ -13,7 +13,7 @@ If the tutorial instructs you to download a specific version, that means that th
 
 Thank you for helping us to create and maintain this awesome developer portal.
 
-- To setup the portal lcoally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
+- To set up the portal locally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
 
