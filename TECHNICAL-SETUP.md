@@ -207,7 +207,7 @@ The first two types of files don't require any special treatment. Only the last 
 
 ### IDA platform
 
-There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customizations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/6-whats-next/index.md` (main platform) has an IDA variation in `/ida-customizations/academy/6-whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similiarly, there is an IDA specific config in `/ida-customizations/.vuepress/config.js`
+There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customizations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/6-whats-next/index.md` (main platform) has an IDA variation in `/ida-customizations/academy/6-whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similarly, there is an IDA specific config in `/ida-customizations/.vuepress/config.js`
 
 ### Switching variants
 
