@@ -132,7 +132,7 @@ If you create a new folder named `myfiles`, add `"myfiles/*/*.md"` to the list.
 
 There are different types of landingpages used on this platform:
 
-* The main landingpages, served under `/`, displays the content defined in [README.MD](README.MD), using the `ModuleLandingPage` layout.
+* The main landingpage, served under `/`, displays the content defined in [README.MD](README.MD), using the `ModuleLandingPage` layout.
 * Module landingpages (Like the [what is cosmos lp](academy/1-what-is-cosmos/index.md)) are stored as `index.md` file in a subfolder.
 
 #### Main landingpage
