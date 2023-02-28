@@ -546,9 +546,9 @@ Which can be found again in `.raw_log`.
 
 **Troubleshooting - key not found**
 
-On some systems, you may have errors about _keys not found_. After having verified that you indeed have the correct addresses, it may be because one command uses a keyring while another command uses another keyring. Keyrings do not share keys so this can explain the error message.
+On some systems, you may encounter errors stating _keys not found_. First verify that you do indeed have the correct addresses; if this is the case, then the errors may be because one command uses keyring A while another command uses keyring B. Keyrings do not share keys, so this can explain the error message.
 
-In this case, you may need to specify your preferred keyring explicitly so that it is consistent across commands. For instance:
+In this situation, you may need to specify your preferred keyring explicitly so that it is consistent across commands. For instance:
 
 * When creating keys:
 
@@ -594,7 +594,11 @@ In this case, you may need to specify your preferred keyring explicitly so that 
   $ export bob=$(docker exec checkers checkersd keys show bob -a --keyring-backend test)
   ```
 
+  <HighlightBox type="note">
+
   `docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+
+  </HighlightBox>
 
   </CodeGroupItem>
 

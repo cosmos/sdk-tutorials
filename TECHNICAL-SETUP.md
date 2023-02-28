@@ -28,14 +28,14 @@ npm run serve
 
 This will start a local server on [localhost:8080](http://localhost:8080/).
 
-If your build fails with:
+Your build may fail with the following:
 
 ```
 Error: error:0308010C:digital envelope routines::unsupported
     at new Hash (node:internal/crypto/hash:71:19)
 ```
 
-You may try:
+If so, try:
 
 ```
 NODE_OPTIONS=--openssl-legacy-provider npm run serve
