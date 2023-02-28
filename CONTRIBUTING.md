@@ -73,7 +73,7 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 
 ### SVG Images
 
-A special note on svg images: They are currently not processed by the asset pipeline therefore svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` subfolder. To embed such an images, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
+A special note on svg images: They are currently not processed by the asset pipeline therefore svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` subfolder. To embed such an image, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
 
 
 ## Who works on the tutorials?
