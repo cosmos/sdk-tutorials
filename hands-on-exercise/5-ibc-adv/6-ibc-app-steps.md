@@ -22,7 +22,7 @@ To begin, scaffold a `leaderboard` chain:
 $ ignite scaffold chain github.com/cosmonaut/leaderboard
 ```
 
-This creates a chain with `x/leaderboard`, a regular SDK module.
+This creates a chain with `x/leaderboard` as a regular SDK module.
 
 Next, scaffold another chain (for example in another git branch), but this time add the `--no-module` flag:
 
