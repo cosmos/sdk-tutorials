@@ -1109,7 +1109,7 @@ services:
 
 ### The networks they run in
 
-The user-defined networks need to mimic the desired separation of machines/containers can be self-explanatorily declared as:
+The user-defined networks need to mimic the desired separation of machines/containers, it can be self-explanatorily declared as:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L3-L7]
 networks:
