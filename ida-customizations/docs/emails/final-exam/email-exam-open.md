@@ -16,8 +16,8 @@ Once you are in you will see three repositories:
 
 To complete the IBC operations exercise, you need **two values** that are **unique to you**. The details of what and why should become clear after you read the [exercise description](https://git.academy.b9lab.com/ida-p3-final-exam/exam-ibc-operation/-/blob/main/exercise-description.md). You can find these unique values only in **this** email. They are:
 
-1. Recipient address: **<!StudentInfo.addressRecipient>**.
-2. Origin denomination: **<!StudentInfo.homeDenom>**.
+1. Recipient address: **{$addressRecipient}**.
+2. Origin denomination: **{$homeDenom}**.
 
 **Remember, these values are only provided in this email**. However, you can DM us on Discord in the event of an emergency.
 
