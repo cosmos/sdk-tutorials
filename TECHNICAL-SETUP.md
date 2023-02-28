@@ -52,7 +52,7 @@ This sections lists technical details for content authors. For general informati
 
 ## Main config file
 
-The main config file is located in `.vuepress/config.js`
+The main config file is located in `.vuepress/config.js`.
 
 ## Navigation components
 
