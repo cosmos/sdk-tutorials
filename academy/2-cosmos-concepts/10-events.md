@@ -77,7 +77,7 @@ Events are managed by an abstraction called the `EventManager`. Events are trigg
 
 ## `EventManager`
 
-`Eventmanager` tracks a list of events for the entire execution flow of a transaction, or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, which can be emitted from and provide useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
+`EventManager` tracks a list of events for the entire execution flow of a transaction, or `BeginBlock`/`EndBlock`. `EventManager` implements a simple wrapper around a slice of event objects, which can be emitted from and provide useful methods. The most used method for Cosmos SDK module and application developers is `EmitEvent`.
 
 Module developers should handle event emission via `EventManager#EmitEvent` in each message handler and in each `BeginBlock` or `EndBlock` handler accessed via the `Context`. Event emission generally follows this pattern:
 
