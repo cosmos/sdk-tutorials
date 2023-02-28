@@ -291,7 +291,7 @@ This installation method removes existing Go installations, installs Go in `/usr
 2. Download the binary release that is suitable for your system. 
 3. Follow the installation instructions.
 
-**Note:** We recommend not using brew to install Go.
+**Note:** We recommend **not** using brew to install Go.
 
 ## Markdown lint
 
