@@ -201,7 +201,7 @@ In general, there are three types of files:
 
 * Files only used on one platform.
 * Files used on both platforms, with the same content.
-* Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`)
+* Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`).
 
 The first two types of files don't require any special treatment. Only the last type - files used on both platforms - require to be treated differently. 
 
