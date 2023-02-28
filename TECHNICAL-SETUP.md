@@ -88,7 +88,7 @@ An example configuration might look like this:
 }
 ```
 
-Where each module is defined as a children of the root. 
+Where each module is defined as a child of the root. 
 
 * `title` - Module name
 * `path` - Full path to the folder
