@@ -25,6 +25,7 @@ In this chapter, you will:
 
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
+* Learn about Interchain Security.
 
 </HighlightBox>
 
