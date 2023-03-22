@@ -232,6 +232,10 @@ module.exports = {
                   path: "/academy/2-cosmos-concepts/14-bridges.html",
                 },
                 {
+                  title: "Interchain Security",
+                  path: "/academy/2-cosmos-concepts/15-interchain-security.html",
+                },
+                {
                   title: "Week 1 Quiz",
                   path: "/ida-course/quiz-week1.html",
                 },

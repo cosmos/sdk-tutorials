@@ -176,6 +176,8 @@ customModules:
             path: /academy/2-cosmos-concepts/13-migrations.html
           - title: Bridges
             path: /academy/2-cosmos-concepts/14-bridges.html
+          - title: Interchain Security
+            path: /academy/2-cosmos-concepts/15-interchain-security.html           
       - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/

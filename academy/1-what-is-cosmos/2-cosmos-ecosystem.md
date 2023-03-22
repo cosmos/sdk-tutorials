@@ -9,6 +9,7 @@ tags:
   - ibc
   - cosmos-sdk
   - cosmos-hub
+
 ---
 
 # The Cosmos Ecosystem
@@ -28,13 +29,14 @@ Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, 
 
 <HighlightBox type="learning">
 
-In this section, you will get an introduction:
+In this section, you will get an introduction to:
 
-* Of the Cosmos Ecosystem
-* Into the Cosmos SDK
-* To the Inter-Blockchain Communication Protocol
-* To the Ignite CLI
-* Into CosmWasm
+* The Cosmos Ecosystem
+* The Cosmos SDK
+* The Inter-Blockchain Communication Protocol
+* The Cosmos Hub
+* The Ignite CLI
+* CosmWasm
 
 </HighlightBox>
 
@@ -96,7 +98,7 @@ The ready-built modules of the Cosmos SDK are easy to import, adapt, and use. De
 
 <HighlightBox type="tip">
 
-*Building on modular components, many of which you did not write yourself* - does this increase the potential for attacks, and faulty or malicious nodes operating undetected? No need to worry.
+_Building on modular components, many of which you did not write yourself_ - does this increase the potential for attacks, and faulty or malicious nodes operating undetected? No need to worry.
 
 The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.network/main/core/ocap.html). It not only favors modularity but also encapsulates code implementation. An object-capability model ensures that:
 
@@ -139,9 +141,13 @@ If you want more detailed information on hubs and zones on the mainnet and in th
 
 </HighlightBox>
 
-The **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)** was the first hub created. It is a public Proof-of-Stake (PoS) blockchain with a native token, ATOM. The Cosmos Hub can be understood as a router facilitating transactions between the chains connected to it. For example, the Cosmos Hub allows for transaction fees to be paid in different tokens as long as the zone trusts the Cosmos Hub and the other zones connected to it.
+## The Cosmos Hub
 
-_How do we connect our chain to a non-Tendermint chain?_ The IBC connection is not limited to Tendermint-based chains. If another, non-Tendermint blockchain uses a fast-finality consensus algorithm, a connection can be established by adapting IBC to work with the non-Tendermint consensus mechanism.
+The **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)** was the first blockchain built with the Cosmos stack. It is a public Proof-of-Stake (PoS) blockchain with a native token, ATOM. ATOM is used to secure the network and pay for transaction fees, but is also the token that has funded the development of the Cosmos stack and other projects in the wider ecosystem.
+
+The Cosmos Hub can be understood as a router facilitating transactions between the chains connected to it. For example, the Cosmos Hub allows for transaction fees to be paid in different tokens, as long as the zone trusts the Cosmos Hub and the other zones connected to it.
+
+_How do you connect your chain to a non-Tendermint chain?_ The IBC connection is not limited to Tendermint-based chains. If another, non-Tendermint blockchain uses a fast-finality consensus algorithm, a connection can be established by adapting IBC to work with the non-Tendermint consensus mechanism.
 
 If the other chain is a **probabilistic-finality chain**, a simple adaptation of IBC is not sufficient. A proxy chain called a **peg-zone** helps establish interoperability. Peg-zones are fast-finality blockchains which track chain states to establish finality. The peg-zone chain itself is IBC-compatible and acts as a **bridge** between the rest of the IBC network's chains and the probabilistic-finality chain.
 
@@ -251,3 +257,5 @@ To summarize, this section has explored:
 <!--## Next up
 
 Are you ready to get some ATOM? Find out all about the native token of the Cosmos Hub and how to stake ATOM in the [next section](./3-atom-staking.md).-->
+
+<!--In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture-->

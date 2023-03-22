@@ -113,6 +113,8 @@ customModules:
             path: /academy/2-cosmos-concepts/13-migrations.html
           - title: Bridges
             path: /academy/2-cosmos-concepts/14-bridges.html
+          - title: Interchain Security
+            path: /academy/2-cosmos-concepts/15-interchain-security.html
       - image: /cosmos_dev_portal_module-05-lp.png
         title: Week 2 - First Steps
         href: /ida-course/LPs/week-2/
