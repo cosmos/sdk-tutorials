@@ -13,7 +13,7 @@ If the tutorial instructs you to download a specific version, that means that th
 
 Thank you for helping us to create and maintain this awesome developer portal.
 
-- To set up the portal locally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
+- To set up the portal locally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read the [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
 - To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
 - To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
 
@@ -59,7 +59,7 @@ The published content currently lives in a few separate folders:
 - `tutorials` contains specific tutorials on different topics
 - `hands-on-exercise` contains the hands-on modules
 
-Note: The folder `ida-customizations` contains files used for the IDA build of the platform.
+**Note:** The folder `ida-customizations` contains files used for the IDA build of the platform.
 
 
 ### Components and advanced features
@@ -73,7 +73,7 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 
 ### SVG Images
 
-A special note on svg images: They are currently not processed by the asset pipeline therefore svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` subfolder. To embed such an image, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
+A special note on svg images: They are currently not processed by the asset pipeline, therefore, svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` sub-folder. To embed such an image, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
 
 
 ## Who works on the tutorials?
