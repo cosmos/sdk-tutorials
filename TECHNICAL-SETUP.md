@@ -1,6 +1,6 @@
 # Overview
 
-This Node.js 14 application uses [Vuepress](https://vuepress.vuejs.org/) (v. 1.5) to render a static documentation page - the Cosmos developer portal.
+This Node.js 14 application uses [Vuepress](https://vuepress.vuejs.org/) (v. 1.5) to render a static documentation page - the [Developer Portal](https://tutorials.cosmos.network/).
 
 
 # Local setup and build
@@ -13,7 +13,7 @@ This repository uses a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-
 git clone --recursive git@github.com:cosmos/sdk-tutorials.git
 ```
 
-to initialize and update all submodules automatically.
+to initialize and update all sub-modules automatically.
 
 ## Install
 
@@ -133,11 +133,11 @@ If you create a new folder named `myfiles`, add `"myfiles/*/*.md"` to the list.
 There are different types of landingpages used on this platform:
 
 * The main landingpage, served under `/`, displays the content defined in [README.MD](README.MD), using the `ModuleLandingPage` layout.
-* Module landingpages (Like the [what is cosmos lp](academy/1-what-is-cosmos/index.md)) are stored as `index.md` file in a subfolder.
+* Module landingpages (Like the [what is cosmos lp](academy/1-what-is-cosmos/index.md)) are stored as `index.md` file in a sub-folder.
 
 #### Main landingpage
 
-Please note that the main landingpage file (`README.MD`) contains all the content definitions ans settings in its markdown header (area enclosed between `---`) as well as the text for the main repo readme (content below the markdown header).
+Please note that the main landingpage file (`README.MD`) contains all the content definitions and settings in its markdown header (area enclosed between `---`), as well as the text for the main repo readme (content below the markdown header).
 
 #### Module landingpages
 
@@ -150,7 +150,7 @@ All content pages are implemented in markdown.
 
 ### Header
 
-The Page header should expose the following attribtes for all content pages:
+The page header should expose the following attributes for all content pages:
 
 ```
 ---
@@ -195,7 +195,7 @@ Furthermore, the platform features different _versions_ of the content to be dep
 
 ### Working with Platform Variants
 
-The content for both platforms lives on the `master` branch. When building the project (`npm run build` and `npm run serve`), you are building the main platform. The IDA platform uses the same base files, but then adds additional changes ontop of them (mostly different landingpages, menu adjustments and small differences on a few content pages).
+The content for both platforms lives on the `master` branch. When building the project (`npm run build` and `npm run serve`), you are building the main platform. The IDA platform uses the same base files, but then adds additional changes on top of them (mostly different landingpages, menu adjustments, and small differences on a few content pages).
 
 In general, there are three types of files:
 
@@ -203,7 +203,7 @@ In general, there are three types of files:
 * Files used on both platforms, with the same content.
 * Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`).
 
-The first two types of files don't require any special treatment. Only the last type - files used on both platforms - require to be treated differently. 
+The first two types of files do not require any special treatment. Only the last type - files used on both platforms - require to be treated differently. 
 
 ### IDA platform
 
