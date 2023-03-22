@@ -98,39 +98,12 @@ This should return:
 
 ## Initialize `simapp`
 
-Now reset the database. To help you ring-fence this exercise, you can use a [Git-ignored](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/.gitignore#L12) subfolder of the repository: `private`.
+To help you ring-fence this exercise, you can use a [Git-ignored](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/.gitignore#L12) subfolder of the repository: `private`.
 
-Run this step not only when the database has already been initialized but even if this is the first time you are testing `simapp`.:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local">
+Run this step not only when the database has already been initialized but even if this is the first time you are testing `simapp`:
 
 ```sh
-$ ./build/simd tendermint unsafe-reset-all \
-    --home ./private/.simapp
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker run --rm -it \
-    -v $(pwd)/private:/root \
-    simd:v0.45.4 \
-    simd tendermint unsafe-reset-all
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-The command outputs the list of all the files set to their initial state, along with their locations.
-
-```txt
-3:58PM INF Removed all blockchain history dir=/Users/alice/cosmos/cosmos-sdk/private/.simapp/data
-3:58PM INF Generated private validator file keyFile=/Users/alice/cosmos/cosmos-sdk/private/.simapp/config/priv_validator_key.json stateFile=/Users/alice/cosmos/cosmos-sdk/private/.simapp/data/priv_validator_state.json
+$ rm -rf ./private/.simapp
 ```
 
 Time to initialize the application. The initialization creates the genesis block and an initial chain state. Pick a chain id, for instance `learning-chain-1`:
