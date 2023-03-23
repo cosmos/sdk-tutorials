@@ -403,13 +403,20 @@ Note that:
 
 </HighlightBox>
 
+</ExpansionPanel>
+
 <HighlightBox type="tip">
 
-If you want to go beyond these code samples and instead see in more detail how to define all this, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+If you want to go beyond the code samples in the expandable above and instead see in more detail how to define all this, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+
+More specifically, you can jump:
+
+* To [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md) to create a new blockchain with your checkers module.
+* Or to the advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning) to have your checkers module access and use the bank module.
+* Or to the IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers) to add a second custom module to your checkers blockchain.
+* Or to the IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard) to create a new blockchain with a module, once again.
 
 </HighlightBox>
-
-</ExpansionPanel>
 
 <HighlightBox type="synopsis">
 

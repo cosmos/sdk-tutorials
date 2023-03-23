@@ -156,17 +156,28 @@ message MsgCreateGameResponse {
 When Ignite CLI creates a message for you, it also creates the gRPC definitions and Go handling code. It is relatively easy to introduce Protobuf elements into your chain using commands like the following:
 
 ```sh
-$ ignite scaffold map storedGame board turn black red wager:uint --module checkers --no-message
-$ ignite scaffold message createGame black red wager:uint --module checkers --response gameIndex
+$ ignite scaffold map storedGame \
+    board turn black red wager:uint \
+    --module checkers \
+    --no-message
+$ ignite scaffold message createGame \
+    black red wager:uint \
+    --module checkers \
+    --response gameIndex
 ```
+
+</ExpansionPanel>
 
 <HighlightBox type="tip">
 
 If you want to dive straight into coding your chain, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) for more details on using Ignite CLI.
+<br/><br/>
+More specifically, you can jump:
+
+* To [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game) to have Ignite CLI create your first Protobuf object.
+* Or to [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message) to have Ignite CLI create another Protobuf object, this time for messaging. You also get a walkthrough of the services created.
 
 </HighlightBox>
-
-</ExpansionPanel>
 
 <HighlightBox type="synopsis">
 

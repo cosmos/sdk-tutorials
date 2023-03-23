@@ -160,6 +160,18 @@ ctx.EventManager().EmitEvent(
 
 </ExpansionPanel>
 
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples as above and want to see more in detail how to define these features go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump:
+
+* To [Emit Game Information](/hands-on-exercise/1-ignite-cli/7-events.md) to see how to add events to your checkers blockchain.
+* Or to [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) to see when it is done in `EndBlock`.
+* Or to [Let Players Set a Wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) to see how to update your events when adding a new feature.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

@@ -49,7 +49,10 @@ If you have used Ignite CLI so far, it has already created queries for you to ge
 Ignite CLI can again help with a simple command:
 
 ```sh
-$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint --module checkers --response possible:bool
+$ ignite scaffold query canPlayMove \
+    gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
+    --module checkers \
+    --response possible:bool
 ```
 
 This creates the following query objects:
@@ -164,6 +167,16 @@ A player can test their move only after the opponent's move is included in a pre
 This is not an exhaustive list of potential queries. Some examples of other possible queries would be to get a player's open games, or to get a list of games that are timing out soon. It depends on the needs of your application and how much functionality you willingly provide.
 
 </ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples as above and want to see more in detail how to define these features go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump:
+
+* To [Help Find a Correct Move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) to see how to implement a query with the help of Ignite CLI.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

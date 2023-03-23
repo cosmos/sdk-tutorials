@@ -89,19 +89,23 @@ If you want to dive deeper when it comes to messages, the `Msg` service, and mod
 
 <ExpansionPanel title="Show me some code for my checkers blockchain - Including messages">
 
-In the [previous](./3-transactions.md) code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+In the [previous](./3-transactions.md) design exercise's code examples, the ABCI application was aware of a single transaction type: that of a checkers move with four `int` values. With multiple games, this is no longer sufficient. Additionally, you need to conform to the SDK's way of handling `Tx`, which means **creating messages that are then included in a transaction**.
+<br/>
+
+If you want the guided coding exercise instead of design and implementation considerations, see the links at the bottom of the page.
+
 <br/><br/>
 **What you need**
 
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient, as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
-2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated ID identifies this newly created game and is returned to the message creator.
+2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated, or not, ID identifies this newly created game and is returned to the message creator.
 3. It would be a good feature for the other person to be able to reject the challenge. This would have the added benefit of clearing the state of stale, unstarted games.
 
 **How to proceed**
 
-Focus on the messages around the **game creation**.
+Focus on the messages around the **game creation**. There is no single true way of deciding what goes into your messages. Below is one reasonable example.
 
 1. The message itself is structured like this:
 
@@ -123,16 +127,20 @@ Focus on the messages around the **game creation**.
     }
     ```
 
+    The idea here is that when the creator does not know the ID of the game that will be created, the ID needs to be returned.
+
 With the messages defined, you need to declare how the message should be handled. This involves:
 
 1. Describing how the messages are serialized.
 2. Writing the code that handles the message and places the new game in the storage.
 3. Putting hooks and callbacks at the right places in the general message handling.
 
-Ignite CLI can help you create these elements, plus the `MsgCreateGame` and `MsgCreateGameResponse` objects, with this command:
+Thinking from design to implementation, Ignite CLI can help you create these elements, plus the `MsgCreateGame` and `MsgCreateGameResponse` objects, with this command:
 
 ```sh
-$ ignite scaffold message createGame black red --module checkers --response gameIndex
+$ ignite scaffold message createGame black red \
+    --module checkers \
+    --response gameIndex
 ```
 
 <HighlightBox type="info">
@@ -194,6 +202,8 @@ Ignite CLI significantly reduces the amount of work a developer has to do to bui
     }
     ```
 
+    Ignite CLI is opinionated in terms of which files it creates to separate which concerns. If you were not using it, you would be free to create the files you want.
+
 **What is left to do?**
 
 Your work is mostly done. You want to create the specific game creation code to replace `// TODO: Handling the message`. For this, you need to:
@@ -202,16 +212,19 @@ Your work is mostly done. You want to create the specific game creation code to 
 
     <HighlightBox type="info">
 
-    For more details, and to avoid diving too deep in this section, see [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+    For more details, and to avoid diving too deep in this section, see:
+    
+    * [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) to start the guided coding exercise from scratch,
+    * Or [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to jump straight where you handle the new message.
       
     </HighlightBox>
 
 2. Extract and verify addresses, such as:
 
     ```go
-    red, err := sdk.AccAddressFromBech32(msg.Red)
+    black, err := sdk.AccAddressFromBech32(msg.Black)
     if err != nil {
-        return nil, errors.New("invalid address for red")
+        return nil, errors.New("invalid address for black")
     }
     ```
 
@@ -243,10 +256,10 @@ Your work is mostly done. You want to create the specific game creation code to 
 
 <HighlightBox type="remember">
 
-Remember:
+Remember, as part of good design:
 
-* If you encounter an internal error, you should `panic("This situation should not happen")`.
-* If you encounter a user or _regular_ error, like not having enough funds, you should return a regular `error`.
+* If you encounter an internal error, one that denotes an error in logic or catastrophic failure, you should `panic("This situation should not happen")`.
+* If you encounter a user or _regular_ error, like a user not having enough funds, you should return a regular `error`.
 
 </HighlightBox>
 
@@ -273,6 +286,8 @@ You can also implement other messages:
     }
     ```
 
+    To jump straight to the corresponding part of the coding exercise, head to [Add a Way to Make a Move](/hands-on-exercise/1-ignite-cli/6-play-game).
+
 2. The **reject message**, which should be valid only if the player never played any moves in this game.
 
     ```sh
@@ -296,29 +311,36 @@ You can also implement other messages:
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:
 
-* Having a timeout after which the game is canceled. This cancellation could be handled automatically in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancellation.
+* Having a timeout after which the game is canceled.
 * Keeping an index as a First-In-First-Out (FIFO) list, or a list of unstarted games ordered by their cancellation time, so that this automatic trigger does not consume too many resources.
 
 What would happen if a player stops taking turns? To ensure functionality for your checkers application, you can consider:
 
-* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system.
-* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary.
+* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system. For the guided coding exercise on this part, head straight to [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline).
+* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary. For the guided coding exercise on this part, head straight to [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo).
+* Handling the cancelation in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancellation. For the guided coding exercise on this part, head straight to [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit).
 
 In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay, for example _one day_.
 
 <HighlightBox type="info">
 
-There are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in, so player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
-
-</HighlightBox>
-
-<HighlightBox type="tip">
-
-If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+There are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. Therefore player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
 
 </HighlightBox>
 
 </ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) to start from scratch.
+
+More specifically, you can jump:
+
+* To [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) to see how to simply create the `MsgCreateGame`,
+* Or to [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to see how to handle `MsgCreateGame`,
+* Or to [Add a Way to Make a Move](/hands-on-exercise/1-ignite-cli/6-play-game.md) for the same but with `MsgPlayMove`.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 
