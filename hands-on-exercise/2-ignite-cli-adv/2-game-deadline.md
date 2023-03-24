@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with events. If not, follow the [previous steps](/hands-on-exercise/1-ignite-cli/7-events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
+* You have the checkers blockchain codebase with the game winner. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play. Presumably most players will play on their games until they reach a resolution. But not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
+In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md). Presumably most players will play on their games until they reach a resolution. But not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
 
 Therefore, your blockchain is at risk of accumulating stale games in its storage.
 
@@ -41,7 +41,7 @@ Another way would be to have the blockchain system resolve by forfeit the stale 
 
 Before you begin touching your code, ask:
 
-* What conditions have to be satisfied for a game to be considered stale for and the blockchain to act?
+* What conditions have to be satisfied for a game to be considered stale and for the blockchain to act?
 * How do you sanitize the new information inputs?
 * How would you get rid of stale games as part of the protocol, that is _without user inputs_?
 * How do you optimize performance and data structures so that a few stale games do not cause your blockchain to grind to a halt?
@@ -56,10 +56,10 @@ These are important questions, but not all answered in this section. For instanc
 
 To prepare the field, add in the `StoredGame`'s Protobuf definition:
 
-```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/proto/checkers/stored_game.proto#L12]
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/proto/checkers/stored_game.proto#L13]
     message StoredGame {
         ...
-+      string deadline = 6;
++      string deadline = 7;
     }
 ```
 
@@ -93,7 +93,7 @@ On each update the deadline will always be _now_ plus a fixed duration. In this 
 
 Declare this duration as a new constant, plus how the date is to be represented - encoded in the saved game as a string:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/keys.go#L47-L50]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/keys.go#L48-L51]
 const (
     MaxTurnDuration = time.Duration(24 * 3_600 * 1000_000_000) // 1 day
     DeadlineLayout  = "2006-01-02 15:04:05.999999999 +0000 UTC"
@@ -106,16 +106,16 @@ Helper functions can encode and decode the deadline in the storage.
 
 1. Define a new error:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L18]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L19]
         var (
             ...
-    +      ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1107, "deadline cannot be parsed: %s")
+    +      ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1108, "deadline cannot be parsed: %s")
         )
     ```
 
 2. Add your date helpers. A reasonable location to pick is `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L35-L42]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L55-L62]
     func (storedGame *StoredGame) GetDeadlineAsTime() (deadline time.Time, err error) {
         deadline, errDeadline := time.Parse(DeadlineLayout, storedGame.Deadline)
         return deadline, sdkerrors.Wrapf(errDeadline, ErrInvalidDeadline.Error(), storedGame.Deadline)
@@ -130,7 +130,7 @@ Helper functions can encode and decode the deadline in the storage.
 
 3. At the same time, add this to the `Validate` function:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L58-L61]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L78-L81]
         ...
         _, err = storedGame.ParseGame()
     +  if err != nil {
@@ -142,7 +142,7 @@ Helper functions can encode and decode the deadline in the storage.
 
 4. Add a function that encapsulates how the next deadline is calculated in the same file:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L44-L46]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game.go#L64-L66]
     func GetNextDeadline(ctx sdk.Context) time.Time {
         return ctx.BlockTime().Add(MaxTurnDuration)
     }
@@ -154,7 +154,7 @@ Next, you need to update this new field with its appropriate value:
 
 1. At creation, in the message handler for game creation:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game.go#L28]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game.go#L29]
         ...
         storedGame := types.StoredGame{
             ...
@@ -164,10 +164,10 @@ Next, you need to update this new field with its appropriate value:
 
 2. After a move, in the message handler:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move.go#L57]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move.go#L70]
         ...
     +  storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
-        storedGame.Board = game.String()
+        storedGame.Turn = rules.PieceStrings[game.Turn]
         ...
     ```
 
@@ -202,7 +202,7 @@ $ docker run --rm -it \
 
 After these changes, your previous unit tests fail. Fix them by adding `Deadline` wherever it should be. Do not forget that the time is taken from the block's timestamp. In the case of tests, it is stored in the context's `ctx.BlockTime()`. In effect, you need to add this single line:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L107]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L108]
     ctx := sdk.UnwrapSDKContext(context)
     ...
     require.EqualValues(t, types.StoredGame{
@@ -211,7 +211,7 @@ After these changes, your previous unit tests fail. Fix them by adding `Deadline
     }, game1)
 ```
 
-Also add a couple of unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L101-L115) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L288-L300) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L374-L389) are parseable.
+Also add a couple of unit tests that confirm the `GetDeadlineAsTime` function [works as intended](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/full_game_test.go#L178-L192) and that the dates saved [on create](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_create_game_test.go#L297-L309) and [on play](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/keeper/msg_server_play_move_test.go#L379-L394) are parseable.
 
 ## Interact via the CLI
 
@@ -246,7 +246,7 @@ This demonstrates some missing information:
     ...
 ```
 
-In effect, your blockchain state is broken. Examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
+In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 <CodeGroup>
 
@@ -276,7 +276,7 @@ This contains:
 
 ```diff-txt
     ...
-+  deadline: 2022-02-05 15:26:26.832533 +0000 UTC
++  deadline: 2023-02-05 15:26:26.832533 +0000 UTC
     ...
 ```
 
@@ -292,8 +292,10 @@ expiredGames = allGames.filterWhere(game => now < game.Deadline)
 ...
 ```
 
-If you do so, your blockchain is in extreme danger. The `.GetAllStoredGames` call is O(n). Its execution time is proportional to the total number of games you have in storage. If your project is successful, this may mean pulling a million games just to forfeit a handful. On every block. At this rate, each block would come out after 30 minutes, not 6 seconds.
-
+If you do so, your blockchain is in **extreme danger**. The `.GetAllStoredGames` call is O(n). Its execution time is proportional to the total number of games you have in storage. It is not proportional to the number of games that have expired.
+<br/><br/>
+If your project is successful, this may mean pulling a million games just to forfeit a handful. _On every block_. At this rate, each block would come out after 30 minutes, not 6 seconds.
+<br/><br/>
 You need better data structures as you will see in the next sections.
 
 </HighlightBox>
