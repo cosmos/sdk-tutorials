@@ -278,7 +278,7 @@ To query the clients for the chain **checkersa**, run:
 $ hermes query clients --host-chain checkersa
 ```
 
-There should be one Tendermint client for the chain **checkersb**.
+There should be one CometBFT client for the chain **checkersb**.
 
 Query the connections for **checkersa**:
 

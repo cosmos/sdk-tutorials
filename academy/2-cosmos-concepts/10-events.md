@@ -103,7 +103,7 @@ func NewHandler(keeper Keeper) sdk.Handler {
 
 ## Subscribing to events
 
-You can use Tendermint's [WebSocket](https://docs.tendermint.com/v0.34/tendermint-core/subscription.html) to subscribe to events by calling the `subscribe` RPC method.
+You can use CometBFT's [WebSocket](https://docs.tendermint.com/v0.34/tendermint-core/subscription.html) to subscribe to events by calling the `subscribe` RPC method.
 
 The main `eventCategories` you can subscribe to are:
 
@@ -167,7 +167,7 @@ To summarize, this section has explored:
 * How events are objects used by service providers such as block explorers and wallets to track the execution of messages and index transactions by applications.
 * The types and attributes of events are defined on a per-module basis and developers can attach additional information to them, so events can be queried or filtered.
 * Events are managed, tracked, and triggered by the `EventManager` abstraction.
-* You can subscribe to different categories of event using Tendermint's WebSocket.
+* You can subscribe to different categories of event using CometBFT's WebSocket.
 
 </HighlightBox>
 

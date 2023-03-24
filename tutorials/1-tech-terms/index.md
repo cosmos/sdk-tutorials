@@ -46,7 +46,7 @@ Tools within the Interchain Stack, which contain "Cosmos" in their name will rem
 
 ### Cosmos Hub
 
-The Cosmos Hub is a chain that serves as an economic hub of the Interchain and service provider to other Cosmos chains. Built with the Interchain Stack, the Hub is home to the ATOM token, Interchain Security, and builders of the Cosmos SDK, Tendermint, and IBC.
+The Cosmos Hub is a chain that serves as an economic hub of the Interchain and service provider to other Cosmos chains. Built with the Interchain Stack, the Hub is home to the ATOM token, Interchain Security, and builders of the Cosmos SDK, CometBFT, and IBC.
 
 ## Light client daemon (LCD)
 
@@ -150,19 +150,19 @@ The application layer is tasked with ensuring effective communication between ap
 
 ### RPC and Cosmos
 
-In Cosmos, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and Tendermint endpoint.
+In Cosmos, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and CometBFT endpoint.
 
-Exposed by Tendermint, the Tendermint RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`. The Tendermint RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
+Exposed by CometBFT, the CometBFT RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`. The CometBFT RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
 
 <HighlightBox type="tip">
 
-For more information on the Tendermint RPC, gRPC, and the REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/main/core/grpc_rest.html) is recommended.
+For more information on the CometBFT RPC, gRPC, and the REST server, a closer look at the [Cosmos SDK documentation](https://docs.cosmos.network/main/core/grpc_rest.html) is recommended.
 
 </HighlightBox>
 
 <HighlightBox type="info">
 
-Cosmos exposes both the Tendermint RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
+Cosmos exposes both the CometBFT RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 

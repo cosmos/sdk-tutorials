@@ -27,7 +27,7 @@ In this section you will discover how to define an application state machine and
 
 </HighlightBox>
 
-`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the Tendermint Application Blockchain Interface (ABCI).
+`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
 
 <HighlightBox type="info">
 
@@ -87,10 +87,10 @@ Important parameters that are initialized during the bootstrapping of the applic
   An `sdk.Msg` here refers to the transaction component that needs to be processed by a service to update the application state, and not to the ABCI message, which implements the interface between the application and the underlying consensus engine.
 
 * **gRPC Query Router:** the `grpcQueryRouter` facilitates the routing of gRPC queries to the appropriate module that will process them. These queries are not ABCI messages themselves. They are relayed to the relevant module's gRPC query service.
-* **`TxDecoder`:** this is used to decode raw transaction bytes relayed by the underlying Tendermint engine.
+* **`TxDecoder`:** this is used to decode raw transaction bytes relayed by the CometBFT.
 * **`ParamStore`:** this is the parameter store used to get and set application consensus parameters.
 * **`AnteHandler`:** this is used to handle signature verification, fee payment, and other pre-message execution checks when a transaction is received. It is executed during `CheckTx/RecheckTx` and `DeliverTx`.
-* **`InitChainer`, `BeginBlocker`, and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
+* **`InitChainer`, `BeginBlocker`, and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from CometBFT.
 
 #### Volatile state
 
