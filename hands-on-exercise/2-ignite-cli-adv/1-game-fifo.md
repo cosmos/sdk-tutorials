@@ -1,6 +1,6 @@
 ---
 title: "Put Your Games in Order"
-order: 2
+order: 4
 description: Store FIFO - prepare to expire games
 tags: 
   - guided-coding

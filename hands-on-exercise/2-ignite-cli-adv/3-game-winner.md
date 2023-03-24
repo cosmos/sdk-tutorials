@@ -1,6 +1,6 @@
 ---
 title: "Record the Game Winner"
-order: 4
+order: 3
 description: Store field - store the winner of a game
 tags: 
   - guided-coding
