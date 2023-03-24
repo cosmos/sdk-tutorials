@@ -579,14 +579,14 @@ Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/package
 
 Because JavaScript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all`, or something like `array.forEach(() => { await })`, which fire all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
 
-There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This Tendermint client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
+There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This CometBFT client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
 
 On the other hand, you want the last transaction to be included in the block so that when you query for the stored game you get the expected values. Therefore you will:
 
 1. Send the first 21 signed transactions with the _fast_ `this.forceGetTmClient().broadcastTxSync`.
 2. Send the last transaction with a _slow_ client `broadcastTx`.
 
-Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before their turn. At this point, you trust that Tendermint includes the transactions in the order in which they were submitted. If Tendermint does any shuffling between Alice and Bob, you may end up with a "play before their turn" error.
+Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before their turn. At this point, you trust that CometBFT includes the transactions in the order in which they were submitted. If CometBFT does any shuffling between Alice and Bob, you may end up with a "play before their turn" error.
 
 With luck, all transactions may end up in a single block, which would make the test 22 times faster than if you had waited for each transaction to get into its own block.
 
@@ -619,7 +619,7 @@ const whoseClient = (who: Player) => (who == "b" ? aliceClient : bobClient)
 const whoseAddress = (who: Player) => (who == "b" ? alice : bob)
 ```
 
-Add a function to your client to give you access to Tendermint's `broadcastTxSync`:
+Add a function to your client to give you access to CometBFT's `broadcastTxSync`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/checkers_stargateclient.ts#L23-L25]
 public async tmBroadcastTxSync(tx: Uint8Array): Promise<BroadcastTxSyncResponse> {

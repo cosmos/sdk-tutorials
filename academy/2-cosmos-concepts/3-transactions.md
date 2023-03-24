@@ -17,7 +17,7 @@ In this section you will dive into the various functions and features of making 
 * Signing Transactions
 * Generating Transactions
 * Broadcasting Transactions
-* Introducing the CLI, the gRPC service, the REST API, and the Tendermint RPC service
+* Introducing the CLI, the gRPC service, the REST API, and the CometBFT RPC service
 
 </HighlightBox>
 
@@ -71,7 +71,7 @@ You should rarely manipulate a `Tx` object directly. It is an intermediate type 
 
 <HighlightBox type="info">
 
-Transaction messages are not to be confused with ABCI messages, which define interactions between Tendermint and application layers.
+Transaction messages are not to be confused with ABCI messages, which define interactions between CometBFT and application layers.
 
 </HighlightBox>
 
@@ -149,19 +149,19 @@ See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/do
 
 </HighlightBox>
 
-### Tendermint RPC
+### CometBFT RPC
 
-The three methods presented previously are higher abstractions on the Tendermint RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html) to directly broadcast the transaction through Tendermint if you wish to.
+The three methods presented previously are higher abstractions on the CometBFT RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [CometBFT RPC endpoints](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html) to directly broadcast the transaction through CometBFT if you wish to.
 
 <HighlightBox type="info">
 
-Tendermint supports the following RPC protocols:
+CometBFT supports the following RPC protocols:
 
 * URI over HTTP.
 * JSONRPC over HTTP.
 * JSONRPC over WebSockets.
 
-For more information on broadcasting with Tendermint RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html).
+For more information on broadcasting with CometBFT RPC, see the documentation on [CometBFT RPC transactions broadcast APIs](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html).
 
 </HighlightBox>
 
@@ -180,7 +180,7 @@ See the [section on messages](./4-messages.md) to learn how to do that.
 To summarize, this section has explored:
 
 * How transactions are objects created by end-users to trigger state changes in an application module through that module's Protobuf message service.
-* How transaction messages are not to be confused with ABCI messages, which define interactions between Tendermint and application layers.
+* How transaction messages are not to be confused with ABCI messages, which define interactions between CometBFT and application layers.
 * How *deciding* and *signing* transactions are the main interactions of a user, whereas *generating* and *broadcasting* transactions are attended to by the user interface and other automation.
 * How the modular nature of the Cosmos SDK places more responsibility on *module* developers to effectively code transaction processes, so *application* developers can reuse common functionalities without having to repetitively implement state transition logic.
 

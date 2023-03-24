@@ -111,7 +111,7 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the number of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from CometBFT KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 

@@ -79,7 +79,7 @@ func (k Keeper) CreateClient(
     ...
 
     // verifies initial consensus state against client state and initializes client store with any client-specific metadata
-    // e.g. set ProcessedTime in Tendermint clients
+    // e.g. set ProcessedTime in CometBFT clients
     ... := clientState.Initialize(ctx, k.cdc, k.ClientStore(ctx, clientID), consensusState);
 
     ...
@@ -100,7 +100,7 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 </HighlightBox>
 
-In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is offered out of the box:
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [CometBFT client](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is offered out of the box:
 
 ```go
 // NewClientState creates a new ClientState instance
@@ -124,17 +124,17 @@ func NewClientState(
 }
 ```
 
-The Tendermint `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all Tendermint clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
+The CometBFT `ClientState` contains all the information needed to verify a header. This includes properties which are applicable for all CometBFT clients, such as the corresponding chainID, the unbonding period of the chain, the latest height of the client, etc.
 
-`TrustingPeriod` determines the duration of the period since the latest timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired Tendermint client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
+`TrustingPeriod` determines the duration of the period since the latest timestamp during which the submitted headers are valid for upgrade. If a client is not updated within the `TrustingPeriod`, the client will expire. This does not mean the client is irrecoverable. However, recovery of an expired CometBFT client will require a [governance proposal](https://ibc.cosmos.network/main/ibc/proposals.html#preconditions) for each client which has expired. If both clients on either side of a connection have expired, then a governance proposal will be required on each chain in order to revive each client.
 
-`TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. Tendermint defines this as 2/3, and the IBC Tendermint client inherits this property from Tendermint.
+`TrustLevel` determines the portion of the validator set you want to have signing a header for it to be considered as valid. CometBFT defines this as 2/3, and the IBC CometBFT client inherits this property from CometBFT.
 
 <HighlightBox type="note">
 
 Properties such as `TrustLevel` and `TrustingPeriod` can be customised, such that different clients on the same chain can have different security guarantees with different tradeoffs for efficiency of processing updates.
 <br/><br/>
-As stated before, `TrustLevel` is inherited from Tendermint and will be 2/3 for all Tendermint clients. However, this could change for other client types.
+As stated before, `TrustLevel` is inherited from CometBFT and will be 2/3 for all CometBFT clients. However, this could change for other client types.
 <br/><br/>
 It is recommended that `TrustingPeriod` should be set as 2/3 of the UnbondingPeriod.
 <br/><br/>
@@ -148,7 +148,7 @@ It is important to highlight that certain parameters of an IBC client cannot be 
 
 </HighlightBox>
 
-`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/consensus_state.go). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
+`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/consensus_state.go). In the case of a CometBFT client, the initial root of trust (or consensus state) looks like this:
 
 ```go
 // NewConsensusState creates a new ConsensusState instance.
@@ -163,7 +163,7 @@ func NewConsensusState(
 }
 ```
 
-The Tendermint client `ConsensusState` tracks the timestamp of the block being created, the hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. The initial `ConsensusState` does not need to start with the genesis block of a counterparty chain.
+The CometBFT client `ConsensusState` tracks the timestamp of the block being created, the hash of the validator set for the next block of the counterparty blockchain, and the root of the counterparty blockchain. The initial `ConsensusState` does not need to start with the genesis block of a counterparty chain.
 
 <HighlightBox type="tip">
 
@@ -173,11 +173,11 @@ The next validator set is used for verifying subsequent submitted headers or upd
 
 The root is the **AppHash**, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash used on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC, to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this `ConsensusState` root hash, it is certain that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
 
-The following is an example of how the Tendermint client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/23-commitment/types/merkle.go). The [ICS-23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS-23 implementation](https://github.com/confio/ics23) currently supports Tendermint IAVL and simple Merkle proofs out of the box.
+The following is an example of how the CometBFT client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/23-commitment/types/merkle.go). The [ICS-23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS-23 implementation](https://github.com/confio/ics23) currently supports CometBFT IAVL and simple Merkle proofs out of the box.
 
 <HighlightBox type="note">
 
-Non-Tendermint client types may choose to handle proof verification differently.
+Non-CometBFT client types may choose to handle proof verification differently.
 
 </HighlightBox>
 
@@ -222,9 +222,9 @@ The objective is to avoid a situation where it is necessary to have a copy of ch
 
 Assume that the initial `ConsensusState` was created at block 50, but you want to submit a proof of a transaction which happened in block 100. In this case, you need to first update the `ConsensusState` to reflect all the changes that have happened between block 50 and block 100.
 
-To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateClient` containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
+To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateClient` containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, CometBFT or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
 
-For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/tendermint.pb.go#L198):
+For example, the CometBFT client `Header` looks like [this](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/tendermint.pb.go#L198):
 
 ```go
 type Header struct {
@@ -235,9 +235,9 @@ type Header struct {
 }
 ```
 
-The Tendermint `SignedHeader` is a header and commit that the counterparty chain has created. In the `MsgUpdateClient` example, this would be the header of block 100 which will contain the timestamp of the block, the hash of the next validator set, and the root hash needed to update the `ConensusState` on record for the counterparty chain. The commit will be a signature of at least 2/3 of the validator set over that header, which is guaranteed as part of Tendermint's BFT consensus model.
+The CometBFT `SignedHeader` is a header and commit that the counterparty chain has created. In the `MsgUpdateClient` example, this would be the header of block 100 which will contain the timestamp of the block, the hash of the next validator set, and the root hash needed to update the `ConensusState` on record for the counterparty chain. The commit will be a signature of at least 2/3 of the validator set over that header, which is guaranteed as part of CometBFT's consensus model.
 
-`ValidatorSet` will be the actual validator set, as opposed to the hash of the next validator set stored on the `ConsensusState`. This is important for the Tendermint `UpdateClient` method because, in order to preserve the Tendermint security model, it is necessary to be able to prove that at least 2/3 of the validators who signed the initial header at block 50 have signed the header to update the `ConsensusState` to block 100. This `ValidatorSet` will be submitted by the relayer as part of the `MsgUpdateClient`, as the relayer has access to full nodes from which this information can be extracted.
+`ValidatorSet` will be the actual validator set, as opposed to the hash of the next validator set stored on the `ConsensusState`. This is important for the CometBFT `UpdateClient` method because, in order to preserve the CometBFT security model, it is necessary to be able to prove that at least 2/3 of the validators who signed the initial header at block 50 have signed the header to update the `ConsensusState` to block 100. This `ValidatorSet` will be submitted by the relayer as part of the `MsgUpdateClient`, as the relayer has access to full nodes from which this information can be extracted.
 
 `TrustedValidators` are the validators associated with that height. Note that `TrustedValidators` must hash to the `ConsensusState` `NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
 
