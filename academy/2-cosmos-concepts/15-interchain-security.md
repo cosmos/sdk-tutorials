@@ -1,6 +1,6 @@
 ---
 title: "Interchain Security"
-order: 4
+order: 16
 description: What is Interchain Security?
 tags: 
   - concepts
