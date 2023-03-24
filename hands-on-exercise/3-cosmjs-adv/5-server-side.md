@@ -875,7 +875,7 @@ What remains is handling the games that get removed or forfeited in `EndBlock`.
 
 Nicely formatted `EndBlock` events are still missing from CosmJS, so these require a little extra work:
 
-1. To get a block's `EndBlock` events, you need to ask for the block information from a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
+1. To get a block's `EndBlock` events, you need to ask for the block information from a CometBFT client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
 2. The function to call is [`blockResults`](https://github.com/cosmos/cosmjs/blob/5ee3f82/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L88).
 3. It returns a [`BlockResultsResponse`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L55), of which `endBlockEvents: Event` is of interest.
 4. This [`Event`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L182) type has `attributes: Attribute[]` of interest.
@@ -883,7 +883,7 @@ Nicely formatted `EndBlock` events are still missing from CosmJS, so these requi
 
 With this information, you can do the necessary actions:
 
-1. To handle the conversion of Tendermint `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
+1. To handle the conversion of CometBFT `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/events.ts#L1-L17]
     import { fromUtf8 } from "@cosmjs/encoding"
@@ -905,7 +905,7 @@ With this information, you can do the necessary actions:
     }
     ```
 
-2. To handle the call to `blockResults`, you need access to a Tendermint client. One option is to make a copy of the private Tendermint client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
+2. To handle the call to `blockResults`, you need access to a CometBFT client. One option is to make a copy of the private CometBFT client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer_stargateclient.ts]
 import { StargateClientOptions } from "@cosmjs/stargate"
@@ -1163,7 +1163,7 @@ You can find the complete code [here](https://github.com/cosmos/academy-checkers
 So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
-* Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
+* Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
 Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.

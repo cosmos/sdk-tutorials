@@ -33,7 +33,7 @@ Modules define most of the logic of Cosmos SDK applications.
 
 ![Transaction message flow to modules](/academy/2-cosmos-concepts/images/message_processing.png)
 
-When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction and routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
+When a transaction is relayed from the underlying CometBFT consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction and routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
 
 Developers compose together modules using the Cosmos SDK to build custom application-specific blockchains.
 
@@ -41,7 +41,7 @@ Developers compose together modules using the Cosmos SDK to build custom applica
 
 Modules include **core** functionality that every blockchain node needs:
 
-* A boilerplate implementation of the Application Blockchain Interface (ABCI) that communicates with the underlying Tendermint consensus engine.
+* A boilerplate implementation of the Application Blockchain Interface (ABCI) that communicates with CometBFT.
 * A general-purpose data store that persists the module state called `multistore`.
 * A server and interfaces to facilitate interactions with the node.
 
@@ -424,7 +424,7 @@ To summarize, this section has explored:
 
 * How Cosmos SDK modules can be viewed as purpose-specific state machines that define the unique properties of the larger state machine that is each blockchain.
 * How messages are decomposed from the incoming transaction containing them and routed to the appropriate module for processing.
-* How all modules comprise three core functionalities: an implementation of ABCI to communicate with the Tendermint consensus engine; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
+* How all modules comprise three core functionalities: an implementation of ABCI to communicate with CometBFT; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
 * How the majority of work for developers is in building custom modules that satisfy their unique needs, which are then integrated into a coherent application alongside existing modules from the Cosmos SDK of third-party developers.
 * How the Cosmos SDK's set of core modules address common applications needs (such as tokens, staking, and governance) while providing useful benefits like standardization across the Ecosystem, less duplication of effort, and practical examples of effective structure, style, and best practices.
 * How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.             
