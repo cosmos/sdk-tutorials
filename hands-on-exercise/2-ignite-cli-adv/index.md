@@ -27,7 +27,7 @@ In this chapter, you will:
 
 * Continuously develop your checkers blockchain with the Ignite CLI.
 * Introduce a game deadline.
-* Record the winners.
+* Introduce a move count.
 * Order your games.
 * Introduce a game forfeiting mechanism.
 * Let players set a wager.
