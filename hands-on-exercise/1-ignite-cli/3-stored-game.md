@@ -747,6 +747,20 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
+Also make sure that a default test created by Ignite CLI is correct in using the default values of `SystemInfo` instead of erasing them:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/client/cli/query_system_info_test.go#L24-L30]
+    func networkWithSystemInfoObjects(t *testing.T) (*network.Network, types.SystemInfo) {
+        ...
+-      systemInfo := &types.SystemInfo{}
++      systemInfo := state.SystemInfo
+        nullify.Fill(&systemInfo)
+        ...
+-      return network.New(t, cfg), *state.SystemInfo
++      return network.New(t, cfg), state.SystemInfo
+    }
+```
+
 Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
 
 ## Interact via the CLI
