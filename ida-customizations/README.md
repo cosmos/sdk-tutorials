@@ -221,7 +221,7 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: How to make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
-          - title: Adding packet and acknowledgment data
+          - title: Adding packet and acknowledgement data
             path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
             path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
