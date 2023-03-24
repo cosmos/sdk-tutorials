@@ -103,7 +103,7 @@ The required steps to implement can be found in the [ibc-go docs](https://ibc.co
     * Packet callbacks
 * Bind to a port(s).
 * Add keeper methods.
-* Define your packet data and acknowledgment structs as well as how to encode/decode them.
+* Define your packet data and acknowledgement structs as well as how to encode/decode them.
 * Add a route to the IBC router.
 
 </HighlightBox>
@@ -262,7 +262,7 @@ var ack channeltypes.Acknowledgement
         return channeltypes.NewErrorAcknowledgement(errMsg)
     }
 
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
     return ack
 
 }
@@ -411,16 +411,16 @@ For advanced readers, more on capabilities can be found in the [ibc-go docs](htt
 
 To handle receiving packets, the module must implement the `OnRecvPacket` callback. This gets invoked by the IBC module after the packet has been proved valid and correctly processed by the IBC keepers. Thus, the `OnRecvPacket` callback only needs to worry about making the appropriate state changes given the packet data without worrying about whether the packet is valid or not.
 
-Modules may return to the IBC handler an acknowledgment which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgment of the packet so that a relayer may relay the acknowledgment back to the sender module.
+Modules may return to the IBC handler an acknowledgement which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgement of the packet so that a relayer may relay the acknowledgement back to the sender module.
 
 The state changes that occurred during this callback will only be written if:
 
-* The acknowledgment was successful as indicated by the `Success()` function of the acknowledgement.
-* The acknowledgment returned is nil, indicating that an asynchronous process is occurring.
+* The acknowledgement was successful as indicated by the `Success()` function of the acknowledgement.
+* The acknowledgement returned is nil, indicating that an asynchronous process is occurring.
 
 <HighlightBox type="note">
 
-Applications that process asynchronous acknowledgments must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgments.
+Applications that process asynchronous acknowledgements must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgements.
 
 </HighlightBox>
 
@@ -444,12 +444,12 @@ func (am AppModule) OnRecvPacket(
         errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
         return channeltypes.NewErrorAcknowledgement(errMsg)
     }
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
     return ack
 }
 ```
 
-The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking, you only need to decode the packet data (which is discussed in an upcoming section) and return the acknowledgment after processing the packet. However, the structure provided by Ignite CLI is useful to get set up but can be changed according to the preference of the developer.
+The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking, you only need to decode the packet data (which is discussed in an upcoming section) and return the acknowledgement after processing the packet. However, the structure provided by Ignite CLI is useful to get set up but can be changed according to the preference of the developer.
 
 As a reminder, this is the `Acknowledgement` interface:
 
@@ -466,9 +466,9 @@ type Acknowledgement interface {
 
 The last step of the packet flow depends on whether you have a happy path, when the packet has been successfully relayed, or a timeout when something went wrong.
 
-After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgment using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
+After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgement using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
 
-Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgments, IBC will pass in the acknowledgments as `[]byte` to this callback. The callback is responsible for decoding the acknowledgment and processing it.
+Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgements, IBC will pass in the acknowledgements as `[]byte` to this callback. The callback is responsible for decoding the acknowledgement and processing it.
 
 In `x/leaderboard/module_ibc.go` scaffolded by Ignite CLI you will find `OnAcknowledgementPacket`:
 
@@ -698,5 +698,5 @@ To summarize, this section has explored:
 </HighlightBox>
 
 <!--#### Next up
-Until now how to define packet and acknowledgment data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.-->
+Until now how to define packet and acknowledgement data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.-->
 ````

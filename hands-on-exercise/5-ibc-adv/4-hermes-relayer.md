@@ -409,7 +409,7 @@ SUCCESS [
 ]
 ```
 
-Send an acknowledgment to **checkersa**:
+Send an acknowledgement to **checkersa**:
 
 ```sh
 $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1

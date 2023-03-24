@@ -1,5 +1,5 @@
 ---
-title: "Adding Packet and Acknowledgment Data"
+title: "Adding Packet and Acknowledgement Data"
 order: 7
 description: 
 tags: 
@@ -8,9 +8,9 @@ tags:
   - ibc
 ---
 
-# Adding Packet and Acknowledgment Data
+# Adding Packet and Acknowledgement Data
 
-This section demonstrates how to define packets and acks (acknowledgments) for the leaderboard blockchain.
+This section demonstrates how to define packets and acks (acknowledgements) for the leaderboard blockchain.
 
 <HighlightBox type="note">
 
@@ -87,7 +87,7 @@ message IbcTopRankPacketData {
 The next addition is the ack:
 
 ```protobuf
-// IbcTopRankPacketAck defines a struct for the packet acknowledgment
+// IbcTopRankPacketAck defines a struct for the packet acknowledgement
 message IbcTopRankPacketAck {
 	  string playerId = 1;
 }
@@ -276,7 +276,7 @@ case *types.LeaderboardPacketData_IbcTopRankPacket:
 	if err != nil {
 		ack = channeltypes.NewErrorAcknowledgement(err.Error())
 	} else {
-		// Encode packet acknowledgment
+		// Encode packet acknowledgement
 		packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
 		if err != nil {
 			return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
@@ -310,7 +310,7 @@ func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Pack
 
 <HighlightBox type="note">
 
-Remember that the `OnRecvPacket` callback writes an acknowledgment as well (this course covers the synchronous write ack case).
+Remember that the `OnRecvPacket` callback writes an acknowledgement as well (this course covers the synchronous write ack case).
 
 </HighlightBox>
 
@@ -319,7 +319,7 @@ Remember that the `OnRecvPacket` callback writes an acknowledgment as well (this
 Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the structure of the `OnAcknowledgementPacket` with the switch statement. Again, scaffolding the packet adds a case to the switch:
 
 ```go
-// @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgmentPacket
+// @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgementPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
 	err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
 	if err != nil {
@@ -335,25 +335,25 @@ func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channe
 	switch dispatchedAck := ack.Response.(type) {
 	case *channeltypes.Acknowledgement_Error:
 
-		// TODO: failed acknowledgment logic
+		// TODO: failed acknowledgement logic
 		_ = dispatchedAck.Error
 
 		return nil
 	case *channeltypes.Acknowledgement_Result:
-		// Decode the packet acknowledgment
+		// Decode the packet acknowledgement
 		var packetAck types.IbcTopRankPacketAck
 
 		if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
-			// The counter-party module doesn't implement the correct acknowledgment format
-			return errors.New("cannot unmarshal acknowledgment")
+			// The counter-party module doesn't implement the correct acknowledgement format
+			return errors.New("cannot unmarshal acknowledgement")
 		}
 
-		// TODO: successful acknowledgment logic
+		// TODO: successful acknowledgement logic
 
 		return nil
 	default:
-		// The counter-party module doesn't implement the correct acknowledgment format
-		return errors.New("invalid acknowledgment format")
+		// The counter-party module doesn't implement the correct acknowledgement format
+		return errors.New("invalid acknowledgement format")
 	}
 }
 ```
@@ -372,7 +372,7 @@ Again, the reader is invited to check these out independently.
 
 <HighlightBox type="info">
 
-Events in IBC are important because relayers process events to check if there are packets (or acknowledgments) to relay.
+Events in IBC are important because relayers process events to check if there are packets (or acknowledgements) to relay.
 <br/><br/>
 Ignite CLI has scaffolded some events in `x/leaderboard/types/events_ibc.go` for timeout and the `ibcTopRank` packet which you have defined:
 

@@ -447,7 +447,7 @@ The default key used for checkersa is _alice_.
 
 You created the commitment proof on `checkersa` to send the packet, but no relaying has taken place yet.
 
-### Relay packets/acknowledgments
+### Relay packets/acknowledgements
 
 Running `rly start demo` would essentially loop these two commands:
 
