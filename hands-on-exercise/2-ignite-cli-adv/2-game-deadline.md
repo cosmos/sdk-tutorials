@@ -31,9 +31,9 @@ In this section, you will:
 
 In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md). Presumably most players will play on their games until they reach a resolution. But not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
 
-Therefore, your blockchain is at risk of accumulating stale games in its storage.
+Therefore, your blockchain is at risk of accumulating stale games in its storage. Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. This is one more reason why you need a way for games to be forcibly resolved if one player stops participating.
 
-To take care of this, you could imagine creating new messages. For instance, a player whose opponent has disappeared could raise a flag in order to seek a resolution. That would most likely require the introduction of a deadline to prevent malicious flag raising.
+To take care of this, you could imagine creating new messages. For instance, a player whose opponent has disappeared could raise a flag in order to seek a resolution. That would most likely require the introduction of a deadline to prevent malicious flag raising. And where the deadline is pushed back every time a move is played.
 
 Another way would be to have the blockchain system resolve by forfeit the stale games on its own. This is the path that this exercise is taking. To achieve that, it needs a deadline. This deadline, and its testing, is the object of this section.
 
