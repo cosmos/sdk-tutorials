@@ -26,7 +26,7 @@ In this section, you will:
 
 * Discover the Inter-Blockchain Communication Protocol.
 * Accept wagers with tokens from other chains.
-* Refactor integration tests.
+* Refactor unit and integration tests.
 
 </HighlightBox>
 
@@ -73,7 +73,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 
 2. Update the message to create a game:
 
-    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/tx.proto#L21]
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/proto/checkers/tx.proto#L20]
         message MsgCreateGame {
             ...
     +      string denom = 5;
@@ -109,7 +109,8 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 4. It is recommended to also update the `MsgCreateGame` constructor:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/message_create_game.go#L12-L18]
-        func NewMsgCreateGame(creator string, black string, red string, wager uint64, denom string) *MsgCreateGame {
+    -  func NewMsgCreateGame(creator string, black string, red string, wager uint64) *MsgCreateGame {
+    +  func NewMsgCreateGame(creator string, black string, red string, wager uint64, denom string) *MsgCreateGame {
             return &MsgCreateGame{
                 ...
     +          Denom: denom,
@@ -119,7 +120,7 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
 
 5. Not to forget the CLI client:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/compare/can-play-move-handler..wager-denomination#diff-499219a70e143a1a848af38d250273a6de287507bfc67f89ff0f46cc8222a7a1]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/client/cli/tx_create_game.go#L17-L39]
         func CmdCreateGame() *cobra.Command {
             cmd := &cobra.Command{
     -          Use:   "create-game [black] [red] [wager]",
@@ -128,33 +129,19 @@ Instead of defaulting to `"stake"`, let players decide what string represents th
     -          Args:  cobra.ExactArgs(3),
     +          Args:  cobra.ExactArgs(4),
                 RunE: func(cmd *cobra.Command, args []string) (err error) {
-                    argBlack := args[0]
-                    argRed := args[1]
-                    argWager, err := strconv.ParseUint(args[2], 10, 64)
-                    if err != nil {
-                        return err
-                    }
+                    ...
     +              argDenom := args[3]
 
                     clientCtx, err := client.GetClientTxContext(cmd)
-                    if err != nil {
-                        return err
-                    }
+                    ...
                     msg := types.NewMsgCreateGame(
-                        clientCtx.GetFromAddress().String(),
-                        argBlack,
-                        argRed,
-                        argWager,
+                        ...
     +                  argDenom,
                     )
-                    if err := msg.ValidateBasic(); err != nil {
-                        return err
-                    }
-                    return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+                    ...
                 },
             }
-            flags.AddTxFlagsToCmd(cmd)
-            return cmd
+            ...
         }
     ```
 
@@ -173,10 +160,11 @@ The token denomination has been integrated into the relevant data structures. No
 
 1. In the helper function to create the `Coin` in `full_game.go`:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/full_game.go#L68-L70]
-    func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
-        return sdk.NewCoin(storedGame.Denom, sdk.NewInt(int64(storedGame.Wager)))
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/types/full_game.go#L69]
+        func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
+    -      return sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(int64(storedGame.Wager)))
+    +      return sdk.NewCoin(storedGame.Denom, sdk.NewInt(int64(storedGame.Wager)))
+        }
     ```
 
 2. In the handler that instantiates a game:
@@ -201,40 +189,43 @@ The token denomination has been integrated into the relevant data structures. No
 
 ## Unit tests
 
-The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L34) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L101) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L127) you check. Choose a `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L191) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L232) respectively.
+The point of the tests is to make sure that the token denomination is correctly used. So you ought to add a denomination [when creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L28) and add it to [all the stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L67) you check and all the [emitted events](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L121) you check. Choose a `"stake"` for all first games and something else for additional games, for instance [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L185) and [`"gold"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/msg_server_create_game_test.go#L226) respectively.
 
 Adjust your test helpers too:
 
 * The coins factory now needs to care about the denomination too:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L16-L23]
-    func coinsOf(amount uint64, denom string) sdk.Coins {
-        return sdk.Coins{
-            sdk.Coin{
-                Denom:  denom,
-                Amount: sdk.NewInt(int64(amount)),
-            },
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L16-L19]
+    -  func coinsOf(amount uint64) sdk.Coins {
+    +  func coinsOf(amount uint64, denom string) sdk.Coins {
+            return sdk.Coins{
+                sdk.Coin{
+    -              Denom:  sdk.DefaultBondDenom,
+    +              Denom:  denom,
+                    Amount: sdk.NewInt(int64(amount)),
+                },
+            }
         }
-    }
     ```
 
 * To minimize the amount of work to redo, add an `ExpectPayWithDenom` helper, and have the earlier `ExpectPay` use it with the `"stake"` denomination:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L25-L35]
-    func (escrow *MockBankEscrowKeeper) ExpectPay(context context.Context, who string, amount uint64) *gomock.Call {
-        return escrow.ExpectPayWithDenom(context, who, amount, "stake")
-    }
-
-    func (escrow *MockBankEscrowKeeper) ExpectPayWithDenom(context context.Context, who string, amount uint64, denom string) *gomock.Call {
-        whoAddr, err := sdk.AccAddressFromBech32(who)
-        if err != nil {
-            panic(err)
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L25-L34]
+        func (escrow *MockBankEscrowKeeper) ExpectPay(context context.Context, who string, amount uint64) *gomock.Call {
+    +      return escrow.ExpectPayWithDenom(context, who, amount, sdk.DefaultBondDenom)
+    +  }
+    +
+    +  func (escrow *MockBankEscrowKeeper) ExpectPayWithDenom(context context.Context, who string, amount uint64, denom string) *gomock.Call {
+            whoAddr, err := sdk.AccAddressFromBech32(who)
+            if err != nil {
+                panic(err)
+            }
+    -      return escrow.EXPECT().SendCoinsFromAccountToModule(sdk.UnwrapSDKContext(context), whoAddr, types.ModuleName, coinsOf(amount))
+    +      return escrow.EXPECT().SendCoinsFromAccountToModule(sdk.UnwrapSDKContext(context), whoAddr, types.ModuleName, coinsOf(amount, denom))
         }
-        return escrow.EXPECT().SendCoinsFromAccountToModule(sdk.UnwrapSDKContext(context), whoAddr, types.ModuleName, coinsOf(amount, denom))
-    }
     ```
 
-    Do the same with [`ExpectRefund`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L37-L47).
+    Do the same with [`ExpectRefund`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/testutil/bank_escrow_helpers.go#L37-L46).
 
 With the new helpers in, you can pepper call expectations with [`"coin"`](https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/x/checkers/keeper/end_block_server_game_test.go#L239) or `"gold"`.
 
@@ -244,22 +235,24 @@ You have fixed your unit tests. You need to do the same for your integration tes
 
 ### Adjustments
 
-Take this opportunity to expand the genesis state so that it includes a different coin.
+You also take this opportunity to expand the genesis state so that it includes a different coin.
 
 * Make sure your helper to make a balance cares about the denomination:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L65-L75]
-    func makeBalance(address string, balance int64, denom string) banktypes.Balance {
-        return banktypes.Balance{
-            Address: address,
-            Coins: sdk.Coins{
-                sdk.Coin{
-                    Denom:  denom,
-                    Amount: sdk.NewInt(balance),
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L65-L75]
+    -  func makeBalance(address string, balance int64) banktypes.Balance {
+    +  func makeBalance(address string, balance int64, denom string) banktypes.Balance {
+            return banktypes.Balance{
+                Address: address,
+                Coins: sdk.Coins{
+                    sdk.Coin{
+    -                  Denom:  sdk.DefaultBondDenom,
+    +                  Denom:  denom,
+                        Amount: sdk.NewInt(balance),
+                    },
                 },
-            },
+            }
         }
-    }
     ```
 
 * Since you want to add more coins, make a specific function to sum balances per denomination:
@@ -276,38 +269,42 @@ Take this opportunity to expand the genesis state so that it includes a differen
 
 * In the bank genesis creation, add new balances:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L85-L95]
-    func getBankGenesis() *banktypes.GenesisState {
-        coins := []banktypes.Balance{
-            makeBalance(alice, balAlice, "stake"),
-            makeBalance(bob, balBob, "stake"),
-            makeBalance(bob, balBob, "coin"),
-            makeBalance(carol, balCarol, "stake"),
-            makeBalance(carol, balCarol, "coin"),
-        }
-        supply := banktypes.Supply{
-            Total: addAll(coins),
-        }
-        ...
-    }    
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L85-L95]
+        func getBankGenesis() *banktypes.GenesisState {
+            coins := []banktypes.Balance{
+    -          makeBalance(alice, balAlice),
+    -          makeBalance(bob, balBob),
+    -          makeBalance(carol, balCarol),
+    +          makeBalance(alice, balAlice, "stake"),
+    +          makeBalance(bob, balBob, "stake"),
+    +          makeBalance(bob, balBob, "coin"),
+    +          makeBalance(carol, balCarol, "stake"),
+    +          makeBalance(carol, balCarol, "coin"),
+            }
+            supply := banktypes.Supply{
+    -          Total: coins[0].Coins.Add(coins[1].Coins...).Add(coins[2].Coins...),
+    +          Total: addAll(coins),
+            }
+            ...
+        }    
     ```
 
 * Also adjust the helper that checks bank balances. Add a function to reduce the amount of refactoring:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L110-L120]
-    func (suite *IntegrationTestSuite) RequireBankBalance(expected int, atAddress string) {
-        suite.RequireBankBalanceWithDenom(expected, "stake", atAddress)
-    }
-
-    func (suite *IntegrationTestSuite) RequireBankBalanceWithDenom(expected int, denom string, atAddress string) {
-        sdkAdd, err := sdk.AccAddressFromBech32(atAddress)
-        suite.Require().Nil(err, "Failed to parse address: %s", atAddress)
-        suite.Require().Equal(
-            int64(expected),
-            suite.app.BankKeeper.GetBalance(suite.ctx, sdkAdd, denom).Amount.Int64())
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/wager-denomination/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L110-L120]
+        func (suite *IntegrationTestSuite) RequireBankBalance(expected int, atAddress string) {
+    +      suite.RequireBankBalanceWithDenom(expected, "stake", atAddress)
+    +  }
+    +
+    +  func (suite *IntegrationTestSuite) RequireBankBalanceWithDenom(expected int, denom string, atAddress string) {
+            sdkAdd, err := sdk.AccAddressFromBech32(atAddress)
+            suite.Require().Nil(err, "Failed to parse address: %s", atAddress)
+            suite.Require().Equal(
+                int64(expected),
+    -          suite.app.BankKeeper.GetBalance(suite.ctx, sdkAdd, sdk.DefaultBondDenom).Amount.Int64())
+    +          suite.app.BankKeeper.GetBalance(suite.ctx, sdkAdd, denom).Amount.Int64())
+        }
     ```
-
 
 ### Additional test
 
@@ -331,8 +328,8 @@ func (suite *IntegrationTestSuite) TestPlayMoveToWinnerBankPaidDifferentTokens()
     suite.RequireBankBalance(balCarol, carol)
     suite.RequireBankBalanceWithDenom(balCarol, "coin", carol)
     suite.RequireBankBalance(0, checkersModuleAddress)
-    playAllMoves(suite.T(), suite.msgServer, sdk.WrapSDKContext(suite.ctx), "1", game1Moves)
-    playAllMoves(suite.T(), suite.msgServer, sdk.WrapSDKContext(suite.ctx), "2", game1Moves)
+    playAllMoves(suite.T(), suite.msgServer, sdk.WrapSDKContext(suite.ctx), "1", bob, carol, game1Moves)
+    playAllMoves(suite.T(), suite.msgServer, sdk.WrapSDKContext(suite.ctx), "2", bob, carol,game1Moves)
     suite.RequireBankBalance(balAlice, alice)
     suite.RequireBankBalanceWithDenom(0, "coin", alice)
     suite.RequireBankBalance(balBob+45, bob)
@@ -391,7 +388,9 @@ You can make use of this other `token` to create a new game that costs `1 token`
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+$ checkersd tx checkers create-game \
+    $alice $bob 1 token \
+    --from $alice
 ```
 
 </CodeGroupItem>
@@ -400,7 +399,9 @@ $ checkersd tx checkers create-game $alice $bob 1 token --from $alice
 
 ```sh
 $ docker exec -it checkers \
-    checkersd tx checkers create-game $alice $bob 1 token --from $alice
+    checkersd tx checkers create-game \
+    $alice $bob 1 token \
+    --from $alice
 ```
 
 </CodeGroupItem>
