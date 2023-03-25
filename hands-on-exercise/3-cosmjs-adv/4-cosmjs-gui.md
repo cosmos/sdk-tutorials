@@ -74,7 +74,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
 2. Add a new `config-overrides.js`:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L1-L20]
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L1-L21]
     require("dotenv").config()
     const webpack = require("webpack")
 
@@ -596,19 +596,45 @@ $ docker run --rm -it \
 
 ### Identify the checkers blockchain
 
-Keplr will need information to differentiate your checkers blockchain from the other chains. Prepare your checkers blockchain info in a new `src/types/checkers/chain.ts` file:
+Keplr will need information to differentiate your checkers blockchain from the other chains. You are also going to inform it about your REST API.
+
+1. Adjust your `.env` file:
+
+    ```diff-ini [https://github.com/cosmos/academy-checkers-ui/blob/gui/.env#L2]
+        RPC_URL="http://localhost:26657"
+    +  REST_URL="http://localhost:1317"
+        ...
+    ```
+
+2. The associated type declaration:
+
+    ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/environment.d.ts#L5]
+        RPC_URL: string
+    +  REST_URL: string
+        ...
+    ```
+
+3. Its passing through Webpack:
+
+    ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L10]
+        new webpack.EnvironmentPlugin(["RPC_URL"]),
+    +  new webpack.EnvironmentPlugin(["REST_URL"]),
+        ...
+    ```
+
+With this, prepare your checkers blockchain info in a new `src/types/checkers/chain.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/types/checkers/chain.ts]
 import { ChainInfo } from "@keplr-wallet/types"
 import _ from "../../../environment"
 
-export const checkersChainId = "checkers"
+export const checkersChainId = "checkers-1"
 
 export const getCheckersChainInfo = (): ChainInfo => ({
     chainId: checkersChainId,
-    chainName: checkersChainId,
+    chainName: "checkers",
     rpc: process.env.RPC_URL!,
-    rest: "http://0.0.0.0:1317",
+    rest: process.env.REST_URL!,
     bip44: {
         coinType: 118,
     },
@@ -639,6 +665,11 @@ export const getCheckersChainInfo = (): ChainInfo => ({
             coinMinimalDenom: "stake",
             coinDecimals: 0,
             coinGeckoId: "stake",
+            gasPriceStep: {
+                low: 1,
+                average: 1,
+                high: 1,
+            },
         },
     ],
     stakeCurrency: {
@@ -648,12 +679,7 @@ export const getCheckersChainInfo = (): ChainInfo => ({
         coinGeckoId: "stake",
     },
     coinType: 118,
-    gasPriceStep: {
-        low: 1,
-        average: 1,
-        high: 1,
-    },
-    features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
+    features: [],
 })
 ```
 
@@ -739,6 +765,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
             throw new Error("You need to install Keplr")
         }
         await keplr.experimentalSuggestChain(getCheckersChainInfo())
+        await keplr.enable(checkersChainId)
         const offlineSigner: OfflineSigner = keplr.getOfflineSigner!(checkersChainId)
         const creator = (await offlineSigner.getAccounts())[0].address
         const client: CheckersSigningStargateClient = await CheckersSigningStargateClient.connectWithSigner(
