@@ -570,11 +570,11 @@ As for the refund when rejecting, you have to make sure that you are not trying 
 ```go
 func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
     ...
-	refund := uint64(types.RejectGameRefundGas)
-	if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
-		refund = consumed
-	}
-	ctx.GasMeter().RefundGas(refund, "Reject game")
+    refund := uint64(types.RejectGameRefundGas)
+    if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
+        refund = consumed
+    }
+    ctx.GasMeter().RefundGas(refund, "Reject game")
     ...
 }
 ```

@@ -46,23 +46,23 @@ When developing custom middleware, you can implement these interfaces for a new 
 
 ```go
 import (
-	...
-	porttypes "github.com/cosmos/ibc-go/v5/modules/core/05-port/types"
-	...
+    ...
+    porttypes "github.com/cosmos/ibc-go/v5/modules/core/05-port/types"
+    ...
 )
 var _ porttypes.Middleware = &IBCMiddleware{}
 
 type IBCMiddleware struct {
-	app    porttypes.IBCModule
-	keeper keeper.Keeper    //add a keeper for stateful middleware
+    app    porttypes.IBCModule
+    keeper keeper.Keeper    //add a keeper for stateful middleware
 }
 
 // IBCMiddleware creates a new IBCMiddleware given the associated keeper and underlying application
 func NewIBCMiddleware(app porttypes.IBCModule, k keeper.Keeper) IBCMiddleware {
-	return IBCMiddleware{
-		app:    app,
-		keeper: k,
-	}
+    return IBCMiddleware{
+        app:    app,
+        keeper: k,
+    }
 }
 ```
 

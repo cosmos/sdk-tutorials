@@ -67,7 +67,7 @@ The first additions are to the proto definitions in the `packet.proto` and `tx.p
     oneof packet {
         NoData noData = 1;
         // this line is used by starport scaffolding # ibc/packet/proto/field
-+		IbcTopRankPacketData ibcTopRankPacket = 2;
++        IbcTopRankPacketData ibcTopRankPacket = 2;
         // this line is used by starport scaffolding # ibc/packet/proto/field/number
     }
 }
@@ -89,7 +89,7 @@ The next addition is the ack:
 ```protobuf
 // IbcTopRankPacketAck defines a struct for the packet acknowledgment
 message IbcTopRankPacketAck {
-	  string playerId = 1;
+    string playerId = 1;
 }
 ```
 
@@ -184,31 +184,31 @@ It calls the `SendIbcTopRank` method on the message server, defined as:
 ```go
 // x/leaderboard/keeper/msg_server_ibc_top_rank.go but up to dev
 func (k msgServer) SendIbcTopRank(goCtx context.Context, msg *types.MsgSendIbcTopRank) (*types.MsgSendIbcTopRankResponse, error) {
-	ctx := sdk.UnwrapSDKContext(goCtx)
+    ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: logic before transmitting the packet
+    // TODO: logic before transmitting the packet
 
-	// Construct the packet
-	var packet types.IbcTopRankPacketData
+    // Construct the packet
+    var packet types.IbcTopRankPacketData
 
-	packet.PlayerId = msg.PlayerId
-	packet.Rank = msg.Rank
-	packet.Score = msg.Score
+    packet.PlayerId = msg.PlayerId
+    packet.Rank = msg.Rank
+    packet.Score = msg.Score
 
-	// Transmit the packet
-	err := k.TransmitIbcTopRankPacket(
-		ctx,
-		packet,
-		msg.Port,
-		msg.ChannelID,
-		clienttypes.ZeroHeight(),
-		msg.TimeoutTimestamp,
-	)
-	if err != nil {
-		return nil, err
-	}
+    // Transmit the packet
+    err := k.TransmitIbcTopRankPacket(
+        ctx,
+        packet,
+        msg.Port,
+        msg.ChannelID,
+        clienttypes.ZeroHeight(),
+        msg.TimeoutTimestamp,
+    )
+    if err != nil {
+        return nil, err
+    }
 
-	return &types.MsgSendIbcTopRankResponse{}, nil
+    return &types.MsgSendIbcTopRankResponse{}, nil
 }
 ```
 
@@ -216,46 +216,46 @@ This in turn calls the `TransmitIbcTopRankPacket` method on the module's keeper,
 
 ```go
 func (k Keeper) TransmitIbcTopRankPacket(
-	ctx sdk.Context,
-	packetData types.IbcTopRankPacketData,
-	sourcePort,
-	sourceChannel string,
-	timeoutHeight clienttypes.Height,
-	timeoutTimestamp uint64,
+    ctx sdk.Context,
+    packetData types.IbcTopRankPacketData,
+    sourcePort,
+    sourceChannel string,
+    timeoutHeight clienttypes.Height,
+    timeoutTimestamp uint64,
 ) error {
 
-	sourceChannelEnd, found := k.ChannelKeeper.GetChannel(ctx, sourcePort, sourceChannel)
-	... // error validation
+    sourceChannelEnd, found := k.ChannelKeeper.GetChannel(ctx, sourcePort, sourceChannel)
+    ... // error validation
 
-	destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
-	destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
+    destinationPort := sourceChannelEnd.GetCounterparty().GetPortID()
+    destinationChannel := sourceChannelEnd.GetCounterparty().GetChannelID()
 
-	// get the next sequence
-	sequence, found := k.ChannelKeeper.GetNextSequenceSend(ctx, sourcePort, sourceChannel)
-	... // error validation
+    // get the next sequence
+    sequence, found := k.ChannelKeeper.GetNextSequenceSend(ctx, sourcePort, sourceChannel)
+    ... // error validation
 
-	channelCap, ok := k.ScopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(sourcePort, sourceChannel))
-	... // error validation
+    channelCap, ok := k.ScopedKeeper.GetCapability(ctx, host.ChannelCapabilityPath(sourcePort, sourceChannel))
+    ... // error validation
 
-	packetBytes, err := packetData.GetBytes()
-	... // error validation
+    packetBytes, err := packetData.GetBytes()
+    ... // error validation
 
-	packet := channeltypes.NewPacket(
-		packetBytes,
-		sequence,
-		sourcePort,
-		sourceChannel,
-		destinationPort,
-		destinationChannel,
-		timeoutHeight,
-		timeoutTimestamp,
-	)
+    packet := channeltypes.NewPacket(
+        packetBytes,
+        sequence,
+        sourcePort,
+        sourceChannel,
+        destinationPort,
+        destinationChannel,
+        timeoutHeight,
+        timeoutTimestamp,
+    )
 
-	if err := k.ChannelKeeper.SendPacket(ctx, channelCap, packet); err != nil {
-		return err
-	}
+    if err := k.ChannelKeeper.SendPacket(ctx, channelCap, packet); err != nil {
+        return err
+    }
 
-	return nil
+    return nil
 }
 ```
 
@@ -272,24 +272,24 @@ In a previous section you examined the `OnRecvPacket` callback in the `x/leaderb
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnRecvPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
-	packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
-	if err != nil {
-		ack = channeltypes.NewErrorAcknowledgement(err.Error())
-	} else {
-		// Encode packet acknowledgment
-		packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
-		if err != nil {
-			return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
-		}
-		ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
-	}
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(
-			types.EventTypeIbcTopRankPacket,
-			sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-			sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
-		),
-	)
+    packetAck, err := am.keeper.OnRecvIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket)
+    if err != nil {
+        ack = channeltypes.NewErrorAcknowledgement(err.Error())
+    } else {
+        // Encode packet acknowledgment
+        packetAckBytes, err := types.ModuleCdc.MarshalJSON(&packetAck)
+        if err != nil {
+            return channeltypes.NewErrorAcknowledgement(sdkerrors.Wrap(sdkerrors.ErrJSONMarshal, err.Error()).Error())
+        }
+        ack = channeltypes.NewResultAcknowledgement(sdk.MustSortJSON(packetAckBytes))
+    }
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            types.EventTypeIbcTopRankPacket,
+            sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+            sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", err != nil)),
+        ),
+    )
 ```
 
 The first line of code in the case statement calls the application's `OnRecvIbcTopRankPacket` callback on the keeper to process the reception of the packet:
@@ -297,14 +297,14 @@ The first line of code in the case statement calls the application's `OnRecvIbcT
 ```go
 // OnRecvIbcTopRankPacket processes packet reception
 func (k Keeper) OnRecvIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcTopRankPacketData) (packetAck types.IbcTopRankPacketAck, err error) {
-	// validate packet data upon receiving
-	if err := data.ValidateBasic(); err != nil {
-		return packetAck, err
-	}
+    // validate packet data upon receiving
+    if err := data.ValidateBasic(); err != nil {
+        return packetAck, err
+    }
 
-	// TODO: packet reception logic
+    // TODO: packet reception logic
 
-	return packetAck, nil
+    return packetAck, nil
 }
 ```
 
@@ -321,40 +321,40 @@ Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the
 ```go
 // @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgmentPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
-	err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
-	if err != nil {
-		return err
-	}
-	eventType = types.EventTypeIbcTopRankPacket
+    err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
+    if err != nil {
+        return err
+    }
+    eventType = types.EventTypeIbcTopRankPacket
 ```
 
 This calls into the newly created application keeper's ack packet callback:
 
 ```go
 func (k Keeper) OnAcknowledgementIbcTopRankPacket(ctx sdk.Context, packet channeltypes.Packet, data types.IbcTopRankPacketData, ack channeltypes.Acknowledgement) error {
-	switch dispatchedAck := ack.Response.(type) {
-	case *channeltypes.Acknowledgement_Error:
+    switch dispatchedAck := ack.Response.(type) {
+    case *channeltypes.Acknowledgement_Error:
 
-		// TODO: failed acknowledgment logic
-		_ = dispatchedAck.Error
+        // TODO: failed acknowledgment logic
+        _ = dispatchedAck.Error
 
-		return nil
-	case *channeltypes.Acknowledgement_Result:
-		// Decode the packet acknowledgment
-		var packetAck types.IbcTopRankPacketAck
+        return nil
+    case *channeltypes.Acknowledgement_Result:
+        // Decode the packet acknowledgment
+        var packetAck types.IbcTopRankPacketAck
 
-		if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
-			// The counter-party module doesn't implement the correct acknowledgment format
-			return errors.New("cannot unmarshal acknowledgment")
-		}
+        if err := types.ModuleCdc.UnmarshalJSON(dispatchedAck.Result, &packetAck); err != nil {
+            // The counter-party module doesn't implement the correct acknowledgment format
+            return errors.New("cannot unmarshal acknowledgment")
+        }
 
-		// TODO: successful acknowledgment logic
+        // TODO: successful acknowledgment logic
 
-		return nil
-	default:
-		// The counter-party module doesn't implement the correct acknowledgment format
-		return errors.New("invalid acknowledgment format")
-	}
+        return nil
+    default:
+        // The counter-party module doesn't implement the correct acknowledgment format
+        return errors.New("invalid acknowledgment format")
+    }
 }
 ```
 
@@ -381,13 +381,13 @@ package types
 
 // IBC events
 const (
-	EventTypeTimeout          = "timeout"
-	EventTypeIbcTopRankPacket = "ibcTopRank_packet"
-	// this line is used by starport scaffolding # ibc/packet/event
+    EventTypeTimeout          = "timeout"
+    EventTypeIbcTopRankPacket = "ibcTopRank_packet"
+    // this line is used by starport scaffolding # ibc/packet/event
 
-	AttributeKeyAckSuccess = "success"
-	AttributeKeyAck        = "acknowledgement"
-	AttributeKeyAckError   = "error"
+    AttributeKeyAckSuccess = "success"
+    AttributeKeyAck        = "acknowledgement"
+    AttributeKeyAckError   = "error"
 )
 ```
 

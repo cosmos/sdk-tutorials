@@ -304,7 +304,7 @@ You can find query objects as part of the boilerplate objects created by Ignite 
 message QueryGetSystemInfoRequest {}
 
 message QueryGetSystemInfoResponse {
-	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
+    SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
 }
 ```
 
@@ -435,17 +435,17 @@ service Query {
         option (google.api.http).get = "/alice/checkers/checkers/params";
     }
 
-	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/system_info";
-	}
+    rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/system_info";
+    }
 
-	rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/stored_game/{index}";
-	}
+    rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/stored_game/{index}";
+    }
 
-	rpc StoredGameAll(QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/stored_game";
-	}
+    rpc StoredGameAll(QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/stored_game";
+    }
 }
 ```
 

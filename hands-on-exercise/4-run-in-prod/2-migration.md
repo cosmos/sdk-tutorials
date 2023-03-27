@@ -434,7 +434,7 @@ func (k *Keeper) MustRegisterPlayerForfeit(ctx sdk.Context, storedGame *types.St
 
 <HighlightBox type="note">
 
-Be aware of the two new error types: [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L30) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L29).
+Be aware of the two new error types: [`ErrThereIsNoWinner`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L28) and [`ErrWinnerNotParseable`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L27).
 
 </HighlightBox>
 
@@ -530,10 +530,10 @@ func FormatDateAdded(dateAdded time.Time) string {
 
 Do the same for the new error message:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L31]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L29]
     var (
         ...
-+      ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1120, "dateAdded cannot be parsed: %s")
++      ErrInvalidDateAdded = sdkerrors.Register(ModuleName, 1118, "dateAdded cannot be parsed: %s")
     )
 ```
 
@@ -704,7 +704,7 @@ func (k *Keeper) MustAddToLeaderboard(ctx sdk.Context, winnerInfo types.PlayerIn
 
 <HighlightBox type="note">
 
-Be aware of the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L32).
+Be aware of the new error [`ErrCannotAddToLeaderboard`](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/errors.go#L30).
 
 </HighlightBox>
 
