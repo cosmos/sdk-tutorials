@@ -815,7 +815,7 @@ func TestCompleteGameUpdatePlayerInfo(t *testing.T) {
 }
 ```
 
-You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L413-L492), a [reject](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L307-L381), or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
+You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L413-L492) or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
 
 ### Leaderboard handling unit tests
 
@@ -942,7 +942,7 @@ func TestUpdatePlayerInfoAtNowTooLongNoAdd(t *testing.T) {
 }
 ```
 
-With the tests at the leaderboard level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L494-L547), [rejecting one](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_reject_game_test.go#L383-L444), and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
+With the tests at the leaderboard level done, you can move to unit tests at the keeper level. Confirm that there are no changes on [creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_create_game_test.go#L494-L547) and on a [regular move](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_test.go#L598-L651).
 
 Confirm that a new winner is either [added](https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/keeper/msg_server_play_move_winner_test.go#L133-L182) or updated in the leaderboard:
 
