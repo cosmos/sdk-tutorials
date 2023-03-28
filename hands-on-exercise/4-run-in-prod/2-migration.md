@@ -755,7 +755,7 @@ func TestCompleteGameAddPlayerInfo(t *testing.T) {
     defer ctrl.Finish()
     escrow.ExpectAny(context)
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", bob, carol, testutil.Game1Moves)
 
     bobInfo, found := keeper.GetPlayerInfo(ctx, bob)
     require.True(t, found)
@@ -794,7 +794,7 @@ func TestCompleteGameUpdatePlayerInfo(t *testing.T) {
         ForfeitedCount: 6,
     })
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", bob, carol, testutil.Game1Moves)
 
     bobInfo, found := keeper.GetPlayerInfo(ctx, bob)
     require.True(t, found)
@@ -839,7 +839,7 @@ func TestSortStringifiedWinners(t *testing.T) {
                 },
             },
             sorted: []types.WinningPlayer{},
-            err:    errors.New("dateAdded cannot be parsed: 200T-01-02 15:05:05.999999999 +0000 UTC: parsing time \"200T-01-02 15:05:05.999999999 +0000 UTC\" as \"2006-01-02 15:04:05.999999999 +0000 UTC\": cannot parse \"-01-02 15:05:05.999999999 +0000 UTC\" as \"2006\""),
+            err:    errors.New("dateAdded cannot be parsed: 200T-01-02 15:05:05.999999999 +0000 UTC: parsing time \"200T-01-02 15:05:05.999999999 +0000 UTC\" as \"2006-01-02 15:04:05.999999999 +0000 UTC\": cannot parse \"200T-01-02 15:05:05.999999999 +0000 UTC\" as \"2006\""),
         },
         ... // More test cases
     }
@@ -966,7 +966,7 @@ func TestCompleteGameLeaderboardUpdatedWinner(t *testing.T) {
         },
     })
 
-    playAllMoves(t, msgServer, context, "1", game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", bob, carol, testutil.Game1Moves)
 
     leaderboard, found := keeper.GetLeaderboard(ctx)
     require.True(t, found)
