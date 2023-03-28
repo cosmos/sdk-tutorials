@@ -116,6 +116,14 @@ Now run either command:
 
 <CodeGroup>
 
+<CodeGroupItem title="Local">
+
+```sh
+$ make build-with-checksum
+```
+
+</CodeGroupItem>
+
 <CodeGroupItem title="With checkers_i">
 
 ```sh
@@ -150,7 +158,7 @@ Use this command if you did not already have the `checkers_i` image. This comman
 
 Now include the relevant executable inside your **production** image. You need to use a Debian/Ubuntu base image because you compiled on one in the previous step. Create a new `Dockerfile-checkersd-debian` with:
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-checkersd-debian]
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-checkersd-debian]
 FROM --platform=linux debian:11-slim
 ARG BUILDARCH
 
@@ -164,7 +172,7 @@ ENTRYPOINT [ "checkersd" ]
 Build the image with:
 
 ```sh
-$ docker build -f Dockerfile-checkersd-debian . -t checkersd_i
+$ docker build -f prod-sim/Dockerfile-checkersd-debian . -t checkersd_i
 ```
 
 <ExpansionPanel title="Troubleshooting">
@@ -181,35 +189,62 @@ Or just manually replace `${BUILDARCH}` with `amd64` or whichever is your archit
 
 <ExpansionPanel title="With alpine">
 
-Because you want to simulate production, you can make the case that you prefer to use the smaller `alpine` Docker image. Alpine and Debian use different C compilers with different library dependencies. This makes their compiled executable incompatible.
+Because you want to simulate production, you can make the case that you prefer to use the smaller `alpine` Docker image. Alpine and Debian use different C compilers with different **dynamically**-linked C library dependencies. This makes their compiled executables incompatible. At least with the `go build` commands as they are declared in the Makefile.
 
-In this case, you need to compile from within alpine, using a [multi-stage Docker build](https://docs.docker.com/build/building/multi-stage/).
+In this case, you have the choice between:
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-checkersd-alpine]
-FROM --platform=linux golang:1.18.7-alpine AS builder
+1. Compiling from within alpine, using a [multi-stage Docker build](https://docs.docker.com/build/building/multi-stage/).
 
-RUN apk update
-RUN apk add make
+    ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-checkersd-alpine]
+    FROM --platform=linux golang:1.18.7-alpine AS builder
 
-WORKDIR /original
-ADD . /original
-RUN make build-linux-with-checksum
+    RUN apk update
+    RUN apk add make
 
-FROM --platform=linux alpine
-ARG BUILDARCH
+    WORKDIR /original
+    ADD . /original
+    RUN make build-linux-with-checksum
 
-ENV LOCAL=/usr/local
+    FROM --platform=linux alpine
+    ARG BUILDARCH
 
-COPY --from=builder /original/build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
+    ENV LOCAL=/usr/local
 
-ENTRYPOINT [ "checkersd" ]
-```
+    COPY --from=builder /original/build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
 
-Build the image with:
+    ENTRYPOINT [ "checkersd" ]
+    ```
 
-```sh
-$ docker build -f Dockerfile-checkersd-alpine . -t checkersd_i
-```
+    Then build the image with:
+
+    ```sh
+    $ docker build -f prod-sim/Dockerfile-checkersd-alpine . -t checkersd_i
+    ```
+
+2. Or instruct the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in your `Makefile`:
+
+    ```diff-make
+        build-linux:
+    -    GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    -    GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    +    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    +    CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    ```
+
+    Then run `make build-with-checksum` again and use `alpine` in a new Dockerfile:
+
+    ```Dockerfile
+    FROM --platform=linux alpine
+    ARG BUILDARCH
+
+    ENV LOCAL=/usr/local
+
+    COPY build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
+
+    ENTRYPOINT [ "checkersd" ]
+    ```
+
+For maximum portability of your executables, you may in fact want to add `CGO_ENABLED=0` to all your `go build` commands.
 
 </ExpansionPanel>
 
@@ -266,7 +301,7 @@ Having collected the requisites, you can create the multi-staged Docker image in
 
 <CodeGroupItem title="With debian">
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-tmkms-debian]
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-tmkms-debian]
 FROM --platform=linux rust:1.64.0 AS builder
 
 RUN apt-get update
@@ -292,14 +327,14 @@ ENTRYPOINT [ "tmkms" ]
 Build the image as usual with:
 
 ```sh
-$ docker build -f Dockerfile-tmkms-debian . -t tmkms_i:v0.12.2
+$ docker build -f prod-sim/Dockerfile-tmkms-debian . -t tmkms_i:v0.12.2
 ```
 
 </CodeGroupItem>
 
 <CodeGroupItem title="With alpine">
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-tmkms-alpine]
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-tmkms-alpine]
 FROM --platform=linux rust:1.64.0-alpine AS builder
 
 RUN apk update
@@ -325,7 +360,7 @@ ENTRYPOINT [ "tmkms" ]
 Build the image as usual with:
 
 ```sh
-$ docker build -f Dockerfile-tmkms-alpine . -t tmkms_i:v0.12.2
+$ docker build -f prod-sim/Dockerfile-tmkms-alpine . -t tmkms_i:v0.12.2
 ```
 
 </CodeGroupItem>
