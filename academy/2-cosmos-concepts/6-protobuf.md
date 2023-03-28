@@ -172,10 +172,10 @@ $ ignite scaffold message createGame \
 
 If you want to dive straight into coding your chain, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) for more details on using Ignite CLI.
 <br/><br/>
-More specifically, you can jump:
+More specifically, you can jump to:
 
-* To [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game) to have Ignite CLI create your first Protobuf object.
-* Or to [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message) to have Ignite CLI create another Protobuf object, this time for messaging. You also get a walkthrough of the services created.
+* [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game) to have Ignite CLI create your first Protobuf object.
+* [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message) to have Ignite CLI create another Protobuf object, this time for messaging. You also get a walk-through of the services created.
 
 </HighlightBox>
 

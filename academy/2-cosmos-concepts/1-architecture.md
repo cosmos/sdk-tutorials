@@ -231,7 +231,7 @@ You will continue to apply what you learn in later sections to your checkers gam
 
 *Why develop a game of checkers?*
 <br/><br/>
-This **design project** is meant to get you thinking and will evolve in stages as you learn more about the Cosmos SDK concepts. You will better understand and experience how the Cosmos SDK improves your productivity by handling the boilerplate as you progress your design through the sections and explore what the boilerplate does.
+This **design project** is meant to get you thinking and will evolve in stages as you learn more about Cosmos SDK concepts. You will better understand and experience how the Cosmos SDK improves your productivity by handling the boilerplate as you progress your design through the following sections and explore what the boilerplate does.
 
 <br/>
 
@@ -239,7 +239,7 @@ This **design project** is meant to get you thinking and will evolve in stages a
 
 This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise.
 
-You are free to think about design here and the next concept pages and then jump to a related section of the exercise.
+You are free to think about design here and in the following concept pages, and then jump to a related section of the exercise.
 
 </HighlightBox>
 
@@ -253,11 +253,11 @@ Use and adapt [this ready-made implementation](https://github.com/batkinson/chec
 
 <HighlightBox type="info">
 
-When you revisit this design exercise in later chapters, the goal will be to improve it with the Cosmos SDK as you learn about its different components. If you are not interested in learning more about ABCI, it is safe to omit *this* exercise and move directly to the other learning elements.
+When you revisit this design exercise in later chapters, the goal will be to improve it with the Cosmos SDK as you learn about its different components. If you are not interested in learning more about ABCI, it is safe to omit _this_ exercise and move directly to the other learning elements.
 
 </HighlightBox>
 
-There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md) to see what the application needs in order to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect*, checkers game blockchain.
+There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md) to see what the application needs in order to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect* checkers game blockchain.
 
 ### "Make" the state machine
 
@@ -426,7 +426,7 @@ You now have:
 
 The expandable above is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise from scratch.
 
-Relevant to this section on ABCI, is the [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) part where you use the Cosmos SDK to implement expiration in `EndBlock`. Be warned that this is an advanced section of the hands-on-exercise.
+Relevant to this section on ABCI is the [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) section, where you use the Cosmos SDK to implement expiration in `EndBlock`. Be warned that this is an advanced section of the hands-on-exercise.
 
 </HighlightBox>
 

@@ -100,12 +100,12 @@ If you want the guided coding exercise instead of design and implementation cons
 Begin by describing the messages you need for your checkers application to have a solid starting point before diving into the code:
 
 1. In the former _Play_ transaction, your four integers need to move from the transaction to an `sdk.Msg`, wrapped in said transaction. Four flat `int` values are no longer sufficient, as you need to follow the `sdk.Msg` interface, identify the game for which a move is meant, and distinguish a move message from other message types.
-2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated, or not, ID identifies this newly created game and is returned to the message creator.
+2. You need to add a message type for creating a new game. When this is done, a player can create a new game which mentions other players. A generated (possibly) ID identifies this newly created game and is returned to the message creator.
 3. It would be a good feature for the other person to be able to reject the challenge. This would have the added benefit of clearing the state of stale, unstarted games.
 
 **How to proceed**
 
-Focus on the messages around the **game creation**. There is no single true way of deciding what goes into your messages. Below is one reasonable example.
+Focus on the messages around the **game creation**. There is no single true way of deciding what goes into your messages. The following is one reasonable example.
 
 1. The message itself is structured like this:
 
@@ -202,7 +202,7 @@ Ignite CLI significantly reduces the amount of work a developer has to do to bui
     }
     ```
 
-    Ignite CLI is opinionated in terms of which files it creates to separate which concerns. If you were not using it, you would be free to create the files you want.
+    Ignite CLI is opinionated in terms of which files it creates to separate which concerns. If you are not using it, you are free to create the files you want.
 
 **What is left to do?**
 
@@ -215,7 +215,7 @@ Your work is mostly done. You want to create the specific game creation code to 
     For more details, and to avoid diving too deep in this section, see:
     
     * [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) to start the guided coding exercise from scratch,
-    * Or [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to jump straight where you handle the new message.
+    * [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to jump straight where you handle the new message.
       
     </HighlightBox>
 
@@ -256,10 +256,10 @@ Your work is mostly done. You want to create the specific game creation code to 
 
 <HighlightBox type="remember">
 
-Remember, as part of good design:
+Remember, as a part of good design practice:
 
-* If you encounter an internal error, one that denotes an error in logic or catastrophic failure, you should `panic("This situation should not happen")`.
-* If you encounter a user or _regular_ error, like a user not having enough funds, you should return a regular `error`.
+* If you encounter an internal error (one that denotes an error in logic or catastrophic failure), you should `panic("This situation should not happen")`.
+* If you encounter a user or _regular_ error (like a user not having enough funds), you should return a regular `error`.
 
 </HighlightBox>
 
@@ -317,14 +317,14 @@ What would happen if one of the two players has accepted the game by playing, bu
 What would happen if a player stops taking turns? To ensure functionality for your checkers application, you can consider:
 
 * Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system. For the guided coding exercise on this part, head straight to [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline).
-* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games, so you can clear them from the top of the list as necessary. For the guided coding exercise on this part, head straight to [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo).
-* Handling the cancelation in ABCI's `EndBlock`, or rather its equivalent in the Cosmos SDK, without any of the players having to trigger the cancellation. For the guided coding exercise on this part, head straight to [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit).
+* Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games so you can clear them from the top of the list as necessary. For the guided coding exercise on this part, head straight to [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo).
+* Handling the cancellation in ABCI's `EndBlock` (or rather its equivalent in the Cosmos SDK) without any of the players having to trigger the cancellation. For the guided coding exercise on this part, head straight to [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit).
 
 In general terms, you could add `timeout: Timestamp` to your `StoredGame` and update it every time something changes in the game. You can decide on a maximum delay, for example _one day_.
 
 <HighlightBox type="info">
 
-There are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. Therefore player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
+There are no _open_ challenges, meaning a player cannot create a game where the second player is unknown until someone steps in. Therefore, player matching is left outside of the blockchain. The enterprising student can incorporate it inside the blockchain by changing the necessary models.
 
 </HighlightBox>
 
@@ -334,11 +334,11 @@ There are no _open_ challenges, meaning a player cannot create a game where the 
 
 If you would like to get started on building your own checkers game, you can go straight to the main exercise in [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) to start from scratch.
 
-More specifically, you can jump:
+More specifically, you can jump to:
 
-* To [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) to see how to simply create the `MsgCreateGame`,
-* Or to [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to see how to handle `MsgCreateGame`,
-* Or to [Add a Way to Make a Move](/hands-on-exercise/1-ignite-cli/6-play-game.md) for the same but with `MsgPlayMove`.
+* [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) to see how to simply create the `MsgCreateGame`,
+* [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to see how to handle `MsgCreateGame`,
+* [Add a Way to Make a Move](/hands-on-exercise/1-ignite-cli/6-play-game.md) for the same but with `MsgPlayMove`.
 
 </HighlightBox>
 

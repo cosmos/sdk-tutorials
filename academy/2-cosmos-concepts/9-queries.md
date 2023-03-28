@@ -170,11 +170,11 @@ This is not an exhaustive list of potential queries. Some examples of other poss
 
 <HighlightBox type="tip">
 
-If you want to go beyond out-of-context code samples as above and want to see more in detail how to define these features go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+If you want to go beyond out-of-context code samples like the above and see more in detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
 <br/><br/>
-More precisely, you can jump:
+More precisely, you can jump to:
 
-* To [Help Find a Correct Move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) to see how to implement a query with the help of Ignite CLI.
+* [Help Find a Correct Move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) to see how to implement a query with the help of Ignite CLI.
 
 </HighlightBox>
 

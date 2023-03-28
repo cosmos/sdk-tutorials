@@ -225,7 +225,7 @@ var creator sdk.AccAddress
 storedGame.Creator = creator.String()
 ```
 
-With these snippets, you will be able to only accept the right players when it comes to transactions.
+With these snippets, you will be able to accept only the right players when it comes to transactions.
 <br/><br/>
 **Remaining game object**
 

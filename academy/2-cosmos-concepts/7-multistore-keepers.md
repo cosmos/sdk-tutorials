@@ -428,11 +428,11 @@ Return the game ID for reference:
     }, nil
 ```
 
-You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise? See at the bottom of the page for links.
+You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise? See the bottom of the page for relevant links.
 <br/><br/>
 **More on game theory**
 
-Some players may drop out from games. Especially if they know they are about to lose. As the blockchain designer, you need to protect your blockchain, and in particular to avoid bloat, or locked tokens.
+Some players may drop out from games, especially if they know they are about to lose. As the blockchain designer, you need to protect your blockchain, and in particular to avoid bloat, or locked tokens.
 
 A good first point is to introduce a game deadline. This demonstrates how you would add a small feature to your existing blockchain:
 
@@ -476,9 +476,9 @@ if deadline.Before(ctx.BlockTime()) {
 
 **How to expire games**
 
-How can you know what games should be removed? Should you load _all_ games and filter for those that have expired? That would be extremely expensive. In fact, it would be O(n) of the number of games. Which means, the more success your blockchain would have, the slower it would become.
+How can you know what games should be removed? Should you load _all_ games and filter for those that have expired? That would be extremely expensive, O(n) of the number of games in fact. This means the more successful your blockchain becomes, the slower it would run.
 
-Better keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
+Better is to use a First-In-First-Out (FIFO) strategy, where fresh games are pushed back to the tail so that the head contains the next games to expire.
 <br/><br/>
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game IDs:
 
@@ -517,14 +517,14 @@ See the next section about the [BaseApp](/academy/2-cosmos-concepts/8-base-app.m
 
 <HighlightBox type="tip">
 
-If you want to go beyond out-of-context code samples as above and want to see more in detail how to define these features go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
 <br/><br/>
-More precisely, you can jump:
+More precisely, you can jump to:
 
-* To [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) for the detail of how you handle your game in storage in general.
-* Or to [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling) for how you would handle the game when it is being created.
-* Or to [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) where you add a small feature to your chain.
-* Or to [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md) to see the implementation of the FIFO within the constraints of the store.
+* [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) for general detail of how you handle your game in storage.
+* [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling) for how you would handle the game when it is being created.
+* [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), where you add a small feature to your chain.
+* [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md) to see the implementation of the FIFO within the constraints of the store.
 
 </HighlightBox>
 

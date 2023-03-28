@@ -110,9 +110,9 @@ Prior to calling `runMsgs` on any messages in the transaction, `app.cacheTxConte
 
 **Game deadline**
 
-When a game is created or is played on, it needs to set its deadline some time in the future. The _now_ time it takes comes from the context.
+When a game is created or a move is played, the game needs to set its deadline some time in the future. The time it takes as _now_ comes from the context.
 
-To get it, you need a function that looks like:
+To get this, you need a function that looks like:
 
 ```go
 func GetNextDeadline(ctx sdk.Context) time.Time {
@@ -120,11 +120,11 @@ func GetNextDeadline(ctx sdk.Context) time.Time {
 }
 ```
 
-After that, it is a matter of serializing it so as to be stored alongside the other parameters of the game, and of deserializing it when checking whether it has reached the deadline.
+After that, it is a matter of serializing this data so it is stored alongside the other parameters of the game, and of deserializing it when checking whether it has reached the deadline.
 
 **Gas costs**
 
-Another point where the context is explicitly used is when you want to make your players pay for gas for operations you specify. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
+Another point where the context is explicitly used is when you want to make your players pay with gas for operations you specify. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
 
 * **Create a game:** costs **15_000**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
 * **Play a move:** costs **1_000**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
@@ -140,7 +140,7 @@ const (
 )
 ```
 
-Then, you add the line in your `MsgCreateGame` handler, which already has access to the context:
+Next you add the line in your `MsgCreateGame` handler, which already has access to the context:
 
 ```go
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -168,12 +168,12 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 
 <HighlightBox type="tip">
 
-If you want to go beyond out-of-context code samples as above and want to see more in detail how to define these features go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
 <br/><br/>
-More precisely, you can jump:
+More precisely, you can jump to:
 
-* To  [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) where you add the deadline feature to your chain.
-* Or to [Incentivize Players](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md) to implement gas costs.
+* [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), where you add the deadline feature to your chain
+* [Incentivize Players](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md), to implement gas costs
 
 </HighlightBox>
 
