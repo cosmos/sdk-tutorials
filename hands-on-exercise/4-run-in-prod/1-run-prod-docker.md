@@ -14,7 +14,7 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [production](/hands-on-exercise/5-run-in-prod/index.md).
+* You understand the concepts of [production](/tutorials/9-path-to-prod/index.md).
 * Docker is installed and you [understand it](/tutorials/5-docker-intro/index.md).
 * You have the checkers **Go** blockchain codebase with the CosmJS elements. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements).
 * You have the checkers **CosmJS** codebase. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or checkout the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).

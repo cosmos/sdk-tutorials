@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the wager denomination. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination).
+* You have the checkers blockchain codebase up to the _simulate production in Docker_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod).
 
 </HighlightBox>
 
@@ -94,7 +94,9 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
+    $ ignite scaffold map playerInfo \
+        wonCount:uint lostCount:uint forfeitedCount:uint \
+        --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -106,7 +108,9 @@ To give the new v2 information a data structure, you need the following:
         -v $(pwd):/checkers \
         -w /checkers \
         checkers_i \
-        ignite scaffold map playerInfo wonCount:uint lostCount:uint forfeitedCount:uint --module checkers --no-message
+        ignite scaffold map playerInfo \
+        wonCount:uint lostCount:uint forfeitedCount:uint \
+        --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -186,7 +190,8 @@ To give the new v2 information a data structure, you need the following:
     <CodeGroupItem title="Local" active>
 
     ```sh
-    $ ignite scaffold single leaderboard winners --module checkers --no-message
+    $ ignite scaffold single leaderboard winners \
+        --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -198,7 +203,8 @@ To give the new v2 information a data structure, you need the following:
         -v $(pwd):/checkers \
         -w /checkers \
         checkers_i \
-        ignite scaffold single leaderboard winners --module checkers --no-message
+        ignite scaffold single leaderboard winners \
+        --module checkers --no-message
     ```
 
     </CodeGroupItem>
@@ -1557,8 +1563,10 @@ $ docker create --name checkers -it \
     -p 1317:1317 -p 4500:4500 -p 5000:5000 -p 26657:26657 \
     checkers_i
 $ docker start checkers
-$ docker exec -it checkers ./release/v1/checkersd keys add alice --keyring-backend test
-$ docker exec -it checkers ./release/v1/checkersd keys add bob --keyring-backend test
+$ docker exec -it checkers \
+    ./release/v1/checkersd keys add alice --keyring-backend test
+$ docker exec -it checkers \
+    ./release/v1/checkersd keys add bob --keyring-backend test
 ```
 
 <HighlightBox type="note">
@@ -1586,7 +1594,8 @@ $ ./release/v1/checkersd init checkers
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd init checkers
+$ docker exec -it checkers \
+    ./release/v1/checkersd init checkers
 ```
 
 </CodeGroupItem>
@@ -1611,9 +1620,11 @@ $ ./release/v1/checkersd add-genesis-account \
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd add-genesis-account \
+$ docker exec -it checkers \
+    ./release/v1/checkersd add-genesis-account \
     alice 200000000stake,20000token --keyring-backend test
-$ docker exec -it checkers ./release/v1/checkersd add-genesis-account \
+$ docker exec -it checkers \
+    ./release/v1/checkersd add-genesis-account \
     bob 100000000stake,10000token --keyring-backend test
 ```
 
@@ -1636,7 +1647,8 @@ $ jq '.app_state.gov.voting_params.voting_period' ~/.checkers/config/genesis.jso
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers jq '.app_state.gov.voting_params.voting_period' /root/.checkers/config/genesis.json
+$ docker exec -it checkers \
+    jq '.app_state.gov.voting_params.voting_period' /root/.checkers/config/genesis.json
 ```
 
 </CodeGroupItem>
@@ -1656,7 +1668,8 @@ That is two days, which is too long to wait for CLI tests. Choose another value,
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "600s"' ~/.checkers/config/genesis.json) > ~/.checkers/config/genesis.json
+$ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "600s"' ~/.checkers/config/genesis.json) \
+    > ~/.checkers/config/genesis.json
 ```
 
 </CodeGroupItem>
@@ -1664,7 +1677,9 @@ $ cat <<< $(jq '.app_state.gov.voting_params.voting_period = "600s"' ~/.checkers
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "cat <<< \$(jq '.app_state.gov.voting_params.voting_period = \"600s\"' /root/.checkers/config/genesis.json) > /root/.checkers/config/genesis.json"
+$ docker exec -it checkers \
+    bash -c "cat <<< \$(jq '.app_state.gov.voting_params.voting_period = \"600s\"' /root/.checkers/config/genesis.json) \
+    > /root/.checkers/config/genesis.json"
 ```
 
 </CodeGroupItem>
@@ -1690,9 +1705,11 @@ $ ./release/v1/checkersd collect-gentxs
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd gentx alice 100000000stake \
+$ docker exec -it checkers \
+    ./release/v1/checkersd gentx alice 100000000stake \
     --keyring-backend test --chain-id checkers
-$ docker exec -it checkers ./release/v1/checkersd collect-gentxs
+$ docker exec -it checkers \
+    ./release/v1/checkersd collect-gentxs
 ```
 
 </CodeGroupItem>
@@ -1714,7 +1731,8 @@ $ ./release/v1/checkersd start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd start \
+$ docker exec -it checkers \
+    ./release/v1/checkersd start \
     --rpc.laddr "tcp://0.0.0.0:26657"
 ```
 
@@ -1746,7 +1764,8 @@ $ ./release/v1/checkersd tx checkers create-game \
 ```sh
 $ export alice=$(docker exec checkers ./release/v1/checkersd keys show alice -a --keyring-backend test)
 $ export bob=$(docker exec checkers ./release/v1/checkersd keys show bob -a --keyring-backend test)
-$ docker exec -it checkers ./release/v1/checkersd tx checkers create-game \
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx checkers create-game \
     $alice $bob 10 stake \
     --from $alice --keyring-backend test --yes \
     --broadcast-mode block
@@ -1780,10 +1799,22 @@ Now that you cannot call the faucet, you have to credit your test accounts with 
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ./release/v1/checkersd tx bank send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake --from $alice --keyring-backend test --broadcast-mode block --yes
-$ ./release/v1/checkersd tx bank send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token --from $alice --keyring-backend test --broadcast-mode block --yes
-$ ./release/v1/checkersd tx bank send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake --from $bob --keyring-backend test --broadcast-mode block --yes
-$ ./release/v1/checkersd tx bank send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token --from $bob --keyring-backend test --broadcast-mode block --yes
+$ ./release/v1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
+    --from $alice --keyring-backend test \
+    --broadcast-mode block --yes
+$ ./release/v1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
+    --from $alice --keyring-backend test \
+    --broadcast-mode block --yes
+$ ./release/v1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
+    --from $bob --keyring-backend test \
+    --broadcast-mode block --yes
+$ ./release/v1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
+    --from $bob --keyring-backend test \
+    --broadcast-mode block --yes
 ```
 
 </CodeGroupItem>
@@ -1791,10 +1822,26 @@ $ ./release/v1/checkersd tx bank send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvn
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd tx bank send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake --from $alice --keyring-backend test --broadcast-mode block --yes
-$ docker exec -it checkers ./release/v1/checkersd tx bank send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token --from $alice --keyring-backend test --broadcast-mode block --yes
-$ docker exec -it checkers ./release/v1/checkersd tx bank send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake --from $bob --keyring-backend test --broadcast-mode block --yes
-$ docker exec -it checkers ./release/v1/checkersd tx bank send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token --from $bob --keyring-backend test --broadcast-mode block --yes
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
+    --from $alice --keyring-backend test \
+    --broadcast-mode block --yes
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
+    --from $alice --keyring-backend test \
+    --broadcast-mode block --yes
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
+    --from $bob --keyring-backend test \
+    --broadcast-mode block --yes
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
+    --from $bob --keyring-backend test \
+    --broadcast-mode block --yes
 ```
 
 </CodeGroupItem>
@@ -1840,7 +1887,9 @@ You can confirm that you have a mix of complete and incomplete games:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ./release/v1/checkersd query checkers list-stored-game --output json | jq '.storedGame[] | { "index":.index, "winner":.winner }'
+$ ./release/v1/checkersd query checkers \
+    list-stored-game --output json \
+    | jq '.storedGame[] | { "index":.index, "winner":.winner }'
 ```
 
 </CodeGroupItem>
@@ -1848,7 +1897,10 @@ $ ./release/v1/checkersd query checkers list-stored-game --output json | jq '.st
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "./release/v1/checkersd query checkers list-stored-game --output json | jq '.storedGame[] | { \"index\":.index, \"winner\":.winner }'"
+$ docker exec -it checkers \
+    bash -c "./release/v1/checkersd query checkers \
+        list-stored-game --output json \
+        | jq '.storedGame[] | { \"index\":.index, \"winner\":.winner }'"
 ```
 
 </CodeGroupItem>
@@ -1866,7 +1918,8 @@ For the software upgrade governance proposal, you want to make sure that it stop
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ jq -r ".app_state.mint.params.blocks_per_year" ~/.checkers/config/genesis.json
+$ jq -r ".app_state.mint.params.blocks_per_year" \
+    ~/.checkers/config/genesis.json
 ```
 
 </CodeGroupItem>
@@ -1874,7 +1927,8 @@ $ jq -r ".app_state.mint.params.blocks_per_year" ~/.checkers/config/genesis.json
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c 'jq -r ".app_state.mint.params.blocks_per_year" /root/.checkers/config/genesis.json'
+$ docker exec -it checkers \
+    bash -c 'jq -r ".app_state.mint.params.blocks_per_year" /root/.checkers/config/genesis.json'
 ```
 
 </CodeGroupItem>
@@ -1896,7 +1950,8 @@ What is the current block height? Check:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ./release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"
+$ ./release/v1/checkersd status \
+    | jq -r ".SyncInfo.latest_block_height"
 ```
 
 </CodeGroupItem>
@@ -1904,7 +1959,9 @@ $ ./release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c './release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"'
+$ docker exec -it checkers \
+    bash -c './release/v1/checkersd status \
+        | jq -r ".SyncInfo.latest_block_height"'
 ```
 
 </CodeGroupItem>
@@ -1930,7 +1987,8 @@ What is the minimum deposit for a proposal? Check:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ jq ".app_state.gov.deposit_params.min_deposit" ~/.checkers/config/genesis.json
+$ jq ".app_state.gov.deposit_params.min_deposit" \
+    ~/.checkers/config/genesis.json
 ```
 
 </CodeGroupItem>
@@ -1938,7 +1996,9 @@ $ jq ".app_state.gov.deposit_params.min_deposit" ~/.checkers/config/genesis.json
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c 'jq ".app_state.gov.deposit_params.min_deposit" /root/.checkers/config/genesis.json' 
+$ docker exec -it checkers \
+    bash -c 'jq ".app_state.gov.deposit_params.min_deposit" \
+        /root/.checkers/config/genesis.json' 
 ```
 
 </CodeGroupItem>
@@ -1983,7 +2043,8 @@ $ ./release/v1/checkersd tx gov submit-proposal software-upgrade v1tov2 \
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd tx gov submit-proposal software-upgrade v1tov2 \
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx gov submit-proposal software-upgrade v1tov2 \
     --title "v1tov2" \
     --description "Increase engagement via the use of a leaderboard" \
     --from $alice --keyring-backend test --yes \
@@ -1998,7 +2059,7 @@ $ docker exec -it checkers ./release/v1/checkersd tx gov submit-proposal softwar
 
 This returns something with:
 
-```txt
+```yaml
   ...
   type: proposal_deposit
 - attributes:
@@ -2029,9 +2090,11 @@ $ ./release/v1/checkersd tx gov vote 1 yes \
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd tx gov vote 1 yes \
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx gov vote 1 yes \
     --from $alice --keyring-backend test --yes
-$ docker exec -it checkers ./release/v1/checkersd tx gov vote 1 yes \
+$ docker exec -it checkers \
+    ./release/v1/checkersd tx gov vote 1 yes \
     --from $bob --keyring-backend test --yes
 ```
 
@@ -2054,7 +2117,8 @@ $ ./release/v1/checkersd query gov votes 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd query gov votes 1
+$ docker exec -it checkers \
+    ./release/v1/checkersd query gov votes 1
 ```
 
 </CodeGroupItem>
@@ -2063,7 +2127,7 @@ $ docker exec -it checkers ./release/v1/checkersd query gov votes 1
 
 It should print:
 
-```txt
+```yaml
 votes:
 - option: VOTE_OPTION_YES
   options:
@@ -2094,7 +2158,8 @@ $ ./release/v1/checkersd query gov proposal 1
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v1/checkersd query gov proposal 1
+$ docker exec -it checkers \
+    ./release/v1/checkersd query gov proposal 1
 ```
 
 </CodeGroupItem>
@@ -2121,7 +2186,7 @@ status: PROPOSAL_STATUS_PASSED
 
 Now, wait for the chain to reach the desired block height, which should take five more minutes, as per your parameters. When it has reached that height, the shell with the running `checkersd` should show something like:
 
-```
+```txt
 ...
 6:29PM INF finalizing commit of block hash=E6CB6F1E8CF4699543950F756F3E15AE447701ABAC498CDBA86633AC93A73EE7 height=1180 module=consensus num_txs=0 root=21E51E52AA3F06BE59C78CE11D3171E6F7240D297E4BCEAB07FC5A87957B3BE2
 6:29PM ERR UPGRADE "v1tov2" NEEDED at height: 1180: 
@@ -2139,7 +2204,8 @@ At this point, run in another shell:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ./release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"
+$ ./release/v1/checkersd status \
+    | jq -r ".SyncInfo.latest_block_height"
 ```
 
 </CodeGroupItem>
@@ -2147,7 +2213,9 @@ $ ./release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c './release/v1/checkersd status | jq -r ".SyncInfo.latest_block_height"'
+$ docker exec -it checkers \
+    bash -c './release/v1/checkersd status \
+        | jq -r ".SyncInfo.latest_block_height"'
 ```
 
 </CodeGroupItem>
@@ -2175,7 +2243,8 @@ $ cat ~/.checkers/data/upgrade-info.json
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers cat /root/.checkers/data/upgrade-info.json
+$ docker exec -it checkers \
+    cat /root/.checkers/data/upgrade-info.json
 ```
 
 </CodeGroupItem>
@@ -2239,7 +2308,8 @@ $ ./release/v2/checkersd start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v2/checkersd start \
+$ docker exec -it checkers \
+    ./release/v2/checkersd start \
     --rpc.laddr "tcp://0.0.0.0:26657"
 ```
 
@@ -2275,7 +2345,8 @@ $ ./release/v2/checkersd query checkers show-leaderboard
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers ./release/v2/checkersd query checkers show-leaderboard
+$ docker exec -it checkers \
+    ./release/v2/checkersd query checkers show-leaderboard
 ```
 
 </CodeGroupItem>
@@ -2284,7 +2355,7 @@ $ docker exec -it checkers ./release/v2/checkersd query checkers show-leaderboar
 
 This should print something like:
 
-```txt
+```yaml
 Leaderboard:
   winners:
   - dateAdded: 2022-09-06 18:29:44.020323682 +0000 UTC
@@ -2305,9 +2376,9 @@ You no doubt have many ideas about how to improve it. In particular, you could i
 To summarize, this section has explored:
 
 * How to add a leaderboard to an existing blockchain, and the characteristics that a good leaderboard should boast.
-* How to upgrade a blockchain in production, by migrating from v1 of the blockchain to v2, and the new data structures that will be introduced by the upgrade. 
+* How to upgrade a blockchain in production, by migrating from v1 of the blockchain to v2, and the new data structures that will be introduced by the upgrade.
 * How to handle the data migrations and logic upgrades implicit during migration, such as with the use of private helper functions.
-* Worthwhile unit tests with regard to player info and leaderboard handling. 
+* Worthwhile unit tests with regard to player info and leaderboard handling.
 * A complete procedure for how to conduct the update via the CLI.
 
 </HighlightBox>
