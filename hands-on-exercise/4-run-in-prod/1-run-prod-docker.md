@@ -1268,7 +1268,7 @@ You define the different containers as `services`. Important elements to start w
 * In `image`, you declare the Docker image to use.
 * In `command`, you define the command to use when launching the image.
 
-In a new [`docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim-compose.yml), write:
+In a new [`prod-sim/docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml), write:
 
 ```yaml
 version: "3.7"
@@ -1312,7 +1312,7 @@ You are going to further refine the service definitions next, starting with the 
 
 ### The data each container needs
 
-Each container needs to access its own private folder, prepared earlier, and only that folder. Declare the volume mappings:
+Each container needs to access its own private folder, prepared earlier, and only that folder. Declare the volume mappings with paths relative to the `docker-compose.yml` file:
 
 ```yaml
 services:
@@ -1320,39 +1320,39 @@ services:
   kms-alice:
     ...
     volumes:
-      - ./prod-sim/kms-alice:/root/tmkms
+      - ./kms-alice:/root/tmkms
 
   val-alice:
     ...
     volumes:
-      - ./prod-sim/val-alice:/root/.checkers
+      - ./val-alice:/root/.checkers
 
   sentry-alice:
     ...
     volumes:
-      - ./prod-sim/sentry-alice:/root/.checkers
+      - ./sentry-alice:/root/.checkers
 
   val-bob:
     ...
     volumes:
-      - ./prod-sim/val-bob:/root/.checkers
+      - ./val-bob:/root/.checkers
   
   sentry-bob:
     ...
     volumes:
-      - ./prod-sim/sentry-bob:/root/.checkers
+      - ./sentry-bob:/root/.checkers
 
   node-carol:
     ...
     volumes:
-      - ./prod-sim/node-carol:/root/.checkers
+      - ./node-carol:/root/.checkers
 ```
 
 ### The networks they run in
 
 The user-defined networks need to mimic the desired separation of machines/containers, it can be self-explanatorily declared as:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim-compose.yml#L3-L7]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L3-L7]
 networks:
   net-alice-kms:
   net-alice:
@@ -1403,7 +1403,7 @@ services:
 
 The KMS connects to the node and can reconnect. So have `val-alice` start after `kms-alice`:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim-compose.yml#L25-L26]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L25-L26]
 services:
 
   val-alice:
@@ -1414,7 +1414,7 @@ services:
 
 With all these computers on their Docker networks, you may still want to access one of them to query the blockchain, or to play games. In order to make your host computer look like an open node, expose Carol's node on all addresses of your host:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim-compose.yml#L69-L70]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L69-L70]
 services:
 
   node-carol:
@@ -1434,7 +1434,10 @@ After this long preparation, before launch, it could be a good time to make a Gi
 You are now ready to start your setup with a name other than the folder it is running in:
 
 ```sh
-$ docker compose --project-name checkers-prod up --detach
+$ docker compose \
+    --file prod-sim/docker-compose.yml \
+    --project-name checkers-prod up \
+    --detach
 ```
 
 At this point, it should be apparent that you need to update `.gitignore`. Add:
