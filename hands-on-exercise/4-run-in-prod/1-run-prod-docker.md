@@ -203,32 +203,31 @@ In this case, you have the choice between:
 
     WORKDIR /original
     ADD . /original
-    RUN make build-linux-with-checksum
+    RUN go build -o ./build/checkersd ./cmd/checkersd/main.go
 
     FROM --platform=linux alpine
-    ARG BUILDARCH
 
     ENV LOCAL=/usr/local
 
-    COPY --from=builder /original/build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
+    COPY --from=builder /original/build/checkersd ${LOCAL}/bin/checkersd
 
     ENTRYPOINT [ "checkersd" ]
     ```
 
-    Then build the image with:
+    Then building the image with:
 
     ```sh
     $ docker build -f prod-sim/Dockerfile-checkersd-alpine . -t checkersd_i
     ```
 
-2. Or instruct the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in your `Makefile`:
+2. Instructing the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in `go build` or even in your `Makefile`:
 
     ```diff-make
         build-linux:
-    -    GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
-    -    GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
-    +    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
-    +    CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    -      GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    -      GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    +      CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    +      CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
     ```
 
     Then run `make build-with-checksum` again and use `alpine` in a new Dockerfile:
