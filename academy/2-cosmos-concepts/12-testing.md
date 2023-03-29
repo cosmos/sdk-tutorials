@@ -175,7 +175,7 @@ For instance, when unit-testing the `QueryCanPlayMoveRequest` handling you could
 
 If you need to mock another module's keeper, with the help of [`gomock`](https://github.com/golang/mock) you would:
 
-* Create mock types for **all** of your expected keeper interfaces, which includes the bank keeper.
+* Perform the one-time creation of the mock types of your expected keeper interfaces, which includes the bank keeper.
 * Then, for each test, create a mock controller which acts as the puppeteer of your mocked bank keeper:
     
     ```go
