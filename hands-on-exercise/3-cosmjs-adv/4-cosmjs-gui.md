@@ -1084,11 +1084,11 @@ With this done:
     }
     ```
 
-<HighlightBox type="note">
+    <HighlightBox type="note">
 
-The move test is made with the _read-only_ client. This is so that your users can poke around without connecting for as long as possible.
+    The move test is made with the _read-only_ client. This is so that your users can poke around without connecting for as long as possible.
 
-</HighlightBox>
+    </HighlightBox>
 
 4. With this partial assurance, you can make an actual move:
 
