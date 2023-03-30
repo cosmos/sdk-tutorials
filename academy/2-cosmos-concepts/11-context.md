@@ -106,6 +106,77 @@ Prior to calling `runMsgs` on any messages in the transaction, `app.cacheTxConte
 * If the process is running in `checkTxMode`, there is no need to write the changes. The result is returned immediately.
 * If the process is running in `deliverTxMode` and the result indicates a successful run over all the messages, the branched multistore is written back to the original.
 
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+**Game deadline**
+
+When a game is created or a move is played, the game needs to set its deadline some time in the future. The time it takes as _now_ comes from the context.
+
+To get this, you need a function that looks like:
+
+```go
+func GetNextDeadline(ctx sdk.Context) time.Time {
+    return ctx.BlockTime().Add(MaxTurnDuration)
+}
+```
+
+After that, it is a matter of serializing this data so it is stored alongside the other parameters of the game, and of deserializing it when checking whether it has reached the deadline.
+
+**Gas costs**
+
+Another point where the context is explicitly used is when you want to make your players pay with gas for operations you specify. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
+
+* **Create a game:** costs **15_000**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
+* **Play a move:** costs **1_000**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
+* **Reject a game:** could cost **zero**, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions. So you can in fact refund some gas to the player, for instance **14_000**.
+
+So you define the cost:
+
+```go
+const (
+    CreateGameGas = 15_000
+    PlayMoveGas   = 1_000
+    RejectGameRefundGas = 14_000
+)
+```
+
+Next you add the line in your `MsgCreateGame` handler, which already has access to the context:
+
+```go
+func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
+    ...
+    ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+    ...
+}
+```
+
+As for the refund when rejecting, you have to make sure that you are not trying to refund more than what was already consumed:
+
+```go
+func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
+    ...
+    refund := uint64(types.RejectGameRefundGas)
+    if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
+        refund = consumed
+    }
+    ctx.GasMeter().RefundGas(refund, "Reject game")
+    ...
+}
+```
+
+</ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump to:
+
+* [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), where you add the deadline feature to your chain
+* [Incentivize Players](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md), to implement gas costs
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
