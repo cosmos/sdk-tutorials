@@ -80,7 +80,7 @@ If you introduce another token named `nflint`, and Alice has the address `cavedw
 ```sh
 $ ./myprojectd add-genesis-account \
   cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
-  5000000000nstone 2000000000nflint
+  5000000000nstone,2000000000nflint
 ```
 
 This credits her with 5 STONE and 2 FLINT. It has also given her an `account_number` in the genesis.
