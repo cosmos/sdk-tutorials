@@ -396,7 +396,7 @@ Middleware must also implement the `ICS4Wrapper` interface so that any communica
 
 ### Capabilities
 
-Earlier you saw that the handshake callbacks passed the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. In the `ICS4Wrapper` methods, the base application will then pass the capability up the stack in order to authenticate an outgoing packet or acknowledgement.
+Earlier you saw that the handshake callbacks passed the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. In the `ICS4Wrapper` methods, the base application will then pass the capability up the stack in order to authenticate an outgoing packet or acknowledgment.
 
 If the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 

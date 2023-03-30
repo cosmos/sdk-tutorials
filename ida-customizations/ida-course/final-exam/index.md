@@ -44,6 +44,12 @@ Head [here](https://git.academy.b9lab.com/ida-p2-final-exam/exam-ibc-operation/-
 
 We have a service that runs on a schedule and checks if you completed the expected transfer. After you have completed this part, give or take a few hours, you should receive an email confirming that our server successfully detected the transfer you made.
 
+<HighlightBox type="tip">
+
+Sometimes, the testnet faucet hits its daily cap. Just to be on the safe side, you can ask for your testnet ATOMs ahead of time. See [here](https://git.academy.b9lab.com/ida-p2-final-exam/exam-ibc-operation/-/blob/main/exercise-description.md).
+
+</HighlightBox>
+
 ## Overall exam score
 
 To calculate your overall exam score, we combine:
