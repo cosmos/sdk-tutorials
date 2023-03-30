@@ -332,6 +332,6 @@ With this, your leaderboard chain is ready to update its leaderboard when receiv
 
 ## Test it
 
-You can find the sample implementation of the checkers chain extension and the leaderboard chain in [this repository](https://github.com/b9lab/cosmos-ibc-docker/). There you will also find a Docker network and the relayer settings for an easy test. It also includes a script to create and run games.
+You can find the sample implementation of the checkers chain extension and the leaderboard chain in [this repository](https://github.com/b9lab/cosmos-ibc-docker/tree/main/modular). There you will also find a Docker network and the relayer settings for an easy test. It also includes a script to create and run games.
 
 Follow the steps described in the repository to run a few tests and to see it in action. If you want to do the tests with your chains, replace `modular/b9-checkers-academy-draft` with your checkers chain and `modular/leaderboard` with your leaderboard chain, and build the docker images.
