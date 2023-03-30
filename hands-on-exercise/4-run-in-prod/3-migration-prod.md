@@ -25,7 +25,7 @@ In this section, you will:
 * Prepare Docker elements.
 * Deal with data migrations.
 * Upgrade your blockchain in production with Cosmovisor.
-* Compose the lot in one orchestrated ensemble.
+* Compose everything in one orchestrated ensemble.
 * Test it.
 
 </HighlightBox>
@@ -39,32 +39,30 @@ In previous sections, you have:
 
 This section is about:
 
-* Running an in-place migration,
-* in a simulated production setup,
-* with the help of Docker Compose.
+* Running an in-place migration...
+* ...in a simulated production setup...
+* ...with the help of Docker Compose.
 
-You will reuse Alice, Bob and Carol's nodes, validators and sentries of a [previous section](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md).
+You will reuse the nodes, validators, and sentries created for Alice, Bob, and Carol in a [previous section](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md).
 
 ## What to expect
 
 In this section, you will accomplish the following steps:
 
-1. Build Checkers' v1 software.
-2. Build Checkers' v2 software.
+1. Build the checkers v1 software.
+2. Build the checkers v2 software.
 3. Build Cosmovisor and set it up for a known upgrade on all nodes.
-4. Launch the lot.
-5. Create an upgrade governance proposal,
-6. Have the proposal passed.
+4. Launch everything.
+5. Create an upgrade governance proposal.
+6. Have the proposal pass.
 7. Observe the migration take place.
-8. Stop the lot and start it again safely.
+8. Stop everything and start it again safely.
 
-In a real production situation, node operators would wait for a named upgrade governance proposal to be on the ballot, if not wait for it to be approved, before they went to the trouble of setting up Cosmovisor. So point 5 would happen some time before point 3.
-
-Here, because we know that the proposal will go through, we will go in the above order in the interest of time.
+In a real production situation, node operators would wait for a named upgrade governance proposal to be on the ballot (if not wait for it to be approved) before they went to the trouble of setting up Cosmovisor; therefore point 5 would happen some time before point 3. However, because we know that the proposal will go through, we will use the above order in the interest of time.
 
 ## Prepare checkers executables
 
-At this stage, your checkers code has the migration elements. It is therefore in its v2 configuration. Create the corresponding Docker image:
+At this stage, your checkers code already has the migration elements. It is therefore in its v2 configuration. Create the corresponding Docker image:
 
 ```sh
 $ docker build . \
@@ -88,7 +86,7 @@ $ docker build . \
 
 ## Blockchain elements
 
-Since you are in the `run-prod` branch, your genesis elements should also be in v1. You can confirm this by verifying that there are no leaderboards in [checkers' genesis store](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/genesis.json#L85).
+Since you are in the `run-prod` branch, your genesis elements should also be in v1. You can confirm this by verifying that there are no leaderboards in the [checkers genesis store](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/genesis.json#L85).
 
 As you did in the [migration section](/hands-on-exercise/4-run-in-prod/2-migration.md), you need to reduce the voting period from 2 days to 10 minutes to make the exercise bearable:
 
@@ -102,11 +100,11 @@ $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/val-bob/c
 $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/node-carol/config/genesis.json > prod-sim/node-carol/config/genesis-2.json && mv prod-sim/node-carol/config/genesis-2.json prod-sim/node-carol/config/genesis.json
 ```
 
-The name of the upgrade proposal will be `v1tov2`. The name is important as Cosmovisor uses it to determine which executable to run.
+The name of the upgrade proposal will be `v1tov2`. The name is important, as Cosmovisor uses it to determine which executable to run.
 
 ## Prepare Cosmovisor executable
 
-Because the project in its current state uses Cosmos SDK v0.45.4, to avoid any surprise you prepare Cosmovisor at the [v0.45.4](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html) version too.
+Because the project in its current state uses Cosmos SDK v0.45.4, to avoid any surprise you will prepare Cosmovisor at the [v0.45.4](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html) version too.
 
 You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-alpine`, described here logically (before a recap lower down):
 
@@ -134,7 +132,7 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
     COPY --from=builder /root/cosmos-sdk/cosmovisor/cosmovisor ${LOCAL}/bin/cosmovisor
     ```
 
-2. Cosmovisor is instructed via [environment variables](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html#command-line-arguments-and-environment-variables). In the eventual containers, the `/root/.checkers` folder comes from a volume mount, so to avoid any conflict, it is better to not put the `cosmovisor` folder directly in it. You pick `/root/.checkers-upgrade`:
+2. Cosmovisor is instructed via [environment variables](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html#command-line-arguments-and-environment-variables). In the eventual containers, the `/root/.checkers` folder comes from a volume mount, so to avoid any conflict it is better to not put the `cosmovisor` folder directly inside it. Instead pick `/root/.checkers-upgrade`:
 
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L20-L23]
         ...
@@ -148,7 +146,7 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
         ...
     ```
 
-3. With the folder decided, you can put both v1 and v2 checkers executables. They can be conveniently taken from their respective Docker images:
+3. With the folder decided, you can introduce both v1 and v2 checkers executables. They can be conveniently taken from their respective Docker images:
 
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L15-L27]
     +  FROM --platform=linux checkersd_i:v1-alpine AS v1
@@ -161,9 +159,9 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
         ...
     ```
 
-    It starts at v1, therefore the v1 code goes into `.../genesis`, and we know that the code of the eventual upgrade named `v1tov2` is the v2. Note also the decision to use `/usr/local` explicitly as this is knowledge that is kept in a separate Docker image.
+    Checkers starts at v1, therefore the v1 code goes into `.../genesis`, and we know that the code of the eventual upgrade named `v1tov2` is the v2. Note also the decision to use `/usr/local` explicitly, as this is knowledge that is kept in a separate Docker image.
 
-4. And make Cosmovisor start by default:
+4. Now make Cosmovisor start by default:
 
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L29]
         COPY --from=v2 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov2/bin/checkersd
@@ -171,7 +169,7 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
     +  ENTRYPOINT [ "cosmovisor" ]
     ```
 
-When you put it all together, you get:
+When you put all this together, you get:
 
 ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine]
 FROM --platform=linux golang:1.18.7-alpine AS builder
@@ -255,11 +253,15 @@ services:
     image: cosmovisor_i:v1tov2-alpine
 ```
 
-Notice that `docker-compose-cosmovisor.yml`'s `val-alice` extends `docker-compose.yml`'s `val-alice`, while keeping the same name. In effect, this overwrites `val-alice`, instead of starting another validator working on the same shared `prod-sim/val-alice` folder.
+<HighlightBox type="note">
+
+`docker-compose-cosmovisor.yml`'s `val-alice` extends `docker-compose.yml`'s `val-alice`, while keeping the same name. In effect this overwrites `val-alice`, instead of starting another validator working on the same shared `prod-sim/val-alice` folder.
+
+</HighlightBox>
 
 ## Run them all
 
-Now you can run the lot and confirm that all services start:
+Now you can run everything and confirm that all services start:
 
 ```sh
 $ docker compose \
@@ -269,7 +271,7 @@ $ docker compose \
     --detach
 ```
 
-In fact, at this stage, there is no difference with the previous prod setup, which was what we now call v1. Blocks are being created.
+In fact, at this stage there is no difference from the previous prod setup, which was what we now call v1. Blocks are being created.
 
 Confirm you are on v1:
 
@@ -291,7 +293,7 @@ Confirm you are on v1:
 
     This confirms that there are no leaderboards in storage.
 
-* Another way to confirm is to see to which folder is Cosmovisor's `current` folder soft linking:
+* Another way to confirm is to see to which folder Cosmovisor's `current` folder is soft linking:
 
     ```sh
     $ docker exec -it node-carol \
@@ -304,11 +306,11 @@ Confirm you are on v1:
     ... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/genesis
     ```
 
-    Again confirming that it is running v1, as found in `.../genesis`.
+    Again, this confirms that it is running v1, as found in `.../genesis`.
 
 ## Make an upgrade proposal
 
-You will need Alice and Bob's addresses, so take them from the keyrings found on their respective _desktops_.
+You will now need Alice and Bob's addresses, so take them from the keyrings found on their respective _desktops_.
 
 <CodeGroup>
 
@@ -340,7 +342,7 @@ $ bob=$(echo password | docker run --rm -i \
 
 </CodeGroup>
 
-Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration.md#governance-proposal), with one block every 5 seconds, you make a proposal to run in 15 minutes, i.e. 180 blocks.
+Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration.md#governance-proposal), with one block every 5 seconds, you make a proposal to run in 15 minutes (i.e. 180 blocks).
 
 Find the current block height with:
 
@@ -390,7 +392,7 @@ The command is long but it makes sense when you look at it patiently. It returns
 
 ## Vote on it
 
-Have both Alice and Bob vote yes on it:
+Have both Alice and Bob vote "yes" on it:
 
 <CodeGroup>
 
@@ -428,7 +430,7 @@ echo password | docker run --rm -i \
 
 ## Refill your cup
 
-Check that the votes went through, when the proposal voting period ends, and what is the latest block height:
+When the proposal voting period ends, check that the votes went through, and what the latest block height is:
 
 <CodeGroup>
 
@@ -472,19 +474,19 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-Wait. Then after the proposal goes from:
+The proposal's current status will be:
 
 ```txt
 status: PROPOSAL_STATUS_VOTING_PERIOD
 ```
 
-To:
+You must wait until after the proposal status changes to:
 
 ```txt
 status: PROPOSAL_STATUS_PASSED
 ```
 
-Wait some more, this time for the upgrade block to be reached.
+You must now wait longer, this time for the upgrade block to be reached.
 
 ## The live upgrade
 
@@ -507,16 +509,16 @@ $ docker run --rm -it \
     --node "tcp://node-carol:26657"
 ```
 
-Which should return:
+This should return:
 
 ```yaml
 Leaderboard:
   winners: []
 ```
 
-An empty one, but it is absolutely here, which is what we were after.
+An empty leaderboard, true, but it is absolutely here, which is what we were after.
 
-## What about stop and restart
+## What about stop and restart?
 
 All checkers containers are now running checkersd v2. You can see that Cosmovisor has swapped the `current` executable:
 
@@ -525,17 +527,17 @@ $ docker exec -it node-carol \
     ls -l /root/.checkers-upgrade/cosmovisor/current
 ```
 
-Which should return:
+This should return:
 
 ```txt
 ... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1tov2
 ```
 
-Until the containers are stopped and deleted that is.
+It will do so until the containers are stopped and deleted, that is.
 
 <HighlightBox type="warn">
 
-Remember that the containers are loaded from a Docker image configured with Cosmovisor. And in this configuration, Cosmovisor starts with what it finds at `genesis/bin/checkersd`, i.e. v1.
+Remember that the containers are loaded from a Docker image configured with Cosmovisor. In the current configuration, Cosmovisor starts with what it finds at `genesis/bin/checkersd`, i.e. v1.
 <br/><br/>
 All this to say that you should not expect to stop and start your Cosmovisor Compose setup as is.
 
@@ -543,7 +545,7 @@ All this to say that you should not expect to stop and start your Cosmovisor Com
 
 If you were using real production servers, Cosmovisor would not reset itself on restart, so you would be safe in this regard. You would have time to revisit your server's configuration so as to launch `checkersd` v2 natively.
 
-On the other hand, you can prepare yet another Compose file, this time specifically for v2:
+In this example you can prepare yet another Compose file, this time specifically for v2:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/docker-compose-v2.yml]
 version: "3.7"
