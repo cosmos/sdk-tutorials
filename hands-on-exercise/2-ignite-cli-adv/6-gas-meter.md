@@ -108,7 +108,7 @@ This alternate approach would certainly dis-incentivize players from submitting 
 
 </HighlightBox>
 
-You are free to consider charging different gas costs for when a player _plays a regular legal move_ and for when a player _plays a winning move_. After a win the board is cleared, and you therefore may want to exact a smaller cost in this situation.
+You are free to consider charging different gas costs for when a player _plays a regular legal move_ and for when a player _plays a winning move_. After a win the board is cleared, and you therefore may want to exact a smaller cost (or even a gas refund) in this situation.
 
 <HighlightBox type="tip">
 

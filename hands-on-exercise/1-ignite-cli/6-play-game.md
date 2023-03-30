@@ -180,7 +180,7 @@ Then you can check that:
     }
     ```
 
-2. The positions are within bounds, checking a array of situations:
+2. The positions are within bounds, checking an array of situations:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move.go#L59-L84]
     boardChecks := []struct {

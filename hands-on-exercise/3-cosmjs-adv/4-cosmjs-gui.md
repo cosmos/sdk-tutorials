@@ -14,7 +14,7 @@ tags:
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
-* You have the checkers CosmJS codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
+* You have the checkers CosmJS codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
 * You have the checkers Go codebase up to the CosmJS elements. If not, check out [this branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) to get the version for testing the GUI in this tutorial.
 
 </HighlightBox>
@@ -36,7 +36,7 @@ For the CosmJS integration, you will:
 * Integrate with Keplr for browser-based players.
 * Create a new game.
 * Fetch a single game to be played.
-* Play on the game, single moves and double moves.
+* Play on the game, making single moves and double moves.
 
 ## Prepare the integration with the checkers blockchain
 
@@ -99,7 +99,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
     <HighlightBox type="note">
 
-    You can also pass along the `RPC_URL` as an environment variable as seen in the code block above.
+    You can also pass along the `RPC_URL` as an environment variable, as seen in the code block above.
 
     </HighlightBox>
 
@@ -297,7 +297,7 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
 
     <HighlightBox type="note">
 
-    If your compiler still believes that `.RPC_URL` is `string | undefined`, you may append a `!` to force it to `string`.
+    If your compiler still believes that `.RPC_URL` is `string | undefined`, you may append an `!` to force it to `string`.
 
     </HighlightBox>
 
@@ -556,7 +556,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     * You force `isSaved` to `true` since it is always saved in the blockchain.
     * Saving `game.index` to state is unimportant because it is actually passed in `IGameContainerProps.index`.
     * By having a separate `loadGame`, you can call it again if you know the game has changed.
-    * It is important that this component fetch the game from the blockchain on its own because the game page `http://.../play/1` could be opened out of nowhere, and may not have access to the list of games. Moreover, it may entirely be missing from the list.
+    * It is important that this component fetches the game from the blockchain on its own, because the game page `http://.../play/1` could be opened out of nowhere and may not have access to the list of games. Moreover, it may be entirely missing from the list.
 
     </HighlightBox>
 
@@ -606,7 +606,7 @@ Keplr will need information to differentiate your checkers blockchain from the o
         ...
     ```
 
-2. The associated type declaration:
+2. Adjust the associated type declaration:
 
     ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/environment.d.ts#L5]
         RPC_URL: string
@@ -614,7 +614,7 @@ Keplr will need information to differentiate your checkers blockchain from the o
         ...
     ```
 
-3. Its passing through Webpack:
+3. Adjust its passing through Webpack:
 
     ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L10]
         new webpack.EnvironmentPlugin(["RPC_URL"]),
@@ -697,7 +697,7 @@ Just as components that need a `CheckersStargateClient` keep one in their state,
 
 <HighlightBox type="best-practice">
 
-A component may have both `CheckersStargateClient` and `SigningCheckersStargateClient`. That is not a problem. In fact, it may benefit your project because with a simple `CheckersStargateClient`, you can let your users poke around first, and build their trust, before asking them to connect their Keplr account.
+A component may have both `CheckersStargateClient` and `SigningCheckersStargateClient`. That is not a problem. In fact it may benefit your project, because with a simple `CheckersStargateClient` you can let your users poke around first, _and build their trust_, before asking them to connect their Keplr account.
 
 </HighlightBox>
 
@@ -727,7 +727,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
         }
     ```
 
-    The address obtained from Keplr is saved in `creator` because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
+    The address obtained from Keplr is saved in `creator`, because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
 
 3. Add a tuple type to return both of them:
 
@@ -1084,7 +1084,11 @@ With this done:
     }
     ```
 
-    Note how the move test is made with the _read-only_ client. This is so that your users can poke around without connecting as long as it is possible.
+<HighlightBox type="note">
+
+The move test is made with the _read-only_ client. This is so that your users can poke around without connecting for as long as possible.
+
+</HighlightBox>
 
 4. With this partial assurance, you can make an actual move:
 

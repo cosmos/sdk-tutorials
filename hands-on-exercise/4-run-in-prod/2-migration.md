@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the _simulate production in Docker_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod).
+* You have the checkers blockchain codebase up to the _Simulate Production in Docker_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod).
 
 </HighlightBox>
 

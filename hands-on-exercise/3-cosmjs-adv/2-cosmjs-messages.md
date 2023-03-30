@@ -14,8 +14,8 @@ tags:
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
-* You have generated the necessary TypeScript types in [the previous tutorial](./1-cosmjs-objects.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
-* You have the finished checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) that contains the version relevant to this exercise.
+* You have generated the necessary TypeScript types in [the previous tutorial](./1-cosmjs-objects.md). If not, just clone and checkout the [relevant branch](https://github.com/cosmos/academy-checkers-ui/tree/stargate).
+* You have the finished checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/1-ignite-cli/index.md) or just clone and checkout the [branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) that contains the version relevant to this exercise.
 
 </HighlightBox>
 
@@ -170,7 +170,7 @@ public async playMove(
 
 <HighlightBox type="best-practice">
 
-You should not consider these two functions as the only ones that your users of `CheckersSigningStargateClient` should ever use. Rather, see them as your demonstration as to how to build messages properly. 
+You should not consider these two functions as the **only** ones that users of `CheckersSigningStargateClient` should ever use. Rather, see them as a demonstration regarding to how to build messages properly. 
 
 </HighlightBox>
 
@@ -379,7 +379,7 @@ export const askFaucet = async (address: string, tokens: { [key: string]: number
     )
 ```
 
-You will find out with practice how many tokens your accounts need for the tests. Start with any value. The default Ignite's configuration is to start a chain with two tokens: `stake` and `token`. You use both.
+You will find out with practice how many tokens your accounts need for the tests. Start with any value. Ignite's default configuration is to start a chain with two tokens: `stake` and `token`. You use both.
 
 Create another `before` that will credit Alice and Bob from the faucet and confirm that they are rich enough to continue:
 
@@ -418,7 +418,7 @@ Your accounts are now ready to proceed with the tests proper.
 
 There are an extra 20 seconds given for this potentially slower process: `this.timeout(20_000)`.
 
-You may want to adjust this time out value. Here it is set at 10 seconds times the number of transactions in the function. Query calls are typically very fast and therefore need not enter in the time out calculation.
+You may want to adjust this time-out value. Here it is set at 10 seconds multiplied by the number of transactions in the function. Query calls are typically very fast and therefore need not enter in the time-out calculation.
 
 </HighlightBox>
 
@@ -610,7 +610,7 @@ Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/package
 1. It will start at the number as fetched from the blockchain.
 2. Whenever you sign a new transaction you will increment this sequence number and keep track of it in your own variable.
 
-Because JavaScript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all` on something like `array.forEach(() => { await })`, which fire all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
+Because JavaScript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all` on something like `array.forEach(() => { await })`, which fires all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
 
 There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This Tendermint client function returns only [the transaction hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
 
@@ -844,7 +844,7 @@ Sending a single transaction with two moves is cheaper and faster, from the poin
 
 It is not possible for Alice, who is the creator and black player, to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
 <br/><br/>
-Of course, she could try, but if her move failed because of a wrong game id, then the whole transaction would revert, and that would include the game creation being reverted.
+Of course, she could try, but if her move failed because of a wrong game id then the whole transaction would revert, and that would include the game creation being reverted.
 
 </HighlightBox>
 

@@ -189,7 +189,7 @@ Or just manually replace `${BUILDARCH}` with `amd64` or whichever is your archit
 
 <ExpansionPanel title="With alpine">
 
-Because you want to simulate production, you can make the case that you prefer to use the smaller `alpine` Docker image. Alpine and Debian use different C compilers with different **dynamically**-linked C library dependencies. This makes their compiled executables incompatible. At least with the `go build` commands as they are declared in the Makefile.
+Because you want to simulate production, you can make the case that you prefer to use the smaller `alpine` Docker image. Alpine and Debian use different C compilers with different **dynamically**-linked C library dependencies. This makes their compiled executables incompatible – at least with the `go build` commands as they are declared in the Makefile.
 
 In this case, you have the choice between:
 
@@ -220,7 +220,7 @@ In this case, you have the choice between:
     $ docker build -f prod-sim/Dockerfile-checkersd-alpine . -t checkersd_i
     ```
 
-2. Instructing the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in `go build` or even in your `Makefile`:
+2. Instructing the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in `go build`, or even in your `Makefile`:
 
     ```diff-make
         build-linux:
@@ -368,10 +368,10 @@ $ docker build -f prod-sim/Dockerfile-tmkms-alpine . -t tmkms_i:v0.12.2
 
 ---
 
-As you can see, the production stage is only three lines. If you built:
+As you can see, the production stage is only three lines.
 
-* With Debian, the image should be about 90 MB.
-* With Alpine, the image should be about 20 MB.
+* If you built with Debian, the image should be about 90 MB.
+* If you built with Alpine, the image should be about 20 MB.
 
 Now run it:
 
@@ -394,7 +394,7 @@ $ mkdir -p prod-sim/val-alice
 $ mkdir -p prod-sim/val-bob
 ```
 
-Also add the desktop computers of Alice and Bob so that they never have to put keys on a server that should never see them:
+Also add the desktop computers of Alice and Bob, so that they never have to put keys on a server that should never see them:
 
 ```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/prod-sim]
 $ mkdir -p prod-sim/desk-alice
@@ -492,7 +492,7 @@ Start with the keys for the validators and Alice's KMS Tendermint key.
 
 ### Validator operator keys
 
-First, you need to create the two validators' operation keys. Such a key is not meant to stay on the validating node when it runs, it is meant to be used at certain junctures only, for instance, to stake on behalf of Alice (or Bob), for instance from their respective desktop computers. So you are going to create them by running "desktop" containers:
+First, you need to create the two validators' operation keys. Such a key is not meant to stay on the validating node when it runs, it is meant to be used at certain junctures only (for instance, to stake on behalf of Alice or Bob, as from their respective desktop computers). So you are going to create them by running "desktop" containers:
 
 1. Use the `--keyring-backend file`.
 2. Keep them in the mapped volume with `--keyring-dir /root/.checkers/keys`.
@@ -910,14 +910,14 @@ Alice and Bob both have initial stakes that they define via genesis transactions
 
 #### Bob's stake
 
-Bob is not using the Tendermint KMS but instead uses the validator key on file `priv_validator_key.json`. So first make a copy of it on Bob's desktop.
+Bob is not using the Tendermint KMS but instead uses the validator key on file `priv_validator_key.json`. So, first make a copy of it on Bob's desktop.
 
 ```sh
 $ cp prod-sim/val-bob/config/priv_validator_key.json \
     prod-sim/desk-bob/config/priv_validator_key.json 
 ```
 
-Bob appears in second position in `app_state.accounts`, so his `account_number` ought to be `1`, but it is in fact written as `0`, so you use `0`:
+Bob appears in second position in `app_state.accounts`, so his `account_number` ought to be `1`; but it is in fact written as `0`, so you use `0`:
 
 ```sh
 $ echo password | docker run --rm -i \
@@ -1220,7 +1220,7 @@ As a last step, you can disable CORS policies so that you are not surprised if y
 
   </CodeGroup>
 
-1. In `app.toml`, first location:
+3. In `app.toml`, second location:
 
 
   <CodeGroup>
@@ -1306,7 +1306,7 @@ services:
     image: checkersd_i
 ```
 
-Of course Alice's and Bob's desktop computers are not part of the server infrastructure.
+Of course, Alice's and Bob's desktop computers are not part of the server infrastructure.
 
 You are going to further refine the service definitions next, starting with the disk volumes.
 
@@ -1514,7 +1514,7 @@ From this point on everything you already know how to do, such as connecting to 
 
 Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onward to the validators.
 
-At this juncture, you may ask: Is it still possible to run a full game in almost a single block as you did earlier in the [CosmJS integration tests](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md#multiple-transactions-in-a-block)? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
+At this juncture, you may ask: Is it still possible to run a full game in almost a single block, as you did earlier in the [CosmJS integration tests](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md#multiple-transactions-in-a-block)? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
 To find out:
 
@@ -1621,7 +1621,7 @@ Now may be a good time to prepare a standalone setup with the following characte
 * The image should be as small as is reasonable.
 * It uses `stake` instead of `upawn` so as to be compatible with the current state of checkers CosmJS.
 
-There is a single server, with a single validator, whose keys are all on file without passphrase. Create a new Dockerfile and paste the commands that were used in this tutorial, but in their most direct forms:
+There is a single server, with a single validator, whose keys are all on file without a passphrase. Create a new Dockerfile and paste the commands that were used in this tutorial, but in their most direct forms:
 
 ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone-alpine]
 $ mkdir standalone-sim
@@ -1669,7 +1669,7 @@ To build it, run:
 $ docker build . -f Dockerfile-standalone-alpine -t checkersd_i:standalone-alpine
 ```
 
-When it is done, you can launch it right away with:
+When this is done, you can launch it right away with:
 
 ```sh
 $ docker run --rm -it \
@@ -1678,7 +1678,7 @@ $ docker run --rm -it \
     checkersd_i:standalone-alpine start
 ```
 
-And to get Alice's mnemonic, so as to reuse it elsewhere, run:
+Finally, to get Alice's mnemonic so as to reuse it elsewhere, run:
 
 ```sh
 $ docker run --rm -it \
