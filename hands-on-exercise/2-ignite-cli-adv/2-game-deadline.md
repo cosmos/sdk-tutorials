@@ -29,13 +29,13 @@ In this section, you will:
 
 </HighlightBox>
 
-In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md). Presumably most players will play on their games until they reach a resolution. But not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
+In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md). Presumably _most_ players will play their games until they reach a resolution... but not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
 
 Therefore, your blockchain is at risk of accumulating stale games in its storage. Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. This is one more reason why you need a way for games to be forcibly resolved if one player stops participating.
 
-To take care of this, you could imagine creating new messages. For instance, a player whose opponent has disappeared could raise a flag in order to seek a resolution. That would most likely require the introduction of a deadline to prevent malicious flag raising. And where the deadline is pushed back every time a move is played.
+To take care of this, you could imagine creating new messages. For instance, a player whose opponent has disappeared could raise a flag in order to seek a resolution. That would most likely require the introduction of a deadline to prevent malicious flag raising, and for the deadline to be pushed back every time a move is played.
 
-Another way would be to have the blockchain system resolve by forfeit the stale games on its own. This is the path that this exercise is taking. To achieve that, it needs a deadline. This deadline, and its testing, is the object of this section.
+Another way would be to have the blockchain system resolve _by forfeit_ the stale games on its own. This is the path that this exercise takes. To achieve that, it needs a deadline. This deadline, and its testing, is the object of this section.
 
 ## Some initial thoughts
 
@@ -50,7 +50,7 @@ Before you begin touching your code, ask:
 * Are there errors to report back?
 * What event should you emit?
 
-These are important questions, but not all answered in this section. For instance, the question about performance and data structures is solved in the next sections.
+These are important questions, but not all are answered in this section. For instance, the question about performance and data structures is solved in the following sections.
 
 ## New information
 
@@ -89,9 +89,9 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to the block's time. If you tried to use the node's time at the time of execution, you would break the consensus as no two nodes would have the same execution time.
+On each update the deadline will always be _now_ plus a fixed duration. In this context, _now_ refers to **the block's time**. If you tried to use the _node's_ time at the time of execution you would break the consensus, as no two nodes would have the same execution time.
 
-Declare this duration as a new constant, plus how the date is to be represented - encoded in the saved game as a string:
+Declare this duration as a new constant, plus how the date is to be represented – encoded in the saved game as a string:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/keys.go#L48-L51]
 const (
@@ -294,9 +294,9 @@ expiredGames = allGames.filterWhere(game => now < game.Deadline)
 
 If you do so, your blockchain is in **extreme danger**. The `.GetAllStoredGames` call is O(n). Its execution time is proportional to the total number of games you have in storage. It is not proportional to the number of games that have expired.
 <br/><br/>
-If your project is successful, this may mean pulling a million games just to forfeit a handful. _On every block_. At this rate, each block would come out after 30 minutes, not 6 seconds.
+If your project is successful, this may mean pulling a million games just to forfeit a handful... _on every block_. At this rate, each block would come out after 30 minutes, not 6 seconds.
 <br/><br/>
-You need better data structures as you will see in the next sections.
+You need better data structures, as you will see in the next sections.
 
 </HighlightBox>
 
@@ -309,7 +309,7 @@ To summarize, this section has explored:
 * How to test your code to ensure that it functions as desired.
 * How to interact with the CLI to create a new game with the deadline field in place
 * How, if your blockchain contains preexisting games, that the blockchain state is now effectively broken, since the deadline field of those games demonstrates missing information (which can be corrected through migration).
-* How if you are not careful enough you can quickly stall your successful blockchain.
+* How, if you are not careful enough, you can quickly stall a successful blockchain.
 
 </HighlightBox>
 

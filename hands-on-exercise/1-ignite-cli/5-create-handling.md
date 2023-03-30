@@ -55,7 +55,7 @@ You must add code that:
 * Saves it in storage.
 * Returns the ID of the new game.
 
-For input sanity, your code can only accept or reject a message. You cannot _fix_ a message as that would change its content, and break the signature. However, remember that your application is called via ABCI's `CheckTx` for each transaction that it receives. It is at this point that your application can statelessly _sanitize_ inputs. For each message types, Ignite CLI isolates this concern into a `ValidateBasic` function:
+For input sanity, your code can only accept or reject a message. You cannot _fix_ a message, as that would change its content and break the signature. However, remember that your application is called via ABCI's `CheckTx` for each transaction that it receives. It is at this point that your application can statelessly _sanitize_ inputs. For each message type, Ignite CLI isolates this concern into a `ValidateBasic` function:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/types/message_create_game.go#L41-L47]
 func (msg *MsgCreateGame) ValidateBasic() error {
@@ -84,7 +84,7 @@ Ignite CLI has conveniently created all the message processing code for you. You
 
 ## Message verification coding steps
 
-What is a well-formatted `MsgCreateGame`? Eventually, you want the black and red players to be able to play moves. They will send and sign transactions for that. So at the very least, you can check that the addresses passed are valid:
+What is a well-formatted `MsgCreateGame`? Eventually, you want the black and red players to be able to play moves. They will send and sign transactions for that. So, at the very least, you can check that the addresses passed are valid:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/types/message_create_game.go#L46-L55]
     func (msg *MsgCreateGame) ValidateBasic() error {
@@ -228,7 +228,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-Should return:
+This should return:
 
 ```txt
 --- FAIL: TestMsgCreateGame_ValidateBasic (0.00s)

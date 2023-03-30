@@ -70,9 +70,9 @@ Here are the debatable rationales for these values:
 1. Creating a game imposes a large cost because it creates a brand new entry in storage, which contains many fields. This new storage entry is stored on all nodes.
 2. Playing a game imposes a smaller cost because it makes changes to an existing storage entry, which was already paid for. On the other hand it costs some computation and pushes back the time by when the game expires.
 
-When looking at all the actions a user can take, you can also consider a gas refund. In particular if the action is beneficial to the network. For instance removing an item from storage entirely can be considered beneficial. In a situation like this, you can consider a gas refund, i.e. a negative gas cost. This gas refund will offset part or all of the gas cost already expended as part of the message.
+When looking at all the actions a user can take, you can also consider a gas refund – in particular if the action is beneficial to the network. For instance, removing an item from storage entirely can be considered beneficial. In a situation like this, you can consider a gas refund (i.e. a negative gas cost). This gas refund will offset part or all of the gas cost already expended as part of the message.
 
-As the checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little network activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
+As the checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little network activity then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
 
 ## Add handling
 
@@ -96,15 +96,29 @@ Add a line that consumes or refunds the designated amount of gas in each relevan
         ...
     ```
 
-Note that when handling a move, the gas is measured towards the end. This is a design decision, and you may arrive at a different conclusion. Indeed, if a player hits an error, such as a failure to pay the wager, or passing an illegal move, then the code will return an error before the gas metering line. This means this _errored_ player will pay only the gas already metered by the rest of the Cosmos SDK. If you decide to charge extra gas for a move whatever the errors, then you would move the gas metering line closer to the beginning of the function's body.
+In this example, when handling a move the gas is measured towards the end of the function's body. This is a design decision, and you may arrive at a different conclusion.
 
-Additionally, you are free to consider different gas costs for when a player _just plays_ and for when a player _wins_. Indeed, after a win, the board is cleared and you therefore may want to exact a smaller cost for this situation.
+<HighlightBox type="note">
 
-You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, it is a service rendered by the network.
+In the current arrangement, if a player hits an error (such as a failure to pay the wager, or making an illegal move) then the code will return an error _before_ the gas metering line. This means the player making the error will only pay the gas already metered by the rest of the Cosmos SDK.
+
+If you decide to move the gas metering line closer to the beginning of the function's body, then you will charge the player extra gas for any move that contains errors _despite the fact that the requested move will not be accepted_.
+
+This alternate approach would certainly dis-incentivize players from submitting erroneous moves, but it also risks alienating them through financial punishment for accidental mistakes. Better is to implement a feature that allows players to check a move is valid _before_ they pay the cost of handling. This is explored in the [next section](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
+
+</HighlightBox>
+
+You are free to consider charging different gas costs for when a player _plays a regular legal move_ and for when a player _plays a winning move_. After a win the board is cleared, and you therefore may want to exact a smaller cost in this situation.
 
 <HighlightBox type="tip">
 
-If you want to account for the gas cost of a game expiration, you have to devise a way to pre-collect it from players as part of the other messages. You could even imagine a reputation system whereby the next time a forfeiter plays on a game, the _past_ cost of the forfeit is taken as part of the _play move_ transaction.
+You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, this is a service rendered by the network.
+
+</HighlightBox>
+
+<HighlightBox type="tip">
+
+If you want to account for the gas cost of game expiration, you have to devise a way to pre-collect it from players as part of other messages. You could even imagine a reputation system: the next time a forfeiter plays on a game, the _past_ cost of their forfeit is taken as part of the current _play move_ transaction.
 
 </HighlightBox>
 

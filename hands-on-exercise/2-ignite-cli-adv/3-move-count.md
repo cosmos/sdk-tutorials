@@ -32,13 +32,13 @@ Previously, you added [a winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winn
 
 ## Some initial thoughts
 
-When the forfeit is implemented, it would be interesting to be able to differentiate between games that have never been played on, from games that have.
+When the forfeit is implemented, it would be interesting to be able to differentiate games that have never been played on from games that have.
 
-To the point:
+To be specific:
 
-1. If no players ever player on it, there is no point in recording a winner and a forfeiter. There is no point in keeping a trace of it.
-2. If only the black player played once, but the red player never showed up, it is the same situation. After all, a malicious player could create many games that go stale just to tarnish the reputation of another player.
-3. If both players have played at least once, then it can be considered a proper game, where a forfeit is one of a couple of legitimate outcomes.
+1. If no moves are ever played, there is no point in recording a winner and a forfeiter. There is no point in keeping a track of the game.
+2. If the black player moved once but the red player never showed up, it is the same situation. After all, a malicious player could create many games that go stale just to tarnish the reputation of another player.
+3. If both players have played at least once, then this can be considered a proper game, where a forfeit is one of the legitimate outcomes.
 
 ## New information
 
@@ -98,7 +98,11 @@ $ docker run --rm -it \
         ...
     ```
 
-Note that this value is not emitted in events, given that, as it stands, it will be only used internally for checks.
+<HighlightBox type="note">
+
+This value is not emitted in events, because (as it stands) it will be only used internally for checks.
+
+</HighlightBox>
 
 ## Unit tests
 
@@ -106,7 +110,7 @@ You have to fix the existing tests by adding [`MoveCount: 0`](https://github.com
 
 ## Interact via the CLI
 
-There is not much to test here. Remember that you added a new field, but if your blockchain state already contains games then they are missing it, so the default value of the underlying type will be applied:
+There is not much to test here. Remember that you added a new field, but if your blockchain state already contains games then they are missing that field, so the default value of the underlying type will be applied:
 
 <CodeGroup>
 
@@ -139,7 +143,7 @@ Although this game was already played on, the default `uint` value is applied:
 
 In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change.
 
-Restart your chain with `--reset-once`, create a new game then:
+Restart your chain with `--reset-once`, create a new game, then:
 
 <CodeGroup>
 

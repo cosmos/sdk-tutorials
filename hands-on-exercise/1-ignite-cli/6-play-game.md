@@ -180,7 +180,7 @@ Then you can check that:
     }
     ```
 
-2. The positions are within bounds. With a array of situations:
+2. The positions are within bounds, checking a array of situations:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move.go#L59-L84]
     boardChecks := []struct {
@@ -211,7 +211,7 @@ Then you can check that:
     }
     ```
 
-    Yes, a `uint64` like `msg.FromY` can never be `< 0`, but since there is no compilation warning, you can keep it for future reference if the type changes.
+    Yes, a `uint64` like `msg.FromY` can never be `< 0`, but since there is no compilation warning you can keep it for future reference if the type changes.
 
 3. There is an actual move:
 
@@ -221,7 +221,7 @@ Then you can check that:
     }
     ```
 
-It is conceivable to add more stateless checks. For instance to detect when playing out of wrong cells. After all, only half the cells are valid. Or to detect when moving not in a diagonal. These are all worthy checks, although they tend to detract from learning about Cosmos SDK.
+It is conceivable to add more stateless checks. For instance, to detect when playing out of wrong cells; after all, only half the cells are valid. Or to detect when moves are not along a diagonal. These are all worthy checks, although they tend to distract from learning about Cosmos SDK.
 
 ## The move handling
 
@@ -721,9 +721,9 @@ raw_log: 'failed to execute message; message index: 0: {red}: player tried to pl
 
 This error by Bob was caught when he tried to play out of turn. The check was a _stateful_ check as the message itself was valid. This failure cost him gas.
 
-### Alice does a wrong move
+### Alice plays a wrong move
 
-Can Alice, who plays _black_, make a move? Can she make a wrong move? There are two kinds of wrong moves that Alice can make. She can make one whose wrongness will be caught statelessly, and another that will be caught because of the current state of the board.
+Can Alice, who plays _black_, make a move? Can she make a wrong move? There are two kinds of wrong moves that Alice can make: she can make one whose wrongness will be caught statelessly, and another that will be caught because of the current state of the board.
 
 1. As an example of a _statelessly wrong_ move, she could try to take a piece on the side and move it just outside the board:
 
@@ -788,11 +788,11 @@ Can Alice, who plays _black_, make a move? Can she make a wrong move? There are 
     position: {0 1}: wrong move'
     ```
 
-    This mistake by Alice cost her some gas.
+    This mistake cost Alice some gas.
 
 So far all seems to be working.
 
-### Alice plays right
+### Alice plays correctly
 
 Time for Alice to make a correct move:
 

@@ -235,7 +235,7 @@ You have fixed your unit tests. You need to do the same for your integration tes
 
 ### Adjustments
 
-You also take this opportunity to expand the genesis state so that it includes a different coin.
+You can also take this opportunity to expand the genesis state so that it includes a different coin.
 
 * Make sure your helper to make a balance cares about the denomination:
 

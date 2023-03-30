@@ -459,7 +459,7 @@ $ docker run --rm -it \
 
 You are going to set the expectations on this `BankEscrowKeeper` mock many times, including when you do not care about the result. So instead of setting the verbose expectations in every test, it is in your interest to create helper functions that will make setting up the expectations more succinct and therefore readable, which is always a benefit when unit testing. Create a new `bank_escrow_helpers.go` file with:
 
-* A function to _unset_ expectations, i.e. where anything can go. This is useful when your test does not check things around the escrow.
+* A function to _unset_ expectations (ie where anything can go). This is useful when your test does not check things around the escrow:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/testutil/bank_escrow_helpers.go#L11-L14]
     func (escrow *MockBankEscrowKeeper) ExpectAny(context context.Context) {
@@ -512,7 +512,7 @@ Note that the two main expectation functions return `*gomock.Call`. This is so t
 
 ### Make use of mocks
 
-With the helpers in place, you can add a new function similar to `CheckersKeeper(t testing.TB)` but which uses mocks. Keep the original function, which passes a `nil` for bank.
+With the helpers in place, you can add a new function similar to `CheckersKeeper(t testing.TB)` but which uses mocks. Keep the original function, which passes a `nil` for bank:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L21-L58]
     func CheckersKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -529,9 +529,9 @@ With the helpers in place, you can add a new function similar to `CheckersKeeper
     }
 ```
 
-The `CheckersKeeperWithMocks` function takes the mock in its arguments for more versatility. the `CheckersKeeper` remains for the tests that never call the escrow.
+The `CheckersKeeperWithMocks` function takes the mock in its arguments for more versatility. The `CheckersKeeper` remains for the tests that never call the escrow.
 
-Now adjust the small functions that set up the keeper before each test. You do not need to change them for the _create_ tests because they never call the bank. You have to do it for _play_ and _forfeit_.
+Now adjust the small functions that set up the keeper before each test. You do not need to change them for the _create_ tests, because they never call the bank. You have to do it for _play_ and _forfeit_.
 
 For _play_:
 
@@ -568,9 +568,9 @@ Do the same for _forfeit_ if their unit tests do not use the above `setupMsgServ
 
 ### Adjust the unit tests
 
-With these changes, you need to adjust many unit tests for _play_ and _forfeit_. For many, you may only want to make the tests pass again without checking any meaningful bank call expectations. There are different situations:
+With these changes, you need to adjust many unit tests for _play_ and _forfeit_. Often you may only want to make the tests pass again without checking any meaningful bank call expectations. There are different situations:
 
-1. The mocked bank is not called. So you do not add any expectation, and still call the controller:
+1. The mocked bank is not called. Therefore, you do not add any expectation and still call the controller:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/end_block_server_game_test.go#L13-L15]
         func TestForfeitUnplayed(t *testing.T) {
@@ -582,9 +582,9 @@ With these changes, you need to adjust many unit tests for _play_ and _forfeit_.
         }
     ```
 
-    When you expect the mocked bank to **not** be called, it is important that you do not put any expectations on it. Like that, the test will fail if it is called by mistake.
+    When you expect the mocked bank **not** to be called, it is important that you do not put any expectations on it. This means the test will fail if it is called by mistake.
 
-2. The mocked bank is called, but you do not care about how it was called:
+2. The mocked bank is called, but you do not care about how it is called:
 
     ```diff-go
     -  msgServer, _, context := setupMsgServerWithOneGameForRejectGame(t)

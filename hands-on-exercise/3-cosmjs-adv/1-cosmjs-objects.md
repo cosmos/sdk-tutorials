@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
-* You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -35,7 +35,7 @@ $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 
 Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with content generated out of your Go code.
 
-Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. 
+Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation: 
 
 ```sh
 $ mkdir -p scripts/protoc
@@ -60,7 +60,7 @@ $ cd ../..
 Make sure that:
 
 * `/usr/local/bin` is the right folder to link to in the command above.
-* You are downloading the right executable for your computer, see your options [here](https://github.com/protocolbuffers/protobuf/releases/tag/v21.5).
+* You are downloading the right executable for your computer; see your options [here](https://github.com/protocolbuffers/protobuf/releases/tag/v21.5).
 
 </CodeGroupItem>
 
@@ -107,7 +107,7 @@ Rebuild your Docker image.
 
 ---
 
-And additional modules:
+Now install your additional modules:
 
 <CodeGroup>
 
@@ -236,7 +236,7 @@ gen-protoc-ts: download-cosmos-proto install-protoc-gen-ts
         checkers/{}
 ```
 
-Then whenever you want to re-compile them, run:
+Whenever you want to re-compile them, run:
 
 <CodeGroup>
 

@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
-* You have the checkers blockchain codebase with `Winner`, `GameDeadline` and `MoveCount`. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/move-count).
+* You have the checkers blockchain codebase with `Winner`, `GameDeadline`, and `MoveCount`. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/move-count).
 
 </HighlightBox>
 
@@ -32,9 +32,9 @@ You will learn:
 
 </HighlightBox>
 
-In previous steps, you added the [game winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
+In previous steps, you added the [game winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
 
-Pointedly:
+Specifically:
 
 * If the game has a winner, then it is not considered stale.
 * If the game's deadline is in the future, then it is not stale.
@@ -43,9 +43,9 @@ Pointedly:
 
 ## Some initial thoughts
 
-Now however, the difficulty is to get the list of games that satisfy the _staleness_ criteria without grinding your blockchain to a halt with an _O(n)_ call, where _n_ is the total number of games in storage.
+The key difficulty is to get the list of games that satisfy the _staleness_ criteria without grinding your blockchain to a halt with an _O(n)_ call, where _n_ is the total number of games in storage.
 
-A solution is to introduce a new data structure that will let you find one stale game in _O(1)_, and access all _k_ stale games in _O(k).
+A solution is to introduce a new data structure that will let you find one stale game in _O(1)_, and access all _k_ stale games in _O(k)_.
 
 There are some initial thoughts and code needs to keep in mind during the next sections to be able to implement forfeits in the end.
 
@@ -290,7 +290,7 @@ With these functions ready, it is time to use them in the message handlers.
         ...
     ```
 
-2. In the handler, when playing a move send the game back to the tail because it was freshly updated, unless it was won, in which case it has to be removed:
+2. In the handler, when playing a move send the game back to the tail because it was freshly updated (unless it was won, in which case it has to be removed):
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L65-L82]
         ...

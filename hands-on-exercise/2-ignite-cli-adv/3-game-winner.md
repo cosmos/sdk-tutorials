@@ -32,7 +32,7 @@ In a [previous section](/hands-on-exercise/1-ignite-cli/6-play-game.md) you made
 
 The next logical step is to also record this information in storage. That will assist you in discerning between games that are current and those that have reached an end by winning. As you will see in subsequent sections about forfeit, there are other ways for a game to finish.
 
-Therefore a reasonable field to add is for the **winner**. It needs to contain:
+Therefore, a reasonable field to add is for the **winner**. It needs to contain:
 
 * The winner of a game that reaches completion.
 * Or the winner _by forfeit_ when a game is expired.

@@ -32,7 +32,7 @@ A player sends a `MsgPlayMove` when [making a move](/hands-on-exercise/1-ignite-
 
 Since sending transactions includes costs, how do you assist participants in making sure they at least do not make a wrong move?
 
-Players would appreciate to be able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
+Players would appreciate being able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## Some initial thoughts
 
@@ -351,7 +351,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
 
 <HighlightBox type="note">
 
-Note how all test cases are run within a single unit test. So to avoid having one case bleed into the next, the keeper is created afresh inside the loop.
+All test cases are run within a single unit test. To avoid having one case bleed into the next, the keeper is created afresh inside the loop.
 
 </HighlightBox>
 
