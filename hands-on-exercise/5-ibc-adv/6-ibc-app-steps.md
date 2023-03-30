@@ -419,7 +419,7 @@ The state changes that occurred during this callback will only be written if:
 
 <HighlightBox type="note">
 
-Applications that process asynchronous acknowledgments must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgments.
+Applications that process asynchronous acknowledgements must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgments.
 
 </HighlightBox>
 
