@@ -149,7 +149,7 @@ All you have to do is fill in the needed parts:
 
 ## The message basic validation
 
-With a game index and board positions, there are a number of stateless errors than can be detected:
+With a game index and board positions, there are a number of stateless error situations that can be detected:
 
 * You know there will not be a game index at the value given.
 * A piece position is out of the bounds of the board.

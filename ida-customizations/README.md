@@ -97,7 +97,7 @@ customModules:
             path: /academy/2-cosmos-concepts/1-architecture.html
           - title: Accounts
             path: /academy/2-cosmos-concepts/2-accounts.html
-          - title: Transaction, messages, and modules
+          - title: Transactions, messages, and modules
             path: /academy/2-cosmos-concepts/3-transactions.html
           - title: Protobuf
             path: /academy/2-cosmos-concepts/6-protobuf.html
@@ -127,6 +127,18 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
           - title: First steps for your checkers blockchain
             path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
+          - title: How to store a game
+            path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
+          - title: Create your first message
+            path: /hands-on-exercise/1-ignite-cli/4-create-message.html
+          - title: Handle the message to create a game
+            path: /hands-on-exercise/1-ignite-cli/5-create-handling.html
+          - title: Another message to play on a game
+            path: /hands-on-exercise/1-ignite-cli/6-play-game.html
+          - title: Emit game events
+            path: /hands-on-exercise/1-ignite-cli/7-events.html
+          - title: Record the game winners
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
       - image: /planet-pod.svg
         title: Week 3 - IBC and CosmJS
         href: /ida-course/LPs/week-3/
@@ -159,13 +171,13 @@ customModules:
         description: |
           You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
         links: 
-          - title: Put your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Keep a game deadline
             path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Record a game winner
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Allow for auto-expiring games
+          - title: Keep a move count
+            path: /hands-on-exercise/2-ignite-cli-adv/3-move-count.html
+          - title: Put your games in order
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
+          - title: Enforce auto-expiring games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Let players set a wager
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
