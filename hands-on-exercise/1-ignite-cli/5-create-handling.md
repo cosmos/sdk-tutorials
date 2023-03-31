@@ -55,7 +55,7 @@ You must add code that:
 * Saves it in storage.
 * Returns the ID of the new game.
 
-For input sanity, your code can only accept or reject a message. You cannot _fix_ a message, as that would change its content and break the signature. However, remember that your application is called via ABCI's `CheckTx` for each transaction that it receives. It is at this point that your application can statelessly _sanitize_ inputs. For each message type, Ignite CLI isolates this concern into a `ValidateBasic` function:
+For input sanity, your code can only accept or reject a message. You cannot _fix_ a message, as that would change its content and break the signature. However, remember that your application is called via [ABCI's `CheckTx`](/academy/2-cosmos-concepts/1-architecture.md#checktx) for each transaction that it receives. It is at this point that your application can statelessly _sanitize_ inputs. For each message type, Ignite CLI isolates this concern into a `ValidateBasic` function:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/types/message_create_game.go#L41-L47]
 func (msg *MsgCreateGame) ValidateBasic() error {
@@ -104,7 +104,7 @@ What is a well-formatted `MsgCreateGame`? Eventually, you want the black and red
     }
 ```
 
-You should not try to check whether they have enough tokens to play as that would be a stateful check. Stateful checks are handled as part of the message handling behind ACBI's `DeliverTx`.
+You should not try to check whether they have enough tokens to play as that would be a stateful check. Stateful checks are handled as part of the message handling behind ACBI's [`DeliverTx`](/academy/2-cosmos-concepts/1-architecture.md#delivertx).
 
 ## Message handling coding steps
 

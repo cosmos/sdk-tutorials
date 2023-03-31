@@ -221,7 +221,15 @@ Then you can check that:
     }
     ```
 
-It is conceivable to add more stateless checks. For instance, to detect when playing out of wrong cells; after all, only half the cells are valid. Or to detect when moves are not along a diagonal. These are all worthy checks, although they tend to distract from learning about Cosmos SDK.
+<HighlightBox type="best-practice">
+
+It is conceivable, perhaps even for the benefit of players, to add more stateless checks. For instance, to detect when playing out of wrong cells; after all, only half the cells are valid. Or to detect when moves are not along a diagonal.
+<br/><br/>
+These are all worthy checks, although they tend to distract from learning about Cosmos SDK.
+<br/><br/>
+If you are nonetheless interested, a good place to look at for a start is the [rules file](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/rules/checkers.go#L66-L69).
+
+</HighlightBox>
 
 ## The move handling
 
