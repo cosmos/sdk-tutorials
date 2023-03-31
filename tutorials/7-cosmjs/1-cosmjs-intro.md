@@ -34,12 +34,11 @@ In general, user interfaces help users interpret the blockchain state, compose a
 
 Developers who are engaged in developing intuitive and coherent user interfaces need to accomplish certain things at the browser level:
 
-* Help the user create unsigned Cosmos SDK transactions.
+* Help the user create unsigned Cosmos SDK transactions with one or multiple messages.
 * Let the user sign an unsigned transaction with their wallet.
 * Help the user submit a signed transaction to a Cosmos SDK endpoint.
 * Query the state from the Cosmos Hub or a custom module using the legacy REST endpoint.
 * Query the state from the Cosmos Hub or a custom module using the gRPC endpoint.
-* Help the user submit multiple messages in a single transaction.
 
 Backend systems are often useful components of the overall design:
 

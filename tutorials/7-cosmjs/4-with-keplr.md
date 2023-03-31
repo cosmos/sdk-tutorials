@@ -32,9 +32,28 @@ To keep the focus on CosmJS and Keplr, you are going to use ready-made pages cre
 
 In your project folder create the ready-made Next.js app, which automatically places it in a subfolder for you. This follows [the docs](https://nextjs.org/docs):
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
 $ npx create-next-app@latest --typescript
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/root -w /root \
+    node:lts-slim \
+    npx create-next-app@latest --typescript
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Which guides you with:
 
@@ -43,13 +62,33 @@ Which guides you with:
 ? What is your project named? › cosmjs-keplr
 ```
 
-This created a new `cosmjs-keplr` folder. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
+This created a new `cosmjs-keplr` folder, go in it. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
 
 Run it, in the `cosmjs-keplr` folder:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```sh
 $ npm run dev
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/cosmjs-keplr -w /cosmjs-keplr \
+    -p 0.0.0.0:3000:3000 \
+    node:lts-slim \
+    npm run dev
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 Which returns:
 
@@ -115,6 +154,9 @@ export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState
         console.log(toSend)
         // The web page structure itself
         return <div>
+            <div className={styles.description}>
+                Send back to the faucet
+            </div>
             <fieldset className={styles.card}>
                 <legend>Faucet</legend>
                 <p>Address: {faucetAddress}</p>
@@ -153,7 +195,7 @@ import { FaucetSender } from '../components/FaucetSender'
 const Home: NextPage = () => {
   return <FaucetSender
     faucetAddress="cosmos15aptdqmm7ddgtcrjvc5hs988rlrkze40l4q0he"
-    rpcUrl="rpc.sentry-01.theta-testnet.polypore.xyz" />
+    rpcUrl="https://rpc.sentry-01.theta-testnet.polypore.xyz" />
 }
 
 export default Home
@@ -169,36 +211,69 @@ Your page is not very useful yet, make it more so.
 
 Now that you have a working Next.js project and ready page, it is time to add the necessary CosmJS elements to the project:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
-$ npm install @cosmjs/stargate cosmjs-types --save
+$ npm install \
+    @cosmjs/stargate@v0.28.2 cosmjs-types@v0.4.1 \
+    --save-exact
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/cosmjs-keplr -w /cosmjs-keplr \
+    node:lts-slim \
+    npm install \
+    @cosmjs/stargate@v0.28.2 cosmjs-types@v0.4.1 \
+    --save-exact
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 ## Displaying information without user input
 
 When building a user interface, it is good practice to not ask your user's address until it becomes necessary (e.g. if they click a relevant button). You should start by showing information that is knowable without user input. In this case, this is the token `denom` (denomination) and the faucet's balance. Add the following function that gets the balance from the faucet and place it above the `onToSendChanged` function inside `FaucetSender.tsx`:
 
-```typescript
-// Get the faucet's balance
-updateFaucetBalance = async(client: StargateClient) => {
-    const balances: readonly Coin[] = await client.getAllBalances(this.props.faucetAddress)
-    const first: Coin = balances[0]
-    this.setState({
-        denom: first.denom,
-        faucetBalance: first.amount,
-    })
-}
+```diff-typescript
++  // Get the faucet's balance
++  updateFaucetBalance = async(client: StargateClient) => {
++      const balances: readonly Coin[] = await client.getAllBalances(
++          this.props.faucetAddress
++      )
++      const first: Coin = balances[0]
++      this.setState({
++          denom: first.denom,
++          faucetBalance: first.amount,
++      })
++  }
+
+    onToSendChanged = (e: ChangeEvent<HTMLInputElement>)...
 ```
 
 Note that it only cares about the first coin type stored in `balances[0]`: this is to keep the exercise simple, but there could be multiple coins in that array of balances. It extracts the `denom`, which is then displayed to the user as the unit to transfer. Add the denom that in the constructor as well so that it runs on load via another specific function:
 
-```typescript
-constructor(props:FaucetSenderProps) {
-    ...
-    setTimeout(this.init, 500)
-}
+```diff-typescript
+    constructor(props:FaucetSenderProps) {
+        ...
++      setTimeout(this.init, 500)
+    }
 
-init = async() => this.updateFaucetBalance(await StargateClient.connect(this.props.rpcUrl))
++  init = async() => this.updateFaucetBalance(
++      await StargateClient.connect(this.props.rpcUrl)
++  )
+
+    updateFaucetBalance = async (client: StargateClient)...
 ```
+
+The call to `setTimeout` so that `init` is _not_ launched on the same pass as the constructor.
 
 After `run dev` picks the changes, you should see that your page starts showing the relevant information.
 
@@ -212,9 +287,30 @@ Refer to the previous section on how to [get Cosmos Hub Testnet tokens](./2-firs
 
 Following [Keplr's documentation](https://docs.keplr.app/api/#how-to-detect-keplr), it is time to add a function to see if Keplr is installed on the browser. For convenience and type hinting, install the Typescript Keplr types from within the folder of your project:
 
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
 ```sh
-$ npm install @keplr-wallet/types --save-dev
+$ npm install @keplr-wallet/types@0.11.51 \
+    --save-dev --save-exact
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/cosmjs-keplr -w /cosmjs-keplr \
+    node:lts-slim \
+    npm install @keplr-wallet/types@0.11.51 \
+    --save-dev --save-exact
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
 
 After this package is installed, inform Typescript that `window` may have a `.keplr` field with the help of [this helper](https://github.com/chainapsis/keplr-wallet/tree/master/docs/api#keplr-specific-features), by adding it below your imports to `FaucetSender.tsx`:
 
@@ -228,14 +324,15 @@ declare global {
 
 Detecting Keplr can be done at any time, but to keep the number of functions low for this exercise do it in `onSendClicked`. You want to avoid detecting Keplr on page load if not absolutely necessary. This is generally considered bad user experience for users who might just want to browse your page and not interact with it. Replace the `onSendClicked` with the following:
 
-```typescript
-onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
-    const { keplr } = window
-    if (!keplr) {
-        alert("You need to install Keplr")
-        return
+```diff-typescript
+    onSendClicked = async(e: MouseEvent<HTMLButtonElement>) => {
+-      alert("TODO")
++      const { keplr } = window
++      if (!keplr) {
++          alert("You need to install or unlock Keplr")
++          return
++      }
     }
-}
 ```
 
 Hopefully, when you click on the button it does not show an alert. It does not do anything else either. As an optional confirmation, if you disable Keplr from Chrome's extension manager, when you click the button the page tells you to install it.
@@ -319,8 +416,9 @@ getTestnetChainInfo = (): ChainInfo => ({
 
 You need to add another import from the `@keplr-wallet` package so that your script understands what `ChainInfo` is:
 
-```typescript
-import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
+```diff-typescript
+-  import { Window as KeplrWindow } from "@keplr-wallet/types"
++  import { ChainInfo, Window as KeplrWindow } from "@keplr-wallet/types"
 ```
 
 Note that it mentions the `chainId: "theta-testnet-001"`. In effect, this adds the Cosmos Hub Testnet to Keplr's registry of blockchains, under the label `theta-testnet-001`. Whenever you want to prompt the user to add the Cosmos Hub Testnet to Keplr, add the line:
@@ -593,6 +691,11 @@ export class FaucetSender extends Component<
                 coinMinimalDenom: "uatom",
                 coinDecimals: 6,
                 coinGeckoId: "cosmos",
+                gasPriceStep: {
+                    low: 1,
+                    average: 1,
+                    high: 1,
+                },
             },
         ],
         stakeCurrency: {
@@ -602,11 +705,6 @@ export class FaucetSender extends Component<
             coinGeckoId: "cosmos",
         },
         coinType: 118,
-        gasPriceStep: {
-            low: 1,
-            average: 1,
-            high: 1,
-        },
         features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
     })
 
@@ -618,6 +716,9 @@ export class FaucetSender extends Component<
         // The web page structure itself
         return (
             <div>
+                <div className={styles.description}>
+                    Send back to the faucet
+                </div>
                 <fieldset className={styles.card}>
                     <legend>Faucet</legend>
                     <p>Address: {faucetAddress}</p>
@@ -652,6 +753,16 @@ export class FaucetSender extends Component<
 What if you wanted to experiment with your own chain while in development?
 
 Keplr does not know about locally running chains by default. As you did with Cosmos Hub Testnet, you must inform Keplr about your chain: change `ChainInfo` to match the information about your chain, and change `rpcUrl` so that it points to your local port.
+
+<HighlightBox type="tip">
+
+If you would like to get started on integrating Keplr into your own checkers game, you can go straight to the related exercise in [CosmJS for Your Chain](/hands-on-exercise/3-cosmjs-adv/index.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md) for a more elaborate integration between Keplr, CosmJS, custom messages and a pre-existing Checkers GUI,
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 
