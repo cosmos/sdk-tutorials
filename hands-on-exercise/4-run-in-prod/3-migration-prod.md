@@ -215,7 +215,7 @@ $ docker build . \
 
 With the executables and the blockchain elements ready, you can now define the _production setup_. You already defined one in the previous [run checkers in prod section](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md). In this new setup, the only things that change are the Docker images you call: `cosmovisor_i` instead of `checkersd_i`. Even the `start` command does not need to change.
 
-To avoid rewriting everything, you can declare a Docker Compose [extension](https://docs.docker.com/compose/extends/) in a new file `prod-sim/docker-compose-cosmovisor.yml`. Each `checkersd` type of service is extended, and in fine replaced, with a new `image`:
+To avoid rewriting everything, you can declare a Docker Compose [extension](https://docs.docker.com/compose/extends/) in a new file `prod-sim/docker-compose-cosmovisor.yml`. Each `checkersd` type of service is extended, and in the end is replaced, with a new `image`:
 
 ```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/docker-compose-cosmovisor.yml]
 version: "3.7"
