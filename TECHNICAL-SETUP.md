@@ -237,7 +237,7 @@ It is recommended that you master your terminal to be happy.
 
 ### iTerm2 Terminal Emulator
 
-On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the sh shell that supports useful features like programmable completion.
+On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the bash shell that supports useful features like programmable completion.
 
 ### Using ZSH as Your Default Shell
 
