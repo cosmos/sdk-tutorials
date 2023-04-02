@@ -98,7 +98,7 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 3. For each branch you work in, install the npm packages for the SDK tutorials:
 
    ```sh
-   $ npm install
+    $ npm install
     ```
 
 4. Start the local instance of the tutorial build:
