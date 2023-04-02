@@ -111,4 +111,4 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 
 5. You can now view the tutorial build on a local web browser. Isn't this fun?
 
-   **Tip:** On a mac, press the command key and click `http://localhost:8080/` for quick access.
+    **Tip:** On a mac, press the command key and click `http://localhost:8080/` for quick access.
