@@ -87,7 +87,7 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 
 1. If you have not already, clone the tutorials repo to your local machine and change to that directory. For example:
 
-    ```bash
+    ```sh
     cd ~/github
     git clone --recursive https://github.com/cosmos/sdk-tutorials
     cd sdk-tutorials
@@ -103,9 +103,9 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 
 4. Start the local instance of the tutorial build:
 
-   ```sh
-   $ npm run serve
-   ```
+    ```sh
+    $ npm run serve
+    ```
 
     A successful client compile looks like: `> VuePress dev server listening at http://localhost:8080/ ✔ Client Compiled successfully in 280.71ms success [12:06:28] Build 03d41f finished in 283 ms! ( http://localhost:8080/ )`
 
