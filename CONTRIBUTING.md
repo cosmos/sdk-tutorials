@@ -99,7 +99,7 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 
    ```sh
    $ npm install
-   ```
+    ```
 
 4. Start the local instance of the tutorial build:
 
