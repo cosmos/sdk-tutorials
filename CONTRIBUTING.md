@@ -87,11 +87,11 @@ Since the deploy preview does not work on Draft PRs, follow these steps to previ
 
 1. If you have not already, clone the tutorials repo to your local machine and change to that directory. For example:
 
-   ```sh
-   cd ~/github
-   git clone --recursive https://github.com/cosmos/sdk-tutorials
-   cd sdk-tutorials
-   ```
+    ```bash
+    cd ~/github
+    git clone --recursive https://github.com/cosmos/sdk-tutorials
+    cd sdk-tutorials
+    ```
 
 2. Local tutorials require JavaScript. If needed, install [npm](https://docs.npmjs.com/cli/v6/commands/npm-install).
 
