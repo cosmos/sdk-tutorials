@@ -897,7 +897,7 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Before you add a third message to let a player [reject a game](./8-reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./7-events.md).
+Add events to the existing message handlers for relevant information. This is the object of the [next section](./7-events.md).
 
 <HighlightBox type="tip">
 

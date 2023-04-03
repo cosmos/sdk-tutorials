@@ -287,10 +287,6 @@ module.exports = {
                   path: "/hands-on-exercise/1-ignite-cli/8-game-winner.html",
                 },
                 {
-                  title: "Make Sure a Player Can Reject a Game",
-                  path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
-                },
-                {
                   title: "Week 2 Exercise",
                   path: "/ida-course/exercise-week2.html",
                 },

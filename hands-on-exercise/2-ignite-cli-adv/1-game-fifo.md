@@ -825,7 +825,7 @@ SystemInfo:
 
 </PanelListItem>
 
-<PanelListItem number="7">
+<PanelListItem number="7" :last="true">
 
 Is game `3` in the middle now?
 
@@ -861,112 +861,7 @@ storedGame:
 
 Your FIFO now has the game IDs `[1, 3, 2]`. You see that game `2`, which was played on, has been sent to the tail of the FIFO.
 
-</PanelListItem>
-
-<PanelListItem number="8" :last="true">
-
-What happens if Alice rejects game `3`?
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd tx checkers reject-game 3 --from $alice
-$ checkersd query checkers show-system-info
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd tx checkers reject-game 3 --from $alice
-$ docker exec -it checkers \
-    checkersd query checkers show-system-info
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-SystemInfo:
-    fifoHeadIndex: "1"
-    fifoTailIndex: "2"
-    nextId: "4"
-```
-
-There is no change because game `3` was _in the middle_, so it did not affect the head or the tail.
-
-Fetch the two games by running the following two queries :
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd query checkers show-stored-game 1
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd query checkers show-stored-game 1
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-storedGame:
-    afterIndex: "2"
-    beforeIndex: "-1"
-...
-```
-
-And:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd query checkers show-stored-game 2
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd query checkers show-stored-game 2
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-storedGame:
-    afterIndex: "-1"
-    beforeIndex: "1"
-...
-```
-
-Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
+Which is what you were expecting.
 
 </PanelListItem>
 
