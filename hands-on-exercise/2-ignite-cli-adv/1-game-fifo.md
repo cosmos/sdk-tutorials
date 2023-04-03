@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
-* You have the checkers blockchain codebase with `Winner`, `GameDeadline`, and `MoveCount`. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/move-count).
+* You have the checkers blockchain codebase with `Winner`, `GameDeadline`, and `MoveCount`. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/2-move-count.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/move-count).
 
 </HighlightBox>
 
@@ -32,7 +32,7 @@ You will learn:
 
 </HighlightBox>
 
-In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
+In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/2-move-count.md). These are fields that can help you determine whether a given game is stale or not.
 
 Specifically:
 

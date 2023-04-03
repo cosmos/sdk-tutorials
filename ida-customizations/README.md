@@ -174,7 +174,7 @@ customModules:
           - title: Keep a game deadline
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
           - title: Keep a move count
-            path: /hands-on-exercise/2-ignite-cli-adv/3-move-count.html
+            path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
           - title: Put your games in order
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Enforce auto-expiring games

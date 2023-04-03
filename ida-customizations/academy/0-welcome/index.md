@@ -166,6 +166,8 @@ customModules:
       links: 
         - title: Keep a game deadline
           path: /hands-on-exercise/2-ignite-cli/1-game-deadline.html
+        - title: Keep a count of moves
+          path: /hands-on-exercise/2-ignite-cli/2-move-count.html
         - title: Put your games in order
           path: /hands-on-exercise/2-ignite-cli/1-game-fifo.html
         - title: Record a game winner

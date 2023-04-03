@@ -365,6 +365,10 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
                 },
                 {
+                  title: "Record the Move Count",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/2-move-count.html",
+                },
+                {
                   title: "Put Your Games in Order",
                   path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
                 },
