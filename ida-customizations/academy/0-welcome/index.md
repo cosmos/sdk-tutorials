@@ -169,7 +169,7 @@ customModules:
         - title: Keep a game deadline
           path: /hands-on-exercise/2-ignite-cli/2-game-deadline.html
         - title: Record a game winner
-          path: /hands-on-exercise/2-ignite-cli/3-game-winner.html
+          path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
         - title: Allow for auto-expiring games
           path: /hands-on-exercise/2-ignite-cli/4-game-forfeit.html
         - title: Let players set a wager

@@ -302,7 +302,7 @@ customModules:
           - title: Emit game information
             path: /hands-on-exercise/1-ignite-cli/7-events.html
           - title: Recording the winners
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/

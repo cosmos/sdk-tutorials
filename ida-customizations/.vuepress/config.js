@@ -283,6 +283,10 @@ module.exports = {
                   path: "/hands-on-exercise/1-ignite-cli/7-events.html",
                 },
                 {
+                  title: "Record the Game Winner",
+                  path: "/hands-on-exercise/1-ignite-cli/8-game-winner.html",
+                },
+                {
                   title: "Make Sure a Player Can Reject a Game",
                   path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
                 },
@@ -367,10 +371,6 @@ module.exports = {
                 {
                   title: "Keep an Up-To-Date Game Deadline",
                   path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
-                },
-                {
-                  title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-winner.html",
                 },
                 {
                   title: "Auto-Expiring Games",

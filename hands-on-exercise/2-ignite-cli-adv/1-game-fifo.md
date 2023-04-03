@@ -32,7 +32,7 @@ You will learn:
 
 </HighlightBox>
 
-In previous steps, you added the [game winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
+In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
 
 Specifically:
 

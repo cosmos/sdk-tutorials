@@ -28,7 +28,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Previously, you added [a winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md) and [a deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) to games, with a view to implementing a forfeit mechanism for games that have become stale.
+Previously, you added [a winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md) and [a deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) to games, with a view to implementing a forfeit mechanism for games that have become stale.
 
 ## Some initial thoughts
 

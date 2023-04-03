@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the game winner. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* You have the checkers blockchain codebase with the game winner. If not, follow the [previous steps](/hands-on-exercise/1-ignite-cli/8-game-winner.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/2-ignite-cli-adv/3-game-winner.md). Presumably _most_ players will play their games until they reach a resolution... but not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
+In a [previous step](/hands-on-exercise/1-ignite-cli/6-play-game.md), you made it possible for players to play, and you recorded the [eventual winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md). Presumably _most_ players will play their games until they reach a resolution... but not 100% of them. Some players will forget about their games, no longer care, or simply stop playing when it is obvious they are losing.
 
 Therefore, your blockchain is at risk of accumulating stale games in its storage. Eventually you want to let players wager on the outcome of games, so you do not want games remaining in limbo if they have _value_ assigned. This is one more reason why you need a way for games to be forcibly resolved if one player stops participating.
 
@@ -317,4 +317,4 @@ To summarize, this section has explored:
 
 You have created and updated the deadline. The [section two steps ahead](./1-game-forfeit.md) describes how to use the deadline.
 
-Before you can do that, there is one other field you need to add. Discover which in the [next section](./3-game-winner.md).-->
+Before you can do that, there is one other field you need to add. Discover which in the [next section](../1-ignite-cli/8-game-winner.md).-->

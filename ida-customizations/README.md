@@ -138,7 +138,7 @@ customModules:
           - title: Emit game events
             path: /hands-on-exercise/1-ignite-cli/7-events.html
           - title: Record the game winners
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /planet-pod.svg
         title: Week 3 - IBC and CosmJS
         href: /ida-course/LPs/week-3/
