@@ -314,7 +314,7 @@ customModules:
           - title: Including a count move
             path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
           - title: Putting your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
           - title: Enforcing auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Including a wager

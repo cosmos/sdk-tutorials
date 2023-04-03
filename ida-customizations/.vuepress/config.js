@@ -370,7 +370,7 @@ module.exports = {
                 },
                 {
                   title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html",
                 },
                 {
                   title: "Auto-Expiring Games",

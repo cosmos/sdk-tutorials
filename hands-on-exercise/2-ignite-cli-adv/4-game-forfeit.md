@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./1-game-fifo.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
+* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./3-game-fifo.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./1-game-fifo.md) you prepared the expiration of games:
+In the [previous section](./3-game-fifo.md) you prepared the expiration of games:
 
 * A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
@@ -232,7 +232,7 @@ Now, what goes into this `if "expired" { TODO }`?
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./1-game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./3-game-fifo.md).
 
 </HighlightBox>
 

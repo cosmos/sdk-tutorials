@@ -169,7 +169,7 @@ customModules:
         - title: Keep a count of moves
           path: /hands-on-exercise/2-ignite-cli/2-move-count.html
         - title: Put your games in order
-          path: /hands-on-exercise/2-ignite-cli/1-game-fifo.html
+          path: /hands-on-exercise/2-ignite-cli/3-game-fifo.html
         - title: Record a game winner
           path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
         - title: Allow for auto-expiring games

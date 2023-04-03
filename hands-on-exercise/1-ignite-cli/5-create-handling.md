@@ -655,7 +655,7 @@ To summarize, this section has explored:
 
 You will learn how to modify this handling in later sections by:
 
-* Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md) to the stored information.
+* Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to the stored information.
 * Adding [an event](./7-events.md).
 * Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
