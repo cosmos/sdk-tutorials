@@ -172,7 +172,7 @@ customModules:
           You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
         links: 
           - title: Keep a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
           - title: Keep a move count
             path: /hands-on-exercise/2-ignite-cli-adv/3-move-count.html
           - title: Put your games in order

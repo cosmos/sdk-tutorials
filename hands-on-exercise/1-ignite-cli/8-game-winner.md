@@ -435,4 +435,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You have introduced a [game FIFO](./1-game-fifo.md), a [game deadline](./2-game-deadline.md), and a game winner. Time to turn your attention to the [next section](./4-game-forfeit.md) to look into game forfeits.-->
+You have introduced a [game FIFO](./1-game-fifo.md), a [game deadline](./1-game-deadline.md), and a game winner. Time to turn your attention to the [next section](./4-game-forfeit.md) to look into game forfeits.-->

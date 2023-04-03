@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the game deadline. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
+* You have the checkers blockchain codebase with the game deadline. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
 
 </HighlightBox>
 
@@ -28,7 +28,7 @@ In this section, you will:
 
 </HighlightBox>
 
-Previously, you added [a winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md) and [a deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md) to games, with a view to implementing a forfeit mechanism for games that have become stale.
+Previously, you added [a winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md) and [a deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md) to games, with a view to implementing a forfeit mechanism for games that have become stale.
 
 ## Some initial thoughts
 

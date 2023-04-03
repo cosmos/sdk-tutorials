@@ -504,7 +504,7 @@ type WinningPlayerParsed struct {
 
 <ExpansionPanel title="How is dateAdded (de)serialized?">
 
-You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md):
+You can reuse the [date format used for the deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md):
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration/x/checkers/types/keys.go#L84]
     const (

@@ -40,7 +40,7 @@ In this chapter, you will:
 
 ## Next up
 
-Begin by preparing the ground for further data organization by adding a game deadline in the [next section](./2-game-deadline.md).
+Begin by preparing the ground for further data organization by adding a game deadline in the [next section](./1-game-deadline.md).
 
 ## Developer Resources
 

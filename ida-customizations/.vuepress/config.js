@@ -361,12 +361,12 @@ module.exports = {
                   path: "/ida-course/LPs/week-4/",
                 },
                 {
-                  title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
+                  title: "Keep an Up-To-Date Game Deadline",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
                 },
                 {
-                  title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
+                  title: "Put Your Games in Order",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
                 },
                 {
                   title: "Auto-Expiring Games",

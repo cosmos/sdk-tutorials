@@ -316,7 +316,7 @@ What would happen if one of the two players has accepted the game by playing, bu
 
 What would happen if a player stops taking turns? To ensure functionality for your checkers application, you can consider:
 
-* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system. For the guided coding exercise on this part, head straight to [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline).
+* Having a timeout after which the game is forfeited. You could also automatically charge the forgetful player, if and when you implement a wager system. For the guided coding exercise on this part, head straight to [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline).
 * Keeping an index of games that could be forfeited. If both timeouts are the same, you can keep a single FIFO list of games so you can clear them from the top of the list as necessary. For the guided coding exercise on this part, head straight to [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo).
 * Handling the cancelation in ABCI's `EndBlock` (or rather its equivalent in the Cosmos SDK) without any of the players having to trigger the cancelation. For the guided coding exercise on this part, head straight to [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit).
 

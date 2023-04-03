@@ -32,7 +32,7 @@ You will learn:
 
 </HighlightBox>
 
-In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
+In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/3-move-count.md). These are fields that can help you determine whether a given game is stale or not.
 
 Specifically:
 
@@ -884,4 +884,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./2-game-deadline.md).-->
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./1-game-deadline.md).-->

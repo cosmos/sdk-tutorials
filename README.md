@@ -310,7 +310,7 @@ customModules:
           Continue developing your checkers blockchain with Ignite by:
         links:
           - title: Including a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
           - title: Including a count move
             path: /hands-on-exercise/2-ignite-cli-adv/3-move-count.html
           - title: Putting your games in order
