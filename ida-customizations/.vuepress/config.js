@@ -385,6 +385,10 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html",
                 },
                 {
+                  title: "Add integration tests",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html",
+                },
+                {
                   title: "Incentivize Players",
                   path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
                 },

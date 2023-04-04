@@ -1,6 +1,6 @@
 ---
 title: "Help Find a Correct Move"
-order: 9
+order: 10
 description: Query - help players make good transactions
 tags: 
   - guided-coding

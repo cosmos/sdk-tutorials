@@ -183,6 +183,8 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
           - title: Handle wager payments
             path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
+          - title: Add integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html
           - title: Incentivize players and manage gas
             path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find a correct move
