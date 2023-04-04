@@ -19,7 +19,7 @@ To implement this functionality, build a Web 2.0 server to do the indexing. The 
 
 1. Listens to updates from the checkers chain:
     1. On a game creation event, adds the game ID under each player.
-    2. On a game deletion event, removes it. This happens either because of a rejection or in an end-block.
+    2. On a game deletion event, removes it.
 2. When asked about its status, returns the latest block height up to which it has indexed players.
 3. When asked about a given player, returns the list of game IDs for this player.
 4. When a game ID is submitted, patches its information about that game ID on a best effort basis (to palliate potential de-synchronization).
@@ -50,12 +50,12 @@ $ npm install @types/express@4.17.13 --save-dev --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install express@4.18.1 --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install @types/express@4.17.13 --save-dev --save-exact
 ```
 
@@ -121,9 +121,9 @@ Generally, it is a good idea to use deletes to prevent the state from simply gro
 
 ### Empty indexer module
 
-A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJS related, so start from something else if you prefer.
+Define a barebones server without any Cosmos elements in an `indexer.ts`. This is not CosmJS related, so start from something else if you prefer.
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/20e6149/src/server/indexer.ts]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts]
 import { writeFile } from "fs/promises"
 import { Server } from "http"
 import express, { Express, Request, Response } from "express"
@@ -211,7 +211,7 @@ export const createIndexer = async () => {
 Note:
 
 1. The timer is set at the end of the previous poll, in case indexing takes longer than the interval.
-2. The _database_ is purely in memory as it runs and is saved on exit by catching the interruption signal.
+2. The _database_ is, for now, purely in memory as it runs and is saved on exit by catching the interruption signal.
 
 </HighlightBox>
 
@@ -287,7 +287,7 @@ $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
     -p 3001:3001 \
-    node:18.7 \
+    node:18.7-slim \
     npm run indexer-dev
 ```
 
@@ -480,8 +480,7 @@ server started at http://localhost:3001
 To index games, take each block and listen for the following relevant events:
 
 1. A transaction with a `new-game-created` event.
-2. A transaction with a `game-rejected` event.
-3. An `EndBlock` with a `game-forfeited` event.
+2. An `EndBlock` with a `game-forfeited` event.
 
 Start by getting each block from your last saved state. Update `poll`:
 
@@ -547,10 +546,11 @@ const handleBlock = async (block: Block) => {
 
 This needs new imports:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L1-L3]
-import { sha256 } from "@cosmjs/crypto"
-import { toHex } from "@cosmjs/encoding"
-import { Block, IndexedTx } from "@cosmjs/stargate"
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L1-L3]
++  import { sha256 } from "@cosmjs/crypto"
++  import { toHex } from "@cosmjs/encoding"
+-  import { Block } from "@cosmjs/stargate"
++  import { Block, IndexedTx } from "@cosmjs/stargate"
 ```
 
 <HighlightBox type="note">
@@ -608,18 +608,12 @@ const handleEvents = async (events: StringEvent[]): Promise<void> => {
 }
 ```
 
-This needs a new import:
-
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L4]
-import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
-```
-
 <HighlightBox type="note">
 
 * `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
 * The `handleEvents` function only keeps events that emanate from the `checkers` module.
 * It uses a new function, `handleEvent`. Create one and put `console.log(event)` inside to explore what this object is and consider what actions you can take with it.
-* It skips in case of error, as the likely cause is that the transactions in fact failed.
+* It skips in case of error, as the likely cause is that the transactions in fact failed. This is not good enough if the goal is to be absolutely accurate.
 
 </HighlightBox>
 
@@ -633,10 +627,6 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
         // Function yet to be declared
         await handleEventCreate(event)
     }
-    if (event.type == "game-rejected") {
-        // Function yet to be declared
-        await handleEventReject(event)
-    }
     if (event.type == "move-played") {
         // Function yet to be declared
         await handleEventPlay(event)
@@ -646,8 +636,8 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
 
 <HighlightBox type="note">
 
-* [`new-game-created`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L31), [`game-rejected`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L51), and [`move-played`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L41) are constant values defined in your Go code. They are put as the [event's type](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/keeper/msg_server_create_game.go#L50).
-* `handleEvent` uses three new functions: `handleEventCreate`, `handleEventReject`, and `handleEventPlay`. Create them and put `console.log(event)` inside each to explore what these objects are and consider what actions you would take with them.
+* [`new-game-created`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L31) and [`move-played`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L41) are constant values defined in your Go code. They are put as the [event's type](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/keeper/msg_server_create_game.go#L50).
+* `handleEvent` uses two new functions: `handleEventCreate` and `handleEventPlay`. Create them and put `console.log(event)` inside each to explore what these objects are and consider what actions you would take with them.
 
 </HighlightBox>
 
@@ -659,6 +649,13 @@ Now update your `db` with the information provided. First, define a convenience 
 const getAttributeValueByKey = (attributes: Attribute[], key: string): string | undefined => {
     return attributes.find((attribute: Attribute) => attribute.key === key)?.value
 }
+```
+
+This needs a new import:
+
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L4]
+- import { ABCIMessageLog, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
++ import { ABCIMessageLog, Attribute, StringEvent } from "cosmjs-types/cosmos/base/abci/v1beta1/abci"
 ```
 
 Now define `handleEventCreate` as:
@@ -699,36 +696,6 @@ const handleEventCreate = async (event: StringEvent): Promise<void> => {
 
 </HighlightBox>
 
-## Handle one reject event
-
-`handleEventReject` is the counterpart of `handleEventCreate`, as it soft-removes games from the system.
-
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L164-L177]
-const handleEventReject = async (event: StringEvent): Promise<void> => {
-    const rejectedId: string | undefined = getAttributeValueByKey(event.attributes, "game-index")
-    if (!rejectedId) throw new Error(`Reject event missing game-index`)
-    const blackAddress: string | undefined = db.games[rejectedId]?.blackAddress
-    const redAddress: string | undefined = db.games[rejectedId]?.redAddress
-    console.log(`Reject game: ${rejectedId}, black: ${blackAddress}, red: ${redAddress}`)
-    const blackGames: string[] = db.players[blackAddress]?.gameIds ?? []
-    const redGames: string[] = db.players[redAddress]?.gameIds ?? []
-    const indexInBlack: number = blackGames.indexOf(rejectedId)
-    if (0 <= indexInBlack) blackGames.splice(indexInBlack, 1)
-    const indexInRed: number = redGames.indexOf(rejectedId)
-    if (0 <= indexInRed) redGames.splice(indexInRed, 1)
-    if (db.games[rejectedId]) db.games[rejectedId].deleted = true
-}
-```
-
-<HighlightBox type="note">
-
-* `handleEventReject` keeps the game information in the `db`. This is a debatable choice, but helps the `patch` function identify old games that once existed as opposed to games that never existed.
-* It marks the game as `deleted: true`, though.
-* And it removes the id from both players' list of games.
-* There is additional error handling.
-
-</HighlightBox>
-
 ## Handle one play event
 
 Not all play events are equal. `handleEventPlay` is only interested when there is a winner. Until then, there is no need to take any action.
@@ -755,22 +722,22 @@ const handleEventPlay = async (event: StringEvent): Promise<void> => {
 <HighlightBox type="note">
 
 * `handleEventPlay` returns quietly if there is no winner, because this means there is nothing to do.
-* As when there is a rejected game, it keeps the game information in the `db`.
-* It also removes the id from both players' list of games.
+* It keeps the game information in the `db`.
+* It removes the id from both players' list of games.
 
 </HighlightBox>
 
 ## Test time
 
-You can now test what happens when a game is created and rejected. Restart `npm run indexer-dev`.
+You can now test what happens when a game is created and played on. Restart `npm run indexer-dev`.
 
-You can choose how to create and reject games:
+You can choose how to create and play games:
 
-* Run the GUI with `npm start`, although it does not have a reject function at the time of writing.
+* Run the GUI with `npm start`.
 * Run `checkersd` command lines.
 * Any other way available.
 
-And in another terminal 3:
+And in another terminal:
 
 <CodeGroup>
 
@@ -819,49 +786,7 @@ It should update `db.json` to:
 
 </CodeGroupItem>
 
-<CodeGroupItem title="Reject game">
-
-```sh
-$ checkersd tx checkers reject-game 1 --from $bob -y
-```
-
-The indexer should log something like:
-
-```txt
-Reject game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
-```
-
-It should update `db.json` to:
-
-```json
-{
-    "status": {
-        "block": {
-            "height": 100
-        }
-    },
-    "players": {
-        "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw": {
-            "gameIds": []
-        },
-        "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s": {
-            "gameIds": []
-        }
-    },
-    "games": {
-        "1": {
-            "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
-            "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw",
-            "deleted": true
-        }
-    }
-}
-```
-
-</CodeGroupItem>
-
 <CodeGroupItem title="Play game">
-
 
 ```sh
 $ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
@@ -977,23 +902,23 @@ const handleBlock = async (block: Block) => {
 
 The events that you have converted are compatible with those emanating from transactions, so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
-const handleEvent = async (event: StringEvent): Promise<void> => {
-    ...
-    if (event.type == "game-forfeited") {
-        // Function yet to be declared
-        await handleEventForfeit(event)
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
+    const handleEvent = async (event: StringEvent): Promise<void> => {
+        ...
++      if (event.type == "game-forfeited") {
++          // Function yet to be declared
++          await handleEventForfeit(event)
++      }
     }
-}
 ```
 
 To achieve this, add a new function:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L196-L212]
 const handleEventForfeit = async (event: StringEvent): Promise<void> => {
-    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "GameIndex")
+    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "game-index")
     if (!forfeitedId) throw new Error(`Forfeit event missing forfeitedId`)
-    const winner: string | undefined = getAttributeValueByKey(event.attributes, "Winner")
+    const winner: string | undefined = getAttributeValueByKey(event.attributes, "winner")
     const blackAddress: string | undefined = db.games[forfeitedId]?.blackAddress
     const redAddress: string | undefined = db.games[forfeitedId]?.redAddress
     console.log(
@@ -1151,7 +1076,7 @@ Develop your own ways to test the other scenarios.
 
 You have created a small server that:
 
-* Polls the blockchain to get events about created, rejected, won, and forfeited games.
+* Polls the blockchain to get events about created, won, and forfeited games.
 * Maintains a database with information indexed in real time.
 * Offers this information as a Web service.
 * Accepts requests for patches.

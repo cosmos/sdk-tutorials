@@ -54,7 +54,7 @@ $ cd react-checkers
 $ docker run --rm -it \
     -v $(pwd):/react-checkers \
     -w /react-checkers \
-    node:18.7 \
+    node:18.7-slim \
     npm install
 ```
 
@@ -81,7 +81,7 @@ $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
     -p 3000:3000 \
-    node:18.7 \
+    node:18.7-slim \
     npm start
 ```
 
@@ -96,11 +96,11 @@ It should automatically open the browser and you should see a simple page. If no
 Move the files from the `react-checkers` folder into the repo that contains your CosmJS work so far. If you followed from the previous section or cloned the branch mentioned above, then:
 
 * The `tsconfig.json`, `images.d.ts`, and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
-* For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
+* For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/unwired-gui/.gitignore) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
     * Copy and paste the `"scripts"`. Rename the incoming `"test"` to `"test-react"`.
-    * Copy and paste the `"browserlist"`.
-    * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
+    * Copy and paste the `"browserslist"`.
+    * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/package.json#L18) field or it will confuse React.
     * Copy only the missing `dependencies` and `devDependencies`. If there is a conflict between versions, overwrite with the highest version.
 
 Everything should now be integrated.
@@ -125,7 +125,7 @@ $ npm install
 $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install
 ```
 
@@ -152,7 +152,7 @@ $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
     -p 3000:3000 \
-    node:18.7 \
+    node:18.7-slim \
     npm start
 ```
 

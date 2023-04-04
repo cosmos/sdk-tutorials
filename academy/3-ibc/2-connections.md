@@ -230,16 +230,16 @@ The [implementation of OpenTry](https://github.com/cosmos/ibc-go/blob/v5.1.0/mod
 //  - Identifiers are checked on msg validation
 func (k Keeper) ConnOpenTry(
     ctx sdk.Context,
-	counterparty types.Counterparty, // counterpartyConnectionIdentifier, counterpartyPrefix and counterpartyClientIdentifier
-	delayPeriod uint64,
-	clientID string, // clientID of chainA
-	clientState exported.ClientState, // clientState that chainA has for chainB
-	counterpartyVersions []exported.Version, // supported versions of chain A
-	proofInit []byte, // proof that chainA stored connectionEnd in state (on ConnOpenInit)
-	proofClient []byte, // proof that chainA stored a light client of chainB
-	proofConsensus []byte, // proof that chainA stored chainB's consensus state at consensus height
-	proofHeight exported.Height, // height at which relayer constructs proof of A storing connectionEnd in state
-	consensusHeight exported.Height, // latest height of chain B which chain A has stored in its chain B client
+    counterparty types.Counterparty, // counterpartyConnectionIdentifier, counterpartyPrefix and counterpartyClientIdentifier
+    delayPeriod uint64,
+    clientID string, // clientID of chainA
+    clientState exported.ClientState, // clientState that chainA has for chainB
+    counterpartyVersions []exported.Version, // supported versions of chain A
+    proofInit []byte, // proof that chainA stored connectionEnd in state (on ConnOpenInit)
+    proofClient []byte, // proof that chainA stored a light client of chainB
+    proofConsensus []byte, // proof that chainA stored chainB's consensus state at consensus height
+    proofHeight exported.Height, // height at which relayer constructs proof of A storing connectionEnd in state
+    consensusHeight exported.Height, // latest height of chain B which chain A has stored in its chain B client
 ) ...
 ```
 

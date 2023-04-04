@@ -14,9 +14,10 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [production](/hands-on-exercise/5-run-in-prod/index.md).
-* Docker is installed.
-* You have the checkers blockchain codebase with the CosmJS elements. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements).
+* You understand the concepts of [production](/tutorials/9-path-to-prod/index.md).
+* Docker is installed and you [understand it](/tutorials/5-docker-intro/index.md).
+* You have the checkers **Go** blockchain codebase with the CosmJS elements. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements).
+* You have the checkers **CosmJS** codebase. If not, follow the [previous steps](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) or checkout the [relevant version](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
 
 </HighlightBox>
 
@@ -29,6 +30,7 @@ In this section, you will:
 * Prepare blockchain nodes.
 * Prepare a blockchain genesis.
 * Compose the lot in one orchestrated ensemble.
+* Test it.
 
 </HighlightBox>
 
@@ -42,7 +44,7 @@ In order to mimic a real setup, find an objective on which to focus. Here the ob
 * Two independent validator nodes, run by Alice and Bob respectively, that can only communicate with their own sentries and do not expose RPC endpoints.
 * Additionally, Alice's validator node uses Tendermint Key Management System (TMKMS) on a separate machine.
 * The two sentry nodes, run by Alice and Bob, expose endpoints to the _world_.
-* A regular node, run by Carol, that can communicate with only the sentries and exposes endpoints for use by clients.
+* A regular node, run by Carol, that can communicate with the _world_ and exposes endpoints for use by clients.
 
 ## Docker elements
 
@@ -52,14 +54,14 @@ You will run containers. You can start by giving them meaningful names:
 
 * Alice's containers: `sentry-alice`, `val-alice`, and `kms-alice`.
 * Bob's containers: `sentry-bob` and `val-bob`.
-* Carol's containers: `node-carol`.
+* Carol's container: `node-carol`.
 
 Docker lets you simulate private networks. To meaningfully achieve the above target setup in terms of network separation, you use Docker's user-defined networks. This means:
 
 * Alice's validator and key management system (KMS) are on their private network: name it `net-alice-kms`.
 * Alice's validator and sentry are on their private network: name it `net-alice`.
 * Bob's validator and sentry are on their private network: name it `net-bob`.
-* There is a public network on which both sentries and Carol's node run: name it `net-public`.
+* There is a public network, i.e. _the world_, on which both sentries and Carol's node run: name it `net-public`.
 
 Although every machine on the network is a bit different, in terms of Docker images there are only two image types:
 
@@ -75,19 +77,31 @@ First, build the executable(s) that will be launched by Docker Compose within th
 Update your `Makefile` with:
 
 ```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
-build-all:
+build-linux:
     GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+
+do-checksum-linux:
+    cd build && sha256sum \
+        checkersd-linux-amd64 checkersd-linux-arm64 \
+        > checkers-checksum-linux
+
+build-linux-with-checksum: build-linux do-checksum-linux
+
+build-darwin:
     GOOS=darwin GOARCH=amd64 go build -o ./build/checkersd-darwin-amd64 ./cmd/checkersd/main.go
     GOOS=darwin GOARCH=arm64 go build -o ./build/checkersd-darwin-arm64 ./cmd/checkersd/main.go
 
-do-checksum:
-    cd build && sha256sum \
-        checkersd-linux-amd64 checkersd-linux-arm64 \
-        checkersd-darwin-amd64 checkersd-darwin-arm64 \
-        > checkers_checksum
+build-all: build-linux build-darwin
 
-build-with-checksum: build-all do-checksum
+do-checksum-darwin:
+    cd build && sha256sum \
+        checkersd-darwin-amd64 checkersd-darwin-arm64 \
+        > checkers-checksum-darwin
+
+build-darwin-with-checksum: build-all-darwin do-checksum-darwin
+
+build-with-checksum: build-linux-with-checksum build-darwin-with-checksum
 ```
 
 If you have a CPU architecture that is neither `amd64` nor `arm64`, update your `Makefile` accordingly.
@@ -101,6 +115,14 @@ If you copy-pasted directly into `Makefile`, do not forget to convert the spaces
 Now run either command:
 
 <CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ make build-with-checksum
+```
+
+</CodeGroupItem>
 
 <CodeGroupItem title="With checkers_i">
 
@@ -134,10 +156,10 @@ Use this command if you did not already have the `checkers_i` image. This comman
 
 ---
 
-Now include the relevant executable inside your **production** image. Create a new `Dockerfile-ubuntu-prod` with:
+Now include the relevant executable inside your **production** image. You need to use a Debian/Ubuntu base image because you compiled on one in the previous step. Create a new `Dockerfile-checkersd-debian` with:
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-ubuntu-prod]
-FROM --platform=linux ubuntu:22.04
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-checkersd-debian]
+FROM --platform=linux debian:11-slim
 ARG BUILDARCH
 
 ENV LOCAL=/usr/local
@@ -150,7 +172,7 @@ ENTRYPOINT [ "checkersd" ]
 Build the image with:
 
 ```sh
-$ docker build -f Dockerfile-ubuntu-prod . -t checkersd_i
+$ docker build -f prod-sim/Dockerfile-checkersd-debian . -t checkersd_i
 ```
 
 <ExpansionPanel title="Troubleshooting">
@@ -162,6 +184,66 @@ Depending on your installed version of Docker, you may have to add the flags:
 ```
 
 Or just manually replace `${BUILDARCH}` with `amd64` or whichever is your architecture.
+
+</ExpansionPanel>
+
+<ExpansionPanel title="With alpine">
+
+Because you want to simulate production, you can make the case that you prefer to use the smaller `alpine` Docker image. Alpine and Debian use different C compilers with different **dynamically**-linked C library dependencies. This makes their compiled executables incompatible – at least with the `go build` commands as they are declared in the Makefile.
+
+In this case, you have the choice between:
+
+1. Compiling from within alpine, using a [multi-stage Docker build](https://docs.docker.com/build/building/multi-stage/).
+
+    ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-checkersd-alpine]
+    FROM --platform=linux golang:1.18.7-alpine AS builder
+
+    RUN apk update
+    RUN apk add make
+
+    WORKDIR /original
+    ADD . /original
+    RUN go build -o ./build/checkersd ./cmd/checkersd/main.go
+
+    FROM --platform=linux alpine
+
+    ENV LOCAL=/usr/local
+
+    COPY --from=builder /original/build/checkersd ${LOCAL}/bin/checkersd
+
+    ENTRYPOINT [ "checkersd" ]
+    ```
+
+    Then building the image with:
+
+    ```sh
+    $ docker build -f prod-sim/Dockerfile-checkersd-alpine . -t checkersd_i
+    ```
+
+2. Instructing the compiler to link the C libraries **statically** with the use of the `CGO_ENABLED=0` [option](https://medium.com/pragmatic-programmers/compiling-your-go-application-for-co-ntainers-b513190471aa) in `go build`, or even in your `Makefile`:
+
+    ```diff-make
+        build-linux:
+    -      GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    -      GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    +      CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
+    +      CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
+    ```
+
+    Then run `make build-with-checksum` again and use `alpine` in a new Dockerfile:
+
+    ```Dockerfile
+    FROM --platform=linux alpine
+    ARG BUILDARCH
+
+    ENV LOCAL=/usr/local
+
+    COPY build/checkersd-linux-${BUILDARCH} ${LOCAL}/bin/checkersd
+
+    ENTRYPOINT [ "checkersd" ]
+    ```
+
+For maximum portability of your executables, you may in fact want to add `CGO_ENABLED=0` to all your `go build` commands.
 
 </ExpansionPanel>
 
@@ -214,7 +296,11 @@ Because here it is version 0.34, it is a good idea to use the KMS from [version 
 
 Having collected the requisites, you can create the multi-staged Docker image in a new `Dockerfile-ubuntu-tmkms`:
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-ubuntu-tmkms]
+<CodeGroup>
+
+<CodeGroupItem title="With debian">
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-tmkms-debian]
 FROM --platform=linux rust:1.64.0 AS builder
 
 RUN apt-get update
@@ -230,18 +316,62 @@ WORKDIR /root/tmkms
 RUN cargo build --release --features=softsign
 
 # The production image starts here
-FROM --platform=linux ubuntu:22.04
+FROM --platform=linux debian:11-slim
 
 COPY --from=builder /root/tmkms/target/release/tmkms ${LOCAL}/bin
 
 ENTRYPOINT [ "tmkms" ]
 ```
 
-As you can see, the production stage is only three lines. Build the image as usual with:
+Build the image as usual with:
 
 ```sh
-$ docker build -f Dockerfile-ubuntu-tmkms . -t tmkms_i:v0.12.2
+$ docker build -f prod-sim/Dockerfile-tmkms-debian . -t tmkms_i:v0.12.2
 ```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="With alpine">
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/Dockerfile-tmkms-alpine]
+FROM --platform=linux rust:1.64.0-alpine AS builder
+
+RUN apk update
+RUN apk add libusb-dev=1.0.26-r0 musl-dev git
+
+ENV LOCAL=/usr/local
+ENV RUSTFLAGS=-Ctarget-feature=+aes,+ssse3
+ENV TMKMS_VERSION=v0.12.2
+
+WORKDIR /root
+RUN git clone --branch ${TMKMS_VERSION} https://github.com/iqlusioninc/tmkms.git
+WORKDIR /root/tmkms
+RUN cargo build --release --features=softsign
+
+# The production image starts here
+FROM --platform=linux alpine
+
+COPY --from=builder /root/tmkms/target/release/tmkms ${LOCAL}/bin
+
+ENTRYPOINT [ "tmkms" ]
+```
+
+Build the image as usual with:
+
+```sh
+$ docker build -f prod-sim/Dockerfile-tmkms-alpine . -t tmkms_i:v0.12.2
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+As you can see, the production stage is only three lines.
+
+* If you built with Debian, the image should be about 90 MB.
+* If you built with Alpine, the image should be about 20 MB.
 
 Now run it:
 
@@ -255,20 +385,27 @@ It returns you information about usage. You have just built the Tendermint Key M
 
 Each container needs access to its private information, such as keys, genesis, and database. To facilitate data access and separation between containers, create folders that will map as a volume to the default `/root/.checkers` or `/root/tmkms` inside containers. One for each container:
 
-```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/docker]
-$ mkdir -p docker/kms-alice
-$ mkdir -p docker/node-carol
-$ mkdir -p docker/sentry-alice
-$ mkdir -p docker/sentry-bob
-$ mkdir -p docker/val-alice
-$ mkdir -p docker/val-bob
+```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/prod-sim]
+$ mkdir -p prod-sim/kms-alice
+$ mkdir -p prod-sim/node-carol
+$ mkdir -p prod-sim/sentry-alice
+$ mkdir -p prod-sim/sentry-bob
+$ mkdir -p prod-sim/val-alice
+$ mkdir -p prod-sim/val-bob
+```
+
+Also add the desktop computers of Alice and Bob, so that they never have to put keys on a server that should never see them:
+
+```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod/prod-sim]
+$ mkdir -p prod-sim/desk-alice
+$ mkdir -p prod-sim/desk-bob
 ```
 
 For instance, when running a container for `val-alice`, you would create the volume mapping with a command like:
 
 ```sh
 $ docker run ... \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/val-alice:/root/.checkers \
     checkersd_i ...
 ```
 
@@ -276,7 +413,7 @@ And for the KMS, like so:
 
 ```sh
 $ docker run ... \
-    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
     tmkms_i:v0.12.2 ...
 ```
 
@@ -285,15 +422,15 @@ $ docker run ... \
 Before you can change the configuration you need to initialize it. Do it on all nodes with this one-liner:
 
 ```sh
-$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+$ echo -e desk-alice'\n'desk-bob'\n'node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
     | xargs -I {} \
     docker run --rm -i \
-    -v $(pwd)/docker/{}:/root/.checkers \
+    -v $(pwd)/prod-sim/{}:/root/.checkers \
     checkersd_i \
     init checkers
 ```
 
-As a secondary effect, this also creates the first shot of `config/genesis.json` on every node, although you will start work with the one on `val-alice`.
+As a secondary effect, this also creates the first shot of `config/genesis.json` on every node, although you will start work with the one on `desk-alice`.
 
 Early decisions that you can make at this stage are:
 
@@ -308,37 +445,36 @@ Do you need that many decimals? Yes and no. Depending on your version of the Cos
 
 The default initialization sets the base token to `stake`, so to get it to be `upawn` you need to make some changes:
 
-1. In the authoritative [`config/genesis.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/genesis.json#L63) (`val-alice`'s):
+1. In the authoritative [`config/genesis.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/genesis.json#L63) (`desk-alice`'s):
 
-  ```sh
-  $ docker run --rm -it \
-      -v $(pwd)/docker/val-alice:/root/.checkers \
-      --entrypoint sed \
-      checkersd_i \
-      -i 's/"stake"/"upawn"/g' /root/.checkers/config/genesis.json
-  ```
+    ```sh
+    $ docker run --rm -it \
+        -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
+        --entrypoint sed \
+        checkersd_i \
+        -i 's/"stake"/"upawn"/g' /root/.checkers/config/genesis.json
+    ```
   
-  Note how the command overrides the default `checkersd` entry point and replaces it with `--entrypoint sed`.
+    Note how the command overrides the default `checkersd` entry point and replaces it with `--entrypoint sed`.
+2. In all seven [`config/app.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/app.toml#L11):
 
-2. In all five [`config/app.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/app.toml#L11):
+    ```sh
+    $ echo -e desk-alice'\n'desk-bob'\n'node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+        | xargs -I {} \
+        docker run --rm -i \
+        -v $(pwd)/prod-sim/{}:/root/.checkers \
+        --entrypoint sed \
+        checkersd_i \
+        -Ei 's/([0-9]+)stake/\1upawn/g' /root/.checkers/config/app.toml
+    ```
 
-  ```sh
-  $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
-      | xargs -I {} \
-      docker run --rm -i \
-      -v $(pwd)/docker/{}:/root/.checkers \
-      --entrypoint sed \
-      checkersd_i \
-      -Ei 's/([0-9]+)stake/\1upawn/g' /root/.checkers/config/app.toml
-  ```
-
-Make sure that [`config/client.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/client.toml#L9) mentions `checkers-1`, the chain's name:
+Make sure that [`config/client.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/client.toml#L9) mentions `checkers-1`, the chain's name:
 
 ```sh
-$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+$ echo -e desk-alice'\n'desk-bob'\n'node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
     | xargs -I {} \
     docker run --rm -i \
-    -v $(pwd)/docker/{}:/root/.checkers \
+    -v $(pwd)/prod-sim/{}:/root/.checkers \
     --entrypoint sed \
     checkersd_i \
     -Ei 's/^chain-id = .*$/chain-id = "checkers-1"/g' \
@@ -347,7 +483,7 @@ $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
 
 ### Keys
 
-Some keys are created automatically, like the [node keys](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/node-carol/config/node_key.json). For others, you have to create them yourself. You will create:
+Some keys are created automatically, like the [node keys](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/node_key.json). For others, you have to create them yourself. You will create:
 
 * The validator operator keys for Alice and Bob.
 * The consensus keys, whether they stay on Bob's node or are kept inside Alice's KMS.
@@ -356,16 +492,16 @@ Start with the keys for the validators and Alice's KMS Tendermint key.
 
 ### Validator operator keys
 
-First, you need to create the two validators' operation keys. Such a key is not meant to stay on the node when it runs, it is meant to be used at certain junctures only, for instance, to stake on behalf of Alice (or Bob). Nonetheless, you are going to create them by running containers. Because you want to keep these keys inside and outside of containers, do the following:
+First, you need to create the two validators' operation keys. Such a key is not meant to stay on the validating node when it runs, it is meant to be used at certain junctures only (for instance, to stake on behalf of Alice or Bob, as from their respective desktop computers). So you are going to create them by running "desktop" containers:
 
 1. Use the `--keyring-backend file`.
 2. Keep them in the mapped volume with `--keyring-dir /root/.checkers/keys`.
 
-Create the operator key for `val-alice`:
+Create on `desk-alice` the operator key for `val-alice`:
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i \
     keys \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
@@ -374,8 +510,8 @@ $ docker run --rm -it \
 
 Use a passphrase you can remember. It does not need to be exceptionally complex as this is all a local simulation. This exercise uses `password` and stores this detail on file, which will become handy.
 
-```sh [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/keys/passphrase.txt]
-$ echo -n password > docker/val-alice/keys/passphrase.txt
+```sh [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/keys/passphrase.txt]
+$ echo -n password > prod-sim/desk-alice/keys/passphrase.txt
 ```
 
 Because with this prod simulation you care less about safety, so much less in fact, you can even keep the mnemonic on file too.
@@ -383,14 +519,13 @@ Because with this prod simulation you care less about safety, so much less in fa
 Do the same for `val-bob`:
 
 ```sh
-$ mkdir -p docker/val-bob/keys
-$ echo -n password > docker/val-bob/keys/passphrase.txt
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-bob:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
     checkersd_i \
     keys \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     add bob
+$ echo -n password > prod-sim/desk-bob/keys/passphrase.txt
 ```
 
 ### Alice's consensus key on the KMS
@@ -407,7 +542,7 @@ As per [the documentation](https://github.com/iqlusioninc/tmkms/tree/v0.12.2#con
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
     tmkms_i:v0.12.2 \
     init /root/tmkms
 ```
@@ -420,7 +555,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     <CodeGroupItem title="TOML">
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L27]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/kms-alice/tmkms.toml#L27]
     [[validator]]
     ...
     protocol_version = "v0.34"
@@ -432,7 +567,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     ```sh
     $ docker run --rm -i \
-      -v $(pwd)/docker/kms-alice:/root/tmkms \
+      -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
       --entrypoint sed \
       tmkms_i:v0.12.2 \
       -Ei 's/^protocol_version = .*$/protocol_version = "v0.34"/g' \
@@ -449,7 +584,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     <CodeGroupItem title="TOML">
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L19]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/kms-alice/tmkms.toml#L19]
     [[providers.softsign]]
     ...
     path = "/root/tmkms/secrets/val-alice-consensus.key"
@@ -461,7 +596,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     ```sh
     $ docker run --rm -i \
-      -v $(pwd)/docker/kms-alice:/root/tmkms \
+      -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
       --entrypoint sed \
       tmkms_i:v0.12.2 \
       -Ei 's/path = "\/root\/tmkms\/secrets\/cosmoshub-3-consensus.key"/path = "\/root\/tmkms\/secrets\/val-alice-consensus.key"/g' \
@@ -478,7 +613,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     <CodeGroupItem title="TOML">
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L24]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/kms-alice/tmkms.toml#L24]
     [[chain]]
     id = "checkers-1"
     ...
@@ -495,7 +630,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
     ```sh
     $ docker run --rm -i \
-        -v $(pwd)/docker/kms-alice:/root/tmkms \
+        -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
         --entrypoint sed \
         tmkms_i:v0.12.2 \
         -Ei 's/cosmoshub-3/checkers-1/g' /root/tmkms/tmkms.toml
@@ -509,29 +644,31 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
 Now you need to import `val-alice`'s consensus key in `secrets/val-alice-consensus.key`.
 
-The private key will no longer be needed on `val-alice`. However, during the genesis creation Alice will need access to her consensus public key. Save it in a new [`pub_validator_key.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/pub_validator_key.json) without any new line:
+The private key will no longer be needed on `val-alice`. However, during the genesis creation Alice will need access to her consensus public key. Save it in a new [`pub_validator_key.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/pub_validator_key.json) on Alice's desk without any new line:
 
 ```sh
 $ docker run --rm -t \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/val-alice:/root/.checkers \
     checkersd_i \
     tendermint show-validator \
     | tr -d '\n' | tr -d '\r' \
-    > docker/val-alice/config/pub_validator_key.json
+    > prod-sim/desk-alice/config/pub_validator_key-val-alice.json
 ```
 
 The consensus private key should not reside on the validator. You can simulate that by moving it out:
 
 ```sh
-$ mv docker/val-alice/config/priv_validator_key.json \
-  docker/kms-alice/secrets/priv_validator_key-val-alice.json
+$ cp prod-sim/val-alice/config/priv_validator_key.json \
+  prod-sim/desk-alice/config/priv_validator_key-val-alice.json
+$ mv prod-sim/val-alice/config/priv_validator_key.json \
+  prod-sim/kms-alice/secrets/priv_validator_key-val-alice.json
 ```
 
-Import it into the `softsign` "device" as defined in [`tmkms.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L19):
+Import it into the `softsign` "device" as defined in [`tmkms.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/kms-alice/tmkms.toml#L19):
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
     -w /root/tmkms \
     tmkms_i:v0.12.2 \
     softsign import secrets/priv_validator_key-val-alice.json \
@@ -541,8 +678,8 @@ $ docker run --rm -i \
 On start, `val-alice` may still recreate a missing private key file due to how defaults are handled in the code. To prevent that, you can instead copy it from `sentry-alice` where it has no value.
 
 ```sh
-$ cp docker/sentry-alice/config/priv_validator_key.json \
-    docker/val-alice/config/
+$ cp prod-sim/sentry-alice/config/priv_validator_key.json \
+    prod-sim/val-alice/config/
 ```
 
 With the key created you now set up the connection from `kms-alice` to `val-alice`.
@@ -555,7 +692,7 @@ Choose a port unused on `val-alice`, for instance `26659`, and inform `kms-alice
 
 <CodeGroupItem title="TOML">
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/kms-alice/tmkms.toml#L25]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/kms-alice/tmkms.toml#L25]
 [[validator]]
 ...
 addr = "tcp://val-alice:26659"
@@ -567,7 +704,7 @@ addr = "tcp://val-alice:26659"
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/kms-alice:/root/tmkms \
+    -v $(pwd)/prod-sim/kms-alice:/root/tmkms \
     --entrypoint sed \
     tmkms_i:v0.12.2 \
     -Ei 's/^addr = "tcp:.*$/addr = "tcp:\/\/val-alice:26659"/g' /root/tmkms/tmkms.toml
@@ -591,7 +728,7 @@ Do not forget, you must inform Alice's validator that it should indeed listen on
 
 <CodeGroupItem title="TOML">
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L68]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L68]
 priv_validator_laddr = "tcp://0.0.0.0:26659"
 ```
 
@@ -601,7 +738,7 @@ priv_validator_laddr = "tcp://0.0.0.0:26659"
 
 ```sh
 $ docker run --rm -i \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
+  -v $(pwd)/prod-sim/val-alice:/root/.checkers \
   --entrypoint sed \
   checkersd_i \
   -Ei 's/priv_validator_laddr = ""/priv_validator_laddr = "tcp:\/\/0.0.0.0:26659"/g' \
@@ -626,7 +763,7 @@ Make it listen on an IP address that is within the KMS private network.
 
 <CodeGroupItem title="TOML">
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L61]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L61]
 # priv_validator_key_file = "config/priv_validator_key.json"
 ```
 
@@ -636,7 +773,7 @@ Make it listen on an IP address that is within the KMS private network.
 
 ```sh
 $ docker run --rm -i \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
+  -v $(pwd)/prod-sim/val-alice:/root/.checkers \
   --entrypoint sed \
   checkersd_i \
   -Ei 's/^priv_validator_key_file/# priv_validator_key_file/g' \
@@ -653,7 +790,7 @@ $ docker run --rm -i \
 
 <CodeGroupItem title="TOML">
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L64]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L64]
 # priv_validator_state_file = "data/priv_validator_state.json"
 ```
 
@@ -663,7 +800,7 @@ $ docker run --rm -i \
 
 ```sh
 $ docker run --rm -i \
-  -v $(pwd)/docker/val-alice:/root/.checkers \
+  -v $(pwd)/prod-sim/val-alice:/root/.checkers \
   --entrypoint sed \
   checkersd_i \
   -Ei 's/^priv_validator_state_file/# priv_validator_state_file/g' \
@@ -677,8 +814,8 @@ $ docker run --rm -i \
 Before moving on, make sure that the validator still has a `priv_validator_key.json` because the code may complain if the file cannot be found. You can copy the key from `sentry-alice`, which does not present any risk:
 
 ```sh
-$ cp docker/sentry-alice/config/priv_validator_key.json \
-    docker/val-alice/config
+$ cp prod-sim/sentry-alice/config/priv_validator_key.json \
+    prod-sim/val-alice/config
 ```
 
 ### Genesis
@@ -700,7 +837,7 @@ Earlier you chose `checkers-1`, so you adjust it here too:
 
 <CodeGroupItem title="JSON">
 
-```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/genesis.json#L3]
+```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/genesis.json#L3]
 "chain_id": "checkers-1",
 ```
 
@@ -710,7 +847,7 @@ Earlier you chose `checkers-1`, so you adjust it here too:
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     --entrypoint sed \
     checkersd_i \
     -Ei 's/"chain_id": "checkers"/"chain_id": "checkers-1"/g' \
@@ -727,7 +864,7 @@ In this setup, Alice starts with 1,000 PAWN and Bob with 500 PAWN, of which Alic
 
 ```sh
 $ ALICE=$(echo password | docker run --rm -i \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i \
     keys \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
@@ -740,29 +877,29 @@ Have Alice add her initial balance in the genesis:
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i \
     add-genesis-account $ALICE 1000000000upawn
 ```
 
-Now move the genesis file to `val-bob`. This mimics what would happen in a real-life setup:
+Now move the genesis file to `desk-bob`. This mimics what would happen in a real-life setup:
 
 ```sh
-$ mv docker/val-alice/config/genesis.json \
-    docker/val-bob/config/
+$ mv prod-sim/desk-alice/config/genesis.json \
+    prod-sim/desk-bob/config/
 ```
 
 Have Bob add his own initial balance:
 
 ```sh
 $ BOB=$(echo password | docker run --rm -i \
-    -v $(pwd)/docker/val-bob:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
     checkersd_i \
     keys \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     show bob --address)
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-bob:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
     checkersd_i \
     add-genesis-account $BOB 500000000upawn
 ```
@@ -773,11 +910,18 @@ Alice and Bob both have initial stakes that they define via genesis transactions
 
 #### Bob's stake
 
-Bob is not using the Tendermint KMS but instead uses the validator key on file. Bob appears in second position in `app_state.accounts`, so his `account_number` ought to be `1`, but it is in fact written as `0`, so you use `0`:
+Bob is not using the Tendermint KMS but instead uses the validator key on file `priv_validator_key.json`. So, first make a copy of it on Bob's desktop.
+
+```sh
+$ cp prod-sim/val-bob/config/priv_validator_key.json \
+    prod-sim/desk-bob/config/priv_validator_key.json 
+```
+
+Bob appears in second position in `app_state.accounts`, so his `account_number` ought to be `1`; but it is in fact written as `0`, so you use `0`:
 
 ```sh
 $ echo password | docker run --rm -i \
-    -v $(pwd)/docker/val-bob:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
     checkersd_i \
     gentx bob 40000000upawn \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
@@ -790,8 +934,8 @@ $ echo password | docker run --rm -i \
 Again, insert Bob's chosen passphrase instead of `password`. Return the genesis to Alice:
 
 ```sh
-$ mv docker/val-bob/config/genesis.json \
-    docker/val-alice/config/
+$ mv prod-sim/desk-bob/config/genesis.json \
+    prod-sim/desk-alice/config/
 ```
 
 It is Alice's turn to add her staking transaction.
@@ -802,12 +946,12 @@ Create Alice's genesis transaction using the specific validator public key that 
 
 ```sh
 $ echo password | docker run --rm -i \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i \
     gentx alice 60000000upawn \
     --keyring-backend file --keyring-dir /root/.checkers/keys \
     --account-number 0 --sequence 0 \
-    --pubkey $(cat docker/val-alice/config/pub_validator_key.json) \
+    --pubkey $(cat prod-sim/desk-alice/config/pub_validator_key-val-alice.json) \
     --chain-id checkers-1 \
     --gas 1000000 \
     --gas-prices 0.1upawn
@@ -824,10 +968,10 @@ It is useful to know this `--pubkey` method. If you were using a hardware key lo
 With the two initial staking transactions created, have Alice include both of them in the genesis:
 
 ```sh
-$ cp docker/val-bob/config/gentx/gentx-* \
-    docker/val-alice/config/gentx
+$ cp prod-sim/desk-bob/config/gentx/gentx-* \
+    prod-sim/desk-alice/config/gentx
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i collect-gentxs
 ```
 
@@ -835,7 +979,7 @@ As an added precaution, confirm that it is a valid genesis:
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     checkersd_i \
     validate-genesis
 ```
@@ -855,10 +999,12 @@ All the nodes that will run the executable need the final version of the genesis
 <CodeGroupItem title="Separate commands">
 
 ```sh
-$ cp docker/val-alice/config/genesis.json docker/node-carol/config
-$ cp docker/val-alice/config/genesis.json docker/sentry-alice/config
-$ cp docker/val-alice/config/genesis.json docker/sentry-bob/config
-$ cp docker/val-alice/config/genesis.json docker/val-bob/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/desk-bob/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/node-carol/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/sentry-alice/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/sentry-bob/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/val-alice/config
+$ cp prod-sim/desk-alice/config/genesis.json prod-sim/val-bob/config
 ```
 
 </CodeGroupItem>
@@ -866,9 +1012,9 @@ $ cp docker/val-alice/config/genesis.json docker/val-bob/config
 <CodeGroupItem title="One-liner">
 
 ```sh
-$ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-bob \
+$ echo -e desk-bob'\n'node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
     | xargs -I {} \
-    cp docker/val-alice/config/genesis.json docker/{}/config
+    cp prod-sim/desk-alice/config/genesis.json prod-sim/{}/config
 ```
 
 </CodeGroupItem>
@@ -881,7 +1027,7 @@ Because the validators are on a private network and fronted by sentries, you nee
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/val-alice:/root/.checkers \
+    -v $(pwd)/prod-sim/val-alice:/root/.checkers \
     checkersd_i \
     tendermint show-node-id
 ```
@@ -905,13 +1051,13 @@ Where:
 * `val-alice` will be resolved via Docker's DNS.
 * `26656` is the port as found in `val-alice`'s configuration:
 
-  ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L202]
+  ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L202]
   laddr = "tcp://0.0.0.0:26656"
   ```
 
 In the case of `val-alice`, only `sentry-alice` has access to it. Moreover, this is a persistent node. So you add it in `sentry-alice`'s configuration:
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/sentry-alice/config/config.toml#L215]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/sentry-alice/config/config.toml#L215]
 persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 ```
 
@@ -919,25 +1065,25 @@ persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/sentry-bob:/root/.checkers \
+    -v $(pwd)/prod-sim/sentry-bob:/root/.checkers \
     checkersd_i \
     tendermint show-node-id
 $ docker run --rm -i \
-    -v $(pwd)/docker/node-carol:/root/.checkers \
+    -v $(pwd)/prod-sim/node-carol:/root/.checkers \
     checkersd_i \
     tendermint show-node-id
 ```
 
 Eventually, in `sentry-alice`, you should have:
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/sentry-alice/config/config.toml#L212-L215]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/sentry-alice/config/config.toml#L212-L215]
 seeds = "7009cc51174dce87c31f537fe8fed906349a27f4@sentry-bob:26656,8f1bafad62a4a1f8678214d96a8b2ae2ed140cf7@node-carol:26656"
 persistent_peers = "f2673103417334a839f5c20096909c3023ba4903@val-alice:26656"
 ```
 
 Before moving on to other nodes, remember that `sentry-alice` should keep `val-alice` secret. Set:
 
-```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/sentry-alice/config/config.toml#L261]
+```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/sentry-alice/config/config.toml#L261]
 private_peer_ids = "f2673103417334a839f5c20096909c3023ba4903"
 ```
 
@@ -947,19 +1093,19 @@ Repeat the procedure for the other nodes, taking into account their specific cir
 
 * `val-alice`'s:
   
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-alice/config/config.toml#L215]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L215]
     persistent_peers = "83144b58031953ad60eaccb0a790955450f1ddef@sentry-alice:26656"
     ```
 
 * `val-bob`'s:
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/val-bob/config/config.toml#L215]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-bob/config/config.toml#L215]
     persistent_peers = "7009cc51174dce87c31f537fe8fed906349a27f4@sentry-bob:26656"
     ```
 
 * `sentry-bob`'s:
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/sentry-bob/config/config.toml#L212-L215]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/sentry-bob/config/config.toml#L212-L215]
     seeds = "83144b58031953ad60eaccb0a790955450f1ddef@sentry-alice:26656,8f1bafad62a4a1f8678214d96a8b2ae2ed140cf7@node-carol:26656"
     persistent_peers = "1e0d99ccf83b49e7aca852e82074c8e7f0e99d73@val-bob:26656"
     private_peer_ids = "1e0d99ccf83b49e7aca852e82074c8e7f0e99d73"
@@ -967,7 +1113,7 @@ Repeat the procedure for the other nodes, taking into account their specific cir
 
 * `node-carol`'s:
 
-    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/node-carol/config/config.toml#L212]
+    ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/config.toml#L212]
     seeds = "83144b58031953ad60eaccb0a790955450f1ddef@sentry-alice:26656,7009cc51174dce87c31f537fe8fed906349a27f4@sentry-bob:26656"
     ```
 
@@ -988,7 +1134,7 @@ Carol created her node to open it to the public. Make sure that her node's RPC l
 
 <CodeGroupItem title="TOML">
 
-```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/node-carol/config/config.toml#L91]
+```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/config.toml#L91]
 laddr = "tcp://0.0.0.0:26657"
 ```
 
@@ -998,7 +1144,7 @@ laddr = "tcp://0.0.0.0:26657"
 
 ```sh
 $ docker run --rm -i \
-    -v $(pwd)/docker/node-carol:/root/.checkers \
+    -v $(pwd)/prod-sim/node-carol:/root/.checkers \
     --entrypoint sed \
     checkersd_i \
     -Ei '0,/^laddr = .*$/{s/^laddr = .*$/laddr = "tcp:\/\/0.0.0.0:26657"/}' \
@@ -1010,6 +1156,99 @@ Note that it has to replace only the first occurrence in the whole.
 </CodeGroupItem>
 
 </CodeGroup>
+
+### CORS
+
+As a last step, you can disable CORS policies so that you are not surprised if you use a node from a Web browser.
+
+1. In `config.toml`:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="TOML">
+
+  ```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/config.toml#L96]
+  cors_allowed_origins = ["*"]
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="One-liner">
+
+  ```sh
+  echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+      | xargs -I {} \
+      docker run --rm -i \
+      -v $(pwd)/prod-sim/{}:/root/.checkers \
+      --entrypoint sed \
+      checkersd_i \
+      -Ei 's/^cors_allowed_origins = \[\]/cors_allowed_origins = \["\*"\]/g' \
+      /root/.checkers/config/config.toml
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+2. In `app.toml`, first location:
+
+
+  <CodeGroup>
+
+  <CodeGroupItem title="TOML">
+
+  ```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/app.toml#L129]
+  enabled-unsafe-cors = true
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="One-liner">
+
+  ```sh
+  echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+      | xargs -I {} \
+      docker run --rm -i \
+      -v $(pwd)/prod-sim/{}:/root/.checkers \
+      --entrypoint sed \
+      checkersd_i \
+      -Ei 's/^enabled-unsafe-cors = false/enabled-unsafe-cors = true/g' \
+      /root/.checkers/config/app.toml
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+3. In `app.toml`, second location:
+
+
+  <CodeGroup>
+
+  <CodeGroupItem title="TOML">
+
+  ```json [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/app.toml#L181]
+  enable-unsafe-cors = true
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="One-liner">
+
+  ```sh
+  echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
+      | xargs -I {} \
+      docker run --rm -i \
+      -v $(pwd)/prod-sim/{}:/root/.checkers \
+      --entrypoint sed \
+      checkersd_i \
+      -Ei 's/^enable-unsafe-cors = false/enable-unsafe-cors = true/g' \
+      /root/.checkers/config/app.toml
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
 
 ## Compose elements
 
@@ -1029,7 +1268,7 @@ You define the different containers as `services`. Important elements to start w
 * In `image`, you declare the Docker image to use.
 * In `command`, you define the command to use when launching the image.
 
-In a new [`docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml), write:
+In a new [`prod-sim/docker-compose.yml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml), write:
 
 ```yaml
 version: "3.7"
@@ -1067,11 +1306,13 @@ services:
     image: checkersd_i
 ```
 
+Of course, Alice's and Bob's desktop computers are not part of the server infrastructure.
+
 You are going to further refine the service definitions next, starting with the disk volumes.
 
 ### The data each container needs
 
-Each container needs to access its own private folder, prepared earlier, and only that folder. Declare the volume mappings:
+Each container needs to access its own private folder, prepared earlier, and only that folder. Declare the volume mappings with paths relative to the `docker-compose.yml` file:
 
 ```yaml
 services:
@@ -1079,39 +1320,39 @@ services:
   kms-alice:
     ...
     volumes:
-      - ./docker/kms-alice:/root/tmkms
+      - ./kms-alice:/root/tmkms
 
   val-alice:
     ...
     volumes:
-      - ./docker/val-alice:/root/.checkers
+      - ./val-alice:/root/.checkers
 
   sentry-alice:
     ...
     volumes:
-      - ./docker/sentry-alice:/root/.checkers
+      - ./sentry-alice:/root/.checkers
 
   val-bob:
     ...
     volumes:
-      - ./docker/val-bob:/root/.checkers
+      - ./val-bob:/root/.checkers
   
   sentry-bob:
     ...
     volumes:
-      - ./docker/sentry-bob:/root/.checkers
+      - ./sentry-bob:/root/.checkers
 
   node-carol:
     ...
     volumes:
-      - ./docker/node-carol:/root/.checkers
+      - ./node-carol:/root/.checkers
 ```
 
 ### The networks they run in
 
-The user-defined networks need to mimic the desired separation of machines/containers can be self-explanatorily declared as:
+The user-defined networks need to mimic the desired separation of machines/containers, it can be self-explanatorily declared as:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L3-L7]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L3-L7]
 networks:
   net-alice-kms:
   net-alice:
@@ -1162,7 +1403,7 @@ services:
 
 The KMS connects to the node and can reconnect. So have `val-alice` start after `kms-alice`:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L25-L26]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L25-L26]
 services:
 
   val-alice:
@@ -1173,7 +1414,7 @@ services:
 
 With all these computers on their Docker networks, you may still want to access one of them to query the blockchain, or to play games. In order to make your host computer look like an open node, expose Carol's node on all addresses of your host:
 
-```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker-compose.yml#L69-L70]
+```yaml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/docker-compose.yml#L69-L70]
 services:
 
   node-carol:
@@ -1193,16 +1434,19 @@ After this long preparation, before launch, it could be a good time to make a Gi
 You are now ready to start your setup with a name other than the folder it is running in:
 
 ```sh
-$ docker compose --project-name checkers-prod up --detach
+$ docker compose \
+    --file prod-sim/docker-compose.yml \
+    --project-name checkers-prod up \
+    --detach
 ```
 
 At this point, it should be apparent that you need to update `.gitignore`. Add:
 
 ```gitignore [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/.gitignore#L4-L7]
 build/
-docker/*/config/addrbook.json
-docker/*/data/*
-!docker/*/data/priv_validator_state.json
+prod-sim/*/config/addrbook.json
+prod-sim/*/data/*
+!prod-sim/*/data/priv_validator_state.json
 ```
 
 Note how `priv_validator_state.json` is necessary if you want to try again on another host, otherwise, it would be ignored by Git.
@@ -1214,6 +1458,23 @@ Your six containers are running. To monitor their status, and confirm that they 
 Now you can connect to `node-carol` to start interacting with the blockchain as you would a normal node. For instance, to ask a simple `status`:
 
 <CodeGroup>
+
+<CodeGroupItem title="In net-public">
+
+```sh
+$ docker run --rm -it \
+    --network checkers-prod_net-public \
+    checkersd_i status \
+    --node "tcp://node-carol:26657"
+```
+
+Note how the `net-public` network name is prefixed with the Compose project name. If in doubt, you can run:
+
+```sh
+$ docker network ls
+```
+
+</CodeGroupItem>
 
 <CodeGroupItem title="Local Mac">
 
@@ -1230,19 +1491,6 @@ $ ./build/checkersd-darwin-amd64 status \
 > ./build/checkersd-windows-amd64 status \
      --node "tcp://localhost:26657"
 ```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="In net-public">
-
-```sh
-$ docker run --rm -it \
-    --network checkers-prod_net-public \
-    checkersd_i status \
-    --node "tcp://node-carol:26657"
-```
-
-Note how the `net-public` network name is prefixed with the Compose project name.
 
 </CodeGroupItem>
 
@@ -1266,13 +1514,13 @@ From this point on everything you already know how to do, such as connecting to 
 
 Whenever you submit a transaction to `node-carol`, it will be propagated to the sentries and onward to the validators.
 
-At this juncture, you may ask: Is it still possible to run a full game in almost a single block as you did earlier in the CosmJS integration tests? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B...order in which they were sent?
+At this juncture, you may ask: Is it still possible to run a full game in almost a single block, as you did earlier in the [CosmJS integration tests](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md#multiple-transactions-in-a-block)? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
 To find out:
 
 * Update `client/.env` so that:
     * You connect within `net-public` to [`RPC_URL="http://node-carol:26657"`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L1).
-    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `docker/val-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Then do the same for Bob.
+    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `prod-sim/desk-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Then do the same for Bob.
     * Update the [`ADDRESS_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L4) address to contain the correct ones, and repeat the same for Bob.
 * Skip the call to the (Ignite) faucet by adding a `return` in the relevant `before` in the test file:
 
@@ -1280,14 +1528,8 @@ To find out:
   before("credit test accounts", async function () {
       return
       ...
-  }
+  })
   ```
-
-* Double all the timeouts. For instance:
-
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L84]
-    this.timeout(10_000) // instead of 5_000
-    ```
 
 * Text-replace all the [`token`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L89) with `upawn`.
 
@@ -1297,7 +1539,7 @@ To find out:
   $ docker run --rm -it \
       -v $(pwd)/client:/client -w /client \
       --network checkers-prod_net-public \
-      node:18.7 \
+      node:18.7-slim \
       npm test
   ```
 
@@ -1327,7 +1569,7 @@ If encountering this or other errors, you may want to do a state reset on all no
 $ echo -e node-carol'\n'sentry-alice'\n'sentry-bob'\n'val-alice'\n'val-bob \
     | xargs -I {} \
     docker run --rm -i \
-    -v $(pwd)/docker/{}:/root/.checkers \
+    -v $(pwd)/prod-sim/{}:/root/.checkers \
     checkersd_i \
     tendermint unsafe-reset-all \
     --home /root/.checkers
@@ -1362,11 +1604,88 @@ services:
 
 <PanelListItem number="4" :last="true">
 
-If you want to erase all states after a good run, and if you have a Git commit from which to restore the state files, you can create a [new script](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/docker/unsafe-reset-state.sh) for that.
+If you want to erase all states after a good run, and if you have a Git commit from which to restore the state files, you can create a [new script](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/unsafe-reset-state.sh) for that.
 
 </PanelListItem>
 
 </ExpansionPanel>
+
+## Self-contained checkers blockchain
+
+Now may be a good time to prepare a standalone setup with the following characteristics:
+
+* It uses a single Docker image.
+* Such an image could be generated and uploaded into a Docker image registry to increase ease of use.
+* It can be run by someone who just wants to try checkers without going through node and genesis setups. 
+* The `Dockerfile` does not need to be in the repository to be usable. It could be copied elsewhere and still work.
+* The image should be as small as is reasonable.
+* It uses `stake` instead of `upawn` so as to be compatible with the current state of checkers CosmJS.
+
+There is a single server, with a single validator, whose keys are all on file without a passphrase. Create a new Dockerfile and paste the commands that were used in this tutorial, but in their most direct forms:
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone-alpine]
+$ mkdir standalone-sim
+FROM --platform=linux golang:1.18.7-alpine AS builder
+
+RUN apk update
+RUN apk add make git
+
+ENV CHECKERS_VERSION=main
+
+WORKDIR /root
+RUN git clone --depth 1 --branch ${CHECKERS_VERSION} https://github.com/cosmos/b9-checkers-academy-draft.git checkers
+
+WORKDIR /root/checkers
+RUN go build -o ./build/checkersd ./cmd/checkersd/main.go
+
+FROM --platform=linux alpine
+
+COPY --from=builder /root/checkers/build/checkersd /usr/local/bin/checkersd
+
+RUN checkersd init checkers
+RUN sed -Ei 's/^enable-unsafe-cors = false/enable-unsafe-cors = true/g' /root/.checkers/config/app.toml
+RUN sed -Ei 's/^enabled-unsafe-cors = false/enabled-unsafe-cors = true/g' /root/.checkers/config/app.toml
+RUN sed -Ei 's/^cors_allowed_origins = \[\]/cors_allowed_origins = \["\*"\]/g' /root/.checkers/config/config.toml
+RUN sed -Ei 's/^chain-id = .*$/chain-id = "checkers-1"/g' /root/.checkers/config/client.toml
+RUN mkdir /root/.checkers/keys
+RUN checkersd keys --keyring-backend test add alice 2>&1 > /dev/null | tail -n 1 > /root/.checkers/keys/mnemonic-alice.txt
+RUN sed -Ei 's/"chain_id": "checkers"/"chain_id": "checkers-1"/g' /root/.checkers/config/genesis.json
+RUN checkersd add-genesis-account \
+    $(checkersd keys --keyring-backend test show alice --address) \
+    1000000000000000stake
+RUN checkersd gentx alice 10000000stake --keyring-backend test \
+    --account-number 0 --sequence 0 --chain-id checkers-1 \
+    --gas 1000000 --gas-prices 0.1stake
+RUN checkersd collect-gentxs
+
+EXPOSE 1317 26657
+
+ENTRYPOINT [ "checkersd" ]
+```
+
+To build it, run:
+
+```sh
+$ docker build . -f Dockerfile-standalone-alpine -t checkersd_i:standalone-alpine
+```
+
+When this is done, you can launch it right away with:
+
+```sh
+$ docker run --rm -it \
+    -p 0.0.0.0:26657:26657 \
+    -p 0.0.0.0:1317:1317 \
+    checkersd_i:standalone-alpine start
+```
+
+Finally, to get Alice's mnemonic so as to reuse it elsewhere, run:
+
+```sh
+$ docker run --rm -it \
+    --entrypoint cat \
+    checkersd_i:standalone-alpine \
+    /root/.checkers/keys/mnemonic-alice.txt
+```
 
 <HighlightBox type="synopsis">
 
@@ -1377,5 +1696,6 @@ To summarize, this section has explored:
 * How to prepare a Tendermint Key Management System for a simulated production setup.
 * How to prepare a blockchain genesis with multiple parties.
 * How to launch all that with the help of Docker Compose.
+* How to create a standalone blochain server in a container.
 
 </HighlightBox>
