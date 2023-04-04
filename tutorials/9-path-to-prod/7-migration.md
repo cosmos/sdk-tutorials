@@ -84,6 +84,18 @@ $ sudo systemctl restart myprojectd
 
 Cosmovisor is here to help you migrate fast. You can still do it [by hand](https://hub.cosmos.network/main/hub-tutorials/upgrade-node.html#manual-software-upgrade).
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate a Migration in Production in Docker](/hands-on-exercise/4-run-in-prod/3-migration-prod.md).
+
+More specifically, you can jump to:
+
+* [Prepare checkers executables](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-checkers-executables) to see how to prepare the before- and after-migration executables,
+* [Prepare Cosmovisor executable](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-cosmovisor-executable) to see how to prepare the Cosmovisor that will work well with your blockchain executable,
+* [Make an upgrade proposal](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#make-an-upgrade-proposal) to see the migration take place with an upgrade proposal.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

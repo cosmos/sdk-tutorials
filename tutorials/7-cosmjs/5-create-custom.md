@@ -488,7 +488,8 @@ More specifically, you can jump to:
 
 * [Create Custom Objects](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) to see how to compile the Protobuf objects,
 * [Create Custom Messages](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md) to see how to create messages relevant for checkers,
-* [Backend Script for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) to see how this can be used also to listen to events coming from the blockchain.
+* [Backend Script for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) to see how this can be used also to listen to events coming from the blockchain,
+* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md) to see how to use and integrate what you prepared into a pre-existing Checkers GUI.
 
 </HighlightBox>
 

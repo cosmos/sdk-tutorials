@@ -241,6 +241,17 @@ This is the only _block_ that needs a social consensus on its content. All other
 
 In turn, each validator and node operator copies this file on their own machine, in the designated folder, typically `~/.myprojectd/config/genesis.json`.
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate Production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Blockchain elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#blockchain-elements) to see how to prepare early blockchain elements like the consensus denom,
+* [Genesis](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#genesis) to see how to prepare the blockchain's genesis, including the genesis validator transactions.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

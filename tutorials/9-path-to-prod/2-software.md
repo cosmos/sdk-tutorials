@@ -284,6 +284,16 @@ For instance:
 
 Again, this is not recommended for performance reasons - for example, due to network latency.
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate Production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Docker elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#docker-elements) to see how to compile the necessary software.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
