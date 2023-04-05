@@ -71,7 +71,7 @@ The `ClientMessage` will be passed onto the client through a `MsgUpdateClient` s
 
 For the full explanation, please refer to [the docs](https://ibc.cosmos.network/main/ibc/light-clients/updates-and-misbehaviour.html).
 
-<HighlightBox type="info">
+<HighlightBox type="note">
 
 You'll note that the `ClientState` interface also contains the following methods:
 
@@ -85,5 +85,31 @@ These similarly provide functionality to update the client based on handling mes
 
 </HighlightBox>
 
+<HighlightBox type="inifo">
+
+Before the client refactor (prior to v7) the client and consensus states are set within the `02-client` submodule. By moving these responsibilities from the `02-client`  to the individual light client implementations, including the setting of updated client state and consensus state in the client store, provides light client developers with a greater degree of flexibility with respect to storage and verification.
+
+</HighlightBox>
+
 ### Packet commitment verification
+
+Next to updating the client and consensus state, the light client also provides functionality to performd the verification required for the packet flow (send, receive and acknowledge or timeout). IBC uses Merkle proofs to verify against the trusted root if state is either committed or absent on a predefined standardised key path, as defined in [ICS-24 host requirements](https://github.com/cosmos/ibc/tree/main/spec/core/ics-024-host-requirements).
+
+As you've seen in the [previous section on clients](./4-clients.md), when the IBC handler receives a message to receive, acknowledge or timeout a packet, it will call one of the following functions on the `connectionKeeper` to verify if the remote chain includes (or does not include) the appropriate state:
+
+* [VerifyPacketCommitment](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L205): to check if the proof added to a `MsgRecvPacket` submitted to the destination, points to a valid packet commimtent on the source.
+* [VerifyPacketAcknowledgement](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L250): to check if the proof added to a `MsgAcknowledgePacket` submitted to the source, point to a valid packet receipt commitment on the destination.
+* [VerifyPacketReceiptAbsence](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L296): to check if the proof added to a `MsgTimeout` submitted to the source, proves that a packet receipt is absent at a height beyond the timeout height on the destination.
+
+All of the above rely on either `VerifyMembership` or `VerifyNonMembership` methods to prove either inclusion (also referred to as _existence_) or non-inlcusion (_non-existence_) at a given commitment path.
+
+It's up to the light client developer to add these methods to their light client implementation.
+
+<HighlightBox type="reading">
+
+Please refer to the [ICS-23 implementation](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/23-commitment/types/merkle.go#L131-L205) for a concrete example.
+
+</HighlightBox>
+
+### Add light client to Cosmos SDK chain
 
