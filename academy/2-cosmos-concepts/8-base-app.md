@@ -55,7 +55,7 @@ Watch Julien Robert, Developer Relations Engineer for the Cosmos SDK, introduce 
 
 Developers usually create a custom type for their application by referencing `BaseApp` and declaring store keys, keepers, and a module manager, like this:
 
-```
+```go
 type App struct {
   // reference to a BaseApp
   *baseapp.BaseApp
@@ -111,7 +111,7 @@ Consensus parameters define the overall consensus state:
 
 Consider the following simple constructor:
 
-```
+```go
 func NewBaseApp(
   name string, logger log.Logger, db dbm.DB, txDecoder sdk.TxDecoder, options ...func(*BaseApp),
 ) *BaseApp {
@@ -185,6 +185,53 @@ Other ABCI message handlers being implemented are:
 * `Commit`
 * `Info`
 * `Query`
+
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+[Earlier](/academy/2-cosmos-concepts/7-multistore-keepers.md) in the design of your blockchain, you defined a game deadline. When do you verify that a game has expired?
+
+An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. To expire games that have timed out at the end of a block, you need to hook your keeper to the right call.
+
+The Cosmos SDK will call into each module at various points when building the whole application. The function it calls at each block's end looks like this:
+
+```go
+func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+    // TODO
+    return []abci.ValidatorUpdate{}
+}
+```
+
+This is where you write the necessary code, preferably in the keeper. For example:
+
+```go
+am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
+```
+
+How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
+<br/><br/>
+The timeout duration is **fixed**, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time, or block height `h`, with margins of error `h-1` and `h+1`.
+<br/><br/>
+These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum amount of gas and therefore a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle with its transactions. This is a worst-case scenario, but most likely it is still manageable.
+
+<br/>
+
+<HighlightBox type="warn">
+
+Be careful about letting the game creator pick a timeout duration. This could allow a malicious actor to stagger game creations over a large number of blocks _with decreasing timeouts_, so that they all expire at the same time.
+
+</HighlightBox>
+
+</ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump to:
+
+* [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) to see how to implement the expiration of games in `EndBlock`.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

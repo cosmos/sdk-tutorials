@@ -1,6 +1,6 @@
 ---
 title: "Put Your Games in Order"
-order: 2
+order: 4
 description: Store FIFO - prepare to expire games
 tags: 
   - guided-coding
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and of a [doubly-linked list](https://en.wikipedia.org/wiki/Doubly_linked_list).
 * Go is installed.
-* You have the checkers blockchain codebase with `MsgRejectGame` and its handling. If not, follow the [previous steps](/hands-on-exercise/1-ignite-cli/8-reject-game.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/reject-game-handler).
+* You have the checkers blockchain codebase with `Winner`, `GameDeadline`, and `MoveCount`. If not, follow the [previous steps](/hands-on-exercise/2-ignite-cli-adv/2-move-count.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/move-count).
 
 </HighlightBox>
 
@@ -23,7 +23,7 @@ Make sure you have everything you need before proceeding:
 
 In this section, you will deal with:
 
-* The FIFO data structure
+* A FIFO data structure
 * FIFO unit tests
 
 You will learn:
@@ -32,16 +32,26 @@ You will learn:
 
 </HighlightBox>
 
-In the [previous step](/hands-on-exercise/1-ignite-cli/8-reject-game.md), you added a way for players to reject a game, so there is a way for stale games to be removed from storage. But is this enough to avoid _state pollution_?
+In previous steps, you added the [game winner](/hands-on-exercise/1-ignite-cli/8-game-winner.md), the [game deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), and the [move count](/hands-on-exercise/2-ignite-cli-adv/2-move-count.md). These are fields that can help you determine whether a given game is stale or not.
 
-There are some initial thoughts and code needs to keep in mind during the next sections to be able to implement forfeits in the end.
+Specifically:
+
+* If the game has a winner, then it is not considered stale.
+* If the game's deadline is in the future, then it is not stale.
+* If the game's count is 0 or 1 then it should be deleted when stale.
+* If the game's count is 2 or more, then it should be forfeited when stale.
 
 ## Some initial thoughts
 
+The key difficulty is to get the list of games that satisfy the _staleness_ criteria without grinding your blockchain to a halt with an _O(n)_ call, where _n_ is the total number of games in storage.
+
+A solution is to introduce a new data structure that will let you find one stale game in _O(1)_, and access all _k_ stale games in _O(k)_.
+
+There are some initial thoughts and code needs to keep in mind during the next sections to be able to implement forfeits in the end.
+
 Before you begin touching your code, ask:
 
-* What conditions have to be satisfied for a game to be considered stale and the blockchain to act?
-* How do you sanitize the new information inputs?
+* What conditions have to be satisfied for a game to be considered stale and the blockchain to act? There are some pointers in the first paragraph.
 * How would you get rid of stale games as part of the protocol, that is _without user inputs_?
 * How do you optimize performance and data structures so that a few stale games do not cause your blockchain to grind to a halt?
 * How can you be sure that your blockchain is safe from attacks?
@@ -89,7 +99,7 @@ This approach is **expensive** in terms of computation. The `EndBlock` code shou
 You need another data structure. The simplest option is a First-In-First-Out (FIFO) that is constantly updated, so that:
 
 * When games are played, they are taken out of where they are and sent to the tail.
-* Games that have not been played for the longest time eventually rise to the head.
+* It follows that games that have not been played for the longest time eventually rise to the head.
 
 Therefore, when terminating expired games in `EndBlock`, you deal with the expired games that are at the head of the FIFO. You do not stop until the head includes an ongoing game. The cost is:
 
@@ -111,7 +121,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 1. You must remember the game ID at the head to pick expired games, and at the tail to send back fresh games. The existing `SystemInfo` object is useful, as it is already expandable. Add to its Protobuf declaration:
 
-    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/system_info.proto#L8-L9]
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/proto/checkers/system_info.proto#L8-L9]
         message SystemInfo {
             ...
     +      string fifoHeadIndex = 2; // Will contain the index of the game at the head.
@@ -121,17 +131,17 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 2. To make extraction possible, each game must know which other game takes place before it in the FIFO, and which after. Store this double-link information in `StoredGame`. Add them to the game's Protobuf declaration:
 
-    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/proto/checkers/stored_game.proto#L13-L14]
+    ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/proto/checkers/stored_game.proto#L15-L16]
         message StoredGame {
             ...
-    +      string beforeIndex = 7; // Pertains to the FIFO. Toward head.
-    +       string afterIndex = 8; // Pertains to the FIFO. Toward tail.
+    +      string beforeIndex = 9; // Pertains to the FIFO. Toward head.
+    +       string afterIndex = 10; // Pertains to the FIFO. Toward tail.
         }
     ```
 
 3. There must be an "ID" that indicates _no game_. Use `"-1"`, which you save as a constant:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/keys.go#L51-L53]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/types/keys.go#L53-L55]
     const (
         NoFifoIndex = "-1"
     )
@@ -165,7 +175,7 @@ How do you implement a FIFO from which you extract elements at random positions?
 
 5. Adjust the default genesis values, so that it has a proper head and tail:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/types/genesis.go#L15-L16]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/types/genesis.go#L15-L16]
         func DefaultGenesis() *GenesisState {
             return &GenesisState{
                 SystemInfo: SystemInfo{
@@ -262,7 +272,7 @@ With these functions ready, it is time to use them in the message handlers.
 
 1. In the handler when creating a new game, set default values for `BeforeIndex` and `AfterIndex`:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L29-L30]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/keeper/msg_server_create_game.go#L31-L32]
         ...
         storedGame := types.StoredGame{
             ...
@@ -273,24 +283,32 @@ With these functions ready, it is time to use them in the message handlers.
 
     Send the new game to the tail because it is freshly created:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L38]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game.go#L40]
         ...
     +  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
         k.Keeper.SetStoredGame(ctx, storedGame)
         ...
     ```
 
-2. In the handler, when playing a move send the game back to the tail because it was freshly updated:
+2. In the handler, when playing a move send the game back to the tail because it was freshly updated (unless it was won, in which case it has to be removed):
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L57-L67]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move.go#L65-L82]
         ...
+        lastBoard := game.String()
+    +
     +  systemInfo, found := k.Keeper.GetSystemInfo(ctx)
     +  if !found {
     +      panic("SystemInfo not found")
     +  }
-    +  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+    +
+        if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
+            storedGame.Board = lastBoard
+    +      k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+        } else {
+            storedGame.Board = ""
+    +      k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
+        }
 
-        storedGame.MoveCount++
         ...
         k.Keeper.SetStoredGame(ctx, storedGame)
     +  k.Keeper.SetSystemInfo(ctx, systemInfo)
@@ -299,29 +317,15 @@ With these functions ready, it is time to use them in the message handlers.
 
     Note that you also need to call `SetSystemInfo`.
 
-3. In the handler, when rejecting a game remove the game from the FIFO:
-
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game.go#L31-L37]
-        ...
-    +  systemInfo, found := k.Keeper.GetSystemInfo(ctx)
-    +  if !found {
-    +      panic("SystemInfo not found")
-    +  }
-    +  k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
-        k.Keeper.RemoveStoredGame(ctx, msg.GameIndex)
-    +  k.Keeper.SetSystemInfo(ctx, systemInfo)
-        ...
-    ```
-
-You have implemented a FIFO that is updated but never really used. It will be used in a [later section](./4-game-forfeit.md).
+You have implemented a FIFO that is updated but never really used. It will be used in the [next section](./4-game-forfeit.md).
 
 ## Unit tests
 
-At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHeadIndex` and `FifoTailIndex` in your value requirements on `SystemInfo` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L52-L53), [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L98-L99), and [reject games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_test.go#L59-L60). Also add `BeforeIndex` and `AfterIndex` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L64-L65) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L110-L111).
+At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHeadIndex` and `FifoTailIndex` in your value requirements on `SystemInfo` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L46-L47) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L98-L99). Also add `BeforeIndex` and `AfterIndex` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L60-L61) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L112-L113).
 
-Next, you should add more specific FIFO tests. For instance, testing what happens to `SystemInfo` and `StoredGame` as you create up to three new games, instead of [only checking at the end](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L166-L227):
+Next, you should add more specific FIFO tests. For instance, testing what happens to `SystemInfo` and `StoredGame` as you create up to three new games, instead of [only checking at the end](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L165-L232):
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L107]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_fifo_test.go#L11-L117]
 func TestCreate3GamesHasSavedFifo(t *testing.T) {
     msgSrvr, keeper, context := setupMsgServerCreateGame(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -352,6 +356,8 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
         Turn:        "b",
         Black:       bob,
         Red:         carol,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(0),
         BeforeIndex: "-1",
         AfterIndex:  "2",
@@ -364,6 +370,8 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
         Turn:        "b",
         Black:       carol,
         Red:         alice,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(0),
         BeforeIndex: "1",
         AfterIndex:  "-1",
@@ -390,6 +398,8 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
         Turn:        "b",
         Black:       bob,
         Red:         carol,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(0),
         BeforeIndex: "-1",
         AfterIndex:  "2",
@@ -402,6 +412,8 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
         Turn:        "b",
         Black:       carol,
         Red:         alice,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(0),
         BeforeIndex: "1",
         AfterIndex:  "3",
@@ -414,6 +426,8 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
         Turn:        "b",
         Black:       alice,
         Red:         bob,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(0),
         BeforeIndex: "2",
         AfterIndex:  "-1",
@@ -421,9 +435,9 @@ func TestCreate3GamesHasSavedFifo(t *testing.T) {
 }
 ```
 
-What happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L59)? Or have two games and play them twice in turn:
+What happens when you [have two games and play once on the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L11-L63)? Or have two games and play them twice in turn:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L61-L117]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go#L65-L125]
 func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -464,6 +478,8 @@ func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
         Turn:        "r",
         Black:       bob,
         Red:         carol,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(1),
         BeforeIndex: "-1",
         AfterIndex:  "2",
@@ -476,64 +492,12 @@ func TestPlayMove2Games2MovesHasSavedFifo(t *testing.T) {
         Turn:        "r",
         Black:       carol,
         Red:         alice,
+        Winner:      "*",
+        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
         MoveCount:   uint64(1),
         BeforeIndex: "1",
         AfterIndex:  "-1",
     }, game2)
-}
-```
-
-What happens when you [have two games and reject the _older_ one](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L11-L42)? Or have three games and reject the _middle_ one?
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_reject_game_fifo_test.go#L44-L92]
-func TestRejectMiddleGameHasSavedFifo(t *testing.T) {
-    msgServer, keeper, context := setupMsgServerWithOneGameForRejectGame(t)
-    ctx := sdk.UnwrapSDKContext(context)
-    msgServer.CreateGame(context, &types.MsgCreateGame{
-        Creator: bob,
-        Black:   carol,
-        Red:     alice,
-    })
-    msgServer.CreateGame(context, &types.MsgCreateGame{
-        Creator: carol,
-        Black:   alice,
-        Red:     bob,
-    })
-    msgServer.RejectGame(context, &types.MsgRejectGame{
-        Creator:   carol,
-        GameIndex: "2",
-    })
-    systemInfo, found := keeper.GetSystemInfo(ctx)
-    require.True(t, found)
-    require.EqualValues(t, types.SystemInfo{
-        NextId:        4,
-        FifoHeadIndex: "1",
-        FifoTailIndex: "3",
-    }, systemInfo)
-    game1, found := keeper.GetStoredGame(ctx, "1")
-    require.True(t, found)
-    require.EqualValues(t, types.StoredGame{
-        Index:       "1",
-        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:        "b",
-        Black:       bob,
-        Red:         carol,
-        MoveCount:   uint64(0),
-        BeforeIndex: "-1",
-        AfterIndex:  "3",
-    }, game1)
-    game3, found := keeper.GetStoredGame(ctx, "3")
-    require.True(t, found)
-    require.EqualValues(t, types.StoredGame{
-        Index:       "3",
-        Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-        Turn:        "b",
-        Black:       alice,
-        Red:         bob,
-        MoveCount:   uint64(0),
-        BeforeIndex: "1",
-        AfterIndex:  "-1",
-    }, game3)
 }
 ```
 
@@ -861,7 +825,7 @@ SystemInfo:
 
 </PanelListItem>
 
-<PanelListItem number="7">
+<PanelListItem number="7" :last="true">
 
 Is game `3` in the middle now?
 
@@ -897,116 +861,13 @@ storedGame:
 
 Your FIFO now has the game IDs `[1, 3, 2]`. You see that game `2`, which was played on, has been sent to the tail of the FIFO.
 
-</PanelListItem>
-
-<PanelListItem number="8" :last="true">
-
-What happens if Alice rejects game `3`?
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd tx checkers reject-game 3 --from $alice
-$ checkersd query checkers show-system-info
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd tx checkers reject-game 3 --from $alice
-$ docker exec -it checkers \
-    checkersd query checkers show-system-info
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-SystemInfo:
-    fifoHeadIndex: "1"
-    fifoTailIndex: "2"
-    nextId: "4"
-```
-
-There is no change because game `3` was _in the middle_, so it did not affect the head or the tail.
-
-Fetch the two games by running the following two queries :
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd query checkers show-stored-game 1
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd query checkers show-stored-game 1
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-storedGame:
-    afterIndex: "2"
-    beforeIndex: "-1"
-...
-```
-
-And:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd query checkers show-stored-game 2
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers \
-    checkersd query checkers show-stored-game 2
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This prints:
-
-```txt
-storedGame:
-    afterIndex: "-1"
-    beforeIndex: "1"
-...
-```
-
-Your FIFO now has the game IDs `[1, 2]`. Game `3` was correctly removed from the FIFO.
+Which is what you were expecting.
 
 </PanelListItem>
 
 </PanelList>
+
+<br/>
 
 <HighlightBox type="synopsis">
 
@@ -1023,4 +884,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./2-game-deadline.md).-->
+Having a list of games ordered by age is not enough to ascertain their staleness. You must also add an expiry date on each game to reach that decision. That is the goal of the [next section](./1-game-deadline.md).-->
