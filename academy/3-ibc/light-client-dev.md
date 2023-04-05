@@ -48,7 +48,7 @@ The development of a light client for heterogeneous chains is a complex topic an
 
 A short and succinct **summary of a light client's functionality** is the following: a light client stores a trusted consensus state and provides functionality to verify updates to the consensus state or verify packet commitments against the trusted root by using Merkle proofs.
 
-### Interfaces
+### Major interfaces
 
 Access to IBC light clients are gated by the core IBC `MsgServer` which utilizes the abstractions set by the `02-client` submodule to call into a light client module. A light client module developer is only required to implement a set interfaces as defined in the `modules/core/exported` package of ibc-go.
 
@@ -113,3 +113,63 @@ Please refer to the [ICS-23 implementation](https://github.com/cosmos/ibc-go/blo
 
 ### Add light client to Cosmos SDK chain
 
+Now suppose that you've managed to develop a light client implemenation fulfilling the requirements described above. How do you now get the light client on chain?
+
+This will depend on the chain environment you're in, so from here on out the assumption will be made that you'll want to add the light client module to a Cosmos SDK chain.
+
+#### Configure light client module
+
+You'll be adding your light client as an SDK module which must implement the SDK's [`AppModuleBasic`](https://github.com/cosmos/cosmos-sdk/blob/main/types/module/module.go#L50) interface. 
+
+You must then register your light client module with `module.BasicManager` in the chain's `app.go` file.
+
+More information can be found [here](https://ibc.cosmos.network/main/ibc/light-clients/setup.html#configuring-a-light-client-module).
+
+#### Get support through governance
+
+In order to successfully create an IBC client using a new client type, it [must be supported](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L19-L25). Light client support in IBC is gated by on-chain governance. The allow list may be updated by submitting a new governance proposal to update the `02-client` parameter `AllowedClients`.
+
+<HighlightBox type="info">
+
+To add your light client `0x-new-client` to `AllowedClients`, submit a proposal:
+
+```shell
+%s tx gov submit-proposal param-change <path/to/proposal.json> --from=<key_or_address>
+```
+
+where `proposal.json` contains:
+
+```json
+{
+  "title": "IBC Clients Param Change",
+  "description": "Update allowed clients",
+  "changes": [
+    {
+      "subspace": "ibc",
+      "key": "AllowedClients",
+      "value": ["06-solomachine", "07-tendermint", "0x-new-client"]
+    }
+  ],
+  "deposit": "1000stake"
+}
+```
+
+</HighlightBox>
+
+#### Create client instances
+
+When the governance proposals has passed, relayers can now create client instances by submitting a `MsgCreateClient` as described in [the previous section on IBC light clients](./4-clients.md#creating-a-client).
+
+And there you have it, you've contributed to the expansion of IBC to other ecosystems!
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* How the development of IBC light clients is crucial to the expansion of IBC into other ecosystems, to connect the Interchain.
+* Where to find the required documentation in the form of a _light client developer guide_ if you need to develop a light client.
+* What the most important interfaces are: client and consensus state and client messages.
+* How a client can get updates
+* How a client can verify packets against its trusted root using Merkle proofs.
+
+</HighlightBox>
