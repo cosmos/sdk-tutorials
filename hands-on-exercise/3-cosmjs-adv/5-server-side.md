@@ -7,6 +7,64 @@ tags:
   - cosm-js
 ---
 
+<HighlightBox type="prerequisite">
+
+Make sure you have all you need before proceeding:
+
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
+* You have the checkers CosmJS codebase up to the integrated GUI. If not, follow the [previous steps](./4-cosmjs-gui.md) or go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/gui) to get the version needed for this tutorial.
+
+</HighlightBox>
+
+This exercise assumes that:
+
+1. You are running your [checkers blockchain with](./2-cosmjs-messages.md#prepare-your-checkers-chain):
+
+    ```sh
+    $ docker run --rm -it \
+        -p 26657:26657 \
+        --name checkers \
+        --network checkers-net \
+        --detach \
+        checkersd_i:standalone start
+    $ sleep 10
+    $ docker run --rm -it \
+        -p 4500:4500 \
+        --name cosmos-faucet \
+        --network checkers-net \
+        --detach \
+        cosmos-faucet_i:0.28.11 start http://checkers:26657
+    $ sleep 20
+    ```
+
+2. And have the following in `.env`:
+
+    <CodeGroup>
+    
+    <CodeGroupItem title="Local">
+
+    ```ini
+    RPC_URL="http://localhost:26657"
+    FAUCET_URL="http://localhost:4500"
+    ```
+
+    When you run `npm` on your local computer.
+    
+    </CodeGroupItem>
+    
+    <CodeGroupItem title="Docker">
+
+    ```ini
+    RPC_URL="http://checkers:26657"
+    FAUCET_URL="http://cosmos-faucet:4500"
+    ```
+
+    When you run `npm` in a Docker container.
+    
+    </CodeGroupItem>
+
+    </CodeGroup>
+
 # Backend Script for Game Indexing
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on-chain.
@@ -287,6 +345,7 @@ $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
     -p 3001:3001 \
+    --network checkers-net \
     node:18.7-slim \
     npm run indexer-dev
 ```
@@ -431,44 +490,46 @@ Add the following to `indexer.ts`:
     }
     ```
 
-The `.env` file contains the `RPC_URL`, adjust it to your situation, in particular if you are using Docker. If necessary, launch the checkers blockchain:
+If you have not done it yet, start your checkers chain as described at the beginning of this section.
 
-* If you are running it with Ignite CLI:
+Relaunch the indexer:
 
-    <CodeGroup>
+<CodeGroup>
 
-    <CodeGroupItem title="Local" active>
+<CodeGroupItem title="Local">
 
-    ```sh
-    $ ignite chain serve
-    ```
+```sh
+$ npm run indexer-dev
+```
 
-    </CodeGroupItem>
+</CodeGroupItem>
 
-    <CodeGroupItem title="Docker">
+<CodeGroupItem title="Docker">
 
-    ```sh
-    $ docker run --rm -it \
-        -v $(pwd):/checkers \
-        -w /checkers \
-        -p 1317:1317 \
-        -p 4500:4500 \
-        -p 5000:5000 \
-        -p 26657:26657 \
-        checkers_i \
-        ignite chain serve
-    ```
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    --network checkers-net \
+    -p 3001:3001 \
+    node:18.7-slim \
+    npm run indexer-dev
+```
 
-    </CodeGroupItem>
+<HighlightBox type="tip">
 
-    </CodeGroup>
+Note how the container is started inside `checkers-net` alongside the checkers blockchain.
 
-* If not, follow the relevant instructions to run it, or access a testnet.
+</HighlightBox>
 
-Relaunch `npm run indexer-dev`. You should see the current height rising:
+</CodeGroupItem>
+
+</CodeGroup>
+
+You should see the current height rising:
 
 ```txt
-Connected to chain-id: checkers
+Connected to chain-id: checkers-1
 
 server started at http://localhost:3001
 2022-04-20T17:46:29.962Z Current heights: 0 <= 1353
@@ -555,7 +616,7 @@ This needs new imports:
 
 <HighlightBox type="note">
 
-* `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
+* `while() { await }` simplifies the syntax of `await`ing multiple times sequentially.
 * The hash is calculated this way as per [here](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L77).
 * `console.log("")` puts a new line (`poll` does a `process.stdout.write` which adds no line).
 * The `handleBlock` function uses a new function, `handleTx`. Create one and put `console.log(indexed)` inside to explore what this object is and consider what actions you can take with it.
@@ -729,28 +790,32 @@ const handleEventPlay = async (event: StringEvent): Promise<void> => {
 
 ## Test time
 
-You can now test what happens when a game is created and played on. Restart `npm run indexer-dev`.
+You can now test what happens when a game is created and played on. Restart `npm run indexer-dev` locally or in Docker.
 
 You can choose how to create and play games:
 
-* Run the GUI with `npm start`.
+* Run the GUI prepared in the [previous section](./4-cosmjs-gui.md) with `npm start`.
 * Run `checkersd` command lines.
 * Any other way available.
 
-And in another terminal:
+Via command lines, in another terminal:
 
 <CodeGroup>
 
 <CodeGroupItem title="Create game">
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+$ docker exec -it checkers sh -c \
+    "checkersd tx checkers \
+    create-game \$ALICE cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s 0 stake \
+    --from alice --keyring-backend test \
+    --yes"
 ```
 
 Alternatively, use a GUI if preferred. The indexer should log something like:
 
 ```txt
-New game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+New game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 It should update `db.json` to:
@@ -763,7 +828,7 @@ It should update `db.json` to:
         }
     },
     "players": {
-        "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw": {
+        "cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn": {
             "gameIds": [
                 "1"
             ]
@@ -777,7 +842,7 @@ It should update `db.json` to:
     "games": {
         "1": {
             "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
-            "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw",
+            "blackAddress": "cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn",
             "deleted": false
         }
     }
@@ -789,7 +854,11 @@ It should update `db.json` to:
 <CodeGroupItem title="Play game">
 
 ```sh
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ docker exec -it checkers \
+    checkersd tx checkers \
+    play-move 1 1 2 2 3 \
+    --from alice --keyring-backend test \
+    --yes
 ```
 
 In this case the indexer should not log anything. Because performing moves from the command line is laborious, using the GUI is advisable.
@@ -945,8 +1014,14 @@ Again there is a lot of error handling. `handleEvent` only soft-deletes the game
 Run the previous tests again. Create a game and see how the deletion event is picked up:
 
 ```txt
-Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: *
+Forfeit game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: *
 ```
+
+<HighlightBox type="tip">
+
+In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not coming exactly fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.mdl#interact-via-the-cli).
+
+</HighlightBox>
 
 ## Patch a game
 
@@ -1067,7 +1142,7 @@ It should return:
 And the indexer should log something like:
 
 ```txt
-Patch game: new, 3, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+Patch game: new, 3, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 Develop your own ways to test the other scenarios.

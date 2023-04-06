@@ -15,14 +15,14 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * You have the checkers CosmJS codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
-* You have the checkers Go codebase up to the CosmJS elements. If not, check out [this branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) to get the version for testing the GUI in this tutorial.
 
 </HighlightBox>
 
 In the previous sections:
 
-1. You created the objects, messages, and clients that allow you to **interface** any GUI with your checkers blockchain.
-2. You imported an external checkers **GUI** to use.
+1. You created the [objects](./1-cosmjs-objects.md), [messages, and clients](./2-cosmjs-messages.md) that allow you to **interface** any GUI with your checkers blockchain.
+2. You learned how to [start a running checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) in Docker or on your local computer.
+3. You imported an external checkers **GUI** to use.
 
 Now, you must **integrate the two** together:
 
@@ -37,6 +37,34 @@ For the CosmJS integration, you will:
 * Create a new game.
 * Fetch a single game to be played.
 * Play on the game, making single moves and double moves.
+
+This exercise assumes that:
+
+1. You are running your [checkers blockchain with](./2-cosmjs-messages.md#prepare-your-checkers-chain):
+
+    ```sh
+    $ docker run --rm -it \
+        -p 26657:26657 \
+        --name checkers \
+        --network checkers-net \
+        --detach \
+        checkersd_i:standalone start
+    $ sleep 10
+    $ docker run --rm -it \
+        -p 4500:4500 \
+        --name cosmos-faucet \
+        --network checkers-net \
+        --detach \
+        cosmos-faucet_i:0.28.11 start http://checkers:26657
+    $ sleep 20
+    ```
+
+2. And have the following in `.env`:
+
+    ```ini
+    RPC_URL="http://localhost:26657"
+    FAUCET_URL="http://localhost:4500"
+    ```
 
 ## Prepare the integration with the checkers blockchain
 
@@ -432,11 +460,25 @@ Next, in `MenuContainer.tsx`:
         }
     ```
 
-Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line or Ignite CLI, test this new functionality by creating one:
+Restart `npm start` and you should see the list of games in your running chain.
+
+<HighlightBox type="tip">
+
+Remember that this exercise assumes that you are running a checkers chain as described at the beginning of this section.
+
+</HighlightBox>
+
+If your list is empty, you can quickly create a game with:
+
+```sh
+$ docker exec -it checkers sh -c \
+    "checkersd tx checkers \
+    create-game \$ALICE \$ALICE 0 stake \
+    --from alice --keyring-backend test \
+    --yes"
+```
 
 ![List of one game](/hands-on-exercise/3-cosmjs-adv/images/list-games-1.png)
-
-If you do not have a way to create a game, wait for the procedures about creating a game.
 
 ### Individual game menu container
 
@@ -560,13 +602,25 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
 
     </HighlightBox>
 
-Restart `npm start` and you should now see your game. If you have access to `checkersd`, or any other way to send a transaction, you can make a move from the command line and refresh to confirm the change. If not, wait for the procedure about playing.
+Restart `npm start` and you should now see your game.
+
+To quickly make a move on your created game with an id of `1`, you can run:
+
+```sh
+$ docker exec -it checkers \
+    checkersd tx checkers \
+    play-move 1 1 2 2 3 \
+    --from alice --keyring-backend test \
+    --yes
+```
+
+Refresh the page to confirm the change.
 
 ![Game with one move played](/hands-on-exercise/3-cosmjs-adv/images/show-game-1-move.png)
 
 ## Integrate with Keplr
 
-So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users to poke around without unnecessarily asking them to connect. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with Keplr possible.
+So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users to poke around without unnecessarily asking them to connect their wallet and thereby disclose their address. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with the Keplr wallet possible.
 
 Install the necessary packages:
 
@@ -908,25 +962,14 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
     ![Checkers network in beta support list](/hands-on-exercise/3-cosmjs-adv/images/list-keplr-beta-support.png)
 
-3. Put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
+3. Use the faucet you started at the beginning of this section to put enough tokens in your Keplr _Checkers_ account. `"1000000stake"` will satisfy by a 10x margin.
 
-    * If you have access to `checkersd` built by Ignite CLI, use this command:
-
-        ```sh
-        $ export alice=$(checkersd keys show alice -a)
-        $ checkersd tx bank send $alice "cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8" 1000000stake -y
-        ```
-
-    * If you have access to the Ignite-built faucet of checkers at port 4500, either go to the GUI at `localhost:4500` or whatever address at which it is running, or use this command:
-
-        ```sh
-        $ curl --request POST \
+    ```sh
+    $ curl --request POST \
             --header "Content-Type: application/json" \
-            --data '{"address":"cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8","coins": ["1000000stake"]}' \
-            localhost:4500
-        ```
-
-    * If you do not have access to `checkersd` or its faucet, look for instructions on how to start your locally-running checkers or tap the faucet of a public checkers test net.
+            --data '{"address":"cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8","denom":"stake"}' \
+            localhost:4500/credit
+    ```
 
 4. Now start again to actually create a game. Accept the transaction, and you are redirected to the game page. This time the content of the game is from the blockchain.
 
