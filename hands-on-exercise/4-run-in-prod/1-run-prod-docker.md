@@ -1612,25 +1612,41 @@ If you want to erase all states after a good run, and if you have a Git commit f
 
 ## Self-contained checkers blockchain
 
-Now may be a good time to prepare a standalone setup with the following characteristics:
+Now may be a good time to prepare a standalone setup that can be used by anyone who wants to test a checkers blockchain with minimum effort. The target setup ought to have the following characteristics:
 
-* It uses a single Docker image.
+* It uses a single `Dockerfile`.
 * Such an image could be generated and uploaded into a Docker image registry to increase ease of use.
 * It can be run by someone who just wants to try checkers without going through node and genesis setups. 
-* The `Dockerfile` does not need to be in the repository to be usable. It could be copied elsewhere and still work.
-* The image should be as small as is reasonable.
-* It uses `stake` instead of `upawn` so as to be compatible with the current state of checkers CosmJS.
+* The `Dockerfile` does not need to be in the repository to be usable. It could be copied elsewhere and still work, i.e. no `ADD`ing local files. 
+* The image(s) should be as small as is reasonable.
+* It uses `stake` instead of `upawn`, and has `token` so as to be compatible with the current state of the checkers CosmJS exercise.
+* It also provides a faucet to further facilitates tests.
+* It sacrifices keys safety to increase ease of use.
 
-There is a single server, with a single validator, whose keys are all on file without a passphrase. Create a new Dockerfile and paste the commands that were used in this tutorial, but in their most direct forms:
+The CosmJS exercise already references this standalone `Dockerfile` so this is a circular reference. You can still on it on your own now.
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone-alpine]
-$ mkdir standalone-sim
+It is possible to build [more than one Docker image](https://docs.docker.com/build/building/multi-stage/#stop-at-a-specific-build-stage) out of a single `Dockerfile` by using the multi-stage build mechanism.
+
+### CosmJS faucet
+
+When running `ignite chain serve`, you also get a faucet, which was called when running [CosmJS integration tests](../3-cosmjs-adv/2-cosmjs-messages.md#adding-tests). In fact, CosmJS also offers a [faucet package](https://www.npmjs.com/package/@cosmjs/faucet). Its API differs from Ignite's faucet. If you went through the CosmJS exercise, you saw its API being called too.
+
+### Dockerfile construction, checkers
+
+You assemble this multi-stage `Dockerfile` step by step, starting with the checkers part:
+
+<PanelList>
+
+<PanelListItem number="1">
+
+Build the checkers executable as you have learned in this section, but this time from the public repository, so as to not depend on local files:
+
+```Dockerfile
 FROM --platform=linux golang:1.18.7-alpine AS builder
 
-RUN apk update
-RUN apk add make git
-
 ENV CHECKERS_VERSION=main
+
+RUN apk add --update --no-cache make git
 
 WORKDIR /root
 RUN git clone --depth 1 --branch ${CHECKERS_VERSION} https://github.com/cosmos/b9-checkers-academy-draft.git checkers
@@ -1641,50 +1657,452 @@ RUN go build -o ./build/checkersd ./cmd/checkersd/main.go
 FROM --platform=linux alpine
 
 COPY --from=builder /root/checkers/build/checkersd /usr/local/bin/checkersd
+```
+
+</PanelListItem>
+
+<PanelListItem number="2">
+
+To offer maximum determinism, you are going to reuse unprotected keys. First you need to create them with `checkersd` separately, somewhere _unimportant_, like a temporary container:
+
+```sh
+$ checkersd keys add alice --keyring-backend test
+```
+
+This returns something like:
+
+```txt
+
+- name: alice
+  type: local
+  address: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn
+  pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A/E6dHn3W2XvCrLkhp/dNxAQyVpmduxEXPBg/nP/PyMa"}'
+  mnemonic: ""
+
+
+**Important** write this mnemonic phrase in a safe place.
+It is the only way to recover your account if you ever forget your password.
+
+zebra burden afford work power afraid field creek laugh govern upgrade project glue ceiling lounge mobile romance pear relief either panel expect eagle jacket
+```
+
+Make a note of the mnemonic, so as to reuse it in the faucet's definition.
+
+Add this new address information:
+
+```diff
+    COPY --from=builder /root/checkers/build/checkersd /usr/local/bin/checkersd
+
++  ENV ALICE=cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn
+```
+
+</PanelListItem>
+
+<PanelListItem number="3">
+
+You want to import the only validator's private key into the Docker image's own test keyring. To export it first, run:
+
+```sh
+$ echo password | checkersd keys export alice --keyring-backend test
+```
+
+This returns something like:
+
+```txt
+-----BEGIN TENDERMINT PRIVATE KEY-----
+kdf: bcrypt
+salt: BE58E64E619563E337C6D899F06BF022
+type: secp256k1
+
+fOM6ZNruv1AirP/KYq1ZdMLdp8ynpk4cGPCsNThmEvRvqkhONpo9S1+tw6/WiFRN
++ZZrSaeqYO/3JKIr4cKRsaD460vtoK53crvJ/bE=
+=1EBo
+-----END TENDERMINT PRIVATE KEY-----
+```
+
+So you add it as a local file in `Dockerfile`:
+
+```diff
+    ENV ALICE=cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn
+
++  RUN mkdir -p /root/.checkers/keys
+
++  # This private key file corresponds to the mnemonic above
++  RUN echo -----BEGIN TENDERMINT PRIVATE KEY----- > /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo kdf: bcrypt >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo salt: A67D88136A462383A2DD30727510DF59 >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo type: secp256k1 >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo  >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo 7gttUkxkpWxlI9tF0/vEYHvysmKTc/mG/aZ8dMF3u7a8xkPgVLa/Z75k/46nr0yN >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo FP/h5zTVYoP8tMnvVLV0koVAOV4QQurD5C7l3N8= >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo =qyP6 >> /root/.checkers/keys/encrypted-private-key-alice.txt
++  RUN echo -----END TENDERMINT PRIVATE KEY----- >> /root/.checkers/keys/encrypted-private-key-alice.txt
+```
+
+And then import it:
+
+```diff
+    RUN echo -----END TENDERMINT PRIVATE KEY----- >> /root/.checkers/keys/encrypted-private-key-alice.txt
+
++  RUN echo password | checkersd keys import alice /root/.checkers/keys/encrypted-private-key-alice.txt --keyring-backend test
+```
+
+</PanelListItem>
+
+<PanelListItem number="4">
+
+Then you create a genesis as you learned in this section, while making sure the other configuration files are also configured permissively:
+
+```diff
+    RUN echo password | checkersd keys import alice /root/.checkers/keys/encrypted-private-key-alice.txt --keyring-backend test
+
++  RUN checkersd init checkers
++  RUN sed -Ei 's/^enable-unsafe-cors = false/enable-unsafe-cors = true/g' /root/.checkers/config/app.toml
++  RUN sed -Ei 's/^enabled-unsafe-cors = false/enabled-unsafe-cors = true/g' /root/.checkers/config/app.toml
++  RUN sed -Ei 's/^laddr = "tcp:\/\/127.0.0.1:26657"/laddr = "tcp:\/\/0.0.0.0:26657"/g' /root/.checkers/config/config.toml
++  RUN sed -Ei 's/^cors_allowed_origins = \[\]/cors_allowed_origins = \["\*"\]/g' /root/.checkers/config/config.toml
++  RUN sed -Ei 's/^chain-id = .*$/chain-id = "checkers-1"/g' /root/.checkers/config/client.toml
+
++  RUN sed -Ei 's/"chain_id": "checkers"/"chain_id": "checkers-1"/g' /root/.checkers/config/genesis.json
++  RUN checkersd add-genesis-account $ALICE 1000000000000000stake,1000000000000000token
++  RUN checkersd gentx alice 10000000stake --keyring-backend test \
++      --account-number 0 --sequence 0 --chain-id checkers-1 \
++      --gas 1000000 --gas-prices 0.1stake
++  RUN checkersd collect-gentxs
+```
+
+Note that:
+
+* You add both `stake` and `token` to Alice so as to increase compatibility with the CosmJS exercise.
+* The genesis transaction is only with `stake`.
+
+</PanelListItem>
+
+<PanelListItem number="5" :last="true">
+
+Finally, you advertise the gRPC port so that any user know they ought to forward to the host; and have `checkersd` start by default:
+
+```diff
+    RUN checkersd collect-gentxs
+
++  EXPOSE 26657
+
++  ENTRYPOINT [ "checkersd" ]
+```
+
+</PanelListItem>
+
+</PanelList>
+
+Your standalone checkers blockchain with a single validator is ready.
+
+### Dockerfile construction, faucet
+
+Moving on to the faucet, you continue adding to the same `Dockerfile`.
+
+<PanelList>
+
+<PanelListItem number="1">
+
+You start its definitino as a separate independent stage:
+
+```Dockerfile
+FROM --platform=linux node:18.7-alpine AS cosmos-faucet
+```
+
+Install the CosmJS faucet package:
+
+```diff
+    FROM --platform=linux node:18.7-alpine AS cosmos-faucet
+
++  ENV COSMJS_VERSION=0.28.11
+
++  RUN npm install @cosmjs/faucet@${COSMJS_VERSION} --global --production
+```
+
+</PanelListItem>
+
+<PanelListItem number="2">
+
+Configure the faucet:
+
+```diff
+    RUN npm install @cosmjs/faucet@${COSMJS_VERSION} --global --production
+
++  ENV FAUCET_CONCURRENCY=2
++  ENV FAUCET_PORT=4500
++  ENV FAUCET_GAS_PRICE=0.001stake
++  ENV FAUCET_MNEMONIC="zebra burden afford work power afraid field creek laugh govern upgrade project glue ceiling lounge mobile romance pear relief either panel expect eagle jacket"
++  ENV FAUCET_ADDRESS_PREFIX=cosmos
++  ENV FAUCET_TOKENS="stake, token"
++  ENV FAUCET_CREDIT_AMOUNT_STAKE=100
++  ENV FAUCET_CREDIT_AMOUNT_TOKEN=100
++  ENV FAUCET_COOLDOWN_TIME=0
+```
+
+Of note:
+
+* A concurrency of at least `2` is necessary for the CosmJS exercise because when crediting in `before`, it launches two simultaneous requests. The faucet does **not** internally keep track of the accounts' sequences and instead uses its _distributor_ accounts in a round-robin fashion.
+* Use port 4500 to mimic that of Ignite's faucet so as to be conveniently compatible with the CosmJS exercise.
+* You paste the mnemonic that you obtained in the previous key-creation steps.
+* You reuse the token denominations as found in the CosmJS exercise.
+
+</PanelListItem>
+
+<PanelListItem number="3" :last="true">
+
+Finish the faucet declaration with the port to share and the default command to launch:
+
+```diff
+    ENV FAUCET_COOLDOWN_TIME=0
+
++  EXPOSE 4500
+
++  ENTRYPOINT [ "cosmos-faucet" ]
+```
+
+</PanelListItem>
+
+</PanelList>
+
+You now have a complete setup definition. Time to build the images.
+
+<ExpansionPanel title="Complete Dockerfile">
+
+```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone]
+# Faucet: docker build --target faucet
+FROM --platform=linux node:18.7-alpine AS cosmos-faucet
+
+ENV COSMJS_VERSION=0.28.11
+
+RUN npm install @cosmjs/faucet@${COSMJS_VERSION} --global --production
+
+ENV FAUCET_CONCURRENCY=2
+ENV FAUCET_PORT=4500
+ENV FAUCET_GAS_PRICE=0.001stake
+# Prepared keys for determinism
+ENV FAUCET_MNEMONIC="zebra burden afford work power afraid field creek laugh govern upgrade project glue ceiling lounge mobile romance pear relief either panel expect eagle jacket"
+ENV FAUCET_ADDRESS_PREFIX=cosmos
+ENV FAUCET_TOKENS="stake, token"
+ENV FAUCET_CREDIT_AMOUNT_STAKE=100
+ENV FAUCET_CREDIT_AMOUNT_TOKEN=100
+ENV FAUCET_COOLDOWN_TIME=0
+
+EXPOSE 4500
+
+ENTRYPOINT [ "cosmos-faucet" ]
+
+# Checkersd builder
+FROM --platform=linux golang:1.18.7-alpine AS builder
+
+ENV CHECKERS_VERSION=main
+
+RUN apk add --update --no-cache make git
+
+WORKDIR /root
+RUN git clone --depth 1 --branch ${CHECKERS_VERSION} https://github.com/cosmos/b9-checkers-academy-draft.git checkers
+
+WORKDIR /root/checkers
+RUN go build -o ./build/checkersd ./cmd/checkersd/main.go
+
+# Checkersd in production
+FROM --platform=linux alpine
+
+COPY --from=builder /root/checkers/build/checkersd /usr/local/bin/checkersd
+
+# This address corresponds to the mnemonic above
+ENV ALICE=cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn
+
+RUN mkdir -p /root/.checkers/keys
+
+# This private key file corresponds to the mnemonic above
+RUN echo -----BEGIN TENDERMINT PRIVATE KEY----- > /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo kdf: bcrypt >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo salt: A67D88136A462383A2DD30727510DF59 >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo type: secp256k1 >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo  >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo 7gttUkxkpWxlI9tF0/vEYHvysmKTc/mG/aZ8dMF3u7a8xkPgVLa/Z75k/46nr0yN >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo FP/h5zTVYoP8tMnvVLV0koVAOV4QQurD5C7l3N8= >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo =qyP6 >> /root/.checkers/keys/encrypted-private-key-alice.txt
+RUN echo -----END TENDERMINT PRIVATE KEY----- >> /root/.checkers/keys/encrypted-private-key-alice.txt
+
+RUN echo password | checkersd keys import alice /root/.checkers/keys/encrypted-private-key-alice.txt --keyring-backend test
 
 RUN checkersd init checkers
 RUN sed -Ei 's/^enable-unsafe-cors = false/enable-unsafe-cors = true/g' /root/.checkers/config/app.toml
 RUN sed -Ei 's/^enabled-unsafe-cors = false/enabled-unsafe-cors = true/g' /root/.checkers/config/app.toml
+RUN sed -Ei 's/^laddr = "tcp:\/\/127.0.0.1:26657"/laddr = "tcp:\/\/0.0.0.0:26657"/g' /root/.checkers/config/config.toml
 RUN sed -Ei 's/^cors_allowed_origins = \[\]/cors_allowed_origins = \["\*"\]/g' /root/.checkers/config/config.toml
 RUN sed -Ei 's/^chain-id = .*$/chain-id = "checkers-1"/g' /root/.checkers/config/client.toml
-RUN mkdir /root/.checkers/keys
-RUN checkersd keys --keyring-backend test add alice 2>&1 > /dev/null | tail -n 1 > /root/.checkers/keys/mnemonic-alice.txt
+
 RUN sed -Ei 's/"chain_id": "checkers"/"chain_id": "checkers-1"/g' /root/.checkers/config/genesis.json
-RUN checkersd add-genesis-account \
-    $(checkersd keys --keyring-backend test show alice --address) \
-    1000000000000000stake
+RUN checkersd add-genesis-account $ALICE 1000000000000000stake,1000000000000000token
 RUN checkersd gentx alice 10000000stake --keyring-backend test \
     --account-number 0 --sequence 0 --chain-id checkers-1 \
     --gas 1000000 --gas-prices 0.1stake
 RUN checkersd collect-gentxs
 
-EXPOSE 1317 26657
+EXPOSE 26657
 
 ENTRYPOINT [ "checkersd" ]
 ```
 
-To build it, run:
+</ExpansionPanel>
+
+### Build your standalone images
+
+Your two Docker images will run in the same Docker network. To build them, run: 
+
+<CodeGroup>
+
+<CodeGroupItem title="Checkers">
 
 ```sh
-$ docker build . -f Dockerfile-standalone-alpine -t checkersd_i:standalone-alpine
+$ docker build . \
+    -f Dockerfile-standalone \
+    -t checkersd_i:standalone
 ```
 
-When this is done, you can launch it right away with:
+</CodeGroupItem>
+
+<CodeGroupItem title="Faucet">
+
+```sh
+$ docker build . \
+    -f Dockerfile-standalone \
+    --target cosmos-faucet \
+    -t cosmos-faucet_i:0.28.11
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+### Run your standalone checkers
+
+With your images built, you can launch both `checkersd` and the faucet process right away. Allow for a few seconds between them:
+
+<CodeGroup>
+
+<CodeGroupItem title="Checkers">
 
 ```sh
 $ docker run --rm -it \
-    -p 0.0.0.0:26657:26657 \
-    -p 0.0.0.0:1317:1317 \
-    checkersd_i:standalone-alpine start
+    -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
+    --detach \
+    checkersd_i:standalone start
 ```
 
-Finally, to get Alice's mnemonic so as to reuse it elsewhere, run:
+Checkers needs about **10 seconds** to be operational. Wait for that before launching the faucet.
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Faucet">
 
 ```sh
 $ docker run --rm -it \
-    --entrypoint cat \
-    checkersd_i:standalone-alpine \
-    /root/.checkers/keys/mnemonic-alice.txt
+    -p 4500:4500 \
+    --name cosmos-faucet \
+    --network checkers-net \
+    --detach \
+    cosmos-faucet_i:0.28.11 start http://checkers:26657
+```
+
+The faucet needs about **20 seconds** to be operational as it sends four transactions to its distributor accounts. Wait for that before launching any CosmJS tests.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+Note how:
+
+* Both processes are started as `--detach`ed, which is how it is typically started by users who do not care about the details. If you get errors, then stop, remove this flag and restart to see the logs.
+* Checkers is started with `--name checkers`, whose name is then reused in the node address `http://checkers:26657` when launching the faucet.
+
+On a side-note, if you want to access Alice's address in order to access her balance, you can run:
+
+```sh
+$ docker exec -it checkers \
+    sh -c "checkersd query bank balances \$ALICE"
+```
+
+And to check the faucet status, you can do:
+
+```sh
+$ curl http://localhost:4500/status
+``` 
+
+You now have a container running both the checkers and a faucet. You are ready to run your CosmJS tests in `client`.
+
+### Test your standalone checkers
+
+Prepare the `client/.env` values depending on whether you will run `npm test` locally or in Docker:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```ini
+RPC_URL="http://localhost:26657"
+FAUCET_URL="http://localhost:4500"
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```ini
+RPC_URL="http://checkers:26657"
+FAUCET_URL="http://cosmos-faucet:4500"
+```
+
+Where you insert the `--name`s used when launching the Docker containers.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+Now you can launch the tests:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
+
+```sh
+$ npm test --prefix client
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd)/client:/client \
+    -w /client \
+    --network checkers-net \
+    node:18.7-slim \
+    npm test
+```
+
+Note how the container is inserted in `--network checkers-net` too, so as to benefit from the automatic name resolution.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+And to stop (and `--rm`) both containers, run:
+
+```sh
+$ docker stop cosmos-faucet checkers
 ```
 
 <HighlightBox type="synopsis">
@@ -1697,5 +2115,6 @@ To summarize, this section has explored:
 * How to prepare a blockchain genesis with multiple parties.
 * How to launch all that with the help of Docker Compose.
 * How to create a standalone blochain server in a container.
+* How to create a small faucet to assist with running your CosmJS integration tests.
 
 </HighlightBox>
