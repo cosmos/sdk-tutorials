@@ -12,7 +12,7 @@ I want to thank you for dedicating the time it took to join the Interchain Devel
 
 All the best,
 
-_Noam and the Interchain Developer Academy Team_
+_Thomas and the Interchain Developer Academy Team_
 
 _PS: if you know developers who are interested in exploring Cosmos, please share the link to the next cohort of the Academy with them: [academy.cosmos.network](https://academy.cosmos.network/)._
 

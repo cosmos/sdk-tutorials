@@ -52,7 +52,13 @@ modify x/leaderboard/types/keys.go
 
 <HighlightBox type="warning">
 
-The code in this section was scaffolded with Ignite CLI v0.22. This includes ibc-go v3 as a dependency. The latest version of ibc-go is already past v3 so there may be some differences compared to the code in this section. For documentation on the latest version of ibc-go, please refer to the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html).
+The code in this section was scaffolded with Ignite CLI v0.22.1. This version includes ibc-go v3 as a dependency, which has [reached past end-of-life](https://github.com/cosmos/ibc-go/blob/143e5d85e9d2fc5fc2fc53adc42127a439ee2b79/RELEASES.md#stable-release-policy) and is no longer actively supported. 
+
+**It is thus highly discouraged to deploy any code in production using ibc-go code scaffolded by Ignite CLI v0.22.1.**
+
+<!--- TODO: add link to section on upgrading ibc-go version --->
+
+[All actively supported versions of ibc-go](https://github.com/cosmos/ibc-go/blob/main/RELEASES.md#stable-release-policy) have reached past v3, so there may be some differences compared to the code in this section. For documentation on the latest version of ibc-go, please refer to the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html).
 </br></br>
 For example, channel callbacks from v4 onwards now return a _version_ string next to an error:
 

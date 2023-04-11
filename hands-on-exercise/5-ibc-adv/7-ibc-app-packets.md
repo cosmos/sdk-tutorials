@@ -115,7 +115,7 @@ The next addition is the ack:
 ```protobuf [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/proto/leaderboard/packet.proto#L27-L29]
 // IbcTopRankPacketAck defines a struct for the packet acknowledgement
 message IbcTopRankPacketAck {
-      string playerId = 1;
+    string playerId = 1;
 }
 ```
 
