@@ -940,7 +940,7 @@ Adjust what you did.
    1. Get the `Dockerfile`:
 
        ```sh
-       $ curl -O https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
        ```
 
    2. Build the checkers image:
@@ -977,6 +977,7 @@ Launch your checkers chain and the faucet. You can choose your preferred method 
 <CodeGroupItem title="Docker standalone" active>
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -p 26657:26657 \
     --name checkers \
@@ -992,6 +993,14 @@ $ docker run --rm -it \
     cosmos-faucet_i:0.28.11 start http://checkers:26657
 $ sleep 20
 ```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is ok.
 
 <HighlightBox type="note">
 
@@ -1015,6 +1024,7 @@ $ ignite chain serve
 <CodeGroupItem title="Docker Ignite">
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
@@ -1026,6 +1036,14 @@ $ docker run --rm -it \
     checkers_i \
     ignite chain serve
 ```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is ok.
 
 <HighlightBox type="note">
 
@@ -1086,6 +1104,7 @@ When you are done, if you started the chain in Docker, you can stop the containe
 
 ```sh
 $ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
 ```
 
 <HighlightBox type="synopsis">

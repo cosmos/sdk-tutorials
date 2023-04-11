@@ -657,7 +657,7 @@ There is more than one way to run a checkers blockchain. For instance:
    1. Get the `Dockerfile`:
 
        ```sh
-       $ curl -O https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Dockerfile-standalone
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
        ```
 
    2. Build the image:
@@ -685,12 +685,21 @@ Launch your checkers chain. You can choose your preferred method as long as it c
 <CodeGroupItem title="Docker standalone" active>
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -p 26657:26657 \
     --name checkers \
     --network checkers-net \
     checkersd_i:standalone start
 ```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is ok.
 
 </CodeGroupItem>
 
@@ -705,6 +714,7 @@ $ ignite chain serve
 <CodeGroupItem title="Docker Ignite">
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
@@ -715,9 +725,19 @@ $ docker run --rm -it \
     ignite chain serve
 ```
 
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is ok.
+
 </CodeGroupItem>
 
 </CodeGroup>
+
+---
 
 When using Docker note:
 
@@ -824,6 +844,13 @@ Then, for tests:
     </HighlightBox>
 
 Docker networks are used further in the next section.
+
+When you are done, if you started the chain in Docker, you can stop the containers with:
+
+```sh
+$ docker stop checkers
+$ docker network rm checkers-net
+```
 
 <HighlightBox type="synopsis">
 

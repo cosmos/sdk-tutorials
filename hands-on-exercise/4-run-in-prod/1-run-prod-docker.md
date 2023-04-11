@@ -1987,6 +1987,7 @@ With your images built, you can launch both `checkersd` and the faucet process r
 <CodeGroupItem title="Checkers">
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -p 26657:26657 \
     --name checkers \
@@ -1996,6 +1997,14 @@ $ docker run --rm -it \
 ```
 
 Checkers needs about **10 seconds** to be operational. Wait for that before launching the faucet.
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is ok.
 
 </CodeGroupItem>
 
@@ -2103,6 +2112,7 @@ And to stop (and `--rm`) both containers, run:
 
 ```sh
 $ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
 ```
 
 <HighlightBox type="synopsis">
