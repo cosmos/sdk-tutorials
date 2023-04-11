@@ -136,19 +136,246 @@ interface ConsensusState {
 
 It must of course also implement the `ConsensusState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#consensusstate)
 
-### Handling client messages
+### Verifying signatures
 
+The essence of the solomachine / solomachine client pair is that we can verify signatures based on public/private key cryptography. The public key is stored in the `ConsensusState` of the solomachine client and can be used to verify signatures signed with the solomachine private key corresponding to the available public key. This signature verification is used in the following situations:
 
+* when updating the `ConsensusState` with a new public key or diversifier through submitting a `Header` 
+* when submitting evidence of `Misbehaviour` to freeze a malicious client
+* when verifying packet commitments
 
-## Crypto.org solomachine implementation
+#### Signing data
 
-Developers and users who are interested can clone our Stag repository to quickly go through these steps and try the approaches out.
+The solomachine will sign over some data, `SignBytes`:
+
+``` typescript
+interface SignBytes {
+  sequence: uint64
+  timestamp: uint64  
+  diversifier: string
+  path: []byte
+  data: []byte
+}
+```
+
+and store a `Signature` including the data bytes and a timestamp:
+
+``` typescript
+interface Signature {
+  data: []byte
+  timestamp: uint64
+}
+```
+
+This signature is then added to a message, e.g. the `Header`:
+
+```typescript
+interface Header {
+  sequence: uint64 // deprecated
+  timestamp: uint64
+  signature: Signature
+  newPublicKey: PublicKey
+  newDiversifier: string
+}
+```
+
+#### Client message signature verification
+
+Remember from the section on light client development that the client can be  updated (with new state or evidence of misbehaviour) by submitting a `ClientMessage`. 
+
+The `ClientMessage` will be passed onto the client through a `MsgUpdateClient` submitted (generally by a relayer). The `02-client`'s [`UpdateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L48) method will then handle the client message by using [these 4 methods on the `ClientState` interface](https://github.com/cosmos/ibc-go/blob/02-client-refactor-beta1/modules/core/exported/client.go#L98-L109):
+
+* VerifyClientMessage
+* CheckForMisbehaviour
+* UpdateStateOnMisbehaviour
+* UpdateState
+
+You can inspect the [solomachine specification](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client) for more details, but take a look at the `verifyClientMessage` where a switch statement is used to identify the cases of submitting a header or evidence of misbehaviour.
+
+You'll notice in both cases some pseudo code that requires to perform the signature checks:
+
+```typescript
+assert(checkSignature(cs.consensusState.publicKey, signBytes, {msgType}.signature))
+```
+
+whereby the stored public key is used to check if the signature used to sign the `signBytes` was in fact the private key corresponding to it.
+
+In ibc-go this is performed in [solomachine's proof.go file](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/light-clients/06-solomachine/proof.go) by the `VerifySignature` function.
+
+<ExpansionPanel title="Verify client message">
+
+```typescript
+function verifyClientMessage(clientMsg: ClientMessage) {
+  switch typeof(ClientMessage) {
+    case Header:
+      verifyHeader(clientMessage)
+    // misbehaviour only suppported for current public key and diversifier on solomachine
+    case Misbehaviour:
+      verifyMisbehaviour(clientMessage)
+  }
+}
+
+function verifyHeader(header: header) {
+  clientState = provableStore.get("clients/{clientMsg.identifier}/clientState")
+  assert(header.timestamp >= clientstate.consensusState.timestamp)
+  headerData = {
+    newPubKey: header.newPubKey,
+    newDiversifier: header.newDiversifier,
+  }
+  signBytes = SignBytes(
+    sequence: clientState.consensusState.sequence,
+    timestamp: header.timestamp,
+    diversifier: clientState.consensusState.diversifier,
+    path: []byte{"solomachine:header"},
+    value: marshal(headerData)
+  )
+  assert(checkSignature(cs.consensusState.publicKey, signBytes, header.signature))
+}
+
+function verifyMisbehaviour(misbehaviour: Misbehaviour) {
+  clientState = provableStore.get("clients/{clientMsg.identifier}/clientState")
+  s1 = misbehaviour.signatureOne
+  s2 = misbehaviour.signatureTwo
+  pubkey = clientState.consensusState.publicKey
+  diversifier = clientState.consensusState.diversifier
+  timestamp = clientState.consensusState.timestamp
+  // assert that the signatures validate and that they are different
+  sigBytes1 = SignBytes(
+    sequence: misbehaviour.sequence,
+    timestamp: s1.timestamp,
+    diversifier: diversifier,
+    path: s1.path,
+    data: s1.data
+  )
+  sigBytes2 = SignBytes(
+    sequence: misbehaviour.sequence,
+    timestamp: s2.timestamp,
+    diversifier: diversifier,
+    path: s2.path,
+    data: s2.data
+  )
+  // either the path or data must be different in order for the misbehaviour to be valid
+  assert(s1.path != s2.path || s1.data != s2.data)
+  assert(checkSignature(pubkey, sigBytes1, misbehaviour.signatureOne.signature))
+  assert(checkSignature(pubkey, sigBytes2, misbehaviour.signatureTwo.signature))
+}
+```
+
+</ExpansionPanel>
+
+#### State signature verification
+
+Similarly, to verify if the signature that signed a state transition is valid you'll remember that a light client has to implement `VerifyMembership` and `VerifyNonMembership` methods.
+
+There you'll find similar pseudo code relating to signature verification:
+
+```typescript
+proven = checkSignature(clientState.consensusState.publicKey, signBytes, proof.sig)
+```
+
+In ibc-go this is performed in [solomachine's proof.go file](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/light-clients/06-solomachine/proof.go) by the `VerifySignature` function.
+
+<ExpansionPanel title="state verification">
+
+```typescript
+function verifyMembership(
+  clientState: ClientState,
+  // provided height is unnecessary for solomachine
+  // since clientState maintains the expected sequence
+  height: uint64,
+  // delayPeriod is unsupported on solomachines
+  // thus these fields are ignored
+  delayTimePeriod: uint64,
+  delayBlockPeriod: uint64,
+  proof: CommitmentProof,
+  path: CommitmentPath,
+  value: []byte
+): Error {
+  // the expected sequence used in the signature
+  abortTransactionUnless(!clientState.frozen)
+  abortTransactionUnless(proof.timestamp >= clientState.consensusState.timestamp)
+  signBytes = SignBytes(
+    sequence: clientState.consensusState.sequence,
+    timestamp: proof.timestamp,
+    diversifier: clientState.consensusState.diversifier,
+    path: path.String(),
+    data: value,
+  )
+  proven = checkSignature(clientState.consensusState.publicKey, signBytes, proof.sig)
+  if !proven {
+    return error
+  }
+
+  // increment sequence on each verification to provide
+  // replay protection
+  clientState.consensusState.sequence++
+  clientState.consensusState.timestamp = proof.timestamp
+  // unlike other clients, we must set the client state here because we
+  // mutate the clientState (increment sequence and set timestamp)
+  // thus the verification methods are stateful for the solomachine
+  // in order to prevent replay attacks
+  provableStore.set("clients/{identifier}/clientState", clientState)
+  return nil
+}
+
+function verifyNonMembership(
+  clientState: ClientState,
+  // provided height is unnecessary for solomachine
+  // since clientState maintains the expected sequence
+  height: uint64,
+  // delayPeriod is unsupported on solomachines
+  // thus these fields are ignored
+  delayTimePeriod: uint64,
+  delayBlockPeriod: uint64,
+  proof: CommitmentProof,
+  path: CommitmentPath
+): Error {
+  abortTransactionUnless(!clientState.frozen)
+  abortTransactionUnless(proof.timestamp >= clientState.consensusState.timestamp)
+  signBytes = SignBytes(
+    sequence: clientState.consensusState.sequence,
+    timestamp: proof.timestamp,
+    diversifier: clientState.consensusState.diversifier,
+    path: path.String(),
+    data: nil,
+  )
+  proven = checkSignature(clientState.consensusState.publicKey, signBytes, proof.sig)
+  if !proven {
+    return error
+  }
+
+  // increment sequence on each verification to provide
+  // replay protection
+  clientState.consensusState.sequence++
+  clientState.consensusState.timestamp = proof.timestamp
+  // unlike other clients, we must set the client state here because we
+  // mutate the clientState (increment sequence and set timestamp)
+  // thus the verification methods are stateful for the solomachine
+  // in order to prevent replay attacks
+  provableStore.set("clients/{identifier}/clientState", clientState)
+  return nil
+}
+```
+
+</ExpansionPanel>
+
+## Practical example
+
+Ready to experiment?
+
+Crypto.org is the main user of solomachine up to this point and has an implementation in their [stag repo](https://github.com/devashishdxt/stag) which you can check out for yourself.
+
+<HighlightBox type="docs">
+
+There's also a tutorial that runs both a solomachine (based on the stag repo from above) and a simple Cosmos SDK chain that shows a solomachine walktrhough. You can follow along [here](https://github.com/cosmos/ibc-go/wiki/IBC-solo-machine).
+
+</HighlightBox>
 
 ## Conclusion
 
 IBC offers a unique and powerful framework for trust-minimized interoperability. And the impressive growth since its genesis is a testament to its security, composability, and extensibility.
 
-While implementing light clients has been the standard design to plug into IBC, the options are not limited to this one method. And it turns out that the solo machine client offers an alternative to implementing IBC light clients. Given its simple proof verification method, the solo machine client is considerably easier to deploy from an engineering standpoint, and an effective solution in deployment scenarios where other potential concerns (eg. security) are mitigated by design.
+While implementing light clients has been the standard design to plug into IBC, the options are not limited to this one method. And it turns out that the solomachine (and client) offers an alternative to implementing IBC light clients. Given its simple proof verification method, the solomachine client is considerably easier to deploy from an engineering standpoint, and an effective solution in deployment scenarios where other potential concerns (eg. security) are mitigated by design.
 
 In conclusion, having access to IBC offers a host of benefits. But it is equally important to facilitate ease of access to IBC as much as possible. And to this latter point, the solo machine client offers one of the best solutions today.
 
