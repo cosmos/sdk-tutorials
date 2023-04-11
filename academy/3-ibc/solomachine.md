@@ -75,6 +75,71 @@ Read more about Crypto.org's use of solomachines in [their docs](https://crypto.
 
 </HighlightBox>
 
+## Solomachine client
+
+The ibc-go implementation contains a solomachine client, `06-solomachine` which enables Cosmos SDK chains to interact with solomachines over IBC. In this section, a high-level overview is provided into the [specification for solomachines](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client).
+
+<HighlightBox type="docs">
+
+The content provided here will remain high level and focused at the specification, if you wish to take a more in-depth look at the ibc-go `06-solomachine` implementation, you can refer to either [the docs](https://ibc.cosmos.network/main/ibc/light-clients/solomachine/solomachine.html) or [the code](https://github.com/cosmos/ibc-go/tree/v7.0.0/modules/light-clients/06-solomachine).
+
+</HighlightBox>
+
+### Solomachine client state and consensus state
+
+If you paid close attention to the previous section on light client development and the introduction on solomachine (clients), you may already have an idea of how a solomachine implementation might look like.
+
+From the light client development section, you know that light client developers should be mainly concerned with these interfaces:
+
+* `ClientState`
+* `ConsensusState`
+* `ClientMessage`
+
+Furthermore, from the introduction you can derive that:
+
+* the solomachine client will need access to the public key of the solomachine to verify signatures, so you'd expect this to be stored in state
+* to verify the signature a packet or client message is signed with, the client will need functionality to handle this
+
+<HighlightBox type="remember">
+
+The solomachine client is a reminder of the power of the generalized client interfaces for IBC light clients. Because of it, significantly different data systemslike a solomachines and blockchains can still be represented through a unified interface and communicate.
+
+Because a solomachine is a lot less complex than a full fledged blockchain though, you'll notice that a lot of the development work for the solomachine client is simplified.
+
+</HighlightBox>
+
+#### `ClientState`
+
+The `ClientSate` is rather simple, it will contain the `ConsensusState` and a field to indicate whether the client is frozen:
+
+``` typescript
+interface ClientState {
+  frozen: boolean
+  consensusState: ConsensusState
+}
+```
+
+It must of course also implement the `ClientState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#clientstate)
+
+#### `ConsensusState`
+
+Next to the public key, the `ConsensusSate` also contains a timestamp and diversifier. The diversifier is an arbitrary string, chosen when the client is created, designed to allow the same public key to be re-used across different solo machine clients (potentially on different chains) without being considered misbehaviour.
+
+```typescript
+interface ConsensusState {
+  sequence: uint64 // deprecated
+  publicKey: PublicKey
+  diversifier: string
+  timestamp: uint64
+}
+```
+
+It must of course also implement the `ConsensusState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#consensusstate)
+
+### Handling client messages
+
+
+
 ## Crypto.org solomachine implementation
 
 Developers and users who are interested can clone our Stag repository to quickly go through these steps and try the approaches out.
