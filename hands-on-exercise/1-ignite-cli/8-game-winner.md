@@ -321,7 +321,7 @@ Feel free to create another game won by the red player.
 
 ## Interact via the CLI
 
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. At some point, look at [migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to avoid falling into such a situation with a blockchain in production.
+If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. At some point, look at [migrations](/hands-on-exercise/4-run-in-prod/2-migration-info.md) to avoid falling into such a situation with a blockchain in production.
 
 Start again:
 

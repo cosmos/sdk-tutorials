@@ -31,7 +31,7 @@ In this chapter, you will learn:
 
 It is time to move your checkers blockchain into production. In the [next section](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md), you can explore how to simulate production with Docker Compose.
 
-After, you will [introduce a leaderboard after production](/hands-on-exercise/4-run-in-prod/2-migration.md) into your checkers blockchain. Upgrading your chain in production and dealing with data migrations and logic upgrades will become easier to understand after this guided coding section.
+After, you will [tally player info after production](/hands-on-exercise/4-run-in-prod/2-migration-info.md) into your checkers blockchain. Upgrading your chain in production and dealing with data migrations and logic upgrades will become easier to understand after this guided coding section.
 
 ## Developer Resources
 

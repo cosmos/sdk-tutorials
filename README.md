@@ -351,8 +351,8 @@ customModules:
         links:
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Tally player info after production
+            path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/

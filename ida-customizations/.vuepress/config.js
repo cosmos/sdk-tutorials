@@ -526,8 +526,8 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
-                  title: "Introduce a Leaderboard After Production",
-                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                  title: "Tally Player Info After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
                   title: "Prepare and Do Migrations",

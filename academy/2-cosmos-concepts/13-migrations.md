@@ -350,7 +350,7 @@ The migration mechanism helps identify how you can upgrade your blockchain to in
 
 If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
 
-For even more detail, see [Introduce a Leaderboard After Production](/hands-on-exercise/4-run-in-prod/2-migration.md).
+For even more detail, see [Tally Player Info After Production](/hands-on-exercise/4-run-in-prod/2-migration-info.md).
 
 </HighlightBox>
 
