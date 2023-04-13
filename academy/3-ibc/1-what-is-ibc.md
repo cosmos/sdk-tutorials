@@ -90,7 +90,7 @@ In the diagram, the relationship between the ICS definitions in the category TAO
 
 Simply put, the transport layer includes:
 
-* **Light Clients** - [ICS-2](https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics), [6](https://github.com/cosmos/ibc/tree/master/spec/client/ics-006-solo-machine-client), [7](https://github.com/cosmos/ibc/tree/master/spec/client/ics-007-tendermint-client), [8](https://github.com/cosmos/ibc/tree/master/spec/client/ics-008-wasm-client), [9](https://github.com/cosmos/ibc/tree/master/spec/client/ics-010-grandpa-client): IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus state of other blockchains and the proof specs of those blockchains required to properly verify proofs against the client's consensus state. A client can be associated with any number of connections to the counterparty chain.
+* **Light Clients** - [ICS-2](https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics), [6](https://github.com/cosmos/ibc/tree/master/spec/client/ics-006-solo-machine-client), [7](https://github.com/cosmos/ibc/tree/master/spec/client/ics-007-tendermint-client), [8](https://github.com/cosmos/ibc/tree/master/spec/client/ics-008-wasm-client), [9](https://github.com/cosmos/ibc/tree/main/spec/client/ics-009-loopback-cilent): IBC clients are light clients that are identified by a unique client ID. IBC clients track the consensus state of other blockchains and the proof specs of those blockchains required to properly verify proofs against the client's consensus state. A client can be associated with any number of connections to the counterparty chain.
 * **Connections** - [ICS-3](https://github.com/cosmos/ibc/tree/master/spec/core/ics-003-connection-semantics): connections, once established, are responsible for facilitating all cross-chain verifications of an IBC state. A connection can be associated with any number of channels. Connections encapsulate two `ConnectionEnd` objects on two separate blockchains. Each `ConnectionEnd` is associated with a light client of the other blockchain - for example, the counterparty blockchain. The connection handshake is responsible for verifying that the light clients on each chain are the correct ones for their respective counterparties.
 * **Channels** - [ICS-4](https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics): a module on one blockchain can communicate with other modules on other blockchains by sending, receiving, and acknowledging packets through channels that are uniquely identified by the (`channelID`, `portID`) tuple. Channels encapsulate two `ChannelEnd`s that are associated with a connection. Channels provide a way to have different types of information relayed between chains, but do not increase the total capacity. Just like connections, channels are established with a handshake.
 
@@ -128,7 +128,7 @@ The ICS also offer definitions for IBC applications:
 
 This list can be and will be extended with time. New concepts such as interchain accounts will continue to increase adoption and provide application diversity in the Interchain ecosystem.
 <br/><br/>
-Find a list of ecosystem efforts on IBC applications and light clients in the ibc-go repo's [readme](https://github.com/cosmos/ibc-go#ecosystem).
+Find a list of ecosystem efforts on IBC applications and light clients in the ibc-go repo's [readme](https://github.com/cosmos/ibc-go#ecosystem) or the [ibc-apps repo](https://github.com/cosmos/ibc-apps).
 
 </HighlightBox>
 
