@@ -48,7 +48,7 @@ From the description above, you'll be able to note that a distinction needs to b
 
 <HighlightBox type="info">
 
-The interchain accounts application module is structured to support the ability of **exclusively enabling controller or host functionality**. This can be achieved by simply omitting either controller or host `Keeper` from the interchain accounts `NewAppModule` constructor function, and mounting only the desired submodule via the `IBCRouter`. Alternatively, [submodules can be enabled and disabled dynamically using on-chain parameters](https://ibc.cosmos.network/main/apps/interchain-accounts/parameters.html).
+The interchain accounts application module is structured to **support the ability of exclusively enabling controller or host functionality**. This can be achieved by simply omitting either controller or host `Keeper` from the interchain accounts `NewAppModule` constructor function, and mounting only the desired submodule via the `IBCRouter`. Alternatively, [submodules can be enabled and disabled dynamically using on-chain parameters](https://ibc.cosmos.network/main/apps/interchain-accounts/parameters.html).
 
 </HighlightBox>
 
@@ -56,14 +56,82 @@ The interchain accounts application module is structured to support the ability 
 
 **Interchain account (ICA):** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
 
+**Interchain Account Owner:** An account on the controller chain. Every interchain account on a host chain has a respective owner account on the controller chain. This could be module account or analogous, not just regular user accounts.
+
+Let's take a look at the API on both the controller and host side.
+
 ### Controller API
 
-* RegisterInterchainAccount
-    * Mention ORDERED channels
-    * active channels
-    * handshake
-    * Port ID
-* SendTx
+The controller chain is the chain where some owner account (how to authenticate owners will be handled in a later section) is able to create an interchain account on a host chain and send instructions (a transactions) to it over IBC.
+
+Thus, the provided API on the controller submodule consists of:
+
+* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side
+* `SendTx`: Once an ICA has been established we can send transaction bytes over an IBC channel to have the ICA execute it on the host side
+
+#### Register an interchain account
+
+`RegisterInterchainAccount` is the entry point to registering an interchain account. It generates a new controller portID using the owner account address. It will bind an IBC port to the controller portID and initiate a channel handshake to open a channel on a connection between the controller and host chains. An error is returned if the controller portID is already in use. 
+
+A `ChannelOpenInit` event is emitted which can be picked up by an offchain process such as a relayer. The account will be registered during the `OnChanOpenTry` step on the host chain. This function must be called after an OPEN connection is already established with the given connection identifier. 
+
+``` typescript
+// pseudo code
+function RegisterInterchainAccount(connectionId: Identifier, owner: string, version: string) returns (error) {
+}
+```
+
+#### Sending a transaction
+
+`SendTx` allows the owner of an interchain account to send an IBC packet containing instructions (messages) to an interchain account on a host chain.
+
+```typescript
+// pseudo code
+function SendTx(
+  capability: CapabilityKey, 
+  connectionId: Identifier,
+  portId: Identifier, 
+  icaPacketData: InterchainAccountPacketData, 
+  timeoutTimestamp uint64): uint64 {
+    // check if there is a currently active channel for
+    // this portId and connectionId, which also implies an 
+    // interchain account has been registered using 
+    // this portId and connectionId
+    activeChannelID, found = GetActiveChannelID(portId, connectionId)
+    abortTransactionUnless(found)
+
+    // validate timeoutTimestamp
+    abortTransactionUnless(timeoutTimestamp <= currentTimestamp())
+
+    // validate icaPacketData
+    abortTransactionUnless(icaPacketData.type == EXECUTE_TX)
+    abortTransactionUnless(icaPacketData.data != nil)
+
+    // send icaPacketData to the host chain on the active channel
+    sequence = handler.sendPacket(
+      capability,
+      portId, // source port ID
+      activeChannelID, // source channel ID 
+      0,
+      timeoutTimestamp,
+      icaPacketData
+    )
+
+    return sequence
+}
+```
+
+<HighlightBox type="note">
+
+Note that the packet data you'll be sending over IBC, `icaPacketData` should be of type `EXECUTE_TX` and have a non nil data field.
+<br>
+Additionally, you'll note that `SendTx` calls core IBCs `sendPacket` API to transport the packet over the ICS-27 channel.
+
+</HighlightBox>
+
+#### ICS-27 channels
+
+
 
 ### Host API
 
