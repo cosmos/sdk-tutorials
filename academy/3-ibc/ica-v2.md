@@ -52,8 +52,6 @@ The interchain accounts application module is structured to **support the abilit
 
 </HighlightBox>
 
-**Authentication Module:** a custom IBC application module on the controller chain that uses the interchain accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
-
 **Interchain account (ICA):** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
 
 **Interchain Account Owner:** An account on the controller chain. Every interchain account on a host chain has a respective owner account on the controller chain. This could be module account or analogous, not just regular user accounts.
@@ -80,6 +78,12 @@ A `ChannelOpenInit` event is emitted which can be picked up by an offchain proce
 function RegisterInterchainAccount(connectionId: Identifier, owner: string, version: string) returns (error) {
 }
 ```
+
+<HighlightBox type="best-practice">
+
+It is best practice that the `portId` for an ICA channel is `icahost` on the host side, while on the controller side it will be dependent on the owner account, `icacontroller-<owner-account>`.
+
+</HighlightBox>
 
 #### Sending a transaction
 
@@ -124,13 +128,39 @@ function SendTx(
 <HighlightBox type="note">
 
 Note that the packet data you'll be sending over IBC, `icaPacketData` should be of type `EXECUTE_TX` and have a non nil data field.
-<br>
+<br/>
 Additionally, you'll note that `SendTx` calls core IBCs `sendPacket` API to transport the packet over the ICS-27 channel.
 
 </HighlightBox>
 
 #### ICS-27 channels
 
+After an interchain account has been registered on the host side, the main functionality is provided by `SendTx`. When designing ICA for the ibc-go implementation, a decision was made to use [`ORDERED` channels](./3-channels.md), to ensure that messages are executed in the desired order on the host side.
+
+A limitation when using `ORDERED` channels is that when a packet times out the channel will be closed. In the case of a channel closing, it is desirable that a controller chain is able to regain access to the interchain account registered on this channel. The concept of _active channels_ enables this functionality.
+
+When an Interchain Account is registered using `RegisterInterchainAccount` flow, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (on controller & host chain respectively) the active channel for this interchain account is stored in state.
+
+It is possible to create a new channel using the same controller chain `portID` if the previously set active channel is now in a `CLOSED` state.
+
+<HighlightBox type="info">
+
+For example **in ibc-go**, one can create a new channel using the interchain account programatically by sending a new `MsgChannelOpenInit` message like so:
+
+```go
+msg := channeltypes.NewMsgChannelOpenInit(portID, string(versionBytes), channeltypes.ORDERED, []string{connectionID}, icatypes.HostPortID, authtypes.NewModuleAddress(icatypes.ModuleName).String())
+handler := keeper.msgRouter.Handler(msg)
+res, err := handler(ctx, msg)
+if err != nil {
+  return err
+}
+```
+
+Alternatively, any relayer operator may initiate a new channel handshake for this interchain account once the previously set `Active Channel` is in a `CLOSED` state. This is done by initiating the channel handshake on the controller chain using the same portID associated with the interchain account in question.
+
+</HighlightBox>
+
+It is important to note that once a channel has been opened for a given interchain account, new channels can not be opened for this account until the currently set `Active Channel` is set to `CLOSED`.
 
 
 ### Host API
@@ -144,6 +174,8 @@ Additionally, you'll note that `SendTx` calls core IBCs `sendPacket` API to tran
 AutenticateTx as a segue towards Authentication modules
 
 ## Authentication
+
+**Authentication Module:** a custom IBC application module on the controller chain that uses the interchain accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
 
 The ICA module provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing an **ICA Auth Module** (_authentication module_) and can expose gRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. interchain accounts are instead controlled programmatically by separate chains via IBC transactions. interchain accounts are implemented as sub-accounts of the interchain accounts module account.
 
