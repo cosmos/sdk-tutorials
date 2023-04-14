@@ -14,7 +14,8 @@ tags:
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
-* You have the checkers blockchain codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or you can go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
+* You have the checkers CosmJS codebase up to the external GUI. If not, follow the [previous steps](./3-external-gui.md) or go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/unwired-gui) to get the version needed for this tutorial.
+* You have the checkers Go codebase up to the CosmJS elements. If not, check out [this branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/cosmjs-elements) to get the version for testing the GUI in this tutorial.
 
 </HighlightBox>
 
@@ -35,8 +36,7 @@ For the CosmJS integration, you will:
 * Integrate with Keplr for browser-based players.
 * Create a new game.
 * Fetch a single game to be played.
-
-Rejecting a game will be left to you as an exercise.
+* Play on the game, making single moves and double moves.
 
 ## Prepare the integration with the checkers blockchain
 
@@ -64,7 +64,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
     $ docker run --rm -it \
         -v $(pwd):/client \
         -w /client \
-        node:18.7 \
+        node:18.7-slim \
         npm install react-app-rewired@2.2.1 --save-dev --save-exact
     ```
 
@@ -74,7 +74,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
 2. Add a new `config-overrides.js`:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L1-L20]
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L1-L21]
     require("dotenv").config()
     const webpack = require("webpack")
 
@@ -99,7 +99,7 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
 
     <HighlightBox type="note">
 
-    You can also pass along the `RPC_URL` as an environment variable.
+    You can also pass along the `RPC_URL` as an environment variable, as seen in the code block above.
 
     </HighlightBox>
 
@@ -110,6 +110,9 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
             ...
             "scripts": {
                 ...
+    -          "start": "react-scripts start",
+    -          "build": "react-scripts build",
+    -          "test-react": "react-scripts test --env=jsdom",
     +          "start": "react-app-rewired start",
     +          "build": "react-app-rewired build",
     +          "test-react": "react-app-rewired test",
@@ -119,17 +122,17 @@ Your GUI uses React v18, which uses Webpack v5. Therefore you need to [adjust We
         }
     ```
 
-    Be careful to leave the `"eject"` unchanged.
+    Be careful **not** to put `react-app-rewired` in the `"eject"` command.
 
 See a [previous section](./1-cosmjs-objects.md) for how to set `RPC_URL` in `process.env.RPC_URL`. It also assumes that you have an RPC endpoint that runs the checkers blockchain, as explained in the previous section.
 
 ### GUI data structures
 
-The checkers GUI uses different data structures, which you must understand to convert them correctly.
+The checkers GUI uses different data structures, which you must understand to convert them correctly and with less effort.
 
 1. The `IPlayerInfo` has a [`name: string`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L27) field which can be used as the player's address.
-2. The `IGameInfo` has a [`board: number[][] | null`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L11) field. You must do a conversion from `b*b*...` to this type. Ensure that the alignments are correct.
-3. The `IGameInfo` has a [`turn: number`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L17), which maps to `"b"` or `"r"`.
+2. The `IGameInfo` has a [`board: number[][] | null`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L11) field. You must do a conversion from `b*b*...` to this type. And at some point, you must ensure that the alignments are correct.
+3. The `IGameInfo` has a [`turn: number`](https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L17), which can be mapped to `"b"` or `"r"`.
 4. The `IGameInfo` lacks an `index` or `id` field. Instead the GUI developer identified games by their index in an array, which is not adequate for this case. You must add an `index` field to `IGameInfo`. This is saved as a `string` in the blockchain but in practice is a **number**, which the GUI code expects as game index. Add:
 
     ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/sharedTypes.ts#L18]
@@ -139,7 +142,7 @@ The checkers GUI uses different data structures, which you must understand to co
         }
     ```
 
-    To avoid compilation errors on `index:` elsewhere, temporarily add `index?: number`. Remember to come back and remove the `?`.
+    To avoid compilation errors on `index:` elsewhere, temporarily add `index?: number`. Remember to come back to it and remove the `?`.
 
 ### Board converter
 
@@ -286,7 +289,7 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
             <React.StrictMode>
                 <BrowserRouter>
     -              <App />
-    +              <App rpcUrl={process.env.RPC_URL!} />
+    +              <App rpcUrl={process.env.RPC_URL} />
                 </BrowserRouter>
             </React.StrictMode>,
         )
@@ -294,11 +297,11 @@ For instance, prepare access to `rpcUrl` for `MenuContainer.tsx` by adding it to
 
     <HighlightBox type="note">
 
-    The `!` forces the type of `.RPC_URL` from `string | undefined` to `string` to satisfy the compiler.
+    If your compiler still believes that `.RPC_URL` is `string | undefined`, you may append an `!` to force it to `string`.
 
     </HighlightBox>
 
-Whenever another component needs the `rpcUrl`, adapt and reproduce these steps as necessary.
+Whenever another component needs the `rpcUrl` in this tutorial, adapt and reproduce these steps as necessary.
 
 ### Create the `StargateClient`
 
@@ -403,7 +406,7 @@ In a new `src/types/checkers/extensions-gui.ts`:
 
 Next, in `MenuContainer.tsx`:
 
-1. Add an empty `import` for the extension method file, otherwise the method is not compiled:
+1. Add an empty `import` for the extension method file, otherwise the method is not known nor compiled:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Menu/MenuContainer.tsx#L4]
     import {} from "../../types/checkers/extensions-gui"
@@ -411,19 +414,25 @@ Next, in `MenuContainer.tsx`:
 
 2. Change `componentDidMount` to `async` and replace the storage code with a call to the new method:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Menu/MenuContainer.tsx#L38-L46]
-    public async componentDidMount(): Promise<void> {
-        const queries = QueryString.parse(this.props.location.search)
-        if (queries.newGame) {
-            this.setState({ showModal: true })
+    ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Menu/MenuContainer.tsx#L38-L46]
+    -  public componentDidMount(): void {
+    +  public async componentDidMount(): Promise<void> {
+            const queries = QueryString.parse(this.props.location.search)
+            if (queries.newGame) {
+                this.setState({ showModal: true })
+            }
+    -      if (typeof Storage === "undefined") {
+    -          ...
+    -      }
+    -      // gameToLoad = null;
+            this.setState({
+    -          saved: Lockr.get("saved_games") || [],
+    +          saved: await (await this.getStargateClient()).getGuiGames(),
+            })
         }
-        this.setState({
-            saved: await (await this.getStargateClient()).getGuiGames(),
-        })
-    }
     ```
 
-Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line, test this new functionality by creating one:
+Restart `npm start` and you should see an empty games list (unless you have previously created any). If you have access to any way of creating a game, for instance with the `checkersd` command line or Ignite CLI, test this new functionality by creating one:
 
 ![List of one game](/hands-on-exercise/3-cosmjs-adv/images/list-games-1.png)
 
@@ -443,7 +452,7 @@ Each game is now listed as a [`src/components/Menu/MenuItem.tsx`](https://github
     }
 ```
 
-Alternatively, temporarily add `!` (as in `game.index!`) if you previously added the `IGameInfo.index` as `index?: number`.
+If the compiler complains, temporarily add `!` (as in `game.index!`) if you previously added the `IGameInfo.index` as `index?: number`.
 
 ## Show one game
 
@@ -547,6 +556,7 @@ Looking into `GameContainer`, you see that `componentDidMount` gets all the game
     * You force `isSaved` to `true` since it is always saved in the blockchain.
     * Saving `game.index` to state is unimportant because it is actually passed in `IGameContainerProps.index`.
     * By having a separate `loadGame`, you can call it again if you know the game has changed.
+    * It is important that this component fetches the game from the blockchain on its own, because the game page `http://.../play/1` could be opened out of nowhere and may not have access to the list of games. Moreover, it may be entirely missing from the list.
 
     </HighlightBox>
 
@@ -586,19 +596,45 @@ $ docker run --rm -it \
 
 ### Identify the checkers blockchain
 
-Keplr will need information to differentiate your checkers blockchain from the other chains. Prepare your checkers blockchain info in a new `src/types/checkers/chain.ts` file:
+Keplr will need information to differentiate your checkers blockchain from the other chains. You are also going to inform it about your REST API.
+
+1. Adjust your `.env` file:
+
+    ```diff-ini [https://github.com/cosmos/academy-checkers-ui/blob/gui/.env#L2]
+        RPC_URL="http://localhost:26657"
+    +  REST_URL="http://localhost:1317"
+        ...
+    ```
+
+2. Adjust the associated type declaration:
+
+    ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/environment.d.ts#L5]
+        RPC_URL: string
+    +  REST_URL: string
+        ...
+    ```
+
+3. Adjust its passing through Webpack:
+
+    ```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/config-overrides.js#L10]
+        new webpack.EnvironmentPlugin(["RPC_URL"]),
+    +  new webpack.EnvironmentPlugin(["REST_URL"]),
+        ...
+    ```
+
+With this, prepare your checkers blockchain info in a new `src/types/checkers/chain.ts` file:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/types/checkers/chain.ts]
 import { ChainInfo } from "@keplr-wallet/types"
 import _ from "../../../environment"
 
-export const checkersChainId = "checkers"
+export const checkersChainId = "checkers-1"
 
 export const getCheckersChainInfo = (): ChainInfo => ({
     chainId: checkersChainId,
-    chainName: checkersChainId,
+    chainName: "checkers",
     rpc: process.env.RPC_URL!,
-    rest: "http://0.0.0.0:1317",
+    rest: process.env.REST_URL!,
     bip44: {
         coinType: 118,
     },
@@ -629,6 +665,11 @@ export const getCheckersChainInfo = (): ChainInfo => ({
             coinMinimalDenom: "stake",
             coinDecimals: 0,
             coinGeckoId: "stake",
+            gasPriceStep: {
+                low: 1,
+                average: 1,
+                high: 1,
+            },
         },
     ],
     stakeCurrency: {
@@ -638,12 +679,7 @@ export const getCheckersChainInfo = (): ChainInfo => ({
         coinGeckoId: "stake",
     },
     coinType: 118,
-    gasPriceStep: {
-        low: 1,
-        average: 1,
-        high: 1,
-    },
-    features: ["stargate", "ibc-transfer", "no-legacy-stdTx"],
+    features: [],
 })
 ```
 
@@ -657,7 +693,15 @@ The `chainId` value has to **match exactly** that returned by `client.getChainId
 
 ### Prepare a signing client
 
-Just as components that need a `CheckersStargateClient` keep one in their state, components that need a `SigningCheckersStargateClient` keep one in their state too. Some components may have both. The steps to take are the same for each such component.
+Just as components that need a `CheckersStargateClient` keep one in their state, components that need a `SigningCheckersStargateClient` keep one in their state too. Some components may have both. 
+
+<HighlightBox type="best-practice">
+
+A component may have both `CheckersStargateClient` and `SigningCheckersStargateClient`. That is not a problem. In fact it may benefit your project, because with a simple `CheckersStargateClient` you can let your users poke around first, _and build their trust_, before asking them to connect their Keplr account.
+
+</HighlightBox>
+
+The steps to take are the same for each such component.
 
 For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
 
@@ -683,7 +727,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
         }
     ```
 
-    The address of Keplr is saved because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
+    The address obtained from Keplr is saved in `creator`, because it is accessible from the `OfflineSigner` but not from the `SigningStargateClient`.
 
 3. Add a tuple type to return both of them:
 
@@ -721,6 +765,7 @@ For instance, in `src/components/Menu/NewGameModal/NewGameModal.tsx`:
             throw new Error("You need to install Keplr")
         }
         await keplr.experimentalSuggestChain(getCheckersChainInfo())
+        await keplr.enable(checkersChainId)
         const offlineSigner: OfflineSigner = keplr.getOfflineSigner!(checkersChainId)
         const creator = (await offlineSigner.getAccounts())[0].address
         const client: CheckersSigningStargateClient = await CheckersSigningStargateClient.connectWithSigner(
@@ -751,7 +796,7 @@ This modal window pops up when you click on <kbd>New Game</kbd>:
 
 ![Modal window to create game](/hands-on-exercise/3-cosmjs-adv/images/window-create-game.png)
 
-The player names look ready-made to take the player's Cosmos addresses.
+The player names look ready-made to take the player's blockchain addresses.
 
 Examine the code, and focus on `src/components/Menu/NewGameModal/NewGameModal.tsx`. Thanks to the previous preparation with `CheckersSigningStargateClient` it is ready to send transactions:
 
@@ -889,11 +934,11 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 In the `GameContainer.tsx` there are `makeMove` and `saveGame` functions. In a blockchain context, `saveGame` is irrelevant, as on each move done with a transaction the game will be automatically _saved_ in the blockchain. So add `index: -1` in the game to be saved to get past the compilation error.
 
-Add a `console.log` to  `makeMove` to demonstrate the format it uses:
+Add a `console.log` to `makeMove` to demonstrate the format it uses:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Game/GameContainer.tsx#L211]
-const positions: Position[] = keys.map((k: string): Position => k.split(",").map(Number) as Position)
-console.log(positions)
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/unwired-gui/src/components/Game/GameContainer.tsx#L172]
+const move: Position[] = keys.map((k: string): Position => k.split(",").map(Number) as Position)
+console.log(move)
 ```
 
 Now play a move with the current interface. Move your first black piece:
@@ -1039,16 +1084,20 @@ With this done:
     }
     ```
 
+    <HighlightBox type="note">
+
+    The move test is made with the _read-only_ client. This is so that your users can poke around without connecting for as long as possible.
+
+    </HighlightBox>
+
 4. With this partial assurance, you can make an actual move:
 
-    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Game/GameContainer.tsx#L225-L231]
+    ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/gui/src/components/Game/GameContainer.tsx#L225-L229]
     const { creator, signingClient } = await this.getSigningStargateClient()
-    try {
-        await signingClient.playGuiMoves(creator, this.props.index, positions)
-    } catch (e) {
-        console.error(e)
-        alert("Failed to play: " + e)
-    }
+    await signingClient.playGuiMoves(creator, this.props.index, positions).catch((e) => {
+            console.error(e)
+            alert("Failed to play: " + e)
+        })
     ```
 
     <HighlightBox type="note">
@@ -1083,7 +1132,6 @@ Either way, it is now possible to play the game from the GUI. Congratulations!
 
 ## Further exercise ideas
 
-* Use the <kbd>Quit Game</kbd> button to handle a reject.
 * Add pagination to the game list.
 * Implement typical GUI features, like disabling buttons when their action should be unavailable, or adding a countdown to the forfeit deadline.
 * Implement a Web socket to listen to changes. That would be useful when there are two players who cannot communicate otherwise (instead of polling).

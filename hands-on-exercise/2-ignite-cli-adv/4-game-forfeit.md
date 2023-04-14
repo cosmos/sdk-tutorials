@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [ABCI](/academy/2-cosmos-concepts/1-architecture.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./3-game-winner.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-winner).
+* You have the checkers blockchain codebase with the elements necessary for forfeit. If not, follow the [previous steps](./3-game-fifo.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-fifo).
 
 </HighlightBox>
 
@@ -29,11 +29,12 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./3-game-winner.md) you prepared the expiration of games:
+In the [previous section](./3-game-fifo.md) you prepared the expiration of games:
 
 * A First-In-First-Out (FIFO) that always has old games at its head and freshly updated games at its tail.
 * A deadline field to guide the expiration.
 * A winner field to further assist with forfeiting.
+* A move count field to inform the action to take when forfeiting.
 
 ## New information
 
@@ -44,7 +45,7 @@ A game expires in two different situations:
 
 In the latter case, you want to emit a new event which differentiates forfeiting a game from a win involving a move. Therefore you define new error constants:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/keys.go#L63-L68]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/keys.go#L57-L62]
 const (
     GameForfeitedEventType      = "game-forfeited"
     GameForfeitedEventGameIndex = "game-index"
@@ -57,7 +58,7 @@ const (
 
 When you use Ignite CLI to scaffold your module, it creates the [`x/checkers/module.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/module.go) file with a lot of functions to accommodate your application. In particular, the function that **may** be called on your module on `EndBlock` is named `EndBlock`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/41ac3c6/x/checkers/module.go#L163-L165]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/module.go#L173-L175]
 func (am AppModule) EndBlock(_ sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
     return []abci.ValidatorUpdate{}
 }
@@ -73,11 +74,11 @@ func (k Keeper) ForfeitExpiredGames(goCtx context.Context) {
 
 In `x/checkers/module.go` update `EndBlock` with:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/module.go#L173-L176]
-func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-    am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
-    return []abci.ValidatorUpdate{}
-}
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/module.go#L174]
+    func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
++      am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
+        return []abci.ValidatorUpdate{}
+    }
 ```
 
 This ensures that **if** your module's `EndBlock` function is called the expired games will be handled. For the **whole application to call your module** you have to instruct it to do so. This takes place in `app/app.go`, where the application is initialized with the proper order to call the `EndBlock` functions in different modules. In fact, yours has already been placed at the end by Ignite:
@@ -94,10 +95,10 @@ Your `ForfeitExpiredGames` function will now be called at the end of each block.
 
 Also prepare a new error:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L22]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L20]
     var (
         ...
-+      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1111, "cannot find winner by color: %s")
++      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1109, "cannot find winner by color: %s")
     )
 ```
 
@@ -140,11 +141,11 @@ In `ForfeitExpiredGames`, it is a matter of looping through the FIFO, starting f
     }
     ```
 
-    See below for what goes in this `TODO`.
+    See below for what replaces this `TODO`.
 
 4. After the loop has ended do not forget to save the latest FIFO state:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L68]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L71]
     k.SetSystemInfo(ctx, systemInfo)
     ```
 
@@ -162,7 +163,7 @@ So what goes in the `for { TODO }`?
 
 2. Fetch the expired game candidate and its deadline:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L34-L41]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/keeper/end_block_server_game.go#L33-L40]
     storedGame, found = k.GetStoredGame(ctx, gameIndex)
     if !found {
         panic("Fifo head game not found " + systemInfo.FifoHeadIndex)
@@ -231,7 +232,7 @@ Now, what goes into this `if "expired" { TODO }`?
 
 <HighlightBox type="tip">
 
-For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./1-game-fifo.md).
+For an explanation as to why this setup is resistant to an attack from an unbounded number of expired games, see the [section on the game's FIFO](./3-game-fifo.md).
 
 </HighlightBox>
 
@@ -356,11 +357,11 @@ How do you test something that is supposed to happen during the `EndBlock` event
             Turn:        "b",
             Black:       bob,
             Red:         carol,
+            Winner:      "r",
+            Deadline:    oldDeadline,
             MoveCount:   uint64(2),
             BeforeIndex: "-1",
             AfterIndex:  "-1",
-            Deadline:    oldDeadline,
-            Winner:      "r",
         }, game1)
 
         systemInfo, found := keeper.GetSystemInfo(ctx)
@@ -394,7 +395,7 @@ Note how all the attributes of an event of a given type (such as `"game-forfeite
 
 Currently, the game expiry is one day in the future. This is too long to test with the CLI. Temporarily set it to 5 minutes:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/keys.go#L58]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/keys.go#L49]
 MaxTurnDuration = time.Duration(5 * 60 * 1000_000_000) // 5 minutes
 ```
 
@@ -691,7 +692,7 @@ SystemInfo:
 
 To summarize, this section has explored:
 
-* How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed quietly; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
+* How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
 * What new information and functions need to be created, and to update `EndBlock` to call the `ForfeitExpiredGames` function at the end of each block.
 * The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game. 
 * How to test your code to ensure that it functions as desired.

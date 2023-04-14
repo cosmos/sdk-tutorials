@@ -30,7 +30,7 @@ In this chapter, you will:
 * Create custom messages for your blockchain.
 * Work with the message handler to create and save games.
 * Emit game information with events.
-* Make sure a player can reject a game.
+* Record game winners in storage.
 
 </HighlightBox>
 

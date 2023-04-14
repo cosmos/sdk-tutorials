@@ -221,9 +221,9 @@ Any application that uses CometBFT for consensus must implement ABCI. You do not
 
 In the following suggested exercise, you will create a minimal distributed state machine with the Cosmos SDK and see code samples implementing concepts progressively. Your state machine will rely on CometBFT for consensus.
 
-## Test yourself - a coding exercise
+## Test yourself - a pseudo-coding exercise
 
-With all you have learned about CometBFT, can you **design** a minimal distributed state machine? A blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of CometBFT.
+With all you have learned about CometBFT, can you **design** a minimal distributed state machine, and think about relevant pseudo-code, for a blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of CometBFT.
 
 You will continue to apply what you learn in later sections to your checkers game, and design a blockchain by using elements of the Cosmos SDK. Alternatively, you can continue directly to learn about [accounts in the Cosmos SDK](./2-accounts.md).
 
@@ -231,11 +231,15 @@ You will continue to apply what you learn in later sections to your checkers gam
 
 *Why develop a game of checkers?*
 <br/><br/>
-This **design project** will evolve in stages as you learn more about the Cosmos SDK. You will better understand and experience how the Cosmos SDK improves your productivity by handling the boilerplate as you progress through the sections and explore what the boilerplate does.
+This **design project** is meant to get you thinking and will evolve in stages as you learn more about Cosmos SDK concepts. You will better understand and experience how the Cosmos SDK improves your productivity by handling the boilerplate as you progress your design through the following sections and explore what the boilerplate does.
+
+<br/>
 
 <HighlightBox type="tip">
 
-This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+This is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise.
+
+You are free to think about design here and in the following concept pages, and then jump to a related section of the exercise.
 
 </HighlightBox>
 
@@ -245,13 +249,15 @@ You are going to design a blockchain that lets people play checkers against each
 <br/><br/>
 Use and adapt [this ready-made implementation](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go), including the additional rule that the board is 8x8 and played on black cells. The code will likely require adaptations as you progress. Do not worry about implementing a marketable GUI, that is a separate design project in itself. You must first create the foundation that will ensure a GUI is _possible_.
 
+<br/>
+
 <HighlightBox type="info">
 
-When you revisit this design exercise in later chapters, the goal will be to improve it with the Cosmos SDK as you learn about its different components. If you are not interested in learning more about ABCI, it is safe omit *this* exercise and move directly to the other learning elements.
+When you revisit this design exercise in later chapters, the goal will be to improve it with the Cosmos SDK as you learn about its different components. If you are not interested in learning more about ABCI, it is safe to omit _this_ exercise and move directly to the other learning elements.
 
 </HighlightBox>
 
-There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md) to see what the application needs to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect*, checkers game blockchain.
+There is a lot you need to do beyond implementing the rules of the game, so simplify as much as possible. Examine these [ABCI specs](https://github.com/tendermint/tendermint/blob/master/spec/abci/abci.md) to see what the application needs in order to comply with ABCI. Try to identify which basic resources you would use to make a first, *imperfect* checkers game blockchain.
 
 ### "Make" the state machine
 
@@ -327,7 +333,7 @@ func (game *Game) ValidMove(src, dst Pos) bool
 
 Checking whether a move is valid with regards to the board requires knowledge of the board state *when the transaction is included in a block*. The board is updated only up to the point where the transactions have been delivered. You may have a situation where two transactions are sent, one after the other, and both are valid. If you tested the move in the second transaction against the board state before the first unconfirmed move, it would appear that the second move is invalid. Testing a move on the board at `CheckTx` time should be avoided.
 <br/><br/>
-Check the _possibility_ of validity of the transaction in `CheckTx`: reject the transaction if it is malformed, contains invalid inputs, etc., and therefor cannot _possibly_ be acceptable; but refrain from confirming that it will be successful according to concerns that depend on context.
+Check the _possibility_ of validity of the transaction in `CheckTx`: reject the transaction if it is malformed, contains invalid inputs, etc., and therefore cannot _possibly_ be acceptable; but refrain from confirming that it will be successful according to concerns that depend on context.
 
 #### `DeliverTx` - a transaction is added and needs to be processed
 
@@ -351,7 +357,7 @@ See [Tendermint's ABCI event spec documentation](https://github.com/tendermint/t
 
 For the sake of the exercise imagine that you emit some information in two events: one about the move itself, and the other about the resulting board state. In pseudo-code form this looks like:
 
-```
+```json
 [
     { key: "name", value: "moveMetadata", index: true },
     { key: "who-player", value: bool, index: true },
@@ -416,6 +422,14 @@ You now have:
 
 </ExpansionPanel>
 
+<HighlightBox type="tip">
+
+The expandable above is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise from scratch.
+
+Relevant to this section on ABCI is the [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) section, where you use the Cosmos SDK to implement expiration in `EndBlock`. Be warned that this is an advanced section of the hands-on-exercise.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
@@ -431,10 +445,10 @@ To summarize, this section has explored:
 
 ## Overview of upcoming content
 
-The following sections will extend your comprehension of the Cosmos SDK and the usefulness of its features. If you completed the previous exercise, you may have already spotted several shortcomings in your game blockchain as it is presently designed:
+The following sections will extend your comprehension of the Cosmos SDK and the usefulness of its features. If you went through the previous design exercise, you may have already spotted several shortcomings in your potential game blockchain as it is presently designed:
 
 * Anyone, including the opponent, can post an anonymous transaction and play instead of the intended player. This makes it impossible to know who did what. You need to identify the right player. The Cosmos SDK comes to the rescue with [accounts and signatures](./2-accounts.md).
-* You currently have a single game. Multiple games running in parallel would be better, but this would require a well-defined store. Why not explore the Cosmos SDK's [key store](./7-multistore-keepers.md)?
+* You currently have a single game. Multiple games running in parallel would be better, but this would require a well-defined store. Why not explore the Cosmos SDK's [store and keeper](./7-multistore-keepers.md)?
 * It would be good to have an elegant way to serialize data objects of interest and your transactions. [Protobuf](./6-protobuf.md) can help with this.
 * How can you penalize spam and bad transactions, and also to be able to play for money? Incorporate tokens defined in another [existing Cosmos SDK module](./5-modules.md).
 * There is a new transaction type: to _create a game_. The Cosmos SDK [context object](./11-context.md) allows you to tailor gas costs according to transaction type.

@@ -120,7 +120,7 @@ customModules:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI, CosmJS and IBC, and preparing your chain to run in production.
         tags:
           - guided-coding
       - image:
@@ -301,21 +301,21 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game information
             path: /hands-on-exercise/1-ignite-cli/7-events.html
-          - title: Make sure a player can reject a game
-            path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
+          - title: Recording the winners
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
         description: |
           Continue developing your checkers blockchain with Ignite by:
         links:
-          - title: Putting your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Including a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Recording the winners
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Including auto-expiring of games
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
+          - title: Including a count move
+            path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
+          - title: Putting your games in order
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
+          - title: Enforcing auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Including a wager
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
@@ -326,7 +326,7 @@ customModules:
           - title: Help find correct moves
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Play with cross-chain tokens
-            path: hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
+            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
       - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/

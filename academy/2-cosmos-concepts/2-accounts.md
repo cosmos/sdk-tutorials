@@ -146,7 +146,7 @@ Consider the following pseudo message in case the foregoing is unclear:
 }
 ```
 
-Passing `Payload` and `Signature` into the signature verification function returns a sender. The derived sender must match the `Sender` in the `Payload` itself. This confirms that the `Payload` could only originate from someone that knows the private key corresponding to `Sender: “0x1234”`.
+Passing `Payload` and `Signature` into the signature verification function returns a sender. The derived sender must match the `Sender` in the `Payload` itself. This confirms that the `Payload` could only originate from someone that knows the private key corresponding to `Sender: "0x1234"`.
 
 ## Signature schemes
 
@@ -188,7 +188,7 @@ The keyring object stores and manages multiple accounts. The keyring object impl
 
 <ExpansionPanel title="Show me some code for my checkers blockchain">
 
-In the [previous section](/academy/2-cosmos-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. You can restrict moves to the right player with accounts.
+In the [previous section](/academy/2-cosmos-concepts/1-architecture.md), your ABCI application accepted anonymous checkers moves. This is a problem. With accounts, you can restrict moves to the right player.
 <br/><br/>
 It is necessary to differentiate between players and other actors. This helps assure there is no identity spoofing, that players do not play out of turn, and rewards are paid to the correct winner. You are also going to store the creator of a game, which may or may not be a player.
 <br/><br/>
@@ -217,6 +217,7 @@ if err != nil {
     // Handle the error.
 }
 ```
+
 Handle the serialization as follows:
 
 ```go
@@ -224,7 +225,7 @@ var creator sdk.AccAddress
 storedGame.Creator = creator.String()
 ```
 
-You will only accept the right players when it comes to transactions.
+With these snippets, you will be able to accept only the right players when it comes to transactions.
 <br/><br/>
 **Remaining game object**
 
@@ -241,9 +242,13 @@ type StoredGame struct {
 }
 ```
 
-If you want to go beyond these out-of-context code samples and instead see more details on defining this, head to [Run Your Own Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
 </ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond the out-of-context code samples above and instead see more details on defining this, head to [Run Your Own Chain](/hands-on-exercise/1-ignite-cli/index.md).
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 
