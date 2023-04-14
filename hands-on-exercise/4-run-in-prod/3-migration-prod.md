@@ -1,5 +1,5 @@
 ---
-title: "Simulate a Migration in Production in Docker"
+title: "Simulate a migration in production in Docker"
 order: 4
 description: Introduce the leaderboard in a simulated production setup with Docker Compose
 tags: 
@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-# Simulate a Migration in Docker
+# Simulate a migration in Docker
 
 In previous sections, you have:
 
@@ -102,11 +102,11 @@ $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/node-caro
 
 The name of the upgrade proposal will be `v1tov2`. The name is important, as Cosmovisor uses it to determine which executable to run.
 
-## Prepare Cosmovisor executable
+## Prepare the Cosmovisor executable
 
 Because the project in its current state uses Cosmos SDK v0.45.4, to avoid any surprise you will prepare Cosmovisor at the [v0.45.4](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html) version too.
 
-You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-alpine`, described here logically (before a recap lower down):
+You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-alpine`, described here logically (before a recap lower down):
 
 1. You need to build Cosmovisor from its code:
 
@@ -132,7 +132,7 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
     COPY --from=builder /root/cosmos-sdk/cosmovisor/cosmovisor ${LOCAL}/bin/cosmovisor
     ```
 
-2. Cosmovisor is instructed via [environment variables](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html#command-line-arguments-and-environment-variables). In the eventual containers, the `/root/.checkers` folder comes from a volume mount, so to avoid any conflict it is better to not put the `cosmovisor` folder directly inside it. Instead pick `/root/.checkers-upgrade`:
+2. Cosmovisor is instructed via [environment variables](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html#command-line-arguments-and-environment-variables). In the eventual containers, the `/root/.checkers` folder comes from a volume mount, so to avoid any conflict it is better not to put the `cosmovisor` folder directly inside it. Instead pick `/root/.checkers-upgrade`:
 
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L20-L23]
         ...
@@ -146,7 +146,7 @@ You can describe the steps in a new Dockefile `prod-sim/Dockerfile-cosmovisor-al
         ...
     ```
 
-3. With the folder decided, you can introduce both v1 and v2 checkers executables. They can be conveniently taken from their respective Docker images:
+3. With the folder decided, you can introduce both the v1 and v2 checkers executables. They can be conveniently taken from their respective Docker images:
 
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L15-L27]
     +  FROM --platform=linux checkersd_i:v1-alpine AS v1
@@ -259,7 +259,7 @@ services:
 
 </HighlightBox>
 
-## Run them all
+## Run all the elements
 
 Now you can run everything and confirm that all services start:
 
@@ -390,9 +390,9 @@ The command is long but it makes sense when you look at it patiently. It returns
     value: "1"
 ```
 
-## Vote on it
+## Vote on the proposal
 
-Have both Alice and Bob vote "yes" on it:
+Have both Alice and Bob vote "yes" on the proposal:
 
 <CodeGroup>
 
@@ -430,7 +430,7 @@ echo password | docker run --rm -i \
 
 ## Refill your cup
 
-When the proposal voting period ends, check that the votes went through, and what the latest block height is:
+When the proposal voting period ends, check that the votes went through and what the latest block height is:
 
 <CodeGroup>
 
@@ -533,13 +533,13 @@ This should return:
 ... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1tov2
 ```
 
-It will do so until the containers are stopped and deleted, that is.
+It will return this until the containers are stopped and deleted, that is.
 
 <HighlightBox type="warn">
 
 Remember that the containers are loaded from a Docker image configured with Cosmovisor. In the current configuration, Cosmovisor starts with what it finds at `genesis/bin/checkersd`, i.e. v1.
 <br/><br/>
-All this to say that you should not expect to stop and start your Cosmovisor Compose setup as is.
+All this is to say that you should not expect to stop and start your Cosmovisor Compose setup as is.
 
 </HighlightBox>
 
@@ -583,7 +583,7 @@ services:
     image: checkersd_i:v2-alpine
 ```
 
-Now you can safely stop the cosmovisor setup:
+Now you can safely stop the Cosmovisor setup:
 
 ```sh
 $ docker compose --project-name checkers-prod down
@@ -611,7 +611,7 @@ To summarize, this section has explored:
 
 * How to prepare multi-stage Docker images for different executable versions.
 * How to prepare Cosmovisor for a simulated production migration.
-* How to upgrade a blockchain in production, by migrating live from v1 of the blockchain to v2.
+* How to upgrade a blockchain in production, by live migrating from v1 of the blockchain to v2.
 * How to launch all that with the help of Docker Compose.
 * A complete procedure for how to conduct the update via the CLI.
 
