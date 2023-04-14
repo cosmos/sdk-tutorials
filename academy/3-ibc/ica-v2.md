@@ -79,6 +79,8 @@ function RegisterInterchainAccount(connectionId: Identifier, owner: string, vers
 }
 ```
 
+![ica-register](./images/icaregister.png)
+
 <HighlightBox type="best-practice">
 
 It is best practice that the `portId` for an ICA channel is `icahost` on the host side, while on the controller side it will be dependent on the owner account, `icacontroller-<owner-account>`.
@@ -132,6 +134,8 @@ Note that the packet data you'll be sending over IBC, `icaPacketData` should be 
 Additionally, you'll note that `SendTx` calls core IBCs `sendPacket` API to transport the packet over the ICS-27 channel.
 
 </HighlightBox>
+
+![ica-sendtx](./images/icasendtx.png)
 
 #### ICS-27 channels
 
@@ -291,5 +295,10 @@ Follow up on the developments around ADR-008 and the so-called _callback interfa
 
 </HighlightBox>
 
+## Practical
+
+Ready to get your hands dirty now that you understand how ICA works?
+
+Try out this [tutorial how to use groups with interchain accounts](https://github.com/cosmos/ibc-go/wiki/How-to-use-groups-with-ICA).
 
 
