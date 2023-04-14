@@ -40,9 +40,9 @@ Although relayers do not perform any verification of the packets, and therefore 
 
 ## Creating a client
 
-Start with [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go), which is where the messages come in. This is the first appearance of the `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
+Start with [core IBC's `msg_server.go`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/keeper/msg_server.go#L25), which is where the messages come in. This is the first appearance of the `CreateClient` function, which will be submitted by a relayer through the relaying software to create an IBC client on the chain that the message is submitted to:
 
-```go
+```go [https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/keeper/msg_server.go#L25]
 // CreateClient defines a rpc handler method for MsgCreateClient.
 func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateClient) (*clienttypes.MsgCreateClientResponse, error) {
     ctx := sdk.UnwrapSDKContext(goCtx)
@@ -60,14 +60,14 @@ func (k Keeper) CreateClient(goCtx context.Context, msg *clienttypes.MsgCreateCl
 }
 ```
 
-It creates a client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/02-client/keeper/client.go):
+It creates a client by calling [`ClientKeeper.CreateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L16):
 
-```go
+```go [https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L16]
 // CreateClient creates a new client state and populates it with a given consensus
 // state as defined in https://github.com/cosmos/ibc/tree/master/spec/core/ics-002-client-semantics#create
 func (k Keeper) CreateClient(
     ctx sdk.Context, clientState exported.ClientState, consensusState exported.ConsensusState,
-)
+) (string, error) {
     ...
 
     clientID := k.GenerateClientIdentifier(ctx, clientState.ClientType())
@@ -100,27 +100,19 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 </HighlightBox>
 
-In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is offered out of the box:
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#client-state) is offered out of the box:
 
 ```go
-// NewClientState creates a new ClientState instance
-func NewClientState(
-    chainID string, trustLevel Fraction,
-    trustingPeriod, ubdPeriod, maxClockDrift time.Duration,
-    latestHeight clienttypes.Height, specs []*ics23.ProofSpec,
-    upgradePath []string,
-) *ClientState {
-    return &ClientState{
-        ChainId:         chainID,
-        TrustLevel:      trustLevel,
-        TrustingPeriod:  trustingPeriod,
-        UnbondingPeriod: ubdPeriod,
-        MaxClockDrift:   maxClockDrift,
-        LatestHeight:    latestHeight,
-        FrozenHeight:    clienttypes.ZeroHeight(),
-        ProofSpecs:      specs,
-        UpgradePath:     upgradePath,
-    }
+interface ClientState {
+  chainID: string
+  trustLevel: Rational
+  trustingPeriod: uint64
+  unbondingPeriod: uint64
+  latestHeight: Height
+  frozenHeight: Maybe<uint64>
+  upgradePath: []string
+  maxClockDrift: uint64
+  proofSpecs: []ProofSpec
 }
 ```
 
@@ -148,18 +140,13 @@ It is important to highlight that certain parameters of an IBC client cannot be 
 
 </HighlightBox>
 
-`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/consensus_state.go). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
+`CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#consensus-state). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
 
 ```go
-// NewConsensusState creates a new ConsensusState instance.
-func NewConsensusState(
-    timestamp time.Time, root commitmenttypes.MerkleRoot, nextValsHash tmbytes.HexBytes,
-) *ConsensusState {
-    return &ConsensusState{
-        Timestamp:          timestamp,
-        Root:               root,
-        NextValidatorsHash: nextValsHash,
-    }
+interface ConsensusState {
+  timestamp: uint64
+  nextValidatorsHash: []byte
+  commitmentRoot: []byte
 }
 ```
 
@@ -167,13 +154,13 @@ The Tendermint client `ConsensusState` tracks the timestamp of the block being c
 
 <HighlightBox type="tip">
 
-The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](https://interchainacademy.cosmos.network/academy/ibc/clients.html#updating-a-client) for more information about what happens when a validator set changes between blocks.
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](4-clients.md#updating-a-client) for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
 
 The root is the **AppHash**, or the hash of the application state of the counterparty blockchain that this client is representing. This root hash is particularly important because it is the root hash used on a receiving chain when verifying [Merkle](https://en.wikipedia.org/wiki/Merkle_tree) proofs associated with a packet coming over IBC, to determine whether or not the relevant transaction has been actually been executed on the sending chain. If the Merkle proof associated with a packet commitment delivered by a relayer successfully hashes up to this `ConsensusState` root hash, it is certain that the transaction was actually executed on the sending chain and included in the state of the sending blockchain.
 
-The following is an example of how the Tendermint client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/23-commitment/types/merkle.go). The [ICS-23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS-23 implementation](https://github.com/confio/ics23) currently supports Tendermint IAVL and simple Merkle proofs out of the box.
+The following is an example of how the Tendermint client handles this Merkle [proof verification](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/23-commitment/types/merkle.go#L133). The [ICS-23 spec](https://github.com/cosmos/ibc/tree/master/spec/core/ics-023-vector-commitments) addresses how to construct membership proofs, and the [ICS-23 implementation](https://github.com/confio/ics23) currently supports Tendermint IAVL and simple Merkle proofs out of the box.
 
 <HighlightBox type="note">
 
@@ -224,14 +211,15 @@ Assume that the initial `ConsensusState` was created at block 50, but you want t
 
 To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateClient` containing a `Header` of the chain to be updated must be submitted by a relayer. For all IBC client types, Tendermint or otherwise, this `Header` contains the information necessary to update the `ConsensusState`. However, IBC does not dictate what the `Header` must contain beyond the basic methods for returning `ClientType` and `GetClientID`. The specifics of what each client expects as important information to perform a `ConsensusState` update will be found in each client implementation.
 
-For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/tendermint.pb.go#L198):
+For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#headers):
 
 ```go
-type Header struct {
-    *types2.SignedHeader `protobuf:"bytes,1,opt,name=signed_header,json=signedHeader,proto3,embedded=signed_header" json:"signed_header,omitempty" yaml:"signed_header"`
-    ValidatorSet         *types2.ValidatorSet `protobuf:"bytes,2,opt,name=validator_set,json=validatorSet,proto3" json:"validator_set,omitempty" yaml:"validator_set"`
-    TrustedHeight        types.Height         `protobuf:"bytes,3,opt,name=trusted_height,json=trustedHeight,proto3" json:"trusted_height" yaml:"trusted_height"`
-    TrustedValidators    *types2.ValidatorSet `protobuf:"bytes,4,opt,name=trusted_validators,json=trustedValidators,proto3" json:"trusted_validators,omitempty" yaml:"trusted_validators"`
+interface Header {
+  TendermintSignedHeader
+  identifier: string
+  validatorSet: List<Pair<Address, uint64>>
+  trustedHeight: Height
+  trustedValidatorSet: List<Pair<Address, uint64>>
 }
 ```
 
@@ -241,7 +229,7 @@ The Tendermint `SignedHeader` is a header and commit that the counterparty chain
 
 `TrustedValidators` are the validators associated with that height. Note that `TrustedValidators` must hash to the `ConsensusState` `NextValidatorsHash` since that is the last trusted validator set at the `TrustedHeight`.
 
-The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted header. You can see the code that takes the `ConsensusState` at the `TrustedHeight` and uses it to verify the new header [here](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/types/update.go#L52). This code proves that the submitted header is valid and creates a verified `ConsensusState` for the submitted header, as well as updating the client state to reflect the new latest height of the submitted header. This verified `ConsensusState` will be added to the client as part of the set of `ClientConsensusStates`, and can subsequently be used as a trusted state at its corresponding height.
+The `TrustedHeight` is the height of a stored `ConsensusState` on the client that will be used to verify the new untrusted header. You can see the code that takes the `ConsensusState` at the `TrustedHeight` and uses it to verify the new header [here](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/light-clients/07-tendermint/update.go#L42). This code proves that the submitted header is valid and creates a verified `ConsensusState` for the submitted header, as well as updating the client state to reflect the new latest height of the submitted header. This verified `ConsensusState` will be added to the client as part of the set of `ClientConsensusStates`, and can subsequently be used as a trusted state at its corresponding height.
 
 <HighlightBox type="info">
 
@@ -253,42 +241,21 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit a `MsgUpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its `ConsensusState` root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
-The code snippet, which illustrates how a client [verifies an incoming packet](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go), is as follows:
-
-<!-- TODO: update for client refactor v7 https://github.com/cosmos/sdk-tutorials/issues/1278-->
+The pseudo code snippet below from [`03-connection`](https://github.com/cosmos/ibc/tree/main/spec/core/ics-003-connection-semantics#helper-functions), which illustrates how a client verifies an incoming packet, is as follows:
 
 ```go
-// VerifyPacketCommitment verifies a proof of an outgoing packet commitment at
-// the specified port, specified channel, and specified sequence.
-func (cs ClientState) VerifyPacketCommitment(
-    ctx sdk.Context,
-    store sdk.KVStore,
-    cdc codec.BinaryCodec,
-    height exported.Height,
-    delayTimePeriod uint64,
-    delayBlockPeriod uint64,
-    prefix exported.Prefix,
-    proof []byte,
-    portID,
-    channelID string,
-    sequence uint64,
-    commitmentBytes []byte,
-) error {
-    merkleProof, consensusState, err := produceVerificationArgs(store, cdc, cs, height, prefix, proof)
-    ...
-
-    // check delay period has passed
-    if err := verifyDelayPeriodPassed(ctx, store, height, delayTimePeriod, delayBlockPeriod);
-    ...
-
-    commitmentPath := commitmenttypes.NewMerklePath(host.PacketCommitmentPath(portID, channelID, sequence))
-    path, err := commitmenttypes.ApplyPrefix(prefix, commitmentPath)
-    ...
-
-    if err := merkleProof.VerifyMembership(cs.ProofSpecs, consensusState.GetRoot(), path, commitmentBytes);
-    ...
-
-    return nil
+function verifyPacketCommitment(
+  connection: ConnectionEnd,
+  height: Height,
+  proof: CommitmentProof,
+  portIdentifier: Identifier,
+  channelIdentifier: Identifier,
+  sequence: uint64,
+  commitmentBytes: bytes
+) {
+  clientState = queryClientState(connection.clientIdentifier)
+  path = applyPrefix(connection.counterpartyPrefix, packetCommitmentPath(portIdentifier, channelIdentifier, sequence))
+  return verifyMembership(clientState, height, connection.delayPeriodTime, connection.delayPeriodBlocks, proof, path, commitmentBytes)
 }
 ```
 
