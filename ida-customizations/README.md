@@ -253,6 +253,10 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Tally player info after production
             path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a leaderboard module
+            path:  /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Add a migration for your leaderboard module
+            path:  /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - titles: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
 ---

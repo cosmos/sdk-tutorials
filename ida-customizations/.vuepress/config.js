@@ -530,6 +530,10 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
+                  title: "Add a Leaderboard Module After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/3-migration-leaderboard.html",
+                },
+                {
                   title: "Prepare and Do Migrations",
                   path: "/tutorials/9-path-to-prod/7-migration.html",
                 },

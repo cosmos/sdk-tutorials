@@ -39,6 +39,10 @@ It is time to move your checkers blockchain into production. In the [next sectio
 
 After, you will [tally player info after production](/hands-on-exercise/4-run-in-prod/2-migration-info.md) into your checkers blockchain. Upgrading your chain in production and dealing with data migrations and logic upgrades will become easier to understand after this guided coding section.
 
+Next, you will [add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) and have it work elegantly with checkers, first without any migration complications.
+
+After that, you will add another migration, this time for the introduction of the [leaderboard module in production](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
+
 ## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">

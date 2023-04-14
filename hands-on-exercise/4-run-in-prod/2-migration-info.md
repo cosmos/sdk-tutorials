@@ -893,17 +893,17 @@ Indicate that the checkers module needs to perform some upgrade steps when it is
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/x/checkers/module.go#L146-L150]
     import (
         ...
-+      cv2Types "github.com/b9lab/checkers/x/checkers/migrations/cv2/types"
++      cv2types "github.com/b9lab/checkers/x/checkers/migrations/cv2/types"
 +      cv3 "github.com/b9lab/checkers/x/checkers/migrations/cv3"
-        cv3Types "github.com/b9lab/checkers/x/checkers/migrations/cv3/types"
+        cv3types "github.com/b9lab/checkers/x/checkers/migrations/cv3/types"
         ...
     )
 
     func (am AppModule) RegisterServices(cfg module.Configurator) {
         types.RegisterQueryServer(cfg.QueryServer(), am.keeper)
 
-+      if err := cfg.RegisterMigration(types.ModuleName, cv2Types.ConsensusVersion, func(ctx sdk.Context) error {
-+          return cv3.PerformMigration(ctx, am.keeper, cv3Types.StoredGameChunkSize)
++      if err := cfg.RegisterMigration(types.ModuleName, cv2types.ConsensusVersion, func(ctx sdk.Context) error {
++          return cv3.PerformMigration(ctx, am.keeper, cv3types.StoredGameChunkSize)
 +      }); err != nil {
 +          panic(fmt.Errorf("failed to register cv2 player info migration of %s: %w", types.ModuleName, err))
 +      }
@@ -1002,7 +1002,7 @@ When done right, adding the callbacks is a short and easy solution.
 
 With changes made in `app.go`, unit tests will not cut it. You have to test with integration tests. Take inspiration from the upgrade keeper's [own integration tests](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/upgrade/keeper/keeper_test.go#L215-L233).
 
-In a new folder dedicated to your migration integration tests, you copy the test suite and its setup function, which you created earlier for integration tests (minus the unnecessary `checkersModuleAddress` line):
+In a new folder dedicated to your migration integration tests, you copy the test suite and its setup function, which you created earlier for integration tests, minus the unnecessary `checkersModuleAddress` line:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/tests/integration/checkers/migrations/cv3/upgrade_integration_suite_test.go]
 type IntegrationTestSuite struct {
@@ -2054,14 +2054,14 @@ It should start and display something like:
 ...
 ```
 
-After it has started, you can confirm in another shell that you have the expected leaderboard with:
+After it has started, you can confirm in another shell that you have the expected player info with:
 
 <CodeGroup>
 
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ./release/v2/checkersd query checkers list-player-info
+$ ./release/v1_1/checkersd query checkers list-player-info
 ```
 
 </CodeGroupItem>
@@ -2069,8 +2069,8 @@ $ ./release/v2/checkersd query checkers list-player-info
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers \
-    ./release/v2/checkersd query checkers list-player-info
+$ docker exec -t checkers \
+    ./release/v1_1/checkersd query checkers list-player-info
 ```
 
 </CodeGroupItem>

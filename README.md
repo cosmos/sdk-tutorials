@@ -353,6 +353,10 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Tally player info after production
             path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a leaderboard module
+            path:  /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Add a migration for your leaderboard module
+            path:  /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/
