@@ -193,7 +193,7 @@ Although from the spec point of view, we can call it the `RegisterInterchainAcco
 
 The host chain state machine will be able to execute the transaction data by extracting it from the `InterchainPacketData`:
 
-```typescript
+```protobuf
 message InterchainAccountPacketData  {
     enum type
     bytes data = 1;
@@ -275,7 +275,21 @@ There you'll find reference to development use cases requiring access to the pac
 
 ## Application callbacks
 
+Custom authentication is one potential use case for the use of interchain accounts, however it quickly became clear that another important use case would become apparent. Namely, interchain accounts packets being sent as part of a composable programmatic flow.
 
+As an example:
+
+1. Send an ICS-20 packet to a remote chain
+2. If it is successful, then send an ICA-packet to swap tokens on a liquidity pool (LP) on the host chain 
+3. Return the funds back to the sender (on the controller chain)
+
+<HighlightBox type="best-practice">
+
+The request from the community to enable a standard for this type of flow, resulted in [ADR-008](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-008-app-caller-cbs/adr-008-app-caller-cbs.md) which extends the ability for general use cases.
+
+Follow up on the developments around ADR-008 and the so-called _callback interface for IBC actors_, i.e. secondary applications (like smart contracts for example) that want to call into IBC apps as part of their state machine logic.
+
+</HighlightBox>
 
 
 
