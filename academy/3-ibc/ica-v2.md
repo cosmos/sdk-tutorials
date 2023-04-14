@@ -165,13 +165,61 @@ It is important to note that once a channel has been opened for a given intercha
 
 ### Host API
 
-* RegisterInterchainAccount
-    * Handshake
-    * Port ID
-* AuthenticateTx
-* ExecuteTx (ExecuteMsg)
+The host chain is the chain where the interchain account is created and the transaction data (sent by the controller) are executed.
 
-AutenticateTx as a segue towards Authentication modules
+Thus, the provided API on the host submodule consists of:
+
+* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side
+* `ExecuteTx`: enables the transaction data to be executed, provided successful authentication
+* `AuthenticateTx`: checks that the signer of a particular message is the interchain account associated with the counterparty portID of the channel that the IBC packet was sent on.
+
+<HighlightBox type="note">
+
+Note that the host API methods will run automatically as part of the flow and need not be exposed to an end-user or module as is the case on the controller side with `RegisterInterchainAccount` and `SendTx`.
+
+</HighlightBox>
+
+#### Register an interchain account
+
+The `RegisterInterchainAccount` flow was discussed on the controller side already, where it triggered a handshake. On the host side, there's an complementary part of the flow, but here it's triggered in the `OnChanOpenTry` step of the handshake which will create the interchain account.
+
+<HighlightBox type="note">
+
+Although from the spec point of view, we can call it the `RegisterInterchainAccount` flow, the actual function being called on the host side in ibc-go is called [`createInterchainAccount`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/apps/27-interchain-accounts/host/keeper/account.go#L14).
+
+</HighlightBox>
+
+#### Executing transaction data
+
+The host chain state machine will be able to execute the transaction data by extracting it from the `InterchainPacketData`:
+
+```typescript
+message InterchainAccountPacketData  {
+    enum type
+    bytes data = 1;
+    string memo = 2;
+}
+```
+
+Where the type (at the moment of writing) should be `EXECUTE_TX` and data contains an array of messages the host chain can execute.
+
+<HighlightBox type="info">
+
+Executing the transaction data will be dependent on the execution environment (which blockchain you're on), an example for the ibc-go implementation can be found [here](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/apps/27-interchain-accounts/host/keeper/relay.go).
+
+</HighlightBox>
+
+#### Authenticating the transaction
+
+`AuthenticateTx` is called before `ExecuteTx`. It checks that the signer of a particular message is the interchain account owner associated with the counterparty portID of the channel that the IBC packet was sent on.
+
+<HighlightBox type="remember">
+
+Remember that the port ID on the controller side was recommended to be of the format: `icacontroller-<owner-account>`. So the owner account to be authenticated can be found from the counterparty port ID.
+
+</HighlightBox>
+
+Up until this point you might have wondered how the authentication is handled on the controller side. This will be the topic of the next section.
 
 ## Authentication
 
