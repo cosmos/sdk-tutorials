@@ -221,14 +221,57 @@ Remember that the port ID on the controller side was recommended to be of the fo
 
 Up until this point you might have wondered how the authentication is handled on the controller side. This will be the topic of the next section.
 
+<HighlightBox type="note">
+
+From here onwards, it will be implicitly assumed that we are dealing with the ibc-go implmenation specifically, whereas all of the above held true for all implentations of ICS-27, unless explicitly stated otherwise.
+
+</HighlightBox>
+
 ## Authentication
 
-**Authentication Module:** a custom IBC application module on the controller chain that uses the interchain accounts module API to build custom logic for the creation and management of interchain accounts. An authentication module is required for a controller chain to utilize the interchain accounts module functionality.
+The ICA controller submodule provides an API for registering an account and for sending interchain transactions. It has been purposefully made lean and limited to generic contoller functionality. For authentication of the owner accounts, the developer is expected to provide an authentication module the ability to interact with the ICA controller submodule.
 
-The ICA module provides an API for registering an account and for sending interchain transactions. A developer will use this module by implementing an **ICA Auth Module** (_authentication module_) and can expose gRPC endpoints for an application or user. Regular accounts use a private key to sign transactions on-chain. interchain accounts are instead controlled programmatically by separate chains via IBC transactions. interchain accounts are implemented as sub-accounts of the interchain accounts module account.
+Let's take a look at some definitions:
 
-* MsgServer
-* Legacy API
+**Authentication Module:** 
+
+* Generic authentication module: Cosmos SDK modules (`x/auth`, `x/gov` or `x/group`) that offer authentication functionality and can send messages to the ICS-27 module through a `MsgServer`.
+* Custom authentication module: a custom SDK module (satisfying only the `AppModule` but not `IBCModule` interface) that offers custom authentication and can send messages to the ICS-27 module through a `MsgServer`.
+* Legacy authentication module: an IBC application module on the controller chain that acts as underlying application for the ICS-27 controller submodule middleware. It forms an IBC middleware stack with the ICS-27 controller module, facilitating communication across the stack.
+
+An **authentication module** must:
+
+* Authenticate interchain account owners
+* Track the associated interchain account address for an owner
+* Send packets on behalf of an owner (after authentication)
+
+<HighlightBox type="docs">
+
+Originally when ICA was first introduced in ibc-go v3, developers had to develop a custom authentication module as an IBC application that was wrapped by the ICS-27 module acting as middleware. In ibc-go v6 a refactor of ICA  took place that enabled Cosmos SDK modules (`x/auth`, `x/gov` or `x/group`) to act as generic authentication modules that required no extra development. 
+
+A `MsgServer` was added to the ICA controller submodule to facilitate this.
+
+More information regarding the details and context for the redesign can be found in [ADR-009](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-009-v6-ics27-msgserver.md) or in a [dedicated blog post](https://medium.com/the-interchain-foundation/ibc-go-v6-changes-to-interchain-accounts-and-how-it-impacts-your-chain-806c185300d7) on the topic.
+
+For now, the legacy API will remain available for those developers that had already built custom IBC authentication modules, but will be deprecated in the future.
+
+</HighlightBox>
+
+<HighlightBox type="info">
+
+**SDK Security Model**
+<br/>
+SDK modules on a chain are assumed to be trustworthy. For example, there are no checks to prevent an untrustworthy module from accessing the bank keeper.
+
+The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) on [ibc-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) uses this assumption in its security considerations. The implementation assumes the authentication module will not try to open channels on owner addresses it does not control.
+
+The implementation assumes other IBC application modules will not bind to ports within the [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) namespace.
+
+</HighlightBox>
+
+More information on what type of authentication module to use for what development use case can be found [here](https://ibc.cosmos.network/main/apps/interchain-accounts/development.html).
+
+There you'll find reference to development use cases requiring access to the packet callbacks, which is discussed in the next section.
 
 ## Application callbacks
 
