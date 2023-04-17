@@ -44,7 +44,7 @@ Make sure you are using the same version used at the time of writing:
 $ git checkout v0.45.4
 ```
 
-Then build `cosmos-sdk`. If you use Docker, with the help of a ready-made [multi-stage creation](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/Dockerfile#L37), you create a new Docker image that contains the compiled `simd`:
+Now build `cosmos-sdk`. If you use Docker, with the help of a ready-made [multi-stage creation](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/Dockerfile#L37) you create a new Docker image that contains the compiled `simd`:
 
 <CodeGroup>
 
@@ -298,7 +298,7 @@ It helps to understand the concepts clearly when working hands-on with the Cosmo
 
 </HighlightBox>
 
-You can also inspect your keys. These are held in one of the the backend keyrings, which by default is that of the operating system or of test. To ring-fence them too, and ensure consistency, you will use the `test` backend, and save them in `./private/.simapp` too:
+You can also inspect your keys. These are held in one of the the backend keyrings, which by default is that of the operating system or of the test. To ring-fence them too, and to ensure consistency, you will use the `test` backend and also save them in `./private/.simapp`:
 
 <CodeGroup>
 
@@ -360,7 +360,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-It does not ask for any passphrase, and saves them _in the clear_ in `./private/.simapp/keyring-test`. Remember that these keys are only for testing so you do not need to worry. When done, this prints something similar to:
+It does not ask for any passphrase, and saves them _in the clear_ in `./private/.simapp/keyring-test`. Remember that these keys are only for testing, so you do not need to worry. When done, this prints something similar to:
 
 ```yaml
 - name: alice
@@ -437,9 +437,7 @@ $ docker run --rm -it \
 
 As previously explained, a Cosmos SDK blockchain relies on identified validators to produce blocks. Initially there is no validator to generate blocks. You are in a catch-22 situation: your initialized and unstarted chain needs a genesis account and a validator for bootstrapping purposes.
 
-Make your key, also known as an account, have an initial balance in the genesis file.
-
-For that, you need to know the staking denomination:
+You must make your key, also known as an account, have an initial balance in the genesis file. For that, you need to know the staking denomination:
 
 ```sh
 $ grep bond_denom ./private/.simapp/config/genesis.json
@@ -451,7 +449,7 @@ This returns:
 "bond_denom": "stake"
 ```
 
-With that, you can give enough to alice in the genesis:
+With this, you can give enough to alice in the genesis:
 
 <CodeGroup>
 
@@ -491,9 +489,9 @@ Despite this initial balance, before you run your blockchain you still need to e
 
 <HighlightBox type="note">
 
-In this scenario, for your network to even run, you must meet the 2/3 threshold of the weighted validators.
+In this scenario, for your network to even run you must meet the 2/3rds threshold of the weighted validators.
 <br/><br/>
-However you will be alone on the network, so you can stake any number at or above the [minimum enforced](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/types/staking.go#L21-L22), i.e. `1000000stake`. However, to remind yourself that it is important that honest nodes stake a large amount, you stake `70000000stake` of the `100000000stake` in the `alice` account you just created. Make sure to not use all of your tokens so you can still pay for gas and so you don't run out of tokens later.
+Because you will be alone on the network you can stake any number at or above the [minimum enforced](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/types/staking.go#L21-L22), i.e. `1000000stake`. However, to remind yourself that it is important that honest nodes stake a large amount, stake `70000000stake` of the `100000000stake` in the `alice` account you just created. Make sure not to use all of your tokens, so you can still pay for gas and so you don't run out of tokens later.
 <br/><br/>
 Do not forget to use your own `--chain-id`.
 
@@ -533,7 +531,7 @@ Which confirms the action:
 Genesis transaction written to "/Users/alice/cosmos/cosmos-sdk/private/.simapp/config/gentx/gentx-cf6bff39bb84da39d214138ebba8bcba4ccb848d.json"
 ```
 
-After you have created this genesis transaction in its own file, collect all the genesis transactions with `collect-gentxs` to include it in your genesis file. Here you have only one anyway:
+After you have created this genesis transaction in its own file, collect all the genesis transactions with `collect-gentxs` to include them in your genesis file. Here you have only one anyway:
 
 <CodeGroup>
 
@@ -559,7 +557,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-Which prints the resulting genesis file:
+This prints the resulting genesis file:
 
 ```json
 {"app_message":{"auth":{"accounts":[{"@type":"/cosmos.auth.v1beta1.BaseAccount","account_number":"0","address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","pub_key":null,"sequence":"0"}],"params":{"max_memo_characters":"256","sig_verify_cost_ed25519":"590","sig_verify_cost_secp256k1":"1000","tx_sig_limit":"7","tx_size_cost_per_byte":"10"}},"authz":{"authorization":[]},"bank":{"balances":[{"address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","coins":[{"amount":"100000000","denom":"stake"}]}],"denom_metadata":[],"params":{"default_send_enabled":true,"send_enabled":[]},"supply":[{"amount":"100000000","denom":"stake"}]},"capability":{"index":"1","owners":[]},"crisis":{"constant_fee":{"amount":"1000","denom":"stake"}},"distribution":{"delegator_starting_infos":[],"delegator_withdraw_infos":[],"fee_pool":{"community_pool":[]},"outstanding_rewards":[],"params":{"base_proposer_reward":"0.010000000000000000","bonus_proposer_reward":"0.040000000000000000","community_tax":"0.020000000000000000","withdraw_addr_enabled":true},"previous_proposer":"","validator_accumulated_commissions":[],"validator_current_rewards":[],"validator_historical_rewards":[],"validator_slash_events":[]},"evidence":{"evidence":[]},"feegrant":{"allowances":[]},"genutil":{"gen_txs":[{"auth_info":{"fee":{"amount":[],"gas_limit":"200000","granter":"","payer":""},"signer_infos":[{"mode_info":{"single":{"mode":"SIGN_MODE_DIRECT"}},"public_key":{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"},"sequence":"0"}],"tip":null},"body":{"extension_options":[],"memo":"cf6bff39bb84da39d214138ebba8bcba4ccb848d@192.168.1.7:26656","messages":[{"@type":"/cosmos.staking.v1beta1.MsgCreateValidator","commission":{"max_change_rate":"0.010000000000000000","max_rate":"0.200000000000000000","rate":"0.100000000000000000"},"delegator_address":"cosmos1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq","description":{"details":"","identity":"","moniker":"demo","security_contact":"","website":""},"min_self_delegation":"1","pubkey":{"@type":"/cosmos.crypto.ed25519.PubKey","key":"0wnjKoRtWjv9NOLEPS6UrlwFurQAmsJIXFsmhtbigF8="},"validator_address":"cosmosvaloper1nw793j9xvdzl2uc9ly8fas5tcfwfetera4euvn","value":{"amount":"70000000","denom":"stake"}}],"non_critical_extension_options":[],"timeout_height":"0"},"signatures":["NA23q62Vhfm1z3E1XafPeSDEVDkcPuTWXZmQr9QAZuN5wY2V6UFSRBO0w8Z255OxxZV4j47SJo1HOYWvcH4qvw=="]}]},"gov":{"deposit_params":{"max_deposit_period":"172800s","min_deposit":[{"amount":"10000000","denom":"stake"}]},"deposits":[],"proposals":[],"starting_proposal_id":"1","tally_params":{"quorum":"0.334000000000000000","threshold":"0.500000000000000000","veto_threshold":"0.334000000000000000"},"votes":[],"voting_params":{"voting_period":"172800s"}},"mint":{"minter":{"annual_provisions":"0.000000000000000000","inflation":"0.130000000000000000"},"params":{"blocks_per_year":"6311520","goal_bonded":"0.670000000000000000","inflation_max":"0.200000000000000000","inflation_min":"0.070000000000000000","inflation_rate_change":"0.130000000000000000","mint_denom":"stake"}},"params":null,"slashing":{"missed_blocks":[],"params":{"downtime_jail_duration":"600s","min_signed_per_window":"0.500000000000000000","signed_blocks_window":"100","slash_fraction_double_sign":"0.050000000000000000","slash_fraction_downtime":"0.010000000000000000"},"signing_infos":[]},"staking":{"delegations":[],"exported":false,"last_total_power":"0","last_validator_powers":[],"params":{"bond_denom":"stake","historical_entries":10000,"max_entries":7,"max_validators":100,"unbonding_time":"1814400s"},"redelegations":[],"unbonding_delegations":[],"validators":[]},"upgrade":{},"vesting":{}},"chain_id":"learning-chain-1","gentxs_dir":"/Users/muratoener/.simapp/config/gentx","moniker":"demo","node_id":"cf6bff39bb84da39d214138ebba8bcba4ccb848d"}
@@ -598,7 +596,7 @@ Note that here you name the container `simd` so as to connect to it easily later
 
 </CodeGroup>
 
-In the terminal window where you ran the command, you can see blocks being produced and validated:
+You can see blocks being produced and validated in the terminal window where you ran the command:
 
 ```txt
 6:23PM INF starting ABCI with Tendermint
@@ -671,7 +669,7 @@ pagination:
 
 ## Send a transaction
 
-Practice sending a transaction. You can send tokens to any valid address. For instance you can send tokens to an address whose private key you do not know. Head to [Mintscan for the Cosmos Hub](https://www.mintscan.io/cosmos), and pick a `cosmos1...` address from one of the latest transactions. For instance:
+Practice sending a transaction. You can send tokens to any valid address. For instance, you can send tokens to an address whose private key you do not know. Head to [Mintscan for the Cosmos Hub](https://www.mintscan.io/cosmos), and pick a `cosmos1...` address from one of the latest transactions. For instance:
 
 ```sh
 $ export bob=cosmos1ytt4z085fwxwnj0xdckk43ek4c9znuy00cghtq
@@ -757,7 +755,7 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-The command output could include useful information, such as `gas_used`. However here it did not have time to collect the information because the command returned before the transaction was included in a block.
+The command output could include useful information, such as `gas_used`. However, here it did not have time to collect the information because the command returned before the transaction was included in a block.
 
 You can call back the transaction information using the transaction hash above:
 
@@ -951,7 +949,7 @@ pagination:
   total: "0"
 ```
 
-That is a `10` stake as expected.
+That is a `10` stake, as expected.
 
 ## CLI routing
 
