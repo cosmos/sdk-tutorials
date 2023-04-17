@@ -114,11 +114,11 @@ When your network has been running sufficiently to be considered "established", 
 
 <HighlightBox type="tip">
 
-If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate Production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
 
 More specifically, you can jump to:
 
-* [Executables that run](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-executables-that-run) to see how to prepare (Docker) nodes to run.
+* [Executables that run](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-executables-that-run), to see how to prepare (Docker) nodes to run.
 
 </HighlightBox>
 

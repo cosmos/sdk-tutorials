@@ -39,7 +39,7 @@ Along the way, you learn the basic CosmJS concepts needed to start interacting w
 
 ## Script preparation
 
-A small, ready-made repository exists so you can experiment with CosmJS. Clone it from [here](https://github.com/b9lab/cosmjs-sandbox). You need [NodeJs](https://nodejs.org/en/download/), or [Docker](/tutorials/5-docker-intro/index.md) in which to run NodeJs. If you open the folder in [Visual Studio Code](https://code.visualstudio.com/Download), the IDE should give you all the coding help you require. In the cloned folder you need to install the required modules:
+A small, ready-made repository exists so you can experiment with CosmJS. Clone it from [here](https://github.com/b9lab/cosmjs-sandbox). You need [NodeJs](https://nodejs.org/en/download/), or [Docker](/tutorials/5-docker-intro/index.md), in which to run NodeJs. If you open the folder in [Visual Studio Code](https://code.visualstudio.com/Download), the IDE should give you all the coding help you require. In the cloned folder you need to install the required modules:
 
 <CodeGroup>
 
@@ -496,7 +496,7 @@ Instead of using the `decode` functions that come with the `Tx` and `MsgSend` im
 <br/><br/>
 Note the conceptual difference between `Tx` and the `rawLog`. The `Tx`, or `MsgSend`, object is an **input to the computation** that takes place when the transaction is included in a block. The `rawLog` is the resulting **output** of said computation and its content depends on what the blockchain code emitted when executing the transaction.
 
-In particular, if the transaction failed, you would be able to extract the faucet address from the `Tx`, but not from the `rawLog`, because the log would contain the error message.
+In particular, if the transaction failed you would be able to extract the faucet address from the `Tx` but _not_ from the `rawLog`, because the log would contain the error message.
 
 From the `IndexedTx` you see that there is a [`rawLog`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/stargateclient.ts#L64), which happens to be a stringified JSON.
 
@@ -553,9 +553,9 @@ Now it is time for Alice to send some tokens back to the faucet.
 
 ## Prepare a signing client
 
-If you go through the methods inside [`StargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/stargateclient.ts#L139), you see that it only contains query-type methods and none for facilitating the preparation of transactions. Sure, it has [`BroadcastTx`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/stargateclient.ts#L350) a function that can send ready-made transactions.
+If you go through the methods inside [`StargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/stargateclient.ts#L139), you see that it only contains query-type methods and none for facilitating the preparation of transactions. It does have [`BroadcastTx`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/stargateclient.ts#L350), a function that can send ready-made transactions.
 
-Now, for Alice to send transactions, she needs to be able to sign them. And to be able to sign transactions, she needs access to her _private keys_ or _mnemonics_. Or rather she needs a client that has access to those. That is where [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L147) comes in. Conveniently, `SigningStargateClient` inherits from `StargateClient`.
+Now, for Alice to send transactions she needs to be able to sign them. And to be able to sign transactions she needs access to her _private keys_ or _mnemonics_ (or rather she needs a client that has access to them). That is where [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L147) comes in. Conveniently, `SigningStargateClient` inherits from `StargateClient`.
 
 Update your import line:
 
@@ -987,7 +987,7 @@ If you would like to see how to do more actions when listening to events from yo
 
 More specifically, you can jump to:
 
-* [Backend Scripts for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) for a Web2.0 server listening to game events.
+* [Backend Scripts for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md), for a Web2.0 server listening to game events.
 
 </HighlightBox>
 

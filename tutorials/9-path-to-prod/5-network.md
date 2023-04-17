@@ -175,12 +175,12 @@ It is common practice to expose your regular nodes and to hide your validator no
 
 <HighlightBox type="tip">
 
-If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate Production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
 
 More specifically, you can jump to:
 
-* [Network preparation](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#network-preparation) to see how to prepare nodes to know about each other, and keep some things private,
-* [Networks they run in](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-networks-they-run-in) to see how the network topology is prepared.
+* [Network preparation](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#network-preparation), to see how to prepare nodes to know about each other, and to keep some things private.
+* [Networks they run in](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-networks-they-run-in), to see how the network topology is prepared.
 
 </HighlightBox>
 

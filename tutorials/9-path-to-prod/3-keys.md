@@ -90,12 +90,12 @@ You want to make sure potential delegators can find your validator operator appl
 
 <HighlightBox type="tip">
 
-If you would like to see how to apply what you learned, you can go straight to the exercise in [Simulate Production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
 
 More specifically, you can jump to:
 
-* [Keys](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#keys) to see how to handle validator **operator** keys,
-* [Prepare the KMS](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#prepare-the-kms) to see how to handle validator **consensus** keys.
+* [Keys](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#keys), to see how to handle validator **operator** keys.
+* [Prepare the KMS](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#prepare-the-kms), to see how to handle validator **consensus** keys.
 
 </HighlightBox>
 

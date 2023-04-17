@@ -62,7 +62,7 @@ Which guides you with:
 ? What is your project named? › cosmjs-keplr
 ```
 
-This created a new `cosmjs-keplr` folder, go in it. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
+This created a new `cosmjs-keplr` folder, so open it. There you can find a `/pages` folder, which contains an `index.tsx`. That's your first page.
 
 Run it, in the `cosmjs-keplr` folder:
 
@@ -273,7 +273,7 @@ Note that it only cares about the first coin type stored in `balances[0]`: this 
     updateFaucetBalance = async (client: StargateClient)...
 ```
 
-The call to `setTimeout` so that `init` is _not_ launched on the same pass as the constructor.
+The call to `setTimeout` is so that `init` is _not_ launched on the same pass as the constructor.
 
 After `run dev` picks the changes, you should see that your page starts showing the relevant information.
 
@@ -760,7 +760,7 @@ If you would like to get started on integrating Keplr into your own checkers gam
 
 More specifically, you can jump to:
 
-* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md) for a more elaborate integration between Keplr, CosmJS, custom messages and a pre-existing Checkers GUI,
+* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md), for a more elaborate integration between Keplr, CosmJS, custom messages, and a pre-existing Checkers GUI.
 
 </HighlightBox>
 

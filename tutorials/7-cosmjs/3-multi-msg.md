@@ -158,7 +158,7 @@ Confirm this by making the change in your `experiment.ts` from the previous sect
 
 <HighlightBox type="best-practice">
 
-Building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases, and to demonstrate how to build messages.
+Building a transaction in this way is recommended. `SigningStargateClient` offers you convenient methods such as `sendTokens` for simple use cases, and to demonstrate how to build messages.
 
 </HighlightBox>
 
@@ -252,7 +252,7 @@ Neither Cosmos nor CosmJS limits you to combining messages of the same type. You
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to a validator.
 
-How would Alice create the second message? The `SigningStargateClient` contains a predefined list (a _registry_) of `typeUrls` that are [supported by default](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L55-L69), because they're considered to be the most commonly used messages in the Cosmos SDK. Among the [staking types](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L62), there is `MsgDelegate`, and that is exactly what you need. Click the source links above and below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
+How would Alice create the second message? The `SigningStargateClient` contains a predefined list (a _registry_) of `typeUrls` that are [supported by default](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L55-L69), because they're considered to be the most commonly used messages in the Cosmos SDK. Among the [staking types](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L62) there is `MsgDelegate`, and that is exactly what you need. Click the source links above and below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
 
 ```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/modules/staking/messages.ts#L13]
 export const stakingTypes: ReadonlyArray<[string, GeneratedType]> = [

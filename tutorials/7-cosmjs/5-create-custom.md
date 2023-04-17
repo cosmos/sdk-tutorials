@@ -40,7 +40,7 @@ This exercise assumes that:
 1. Your Protobuf definition files are in `./proto/myChain`.
 2. You want to compile them into TypeScript in `./client/src/types/generated`.
 
-Install `protoc` on your computer and its Typescript plugin in your project, or with the help of a Dockerfile:
+Install `protoc` on your computer and its Typescript plugin in your project, possibly with the help of a Dockerfile:
 
 <CodeGroup>
 
@@ -56,7 +56,7 @@ $ ln -s /usr/lib/protoc/bin/protoc /usr/local/bin/protoc
 $ npm install ts-proto@1.121.6 --save-dev
 ```
 
-Adjust to your preferred version, operating system and CPU platform. For instance, on an Apple M1, you would use `protoc-21.7-osx-aarch_64.zip`.
+Adjust to your preferred version, operating system, and CPU platform. For instance, on an Apple M1 you would use `protoc-21.7-osx-aarch_64.zip`.
 
 </CodeGroupItem>
 
@@ -226,7 +226,7 @@ $ docker run --rm -it \
     root --global
 ```
 
-To find out where `ts-proto` was installed globally.
+This shows where `ts-proto` was installed globally.
 
 </CodeGroupItem>
 
@@ -486,10 +486,10 @@ If you would like to get started on building your own CosmJS elements on your ow
 
 More specifically, you can jump to:
 
-* [Create Custom Objects](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) to see how to compile the Protobuf objects,
-* [Create Custom Messages](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md) to see how to create messages relevant for checkers,
-* [Backend Script for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md) to see how this can be used also to listen to events coming from the blockchain,
-* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md) to see how to use and integrate what you prepared into a pre-existing Checkers GUI.
+* [Create Custom Objects](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md), to see how to compile the Protobuf objects.
+* [Create Custom Messages](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md), to see how to create messages relevant for checkers.
+* [Backend Script for Game Indexing](/hands-on-exercise/3-cosmjs-adv/5-server-side.md), to see how this can be used also to listen to events coming from the blockchain.
+* [Integrate CosmJS and Keplr](/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.md), to see how to use and integrate what you prepared into a preexisting Checkers GUI.
 
 </HighlightBox>
 
