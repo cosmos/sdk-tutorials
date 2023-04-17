@@ -13,7 +13,7 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md), [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md) and [testing](/academy/2-cosmos-concepts/12-testing.md).
+* You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md), [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md), and [testing](/academy/2-cosmos-concepts/12-testing.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the wager payments. If not, follow the [previous steps](./5-payment-winning.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/payment-winning).
 
@@ -29,11 +29,11 @@ In this section, you will:
 
 In the [previous section](./5-payment-winning.md), you handled wager payments and added unit tests that pass. You added mocks of the bank keeper. Mocks are useful to embody your expectations of the bank keeper's behavior and then quickly confirm that your code does what you expect. By interacting via the CLI, you also confirmed that the bank keeper behaved as you expected.
 
-Now, it would be better to automatically check that your expectations of the bank keeper's behavior are correct. This is done with integration tests. This is what this section is about.
+Now, it would be better to automatically check that your expectations of the bank keeper's behavior are correct. This is done with integration tests, and is the focus of this section.
 
 ## What is to be done
 
-In order you will:
+In order, you will:
 
 * Prepare your code to accept integration tests.
 * Create helper functions that will make your integration tests more succinct.
@@ -303,7 +303,7 @@ Now you must add integration tests for your keeper in new files. What does an in
 
     It is declared as a member of your test suite, and is prefixed with [`Test`](https://github.com/stretchr/testify/blob/v1.7.0/suite/suite.go#L181-L182).
 
-2. The **setup** can be done as you like, but just like for unit tests you ought to create a helper and use it. Here one exists already:
+2. The **setup** can be done as you prefer, but just like for unit tests you ought to create a helper and use it. Here one exists already:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_create_game_test.go#L9-L10]
     suite.setupSuiteWithBalances()
@@ -357,7 +357,7 @@ func (suite *IntegrationTestSuite) setupSuiteWithOneGameForPlayMove() {
 
 You will call this function from the relevant tests.
 
-For the tests proper, before an action that you expect to transfer money (or not) you can verify the initial position:
+For the tests proper, before an action that you expect to transfer money (or not), you can verify the initial position:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L59-L62]
 suite.RequireBankBalance(balAlice, alice)
@@ -378,7 +378,7 @@ suite.RequireBankBalance(45, checkersModuleAddress)
 How you subdivide your tests and where you insert these balance checks is up to you. You can find examples here for:
 
 * [Creating a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_create_game_test.go#L42-L59).
-* [Playing the first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L56-L75), [the second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L209-L236), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L308-L315). You can also [check the events](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L129-L164).
+* [Playing the first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L56-L75) and [the second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L209-L236), including [up to a resolution](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L308-L315). You can also [check the events](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L129-L164).
 * Failing to play a game because of a failure to pay the wager on the [first move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L104-L127) and the [second move](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/msg_server_play_move_test.go#L238-L269).
 * [Forfeiting a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/end_block_server_game_test.go#L10-L30), including when [there has been one move played](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/end_block_server_game_test.go#L32-L60) or [two](https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/end_block_server_game_test.go#L185-L222).
 
