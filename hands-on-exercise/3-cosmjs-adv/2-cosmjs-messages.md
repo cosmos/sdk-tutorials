@@ -175,7 +175,7 @@ You should not consider these two functions as the **only** ones that users of `
 
 ## Integration tests
 
-You can reuse the setup you prepared in the previous section. There is an added difficulty: because you send transactions, your tests need access to keys and tokens. How do you provide them in a testing context?
+You can reuse the setup you prepared in the previous section. However, there is an added difficulty: because you send transactions, your tests need access to keys and tokens. How do you provide them in a testing context?
 
 ### Key preparation
 
@@ -300,7 +300,7 @@ If the running chain allows it, and to make your life easier, you can set the ga
 
 ### Token preparation
 
-Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses using the funds of other addresses of your running chain. A faucet, if it is set up is convenient for this step.
+Just saving keys on disk does not magically make these keys hold tokens on your test blockchain. You need to fund them at their addresses, using the funds of other addresses of your running chain. A faucet, if one is set up, is convenient for this step.
 
 1. If you use Ignite, it has created a faucet endpoint for you at port `4500`. The page `http://localhost:4500` explains the API.
 2. If you use the [CosmJS faucet](https://www.npmjs.com/package/@cosmjs/faucet), you can make it serve on port `4500` too.
@@ -350,7 +350,7 @@ Also add the faucet address to `environment.d.ts`:
 ...
 ```
 
-In a new separate file, add:
+In a new, separate file, add:
 
 1. A `http` helper function:
 
@@ -376,7 +376,7 @@ In a new separate file, add:
         })
     ```
 
-2. Two helper functions to easily call [CosmJS'](https://www.npmjs.com/package/@cosmjs/faucet) and [Ignite's](/hands-on-exercise/1-ignite-cli/1-ignitecli.md#your-gui) faucets:
+2. Two helper functions to easily call the faucets of [CosmJS](https://www.npmjs.com/package/@cosmjs/faucet) and [Ignite](/hands-on-exercise/1-ignite-cli/1-ignitecli.md#your-gui):
 
     <CodeGroup>
 
@@ -403,7 +403,7 @@ In a new separate file, add:
 
     </CodeGroupItem>
 
-    <CodeGroupItem title="for Ignite's">
+    <CodeGroupItem title="for Ignite">
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/util/faucet.ts#L47-L58]
     export const askFaucetIgniteCli = async (
@@ -426,12 +426,12 @@ In a new separate file, add:
 
     <HighlightBox type="note">
 
-    * The CosmJS faucet API does **not** let you specify the desired amount.
-    * The Ignite faucet API lets you specify the desired amount.
+    * The CosmJS faucet API **does not** let you specify the desired amount.
+    * The Ignite faucet API **does** let you specify the desired amount.
 
     </HighlightBox>
 
-3. A function that tries one faucet and if that one fails, tries the other:
+3. A function that tries one faucet, and if that one fails tries the other:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/src/util/faucet.ts#L24-L28]
     export const askFaucet = async (
@@ -441,7 +441,7 @@ In a new separate file, add:
         askFaucetComsJs(address, tokens).catch(() => askFaucetIgniteCli(address, tokens))
     ```
 
-You will find out with practice how many tokens your accounts need for the tests. Start with any value. Ignite's default configuration is to start a chain with two tokens: `stake` and `token`, this is a good default. You use both denoms.
+You will find out with practice how many tokens your accounts need for their tests. Start with any value. Ignite's default configuration is to start a chain with two tokens: `stake` and `token`. This is a good default, as you can use both denoms.
 
 Create another `before` that will credit Alice and Bob from the faucet so that they are rich enough to continue:
 
@@ -488,7 +488,7 @@ Your accounts are now ready to proceed with the tests proper.
 
 There are an extra 40 seconds given for this potentially slower process: `this.timeout(40_000)`.
 
-You may want to adjust this time-out value. Here it is set at 10 seconds multiplied by the maximum number of transactions in the function. Here there are at most 4 transactions when calling the CosmJS faucet. Query calls are typically very fast and therefore need not enter in the time-out calculation.
+You may want to adjust this time-out value. Here it is set at _10 seconds multiplied by the maximum number of transactions in the function_. Here there are at most 4 transactions when calling the CosmJS faucet. Query calls are typically very fast, and therefore need not enter in the time-out calculation.
 
 </HighlightBox>
 
@@ -912,13 +912,13 @@ Sending a single transaction with two moves is cheaper and faster, from the poin
 
 <HighlightBox type="note">
 
-It is not possible for Alice, who is the creator and black player, to send in a single transaction a message for creation and a message to make the first move on it. That's because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
+It is not possible for Alice, who is the creator and black player, to send in a single transaction both a message for creation _and_ a message to make the first move on it. This is because the index of the game is not known before the transaction has been included in a block, and with that the index computed.
 
 </HighlightBox>
 
 <HighlightBox type="warn">
 
-Of course, she could try, but if her move failed because of a wrong game id then the whole transaction would revert, and that would include the game creation being reverted.
+Of course, she could try to do this. However, if her move failed because of a wrong game id, then the whole transaction would revert, and that would include the game creation being reverted.
 <br/><br/>
 Worse, a malicious attacker could **front-run** Alice's transaction with another transaction, creating a game where Alice is also the black player and whose id ends up being the one Alice signed in her first move. In the end she would make the first move on a game she did not really intend to play. This game could even have a wager that is _all_ of Alice's token holdings.
 
@@ -935,7 +935,7 @@ If you launch the tests just like you did in the [previous section](/hands-on-ex
 Adjust what you did. 
 
 * If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite, which has a faucet to start with.
-* If you arrived here and are only focussed on learning CosmJS, it is possible to abstract away niceties of both the running chain and a faucet in a minimal package. For this, you need Docker and to create an image:
+* If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of both the running chain and a faucet in a minimal package. For this, you need Docker and to create an image:
 
    1. Get the `Dockerfile`:
 
@@ -970,7 +970,7 @@ If you are curious about how this `Dockerfile-standalone` was created, head to t
 
 ### Launch the tests
 
-Launch your checkers chain and the faucet. You can choose your preferred method as long as they can be accessed at the `RPC_URL` and `FAUCET_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
+Launch your checkers chain and the faucet. You can choose your preferred method, as long as they can be accessed at the `RPC_URL` and `FAUCET_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
 
 <CodeGroup>
 
@@ -1000,14 +1000,14 @@ If your `checkers-net` network already exists, the first command fails with:
 Error response from daemon: network with name checkers-net already exists
 ```
 
-But that is ok.
+But that is okay.
 
 <HighlightBox type="note">
 
 * The names match those given in `RPC_URL` and `FAUCET_URL`.
-* The chain needs about 10 seconds to start listening on port 26657. The faucet does not _retry_ so you have to be sure the chain is started.
-* The faucet container itself takes about 20 seconds to be operational as it creates 4 transactions in 4 blocks.
-* Their are started in `--detach`ed mode, but you are free to start them attached in different shells.
+* The chain needs about 10 seconds to start listening on port 26657. The faucet does not _retry_, so you have to be sure the chain is started.
+* The faucet container itself takes about 20 seconds to be operational, as it creates 4 transactions in 4 blocks.
+* They are started in `--detach`ed mode, but you are free to start them attached in different shells.
 
 </HighlightBox>
 
@@ -1043,7 +1043,7 @@ If your `checkers-net` network already exists, the first command fails with:
 Error response from daemon: network with name checkers-net already exists
 ```
 
-But that is ok.
+But that is okay.
 
 <HighlightBox type="note">
 
@@ -1100,7 +1100,7 @@ Remember that `RPC_URL` and `FAUCET_URL` have to mention `checkers` and `cosmos-
 
 The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL` and `FAUCET_URL`.
 
-When you are done, if you started the chain in Docker, you can stop the containers with:
+If you started the chain in Docker, when you are done you can stop the containers with:
 
 ```sh
 $ docker stop cosmos-faucet checkers

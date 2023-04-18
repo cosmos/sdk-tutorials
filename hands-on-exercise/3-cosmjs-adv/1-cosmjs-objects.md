@@ -515,7 +515,7 @@ RPC_URL="http://localhost:26657"
 RPC_URL="http://checkers:26657"
 ```
 
-As you will run the checkers chain in a container named `checkers`.
+This will run the checkers chain in a container named `checkers`.
 
 </CodeGroupItem>
 
@@ -678,7 +678,7 @@ If you are curious about how this `Dockerfile-standalone` was created, head to t
 
 ### Launch the tests
 
-Launch your checkers chain. You can choose your preferred method as long as it can be accessed at the `RPC_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
+Launch your checkers chain. You can choose your preferred method, as long as it can be accessed at the `RPC_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
 
 <CodeGroup>
 
@@ -699,7 +699,7 @@ If your `checkers-net` network already exists, the first command fails with:
 Error response from daemon: network with name checkers-net already exists
 ```
 
-But that is ok.
+But that is okay.
 
 </CodeGroupItem>
 
@@ -731,7 +731,7 @@ If your `checkers-net` network already exists, the first command fails with:
 Error response from daemon: network with name checkers-net already exists
 ```
 
-But that is ok.
+But that is okay.
 
 </CodeGroupItem>
 
@@ -739,12 +739,12 @@ But that is ok.
 
 ---
 
-When using Docker note:
+When using Docker, note:
 
-* `--name checkers` that matches the name you wrote in `RPC_URL`.
+* `--name checkers` matches the name you wrote in `RPC_URL`.
 * `--network checkers-net`, which is reused shortly if you also run your `npm` tests in Docker. See the paragraph on Docker network, later in this section.
 
-Now if you run the tests in another shell:
+Now, if you run the tests in another shell:
 
 <CodeGroup>
 
@@ -767,7 +767,7 @@ $ docker run --rm \
     npm test
 ```
 
-It starts the container on the same network as the blockchain container.
+This starts the container on the same network as the blockchain container.
 
 </CodeGroupItem>
 
@@ -795,9 +795,9 @@ The only combination of running chain / running tests that will not work is if y
 
 You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_.
 
-If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. And in fact, in the [production section](../4-run-in-prod/1-run-prod-docker.md) of this hands-on exercise, you do just that. If you think this could eventually be useful, you should go through this section. You may want to redo this section with [Docker](https://docs.docker.com/get-docker/).
+If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. In fact, in the [production section](../4-run-in-prod/1-run-prod-docker.md) of this hands-on exercise you do exactly that. If you think this could eventually be useful, you should go through this section. You may want to redo this section with [Docker](https://docs.docker.com/get-docker/).
 
-When you ran the command:
+Earlier you ran the command:
 
 ```sh
 $ docker run --rm -it \
@@ -808,7 +808,7 @@ $ docker run --rm -it \
     checkersd_i:standalone start
 ```
 
-The following happened:
+This produced the following results:
 
 1. A Docker network was created with the name `checkers-net`. If another container is started in this network, all ports are mutually accessible.
 2. Your container started in it with the resolvable name of `checkers`.
@@ -843,9 +843,9 @@ Then, for tests:
 
     </HighlightBox>
 
-Docker networks are used further in the next section.
+Docker networks are explored further in the next section.
 
-When you are done, if you started the chain in Docker, you can stop the containers with:
+When you are done, if you started the chain in Docker you can stop the containers with:
 
 ```sh
 $ docker stop checkers
@@ -858,7 +858,7 @@ To summarize, this section has explored:
 
 * The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your checkers application.
 * How to create the necessary Protobuf objects and clients in TypeScript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your checkers module.
-* How to use Docker to define a network to launch separate containers that can communicate for the purpose of integration testing.
+* How to use Docker to define a network to launch separate containers that can communicate, for the purpose of integration testing.
 
 </HighlightBox>
 

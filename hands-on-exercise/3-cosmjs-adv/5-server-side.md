@@ -18,7 +18,7 @@ Make sure you have all you need before proceeding:
 
 This exercise assumes that:
 
-1. You are running your [checkers blockchain with](./2-cosmjs-messages.md#prepare-your-checkers-chain):
+1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
 
     ```sh
     $ docker run --rm -it \
@@ -37,7 +37,7 @@ This exercise assumes that:
     $ sleep 20
     ```
 
-2. And have the following in `.env`:
+2. You have the following in `.env`:
 
     <CodeGroup>
     
@@ -1019,7 +1019,7 @@ Forfeit game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosm
 
 <HighlightBox type="tip">
 
-In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not coming exactly fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.mdl#interact-via-the-cli).
+In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.mdl#interact-via-the-cli).
 
 </HighlightBox>
 

@@ -20,8 +20,8 @@ Make sure you have all you need before proceeding:
 
 In the previous sections:
 
-1. You created the [objects](./1-cosmjs-objects.md), [messages, and clients](./2-cosmjs-messages.md) that allow you to **interface** any GUI with your checkers blockchain.
-2. You learned how to [start a running checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) in Docker or on your local computer.
+1. You created the [objects](./1-cosmjs-objects.md), and the [messages and clients](./2-cosmjs-messages.md) that allow you to **interface** any GUI with your checkers blockchain.
+2. You learned how to [start a running checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain), in Docker or on your local computer.
 3. You imported an external checkers **GUI** to use.
 
 Now, you must **integrate the two** together:
@@ -40,7 +40,7 @@ For the CosmJS integration, you will:
 
 This exercise assumes that:
 
-1. You are running your [checkers blockchain with](./2-cosmjs-messages.md#prepare-your-checkers-chain):
+1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
 
     ```sh
     $ docker run --rm -it \
@@ -620,7 +620,7 @@ Refresh the page to confirm the change.
 
 ## Integrate with Keplr
 
-So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users to poke around without unnecessarily asking them to connect their wallet and thereby disclose their address. However, to create a game or play in one, you need to make transactions. This is where you need to make integration with the Keplr wallet possible.
+So far you have _only_ made it possible to show the state of games and of the blockchain. This allows your users to poke around without unnecessarily asking them to connect their wallet and thereby disclose their address. However, to create a game or play in one, users need to make transactions. This is where you need to make integration with the Keplr wallet possible.
 
 Install the necessary packages:
 
