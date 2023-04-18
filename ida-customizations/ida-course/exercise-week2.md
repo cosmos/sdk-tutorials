@@ -28,7 +28,7 @@ We created the rest of this repository with Ignite CLI v0.22.1 and the following
 $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 ignite scaffold chain github.com/b9lab/other-world
 ```
 
-The idea behind it is that this is the blockchain backing a future metaverse. The blockchain will account for anything of value in it.
+The idea is that this is the blockchain backing a future metaverse. The blockchain will account for anything of value in it.
 
 We have added:
 
@@ -38,23 +38,23 @@ We have added:
   * `x/otherworld/types/world_params_student_test.go`
   * `x/otherworld/keeper/world_params_student_test.go`
 
-All 3 files cannot compile before you have done as per below.
+All 3 files cannot compile until you have completed the following tasks.
 
 ## What you need to do
 
-You need to run an Ignite command to create a new Protobuf type and its associated keeper functions that follows this description:
+You need to run an Ignite command to create a new Protobuf type and its associated keeper functions. It must satisfy the following conditions:
 
 1. The name is `WorldParams`.
 2. It has 3 params exactly, no more, no less:
    1. A `string` for the world's `name`.
    2. A `uint` for the world's `gravity`.
    3. A `uint` for the world's `landSupply`.
-3. It is unique in the blockchain store. At what key it is stored does not matter, but you should keep the naming conventions of keeper functions chosen by Ignite.
+3. It is unique in the blockchain store. It does not matter what key it is stored at, but you should keep the naming conventions of keeper functions chosen by Ignite.
 4. It should not have any associated messages.
 
 ## Definition of success
 
-Make these tests pass:
+The following tests must pass:
 
 * `x/otherworld/types/world_params_student_test.go`: It needs to pass with:
 
@@ -92,7 +92,7 @@ Or:
 $ ./score.sh
 ```
 
-It returns a score that reads like this:
+This returns a score that reads like:
 
 ```txt
 FS_SCORE:100%
