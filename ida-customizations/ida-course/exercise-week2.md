@@ -42,7 +42,7 @@ All 3 files cannot compile before you have done as per below.
 
 ## What you need to do
 
-You need to run a Ignite command to create a new Protobuf type and its associated keeper functions that follows this description:
+You need to run an Ignite command to create a new Protobuf type and its associated keeper functions that follows this description:
 
 1. The name is `WorldParams`.
 2. It has 3 params exactly, no more, no less:
@@ -92,7 +92,7 @@ Or:
 $ ./score.sh
 ```
 
-It returns you a score that reads like:
+It returns a score that reads like this:
 
 ```txt
 FS_SCORE:100%
@@ -100,7 +100,7 @@ FS_SCORE:100%
 
 ### Read-only files
 
-In `fileconfig.yml`, we have defined a list of _read-only_ files. They are not technically read-only, but we will overwrite your changes if you modify them.
+In `fileconfig.yml` we have defined a list of _read-only_ files. They are not technically read-only, but we will overwrite your changes if you modify them.
 
 ## CI Environment
 
