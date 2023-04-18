@@ -2,7 +2,7 @@
 title: "Create Custom Messages"
 order: 5
 description: Introduce the message to create a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -13,9 +13,9 @@ tags:
 
 Make sure you have everything you need before proceeding:
 
-* You understand the concepts of [transactions](/academy/2-cosmos-concepts/3-transactions.md), [messages](/academy/2-cosmos-concepts/4-messages.md), and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
-* Go is installed.
-* You have the checkers blockchain scaffold with the `StoredGame` and its helpers. If not, follow the [previous steps](./3-stored-game.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
+- You understand the concepts of [transactions](/academy/2-cosmos-concepts/3-transactions.md), [messages](/academy/2-cosmos-concepts/4-messages.md), and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
+- Go is installed.
+- You have the checkers blockchain scaffold with the `StoredGame` and its helpers. If not, follow the [previous steps](./3-stored-game.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/full-game-object).
 
 </HighlightBox>
 
@@ -23,10 +23,10 @@ Make sure you have everything you need before proceeding:
 
 In this section, you will:
 
-* Create a game Protobuf object.
-* Create a game Protobuf service interface.
-* Extend your unit tests.
-* Interact via the CLI.
+- Create a game Protobuf object.
+- Create a game Protobuf service interface.
+- Extend your unit tests.
+- Interact via the CLI.
 
 </HighlightBox>
 
@@ -36,10 +36,10 @@ You have created your game object type and have decided how to lay games in stor
 
 Because this operation changes the state, it has to originate from transactions and messages. Your module receives a message to create a game - what should go into this message? Questions that you have to answer include:
 
-* Who is allowed to create a game?
-* Are there any limitations to creating games?
-* Given that a game involves two players, how do you prevent coercion and generally foster good behavior?
-* Do you want to establish leagues?
+- Who is allowed to create a game?
+- Are there any limitations to creating games?
+- Given that a game involves two players, how do you prevent coercion and generally foster good behavior?
+- Do you want to establish leagues?
 
 Your implementation does not have to answer everything immediately, but you should be careful that decisions made now do not impede your own future plans or make things more complicated later.
 
@@ -49,10 +49,10 @@ Keep it simple: a single message should be enough to create a game.
 
 As before:
 
-* What Ignite CLI commands will create your message?
-* How do you adjust what Ignite CLI created for you?
-* How would you unit-test your addition?
-* How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
+- What Ignite CLI commands will create your message?
+- How do you adjust what Ignite CLI created for you?
+- How would you unit-test your addition?
+- How would you use Ignite CLI to locally run a one-node blockchain and interact with it via the CLI to see what you get?
 
 Run the commands, make the adjustments, run some tests. **Create the message only**, do not create any games in storage for now.
 
@@ -60,15 +60,15 @@ Run the commands, make the adjustments, run some tests. **Create the message onl
 
 Currently:
 
-* Your game objects have been defined in storage.
-* You prevented a simple CRUD to set the objects straight from transactions.
+- Your game objects have been defined in storage.
+- You prevented a simple CRUD to set the objects straight from transactions.
 
 Now you need a message to instruct the checkers blockchain to create a game. This message needs to:
 
-* Not specify the ID of the game, because the system uses an incrementing counter. However, the server needs to return the newly created ID value, since the eventual value cannot be known before the transaction is included in a block and the state computed. Call this `gameIndex`.
-* Not specify the game board as this is controlled by the checkers rules.
-* Specify who is playing with the black pieces. Call the field `black`.
-* Specify who is playing with the red pieces. Call the field `red`.
+- Not specify the ID of the game, because the system uses an incrementing counter. However, the server needs to return the newly created ID value, since the eventual value cannot be known before the transaction is included in a block and the state computed. Call this `gameIndex`.
+- Not specify the game board as this is controlled by the checkers rules.
+- Specify who is playing with the black pieces. Call the field `black`.
+- Specify who is playing with the red pieces. Call the field `red`.
 
 Instruct Ignite CLI to do all of this:
 
@@ -181,7 +181,6 @@ This code is created only once. You can modify it as you see fit.
 
 Ignite CLI also adds a new function to your gRPC interface that receives all transaction messages for the module, because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-
 <HighlightBox type="info">
 
 Ignite CLI creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Ignite CLI separates different concerns into different files so that it knows where to add elements according to instructions received. Ignite CLI adds a function to the empty `service Msg` with your instruction.
@@ -212,7 +211,7 @@ import "github.com/b9lab/checkers/x/checkers/testutil"
 const (
     alice = testutil.Alice
     bob   = testutil.Bob
-    carol = testutil.Bob
+    carol = testutil.Carol
 )
 ```
 
@@ -550,7 +549,7 @@ On some systems, you may encounter errors stating _keys not found_. First verify
 
 In this situation, you may need to specify your preferred keyring explicitly so that it is consistent across commands. For instance:
 
-* When creating keys:
+- When creating keys:
 
   <CodeGroup>
 
@@ -574,7 +573,7 @@ In this situation, you may need to specify your preferred keyring explicitly so 
 
   </CodeGroup>
 
-* When collecting keys:
+- When collecting keys:
 
   <CodeGroup>
 
@@ -604,7 +603,7 @@ In this situation, you may need to specify your preferred keyring explicitly so 
 
   </CodeGroup>
 
-* When sending a transaction:
+- When sending a transaction:
 
   <CodeGroup>
 
@@ -713,10 +712,10 @@ When you are done with this exercise you can stop Ignite's `chain serve.`
 
 To summarize, this section has explored:
 
-* How to make it possible for participants of the checkers blockchain game to create games with a single message, using a Protobuf object and a Protobuf service interface.
-* Which elements must be specified (and which must not) when instructing Ignite CLI to send a game creation message.
-* How to add a test file to check the functionality of your code.
-* How to interact via the CLI to confirm the "create a game" message occurs as intended - though the absence of a dedicated Message Handler means that currently no game is created.
+- How to make it possible for participants of the checkers blockchain game to create games with a single message, using a Protobuf object and a Protobuf service interface.
+- Which elements must be specified (and which must not) when instructing Ignite CLI to send a game creation message.
+- How to add a test file to check the functionality of your code.
+- How to interact via the CLI to confirm the "create a game" message occurs as intended - though the absence of a dedicated Message Handler means that currently no game is created.
 
 </HighlightBox>
 
