@@ -186,6 +186,8 @@ customModules:
             path: /academy/3-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
+          - title: Light client development
+            path: /academy/3-ibc/4-light-client-dev.html
           - title: Fungible token transfer
             path: /academy/3-ibc/5-token-transfer.html
           - title: Interchain accounts
