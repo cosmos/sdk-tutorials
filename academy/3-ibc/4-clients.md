@@ -102,7 +102,7 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [Tendermint client](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#client-state) is offered out of the box:
 
-```go
+```typescript
 interface ClientState {
   chainID: string
   trustLevel: Rational
@@ -142,7 +142,7 @@ It is important to highlight that certain parameters of an IBC client cannot be 
 
 `CreateClient` additionally expects a [`ConsensusState`](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#consensus-state). In the case of a Tendermint client, the initial root of trust (or consensus state) looks like this:
 
-```go
+```typescript
 interface ConsensusState {
   timestamp: uint64
   nextValidatorsHash: []byte
@@ -213,9 +213,8 @@ To update the `ConsensusState` of the counterparty on the client, a `MsgUpdateCl
 
 For example, the Tendermint client `Header` looks like [this](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#headers):
 
-```go
-interface Header {
-  TendermintSignedHeader
+```typescript
+interface Header extends TendermintSignedHeader {
   identifier: string
   validatorSet: List<Pair<Address, uint64>>
   trustedHeight: Height
@@ -241,9 +240,9 @@ If you want to see where `ConsensusState` is stored, see the [Interchain Standar
 
 As shown in the deep dive on [channels](/academy/3-ibc/3-channels.md), a relayer will first submit a `MsgUpdateClient` to update the sending chain client on the destination chain, before relaying packets containing other message types, such as ICS-20 token transfers. The destination chain can be sure that the packet will be contained in its `ConsensusState` root hash, and successfully verify this packet and packet commitment proof against the state contained in its (updated) IBC light client.
 
-The pseudo code snippet below from [`03-connection`](https://github.com/cosmos/ibc/tree/main/spec/core/ics-003-connection-semantics#helper-functions), which illustrates how a client verifies an incoming packet, is as follows:
+The pseudo-code snippet below from [`03-connection`](https://github.com/cosmos/ibc/tree/main/spec/core/ics-003-connection-semantics#helper-functions), which illustrates how a client verifies an incoming packet, is as follows:
 
-```go
+```typescript
 function verifyPacketCommitment(
   connection: ConnectionEnd,
   height: Height,
@@ -254,8 +253,17 @@ function verifyPacketCommitment(
   commitmentBytes: bytes
 ) {
   clientState = queryClientState(connection.clientIdentifier)
-  path = applyPrefix(connection.counterpartyPrefix, packetCommitmentPath(portIdentifier, channelIdentifier, sequence))
-  return verifyMembership(clientState, height, connection.delayPeriodTime, connection.delayPeriodBlocks, proof, path, commitmentBytes)
+  path = applyPrefix(
+    connection.counterpartyPrefix,
+    packetCommitmentPath(portIdentifier, channelIdentifier, sequence))
+  return verifyMembership(
+    clientState,
+    height,
+    connection.delayPeriodTime,
+    connection.delayPeriodBlocks,
+    proof,
+    path,
+    commitmentBytes)
 }
 ```
 

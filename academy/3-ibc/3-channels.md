@@ -132,7 +132,7 @@ A relayer will monitor channels for events emitted when updates have been submit
 
 Take a look at the [packet definition](https://github.com/cosmos/ibc/tree/main/spec/core/ics-004-channel-and-packet-semantics#definitions) to see the packet structure:
 
-```go
+```typescript
 interface Packet {
   sequence: uint64
   timeoutHeight: Height
