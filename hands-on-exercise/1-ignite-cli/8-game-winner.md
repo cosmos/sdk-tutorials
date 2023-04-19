@@ -195,7 +195,7 @@ Add [tests](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner
 
 You also need to update your existing tests so that they pass with a new `Winner` value. Most of your tests need to add this line:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_moveo_test.go#L107]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_test.go#L107]
     ...
     require.EqualValues(t, types.StoredGame{
         ...
