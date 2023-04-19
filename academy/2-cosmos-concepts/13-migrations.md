@@ -231,7 +231,7 @@ Without going into too much detail, the following actions are taken:
 
 <HighlightBox type="info">
 
-Look at [Run Your Own Cosmos Chain](hands-on-exercise/1-ignite-cli/index.md) for more details.
+Look at [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) for more details.
 
 </HighlightBox>
 

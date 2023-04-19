@@ -252,4 +252,4 @@ To summarize, this section has explored:
 
 In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->
 
-<!--In the [next chapter](../4-ibc/index.md), you will learn about the Inter-Blockchain Communication Protocol.-->
+<!--In the [next chapter](../3-ibc/index.md), you will learn about the Inter-Blockchain Communication Protocol.-->

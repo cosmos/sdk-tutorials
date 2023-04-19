@@ -13,7 +13,7 @@ tags:
 
 After having developed your chain, now you will take the next step to move your chain to a proof-of-concept and into production.
 
-![LP image - Week 7](/universe.svg)
+![LP image - Week 7](/universe.png)
 
 ## In this chapter
 
