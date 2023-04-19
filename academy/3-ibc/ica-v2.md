@@ -2,7 +2,7 @@
 title: "Interchain Accounts"
 order: -1
 description: Understand ICA
-tags: 
+tags:
   - concepts
   - ibc
 ---
@@ -32,7 +32,7 @@ Sometimes interchain accounts are referred to as _cross-chain writes_ in conjunc
 
 <HighlightBox type="docs">
 
-The ibc-go implemenation of ICA can be found [in the apps subdirectory](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts).
+The ibc-go implementation of ICA can be found [in the apps subdirectory](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts).
 
 The corresponding documentation can be found in the [ibc-go docs](https://ibc.cosmos.network/main/apps/interchain-accounts/overview.html)
 
@@ -40,7 +40,7 @@ The corresponding documentation can be found in the [ibc-go docs](https://ibc.co
 
 ## ICA core functionality: controller & host
 
-From the description above, you'll be able to note that a distinction needs to be made between the so-called host and controller chains. Unlike ICS-20 which has an inherent symmetric design (if an ICS-20 channel is created between two chains, both chains can use the transfer module to send and receive tokens), ICA has a more asymmetric design in nature. Let's take a look at some relevant definitions:
+From the description above, you will be able to note that a distinction needs to be made between the so-called host and controller chains. Unlike ICS-20 which has an inherent symmetric design (if an ICS-20 channel is created between two chains, both chains can use the transfer module to send and receive tokens), ICA has a more asymmetric design in nature. Let's take a look at some relevant definitions:
 
 **Host Chain:** the chain where the interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the interchain account will execute.
 
@@ -54,32 +54,31 @@ The interchain accounts application module is structured to **support the abilit
 
 **Interchain account (ICA):** an account on a host chain. An interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the interchain account should execute.
 
-**Interchain Account Owner:** An account on the controller chain. Every interchain account on a host chain has a respective owner account on the controller chain. This could be module account or analogous, not just regular user accounts.
+**Interchain Account Owner:** An account on the controller chain. Every interchain account on a host chain has a respective owner account on the controller chain. This could be a module account or analogous, not just a regular user account.
 
-Let's take a look at the API on both the controller and host side.
+Let's take a look at the API on both the controller and host sides.
 
 ### Controller API
 
-The controller chain is the chain where some owner account (how to authenticate owners will be handled in a later section) is able to create an interchain account on a host chain and send instructions (a transactions) to it over IBC.
+The controller chain is the chain where some owner account (how to authenticate owners will be handled in a later section) is able to create an interchain account on a host chain and send instructions (via transactions) to it over IBC.
 
 Thus, the provided API on the controller submodule consists of:
 
-* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side
-* `SendTx`: Once an ICA has been established we can send transaction bytes over an IBC channel to have the ICA execute it on the host side
+* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side.
+* `SendTx`: Once an ICA has been established we can send transaction bytes over an IBC channel to have the ICA execute it on the host side.
 
 #### Register an interchain account
 
-`RegisterInterchainAccount` is the entry point to registering an interchain account. It generates a new controller portID using the owner account address. It will bind an IBC port to the controller portID and initiate a channel handshake to open a channel on a connection between the controller and host chains. An error is returned if the controller portID is already in use. 
+`RegisterInterchainAccount` is the entry point to registering an interchain account. It generates a new controller portID using the owner account address. It will bind an IBC port to the controller portID and initiate a channel handshake to open a channel on a connection between the controller and host chains. An error is returned if the controller portID is already in use.
 
-A `ChannelOpenInit` event is emitted which can be picked up by an offchain process such as a relayer. The account will be registered during the `OnChanOpenTry` step on the host chain. This function must be called after an OPEN connection is already established with the given connection identifier. 
+A `ChannelOpenInit` event is emitted which can be picked up by an off-chain process such as a relayer. The account will be registered during the `OnChanOpenTry` step on the host chain. This function must be called after an OPEN connection is already established with the given connection identifier.
 
 ``` typescript
 // pseudo code
-function RegisterInterchainAccount(connectionId: Identifier, owner: string, version: string) returns (error) {
-}
+function RegisterInterchainAccount(connectionId: Identifier, owner: string, version: string) returns (error)
 ```
 
-![ica-register](./images/icaregister.png)
+![ica-register](/academy/3-ibc/images/icaregister.png)
 
 <HighlightBox type="best-practice">
 
@@ -94,14 +93,14 @@ It is best practice that the `portId` for an ICA channel is `icahost` on the hos
 ```typescript
 // pseudo code
 function SendTx(
-  capability: CapabilityKey, 
+  capability: CapabilityKey,
   connectionId: Identifier,
-  portId: Identifier, 
-  icaPacketData: InterchainAccountPacketData, 
+  portId: Identifier,
+  icaPacketData: InterchainAccountPacketData,
   timeoutTimestamp uint64): uint64 {
     // check if there is a currently active channel for
-    // this portId and connectionId, which also implies an 
-    // interchain account has been registered using 
+    // this portId and connectionId, which also implies an
+    // interchain account has been registered using
     // this portId and connectionId
     activeChannelID, found = GetActiveChannelID(portId, connectionId)
     abortTransactionUnless(found)
@@ -117,7 +116,7 @@ function SendTx(
     sequence = handler.sendPacket(
       capability,
       portId, // source port ID
-      activeChannelID, // source channel ID 
+      activeChannelID, // source channel ID
       0,
       timeoutTimestamp,
       icaPacketData
@@ -135,7 +134,7 @@ Additionally, you'll note that `SendTx` calls core IBCs `sendPacket` API to tran
 
 </HighlightBox>
 
-![ica-sendtx](./images/icasendtx.png)
+![ica-sendtx](/academy/3-ibc/images/icasendtx.png)
 
 #### ICS-27 channels
 
@@ -143,7 +142,7 @@ After an interchain account has been registered on the host side, the main funct
 
 A limitation when using `ORDERED` channels is that when a packet times out the channel will be closed. In the case of a channel closing, it is desirable that a controller chain is able to regain access to the interchain account registered on this channel. The concept of _active channels_ enables this functionality.
 
-When an Interchain Account is registered using `RegisterInterchainAccount` flow, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (on controller & host chain respectively) the active channel for this interchain account is stored in state.
+When an Interchain Account is registered using the `RegisterInterchainAccount` flow, a new channel is created on a particular port. During the `OnChanOpenAck` and `OnChanOpenConfirm` steps (on the controller & host chain respectively) the active channel for this interchain account is stored in state.
 
 It is possible to create a new channel using the same controller chain `portID` if the previously set active channel is now in a `CLOSED` state.
 
@@ -152,7 +151,13 @@ It is possible to create a new channel using the same controller chain `portID` 
 For example **in ibc-go**, one can create a new channel using the interchain account programatically by sending a new `MsgChannelOpenInit` message like so:
 
 ```go
-msg := channeltypes.NewMsgChannelOpenInit(portID, string(versionBytes), channeltypes.ORDERED, []string{connectionID}, icatypes.HostPortID, authtypes.NewModuleAddress(icatypes.ModuleName).String())
+msg := channeltypes.NewMsgChannelOpenInit(
+  portID,
+  string(versionBytes),
+  channeltypes.ORDERED,
+  []string{connectionID},
+  icatypes.HostPortID,
+  authtypes.NewModuleAddress(icatypes.ModuleName).String())
 handler := keeper.msgRouter.Handler(msg)
 res, err := handler(ctx, msg)
 if err != nil {
@@ -160,11 +165,11 @@ if err != nil {
 }
 ```
 
-Alternatively, any relayer operator may initiate a new channel handshake for this interchain account once the previously set `Active Channel` is in a `CLOSED` state. This is done by initiating the channel handshake on the controller chain using the same portID associated with the interchain account in question.
+Alternatively, any relayer operator may initiate a new channel handshake for this interchain account once the previously set `Active Channel` is in a `CLOSED` state. This is done by initiating the channel handshake on the controller chain using the **same portID** associated with the interchain account in question.
 
 </HighlightBox>
 
-It is important to note that once a channel has been opened for a given interchain account, new channels can not be opened for this account until the currently set `Active Channel` is set to `CLOSED`.
+It is important to note that once a channel has been opened for a given interchain account, new channels can not be opened for this account until the currently `Active Channel` is set to `CLOSED`.
 
 
 ### Host API
@@ -173,8 +178,8 @@ The host chain is the chain where the interchain account is created and the tran
 
 Thus, the provided API on the host submodule consists of:
 
-* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side
-* `ExecuteTx`: enables the transaction data to be executed, provided successful authentication
+* `RegisterInterchainAccount`: enables the registration of interchain accounts on the host, associated with an owner on the controller side.
+* `ExecuteTx`: enables the transaction data to be executed, provided successful authentication.
 * `AuthenticateTx`: checks that the signer of a particular message is the interchain account associated with the counterparty portID of the channel that the IBC packet was sent on.
 
 <HighlightBox type="note">
@@ -185,7 +190,7 @@ Note that the host API methods will run automatically as part of the flow and ne
 
 #### Register an interchain account
 
-The `RegisterInterchainAccount` flow was discussed on the controller side already, where it triggered a handshake. On the host side, there's an complementary part of the flow, but here it's triggered in the `OnChanOpenTry` step of the handshake which will create the interchain account.
+The `RegisterInterchainAccount` flow was discussed on the controller side already, where it triggered a handshake. On the host side, there's a complementary part of the flow, but here it's triggered in the `OnChanOpenTry` step of the handshake which will create the interchain account.
 
 <HighlightBox type="note">
 
@@ -209,7 +214,7 @@ Where the type (at the moment of writing) should be `EXECUTE_TX` and data contai
 
 <HighlightBox type="info">
 
-Executing the transaction data will be dependent on the execution environment (which blockchain you're on), an example for the ibc-go implementation can be found [here](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/apps/27-interchain-accounts/host/keeper/relay.go).
+Executing the transaction data will depend on the execution environment (which blockchain you are on), an example for the ibc-go implementation can be found [here](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/apps/27-interchain-accounts/host/keeper/relay.go).
 
 </HighlightBox>
 
@@ -227,17 +232,17 @@ Up until this point you might have wondered how the authentication is handled on
 
 <HighlightBox type="note">
 
-From here onwards, it will be implicitly assumed that we are dealing with the ibc-go implmenation specifically, whereas all of the above held true for all implentations of ICS-27, unless explicitly stated otherwise.
+From here onwards, it will be implicitly assumed that we are dealing with the ibc-go implementation specifically, whereas all of the above held true for all implementations of ICS-27, unless explicitly stated otherwise.
 
 </HighlightBox>
 
 ## Authentication
 
-The ICA controller submodule provides an API for registering an account and for sending interchain transactions. It has been purposefully made lean and limited to generic contoller functionality. For authentication of the owner accounts, the developer is expected to provide an authentication module the ability to interact with the ICA controller submodule.
+The ICA controller submodule provides an API for registering an account and for sending interchain transactions. It has been purposefully made lean and limited to generic controller functionality. For authentication of the owner accounts, the developer is expected to provide an authentication module with the ability to interact with the ICA controller submodule.
 
 Let's take a look at some definitions:
 
-**Authentication Module:** 
+**Authentication Module:**
 
 * Generic authentication module: Cosmos SDK modules (`x/auth`, `x/gov` or `x/group`) that offer authentication functionality and can send messages to the ICS-27 module through a `MsgServer`.
 * Custom authentication module: a custom SDK module (satisfying only the `AppModule` but not `IBCModule` interface) that offers custom authentication and can send messages to the ICS-27 module through a `MsgServer`.
@@ -245,47 +250,48 @@ Let's take a look at some definitions:
 
 An **authentication module** must:
 
-* Authenticate interchain account owners
-* Track the associated interchain account address for an owner
-* Send packets on behalf of an owner (after authentication)
+* Authenticate interchain account owners.
+* Track the associated interchain account address for an owner.
+* Send packets on behalf of an owner (after authentication).
 
 <HighlightBox type="docs">
 
-Originally when ICA was first introduced in ibc-go v3, developers had to develop a custom authentication module as an IBC application that was wrapped by the ICS-27 module acting as middleware. In ibc-go v6 a refactor of ICA  took place that enabled Cosmos SDK modules (`x/auth`, `x/gov` or `x/group`) to act as generic authentication modules that required no extra development. 
-
+Originally when ICA was first introduced in ibc-go v3, developers had to develop a custom authentication module as an IBC application that was wrapped by the ICS-27 module acting as middleware. In ibc-go v6 a refactor of ICA  took place that enabled Cosmos SDK modules (`x/auth`, `x/gov` or `x/group`) to act as generic authentication modules that required no extra development.
+<br/><br/>
 A `MsgServer` was added to the ICA controller submodule to facilitate this.
-
+<br/><br/>
 More information regarding the details and context for the redesign can be found in [ADR-009](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-009-v6-ics27-msgserver.md) or in a [dedicated blog post](https://medium.com/the-interchain-foundation/ibc-go-v6-changes-to-interchain-accounts-and-how-it-impacts-your-chain-806c185300d7) on the topic.
-
-For now, the legacy API will remain available for those developers that had already built custom IBC authentication modules, but will be deprecated in the future.
+<br/><br/>
+For now, the legacy API remains available for those developers that had already built custom IBC authentication modules, but will be deprecated in the future.
 
 </HighlightBox>
 
 <HighlightBox type="info">
 
 **SDK Security Model**
-<br/>
+<br/><br/>
 SDK modules on a chain are assumed to be trustworthy. For example, there are no checks to prevent an untrustworthy module from accessing the bank keeper.
+<br/><br/>
+The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) on [ibc-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) uses this assumption in its security considerations. It assumes that:
 
-The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) on [ibc-go](https://github.com/cosmos/ibc-go/tree/main/modules/apps/27-interchain-accounts) uses this assumption in its security considerations. The implementation assumes the authentication module will not try to open channels on owner addresses it does not control.
-
-The implementation assumes other IBC application modules will not bind to ports within the [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) namespace.
+* The authentication module will not try to open channels on owner addresses it does not control.
+* Other IBC application modules will not bind to ports within the [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/app/ics-027-interchain-accounts/README.md) namespace.
 
 </HighlightBox>
 
 More information on what type of authentication module to use for what development use case can be found [here](https://ibc.cosmos.network/main/apps/interchain-accounts/development.html).
 
-There you'll find reference to development use cases requiring access to the packet callbacks, which is discussed in the next section.
+There you will find references to development use cases requiring access to the packet callbacks, which is discussed in the next section.
 
 ## Application callbacks
 
 Custom authentication is one potential use case for the use of interchain accounts, however it quickly became clear that another important use case would become apparent. Namely, interchain accounts packets being sent as part of a composable programmatic flow.
 
-As an example:
+As an example, a remote-controlled atomic swap:
 
-1. Send an ICS-20 packet to a remote chain
-2. If it is successful, then send an ICA-packet to swap tokens on a liquidity pool (LP) on the host chain 
-3. Return the funds back to the sender (on the controller chain)
+1. Send an ICS-20 packet to a remote chain.
+2. If it is successful, then send an ICA-packet to swap tokens on a liquidity pool (LP) on the host chain.
+3. Return the funds back to the sender (on the controller chain).
 
 <HighlightBox type="best-practice">
 
