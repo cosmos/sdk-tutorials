@@ -209,7 +209,7 @@ $ ls ./proto/myChain | xargs -I {} protoc \
 $ ls ./proto/myChain | xargs -I {} \
     docker run --rm -i \
     -v $(pwd):/project -w /project \
-    ts-proto \
+    ts-protoc \
     --plugin="/usr/local/lib/node_modules/ts-proto/protoc-gen-ts_proto" \
     --ts_proto_out="./client/src/types/generated" \
     --proto_path="./proto" \
@@ -222,7 +222,7 @@ Where `/usr/local/lib/node_modules` is the result of the query:
 ```sh
 $ docker run --rm -it \
     --entrypoint npm \
-    ts-proto \
+    ts-protoc \
     root --global
 ```
 

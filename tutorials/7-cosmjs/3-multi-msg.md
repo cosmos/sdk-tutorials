@@ -158,7 +158,7 @@ Confirm this by making the change in your `experiment.ts` from the previous sect
 
 <HighlightBox type="best-practice">
 
-Building a transaction in this way is recommended. `SigningStargateClient` offers you convenient methods such as `sendTokens` for simple use cases, and to demonstrate how to build messages.
+Building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases, and to demonstrate how to build messages.
 
 </HighlightBox>
 
