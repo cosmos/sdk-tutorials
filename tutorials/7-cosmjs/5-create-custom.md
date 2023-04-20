@@ -209,7 +209,7 @@ $ ls ./proto/myChain | xargs -I {} protoc \
 $ ls ./proto/myChain | xargs -I {} \
     docker run --rm -i \
     -v $(pwd):/project -w /project \
-    ts-protoc \
+    ts-proto \
     --plugin="/usr/local/lib/node_modules/ts-proto/protoc-gen-ts_proto" \
     --ts_proto_out="./client/src/types/generated" \
     --proto_path="./proto" \
@@ -222,7 +222,7 @@ Where `/usr/local/lib/node_modules` is the result of the query:
 ```sh
 $ docker run --rm -it \
     --entrypoint npm \
-    ts-protoc \
+    ts-proto \
     root --global
 ```
 
@@ -291,7 +291,7 @@ Commit the extra `.proto` files as well as the compiled ones to your repository 
 
 Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
 
-1. Create a script file named `ts-proto.sh` with the previous command, or a `Makefile` target.
+1. Create a script file named `ts-proto.sh` with the previous command, or create a `Makefile` target.
 2. Add an [npm run target](https://github.com/confio/cosmjs-types/blob/c64759a/package.json#L31) with it, to keep track of how this was done and easily reproduce it in the future when you update a Protobuf file.
 
 ## Add convenience with types

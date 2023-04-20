@@ -90,8 +90,8 @@ If you would like to see how to apply what you've learned, you can go straight t
 
 More specifically, you can jump to:
 
-* [Prepare checkers executables](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-checkers-executables), to see how to prepare the before- and after-migration executables,
-* [Prepare Cosmovisor executable](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-cosmovisor-executable), to see how to prepare the Cosmovisor that will work well with your blockchain executable,
+* [Prepare checkers executables](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-checkers-executables), to see how to prepare the before- and after-migration executables.
+* [Prepare Cosmovisor executable](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#prepare-cosmovisor-executable), to see how to find the version and compile the executable of Cosmovisor that will work best with your blockchain executable.
 * [Make an upgrade proposal](/hands-on-exercise/4-run-in-prod/3-migration-prod.md#make-an-upgrade-proposal), to see the migration take place with an upgrade proposal.
 
 </HighlightBox>
