@@ -52,7 +52,7 @@ overview:
         Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork). Follow the verification process. It is straightforward, but if you need guidance read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839"</a>.<br/><br/>
         After joining the Discord server, go <a href="https://academy.cosmos.network/onboarding/?token=%7B$b9_uuid%7D">here</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
         If you have any problems, email us at <a href="academy@interchain.io">academy@interchain.io</a>.<br/>
-        We have put together a <a href="https://interchainacademy.cosmos.network/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
+        We have put together a <a href="http://ida.interchain.io/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
         After the seven-week program (7+2 weeks due to holiday break), you will have four weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>February 2nd, 2023</b> and you have to complete it by <b>March 2nd, 2023</b>.<br/><br/>
