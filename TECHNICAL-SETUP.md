@@ -172,7 +172,7 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
-* The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
+* The Interchain Developer Academy platform (IDA) [ida.interchain.io](http://ida.interchain.io/).
 
 Furthermore, the platform features different _versions_ of the content to be deployed in one platform.
 
@@ -296,7 +296,7 @@ This installation method removes existing Go installations, installs Go in `/usr
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
-* The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
+* The Interchain Developer Academy platform (IDA) [ida.interchain.io](http://ida.interchain.io/).
 
 
 ### Working with Platform Variants
