@@ -1623,7 +1623,7 @@ Now may be a good time to prepare a standalone setup that can be used by anyone 
 * It also provides a faucet to further facilitate tests.
 * It sacrifices key safety to increase ease of use.
 
-The CosmJS exercise already references this standalone `Dockerfile`, so this is a circular reference. You can still on it on your own now.
+The CosmJS exercise already references this standalone `Dockerfile`, so this is a circular reference. You can still work on it on your own now.
 
 It is possible to build [more than one Docker image](https://docs.docker.com/build/building/multi-stage/#stop-at-a-specific-build-stage) out of a single `Dockerfile` by using the multi-stage build mechanism.
 
