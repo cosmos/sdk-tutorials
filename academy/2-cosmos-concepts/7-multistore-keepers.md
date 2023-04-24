@@ -525,6 +525,7 @@ More precisely, you can jump to:
 * [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling) for how you would handle the game when it is being created.
 * [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), where you add a small feature to your chain.
 * [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to see the implementation of the FIFO within the constraints of the store.
+* [Store leaderboard candidates](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) in the context's transient store.
 
 </HighlightBox>
 
