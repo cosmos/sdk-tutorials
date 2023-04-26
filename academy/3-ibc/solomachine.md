@@ -36,8 +36,7 @@ Unlike a typical [IBC light client](4-clients.md) which uses Merkle proofs to ve
 
 Even though solomachines don’t have a provable consensus algorithm, they are still capable of **storing a public/private key pair and can also support multi-signature keys**.
 
-<!-- placeholder -->
-![solomachine-overview](/academy/3-ibc/images/solo.webp) 
+![solomachine-overview](/academy/3-ibc/images/solomachine.png) 
 
 As an example, when blockchain A communicates with a solomachine over IBC, it registers the solomachine’s public key(s) in its (blockchain A’s) state machine through the _solo machine client_. Verifying the validity of a message sent from the solomachine is as simple as ensuring that the message was signed by its public key (as shown in Figure 1 above).
 
