@@ -22,9 +22,9 @@ This is made possible using the IBC solo machine client.
 
 Note that we have a solomachine on the one hand. This is the actual standalone machine (see the examples above) that is used to sign messages to interact with IBC-enabled chains.
 <br/><br/>
-On the other hand, we have the _solomachine client_, which is the on-chain client allowing to verify the messages _sent by_ the solo machine on a remote counterparty chain.
+On the other hand, we have the _solomachine client_, which is the on-chain client allowing us to verify the messages _sent by_ the solo machine on a remote counterparty chain.
 <br/><br/>
-The solomachine itself also still stores a light client representing the chain it wants to communicate with through IBC.
+The solomachine itself still stores a light client representing the chain it wants to communicate with through IBC.
 <br/><br/>
 Make sure not to mix these up when talking about solomachines!
 
