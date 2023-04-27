@@ -117,7 +117,7 @@ interface ClientState {
 }
 ```
 
-It must of course also implement the `ClientState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#clientstate)
+It must of course also implement the `ClientState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#clientstate).
 
 #### `ConsensusState`
 
