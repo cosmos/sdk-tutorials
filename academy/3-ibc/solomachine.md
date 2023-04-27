@@ -132,7 +132,7 @@ interface ConsensusState {
 }
 ```
 
-It must of course also implement the `ConsensusState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#consensusstate)
+It must of course also implement the `ConsensusState` methods defined in [the spec](https://github.com/cosmos/ibc/tree/main/spec/core/ics-002-client-semantics#consensusstate).
 
 ### Verifying signatures
 
