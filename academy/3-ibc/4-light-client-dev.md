@@ -32,7 +32,7 @@ Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go imp
 
 <HighlightBox type="docs">
 
-In this section, it's assumed that the version of ibc-go is >v7. For more information about the changes and the motivation, please refer to this [blog post](https://medium.com/the-interchain-foundation/client-refactor-laying-the-groundwork-for-ibc-to-expand-across-ecosystems-61ec5a1b63bc) or [ADR-006](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-006-02-client-refactor.md) on the topic of the client refactor.
+In this section, it's assumed that the version of ibc-go is >= v7. For more information about the changes and the motivation, please refer to this [blog post](https://medium.com/the-interchain-foundation/client-refactor-laying-the-groundwork-for-ibc-to-expand-across-ecosystems-61ec5a1b63bc) or [ADR-006](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-006-02-client-refactor.md) on the topic of the client refactor.
 
 </HighlightBox>
 
