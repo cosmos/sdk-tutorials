@@ -56,7 +56,7 @@ A light client module developer should be concerned with three main interfaces:
 
 * [`ClientState`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/exported/client.go#L36) contains all the information needed to verify a `ClientMessage` and perform membership and non-membership proof verification of counterparty state. This includes properties that refer to the remote state machine, the light client type and the specific light client instance.
 * [`ConsensusState`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/exported/client.go#L133) tracks consensus data used for verification of client updates, misbehavior detection and proof verification of counterparty state.
-* [`ClientMessage`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/exported/client.go#L147) used for submitting block headers (single or batch) for client updates and submission of misbehavior evidence using conflicting headers.
+* [`ClientMessage`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/exported/client.go#L147) is used for submitting block headers (single or batch) for client updates and submission of misbehavior evidence using conflicting headers.
 
 ### Handling client messages
 
