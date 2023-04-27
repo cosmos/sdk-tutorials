@@ -28,7 +28,7 @@ In this section, you will learn:
 
 IBC was envisioned from the original Cosmos whitepaper to be a crucial component of the appchain thesis for the Cosmos network on the one hand, but more importantly also remain as universal as possible to enable it to become a universal standard with respect to blockchain interoperability.
 
-Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go implementation initially was focused on its use within Cosmos SDK chains connecting to similar chains. The [ibc-go v7 release](https://github.com/cosmos/ibc-go/releases/tag/v7.0.0) included a refactor to the `02-client` submodule, which should streamline the development of light clients to connect to chains with other consensus than `07-tendermint`, to ibc-go.
+Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go implementation initially was focused on its use within Cosmos SDK chains connecting to similar chains. The [ibc-go v7 release](https://github.com/cosmos/ibc-go/releases/tag/v7.0.0) included a refactor to the `02-client` submodule, which should streamline the development of light clients to connect ibc-go to chains with other consensus than `07-tendermint`.
 
 <HighlightBox type="docs">
 
