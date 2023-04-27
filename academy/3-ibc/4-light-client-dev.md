@@ -50,7 +50,7 @@ A short and succinct **summary of a light client's functionality** is the follow
 
 ### Major interfaces
 
-Access to IBC light clients are gated by the core IBC `MsgServer` which utilizes the abstractions set by the `02-client` submodule to call into a light client module. A light client module developer is only required to implement a set interfaces as defined in the `modules/core/exported` package of ibc-go.
+Access to IBC light clients are gated by the core IBC `MsgServer` which utilizes the abstractions set by the `02-client` submodule to call into a light client module. A light client module developer is only required to implement a set of interfaces as defined in the `modules/core/exported` package of ibc-go.
 
 A light client module developer should be concerned with three main interfaces:
 
