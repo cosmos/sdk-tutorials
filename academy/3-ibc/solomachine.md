@@ -38,7 +38,7 @@ Even though solomachines don’t have a provable consensus algorithm, they are s
 
 ![solomachine-overview](/academy/3-ibc/images/solomachine.png) 
 
-As an example, when blockchain A communicates with a solomachine over IBC, it registers the solomachine’s public key(s) in its (blockchain A’s) state machine through the _solo machine client_. Verifying the validity of a message sent from the solomachine is as simple as ensuring that the message was signed by its public key (as shown in Figure 1 above).
+As an example, when blockchain A communicates with a solomachine over IBC, it registers the solomachine’s public key(s) in its (blockchain A’s) state machine through the _solo machine client_. Verifying the validity of a message sent from the solomachine is as simple as ensuring that the message was signed by its private key (as shown in Figure 1 above).
 
 This is a significantly simpler and more cost-efficient mechanism of state verification compared to the full-fledged light client-based model.
 
