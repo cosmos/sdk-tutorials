@@ -188,7 +188,7 @@ The `ClientMessage` will be passed onto the client through a `MsgUpdateClient` s
 * `UpdateStateOnMisbehaviour`
 * `UpdateState`
 
-You can inspect the [solomachine specification](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client) for more details, but take a look at the `verifyClientMessage` where a `switch` statement is used to identify the cases of submitting a header or evidence of misbehavior.
+You can inspect the [solomachine specification](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client) for more details, but take a look at the [`verifyClientMessage`](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client#validity-predicate) where a `switch` statement is used to identify the cases of submitting a header or evidence of misbehavior.
 
 You will notice in both cases some pseudo code that requires to perform the signature checks:
 
