@@ -179,7 +179,7 @@ interface Header {
 
 #### Client message signature verification
 
-Remember from the section on light client development that the client can be  updated (with new state or evidence of misbehavior) by submitting a `ClientMessage`. 
+Remember from the section on light client development that the client can be updated (with new state or evidence of misbehavior) by submitting a `ClientMessage`. 
 
 The `ClientMessage` will be passed onto the client through a `MsgUpdateClient` submitted (generally by a relayer). The `02-client`'s [`UpdateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L48) method will then handle the client message by using [these 4 methods on the `ClientState` interface](https://github.com/cosmos/ibc-go/blob/02-client-refactor-beta1/modules/core/exported/client.go#L98-L109):
 
