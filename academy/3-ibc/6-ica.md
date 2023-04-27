@@ -26,9 +26,9 @@ In this section, you will learn more about:
 
 ## What are Interchain Accounts?
 
-The interoperable internet of blockchains made possible by IBC opens up many new frontiers for cross-chain interactions, and for applications leveraging these primitives. In this interoperability narrative, it should be possible to interact with a given chain (call it the _host chain_) through a remote interface, ie from another chain (the _controller chain_). Interchain accounts, or ICA for short, enable just that: they allow for a chain, a module, or a user on that chain to programmatically control an account, the Interchain account, on a remote chain.
+The interoperable internet of blockchains made possible by IBC opens up many new frontiers for cross-chain interactions, and for applications leveraging these primitives. In this interoperability narrative, it should be possible to interact with a given chain (call it the _host chain_) through a remote interface, i.e. from another chain (the _controller chain_). Interchain accounts, or ICA for short, enable just that: they allow for a chain, a module, or a user on that chain to programmatically control an account (the Interchain account) on a remote chain.
 
-Sometimes Interchain accounts are referred to as _cross-chain writes_. This is in conjunction with Interchain queries (ICQ) or the ability to read data from a remote chain, ie _cross-chain reads_.
+Sometimes Interchain accounts are referred to as _cross-chain writes_. This is in conjunction with Interchain queries (ICQ) or the ability to read data from a remote chain, i.e. _cross-chain reads_.
 
 The specification describing the Interchain accounts application protocol is [ICS-27](https://github.com/cosmos/ibc/tree/main/spec/app/ics-027-interchain-accounts).
 
@@ -46,7 +46,7 @@ From the description above, a distinction needs to be made between the so-called
 
 Several relevant definitions relating to ICA are as follows:
 
-**Host Chain:** the chain where the Interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (eg cosmos SDK messages) which the Interchain account will execute.
+**Host Chain:** the chain where the Interchain account is registered. The host chain listens for IBC packets from a controller chain which should contain instructions (e.g. cosmos SDK messages) which the Interchain account will execute.
 
 **Controller Chain:** the chain that registers and controls an account on a host chain. The controller chain sends IBC packets to the host chain to control the account.
 
@@ -58,7 +58,7 @@ The Interchain accounts application module is structured to **support the abilit
 
 **Interchain account (ICA):** an account on a host chain. An Interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the Interchain account should execute.
 
-**Interchain account owner:** An account on the controller chain. Every Interchain account on a host chain has a respective owner account on a controller chain. This could be a module account or other analogous account, not just a regular user account.
+**Interchain account owner:** an account on the controller chain. Every Interchain account on a host chain has a respective owner account on a controller chain. This could be a module account or other analogous account, not just a regular user account.
 
 Now it's time to look at the API on both the controller and host sides.
 
@@ -69,13 +69,13 @@ The controller chain is one where some owner account is able to create an Interc
 The provided API on the controller submodule consists of:
 
 * `RegisterInterchainAccount`: this enables the registration of Interchain accounts on the host side, associated with an owner on the controller side.
-* `SendTx`: Once an ICA has been established, this allows you to send transaction bytes over an IBC channel to have the ICA execute it on the host side.
+* `SendTx`: once an ICA has been established, this allows you to send transaction bytes over an IBC channel to have the ICA execute it on the host side.
 
 #### Register an Interchain account
 
 `RegisterInterchainAccount` is a self-explanatory entry point to the process. Specifically, it generates a new controller portID using the owner account address; it binds an IBC port to the controller portID, and initiates a channel handshake to open a channel on a connection between the controller and host chains. An error is returned if the controller portID is already in use.
 
-A `ChannelOpenInit` event is emitted which can be picked up by an off-chain process such as a relayer. The account will be registered during the `OnChanOpenTry` step on the host chain. This function must be called after an OPEN connection is already established with the given connection identifier.
+A `ChannelOpenInit` event is emitted that can be picked up by an off-chain process such as a relayer. The account will be registered during the `OnChanOpenTry` step on the host chain. This function must be called after an OPEN connection is already established with the given connection identifier.
 
 ``` typescript
 // pseudo code
@@ -152,7 +152,7 @@ It is possible to create a new channel using the same controller chain `portID` 
 
 <HighlightBox type="info">
 
-For example **in ibc-go**, one can create a new channel using the Interchain account programmatically by sending a new `MsgChannelOpenInit` message, like:
+For example, **in ibc-go** one can create a new channel using the Interchain account programmatically by sending a new `MsgChannelOpenInit` message, like:
 
 ```go
 msg := channeltypes.NewMsgChannelOpenInit(
@@ -175,12 +175,11 @@ Alternatively, any relayer operator may initiate a new channel handshake for thi
 
 It is important to note that once a channel has been opened for a given Interchain account, new channels cannot be opened for this account until the currently `Active Channel` is set to `CLOSED`.
 
-
 ### Host API
 
 The host chain is the chain where the Interchain account is created and the transaction data (sent by the controller) is executed.
 
-Thus, the provided API on the host submodule consists of:
+Therefore, the provided API on the host submodule consists of:
 
 * `RegisterInterchainAccount`: enables the registration of Interchain accounts on the host, associated with an owner on the controller side.
 * `ExecuteTx`: enables the transaction data to be executed, provided successful authentication.
@@ -293,7 +292,7 @@ There you will find references to development use cases requiring access to the 
 
 Custom authentication is one potential use case for the use of Interchain accounts; however, another important use case quickly became apparent: Interchain accounts packets being sent as part of a composable programmatic flow.
 
-As an example, a remote-controlled atomic swap:
+As an example, consider a remote-controlled atomic swap:
 
 1. Send an ICS-20 packet to a remote chain.
 2. If it is successful, then send an ICA-packet to swap tokens on a liquidity pool (LP) on the host chain.
@@ -303,7 +302,7 @@ As an example, a remote-controlled atomic swap:
 
 The request from the community to enable a standard for this type of flow resulted in [ADR-008](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-008-app-caller-cbs/adr-008-app-caller-cbs.md), which extends the ability for general use cases.
 <br/><br/>
-Follow up on the developments around ADR-008 and the so-called _callback interface for IBC actors_, ie secondary applications (like smart contracts for example) that want to call into IBC apps as part of their state machine logic.
+Follow up on the developments around ADR-008 and the so-called _callback interface for IBC actors_, i.e. secondary applications (like smart contracts for example) that want to call into IBC apps as part of their state machine logic.
 
 </HighlightBox>
 
