@@ -87,7 +87,7 @@ These similarly provide functionality to update the client based on handling mes
 
 <HighlightBox type="info">
 
-Prior to the client refactor (prior to v7) the client and consensus states are set within the `02-client` submodule. By moving these responsibilities from the `02-client` to the individual light client implementations, including the setting of updated client state and consensus state in the client store, provides light client developers with a greater degree of flexibility with respect to storage and verification.
+Prior to the client refactor (prior to v7) the client and consensus states are set within the `02-client` submodule. Moving these responsibilities from the `02-client` to the individual light client implementations, including the setting of updated client state and consensus state in the client store, provides light client developers with a greater degree of flexibility with respect to storage and verification.
 
 </HighlightBox>
 
