@@ -98,7 +98,7 @@ Next to updating the client and consensus state, the light client also provides 
 As you have seen in the [previous section on clients](./4-clients.md), when the IBC handler receives a message to receive, acknowledge or timeout a packet, it will call one of the following functions on the `connectionKeeper` to verify if the remote chain includes (or does not include) the appropriate state:
 
 * [`VerifyPacketCommitment`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L205) checks if the proof added to a `MsgRecvPacket` submitted to the destination, points to a valid packet commitment on the source.
-* [`VerifyPacketAcknowledgement`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L250): to check if the proof added to a `MsgAcknowledgePacket` submitted to the source, points to a valid packet receipt commitment on the destination.
+* [`VerifyPacketAcknowledgement`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L250) checks if the proof added to a `MsgAcknowledgePacket` submitted to the source, points to a valid packet receipt commitment on the destination.
 * [`VerifyPacketReceiptAbsence`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/03-connection/keeper/verify.go#L296): to check if the proof added to a `MsgTimeout` submitted to the source, proves that a packet receipt is absent at a height beyond the timeout height on the destination.
 
 All of the above rely on either `VerifyMembership` or `VerifyNonMembership` methods to prove either inclusion (also referred to as _existence_) or non-inclusion (_non-existence_) at a given commitment path.
