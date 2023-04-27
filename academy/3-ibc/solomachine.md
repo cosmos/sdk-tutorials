@@ -263,7 +263,7 @@ function verifyMisbehaviour(misbehaviour: Misbehaviour) {
 
 #### State signature verification
 
-Similarly, to verify if the signature that signed a state transition is valid you will remember that a light client has to implement `VerifyMembership` and `VerifyNonMembership` methods.
+Similarly, to verify if the signature that signed a state transition is valid, remember that a light client has to implement `VerifyMembership` and `VerifyNonMembership` methods.
 
 There you will find similar pseudo code relating to signature verification:
 
