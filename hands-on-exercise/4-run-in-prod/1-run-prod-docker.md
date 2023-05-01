@@ -76,7 +76,7 @@ First, build the executable(s) that will be launched by Docker Compose within th
 
 Update your `Makefile` with:
 
-```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
+```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
 build-linux:
     GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
