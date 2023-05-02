@@ -378,7 +378,7 @@ $ echo password | docker run --rm -i \
     --yes
 ```
 
-The command is long but it makes sense when you look at it patiently. It returns you the proposal id:
+The command is long but it makes sense when you look at it carefully. It returns you the proposal id:
 
 ```yaml
 - attributes:
