@@ -42,7 +42,7 @@ The corresponding documentation can be found in the [ibc-go docs](https://ibc.co
 
 ## ICA core functionality: controller & host
 
-From the description above, a distinction needs to be made between the so-called "host" and "controller" chains. Unlike ICS-20, which is inherently symmetrical, ICA has a more asymmetric design. If an ICS-20 channel is created between two chains, both chains can use the transfer module to send and receive tokens; Interchain accounts function differently.
+From the description above, a distinction needs to be made between the so-called "host" and "controller" chains. Unlike ICS-20, which is inherently bi-directional in the sense that both chains can use the transfer module to send and receive tokens, ICA has a more unidirectional design. Only the controller chain can send executable logic over the channel, which will then always be executed on the host chain.
 
 Several relevant definitions relating to ICA are as follows:
 
@@ -56,7 +56,7 @@ The Interchain accounts application module is structured to **support the abilit
 
 </HighlightBox>
 
-**Interchain account (ICA):** an account on a host chain. An Interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which signal what transactions the Interchain account should execute.
+**Interchain account (ICA):** an account on a host chain. An Interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which contain the transactions that the Interchain account should execute.
 
 **Interchain account owner:** an account on the controller chain. Every Interchain account on a host chain has a respective owner account on a controller chain. This could be a module account or other analogous account, not just a regular user account.
 
@@ -64,7 +64,7 @@ Now it's time to look at the API on both the controller and host sides.
 
 ### Controller API
 
-The controller chain is one where some owner account is able to create an Interchain account on a host chain and send instructions (via transactions) to it over IBC. How to authenticate owners will be handled in a later section.
+The controller chain is the chain on which the controller account lives. This controller account is then able to open an ICA channel to a host chain, and create an Interchain account on the other side of the channel which lives on the host chain. The owner of the controller account can then send instructions (via transactions) with the ICA module to the account that it controls on the host chain. How to authenticate owners will be handled in a later section.
 
 The provided API on the controller submodule consists of:
 
@@ -173,11 +173,11 @@ Alternatively, any relayer operator may initiate a new channel handshake for thi
 
 </HighlightBox>
 
-It is important to note that once a channel has been opened for a given Interchain account, new channels cannot be opened for this account until the currently `Active Channel` is set to `CLOSED`.
+It is important to note that once a channel has been opened for a given Interchain account, new channels cannot be opened for this account until the current `Active Channel` is set to `CLOSED`.
 
 ### Host API
 
-The host chain is the chain where the Interchain account is created and the transaction data (sent by the controller) is executed.
+The host chain is the chain where the Interchain account is created and the transaction (sent by the controller) is executed.
 
 Therefore, the provided API on the host submodule consists of:
 
@@ -286,7 +286,7 @@ The implementation of [ICS-27](https://github.com/cosmos/ibc/blob/master/spec/ap
 
 More information on which type of authentication module to use for which development use case can be found [here](https://ibc.cosmos.network/main/apps/interchain-accounts/development.html).
 
-There you will find references to development use cases requiring access to the packet callbacks, which is discussed in the next section.
+There you will find references to development use cases requiring access to the packet callbacks, which are discussed in the next section.
 
 ## Application callbacks
 
