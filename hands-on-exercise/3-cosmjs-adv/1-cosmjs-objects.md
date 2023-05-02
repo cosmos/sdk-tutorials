@@ -652,7 +652,7 @@ Note the forced import of `import _ from "../../environment"`, to actively infor
 There is more than one way to run a checkers blockchain. For instance:
 
 * If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite.
-* If you arrived here and are only focussed on learning CosmJS, it is possible to abstract away niceties of the running chain in a minimal package. For this, you need Docker and to create an image:
+* If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of the running chain in a minimal package. For this, you need Docker and to create an image:
 
    1. Get the `Dockerfile`:
 
