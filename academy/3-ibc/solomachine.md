@@ -181,7 +181,7 @@ interface Header {
 
 Remember from the section on light client development that the client can be updated (with new state or evidence of misbehavior) by submitting a `ClientMessage`. 
 
-The `ClientMessage` will be passed onto the client through a `MsgUpdateClient` submitted (generally by a relayer). The `02-client`'s [`UpdateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L48) method will then handle the client message by using [these 4 methods on the `ClientState` interface](https://github.com/cosmos/ibc-go/blob/02-client-refactor-beta1/modules/core/exported/client.go#L98-L109):
+The `ClientMessage` will be passed onto the client by submitting a `MsgUpdateClient`. Although IBC messages are typically submitted by relayers, it can be advantageous to integrate a relayer directly into the solomachine's server for certain cases, such as with crypto.com's implementation. The `02-client`'s [`UpdateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L48) method will then handle the client message by using [these 4 methods on the `ClientState` interface](https://github.com/cosmos/ibc-go/blob/02-client-refactor-beta1/modules/core/exported/client.go#L98-L109):
 
 * `VerifyClientMessage`
 * `CheckForMisbehaviour`
