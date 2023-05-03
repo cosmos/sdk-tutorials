@@ -29,7 +29,7 @@ It is important to note that each consumer chain's transactions are _not_ being 
 
 As you might imagine, the validators and ATOM delegators who get to vote on such a governance proposal would rightfully ask what is in it for them, because running a validator node for a new chain comes with additional costs. This mechanism is intentionally designed to incentivize consumer chains to design their applications to benefit ATOM holders, through either providing native token rewards or additional value to the ATOM token that would otherwise not be generated on the Cosmos Hub itself.
 
-![Interchain Security Diagram](/academy/3-cosmos-hub/images/interchain_security.jpg)
+![Interchain Security Diagram](/academy/2-cosmos-concepts/images/interchain_security.jpg)
 
 ## How it works
 
