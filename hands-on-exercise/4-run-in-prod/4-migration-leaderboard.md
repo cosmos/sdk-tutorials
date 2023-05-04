@@ -955,73 +955,69 @@ The `--broadcast-mode block` flag means that you can fire up many such games by 
 
 </HighlightBox>
 
-To get a few complete games, you are going to run the [integration tests](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts) against it. These tests expect a faucet being available. Because that is not the case, you need to:
+To get a few complete games, you are going to run the [integration tests](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts) against it. These tests call a faucet if the accounts do not have enough. Because you do not have a faucet here, you need to credit your test accounts with standard `bank send` transactions. You can use the same values as found in the `before`:
 
-1. Skip the faucet calls by adjusting the `"credit test accounts"` `before`. Just `return` before [`this.timeout`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L65).
+<CodeGroup>
 
-2. Credit your test accounts with standard `bank send` transactions. You can use the same values as found in the `before`:
+<CodeGroupItem title="Local" active>
 
-    <CodeGroup>
+```sh
+$ ./release/v1_1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
+    --from $alice --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ ./release/v1_1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
+    --from $alice --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ ./release/v1_1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
+    --from $bob --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ ./release/v1_1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
+    --from $bob --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+```
 
-    <CodeGroupItem title="Local" active>
+</CodeGroupItem>
 
-    ```sh
-    $ ./release/v1_1/checkersd tx bank \
-        send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
-        --from $alice --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ ./release/v1_1/checkersd tx bank \
-        send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
-        --from $alice --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ ./release/v1_1/checkersd tx bank \
-        send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
-        --from $bob --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ ./release/v1_1/checkersd tx bank \
-        send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
-        --from $bob --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    ```
+<CodeGroupItem title="Docker">
 
-    </CodeGroupItem>
+```sh
+$ docker exec -t checkers \
+    ./release/v1_1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
+    --from $alice --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ docker exec -t checkers \
+    ./release/v1_1/checkersd tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
+    --from $alice --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ docker exec -t checkers \
+    ./release/v1_1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
+    --from $bob --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+$ docker exec -t checkers \
+    ./release/v1_1/checkersd tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
+    --from $bob --keyring-backend test \
+    --chain-id checkers-1 \
+    --broadcast-mode block --yes
+```
 
-    <CodeGroupItem title="Docker">
+</CodeGroupItem>
 
-    ```sh
-    $ docker exec -t checkers \
-        ./release/v1_1/checkersd tx bank \
-        send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300stake \
-        --from $alice --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ docker exec -t checkers \
-        ./release/v1_1/checkersd tx bank \
-        send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 10token \
-        --from $alice --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ docker exec -t checkers \
-        ./release/v1_1/checkersd tx bank \
-        send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300stake \
-        --from $bob --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    $ docker exec -t checkers \
-        ./release/v1_1/checkersd tx bank \
-        send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 10token \
-        --from $bob --keyring-backend test \
-        --chain-id checkers-1 \
-        --broadcast-mode block --yes
-    ```
-
-    </CodeGroupItem>
-
-    </CodeGroup>
+</CodeGroup>
 
 With the test accounts sufficiently credited, you can now run the integration tests. Run them three times in a row to create three complete games:
 
@@ -1041,7 +1037,7 @@ $ pushd client && npm test && popd
 $ docker run --rm -it \
     -v $(pwd)/client:/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm test
 ```
 

@@ -358,7 +358,7 @@ customModules:
           - title: Add a migration for your leaderboard module
             path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - title: Simulate a migration in production with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
+            path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/

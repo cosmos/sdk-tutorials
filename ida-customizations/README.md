@@ -256,7 +256,7 @@ customModules:
           - title: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
           - title: Simulate a migration in production with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
+            path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
