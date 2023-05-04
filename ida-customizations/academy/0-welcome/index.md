@@ -244,9 +244,9 @@ customModules:
           path: /hands-on-exercise/5-run-in-prod/4-genesis.html
         - title: Prepare and connect to other nodes
           path: /hands-on-exercise/5-run-in-prod/5-network.html
-        - titles: Run and set up a service
+        - title: Run and set up a service
           path: /hands-on-exercise/5-run-in-prod/6-run.html
-        - titles: Prepare and do migrations
+        - title: Prepare and do migrations
           path: /hands-on-exercise/5-run-in-prod/7-migration.html
 ---
 

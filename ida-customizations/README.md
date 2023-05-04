@@ -251,8 +251,12 @@ customModules:
             path: /tutorials/9-path-to-prod/6-run.html
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Tally Player Info After Production
+            path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a Leaderboard Module
+            path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Migrate the Leaderboard Module After Production
+            path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - title: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
           - title: Simulate a migration in production with Docker Compose

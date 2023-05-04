@@ -37,6 +37,8 @@ Next, you will [add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add
 
 After that, you will add another migration, this time for the introduction of the [leaderboard module in production](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
 
+You finish by [simulating upgrades in production](/hands-on-exercise/4-run-in-prod/5-migration-prod.md) with the use of Docker Compose.
+
 ## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">

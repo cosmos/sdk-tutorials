@@ -30,6 +30,7 @@ In this chapter, you will learn:
 * How to apply this knowledge to simulate a small production for your checkers application with the help of Docker Compose.
 * How to prepare and program a blockchain state migration (a.k.a. "a breaking change"), using the example of the introduction of a leaderboard to the checkers application.
 * How to prepare your server when an upgrade is upcoming.
+* How to apply this knowledge to simulate a small production upgrade for your checkers application with the help of Docker Compose.
 
 </HighlightBox>
 
@@ -42,6 +43,8 @@ After, you will [tally player info after production](/hands-on-exercise/4-run-in
 Next, you will [add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) and have it work elegantly with checkers, first without any migration complications.
 
 After that, you will add another migration, this time for the introduction of the [leaderboard module in production](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
+
+You finish by [simulating upgrades in production](/hands-on-exercise/4-run-in-prod/5-migration-prod.md) with the use of Docker Compose.
 
 ## Developer Resources
 
