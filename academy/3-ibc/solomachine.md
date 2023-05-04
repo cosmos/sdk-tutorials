@@ -196,7 +196,7 @@ You will notice in both cases some pseudo code that requires to perform the sign
 assert(checkSignature(cs.consensusState.publicKey, signBytes, {msgType}.signature))
 ```
 
-Whereby the stored public key is used to check if the signature used to sign the `signBytes` was in fact the private key corresponding to it.
+The stored public key is used to check if the signature used to sign the `signBytes` was in fact the private key corresponding to it.
 
 In ibc-go this is performed in [solomachine's `proof.go` file](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/light-clients/06-solomachine/proof.go) by the `VerifySignature` function.
 
