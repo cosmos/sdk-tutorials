@@ -25,8 +25,11 @@ In this chapter, you will:
 
 * Discover what IBC is.
 * Get an introduction to the different layers of IBC and how connections, channels, and clients relate to each other in IBC.
+* Explore Light Client development.
+* Look at the Solomachine Client.
 * Take a look at IBC token transfers.
 * Explore Interchain accounts.
+* Dive into IBC Middleware, with a focus on creating custom IBC Middleware, and how to integrate it into a chain.
 * Get an overview of helpful tools for IBC.
 
 </HighlightBox>

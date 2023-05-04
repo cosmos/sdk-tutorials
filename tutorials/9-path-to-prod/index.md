@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Run in Production
+  title: The Path to Production
   description: See your chain in action
   number: 9
 order: 0

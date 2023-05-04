@@ -1,6 +1,6 @@
 ---
 title: "Extend the Checkers Game With a Leaderboard"
-order: 8
+order: 7
 description: Make your checkers game IBC-enabled
 tags: 
   - concepts

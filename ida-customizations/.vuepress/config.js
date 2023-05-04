@@ -224,16 +224,20 @@ module.exports = {
                   path: "/academy/2-cosmos-concepts/12-testing.html", // TODO uncomment when #1266 merged
                 },
                 {
-                  title: "Migrations",
-                  path: "/academy/2-cosmos-concepts/13-migrations.html",
-                },
-                {
-                  title: "Bridges",
-                  path: "/academy/2-cosmos-concepts/14-bridges.html",
+                  title: "Relaying with IBC",
+                  path: "/academy/2-cosmos-concepts/13-relayer-intro.html",
                 },
                 {
                   title: "Interchain Security",
-                  path: "/academy/2-cosmos-concepts/15-interchain-security.html",
+                  path: "/academy/2-cosmos-concepts/14-interchain-security.html",
+                },
+                {
+                  title: "Bridges",
+                  path: "/academy/2-cosmos-concepts/15-bridges.html",
+                },
+                {
+                  title: "Migrations",
+                  path: "/academy/2-cosmos-concepts/16-migrations.html",
                 },
                 {
                   title: "Week 1 Quiz",
@@ -323,15 +327,27 @@ module.exports = {
                 },
                 {
                   title: "IBC Token Transfer",
-                  path: "/academy/3-ibc/5-token-transfer.html",
+                  path: "/academy/3-ibc/7-token-transfer.html",
                 },
                 {
                   title: "Interchain Accounts",
-                  path: "/academy/3-ibc/6-ica.html",
+                  path: "/academy/3-ibc/8-ica.html",
+                },
+                {
+                  title: "IBC Middleware",
+                  path: "/academy/3-ibc/9-ibc-mw-intro.html",
+                },
+                {
+                  title: "Create a custom IBC Middleware",
+                  path: "/academy/3-ibc/10-ibc-mw-develop.html",
+                },
+                {
+                  title: "Integrating IBC Middleware into a chain",
+                  path: "/academy/3-ibc/11-ibc-mw-integrate.html",
                 },
                 {
                   title: "IBC Tooling",
-                  path: "/academy/3-ibc/7-ibc-tooling.html",
+                  path: "/academy/3-ibc/12-ibc-tooling.html",
                 },
                 {
                   title: "What is CosmJS?",
@@ -382,19 +398,23 @@ module.exports = {
                 },
                 {
                   title: "Let Players Set a Wager",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-wager.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-game-wager.html",
                 },
                 {
                   title: "Handle wager payments",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html",
+                },
+                {
+                  title: "Integration tests",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/8-integration-tests.html",
                 },
                 {
                   title: "Incentivize Players",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html",
                 },
                 {
                   title: "Help Find a Correct Move",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/9-can-play.html",
                 },
                 {
                   title: "Understand IBC Denoms",
@@ -402,19 +422,15 @@ module.exports = {
                 },
                 {
                   title: "Play With Cross-Chain Tokens",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html",
-                },
-                {
-                  title: "Relaying With IBC",
-                  path: "/hands-on-exercise/5-ibc-adv/2-relayer-intro.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html",
                 },
                 {
                   title: "Go Relayer",
-                  path: "/hands-on-exercise/5-ibc-adv/3-go-relayer.html",
+                  path: "/hands-on-exercise/5-ibc-adv/1-go-relayer.html",
                 },
                 {
                   title: "Hermes Relayer",
-                  path: "/hands-on-exercise/5-ibc-adv/4-hermes-relayer.html",
+                  path: "/hands-on-exercise/5-ibc-adv/2-hermes-relayer.html",
                 },
               ],
             },
@@ -459,36 +475,24 @@ module.exports = {
                   path: "/ida-course/LPs/week-6/",
                 },
                 {
-                  title: "IBC Application Developer Introduction",
-                  path: "/hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html",
+                  title: "Custom IBC application module introduction",
+                  path: "/hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html",
                 },
                 {
                   title: "Make a Module IBC-Enabled",
-                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html",
+                  path: "/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html",
                 },
                 {
                   title: "Adding Packet and Acknowledgment Data",
-                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html",
+                  path: "/hands-on-exercise/5-ibc-adv/5-ibc-app-packets.html",
                 },
                 {
                   title: "Extend the Checkers Game With a Leaderboard",
-                  path: "/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html"
+                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.html"
                 },
                 {
                   title: "Create a Leaderboard Chain",
-                  path: "/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html"
-                },
-                {
-                  title: "IBC Middleware",
-                  path: "/hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.html",
-                },
-                {
-                  title: "Create a Custom IBC Middleware",
-                  path: "/hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html",
-                },
-                {
-                  title: "Integrating IBC Middleware Into a Chain",
-                  path: "/hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html",
+                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.html"
                 },
               ],
             },
@@ -526,16 +530,28 @@ module.exports = {
                   path: "/tutorials/9-path-to-prod/6-run.html",
                 },
                 {
-                  title: "Simulate Production in Docker",
+                  title: "Prepare and Do Migrations",
+                  path: "/tutorials/9-path-to-prod/7-migration.html",
+                },
+                {
+                  title: "Simulate Production with Docker Compose",
                   path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
-                  title: "Introduce a Leaderboard After Production",
+                  title: "Tally Player Info After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html.html",
+                },
+                {
+                  title: "Add a Leaderboard as a module",
                   path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
                 },
                 {
-                  title: "Prepare and Do Migrations",
-                  path: "/tutorials/9-path-to-prod/7-migration.html",
+                  title: "Add a Migration for your Leaderboard Module",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                },
+                {
+                  title: "Simulate a Production Migration with Docker Compose",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
                 },
                 {
                   title: "Final Exam",

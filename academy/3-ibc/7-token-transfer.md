@@ -1,6 +1,6 @@
 ---
 title: "IBC Token Transfer"
-order: 6
+order: 8
 description: Fungible token transfers across chains
 tags:
   - concepts

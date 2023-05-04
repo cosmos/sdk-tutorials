@@ -1,6 +1,6 @@
 ---
 title: "IBC Application Developer Introduction"
-order: 5
+order: 4
 description: 
 tags: 
   - ibc

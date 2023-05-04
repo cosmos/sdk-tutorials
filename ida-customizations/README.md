@@ -109,12 +109,16 @@ customModules:
             path: /academy/2-cosmos-concepts/9-queries.html
           - title: Testing
             path: /academy/2-cosmos-concepts/12-testing.html
-          - title: Migrations
-            path: /academy/2-cosmos-concepts/13-migrations.html
-          - title: Bridges
-            path: /academy/2-cosmos-concepts/14-bridges.html
+          - title: Relaying with IBC
+            path: /academy/2-cosmos-concepts/13-relayer-intro.html
           - title: Interchain Security
-            path: /academy/2-cosmos-concepts/15-interchain-security.html
+            path: /academy/2-cosmos-concepts/14-interchain-security.html
+          - title: Bridges
+            path: /academy/2-cosmos-concepts/15-bridges.html
+          - title: Migrations
+            path: /academy/2-cosmos-concepts/16-migrations.html
+          - title: Week 1 Quiz
+            path: /academy/quiz-week1.html
       - image: /cosmos_dev_portal_module-05-lp.png
         title: Week 2 - First Steps
         href: /ida-course/LPs/week-2/
@@ -127,8 +131,22 @@ customModules:
             path: /tutorials/3-run-node/
           - title: Introduction to Ignite CLI
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
-          - title: First steps for your checkers blockchain
+          - title: Exercise - Make a Checkers Blockchain
             path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
+          - title: Store Object - Make a Checkers Blockchain
+            path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
+          - title: Create Custom Messages
+            path: /hands-on-exercise/1-ignite-cli/4-create-message.html
+          - title: Create and Save a Game Properly
+            path: /hands-on-exercise/1-ignite-cli/5-create-handling.html
+          - title: Add a Way to Make a Move
+            path: /hands-on-exercise/1-ignite-cli/6-play-game.html
+          - title: Emit Game Information
+            path: /hands-on-exercise/1-ignite-cli/7-events.html
+          - title: Make Sure a Player Can Reject a Game
+            path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
+          - title: Week 2 Exercise
+            path: /academy/exercise-week2.html
       - image: /planet-pod.svg
         title: Week 3 - IBC and CosmJS
         href: /ida-course/LPs/week-3/
@@ -140,11 +158,13 @@ customModules:
           - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
             path: /academy/3-ibc/2-connections.html
           - title: IBC token transfer
-            path: /academy/3-ibc/5-token-transfer.html
+            path: /academy/3-ibc/7-token-transfer.html
           - title: Interchain accounts - OPTIONAL
-            path: /academy/3-ibc/6-ica.html
+            path: /academy/3-ibc/8-ica.html
+          - title: IBC Middleware - OPTIONAL
+            path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
-            path: /academy/3-ibc/7-ibc-tooling.html
+            path: /academy/3-ibc/12-ibc-tooling.html
           - title: What is CosmJS?
             path: /tutorials/7-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
@@ -163,26 +183,30 @@ customModules:
         links: 
           - title: Put your games in order
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
-          - title: Keep a game deadline
+          - title: Keep an up-to-date game deadline
             path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Record a game winner
+          - title: Record the game winner
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Allow for auto-expiring games
+          - title: Auto-expiring games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Let players set a wager
-            path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
+            path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
           - title: Handle wager payments
-            path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
-          - title: Incentivize players and manage gas
-            path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
+            path: /hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html
+          - title: Integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html
+          - title: Incentivize players
+            path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
           - title: Help find a correct move
-            path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
+            path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
           - title: Understand IBC denoms
             path: /tutorials/6-ibc-dev/
           - title: Play with cross-chain tokens
-            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
-          - title: Work with IBC relayers
-            path: /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
+            path: /hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html
+          - title: Go relayer
+            path: /hands-on-exercise/5-ibc-adv/1-go-relayer.html
+          - title: Hermes relayer
+            path: /hands-on-exercise/5-ibc-adv/2-hermes-relayer.html
       - image: /cosmos_dev_portal_module-04-lp.png
         title: Week 5 - CosmJS Advanced
         href: /ida-course/LPs/week-5/
@@ -205,29 +229,23 @@ customModules:
         description: |
           Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
         links: 
-          - title: Writing a custom IBC application
-            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
-          - title: How to make a module IBC-enabled
-            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
+          - title: Custom IBC application module introduction
+            path: /hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html
+          - title: Make a module IBC-enabled
+            path: /hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html
           - title: Adding packet and acknowledgement data
-            path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
+            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
-            path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
+            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.html
           - title: Create a leaderboard chain
-            path: /hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html
-          - title: Exploring IBC middlewares - OPTIONAL
-            path: /hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.html
-          - title: Creating a custom IBC middleware - OPTIONAL
-            path: /hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html
-          - title: Integrating IBC middleware into a chain - OPTIONAL
-            path: /hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html
+            path: /hands-on-exercise/5-ibc-adv/79-ibc-app-leaderboard.html
       - image: /universe.svg
         title: Week 7 - From Code to MVP to Production and Migrations
         href: /ida-course/LPs/week-7/
         description: |
           In this chapter, you will build on your previous work for the checkers blockchain to adapt your blockchain to the demands of running in production:
         links: 
-          - title: Get a quick overview
+          - title: Run in Production
             path: /tutorials/9-path-to-prod/1-overview.html
           - title: Prepare the software to run
             path: /tutorials/9-path-to-prod/2-software.html
@@ -237,14 +255,20 @@ customModules:
             path: /tutorials/9-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
             path: /tutorials/9-path-to-prod/5-network.html
-          - titles: Configure, run and set up a service
+          - titles: Configure, run, and set up a service
             path: /tutorials/9-path-to-prod/6-run.html
-          - title: Simulate a production setup with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
           - titles: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
+          - title: Simulate a production setup with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
+          - title: Tally player info after production
+            path: 
+          - title: Add a leaderboard as a module
+            path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Add a migration for your leaderboard module
+            path: 
+          - title: Simulate a production migration with Docker Compose
+            path: 
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

@@ -172,12 +172,14 @@ customModules:
             path: /academy/2-cosmos-concepts/9-queries.html
           - title: Testing
             path: /academy/2-cosmos-concepts/12-testing.html
-          - title: Migrations
-            path: /academy/2-cosmos-concepts/13-migrations.html
-          - title: Bridges
-            path: /academy/2-cosmos-concepts/14-bridges.html
+          - title: Relaying With IBC
+            path: /academy/2-cosmos-concepts/13-relayer-intro.html
           - title: Interchain Security
-            path: /academy/2-cosmos-concepts/15-interchain-security.html           
+            path: /academy/2-cosmos-concepts/14-interchain-security.html
+          - title: Bridges
+            path: /academy/2-cosmos-concepts/15-bridges.html
+          - title: Migrations
+            path: /academy/2-cosmos-concepts/16-migrations.html           
       - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/
@@ -189,11 +191,13 @@ customModules:
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
           - title: Fungible token transfer
-            path: /academy/3-ibc/5-token-transfer.html
+            path: /academy/3-ibc/7-token-transfer.html
           - title: Interchain accounts
-            path: /academy/3-ibc/6-ica.html
+            path: /academy/3-ibc/8-ica.html
+          - title: IBC Middleware
+            path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
-            path: /academy/3-ibc/7-ibc-tooling.html
+            path: /academy/3-ibc/12-ibc-tooling.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -311,24 +315,26 @@ customModules:
         description: |
           Continue developing your checkers blockchain with Ignite by:
         links:
-          - title: Putting your games in order
+          - title: Put your games in order
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
-          - title: Including a game deadline
+          - title: Keep an Up-To-Date Game Deadline
             path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Recording the winners
+          - title: Record the game winner
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Including auto-expiring of games
+          - title: Auto-expiring games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
-          - title: Including a wager
-            path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
-          - title: Handling wager payments
-            path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
-          - title: Incentiving players
-            path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
-          - title: Help find correct moves
-            path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
+          - title: Let players set a wager
+            path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
+          - title: Handle wager payments
+            path: /hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html
+          - title: Integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html
+          - title: Incentive players
+            path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
+          - title: Help find a correct move
+            path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
           - title: Play with cross-chain tokens
-            path: hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
+            path: hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html
       - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
@@ -361,28 +367,20 @@ customModules:
         description: |
           Test your IBC knowledge by developing your checkers blockchain further:
         links:
-          - title: Relaying with IBC
-            path: /hands-on-exercise/5-ibc-adv/2-relayer-intro.html
           - title: Go relayer
-            path: /hands-on-exercise/5-ibc-adv/3-go-relayer.html
+            path: /hands-on-exercise/5-ibc-adv/1-go-relayer.html
           - title: Hermes relayer
-            path: /hands-on-exercise/5-ibc-adv/4-hermes-relayer.html
+            path: /hands-on-exercise/5-ibc-adv/2-hermes-relayer.html
           - title: IBC app development
-            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
+            path: /hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html
           - title: Make a module IBC-enabled
-            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
+            path: /hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html
           - title: Add packet and acknowledgement data
-            path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
+            path: /hands-on-exercise/5-ibc-adv/5-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
-            path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
+            path: /hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.html
           - title: Create a leaderboard chain
-            path: /hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html
-          - title: IBC middleware
-            path: /hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.html
-          - title: Create custom IBC middleware
-            path: /hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html
-          - title: Integrate IBC middleware into a chain
-            path: /hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html
+            path: /hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.html
 ---
 
 This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).

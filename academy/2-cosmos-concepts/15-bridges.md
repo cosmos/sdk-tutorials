@@ -1,6 +1,6 @@
 ---
 title: "Bridges"
-order: 15
+order: 16
 description: Bridging to other blockchains on different protocols
 tags: 
   - concepts
