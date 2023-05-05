@@ -726,8 +726,11 @@ $ ./release/v1_1/checkersd keys add bob --keyring-backend test
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker create --name checkers -it \
+$ docker network create checkers-net
+$ docker create -it \
     -v $(pwd):/checkers -w /checkers \
+    --network checkers-net \
+    --name checkers \
     -p 26657:26657 \
     checkers_i
 $ docker start checkers
@@ -1037,15 +1040,11 @@ $ pushd client && npm test && popd
 $ docker run --rm -it \
     -v $(pwd)/client:/client \
     -w /client \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm test
 ```
-
-<HighlightBox type="note">
-
-Do not forget to first adjust your `client/.env` file's `RPC_URL` address to be that of your computer, so that it can access across to the `checkers` container.
-
-</HighlightBox>
 
 </CodeGroupItem>
 
@@ -1541,6 +1540,14 @@ Leaderboard:
 Note how it took the time of the block when v1_1 stopped.
 
 Congratulations, you have upgraded your blockchain almost as if in production.
+
+You can stop Ignite CLI. If you used Docker that would be:
+
+```sh
+$ docker stop checkers
+$ docker rm checkers
+$ docker network rm checkers-net
+```
 
 Your checkers blockchain is done! It has a leaderboard, which was introduced later in production thanks to migrations.
 

@@ -1536,8 +1536,7 @@ $ ignite chain serve --reset-once
 ```sh
 $ docker network create checkers-net
 $ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
+    -v $(pwd):/checkers -w /checkers \
     -p 4500:4500 -p 26657:26657 \
     --network checkers-net \
     --name checkers \
@@ -1565,14 +1564,12 @@ $ npm test --prefix client
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/client:/client \
-    -w /client \
+    -v $(pwd)/client:/client -w /client \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm test
 ```
-
-And do not forget to update your `.env` file with `checkers` instead of `localhost`.
 
 </CodeGroupItem>
 
@@ -1614,7 +1611,13 @@ Leaderboard:
     wonCount: "1"
 ```
 
-Congratulations.
+Congratulations, your leaderboard is functional.
+
+If you used Docker, you can stop the container and remove the network:
+
+```sh
+$ docker network rm checkers-net
+```
 
 <HighlightBox type="synopsis">
 
