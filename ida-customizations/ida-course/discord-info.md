@@ -2,7 +2,7 @@
 title: "Get Support on Discord"
 order:
 description: Need help? Head to Discord
-tag:
+tags:
 ---
 
 # Get Support on Discord
@@ -15,7 +15,8 @@ Include for Week 0 start, later back into comment, plus everything below needs t
 -->
 
 The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
-There are six channels - each dedicated to a specific topic - where you can post messages, ask questions, and request support.
+
+There are three channels where you can post messages, ask questions, request support, and get important information regarding the program.
 
 ## How to join the Academy Discord
 
@@ -30,9 +31,11 @@ If you have any problems, send us an [email](mailto:academy@interchain.io).
 
 Within the Academy Discord, you will find the following topic-specific channels:
 
-![IMAGE DESCRIPTION](/ida-course/images/discord-channel.png)
+![IMAGE DESCRIPTION](/ida-course/images/discord-ida-c3-channels.jpg)
 
-Please post your question in the channel that fits best. This will allow you and the support team to keep track of your question. The channels correspond to the main topics covered in the Academy content. You will find a description of each channel on Discord.
+* We will share regular program updates via the **c3-announcements-and-organization** channel. Make sure to check it regularly.
+* The **c3-lounge** channel is dedicated to off-topic discussions. Introduce yourself, and feel free to relax and chat about your favorite TV shows, films, and books, share pet photos, and anything else that comes to mind.
+* You should ask all content-related questions within the **c3-support forum** channel. There you will find tags corresponding to the main topics covered in the Academy content. These will allow you and the support team to keep track of your queries.
 
 ## How to ask a question
 
@@ -40,11 +43,15 @@ You can post a message with your question directly into any channel.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question.png)
 
-Make sure you mark your message as a question by adding the question emoticon (?) to it. This will create a new support ticket.
+When posting a question in the **c3-support-forum**, you need to add a title and select the tag of the topic your question is related to. 
+
+![IMAGE DESCRIPTION](/ida-course/images/discord-howto-supportforum.jpg)
+
+Make sure you mark your message as a question by adding the question emoticon (?) to it **_as a react_**. This will create a new support ticket.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question-add.png)
 
-Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Trisha | Support Bot_, our suppor tbot, which confirms that a ticket has been opened.
+Once a ticket has been created, tutors and expert instructors are informed about the new question and can reply directly to your original post. You will also receive a DM from _Tricia_, our support bot, which confirms that a ticket has been opened.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-tricia-pm.png)
 
@@ -52,7 +59,7 @@ After your question has been answered, the ticket can be closed by you, the tuto
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-close.png)
 
-When the ticket is closed, you will receive a direct message from _Tricia | Support Bot_, confirming the ticket was closed.
+When the ticket is closed, you will receive a direct message from _Tricia_, confirming the ticket was closed.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-close-notification.png)
 

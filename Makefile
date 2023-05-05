@@ -1,8 +1,7 @@
 #!/usr/bin/make -f
 
-build-website:
-	npm ci
-	npm run build
+build-website: 
+	./build-versions.sh
 
 build-ida-website: fs-activate-ida-files build-website
 

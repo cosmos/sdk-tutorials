@@ -3,9 +3,9 @@ parent:
   title: First Steps
   description: Get started with Ignite CLI and run your own Cosmos chain
   number: 1
-tag:
 order: 0
 title: Chapter Overview - First steps to run your own chain
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Get started with Ignite CLI and run your own Cosmos chain</div>
@@ -30,7 +30,7 @@ In this chapter, you will:
 * Create custom messages for your blockchain.
 * Work with the message handler to create and save games.
 * Emit game information with events.
-* Make sure a player can reject a game.
+* Record game winners in storage.
 
 </HighlightBox>
 

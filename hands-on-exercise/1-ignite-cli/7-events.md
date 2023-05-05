@@ -138,7 +138,7 @@ ctx.EventManager().EmitEvent(
 
 The unit tests you have created so far still pass. However you also want to confirm that the events have been emitted in both situations. The events are recorded in the context, so the test is a little bit different. In `msg_server_create_game_test.go`, add this test:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_create_game_test.go#L82-L103]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/two-events/x/checkers/keeper/msg_server_create_game_test.go#L76-L97]
 func TestCreate1GameEmitted(t *testing.T) {
     msgSrvr, _, context := setupMsgServerCreateGame(t)
     msgSrvr.CreateGame(context, &types.MsgCreateGame{
@@ -254,7 +254,11 @@ $ go test github.com/alice/checkers/x/checkers/keeper
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/checkers -w /checkers checkers_i go test github.com/alice/checkers/x/checkers/keeper
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/keeper
 ```
 
 </CodeGroupItem>
@@ -280,7 +284,8 @@ $ checkersd tx checkers play-move 1 0 5 1 4 --from $bob
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 0 5 1 4 --from $bob
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 0 5 1 4 --from $bob
 ```
 
 </CodeGroupItem>
@@ -312,7 +317,8 @@ $ checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA8
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq '.raw_log | fromjson'"
+$ docker exec -it checkers \
+    bash -c "checkersd query tx 531E5708A1EFBE08D14ABF947FBC888BFC69CD6F04A589D478204BF3BA891AB7 --output json | jq '.raw_log | fromjson'"
 ```
 
 </CodeGroupItem>
@@ -379,7 +385,8 @@ $ checkersd query checkers show-stored-game 1 --output json | jq ".storedGame.bo
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
+$ docker exec -it checkers \
+    bash -c "checkersd query checkers show-stored-game 1 --output json | jq \".storedGame.board\" | sed 's/\"//g' | sed 's/|/\n/g'"
 ```
 
 </CodeGroupItem>
@@ -422,7 +429,8 @@ $ checkersd tx checkers play-move 1 2 3 0 5 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers play-move 1 2 3 0 5 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers play-move 1 2 3 0 5 --from $alice
 ```
 
 </CodeGroupItem>
@@ -513,4 +521,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Time to add a third message to make it possible for a player to [reject a game](./8-reject-game.md) and to make your checkers blockchain more resistant to spam.-->
+Time to [record the winner in storage](./8-game-winner.md) and to make your checkers blockchain more resistant to spam.-->

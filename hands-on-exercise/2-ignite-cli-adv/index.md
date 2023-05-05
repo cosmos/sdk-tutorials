@@ -2,10 +2,10 @@
 parent:
   title: Ignite CLI Advanced
   description: Continue developing your own Cosmos chain
-  number: 1
-tag:
-order: 1
+  number: 2
+order: 0
 title: Chapter Overview - Continue developing your own Cosmos chain
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Continue developing your own Cosmos chain</div>
@@ -17,7 +17,7 @@ But have you thought about everything? Is your blockchain safe from bad behavior
 
 Continue your journey with Ignite CLI: learn how to introduce a wager, manage gas, and query for players' moves.
 
-![](/hands-on-exercise/2-ignite-cli-adv/images/moving-objects.svg)
+![](/lp-images/moving-objects.svg)
 
 ## In this chapter
 
@@ -26,9 +26,11 @@ Continue your journey with Ignite CLI: learn how to introduce a wager, manage ga
 In this chapter, you will:
 
 * Continuously develop your checkers blockchain with the Ignite CLI.
+* Introduce a game deadline.
+* Introduce a move count.
+* Order your games.
+* Introduce a game forfeiting mechanism.
 * Let players set a wager.
-* Order your games and introduce a game deadline.
-* Record the winners.
 * Help players do a correct move.
 * Explore how you can manage gas for your application-specific chain.
 
@@ -38,7 +40,7 @@ In this chapter, you will:
 
 ## Next up
 
-Begin by exploring modularity and data organization styles to introduce a FIFO data structure to put your games in order in the [next section](./1-game-fifo.md).
+Begin by preparing the ground for further data organization by adding a game deadline in the [next section](./1-game-deadline.md).
 
 ## Developer Resources
 

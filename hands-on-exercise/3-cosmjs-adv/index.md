@@ -2,10 +2,10 @@
 parent:
   title: CosmJS for Your Chain
   description: Deep dive into CosmJS - Implement a game GUI and backend script
-  number: 1
-tag:
-order: 1
+  number: 3
+order: 0
 title: Chapter Overview - Implement a game GUI and backend script
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Deep dive into CosmJS - implement a game GUI and backend script</div>
@@ -15,7 +15,7 @@ You will continue your work on CosmJS and explore how to use CosmJS and apply it
 
 The end of this chapter will deal with backend scripts and demonstrate how to use them for game indexing so that you are all set to continue developing using CosmJS.
 
-![](/hands-on-exercise/3-cosmjs-adv/images/green-planet.svg)
+![](/lp-images/green-planet.svg)
 
 ## In this chapter
 

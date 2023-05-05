@@ -3,9 +3,9 @@ parent:
   title: The Inter-Blockchain Communication Protocol
   description: Connect chains with IBC
   number: 3
-tags:
-order: 1
+order: 0
 title: Chapter Overview - The Inter-Blockchain Communication Protocol
+tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Connect chains with IBC</div>

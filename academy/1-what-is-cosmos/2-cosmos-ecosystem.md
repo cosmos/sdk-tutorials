@@ -22,6 +22,8 @@ tags:
 
 Cosmos is also **a blockchain ecosystem** complete with protocols, SDK, tokens, wallets, applications, repositories, services, and tools.
 
+<YoutubePlayer videoId="5_ZkZ-NF184"/>
+
 </HighlightBox>
 
 <HighlightBox type="learning">
@@ -42,7 +44,7 @@ Cosmos is an ever-expanding ecosystem of tokens, wallets, and tools, as well as 
 
 In 2022, almost **$100 billion in digital assets** are under management and secured by Cosmos. Digital assets on Cosmos include fungible and non-fungible tokens (NFTs). You can issue in-application tokens to conduct settlements, bespoke issuance, handle inflation/deflation, and much more.
 
-Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb), [Terra](https://www.terra.money), and [ATOM](https://cosmos.network/learn/faq/what-is-the-atom). Remember that because the tokens are defined on application-specific blockchains their developers are free from the constraints of a hypothetical general-purpose blockchain.
+Among the fungible tokens secured by Cosmos are the [Binance Coin](https://www.binance.com/en/bnb) and [ATOM](https://cosmos.network/learn/faq/what-is-the-atom). Remember that because the tokens are defined on application-specific blockchains their developers are free from the constraints of a hypothetical general-purpose blockchain.
 
 <HighlightBox type="tip">
 
@@ -80,7 +82,7 @@ Before Cosmos came along, developing a whole new chain was much more difficult a
 
 The main aim of the Cosmos network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
-Each chain in the Cosmos Ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [Binance Chain](https://www.binance.org/en), [Terra](https://www.terra.money/), [Kava](https://www.kava.io/), and more.
+Each chain in the Cosmos Ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in Cosmos, the Tendermint consensus mechanism is also utilized in the [Binance Chain](https://www.binance.org/en), [Kava](https://www.kava.io/), and more.
 
 <HighlightBox type="tip">
 
@@ -106,6 +108,14 @@ The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.net
 <HighlightBox type="info">
 
 The default consensus mechanism available when developing with the SDK is the [Tendermint Core](https://docs.tendermint.com/v0.34/tendermint-core/).
+
+</HighlightBox>
+
+<HighlightBox type="info">
+
+If you are interested in hearing more from the Cosmos SDK team itself, in the following video Marko Baricevic, Cosmos SDK Project Lead at Interchain, delivers a comprehensive breakdown of the Cosmos SDK.
+
+<YoutubePlayer videoId="1_ottIKPfI4"/>
 
 </HighlightBox>
 
@@ -137,7 +147,7 @@ If the other chain is a **probabilistic-finality chain**, a simple adaptation of
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/13-bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/14-bridges.md).
 
 </HighlightBox>
 

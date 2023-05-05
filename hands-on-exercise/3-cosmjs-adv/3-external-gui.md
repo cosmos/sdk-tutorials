@@ -4,8 +4,6 @@ order: 4
 description: Find a checkers GUI before integrating with CosmJS
 tags: 
   - guided-coding
-  - cosmos-sdk
-  - cosm-js
 ---
 
 # Get an External GUI
@@ -53,7 +51,11 @@ $ npm install
 
 ```sh
 $ cd react-checkers
-$ docker run --rm -it -v $(pwd):/react-checkers -w /react-checkers node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/react-checkers \
+    -w /react-checkers \
+    node:18.7-slim \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -75,7 +77,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7-slim \
+    npm start
 ```
 
 </CodeGroupItem>
@@ -89,11 +96,11 @@ It should automatically open the browser and you should see a simple page. If no
 Move the files from the `react-checkers` folder into the repo that contains your CosmJS work so far. If you followed from the previous section or cloned the branch mentioned above, then:
 
 * The `tsconfig.json`, `images.d.ts`, and `json.d.ts` files, and the `public` and `src` folders should have no conflicts.
-* For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/4ea0bdb/.gitignore#L3-L21) to your own `.gitignore`.
+* For `.gitignore` [just add the content](https://github.com/cosmos/academy-checkers-ui/blob/unwired-gui/.gitignore) to your own `.gitignore`.
 * For `package.json` there are some more things to consider:
     * Copy and paste the `"scripts"`. Rename the incoming `"test"` to `"test-react"`.
-    * Copy and paste the `"browserlist"`.
-    * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/f9e1375/package.json#L18) field or it will confuse React.
+    * Copy and paste the `"browserslist"`.
+    * Remove the [`"homepage"`](https://github.com/cosmos/academy-checkers-ui/blob/signing-stargate/package.json#L18) field or it will confuse React.
     * Copy only the missing `dependencies` and `devDependencies`. If there is a conflict between versions, overwrite with the highest version.
 
 Everything should now be integrated.
@@ -115,7 +122,11 @@ $ npm install
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client node:18.7 npm install
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    node:18.7-slim \
+    npm install
 ```
 
 </CodeGroupItem>
@@ -137,7 +148,12 @@ $ npm start
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it -v $(pwd):/client -w /client -p 3000:3000 node:18.7 npm start
+$ docker run --rm -it \
+    -v $(pwd):/client \
+    -w /client \
+    -p 3000:3000 \
+    node:18.7-slim \
+    npm start
 ```
 
 </CodeGroupItem>
@@ -156,4 +172,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You now have a working Checkers GUI! You are ready to start interfacing with the Checkers blockchain in the [next section](./4-cosmjs-gui.md).-->
+You now have a working checkers GUI! You are ready to start interfacing with the checkers blockchain in the [next section](./4-cosmjs-gui.md).-->

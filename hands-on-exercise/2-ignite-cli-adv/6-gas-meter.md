@@ -1,6 +1,6 @@
 ---
 title: "Incentivize Players"
-order: 7
+order: 8
 description: Gas - reward validators proportional to their effort
 tags: 
   - guided-coding
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Go is installed.
-* You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./5-game-wager.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./5-payment-winning.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/integration-tests).
 
 </HighlightBox>
 
@@ -58,11 +58,10 @@ Before diving into the specifics, ask yourself:
 
 These values provide examples but you can, and should, set your own. To get a rule-of-thumb idea of how much gas is already consumed without your additions, look back at your previous transactions. Save your pick of the values as new constants:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/types/keys.go#L71-L75]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/types/keys.go#L65-L68]
 const (
-    CreateGameGas       = 15000
-    PlayMoveGas         = 1000
-    RejectGameRefundGas = 14000
+    CreateGameGas = 15000
+    PlayMoveGas   = 1000
 )
 ```
 
@@ -70,9 +69,10 @@ Here are the debatable rationales for these values:
 
 1. Creating a game imposes a large cost because it creates a brand new entry in storage, which contains many fields. This new storage entry is stored on all nodes.
 2. Playing a game imposes a smaller cost because it makes changes to an existing storage entry, which was already paid for. On the other hand it costs some computation and pushes back the time by when the game expires.
-3. When a player rejects a game, the storage entry is deleted, which relieves the nodes of the burden of storing it. Hence it makes sense to incentivize players to reject games by **refunding** some gas. Since some computation was still done between creation and rejection, the refund is less than the cost of creation.
 
-As a checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little activity, then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity, the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
+When looking at all the actions a user can take, you can also consider a gas refund – in particular if the action is beneficial to the network. For instance, removing an item from storage entirely can be considered beneficial. In a situation like this, you can consider a gas refund (i.e. a negative gas cost). This gas refund will offset part or all of the gas cost already expended as part of the message.
+
+As the checkers blockchain creator, your goal may be to have as many on-going games as possible. Adding costs sounds counter to this goal. However, here the goal is to optimize potential congestion at the margin. If there is little network activity then the gas price will go down, and these additional costs will be trivial for players anyway. Conversely, if there is a lot of network activity the gas price will go up, and whether you have put additional costs or not players will still be less likely to participate.
 
 ## Add handling
 
@@ -80,29 +80,49 @@ Add a line that consumes or refunds the designated amount of gas in each relevan
 
 1. When handling a game creation:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game.go#L46]
-    ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game.go#L46]
+        ...
+        k.Keeper.SetSystemInfo(ctx, systemInfo)
+    +  ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+        ...
     ```
 
 2. When handling a move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move.go#L88]
-    ctx.GasMeter().ConsumeGas(types.PlayMoveGas, "Play a move")
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move.go#L90]
+        ...
+        k.Keeper.SetSystemInfo(ctx, systemInfo)
+    +  ctx.GasMeter().ConsumeGas(types.PlayMoveGas, "Play a move")
+        ...
     ```
 
-3. When handling a game rejection, you make sure that you are not refunding more than what has already been consumed:
+In this example, when handling a move the gas is measured towards the end of the function's body. This is a design decision, and you may arrive at a different conclusion.
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_reject_game.go#L46-L50]
-    refund := uint64(types.RejectGameRefundGas)
-    if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
-        refund = consumed
-    }
-    ctx.GasMeter().RefundGas(refund, "Reject game")
-    ```
+<HighlightBox type="note">
 
-You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, it is a service rendered by the network. If you want to account for the gas cost of a game expiration, you have to devise a way to pre-collect it from players as part of the other messages.
+In the current arrangement, if a player hits an error (such as a failure to pay the wager, or making an illegal move) then the code will return an error _before_ the gas metering line. This means the player making the error will only pay the gas already metered by the rest of the Cosmos SDK.
+
+If you decide to move the gas metering line closer to the beginning of the function's body, then you will charge the player extra gas for any move that contains errors _despite the fact that the requested move will not be accepted_.
+
+This alternate approach would certainly dis-incentivize players from submitting erroneous moves, but it also risks alienating them through financial punishment for accidental mistakes. Better is to implement a feature that allows players to check a move is valid _before_ they pay the cost of handling. This is explored in the [next section](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
+
+</HighlightBox>
+
+You are free to consider charging different gas costs for when a player _plays a regular legal move_ and for when a player _plays a winning move_. After a win the board is cleared, and you therefore may want to exact a smaller cost (or even a gas refund) in this situation.
 
 <HighlightBox type="tip">
+
+You do not meter gas in your `EndBlock` handler because it is **not** called by a player sending a transaction. Instead, this is a service rendered by the network.
+
+</HighlightBox>
+
+<HighlightBox type="tip">
+
+If you want to account for the gas cost of game expiration, you have to devise a way to pre-collect it from players as part of other messages. You could even imagine a reputation system: the next time a forfeiter plays on a game, the _past_ cost of their forfeit is taken as part of the current _play move_ transaction.
+
+</HighlightBox>
+
+<HighlightBox type="best-practice">
 
 As part of your code optimization, avoid calling `ConsumeGas` with a fixed gas cost (for instance `k`) from within a loop. Each pass of the loop uses computation resources (`c`) on each node. If you know the number of times your code loops (`n`), you know that running the full loop will use `n*c` computation resources.
 <br/><br/>
@@ -121,7 +141,7 @@ Additionally, making only a single call to `ConsumeGas` slightly saves computati
 
 Now you must add tests that confirm the gas consumption. However, it is not possible to differentiate the gas cost that BaseApp is incurring on your messages from the gas cost your module imposes on top of it. Also, you cannot distinguish via the descriptor [unless it panics](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/store/types/gas.go#L90-L101). Nevertheless, you can add a lame test like:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game_test.go#L125-L137]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_create_game_test.go#L119-L131]
 func TestCreate1GameConsumedGas(t *testing.T) {
     msgSrvr, _, context := setupMsgServerCreateGame(t)
     ctx := sdk.UnwrapSDKContext(context)
@@ -137,7 +157,7 @@ func TestCreate1GameConsumedGas(t *testing.T) {
 }
 ```
 
-Now add another test for [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move_test.go#L176-L192) and one for reject. Note that `after` is much less than `before`:
+Now add another test for [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move_test.go#L176-L192). Note that `after` is much less than `before`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_reject_game_test.go#L96-L107]
 func TestRejectGameByBlackRefundedGas(t *testing.T) {
@@ -165,7 +185,10 @@ Here, you want to confirm that gas is consumed by different actions. The difficu
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice \
+    --dry-run
 ```
 
 </CodeGroupItem>
@@ -173,7 +196,11 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice \
+    --dry-run
 ```
 
 </CodeGroupItem>
@@ -187,7 +214,10 @@ Say this returns `69422`, which is the estimated gas used. Now comment out the `
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice \
+    --dry-run
 ```
 
 </CodeGroupItem>
@@ -195,7 +225,11 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice --dry-run
+$ docker exec -it checkers \
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice \
+    --dry-run
 ```
 
 </CodeGroupItem>
@@ -211,7 +245,9 @@ Estimating with `--dry-run` is a good start. Now have Alice create a game and ch
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice
 ```
 
 </CodeGroupItem>
@@ -219,7 +255,10 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice
 ```
 
 </CodeGroupItem>
@@ -243,7 +282,9 @@ As before, comment the `.ConsumeGas` line `msg_server_create_game.go` and wait f
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice
 ```
 
 </CodeGroupItem>
@@ -251,7 +292,10 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers checkersd tx checkers create-game $alice $bob 1000000 --from $alice
+$ docker exec -it checkers \
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice
 ```
 
 </CodeGroupItem>
@@ -273,7 +317,10 @@ There is only a difference of `4000`. The rest of the system likely had some und
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y | 
+        grep gas_used
 ```
 
 </CodeGroupItem>
@@ -281,7 +328,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -301,7 +349,10 @@ Put back the `.ConsumeGas` line and rebuild. Then try again:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y | \
+        grep gas_used
 ```
 
 </CodeGroupItem>
@@ -309,7 +360,8 @@ $ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec -it checkers bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
+$ docker exec -it checkers \
+    bash -c "checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y | grep gas_used"
 ```
 
 </CodeGroupItem>
@@ -323,42 +375,6 @@ gas_used: "80507"
 ```
 
 That is sufficient confirmation.
-
-What about the refund on reject? With the gas refund in place, reject one of the many games you created:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local" active>
-
-```sh
-$ checkersd tx checkers reject-game 9 --from $alice
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker exec -it checkers checkersd tx checkers reject-game 9 --from $alice
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-This shows:
-
-```txt
-gas_used: "55003"
-```
-
-Now comment out the `RefundGas` part and reject another game. This shows:
-
-```txt
-gas_used: "69157"
-```
-
-This is close to `14000` more expensive than when there is a refund.
 
 Do not worry if you do not get the same values. At least try multiple times to see if the values look like each other on your system.
 

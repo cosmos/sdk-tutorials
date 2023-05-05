@@ -6,7 +6,7 @@ This Node.js application uses [Vuepress](https://vuepress.vuejs.org/) to render 
 
 This repository uses a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for the [theme](https://github.com/b9lab/vuepress-theme-cosmos/tree/b9lab-theme-updates). Initialize and update all submodules automatically using:
 
-```
+```sh
 git clone --recursive git@github.com:cosmos/sdk-tutorials.git
 ```
 
@@ -14,7 +14,7 @@ git clone --recursive git@github.com:cosmos/sdk-tutorials.git
 
 This application requires **node version >=14**! Install the application with:
 
-```
+```sh
 npm install
 ```
 
@@ -22,17 +22,30 @@ npm install
 
 You can run a live preview of the platform using:
 
-```
+```sh
 npm run serve
 ```
 
-This will start a local server on [localhost:8081](http://localhost:8081/).
+This will start a local server on [localhost:8080](http://localhost:8080/).
+
+Your build may fail with the following:
+
+```
+Error: error:0308010C:digital envelope routines::unsupported
+    at new Hash (node:internal/crypto/hash:71:19)
+```
+
+If so, try:
+
+```
+NODE_OPTIONS=--openssl-legacy-provider npm run serve
+```
 
 ## Build
 
 A distribution package can be built using:
 
-```
+```sh
 npm run build
 ```
 
@@ -66,7 +79,7 @@ The main menu is configured in the main config, within the `sidebar` - `nav` obj
 
 An example configuration might look like this, where each module is defined as a child of the root:
 
-```
+```json
 {
   title: "Cosmos Academy",
   children: [
@@ -90,7 +103,7 @@ An example configuration might look like this, where each module is defined as a
 
 You can also define the child pages of a module manually:
 
-```
+```json
 {
   title: "Week 1 - Cosmos and Its Main Concepts",
   directory: true,
@@ -111,7 +124,7 @@ You can also define the child pages of a module manually:
 
 You can extend the main config to add new modules and pages. However, if you add a new folder at the root level, you must also adjust the file search patterns at the very end of the config:
 
-```
+```json
 patterns: [
   "README.md",
   "academy/*/*.md",
@@ -138,7 +151,7 @@ If you create a new folder named `myfiles`, add `"myfiles/*/*.md"` to the list.
 
 **Images must be linked using an absolute path!** On build, images are automatically resized and compressed into a set with different sizes, defined in the vuepress config:
 
-```
+```json
 assetsOptimization: {
    breakpoints: [200, 600, 988, 1200]
 }
@@ -154,13 +167,14 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 ### Vuepress features and issues
 
 
-## Platform Variants
+## Platform Variants and Versions
 
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
 * The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
 
+Furthermore, the platform features different _versions_ of the content to be deployed in one platform.
 
 ### Working with Platform Variants
 
@@ -199,6 +213,15 @@ To work on the IDA platform files, starting from a clean `master`:
 4. Add the files in `ida-customizations` to your commit and push to `master`.
 
 
+## Platform versions
+
+There is a version switch drop down at the top right in the navbar which allows the user to view older versions of the content. The versions are linked to specific branches in the repository, defined in the file `versions.txt` in the root folder. This file lists all versions (next to the master) to be build and added to the dropdown, the list is **space-separated**. The version build can be triggered locally by running `make build-website`, which then triggers the `build-versions.sh` script.
+
+Note: versions are deployed as sub-folders in the main dist package, with a different site (path) configuration. Therefore, version branch names must not collide with content folder names.
+
+The build output is collected in `/tmp/versions-build` and finally copied into `.vuepress/dist/versions-build`. You can adjust the temporary build folder by setting `VERSIONS_BUILD_PATH`.
+
+
 # Environments
 
 ## Visual Studio Code 
@@ -227,7 +250,7 @@ It is recommended that you master your terminal to be happy.
 
 ### iTerm2 Terminal Emulator
 
-On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the Bash shell that supports useful features like programmable completion.
+On MacOS, install the [iTerm2](https://iterm2.com/) OSS terminal emulator as a replacement for the default Terminal app. Installing iTerm2 as a replacement for Terminal provides an updated version of the bash shell that supports useful features like programmable completion.
 
 ### Using ZSH as Your Default Shell
 

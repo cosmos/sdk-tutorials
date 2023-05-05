@@ -20,13 +20,19 @@ Installing Go depends on your machine. See the [Getting Started page](https://go
 
 Go has a different workflow from most other programming tools. You have all Go dependencies contained in the `GOPATH`. You can print it by typing `$ go env GOPATH` in your console. For more information about `GOPATH`, type `$ go help gopath`.
 
+In particular, it may be useful to append the following to your `profile`, `bashrc` or equivalent:
+
+```sh
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
 A version control system is helpful because you have only one workspace. You should use Git for this.
 
 ## Hello, World!
 
 Let's start with the ever-popular "Hello, World!" program. Let's see how it looks in Go:
 
-```golang
+```go
 package main
 import "fmt"
 func main() {
@@ -58,7 +64,7 @@ This function simply calls the Go I/O function `Printf()` from the package `fmt`
 
 Now compile this program. Create the file `hello.go` in a folder of your choice. In a terminal:
 
-```
+```sh
 $ go mod init hello
 $ go build
 ```
@@ -67,7 +73,7 @@ If all goes well, `go` builds the executable. Go only prints errors, so you shou
 
 Now test your program:
 
-```
+```sh
 ./hello
 ```
 
@@ -79,7 +85,7 @@ If you use `go install` instead of `go build`, Go installs the executable in `$G
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 * [Go's Getting Started Page](https://golang.org/doc/install)
 * [Understanding Golang Packages](https://thenewstack.io/understanding-golang-packages/)

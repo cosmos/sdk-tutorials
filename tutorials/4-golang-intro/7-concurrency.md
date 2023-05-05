@@ -18,7 +18,7 @@ A *Goroutine* is a concurrent thread managed by the Go runtime.
 
 To call a goroutine use the following:
 
-```golang
+```go
 package main
 
 import (
@@ -53,7 +53,7 @@ If you run this program, you will see that both `doSomething(10)` functions work
 
 Go offers *channels* for communication between goroutines. Channels may be buffered or unbuffered. You can create an *unbuffered* channel with the following:
 
-```golang
+```go
 ch:= make(chan type)
 ```
 
@@ -61,19 +61,19 @@ You can use this channel to send and receive messages with the `<-` operator.
 
 **Send to** channel `ch` as follows:
 
-```golang
+```go
 ch <- v
 ```
 
 **Read from** channel `ch` as follows:
 
-```golang
+```go
 v := <-ch
 ```
 
 Now write an example using channels:
 
-```golang
+```go
 package main
 
 import (
@@ -111,7 +111,7 @@ In this case, you do not need to use `time.Sleep` anymore, because sends and rec
 
 To avoid blocking, you can create *buffered* channels:
 
-```golang
+```go
 c:= make(chan int, 100)
 ```
 
@@ -119,7 +119,7 @@ When a buffered channel is full, sends to it are blocked. When one is empty, rec
 
 You can iterate over the values of a channel if it is closed:
 
-```golang
+```go
 package main
 
 import (
@@ -163,7 +163,7 @@ func main() {
 
 Always close the channel (c) before you iterate over it. If you want to wait for multiple communication operations, Go offers `select`. This works similar to `switch`:
 
-```golang
+```go
 package main
 
 import (
@@ -224,7 +224,7 @@ To summarize, this section has explored:
 
 <HighlightBox type="reading">
 
-**Further readings:**
+**Further readings**
 
 Look into Mutexes, which we did not talk about here. This can be important for managing concurrency:
 
