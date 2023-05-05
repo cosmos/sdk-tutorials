@@ -1516,9 +1516,9 @@ Whenever you submit a transaction to `node-carol`, it will be propagated to the 
 
 At this juncture, you may ask: Is it still possible to run a full game in almost a single block, as you did earlier in the [CosmJS integration tests](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md#multiple-transactions-in-a-block)? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
-To find out, you need to credit tests' Alice and Bob's accounts:
+To find out, you need to credit the tests' Alice and Bob accounts:
 
-1. Get your prod setup's Alice and Bob's respective addresses:
+1. Get your prod setup's respective addresses for Alice and Bob:
 
    <CodeGroup>
 
@@ -1550,7 +1550,7 @@ To find out, you need to credit tests' Alice and Bob's accounts:
 
     </CodeGroup>
 
-2. The CosmJS tests use `stake` and `token` whereas this production setup uses only `upawn`. So do a text-wise search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
+2. The CosmJS tests use `stake` and `token`, whereas this production setup uses only `upawn`. Therefore, do a _text_ search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
 
 3. Credit the test accounts so that the CosmJS tests do not attempt to call a missing faucet:
 
@@ -1577,7 +1577,7 @@ To find out, you need to credit tests' Alice and Bob's accounts:
         --broadcast-mode block --yes
     ```
 
-Now you can launch the lot within `net-public`:
+Now you can launch everything within `net-public`:
 
 ```sh
 $ docker run --rm -it \
@@ -1588,7 +1588,7 @@ $ docker run --rm -it \
     npm test
 ```
 
-  Tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
+  The tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
 
 ### Stopping Compose
 
@@ -2111,7 +2111,7 @@ Which `RPC_URL` and which `FAUCET_URL` will the tests require?
     FAUCET_URL="http://localhost:4500"
     ```
 
-* If running from Docker, you have to pass to the tests values that resolve within Docker's automatic name resolution within `checkers-net`:
+* If running from Docker, you have to pass values to the tests that resolve via Docker's automatic name resolution within `checkers-net`:
 
 
     ```ini

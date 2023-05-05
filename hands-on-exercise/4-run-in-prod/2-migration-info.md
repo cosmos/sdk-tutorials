@@ -38,7 +38,7 @@ This is not done in vain. Instead, looking forward, this is done to support the 
 
 </HighlightBox>
 
-For now, a good tally should be such that for any player who has **ever** played it should be possible to access a tally of games won. While you are at it, you will add games lost, and forfeited. Fortunately, this is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial tally.
+For now, a good tally should be such that for any player who has **ever** played it should be possible to access a tally of games won. While you are at it, you will add games lost and forfeited. Fortunately, this is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial tally.
 
 For the avoidance of doubt, **v1 and v1.1 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not. As it happens, your application has a single module, apart from those coming from Cosmos SDK.
 
@@ -52,7 +52,7 @@ Several things need to be addressed before you can focus all your attention on t
     2. Add helper functions to encapsulate clearly defined actions.
     3. Adjust the existing code to make use of and update the new data types.
 3. Prepare for your v1-to-v1.1 migration:
-    1. Add helper functions to process large amounts of data from the latest chain state of type v1.
+    1. Add helper functions to process large amounts of data from the latest chain state of v1.
     2. Add a function to migrate your state from v1 to v1.1.
     3. Make sure you can handle large amounts of data.
 
@@ -66,7 +66,7 @@ For your convenience, you decide to keep all the migration steps in a new folder
 $ mkdir x/checkers/migrations
 ```
 
-Your data types are defined at a given consensus version of the module, not the application level v1. Find out the checkers' module current consensus version:
+Your data types are defined at a given consensus version of the module, not the application level v1. Find out the checkers module's current consensus version:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/x/checkers/module.go#L166]
 func (AppModule) ConsensusVersion() uint64 { return 2 }
@@ -373,7 +373,7 @@ With your v1.1 blockchain now fully operational on its own, it is time to work o
 
 ### Consensus version
 
-Your checkers module's current consensus version is 2. You are about to migrate its store, so you need to increment the module's consensus version by `1` exactly (to avoid any future surprises). You make these numbers more explicit.
+Your checkers module's current consensus version is 2. You are about to migrate its store, so you need to increment the module's consensus version by `1` exactly (to avoid any future surprises). You should make these numbers explicit:
 
 1. Save the v1 consensus version in a new file:
 
@@ -412,7 +412,7 @@ If performance and hardware constraints were not an issue, an easy way to do it 
 1. Call [`keeper.GetAllStoredGame()`](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/stored_game.go#L50) to get an array with all the games.
 2. Keep only the games that have a winner.
 3. Then for each game:
-    1. Call `keeper.GetPlayerInfo` or, if that is not found, create player info. Both for the black player and the red player.
+    1. Call `keeper.GetPlayerInfo` or, if that is not found, create player info both for the black player and the red player.
     2. Do `+1` on `.WonCount` or `.LostCount` according to the `game.Winner` field. In the current saved state, there is no way to differentiate between a _normal_ win and a win by forfeit.
     3. Call `keeper.SetPlayerInfo` for both black and red players.
 
@@ -445,12 +445,12 @@ The processing **routines** will be divided as per the following:
     * Fetch all games in paginated arrays.
     * Send the separate arrays on the _stored-game_ channel.
     * Send an error on the _stored-game_ channel if any is encountered.
-    * Close the _stored-game_ channel after the last array or on an error.
+    * Close the _stored-game_ channel after the last array, or on an error.
 
 2. The **game processing** routine will:
     
     * Receive separate arrays of games from the _stored-game_ channel.
-    * Compute the aggregate player info records from them. I.e. **_map_**.
+    * Compute the aggregate player info records from them (i.e. **_map_**).
     * Send the results on the _player-info_ channel.
     * Pass along an error if it receives any.
     * Close the _player-info_ channel after the last stored game, or on an error.
@@ -458,11 +458,11 @@ The processing **routines** will be divided as per the following:
 3. The **player info processing** routine will:
 
     * Receive individual player info records from the _player-info_ channel.
-    * Fetch the existing (or not) corresponding player info from the store.
-    * Update the won and lost counts, i.e. **_reduce_**. Remember, here it is doing `+= k`, not `+= 1`.
+    * Fetch the corresponding player info from the store. If it does not exist yet, it will create an empty new one.
+    * Update the won and lost counts (i.e. **_reduce_**). Remember, here it is doing `+= k`, not `+= 1`.
     * Save it back to the store.
     * Pass along an error if it receives any.
-    * Close the done_ channel after the last player info, or on an error.
+    * Close the _done_ channel after the last player info, or on an error.
 
 4. The **main function** will:
 
@@ -534,9 +534,9 @@ func loadStoredGames(context context.Context,
 
 Note that:
 
-* It passes along the channel a tuple `storedGamesChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error .
+* The helper function passes along the channel a tuple `storedGamesChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error .
 * It uses the paginated query so as to not overwhelm the memory if there are millions of infos.
-* And it closes the channel upon exit whether there is an error or not via the use of `defer`.
+* It closes the channel upon exit whether there is an error or not via the use of `defer`.
  
 </HighlightBox>
 
@@ -587,8 +587,8 @@ func handleStoredGameChannel(k keeper.Keeper,
 Note that:
 
 * This function can handle the edge case where black and red both refer to the same player.
-* It prepares a map with a capacity equal to the number of games. At most the capacity would be double that. It is a value that could be worth investigating for best performance.
-* It too passes along a tuple with an optional error.
+* It prepares a map with a capacity equal to the number of games. At most the capacity would be double that. This is a value that could be worth investigating for best performance.
+* Like the helper function, it passes along a tuple with an optional error.
 * It closes the channel it populates upon exit whether there is an error or not via the use of `defer`.
 
 </HighlightBox>
@@ -623,7 +623,7 @@ func handlePlayerInfoChannel(ctx sdk.Context, k keeper.Keeper,
 
 Note that:
 
-* It only passes an optional error.
+* This function only passes an optional error.
 * It closes the channel it populates upon exit whether there is an error or not via the use of `defer`.
 
 </HighlightBox>
@@ -649,12 +649,12 @@ func MapStoredGamesReduceToPlayerInfo(ctx sdk.Context, k keeper.Keeper, chunk ui
 
 Note that:
 
-* It delegates the closing of channels to the routines.
-* It starts the routines in the "reverse" order in which they are chained to reduce the likelihood of channel clogging.
+* The main function delegates the closing of channels to the routines.
+* It starts the routines in the "reverse" order that they are chained, to reduce the likelihood of channel clogging.
 
 </HighlightBox>
 
-Not to forget a suggested chunk size to pass as `chunk uint64` to the main function when fetching stored games:
+Do not forget a suggested chunk size to pass as `chunk uint64` to the main function when fetching stored games:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/x/checkers/migrations/cv3/types/keys.go#L5]
     const (
@@ -750,7 +750,7 @@ Add the simple tests cases, such as:
 
 And so on.
 
-It can be interesting also to measure the time it takes to compute in the case of a large data set depending on the chunk size:
+It can also be interesting to measure the time it takes to compute in the case of a large data set depending on the chunk size:
 
 ```go
 func TestBuild10kPlayerInfosInPlace(t *testing.T) {
@@ -828,7 +828,7 @@ Among the verbose test results, you can find something like:
 
 ## v1 to v1.1 migration proper
 
-The migration proper needs to execute the previous main function. You can encapsulate this knowledge in a function, that also makes more visible what is expected to take place:
+The migration proper needs to execute the previous main function. You can encapsulate this knowledge in a function, which also makes more visible what is expected to take place:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/x/checkers/migrations/cv3/migration.go]
 package cv3
@@ -869,7 +869,7 @@ The consensus version number bears no resemblance to v1 or v1.1. The consensus v
 
 </HighlightBox>
 
-You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan`, i.e. an upgrade governance proposal. This is a name relevant at the application level. Keep this information in a sub-folder of `app`:
+You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan` (i.e. an upgrade governance proposal). This is a name relevant at the application level. Keep this information in a sub-folder of `app`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/app/upgrades/v1tov1_1/keys.go#L4]
 const (
@@ -882,7 +882,7 @@ const (
 You have to inform your app about:
 
 1. The mapping between the consensus version(s) and the migration process(es).
-2. The mapping between this name and the module(s) consensus versions.
+2. The mapping between this name and the module(s) consensus version(s).
 
 Prepare these in turn.
 
@@ -917,7 +917,7 @@ Note that:
 
 ### Callback in `app`
 
-The function that you are going to write needs a `Configurator`. This is already created as part of your `app` preparation but is not kept. Instead of recreating one, adjust your code to make it easily available. Add this field to your `app`:
+The function that you are going to write needs a `Configurator`. This is already created as part of your `app` preparation, but it is not kept. Instead of recreating one, adjust your code to make it easily available. Add this field to your `app`:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/app/app.go#L238]
     type App struct {
@@ -992,7 +992,7 @@ Now you are ready to inform the app proper. You do this towards the end, after t
 
 <HighlightBox type="tip">
 
-Be aware that the `monitoring` module added by Ignite causes difficulty when experimenting below with the CLI. To make it simple, remove [all references to `monitoring`](https://github.com/cosmos/b9-checkers-academy-draft/compare/player-info-handling..player-info-migration#diff-0f1d2976054440336a576d47a44a37b80cdf6701dd9113012bce0e3c425819b7L159) from `app.go`.
+Be aware that the `monitoring` module added by Ignite causes difficulty when experimenting below with the CLI. To keep things simple, remove [all references to `monitoring`](https://github.com/cosmos/b9-checkers-academy-draft/compare/player-info-handling..player-info-migration#diff-0f1d2976054440336a576d47a44a37b80cdf6701dd9113012bce0e3c425819b7L159) from `app.go`.
 
 </HighlightBox>
 
@@ -1000,9 +1000,9 @@ When done right, adding the callbacks is a short and easy solution.
 
 ### Integration tests
 
-With changes made in `app.go`, unit tests will not cut it. You have to test with integration tests. Take inspiration from the upgrade keeper's [own integration tests](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/upgrade/keeper/keeper_test.go#L215-L233).
+With changes made in `app.go`, unit tests are inadequate – you have to test with integration tests. Take inspiration from the upgrade keeper's [own integration tests](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/upgrade/keeper/keeper_test.go#L215-L233).
 
-In a new folder dedicated to your migration integration tests, you copy the test suite and its setup function, which you created earlier for integration tests, minus the unnecessary `checkersModuleAddress` line:
+In a new folder dedicated to your migration integration tests, copy the test suite and its setup function, which you created earlier for integration tests, minus the unnecessary `checkersModuleAddress` line:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/tests/integration/checkers/migrations/cv3/upgrade_integration_suite_test.go]
 type IntegrationTestSuite struct {
@@ -1036,9 +1036,9 @@ func (suite *IntegrationTestSuite) SetupTest() {
 }
 ```
 
-It is necessary to redeclare as you cannot import test elements across package boundaries.
+It is necessary to redeclare, as you cannot import test elements across package boundaries.
 
-The code that runs for these tests is always at consensus version 3. After all you cannot wish away the player info code during the tests setup. However, you can make the `upgrade` module believe that it is still at the old state. Add this step into the suite's setup:
+The code that runs for these tests is always at consensus version 3. After all, you cannot wish away the player info code during the tests setup. However, you can make the `upgrade` module believe that it is still at the old state. Add this step into the suite's setup:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-migration/tests/integration/checkers/migrations/cv3/upgrade_integration_suite_test.go#L39-L40]
     app.BankKeeper.SetParams(ctx, banktypes.DefaultParams())
@@ -1274,7 +1274,7 @@ $ docker exec -t checkers \
 
 <HighlightBox type="note">
 
-You should **not** use `docker run --rm` here because, when `checkersd` stops, you do not want to remove the container and thereby destroy the saved keys, and future genesis too. Instead, you reuse them all in the next calls.
+You should **not** use `docker run --rm` here because, when `checkersd` stops, you do not want to remove the container and thereby destroy the saved keys, and the future genesis too. Instead, reuse them all in the next calls.
 
 </HighlightBox>
 
@@ -1501,7 +1501,7 @@ The `--broadcast-mode block` flag means that you can fire up many such games by 
 
 </HighlightBox>
 
-To get a few complete games, you are going to run the [integration tests](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts) against it. These tests expect a faucet being available. Because that is not the case, you need to:
+To get a few complete games, you are going to run the [integration tests](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts) against it. These tests expect a faucet to be available. Because that is not the case, you need to:
 
 1. Skip the faucet calls by adjusting the `"credit test accounts"` `before`. Just `return` before [`this.timeout`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L65).
 
@@ -2089,7 +2089,7 @@ playerInfo:
   wonCount: "0"
 ```
 
-Congratulations, you have upgraded your blockchain almost as if in production.
+Congratulations, you have upgraded your blockchain almost as if in production!
 
 You can stop Ignite CLI. If you used Docker that would be:
 

@@ -1056,7 +1056,7 @@ But that is okay.
 
 <HighlightBox type="note">
 
-An alias, `cosmos-faucet` is added so that it can be accessed too.
+An alias, `cosmos-faucet`, is added so that it can be accessed too.
 
 </HighlightBox>
 

@@ -33,25 +33,27 @@ In this section, you will:
 
 In the previous section you added a player info structure that tallies wins and losses per player. On its own, this information could be collected outside of the blockchain via a [dedicated server](/hands-on-exercise/3-cosmjs-adv/5-server-side.md).
 
-It was in fact done on-chain so as to make this new step more relevant. If you want an on-chain leaderboard that is provably correct, then you need its information to come from the chain too. You now have the necessary information on-chain in the form of `PlayerInfo`. You need to organize it into a leaderboard.
+It was in fact done on-chain so as to make this new step more relevant. If you want an on-chain leaderboard that is provably correct, then you need its information to come from the chain too. As a result of this choice, you have the necessary information on-chain in the form of `PlayerInfo`. You now need to organize it into a leaderboard.
 
 ## High level considerations
 
 Your blockchain is now at _v1.1_. In this section, you will introduce _v2_ of your blockchain with leaderboard support. A good leaderboard fulfills these conditions:
 
 * Any player who has **ever** played should have a tally of games won, lost, and forfeited. You already have that.
-* The leaderboard should list the players with the most wins up to a pre-determined number of players. For example, the leaderboard could only include the top 100 scores.
-* To avoid squatting and increase engagement, when equal in value the most recent score takes precedence over an _older_ one, so the player with the **more recent score** is listed higher on the leaderboard.
+* The leaderboard should list the players with the most wins up to a pre-determined number of players. For example, the leaderboard might only include the top 100 scores.
+* To avoid squatting and increase engagement, when scores are equal in value the most recent score takes precedence over an _older_ one: the player with the **more recent score** is listed higher on the leaderboard.
 
 <HighlightBox type="tip">
 
-When you introduce the leaderboard in production, you also have to consider the migration. This concern is covered in the [next section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
+When you introduce the leaderboard in production, you also have to consider migration. This concern is covered in the [next section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
 
 </HighlightBox>
 
-The leaderboard is not strictly the concern of the game of checkers. It is a side concern. The concept of a leaderboard is also very generic. You could easily imagine it being used for other games. Therefore, it makes sense to introduce it as a **separate module**, next to the checkers module.
+The leaderboard is not strictly the concern of the game of checkers. It is a side concern. The concept of a leaderboard is also very generic, you could easily imagine it being used for other types of game. Therefore, it makes sense to introduce it as a **separate module** next to the checkers module.
 
-The checkers and leaderboard modules will exchange information. More specifically, the leaderboard needs to know when a player's total wins change as this may warrant entering the leaderboard. If you have the checkers module call the leaderboard module, just as it does call the bank when handling wagers, it means that the checkers module needs to know the details of the leaderboard module. It is best to avoid such tight coupling. Fortunately, you can reuse a **_hooks_ pattern** already used in the Cosmos SDK. With this future addition, the leaderboard module adds a listener to the hook interface of the checkers module. Then the checkers module informs the listeners, whether there is none, one, or many.
+The checkers and leaderboard modules will exchange information. More specifically, the leaderboard needs to know when a player's total wins change, as this may warrant entering the leaderboard. If you have the checkers module call the leaderboard module (just as it calls the bank when handling wagers), the checkers module needs to know the details of the leaderboard module. It is best to avoid such tight coupling. 
+
+Fortunately, you can reuse a **_hooks_ pattern** already used in the Cosmos SDK. With this future addition, the leaderboard module adds a listener to the hook interface of the checkers module. With this the checkers module informs any listeners, whether there are none, one, or many.
 
 The leaderboard module will work by listening to results from the checkers module. It will not have messages of it own.
 
@@ -62,9 +64,13 @@ Thinking about early performance optimization, you have to decide what operation
 3. If added, sort and clip the list.
 4. Put the leaderboard back in storage.
 
-These are a lot of expensive operations for a single candidate. There is a better way. The leaderboard needs to be computed and saved when the block is prepared, but it does not need to be up to date after each (checkers) transaction. You can imagine keeping the leaderboard, or something approximating it in memory for the whole length of the block. In the section about [expiring games](../2-ignite-cli-adv/4-game-forfeit.md), you learned about `EndBlock`. There is also a `BeginBlock` callback. It is conceivable to prepare the leaderboard in `BeginBlock` and keep **it in the context or a memory or transient storage**. Then it would be recalled with each candidate, and finally, in `EndBlock`, and only there, it would be sorted and clipped before being saved in storage proper.
+These are a lot of expensive operations for a single candidate. 
 
-Even better, actually, you do not need to _prepare_ the leaderboard in `BeginBlock`. You can just keep candidates in the transient storage as they come. Then only in `EndBlock` is the leaderboard loaded, updated, and saved.
+Fortunately, there is a better way. The leaderboard needs to be computed and saved when the block is prepared, but it does not need to be up to date after each (checkers) transaction. You can imagine keeping the leaderboard (or something approximating it) in memory for the whole length of the block. 
+
+In the section about [expiring games](../2-ignite-cli-adv/4-game-forfeit.md), you learned about `EndBlock`. There is also a `BeginBlock` callback. It is conceivable to prepare the leaderboard in `BeginBlock` and **keep it in the context or a memory or transient storage**. Then it would be recalled with each candidate, and finally (in `EndBlock`, and only there) it would be sorted and clipped before being saved in storage proper.
+
+Better still, though, you do not need to _prepare_ the leaderboard in `BeginBlock`. You can just keep candidates in the transient storage as they come. Then only in `EndBlock` is the leaderboard loaded, updated, and saved.
 
 ## What you will do
 
@@ -81,12 +87,12 @@ Several things need to be addressed to build your v2 blockchain:
 
 ## New v2 module
 
-As discussed, you introduce a new leaderboard module. This is conveniently done with Ignite CLI. 
+As discussed, you will introduce a new leaderboard module. This is conveniently done with Ignite CLI. 
 
 Ignite also offers the possibilty to add new `Params` to the module. These are module-wide parameters:
 
-1. Whose original value is defined in the genesis.
-2. That can be modified via governance proposal.
+1. Whose original value is defined in the genesis
+2. That can be modified via governance proposal
 
 It could be interesting to have the length of the leaderboard be defined like that.
 
@@ -139,7 +145,7 @@ The genesis defines a [starting value](https://github.com/cosmos/b9-checkers-aca
 )
 ```
 
-You also make it `const` as this is the case and comes handy later on.
+You also make it `const` as this is the case and becomes helpful later on.
 
 ## New v2 information
 
@@ -197,15 +203,15 @@ To give the new v2 information a data structure, you need the following:
 
     <HighlightBox type="note">
 
-    Where:
+    Take note of the key features:
 
-    * `address` indicates the player. It will be the same address as the one that comes in `PlayerInfo.index`.
-    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array. This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
+    * `address` indicates the player. This will be the same address as the one that comes in `PlayerInfo.index`.
+    * `wonCount` determines the ranking on the leaderboard - the higher the count, the closer to the `0` index in the array. This should exactly match the value found in the corresponding player stats. This duplication of data is a lesser evil, because if `wonCount` was missing you would have to access the player stats to sort the leaderboard.
     * `addedAt` is a timestamp that indicates when the player's `wonCount` was last updated and determines the ranking when there is a tie in `wonCount` - the more recent, the closer to the `0` index in the array.
 
     </HighlightBox>
 
-3. You make the `Leaderboard` message use it as an array. Add that each element in the map is not nullable. This will compile each `WinningPlayer` to a Go object instead of a pointer:
+3. You make the `Leaderboard` message use `message Winner` as an array. Add that each element in the map is not nullable. This will compile each `WinningPlayer` to a Go object instead of a pointer:
 
     ```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-objects/proto/leaderboard/leaderboard.proto#L5-L8]
     +  import "gogoproto/gogo.proto";
@@ -346,7 +352,7 @@ To give the new v2 information a data structure, you need the following:
     +  return network.New(t, cfg), state.Leaderboard
     ```
 
-7. Now that the leaderboard will always be in the store, you may as well change the `GetLeaderboard` function so that it panics instead of returning an error, when it cannot find it:
+7. Now that the leaderboard will always be in the store, you may as well change the `GetLeaderboard` function so that it panics instead of returning an error when it cannot find it:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-objects/x/leaderboard/keeper/leaderboard.go#L17-L27]
     -  func (k Keeper) GetLeaderboard(ctx sdk.Context) (val types.Leaderboard, found bool) {
@@ -363,7 +369,7 @@ To give the new v2 information a data structure, you need the following:
         }
     ```
 
-    This requires further easy fixing of new compilation errors. A more complex one is the one that checks what happens when the leaderboard is removed:
+    This requires further easy fixing of new compilation errors. A more complex fix is the one that checks what happens when the leaderboard is removed:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-objects/x/leaderboard/keeper/leaderboard_test.go#L31-L41]
         func TestLeaderboardRemove(t *testing.T) {
@@ -381,7 +387,7 @@ To give the new v2 information a data structure, you need the following:
         }
     ```
 
-8. The test case you added will fail, unless you update the `Validate()` method of the genesis to not allow duplicate player addresses. This is inspired by `types/genesis.go` and best kept in a separate and new `types/leaderboard.go`:
+8. The test case you added will fail unless you update the `Validate()` method of the genesis to not allow duplicate player addresses. This is inspired by `types/genesis.go`, and is best kept in a separate and new `types/leaderboard.go`:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-objects/x/leaderboard/types/leaderboard.go#]
     func (leaderboard Leaderboard) Validate() error {
@@ -430,7 +436,9 @@ In `leaderboard.proto`, add:
 +  }
 ```
 
-Where `bytes address` is the player's undecoded address. Remember that `sdk.AccAddress`'s underlying type is `byte[]`.
+Where `bytes address` is the player's undecoded address. 
+
+Remember that `sdk.AccAddress`'s underlying type is `byte[]`.
 
 After another round of Go compilation, you can add a helper function to get a `Candidate`'s address as a Bech32 string:
 
@@ -440,7 +448,9 @@ func (candidate Candidate) GetAccAddress() string {
 }
 ```
 
-Where `sdk.AccAddress(candidate.Address)` is casting the `byte[]` into `sdk.AccAddress`. Also add a function to convert it into a leaderboard rung at a given time:
+Where `sdk.AccAddress(candidate.Address)` is casting the `byte[]` into `sdk.AccAddress`. 
+
+Also add a function to convert it into a leaderboard rung at a given time:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-objects/x/leaderboard/types/leaderboard.go]
 func (candidate Candidate) GetWinnerAtTime(now time.Time) Winner {
@@ -488,11 +498,11 @@ You can reuse your `types/leaderboard.go` to encapsulate all your leaderboard he
 
     <HighlightBox type="tip">
 
-    It is possible to write a one-liner inside this function but at the expense of readability.
+    It is possible to write a one-liner inside this function, but at the expense of readability.
 
     </HighlightBox>
 
-2. When it comes to adding or updating candidates to the array of winners, your goal is to make these operations as efficiently as possible. To avoid having to find duplicate player addresses in an array, it is better to use a map. Add a function to convert an array of winners into a map:
+2. When it comes to adding or updating candidates to the array of winners, your goal is to make these operations as efficient as possible. To avoid having to find duplicate player addresses in an array, it is better to use a map. Add a function to convert an array of winners into a map:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/types/leaderboard.go#L52-L63]
     func MapWinners(winners []Winner, length int) map[string]Winner {
@@ -539,7 +549,7 @@ You can reuse your `types/leaderboard.go` to encapsulate all your leaderboard he
 
 ## Candidate Lifecycle
 
-You have prepared helper functions that will update a list of winners with a list of candidates. The candidates will come from the transient store. Transient in the sense that it will be discarded after `EndBlock`. This is good for this usage as you do not want to carry candidates from one block to the next.
+You have prepared helper functions that will update a list of winners with a list of candidates. The candidates will come from the transient store – transient in the sense that it will be discarded after `EndBlock`. That is good for this usage, as you do not want to carry candidates from one block to the next.
 
 Your leaderboard module does not have access to a transient store by default, so you will have to prepare that first.
 
@@ -547,7 +557,7 @@ Additionally, you want to reduce the number of marshalling / unmarshalling takin
 
 You will:
 
-1. Prepare access to a transient store to your leaderboard module.
+1. Prepare your leaderboard module with access to a transient store.
 2. Define keys of the candidates transient store.
 3. Add a function to prepare the candidates transient store in `BeginBlock`.
 4. Add a function to add a single candidate to the store.
@@ -555,7 +565,7 @@ You will:
 
 ### Prepare transient store
 
-By default, Ignite CLI does not prepare your module to have access to a transient like it prepares it to have access to the proper store. The preparation works the same way as a normal store.
+By default, Ignite CLI does not prepare your module to have access to a transient store like it prepares it to have access to the proper store. The preparation works the same way as a normal store.
 
 Add a transient store key in your keeper:
 
@@ -590,7 +600,7 @@ Update the constructor accordingly:
     }
 ```
 
-This key will be identified by a new string in `app.go`'s list of transient store keys. Add a distinct such key:
+This key will be identified by a new string in `app.go`'s list of transient store keys. Add such a distinct key:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/types/keys.go#L19-L20]
     MemStoreKey = "mem_leaderboard"
@@ -599,7 +609,7 @@ This key will be identified by a new string in `app.go`'s list of transient stor
 +  TStoreKey = "transient_leaderboard"
 ```
 
-Adjust `app.go` so that it gives the keeper a valid key. And take this opportunity to fix an Ignite bug on `memKeys`:
+Adjust `app.go` so that it gives the keeper a valid key. Also take this opportunity to fix an Ignite bug on `memKeys`:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/app/app.go#L419-L420]
     app.LeaderboardKeeper = *leaderboardmodulekeeper.NewKeeper(
@@ -611,7 +621,7 @@ Adjust `app.go` so that it gives the keeper a valid key. And take this opportuni
     )
 ```
 
-Not to forget to ensure that there is indeed a store key at the string(s) you asked:
+Do not forget to ensure that there is indeed a store key at the string(s) you asked:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/app/app.go#L303-L304]
 -  tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -622,7 +632,7 @@ Not to forget to ensure that there is indeed a store key at the string(s) you as
 
 ### Prepare candidate store keys
 
-Your keeper has access to a transient store. Define the keys by which elements will be accessed in it. Taking inspiration from checkers' stored games use of prefixes and their use in the `GetAllStoredGame` function, you prepare prefix keys for the values in a new `types/key_candidate.go` file:
+Your keeper has access to a transient store. Define the keys by which elements will be accessed in it. Taking inspiration from checkers' stored games use of prefixes and their use in the `GetAllStoredGame` function, prepare prefix keys for the values in a new `types/key_candidate.go` file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/types/key_candidate.go#L9-L23]
 const (
@@ -654,7 +664,7 @@ func (k Keeper) SetCandidate(ctx sdk.Context, candidate types.Candidate) {
 }
 ```
 
-This function saves the candidate at its address. Already having `[]byte Address` in the `Candidate` object proves useful. This also means that if there are two updates in one block for a single player, only the second update is recorded. In the case of a game that has only increasing scores, this is ok.
+This function saves the candidate at its address. Already having `[]byte Address` in the `Candidate` object proves useful. This also means that if there are two updates in one block for a single player only the second update is recorded. In the case of a game that has only increasing scores, this is okay.
 
 Next, taking inspiration from `StoredGame` again, add a function to get all candidates with an iterator:
 
@@ -675,7 +685,7 @@ func (k Keeper) GetAllCandidates(ctx sdk.Context) (candidates []types.Candidate)
 }
 ```
 
-It gets all candidates. There may be many, but not so many that it grinds the application. After all, it only gets all that was put during the block itself.
+This gets all candidates. There may be many, but not so many that it grinds the application. After all, it only gets all that was put during the block itself.
 
 ## Leaderboard handling
 
@@ -720,10 +730,10 @@ To populate candidate winners in your transient store, you are going to _listen_
 
 * This will avoid tight coupling between the modules.
 * The checkers module will not care whether there is a listener or not.
-* It will be the duty of `app.go` to hook the leaderboard's listener to the checkers' emitter.
-* To reduce the dependency of the leaderboard module to elements of the checkers module, you are going to restrict to a single file.
+* It will be the duty of `app.go` to hook the leaderboard's listener to the checkers emitter.
+* To reduce the dependency of the leaderboard module on elements of the checkers module, you are going to restrict to a single file.
 
-With Cosmos SDK, hooks are a design pattern so you have to code them.
+With Cosmos SDK hooks are a design pattern, so you have to code them.
 
 ### On the checkers module
 
@@ -735,9 +745,9 @@ type CheckersHooks interface {
 }
 ```
 
-Here you can imagine you could add functions for all sorts of updates coming from checkers. But for the sake of the exercise, keep it simple.
+Here you can imagine you could add functions for all sorts of updates coming from checkers. But for the sake of the exercise keep it simple.
 
-then, taking inspiration from the [governance module's hooks](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/gov/types/hooks.go#L7-L20), you define a convenience multi hook that can accommodate multiple listeners:
+Then, taking inspiration from the [governance module's hooks](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/gov/types/hooks.go#L7-L20), define a convenience multi hook that can accommodate multiple listeners:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/checkers/types/hooks.go#L7-L19]
 var _ CheckersHooks = MultiCheckersHooks{}
@@ -782,9 +792,9 @@ func (keeper *Keeper) SetHooks(hooks types.CheckersHooks) *Keeper {
 }
 ```
 
-Having a function to set the hooks is advised as that allows you to collect the listeners you need without worrying about the order of creation of other keepers.
+Having a function to set the hooks is advised, as that allows you to collect the listeners you need without worrying about the order of creation of other keepers.
 
-With the hooks structure in place, there remains to have your checkers code call it. The best place for that is precisely where it is updated and saved:
+With the hooks structure in place, you must have your checkers code call it. The best place for that is precisely where it is updated and saved:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/checkers/keeper/player_info_handler.go#L32-L34]
     func mustAddDeltaGameResultToPlayer(
@@ -811,7 +821,7 @@ The checkers module is now ready with regards to the hooks.
 
 ### On the leaderboard module
 
-In your keeper, you define a generic checkers hook listener. In a new `keeper/hooks.go` file, put a simple:
+In your keeper, define a generic checkers hook listener. In a new `keeper/hooks.go` file, put a simple:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks.go#L3-L7]
 type Hooks struct {
@@ -821,7 +831,7 @@ type Hooks struct {
 func (k Keeper) Hooks() Hooks { return Hooks{k} }
 ```
 
-Then, so as to keep the dependency on checkers' types into as few files as possible, you encapsulate the conversion knowledge in a new `types/leaderboard_checkers.go`:
+Then, so as to keep the dependency on checkers' types in as few files as possible, encapsulate the conversion knowledge in a new `types/leaderboard_checkers.go`:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/types/leaderboard_checkers.go#L9-L18]
 func MakeCandidateFromPlayerInfo(playerInfo checkerstypes.PlayerInfo) (candidate Candidate, err error) {
@@ -836,7 +846,7 @@ func MakeCandidateFromPlayerInfo(playerInfo checkerstypes.PlayerInfo) (candidate
 }
 ```
 
-And you encapsulate the handling in a new `keeper/hooks_checkers.go` file:
+Now encapsulate the handling in a new `keeper/hooks_checkers.go` file:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks_checkers.go#L11-L22]
 var _ checkerstypes.CheckersHooks = Hooks{}
@@ -853,11 +863,11 @@ func (h Hooks) AfterPlayerInfoChanged(ctx sdk.Context, playerInfo checkerstypes.
 }
 ```
 
-As you can see, it takes the new information and puts it into the transient store; only if it is worth it.
+As you can see, this takes the new information and puts it into the transient store _only if it is worth doing so_.
 
 <HighlightBox type="best-practice">
 
-If your leaderboard hooks listener was set to listen from more than one module, you would add a new `hooks_othermodule.go` file that would only concerns itself with that other module.
+If your leaderboard hooks listener was set to listen from more than one module, you would add a new `hooks_othermodule.go` file that only concerns itself with that other module.
 
 </HighlightBox>
 
@@ -865,7 +875,7 @@ The leaderboard handling is now complete.
 
 ### On `app.go`
 
-All `app.go` has to do is calling checkers' `SetHooks` with the leaderboard's listener after all keepers have been created:
+All `app.go` has to do is call checkers' `SetHooks` with the leaderboard's listener after all keepers have been created:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/app/app.go#L427-L431]
     leaderboardModule := leaderboardmodule.NewAppModule(appCodec, app.LeaderboardKeeper, app.AccountKeeper, app.BankKeeper)
@@ -1034,7 +1044,7 @@ func TestAddCandidatesAtNow(t *testing.T) {
 
 ### Candidate lifecycle unit tests
 
-You added functions to set and get candidates from the transient store. You ought to add unit tests to confirm it works as expected.
+You added functions to set and get candidates from the transient store. You ought to add unit tests to confirm this works as expected.
 
 First, you need to make sure that your test keeper has a valid transient store:
 
@@ -1061,7 +1071,7 @@ First, you need to make sure that your test keeper has a valid transient store:
     }
 ```
 
-With this preparation, you can add simple tests. That you can get back [one candidate](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/candidate_test.go#L20-L39) when there is one, or three when there are three:
+With this preparation, you can add simple tests. For example, that you get back [one candidate](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/candidate_test.go#L20-L39) when there is one, or three when there are three:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/candidate_test.go#L41-L76]
 func TestSetAndGetThreeCandidates(t *testing.T) {
@@ -1104,7 +1114,7 @@ func TestSetAndGetThreeCandidates(t *testing.T) {
 
 <HighlightBox type="note">
 
-Note the small hack where the received candidates are sorted by `WonCount`. The `GetAllCandidates` function does not ensure an order, so to be able to easily use `require.Equal`, an ordering was used.
+Note the small hack where the received candidates are sorted by `WonCount`. The `GetAllCandidates` function does not ensure an order, so to be able to easily use `require.Equal` an ordering was used.
 
 </HighlightBox>
 
@@ -1221,11 +1231,11 @@ func TestOneCandidateAdded(t *testing.T) {
 }
 ```
 
-Also that it overwrites when it receives [an update for the same address](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks_checkers_test.go#L33-L56), or adds a second candidate [alongside an existing one](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks_checkers_test.go#L58-L84).
+Confirm also that it overwrites when it receives [an update for the same address](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks_checkers_test.go#L33-L56), or adds a second candidate [alongside an existing one](https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/keeper/hooks_checkers_test.go#L58-L84).
 
 ### Hook unit tests on checkers
 
-You introduced a new type, the `MultiHook`. You should test that it indeed distributes calls to the elements of the list. That calls for a mock of the `CheckersHooks` expected interface.
+You introduced a new type, the `MultiHook`. You should test that it indeed distributes calls to the elements of the list. This calls for a mock of the `CheckersHooks` expected interface.
 
 Run again your [existing script](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) that rebuilds all the mocks.
 
@@ -1286,13 +1296,9 @@ func TestMultiHookCallsThem(t *testing.T) {
 
 Your existing checkers keeper tests should still be passing.
 
-<HighlightBox type="note">
+However, there is a small difficulty that would not surface immediately: when you set the hooks after the `msgServer` has been created, because it takes a keeper instance and not a pointer, the `msgServer` is created with the _old_ keeper (the one before the hooks were set).
 
-There is a small difficulty that would not surface immediately. When you set the hooks after the `msgServer` has been created, because it takes a keeper instance, and not a pointer, the `msgServer` is created with the _old_ keeper, the one before the hooks were set.
-
-</HighlightBox>
-
-So add a setup function that encapsulates the knowledge to circumvent this difficulty:
+Therefore, add a setup function that encapsulates the knowledge to circumvent this difficulty:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/checkers/keeper/msg_server_play_move_test.go#L35-L42]
 func setupMsgServerWithOneGameForPlayMoveAndHooks(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context,
@@ -1305,7 +1311,7 @@ func setupMsgServerWithOneGameForPlayMoveAndHooks(t testing.TB) (types.MsgServer
 }
 ```
 
-You can now add a test that confirms that a game just played does not trigger a call to the hooks.
+You can now add a test that confirms that a game just played does not trigger a call to the hooks:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/checkers/keeper/msg_server_play_move_test.go#L607-L626]
 func TestPlayerInfoNoHookOnNoWinner(t *testing.T) {
@@ -1370,15 +1376,15 @@ func TestCompleteGameCallsHook(t *testing.T) {
 
 ## Integration tests
 
-To further confirm that your code is working right, you can add integration tests. Since it starts an app, the hooks are already set up.
+To further confirm that your code is working correctly you can add integration tests. Since it starts an app, the hooks are already set up.
 
-You could decide to piggy-back on the existing "checkers" integration tests. However, for the sake of clarity, you create a separate folder:
+You could decide to piggy-back on the existing "checkers" integration tests. However, for the sake of clarity, create a separate folder:
 
 ```sh
 $ mkdir -p tests/integration/leaderboard/keeper
 ```
 
-Copy the integration test suite from the checkers integration tests, with adjusted imports and others, minus all the balances and denoms. You keep the `msgServer` as that is the one that receives messages:
+Copy the integration test suite from the checkers integration tests, with adjusted imports and others, minus all the balances and denoms. Keep the `msgServer`, as that is the one that receives messages:
 
 ```go
 const (
@@ -1458,7 +1464,7 @@ func (suite *IntegrationTestSuite) TestPlayMoveToWinnerAddedToLeaderboard() {
 }
 ```
 
-Or expired:
+Or when a game is expired:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/tests/integration/leaderboard/keeper/end_block_server_game_test.go]
 func (suite *IntegrationTestSuite) TestForfeitPlayedTwiceCalledHooks() {
@@ -1513,11 +1519,11 @@ func (suite *IntegrationTestSuite) TestForfeitPlayedTwiceCalledHooks() {
 
 Note how you have to call both _end blockers_ because there are actually no blocks being produced. This recalls what you did previously when integration-testing the game forfeit.
 
-This completes your checkers v2 chain. If you were to start it anew as is, it would work. If you want to see how you would migrate your blockchain if it were running the v1.1, jump straight to the [next section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
+This completes your checkers v2 chain. If you were to start it anew as is, it would work. If you want to see how you would migrate your blockchain if it were running v1.1, jump straight to the [next section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md).
 
 ## Interact via the CLI
 
-Your v2 blockchain is fully functioning. It will work as long as you start it from scratch, i.e. you should not try to migrate.
+Your v2 blockchain is fully functioning. It will work as long as you start it from scratch (i.e. you should not try to migrate).
 
 You should already know your way around testing this way. The simplest way is to use Ignite:
 
@@ -1611,7 +1617,7 @@ Leaderboard:
     wonCount: "1"
 ```
 
-Congratulations, your leaderboard is functional.
+Congratulations, your leaderboard is functional!
 
 If you used Docker, you can stop the container and remove the network:
 
@@ -1624,7 +1630,7 @@ $ docker network rm checkers-net
 To summarize, this section has explored:
 
 * How to add a leaderboard as a module to an existing blockchain, and the characteristics that a good leaderboard should boast.
-* How to keep modules loosely coupled when possible, with the use of hooks.
+* How to keep modules loosely coupled, when possible, with the use of hooks.
 * How to leverage the transient store to save data for use in `EndBlock`.
 * How to reduce computations and overall blockchain burden by ordering the leaderboard only once per block, in `EndBlock`.
 * Worthwhile unit tests, including recreating the mocks, and integration tests.
