@@ -52,7 +52,7 @@ Remember the abbreviation _IBC/TAO_ where the _O_ represents _Ordering_. There a
 
 Similarly to how connections are established, **channels are established through a four-way handshake**, in which each step is initiated by a relayer:
 
-![Channel Handshake](/academy/3-ibc/images/channelhandshake.png)
+![Channel Handshake](/academy/4-ibc/images/channelhandshake.png)
 
 1. `ChanOpenInit`: will set the chain A into `INIT` state. This will call `OnChanOpenInit` so application A can apply the custom callback that it has set on `INIT`, e.g. check if the port has been set correctly, the channel is indeed unordered/ordered as expected, etc. An application version is also proposed in this step.
 2. `ChanOpenTry`: will set chain B into `TRY` state. It will call `OnChanOpenTry` so application B can apply its custom `TRY` callback. Application version negotiation also happens during this step.
@@ -160,7 +160,7 @@ func NewPacket(
 
 The diagram below shows the application packet flow for the success case (top) and unsuccessful or timeout case (bottom). Both cases will be discussed in more detail in the next paragraphs.
 
-![Packet flow](/academy/3-ibc/images/packetflow.png)
+![Packet flow](/academy/4-ibc/images/packetflow.png)
 
 ## Success case
 

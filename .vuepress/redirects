@@ -15,14 +15,13 @@
 /academy/2-main-concepts/context.html /academy/2-cosmos-concepts/11-context.html
 /academy/2-main-concepts/migrations.html /academy/2-cosmos-concepts/12-migrations.html
 /academy/2-main-concepts/bridges.html /academy/2-cosmos-concepts/13-bridges.html
-/academy/4-ibc/ /academy/3-ibc/
-/academy/4-ibc/what-is-ibc.html /academy/3-ibc/1-what-is-ibc.html
-/academy/4-ibc/connections.html /academy/3-ibc/2-connections.html
-/academy/4-ibc/channels.html /academy/3-ibc/3-channels.html
-/academy/4-ibc/clients.html /academy/3-ibc/4-clients.html
-/academy/4-ibc/token-transfer.html /academy/3-ibc/5-token-transfer.html
-/academy/4-ibc/ica.html /academy/3-ibc/6-ica.html
-/academy/4-ibc/ibc-tooling.html /academy/3-ibc/7-ibc-tooling.html
+/academy/4-ibc/what-is-ibc.html /academy/4-ibc/1-what-is-ibc.html
+/academy/4-ibc/connections.html /academy/4-ibc/2-connections.html
+/academy/4-ibc/channels.html /academy/4-ibc/3-channels.html
+/academy/4-ibc/clients.html /academy/4-ibc/4-clients.html
+/academy/4-ibc/token-transfer.html /academy/4-ibc/5-token-transfer.html
+/academy/4-ibc/ica.html /academy/4-ibc/6-ica.html
+/academy/4-ibc/ibc-tooling.html /academy/4-ibc/7-ibc-tooling.html
 /academy/3-my-own-chain/setup.html /tutorials/2-setup/
 /academy/3-my-own-chain/node-api-and-cli.html /tutorials/3-run-node/
 /academy/golang-intro/ /tutorials/4-golang-intro/
@@ -73,3 +72,4 @@
 /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
 /hands-on-exercise/2-ignite-cli-adv/3-move-count.html /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
 /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
+/academy/3-ibc/ /academy/4-ibc/

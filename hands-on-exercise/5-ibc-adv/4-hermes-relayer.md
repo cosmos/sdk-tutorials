@@ -434,4 +434,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](/academy/3-ibc/7-ibc-tooling.md), you can find an overview of helpful tools for IBC.-->
+With this introduction to the Hermes relayer, you are all set for relaying. In the [next section](/academy/4-ibc/7-ibc-tooling.md), you can find an overview of helpful tools for IBC.-->

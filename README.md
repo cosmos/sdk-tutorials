@@ -178,20 +178,20 @@ customModules:
             path: /academy/2-cosmos-concepts/14-bridges.html
       - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
-        href: /academy/3-ibc/
+        href: /academy/4-ibc/
         description: |
           This chapter will give you an understanding of the Inter-Blockchain Communication Protocol including:
         links:
           - title: What is IBC?
-            path: /academy/3-ibc/1-what-is-ibc.html
+            path: /academy/4-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
-            path: /academy/3-ibc/2-connections.html
+            path: /academy/4-ibc/2-connections.html
           - title: Fungible token transfer
-            path: /academy/3-ibc/5-token-transfer.html
+            path: /academy/4-ibc/5-token-transfer.html
           - title: Interchain accounts
-            path: /academy/3-ibc/6-ica.html
+            path: /academy/4-ibc/6-ica.html
           - title: IBC tooling
-            path: /academy/3-ibc/7-ibc-tooling.html
+            path: /academy/4-ibc/7-ibc-tooling.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.

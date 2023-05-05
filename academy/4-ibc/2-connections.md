@@ -64,7 +64,7 @@ Protocol versioning is important to establish, as different protocol versions ma
 
 As discussed previously, the opening handshake protocol allows each chain to verify the identifier used to reference the connection on the other chain, enabling modules on each chain to reason about the reference of the other chain.
 
-![Connection state](/academy/3-ibc/images/connectionstate.png)
+![Connection state](/academy/4-ibc/images/connectionstate.png)
 
 With regards to the connection on the other side, the [connection protobufs](https://github.com/cosmos/ibc-go/blob/v5.1.0/proto/ibc/core/connection/v1/connection.proto) contains the `Counterparty` definition:
 
@@ -111,7 +111,7 @@ A high level overview of a successful four-way handshake is as follows:
 
 `OpenInit` initializes any connection which may occur, while still necessitating agreement from both sides. It is like an identifying announcement from the IBC module on chain A which is submitted by a relayer. The relayer should also submit a `MsgUpdateClient` with chain A as the source chain before this handshake. `MsgUpdateClient` updates the client on the initializing chain A with the latest consensus state of chain B.
 
-![OpenInit](/academy/3-ibc/images/open_init.png)
+![OpenInit](/academy/4-ibc/images/open_init.png)
 
 The initiation of this handshake from chain A updates its connection state to `INIT`.
 
@@ -209,7 +209,7 @@ func (k Keeper) ConnectionOpenInit(goCtx context.Context, msg *connectiontypes.M
 
 `OpenInit` is followed by an `OpenTry` response, in which chain B verifies the identity of chain A according to information that chain B has about chain A in its light client (the algorithm and the last snapshot of the consensus state containing the root hash of the latest height as well as the next validator set). It also responds to some of the information about its own identity in the `OpenInit` announcement from chain A.
 
-![OpenTry](/academy/3-ibc/images/open_try.png)
+![OpenTry](/academy/4-ibc/images/open_try.png)
 
 The purpose of this step of the handshake is double verification: not only for chain B to verify that chain A is the expected counterparty identity, but also to verify that the counterparty has accurate information about chain B's identity. The relayer also submits two `MsgUpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B in order to make sure that the state verifications in this step are successful.
 
@@ -247,7 +247,7 @@ func (k Keeper) ConnOpenTry(
 
 `OpenAck` is very similar to the functionality of `OpenInit`, except that the information verification now occurs for chain A. As in `OpenTry`, the relayer also submits two `MsgUpdateClient`s with chain A and chain B as source chains before this handshake. These update the light clients of both chain A and chain B, in order to make sure that the state verifications in this step are successful.
 
-![OpenAck](/academy/3-ibc/images/open_ack.png)
+![OpenAck](/academy/4-ibc/images/open_ack.png)
 
 The initiation of this handshake from chain A updates its connection state to `OPEN`. It is important to note that the counterparty chain _must_ have a `TRYOPEN` connection state in order for the handshake and connection state update to be successful.
 
@@ -307,7 +307,7 @@ Therefore, each chain verifies the `ConnectionState`, the `ClientState`, and the
 
 `OpenConfirm` is the final handshake, in which chain B confirms that both self-identification and counterparty identification were successful.
 
-![OpenConfirm](/academy/3-ibc/images/open_confirm.png)
+![OpenConfirm](/academy/4-ibc/images/open_confirm.png)
 
 The [conclusion of this handshake](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/03-connection/keeper/handshake.go#L253-L297) results in the successful establishing of an IBC connection:
 

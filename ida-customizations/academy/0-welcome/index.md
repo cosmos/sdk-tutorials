@@ -139,15 +139,15 @@ customModules:
         You will dive into IBC to learn more about cross-chain communication and take a look at how to use CosmJS for your chain:
       links: 
         - title: What is IBC?
-          path: /academy/3-ibc/1-what-is-ibc.html
+          path: /academy/4-ibc/1-what-is-ibc.html
         - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
-          path: /academy/3-ibc/2-connections.html
+          path: /academy/4-ibc/2-connections.html
         - title: IBC token transfer
-          path: /academy/3-ibc/5-token-transfer.html
+          path: /academy/4-ibc/5-token-transfer.html
         - title: Interchain accounts - OPTIONAL
-          path: /academy/3-ibc/6-ica.html
+          path: /academy/4-ibc/6-ica.html
         - title: IBC tooling
-          path: /academy/3-ibc/7-ibc-tooling.html
+          path: /academy/4-ibc/7-ibc-tooling.html
         - title: What is CosmJS?
           path: tutorials/6-comsjs/1-cosmjs-intro.html
         - title: Send tokens with CosmJS

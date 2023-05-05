@@ -86,7 +86,7 @@ module.exports = {
             },
             {
               title: "Introduction to IBC",
-              path: "/academy/3-ibc/",
+              path: "/academy/4-ibc/",
               directory: true,
             },
           ],
