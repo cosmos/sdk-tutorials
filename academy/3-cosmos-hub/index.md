@@ -31,7 +31,7 @@ In this chapter, you will:
 
 ## Next up
 
-Dive right into Cosmos with the first section, _[Cosmos Hub Overview](./1-cosmos-hub-overview)_.
+Dive right into Cosmos with the first section, _[Cosmos Hub Overview](./1-cosmos-hub-overview.md)_.
 
 ## Developer Resources
 
