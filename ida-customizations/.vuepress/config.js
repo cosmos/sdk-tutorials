@@ -232,6 +232,22 @@ module.exports = {
                   path: "/academy/2-cosmos-concepts/14-bridges.html",
                 },
                 {
+                  title: "Cosmos Hub",
+                  path: "/academy/3-cosmos-hub/1-cosmos-hub-overview.html",
+                },
+                {
+                  title: "ATOM",
+                  path: "/academy/3-cosmos-hub/2-atom.html",
+                },
+                {
+                  title: "Interchain Security",
+                  path: "/academy/3-cosmos-hub/3-interchain-security.html",
+                },
+                {
+                  title: "ATOM Staking",
+                  path: "/academy/3-cosmos-hub/4-atom-staking.html",
+                },
+                {
                   title: "Week 1 Quiz",
                   path: "/ida-course/quiz-week1.html",
                 },

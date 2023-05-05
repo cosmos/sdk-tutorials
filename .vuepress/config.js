@@ -85,6 +85,11 @@ module.exports = {
               directory: true,
             },
             {
+              title: "The Cosmos Hub",
+              path: "/academy/3-cosmos-hub/",
+              directory: true,
+            },
+            {
               title: "Introduction to IBC",
               path: "/academy/4-ibc/",
               directory: true,

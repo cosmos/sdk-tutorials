@@ -113,6 +113,14 @@ customModules:
             path: /academy/2-cosmos-concepts/13-migrations.html
           - title: Bridges
             path: /academy/2-cosmos-concepts/14-bridges.html
+          - title: Cosmos Hub Overview
+            path: /academy/3-cosmos-hub/1-cosmos-hub-overview.html
+          - title: The ATOM Token
+            path: /academy/3-cosmos-hub/2-atom.html
+          - title: Interchain Security
+            path: /academy/3-cosmos-hub/3-interchain-security.html
+          - title: Getting ATOM and Staking It
+            path: /academy/3-cosmos-hub/4-atom-staking.html
       - image: /cosmos_dev_portal_module-05-lp.png
         title: Week 2 - First Steps
         href: /ida-course/LPs/week-2/

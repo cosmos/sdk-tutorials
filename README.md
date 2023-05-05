@@ -177,6 +177,20 @@ customModules:
           - title: Bridges
             path: /academy/2-cosmos-concepts/14-bridges.html
       - image: /lp-images/planet-collection.svg
+        title: What is the Cosmos Hub?
+        href: /academy/3-cosmos-hub/
+        description: |
+          This chapter will give you an introduction to the Cosmos Hub, its token, its security, its vision and its future:
+        links:
+          - title: Cosmos Hub Overview
+            path: /academy/3-cosmos-hub/1-cosmos-hub-overview.html
+          - title: The ATOM Token
+            path: /academy/3-cosmos-hub/2-atom.html
+          - title: Interchain Security
+            path: /academy/3-cosmos-hub/3-interchain-security.html
+          - title: Getting ATOM and Staking It
+            path: /academy/3-cosmos-hub/4-atom-staking.html
+      - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/4-ibc/
         description: |

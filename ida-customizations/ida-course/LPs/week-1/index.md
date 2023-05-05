@@ -33,6 +33,7 @@ In this chapter, you will:
 * Begin to discover the Cosmos Ecosystem.
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
+* Understand what the Cosmos Hub is and what services it provides.
 
 </HighlightBox>
 
