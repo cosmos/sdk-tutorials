@@ -278,10 +278,10 @@ func ComputeInitGenesis(ctx sdk.Context, playerInfosk types.PlayerInfoKeeper) (*
 
 <HighlightBox type="best-practice">
 
-To further limit the dependency of the leaderboard module on the checkers module, you could consider to options:
+To further limit the dependency of the leaderboard module on the checkers module, you could consider:
 
-* Have the new expected interface be based on `Candidate` and not `PlayerInfo`.
-* Keep the transformation between one and the other in a file whose name is suffixed with `_checkers`.
+* Having the new expected interface be based on `Candidate` and not `PlayerInfo`.
+* And keeping the transformation between one and the other in a file whose name is suffixed with `_checkers`.
 
 </HighlightBox>
 
