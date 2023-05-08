@@ -104,7 +104,7 @@ $ docker build . \
 
 </CodeGroup>
 
-Do not forget to come back to your v2 branch. For instance with:
+Do not forget to come back to your v2 branch. For instance, with:
 
 ```sh
 $ git checkout leaderboard-migration
@@ -377,9 +377,9 @@ $ bob=$(echo password | docker run --rm -i \
 
 </CodeGroup>
 
-The CosmJS tests use `stake` and `token` whereas this production setup uses only `upawn`. So do a text-wise search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
+The CosmJS tests use `stake` and `token` whereas this production setup uses only `upawn`. Therefore, do a text search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
 
-Copying what you did it in [leaderboard migration section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md), credit the test accounts so that the CosmJS tests do not attempt to call a missing faucet:
+Copying what you did in [leaderboard migration section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md), credit the test accounts so that the CosmJS tests do not attempt to call a missing faucet:
 
 ```sh
 $ echo password | docker run --rm -i \
@@ -404,7 +404,7 @@ $ echo password | docker run --rm -i \
     --broadcast-mode block --yes
 ```
 
-Then run the tests. One run of the tests creates one completed game. It is ok do this multiple times:
+Then run the tests. One run of the tests creates one completed game. It is okay do this multiple times:
 
 ```sh
 $ docker run --rm -it \
@@ -430,10 +430,10 @@ Copying what was done in the [previous migration section](/hands-on-exercise/4-r
 Remember that both proposals will have a voting period of 10 minutes, with the second one straddling the first upgrade:
 
 * At _t=0_, the first proposal is in its voting period, for an upgrade 15 minutes later (_t=+15 min_).
-* At _t=+10 min_, the first proposal should pass, and at about the same time, you create the second proposal (it does not matter if it is a bit before or a bit after), for an upgrade 15 minutes later (_t=+25 min_).
-* At _t=+15 min_, the first upgrade happens automatically thanks to Cosmovisor. Now running v1.1.
+* At _t=+10 min_, the first proposal should pass, and at about the same time, you create the second proposal (it does not matter if it is a bit before or a bit after) for an upgrade 15 minutes later (_t=+25 min_).
+* At _t=+15 min_, the first upgrade happens automatically thanks to Cosmovisor. You will now be running v1.1.
 * At _t=+20 min_, the second proposal should pass.
-* At _t=+25 min_, the second upgrade happens. Now running v2.
+* At _t=+25 min_, the second upgrade happens. You will now be running v2.
 
 Find the current block height with:
 
@@ -583,7 +583,7 @@ You must now wait longer, this time for the upgrade block to be reached. In the 
 
 ### Send the second upgrade proposal
 
-Between the time the first proposal has passed and the first upgrade takes place, you send the second proposal, this time by Bob:
+Between the time the first proposal has passed and the first upgrade takes place, send the second proposal, this time by Bob:
 
 ```sh
 $ echo password | docker run --rm -i \
@@ -601,7 +601,7 @@ $ echo password | docker run --rm -i \
     --yes
 ```
 
-It returns you the second proposal id:
+This returns you the second proposal id:
 
 ```yaml
 - attributes:
@@ -613,7 +613,7 @@ It returns you the second proposal id:
     value: "2"
 ```
 
-Similarly, you have Alice and Bob vote on it:
+Similarly, have Alice and Bob vote on it:
 
 <CodeGroup>
 
@@ -658,7 +658,7 @@ ERR UPGRADE "v1tov1_1" NEEDED at height: 1180:
 INF starting node with ABCI Tendermint in-process
 ```
 
-That was v1's last message followed by v1_1's first message.
+That was v1's last message, followed by v1_1's first message.
 
 After that, you should be able to query for the presence of player infos:
 
@@ -693,20 +693,20 @@ $ docker run --rm -it \
     --node "tcp://node-carol:26657"
 ```
 
-Still returns:
+This still returns:
 
 ```txt
 Error: rpc error: code = Unknown desc = unknown query path: unknown request
 ```
 
-You can verify with Cosmosvisor too that it is now running v1.1:
+You can also verify with Cosmosvisor that it is now running v1.1:
 
 ```sh
 $ docker exec -it node-carol \
     ls -l /root/.checkers-upgrade/cosmovisor/current
 ```
 
-Should return:
+This should return:
 
 ```txt
 ... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1tov1_1
@@ -724,14 +724,14 @@ $ docker run --rm -it \
     --node "tcp://node-carol:26657"
 ```
 
-And observe that it changes to `PASSED` after the first upgrade. After that, if you are scanning the logs of one of the containers, for instance from Docker's GUI, you should see something like:
+Observe that it changes to `PASSED` after the first upgrade. After that, if you are scanning the logs of one of the containers (for instance from Docker's GUI) you should see something like:
 
 ```txt
 ERR UPGRADE "v1_1tov2" NEEDED at height: 1300:
 INF starting node with ABCI Tendermint in-process
 ```
 
-That was v1.1's last message followed by v2's first message. You can confirm that the leaderboard has been populated:
+That was v1.1's last message, followed by v2's first message. You can confirm that the leaderboard has been populated:
 
 ```sh
 $ docker run --rm -it \
@@ -741,7 +741,7 @@ $ docker run --rm -it \
     --node "tcp://node-carol:26657"
 ```
 
-Returns:
+This returns:
 
 ```yaml
 Leaderboard:

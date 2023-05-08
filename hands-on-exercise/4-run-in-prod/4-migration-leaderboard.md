@@ -1,7 +1,7 @@
 ---
 title: "Migrate the Leaderboard Module After Production"
 order: 5
-description: A migration for your leaderboard module for your in-production blockchain via state migration
+description: A migration of the leaderboard module for your in-production blockchain via state migration
 tags: 
   - guided-coding
   - cosmos-sdk
@@ -34,7 +34,7 @@ In previous sections:
 * You added, and [added a migration for](/hands-on-exercise/4-run-in-prod/2-migration-info.md), a player info structure that tallies wins and losses per player. You called it v1.1.
 * You added a [leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md), which exists only if you start a new blockchain from scratch. You called it v2.
 
-You will reuse some learnings from the v1.1 migration, and adjust them for the special case of a new module.
+Here you will reuse some learnings from the v1.1 migration, and adjust them for the special case of a new module.
 
 ## High level considerations
 
@@ -60,19 +60,19 @@ In the migration, there are two time-consuming parts:
 1. Fetching the stored player info records in a paginated way, consuming mostly database resources.
 2. Sorting each intermediate leaderboard, consuming mostly computation resources.
 
-It looks beneficial to use Go routines in this case too, and a _player info_ channel to pass along arrays of player info records.
+It looks beneficial to use Go routines in this case too, and to use a _player info_ channel to pass along arrays of player info records.
 
 In practice, repeatedly building the intermediate leaderboard means adding _k_ new `Winner`s to the sorted array, sorting it, clipping it to `Params.Length`, and repeating. What constitutes a good _k_ value should be dictated by testing and performance measurements. However, you can start with your best guess in a new file created for this purpose.
 
 ### Types and interfaces
 
-Where to put this new file? The leaderboard module's consensus version starts at `2`. the application will go from _no leaderboard_ to _leaderboard at version 2_. So it makes sense to create a new folder to encapsulate this knowledge:
+Where do you put this new file? The leaderboard module's consensus version starts at `2`. The application will go from _no leaderboard_ to _leaderboard at version 2_. So it makes sense to create a new folder to encapsulate this knowledge:
 
 ```sh
 $ mkdir -p x/leaderboard/migrations/cv2/types
 ```
 
-So put your target _k_ length in:
+Put your target _k_ length in:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/x/leaderboard/migrations/cv2/types/keys.go#L6]
 const (
@@ -108,13 +108,13 @@ type PlayerInfoKeeper interface {
 }
 ```
 
-Then, you put the migration-specific elements in a dedicated folder:
+Then put the migration-specific elements in a dedicated folder:
 
 ```sh
 $ mkdir x/leaderboard/migrations/cv2/keeper
 ```
 
-Create the routine that fetches the player info from the checkers storage:
+Create the routine that fetches player info from the checkers storage:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/x/leaderboard/migrations/cv2/keeper/migration_leaderboard.go#L11-L42]
 type PlayerInfosChunk struct {
@@ -156,9 +156,9 @@ func LoadPlayerInfosToChannel(context context.Context,
 
 Note that:
 
-* It passes along the channel a tuple `PlayerInfosChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error .
+* This passes along the channel a tuple `PlayerInfosChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error.
 * It uses the paginated query so as to not overwhelm the memory if there are millions of infos.
-* And it closes the channel upon exit whether there is an error or not via the use of `defer`.
+* It closes the channel upon exit whether there is an error or not via the use of `defer`.
  
 </HighlightBox>
 
@@ -210,7 +210,7 @@ func HandlePlayerInfosChannel(playerInfosChannel <-chan PlayerInfosChunk,
 Note that:
 
 * The winners are initialized at a `0` size but with a capacity of `Params.Length + chunk`, which is the expected maximum intermediate size it will reach. This initialization should ensure that the slice does not need to have its capacity increased mid-process.
-* It too passes along a tuple with an optional error.
+* It also passes along a tuple with an optional error.
 * It closes the channel it populates upon exit whether there is an error or not via the use of `defer`.
 
 </HighlightBox>
@@ -244,7 +244,7 @@ func MapPlayerInfosReduceToLeaderboard(context context.Context,
 
 Note that:
 
-* It returns the leaderboard instead of saving it in the keeper. That is because when **introducing a module**, you have to initialize it with a **genesis**, and this computed leaderboard will be part of the module's genesis.
+* This returns the leaderboard instead of saving it in the keeper. That is because, when **introducing a module**, you have to initialize it with a **genesis**, and this computed leaderboard will be part of the module's genesis.
 * It delegates the closing of channels to the routines.
 * It starts the _second_ routine first to reduce the likelihood of channel clogging.
 
@@ -278,20 +278,20 @@ func ComputeInitGenesis(ctx sdk.Context, playerInfosk types.PlayerInfoKeeper) (*
 
 <HighlightBox type="best-practice">
 
-To further limit the dependency of the leaderboard module on the the checkers module, you could consider:
+To further limit the dependency of the leaderboard module on the checkers module, you could consider to options:
 
-* Having the new expected interface to be based on `Candidate` and not `PlayerInfo`.
-* And to keep the transformation between one to the other into a file whose name is suffixed with `_checkers`.
+* Have the new expected interface be based on `Candidate` and not `PlayerInfo`.
+* Keep the transformation between one and the other in a file whose name is suffixed with `_checkers`.
 
 </HighlightBox>
 
 ## v1.1 to v2 migration proper
 
-You have in place the functions that will handle the store migration. Now you have to set up the chain of command for these functions to be called by the node at the right point in time.
+You now have in place the functions that will handle the store migration. Next you have to set up the chain of command for these functions to be called by the node at the right point in time.
 
 ### Consensus version and name
 
-The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. As it stands, your leaderboard consensus version is `2` and that will be its first value when added to the application. To make it explicit, and consistent with the pattern used in the checkers module, you can keep this information in a constant like you did for the checkers module:
+The `upgrade` module keeps in its store the [different module versions](https://docs.cosmos.network/main/core/upgrade.html#tracking-module-versions) that are currently running. To signal an upgrade, your module needs to return a different value when queried by the `upgrade` module. As it stands, your leaderboard consensus version is `2` and that will be its first value when added to the application. To make this explicit, and consistent with the pattern used in the checkers module, you can keep this information in a constant like you did for the checkers module:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/x/leaderboard/migrations/cv2/types/keys.go#L7]
     const (
@@ -300,7 +300,7 @@ The `upgrade` module keeps in its store the [different module versions](https://
     )
 ```
 
-And to be used by `module.go`:
+It can be used by `module.go`:
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/x/leaderboard/module.go#L172]
 -  func (AppModule) ConsensusVersion() uint64 { return 2 }
@@ -309,17 +309,17 @@ And to be used by `module.go`:
 
 <HighlightBox type="note">
 
-The consensus version number bears no resemblance to v1.1 or v2. The consensus version number is for the module, whereas v1.1 or v2 is for the whole application.
+The consensus version number has no connection to v1.1 or v2. The consensus version number is for the module, whereas v1.1 or v2 is for the whole application.
 
 </HighlightBox>
 
-You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan`, i.e. an upgrade governance proposal. This is a name relevant at the application level:
+You also have to pick a name for the upgrade you have prepared. This name will identify your specific upgrade when it is mentioned in a `Plan` (i.e. an upgrade governance proposal). Use a name that is relevant at the application level:
 
 ```sh
 $ mkdir app/upgrades/v1_1tov2
 ```
 
-In which you save:
+In this you save:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/app/upgrades/v1_1tov2/keys.go#L3]
 const UpgradeName = "v1_1tov2"
@@ -355,7 +355,7 @@ Although the module does not upgrade per se, you need to make sure that it does 
 
 <HighlightBox type="best-practice">
 
-You _could_ run a proper migration here, if you added a checkers keeper, or rather a `types.PlayerInfoKeeper` in your module.
+You _could_ run a proper migration here, if you added a checkers keeper (or rather a `types.PlayerInfoKeeper`) in your module.
 <br/><br/>
 The downside is that this keeper would be used only at the time of migration and therefore is a massive overkill, if not a security risk.
 
@@ -363,9 +363,9 @@ The downside is that this keeper would be used only at the time of migration and
 
 ### Callback in `app`
 
-In a [previous section](/hands-on-exercise/4-run-in-prod/2-migration-info.md), you already prepared `app.go` to handle a migration, namely `v1tov1_1`. Here you add to this `setupUpgradeHandlers` function in two places:
+In a [previous section](/hands-on-exercise/4-run-in-prod/2-migration-info.md) you already prepared `app.go` to handle a migration, namely `v1tov1_1`. Here you add to this `setupUpgradeHandlers` function in two places:
 
-1. First, after the `v1tov1_1` upgrade method, you introduce the way to get the new leaderboard's module genesis:
+1. First, after the `v1tov1_1` upgrade method, introduce the way to get the new leaderboard's module genesis:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/app/app.go#L792-L811]
         // v1 to v1.1 upgrade handler
@@ -406,7 +406,7 @@ In a [previous section](/hands-on-exercise/4-run-in-prod/2-migration-info.md), y
 
     </HighlightBox>
 
-2. Second, you inform it that as part of the `v1_1tov2` upgrade, a new store key is introduced:
+2. Second, inform it that as part of the `v1_1tov2` upgrade a new store key is introduced:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-migration/app/app.go#L829-L833]
         ...
@@ -425,7 +425,7 @@ With this, the app is configured to handle the module upgrade.
 
 ## Unit tests
 
-After all these changes, it is worthwhile adding tests, at least on the helpers.
+After all these changes it is worthwhile adding tests, at least on the helpers.
 
 ### New mock types
 
@@ -442,7 +442,7 @@ You introduced a new expected keeper. If you want to unit test your migration he
     +          -destination=x/leaderboard/testutil/expected_keepers_mocks.go
     ```
 
-2. And run it:
+2. Now run it:
 
     <CodeGroup>
 
@@ -487,7 +487,7 @@ func setupMockForLeaderboardMigration(t testing.TB) (context.Context, *gomock.Co
 }
 ```
 
-So in your test, you prepare the mock:
+In your test, prepare the mock:
 
 ```go
 func TestComputeLeaderboard(t *testing.T) {
@@ -499,13 +499,13 @@ func TestComputeLeaderboard(t *testing.T) {
 
 ### Configure the mock
 
-Now, to use your mock, this time it takes a bit of effort:
+To use your mock, this time it takes a bit of effort:
 
-* To test that it was called correctly, you use `.EXPECT()` with defined values.
-* To have it return player infos in chunks, you use `.Return()`, and make sure the pagination's `NextKey` is populated when necessary.
-* To confirm that one call happens before the other, you use `gomock.InOrder()`.
+* To test that it was called correctly, use `.EXPECT()` with defined values.
+* To have it return player infos in chunks, use `.Return()` and make sure the pagination's `NextKey` is populated when necessary.
+* To confirm that one call happens before the other, use `gomock.InOrder()`.
 
-Imagine that the keeper _has_:
+Imagine that the keeper has:
 
 ```go
 PlayerInfos: []checkerstypes.PlayerInfo{
@@ -515,9 +515,9 @@ PlayerInfos: []checkerstypes.PlayerInfo{
 }
 ```
 
-And you want to have it return the lot paginated in chunks of size `2`. That means two calls:
+Also imagine you want to have it return the info paginated in chunks of size `2`. This means two calls:
 
-1. The first one:
+1. The first call:
 
     ```diff-go
         context, ctrl, playerInfoMock := setupMockForLeaderboardMigration(t)
@@ -544,7 +544,7 @@ And you want to have it return the lot paginated in chunks of size `2`. That mea
         ...
     ```
 
-2. The second one:
+2. The second call:
 
     ```diff-go
         firstCall := playerInfoMock.EXPECT().
@@ -571,7 +571,7 @@ And you want to have it return the lot paginated in chunks of size `2`. That mea
         ...
     ```
 
-3. And the desired order:
+3. Now specify the desired order:
 
     ```diff-go
         secondCall := playerInfoMock.EXPECT().
@@ -583,7 +583,7 @@ And you want to have it return the lot paginated in chunks of size `2`. That mea
 
 ### Rest of the test
 
-From there, the test is _as usual_:
+From there, the test is as usual:
 
 ```diff-go
     ...
@@ -643,9 +643,9 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-Given the difficulty of configuration of the mock, this only test will do.
+Given the configuration difficulty of the mock, only this test will do.
 
-It is not be possible to add integration tests on the migration proper because when the app is created, it already is at v2.
+It is not possible to add integration tests on the migration proper, because when the app is created it is already at v2. 
 
 ## Interact via the CLI
 
@@ -665,11 +665,11 @@ You can execute a live upgrade from the command line. The following upgrade proc
 * Run v2 checkers.
 * Confirm that you now have a correct leaderboard.
 
-Start your engines.
+Start your engines!
 
 ### Launch v1.1
 
-After committing your changes, in a shell, checkout v1.1 of checkers with the content of the CosmJS client work:
+After committing your changes, in a shell checkout v1.1 of checkers with the content of the CosmJS client work:
 
 ```sh
 $ git checkout player-info-migration
@@ -742,7 +742,7 @@ $ docker exec -t checkers \
 
 <HighlightBox type="note">
 
-You should not use `docker run --rm` here because, when `checkersd` stops, you do not want to remove the container and thereby destroy the saved keys, and future genesis too. Instead, you reuse them all in the next calls.
+You should not use `docker run --rm` here, because when `checkersd` stops you do not want to remove the container and thereby destroy the saved keys, and the future genesis too. Instead, you reuse them all in the next calls.
 
 </HighlightBox>
 
@@ -832,7 +832,7 @@ This returns something like:
 "172800s"
 ```
 
-That is two days, which is too long to wait for CLI tests. Choose another value, perhaps 10 minutes, i.e. `"600s"`. Update it in place in the genesis:
+That is two days, which is too long to wait for CLI tests. Choose another value, perhaps 10 minutes (i.e. `"600s"`). Update it in place in the genesis:
 
 <CodeGroup>
 
@@ -1194,7 +1194,7 @@ This is the minimum amount that Alice has to deposit when submitting the proposa
 --deposit 10000000stake
 ```
 
-Submit your governance proposal upgrade:
+Now submit your governance proposal upgrade:
 
 <CodeGroup>
 
@@ -1231,7 +1231,7 @@ $ docker exec -t checkers \
 
 </CodeGroup>
 
-This returns something with:
+This returns something like:
 
 ```yaml
   ...
@@ -1362,7 +1362,7 @@ status: PROPOSAL_STATUS_PASSED
 ...
 ```
 
-Now, wait for the chain to reach the desired block height, which should take five more minutes, as per your parameters. When it has reached that height, the shell with the running `checkersd` should show something like:
+Now wait for the chain to reach the desired block height, which should take five more minutes as per your parameters. When it has reached that height, the shell with the running `checkersd` should show something like:
 
 ```txt
 ...
@@ -1539,7 +1539,7 @@ Leaderboard:
 
 Note how it took the time of the block when v1_1 stopped.
 
-Congratulations, you have upgraded your blockchain almost as if in production.
+Congratulations, you have upgraded your blockchain almost as if in production!
 
 You can stop Ignite CLI. If you used Docker that would be:
 
@@ -1560,7 +1560,7 @@ To summarize, this section has explored:
 * How to add a leaderboard to an existing blockchain.
 * How to upgrade a blockchain in production, by migrating from v1_1 of the blockchain to v2, and the new store structure that will be introduced by the upgrade.
 * How to handle the data migrations and logic upgrades implicit during migration, such as with the use of helper functions.
-* Worthwhile unit test with regard to leaderboard handling.
+* Worthwhile unit tests with regard to leaderboard handling.
 * A complete procedure for how to conduct the update via the CLI.
 
 </HighlightBox>

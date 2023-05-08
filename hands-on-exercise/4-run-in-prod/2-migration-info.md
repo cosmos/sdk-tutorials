@@ -1197,11 +1197,11 @@ You can already execute a live upgrade from the command line. The following upgr
 * Run v1.1 checkers.
 * Confirm that you now have a correct tally of player info.
 
-Start your engines.
+Start your engines!
 
 ### Launch v1
 
-After committing your changes, in a shell, checkout v1 of checkers with the content of the _run in production_ work:
+After committing your changes, in a shell checkout v1 of checkers with the content of the _run in production_ work:
 
 ```sh
 $ git checkout run-prod
