@@ -481,7 +481,7 @@ Your stored game's `black` and `red` fields are only strings, but they represent
         }
         board.Turn = rules.StringPieces[storedGame.Turn].Player
         if board.Turn.Color == "" {
-            return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("Turn: %s", storedGame.Turn)), ErrGameNotParseable.Error())
+            return nil, sdkerrors.Wrapf(fmt.Errorf("turn: %s", storedGame.Turn), ErrGameNotParseable.Error())
         }
         return board, nil
     }

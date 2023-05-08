@@ -380,16 +380,16 @@ Extract and sanitize the message elements:
 ```go
     creator, err := sdk.AccAddressFromBech32(msg.Creator)
     if err != nil {
-        return nil, errors.New("Creator address invalid")
+        return nil, errors.New("creator address invalid")
     }
     black, err := sdk.AccAddressFromBech32(msg.Black)
     if err != nil {
         // Standard error because users can make mistakes.
-        return nil, errors.New("Black address invalid")
+        return nil, errors.New("black address invalid")
     }
     red, err := sdk.AccAddressFromBech32(msg.Red)
     if err != nil {
-        return nil, errors.New("Red address invalid")
+        return nil, errors.New("red address invalid")
     }
 ```
 
