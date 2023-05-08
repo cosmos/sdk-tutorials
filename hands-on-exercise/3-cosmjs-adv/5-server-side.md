@@ -24,7 +24,7 @@ This exercise assumes that:
 
     ```sh
     $ docker network create checkers-net
-        $ docker run --rm -it \
+    $ docker run --rm -it \
         -p 26657:26657 \
         --name checkers \
         --network checkers-net \
