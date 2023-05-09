@@ -136,7 +136,7 @@ In order to successfully create an IBC client using a new client type, it [must 
 To add your light client `0x-new-client` to `AllowedClients`, submit a proposal:
 
 ```sh
-$ ... tx gov submit-proposal \
+$ ... tx gov submit-legacy-proposal \
   param-change <path/to/proposal.json> \
   --from=<key_or_address>
 ```
