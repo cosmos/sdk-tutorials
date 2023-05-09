@@ -26,9 +26,9 @@ In this section, you will learn:
 
 ## IBC ecosystem expansion
 
-IBC was envisioned from the original Cosmos whitepaper to be a crucial component of the appchain thesis for the Cosmos network on the one hand, but more importantly also remain as universal as possible to enable it to become a universal standard with respect to blockchain interoperability.
+IBC was envisioned in the original Cosmos whitepaper to be both a crucial component of the appchain thesis for the Cosmos network and also a generic and universally applicable standard with respect to blockchain interoperability.
 
-Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go implementation initially was focused on its use within Cosmos SDK chains connecting to similar chains. The [ibc-go v7 release](https://github.com/cosmos/ibc-go/releases/tag/v7.0.0) included a refactor to the `02-client` submodule, which should streamline the development of light clients to connect ibc-go to chains with other consensus than `07-tendermint`.
+Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go implementation initially was focused on its usage in Cosmos SDK chains connecting to similar chains. In order to expand IBC to other chain ecosystems, the [ibc-go v7 release](https://github.com/cosmos/ibc-go/releases/tag/v7.0.0) included a refactor to the `02-client` submodule, which should streamline the development of light clients to connect ibc-go to chains with other consensus than `07-tendermint`.
 
 <HighlightBox type="docs">
 
@@ -87,13 +87,13 @@ These similarly provide functionality to update the client based on handling mes
 
 <HighlightBox type="info">
 
-Prior to the client refactor (prior to v7) the client and consensus states are set within the `02-client` submodule. Moving these responsibilities from the `02-client` to the individual light client implementations, including the setting of updated client state and consensus state in the client store, provides light client developers with a greater degree of flexibility with respect to storage and verification.
+Prior to the client refactor (prior to v7) the client and consensus states are set within the `02-client` submodule. Moving these responsibilities from the `02-client` to the individual light client implementations, including the setting of updated client state and consensus state in the client store, provides light client developers with a greater degree of flexibility with respect to storage and verification, and allows for the abstraction of different types of consensus states/consensus state verifications methods away from IBC clients and the connections/channels that they support.
 
 </HighlightBox>
 
 ### Packet commitment verification
 
-Next to updating the client and consensus state, the light client also provides functionality to perform the verification required for the packet flow (send, receive and acknowledge or timeout). IBC uses Merkle proofs to verify against the trusted root if state is either committed or absent on a predefined standardized key path, as defined in [ICS-24 host requirements](https://github.com/cosmos/ibc/tree/main/spec/core/ics-024-host-requirements).
+In addition to updating the client and consensus state, the light client also provides functionality to perform the verification required for the packet flow (send, receive and acknowledge or timeout). IBC currently uses Merkle proofs to verify against the trusted root if state is either committed or absent on a predefined standardized key path, as defined in [ICS-24 host requirements](https://github.com/cosmos/ibc/tree/main/spec/core/ics-024-host-requirements).
 
 As you have seen in the [previous section on clients](./4-clients.md), when the IBC handler receives a message to receive, acknowledge or timeout a packet, it will call one of the following functions on the `connectionKeeper` to verify if the remote chain includes (or does not include) the appropriate state:
 
@@ -115,7 +115,9 @@ Please refer to the [ICS-23 implementation](https://github.com/cosmos/ibc-go/blo
 
 Now suppose that you have managed to develop a light client implementation fulfiling the requirements described above. How do you now get the light client on chain?
 
-This will depend on the chain environment you are in, so from here on out the assumption will be made that you will want to add the light client module to a Cosmos SDK chain.
+This will depend on the chain environment you are in, so from here on out the assumption will be made that you will want to add the light client module to a Cosmos SDK chain, in order for the Cosmos SDK chain that you are interacting with to be able to verify proofs of the consensus state coming from your non-`07-tendermint` chain.
+
+For example, if you are developing a light client which enables proof verification of ETH2 or Solana, you would need to deploy a light client that is able to verify proofs of ETH2 or Solana consensus state on Cosmos SDK chains which you want to interoperate with.
 
 #### Configure light client module
 
