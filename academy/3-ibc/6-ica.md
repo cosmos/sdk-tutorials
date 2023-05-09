@@ -58,7 +58,7 @@ The Interchain accounts application module is structured to **support the abilit
 
 **Interchain account (ICA):** an account on a host chain. An Interchain account has all the capabilities of a normal account. However, rather than signing transactions with a private key, a controller chain's authentication module will send IBC packets to the host chain which contain the transactions that the Interchain account should execute.
 
-**Interchain account owner:** an account on the controller chain. Every Interchain account on a host chain has a respective owner account on a controller chain. This owner account could be a module account (in Cosmos SDK chains ) or analogous accounts, it is not strictly limited to regular user accounts.
+**Interchain account owner:** an account on the controller chain. Every Interchain account on a host chain has a respective owner account on a controller chain. This owner account could be a module account (in Cosmos SDK chains) or an analogous account, it is not strictly limited to regular user accounts.
 
 Now it's time to look at the API on both the controller and host sides.
 
