@@ -186,6 +186,8 @@ customModules:
             path: /academy/3-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
+          - title: Light client development
+            path: /academy/3-ibc/4-light-client-dev.html
           - title: Fungible token transfer
             path: /academy/3-ibc/5-token-transfer.html
           - title: Interchain accounts
@@ -353,6 +355,8 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
             path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Simulate a migration in production with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/
