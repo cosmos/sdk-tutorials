@@ -1,6 +1,6 @@
 ---
 title: "Interchain Accounts"
-order: 7
+order: 8
 description: Work with ICA
 tags: 
   - concepts
