@@ -19,7 +19,7 @@ This chapter provides an introduction to blockchain, Golang, Docker, and some of
 
 </HighlightBox>
 
-Do you want to refresh your blockchain knowledge? This chapter provides a general introduction to blockchain technology. Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by December 1st at 4 pm UTC when the program officially starts.
+Do you want to refresh your blockchain knowledge? This chapter provides a general introduction to blockchain technology. Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by May 18th at 4 pm UTC when the program officially starts.
 
 Working with Cosmos also means working with Golang. If you have not worked much with Go, do not worry.
 
@@ -83,7 +83,7 @@ _**Docker intro**_
 
 <HighlightBox type="info">
 
-All other Academy chapters will be displayed on this page starting **December 1st**.
+All other Academy chapters will be displayed on this page starting **May 18th**.
 
 </HighlightBox>
 

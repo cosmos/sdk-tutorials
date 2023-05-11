@@ -36,7 +36,7 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your quiz by Thursday, 8th of December, 23:59 UTC.**
+**This week, make sure to submit your quiz by Thursday, 25th of May, 23:59 UTC.**
 
 Do not worry if you do not pass the quiz: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
 
