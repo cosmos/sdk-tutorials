@@ -32,7 +32,7 @@ overview:
           <b>Hands-on exercises</b><br/><br/>
           In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Quiz - due date: Thursday, December 8th<br/><br/>
-          Week 2: Exercise - due date: Thursday, December 15th<br/><br/>
+          Week 2: Exercise - due date: Thursday, June 8th<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
