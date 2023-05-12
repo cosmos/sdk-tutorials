@@ -47,7 +47,7 @@ When posting a question in the **c4-support-forum**, you need to add a title and
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-howto-supportforum.jpg)
 
-After suending your message, make sure you mark it as a question by adding the question emoticon (?) to it **_as a react_**. This will create a new support ticket.
+After sending your message, make sure you mark it as a question by adding the question emoticon (?) to it **_as a react_**. This will create a new support ticket.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question-add.png)
 

@@ -44,7 +44,7 @@ CometBFT is maintained even when 1/3rd of all machines fail, by providing two co
 
 <HighlightBox type="tip">
 
-Want to continue exploring this useful component of the Cosmos SDK? Find further information though the [CometBFT documentation](https://docs.cometbft.com/v0.37/).
+Want to continue exploring this useful component of the Cosmos SDK? Find further information through the [CometBFT documentation](https://docs.cometbft.com/v0.37/).
 
 </HighlightBox>
 
@@ -93,7 +93,7 @@ CometBFT provides security guarantees, including the following:
 * **Strict accountability** for fork creation allows determination of liability.
 * Transactions are **finalized** as soon as a block is created.
 
-TCometBFT is not concerned with the interpretation of transactions. That occurs at the application layer. CometBFT presents confirmed, well-formed transactions and blocks of transactions agnostically. CometBFT is un-opinionated about the meaning any transactions have.
+CometBFT is not concerned with the interpretation of transactions. That occurs at the application layer. CometBFT presents confirmed, well-formed transactions and blocks of transactions agnostically. CometBFT is un-opinionated about the meaning any transactions have.
 
 The _block time_ is approximately seven seconds, and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
