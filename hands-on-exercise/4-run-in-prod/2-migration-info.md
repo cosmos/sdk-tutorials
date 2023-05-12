@@ -363,7 +363,7 @@ func TestCompleteGameUpdatePlayerInfo(t *testing.T) {
 }
 ```
 
-You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/msg_server_create_game_test.go#L413-L492) or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
+You can add similar tests that confirm that nothing happens after a [game creation](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/msg_server_create_game_test.go#L414-L493) or a [non-winning move](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/msg_server_play_move_test.go#L538-L596). You should also check that a [forfeit is registered](https://github.com/cosmos/b9-checkers-academy-draft/blob/player-info-handling/x/checkers/keeper/end_block_server_game_test.go#L577-L682).
 
 This completes your checkers v1.1 chain. If you were to start it anew as is, it would work. However, you already have the v1 of checkers running, so you need to migrate everything.
 
