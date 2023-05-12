@@ -192,6 +192,8 @@ customModules:
             path: /academy/3-ibc/6-ica.html
           - title: IBC tooling
             path: /academy/3-ibc/7-ibc-tooling.html
+          - title: IBC solo machines
+            path: /academy/3-ibc/8-solomachine.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.

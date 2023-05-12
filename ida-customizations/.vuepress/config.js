@@ -306,15 +306,15 @@ module.exports = {
                   path: "/academy/3-ibc/1-what-is-ibc.html",
                 },
                 {
-                  title: "IBC/TAO - Connections",
+                  title: "IBC/TAO - Connections - OPTIONAL",
                   path: "/academy/3-ibc/2-connections.html",
                 },
                 {
-                  title: "IBC/TAO - Channels",
+                  title: "IBC/TAO - Channels - OPTIONAL",
                   path: "/academy/3-ibc/3-channels.html",
                 },
                 {
-                  title: "IBC/TAO - Clients",
+                  title: "IBC/TAO - Clients - OPTIONAL",
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
@@ -322,12 +322,16 @@ module.exports = {
                   path: "/academy/3-ibc/5-token-transfer.html",
                 },
                 {
-                  title: "Interchain Accounts",
+                  title: "Interchain Accounts - OPTIONAL",
                   path: "/academy/3-ibc/6-ica.html",
                 },
                 {
                   title: "IBC Tooling",
                   path: "/academy/3-ibc/7-ibc-tooling.html",
+                },
+                {
+                  title: "IBC Solo Machines - OPTIONAL",
+                  path: "/academy/3-ibc/8-solomachine.html",
                 },
                 {
                   title: "What is CosmJS?",

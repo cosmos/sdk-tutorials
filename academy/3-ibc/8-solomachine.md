@@ -1,6 +1,6 @@
 ---
 title: "IBC solo machine"
-order: -1
+order: 9
 description: Solo machine client
 tags:
   - concepts

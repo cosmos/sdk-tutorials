@@ -155,6 +155,8 @@ customModules:
             path: /academy/3-ibc/6-ica.html
           - title: IBC tooling
             path: /academy/3-ibc/7-ibc-tooling.html
+          - title: IBC solo machines - OPTIONAL
+            path: /academy/3-ibc/8-solomachine.html
           - title: What is CosmJS?
             path: /tutorials/7-cosmjs/1-cosmjs-intro.html
           - title: Send tokens with CosmJS
