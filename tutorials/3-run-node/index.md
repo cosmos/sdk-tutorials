@@ -755,16 +755,22 @@ tx: null
 txhash: D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
 ```
 
-The command output could include useful information, such as `gas_used`. However, here it did not have time to collect the information because the command returned before the transaction was included in a block.
+The command output could include useful information, such as `gas_used`. However, here it did not have time to collect the information because the command returned before the transaction was included in a block. Take note of the transaction hash. In the above example, it is:
 
-You can call back the transaction information using the transaction hash above:
+```sh
+$ export txhash=D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
+```
+
+You can replace with your own value.
+
+Whenever you need it, you can call back the transaction information using this transaction hash:
 
 <CodeGroup>
 
 <CodeGroupItem title="Local">
 
 ```sh
-$ ./build/simd query tx D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
+$ ./build/simd query tx $txhash
 ```
 
 </CodeGroupItem>
@@ -772,7 +778,7 @@ $ ./build/simd query tx D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker exec simd simd query tx D2CCFD91452F8C144BB1E7B54B9723EE3ED85925EE2C8AD843392721D072B895
+$ docker exec simd simd query tx $txhash
 ```
 
 </CodeGroupItem>
