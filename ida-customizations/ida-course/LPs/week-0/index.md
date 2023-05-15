@@ -1,45 +1,37 @@
 ---
 parent:
   title: Getting Started
-  description: A short introduction to blockchain and Golang
+  description: A short introduction to blockchain, Golang, and Docker
   number: 1
 order: 0
-title: Week 0 - A Short Introduction to Blockchain, Golang and Docker
+title: Week 0 - A Short Introduction to Blockchain, Golang, and Docker
 tags:
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A short introduction to blockchain and Golang</div>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A short introduction to blockchain, Golang, and Docker</div>
 <h1 class="mt-4 mb-6">Getting Started</h1>
 
-This chapter provides an introduction to blockchain, Golang, Docker, and some of the technical terms you will encounter throughout the Academy program. 
+This chapter provides a general introduction to blockchain technology, Golang, Docker, and some of the technical terms you will encounter throughout the Academy program.
 
 <HighlightBox type="info">
 
-**It is entirely optional and intended as a head start for those who might need it.**
+**This chapter is entirely optional and intended as a head start for those who might need it.**
+<br/><br/>
+If you do not need a blockchain refresher, feel free to start your journey with the Week 1 content, which will be available by May 18th at 4 pm UTC when the program officially starts.
 
 </HighlightBox>
 
-Do you want to refresh your blockchain knowledge? This chapter provides a general introduction to blockchain technology. Feel free to skip this chapter if you do not need a refresher and start your journey with the Week 1 content, which will be available by May 18th at 4 pm UTC when the program officially starts.
+Working with Cosmos also means working with Golang. If you have not worked much with Go, do not worry. The introduction to Golang is meant as a useful overview of Go, and a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
 
-Working with Cosmos also means working with Golang. If you have not worked much with Go, do not worry.
+The Docker introduction will help you understand the concepts behind this tool, as you will be using Docker in the upcoming tutorials.
+
+You can find a short section at the end of the chapter with good-to-know dev terms.
 
 <HighlightBox type="info">
 
 As all blockchain ecosystems keep on growing and maturing, product stacks and terminologies evolve. Thus, please be aware that Cosmos is also known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers ("the stack") can be referred to collectively as the **Interchain Stack**.
 
 </HighlightBox>
-
-This introduction to Golang is meant as a useful overview of Go and as such, a starting point for your journey in the Cosmos Ecosystem and developing with the Cosmos SDK.
-
-The Docker introduction will help you understand the concepts behind this tool, as you will be using Docker in the upcoming tutorials.
-
-<HighlightBox type="tip">
-
-You can also use it as a refresher.
-
-</HighlightBox>
-
-You can find a short section at the end of the chapter with good-to-know dev terms.
 
 ![LP image - Week 0](/planets-large.svg)
 
