@@ -232,7 +232,7 @@ As stated earlier, the Go relayer strives to get your relayer up and running in 
   You can query the balance of each configured key by running:
 
   ```sh
-  $ rly q balance cosmoshub
+  $ rly query balance cosmoshub
   $ rly q balance osmosis
   ```
 
@@ -427,8 +427,8 @@ $ rly tx link demo -d -t 3s
 Next, check the token balances on both chains:
 
 ```sh
-$ rly q balance checkersa
-$ rly q bal checkersb
+$ rly q balance checkersa --ibc-denoms
+$ rly q bal checkersb -i
 ```
 
 Finally, send some tokens between the chains:
@@ -459,8 +459,8 @@ $ rly tx relay-acks demo channel-0 -d
 Check that the transfer was completed:
 
 ```sh
-$ rly q bal checkersa
-$ rly q bal checkersb
+$ rly q bal checkersa -i
+$ rly q bal checkersb -i
 ```
 
 You can see that the tokens have a denom on the `checkersb` chain because they are not native `token`s of `checkersb`. Send the tokens back to the account on `checkersa` by replacing `$denom` (this will be something like `ibc/D11F61D9F5E49A31348A7CD2DECE888D4DFEE1DADA343F7D8D4502BFA9496936`):
@@ -474,8 +474,8 @@ $ rly tx relay-acks demo channel-0 -d
 Check that the return trip was completed:
 
 ```sh
-$ rly q bal checkersa
-$ rly q bal checkersb
+$ rly q bal checkersa -i
+$ rly q bal checkersb -i
 ```
 
 You can see that the stake balances decreased on each chain because of the set fees in the configuration.

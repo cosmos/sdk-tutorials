@@ -62,9 +62,9 @@ articles:
     url: https://blog.cosmos.network/the-mind-body-and-soul-of-cosmos-140ee7cec0cd
     image: /article-banner-01.png
   - title: "ELI5: What is IBC?"
-    date: Tuesday, June 28
-    time: 9
-    url: https://medium.com/the-interchain-foundation/eli5-what-is-ibc-a212f518715f
+    date: Tuesday, Nov 15
+    time: 7
+    url: https://medium.com/the-interchain-foundation/eli5-what-is-ibc-def44d7b5b4c
     image: /article-banner-04.jpg
 intro:
   - overline: Begin Your Cosmos Journey
@@ -120,7 +120,7 @@ customModules:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI, CosmJS and IBC, and preparing your chain to run in production.
         tags:
           - guided-coding
       - image:
@@ -186,6 +186,8 @@ customModules:
             path: /academy/3-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
+          - title: Light client development
+            path: /academy/3-ibc/4-light-client-dev.html
           - title: Fungible token transfer
             path: /academy/3-ibc/5-token-transfer.html
           - title: Interchain accounts
@@ -301,21 +303,21 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game information
             path: /hands-on-exercise/1-ignite-cli/7-events.html
-          - title: Make sure a player can reject a game
-            path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
+          - title: Recording the winners
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
         description: |
           Continue developing your checkers blockchain with Ignite by:
         links:
-          - title: Putting your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Including a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Recording the winners
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Including auto-expiring of games
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
+          - title: Including a count move
+            path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
+          - title: Putting your games in order
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
+          - title: Enforcing auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Including a wager
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
@@ -326,7 +328,7 @@ customModules:
           - title: Help find correct moves
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Play with cross-chain tokens
-            path: hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
+            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
       - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
@@ -353,6 +355,8 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
             path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Simulate a migration in production with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/

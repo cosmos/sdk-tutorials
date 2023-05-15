@@ -13,7 +13,7 @@ tags:
 
 # Run a Node, API, and CLI
 
-<HighlightBox type=“synopsis”>
+<HighlightBox type="synopsis">
 
 In this first section, you will learn how to run a blockchain and discover how to interact with it.
 

@@ -32,7 +32,7 @@ overview:
           <b>Hands-on exercises</b><br/><br/>
           In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Quiz - due date: Thursday, December 8th<br/><br/>
-          Week 2: Exercise - due date: Thursday, December 15th<br/><br/>
+          Week 2: Exercise - due date: Thursday, June 8th<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
@@ -97,7 +97,7 @@ customModules:
             path: /academy/2-cosmos-concepts/1-architecture.html
           - title: Accounts
             path: /academy/2-cosmos-concepts/2-accounts.html
-          - title: Transaction, messages, and modules
+          - title: Transactions, messages, and modules
             path: /academy/2-cosmos-concepts/3-transactions.html
           - title: Protobuf
             path: /academy/2-cosmos-concepts/6-protobuf.html
@@ -127,6 +127,18 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
           - title: First steps for your checkers blockchain
             path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
+          - title: How to store a game
+            path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
+          - title: Create your first message
+            path: /hands-on-exercise/1-ignite-cli/4-create-message.html
+          - title: Handle the message to create a game
+            path: /hands-on-exercise/1-ignite-cli/5-create-handling.html
+          - title: Another message to play on a game
+            path: /hands-on-exercise/1-ignite-cli/6-play-game.html
+          - title: Emit game events
+            path: /hands-on-exercise/1-ignite-cli/7-events.html
+          - title: Record the game winners
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /planet-pod.svg
         title: Week 3 - IBC and CosmJS
         href: /ida-course/LPs/week-3/
@@ -137,6 +149,8 @@ customModules:
             path: /academy/3-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
             path: /academy/3-ibc/2-connections.html
+          - title: Light client development - OPTIONAL
+            path: /academy/3-ibc/4-light-client-dev.html
           - title: IBC token transfer
             path: /academy/3-ibc/5-token-transfer.html
           - title: Interchain accounts - OPTIONAL
@@ -159,13 +173,13 @@ customModules:
         description: |
           You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
         links: 
-          - title: Put your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Keep a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Record a game winner
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Allow for auto-expiring games
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
+          - title: Keep a move count
+            path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
+          - title: Put your games in order
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
+          - title: Enforce auto-expiring games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Let players set a wager
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
@@ -235,14 +249,16 @@ customModules:
             path: /tutorials/9-path-to-prod/4-genesis.html
           - title: Prepare and connect to other nodes
             path: /tutorials/9-path-to-prod/5-network.html
-          - titles: Configure, run and set up a service
+          - title: Configure, run and set up a service
             path: /tutorials/9-path-to-prod/6-run.html
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
             path: /hands-on-exercise/4-run-in-prod/2-migration.html
-          - titles: Prepare and do migrations
+          - title: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
+          - title: Simulate a migration in production with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).

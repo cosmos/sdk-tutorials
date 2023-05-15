@@ -283,8 +283,8 @@ module.exports = {
                   path: "/hands-on-exercise/1-ignite-cli/7-events.html",
                 },
                 {
-                  title: "Make Sure a Player Can Reject a Game",
-                  path: "/hands-on-exercise/1-ignite-cli/8-reject-game.html",
+                  title: "Record the Game Winner",
+                  path: "/hands-on-exercise/1-ignite-cli/8-game-winner.html",
                 },
                 {
                   title: "Week 2 Exercise",
@@ -316,6 +316,10 @@ module.exports = {
                 {
                   title: "IBC/TAO - Clients",
                   path: "/academy/3-ibc/4-clients.html",
+                },
+                {
+                  title: "Light client development",
+                  path: "/academy/3-ibc/4-light-client-dev.html",
                 },
                 {
                   title: "IBC Token Transfer",
@@ -361,16 +365,16 @@ module.exports = {
                   path: "/ida-course/LPs/week-4/",
                 },
                 {
-                  title: "Put Your Games in Order",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html",
-                },
-                {
                   title: "Keep an Up-To-Date Game Deadline",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
                 },
                 {
-                  title: "Record the Game Winner",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-winner.html",
+                  title: "Record the Move Count",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/2-move-count.html",
+                },
+                {
+                  title: "Put Your Games in Order",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html",
                 },
                 {
                   title: "Auto-Expiring Games",

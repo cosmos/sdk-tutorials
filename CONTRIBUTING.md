@@ -2,44 +2,40 @@
 
 This repository contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
 
-
-
 ## Most Tutorials are Version-Specific
 
 If the tutorial instructs you to download a specific version, that means that the code and the docs for each tutorial are tested, supported, and based on a specific version of the software. Be sure to download and use the right version.
-
 
 ## Contributing
 
 Thank you for helping us to create and maintain this awesome developer portal.
 
-- To set up the portal locally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read the [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
-- To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
-- To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
+* To set up the portal locally, please follow the [Local setup and build](TECHNICAL-SETUP.md#local-setup-and-build) guide in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) document. You might also want to read the [further environment tips](TECHNICAL_SETUP.md#Environments) in that file.
+* To provide feedback, file an issue and provide abundant details to help us understand how we can make it better.
+* To provide feedback and a fix, you can make a direct contribution. This repo is protected since we provide the code and the docs to help you learn. If you're not a member or maintainer, fork the repo and then submit a Pull Request from your forked repo to master.
 
 ### Language and Style
 
 We welcome contributions to the tutorials. Our technical content follows the Google developer documentation style guide:
 
-- [Google developer documentation style guide](https://developers.google.com/style)
-- [Highlights](https://developers.google.com/style/highlights)
-- [Word list](https://developers.google.com/style/word-list)
-- [Style and tone](https://developers.google.com/style/tone)
-- [Writing for a global audience](https://developers.google.com/style/translation)
-- [Cross-references](https://developers.google.com/style/cross-references)
-- [Present tense](https://developers.google.com/style/tense)
+* [Google developer documentation style guide](https://developers.google.com/style)
+* [Highlights](https://developers.google.com/style/highlights)
+* [Word list](https://developers.google.com/style/word-list)
+* [Style and tone](https://developers.google.com/style/tone)
+* [Writing for a global audience](https://developers.google.com/style/translation)
+* [Cross-references](https://developers.google.com/style/cross-references)
+* [Present tense](https://developers.google.com/style/tense)
 
 The Google guidelines include more material than is listed here, and are used as a guide that enables easy decision making about proposed content changes.
 
 Other useful resources:
 
-- [Google Technical Writing Courses](https://developers.google.com/tech-writing)
-- [GitHub guides on mastering markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+* [Google Technical Writing Courses](https://developers.google.com/tech-writing)
+* [GitHub guides on mastering markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
 ### Pull Request
 
 When you submit your PR, please use the default [Pull Request template](/.github/pull_request_template.md).
-
 
 ## Platform configuration and use
 
@@ -55,17 +51,15 @@ The layout metadata at the top of the README.md file controls the main landingpa
 
 The published content currently lives in a few separate folders:
 
-- `academy` contains the _Cosmos Academy_ content
-- `tutorials` contains specific tutorials on different topics
-- `hands-on-exercise` contains the hands-on modules
+* `academy` contains the _Cosmos Academy_ content
+* `tutorials` contains specific tutorials on different topics
+* `hands-on-exercise` contains the hands-on modules
 
 **Note:** The folder `ida-customizations` contains files used for the IDA build of the platform.
-
 
 ### Components and advanced features
 
 There is a hidden file (not linked in the main menu) published at [/feature-test](/feature-test/index.md), which demonstrates the use of all custom components used on this platform. This page is also available on the deployed website at [https://tutorials.cosmos.network/feature-test/](https://tutorials.cosmos.network/feature-test/). You can always refer to this page when you need a reference for a component integration.
-
 
 ## Images
 
@@ -75,18 +69,16 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 
 A special note on svg images: They are currently not processed by the asset pipeline, therefore, svgs must be placed in a static asset folder (`.vuepress/public/`). Landingpage images are stored in the `lp-images` sub-folder. To embed such an image, you can embed `/lp-images/go-lp.svg`, which then points to the file at `.vuepress/public/lp-images/go-lp.svg`.
 
-
 ## Who works on the tutorials?
 
 Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors).
-
 
 ## Viewing Tutorial Builds
 
 There are two ways to see what your changes will look like in production before the updated pages are published:
 
-- When a PR is ready for review, you can see a preview deployment.
-- While a PR is in DRAFT mode, you can preview a local build.
+* When a PR is ready for review, you can see a preview deployment.
+* While a PR is in DRAFT mode, you can preview a local build.
 
 ### Preview PRs on a Deployed Preview
 
@@ -98,7 +90,7 @@ To view a deployed preview on a **Ready for review** PR, click the **Details** l
 
 ### Preview Draft PRs on a Local Web Browser
 
-To view a local preview of a branch, follow the steps outlined in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) guide to clone and install the app. Then, checkout the branch you would like to preview and run
+To view a local preview of a branch, follow the steps outlined in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) guide to clone and install the app. Then, checkout the branch you would like to preview and run:
 
 ```
 npm run serve

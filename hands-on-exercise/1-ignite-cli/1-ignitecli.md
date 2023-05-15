@@ -53,7 +53,7 @@ Ignite CLI also handles some compilation, runs a local blockchain node, and help
 
 <HighlightBox type="reading">
 
-Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how to install Ignite CLI in the Ignite CLI Developer Guide](https://docs.ignite.com/guide/install.html).
+Want to dedicate some time to dive deeper into installing Ignite CLI? Learn [how to install Ignite CLI in the Ignite CLI Developer Guide](https://docs.ignite.com/welcome/install).
 
 </HighlightBox>
 
@@ -108,7 +108,7 @@ Ignite CLI version:     v0.22.2
 
 <HighlightBox type="docs">
 
-If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://github.com/ignite/cli/tree/develop/docs/docs/migration/).
+If you'd like to upgrade an existing project to the latest version of Ignite CLI, you can follow the [Ignite CLI migration documentation](https://docs.ignite.com/migration).
 
 </HighlightBox>
 
