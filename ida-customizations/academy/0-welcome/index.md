@@ -55,7 +55,7 @@ overview:
         We have put together a <a href="/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
-        After the seven-week program, you will have four weeks to complete an Final Exam - a combination of quizzes and a code project. The exam will be open from <b>July 6th, 2023</b> and you have to complete it by <b>August 4th, 2023</b>.<br/><br/>
+        After the seven-week program, you will have four weeks to complete a Final Exam - a combination of quizzes and a code project. The exam will be open from <b>July 6th, 2023</b> and you have to complete it by <b>August 4th, 2023</b>.<br/><br/>
         You will receive an email and notification via Discord closer to the date.<br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
         The exam is an individual exercise.<br/><br/>

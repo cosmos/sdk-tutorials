@@ -17,7 +17,7 @@ You can find an overview of several technical terms in this section, including a
 
 In this section, you will take a look at the following terms:
 
-* The Interchain and Interchain Stack
+* The Interchain, and the Interchain Stack
 * LCD
 * RPC
 * Protobuf - Protocol Buffers
@@ -32,11 +32,11 @@ Let's dive right into it.
 
 ## The Interchain
 
-**Interchain** refers to _the network of application-specific blockchains_, built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC).
+**The Interchain** refers to _the network of application-specific blockchains_ built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC).
 
 <HighlightBox type="info">
 
-In case you stumble across the term Cosmos, please be aware that **the Interchain** used to be known as Cosmos. The terms "Cosmos", "Interchain Ecosystem", and "Interchain" can be understood as synonyms.
+In case you stumble across the term Cosmos, please be aware that **the Interchain** used to be known as Cosmos. The terms "Cosmos", "Interchain Ecosystem", and "Interchain" can be understood as synonymous.
 
 </HighlightBox>
 
@@ -154,7 +154,7 @@ The application layer is tasked with ensuring effective communication between ap
 
 </HighlightBox>
 
-### RPC and Interchain
+### RPC and the Interchain
 
 In the Interchain Stack, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and CometBFT endpoint.
 
