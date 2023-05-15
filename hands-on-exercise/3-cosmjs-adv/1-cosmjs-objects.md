@@ -17,13 +17,13 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
-* You have finished the checkers blockchain exercise. If not, you can follow that tutorial [here](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
 With your checkers application ready for use, it is a good time to prepare client elements that eventually allow you to create a GUI and/or server-side scripts. Here, you will apply [what you have learned](/tutorials/7-cosmjs/5-create-custom.md) about creating your own custom CosmJS interfaces.
 
-Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need create the Protobuf objects and clients in TypeScript and create extensions that facilitate the use of them.
+Before you can get into working on your application directly, you need to make sure CosmJS understands your checkers module and knows how to interact with it. This generally means you need to create the Protobuf objects and clients in TypeScript and create extensions that facilitate the use of them.
 
 ## Compile Protobuf
 
@@ -35,49 +35,100 @@ $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 
 Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with content generated out of your Go code.
 
-Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation. In the `scripts` folder install modules for the Protobuf-to-TypeScript compiler:
+Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation: 
+
+```sh
+$ mkdir -p scripts/protoc
+```
+
+In the `scripts` folder, or in your Docker image, install a compiler:
 
 <CodeGroup>
 
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ mkdir -p scripts/protoc
-$ cd scripts
-$ npm install ts-proto@1.121.6 --save-dev --save-exact
-$ cd protoc
+$ cd scripts/protoc
 $ curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o protoc.zip
 $ unzip protoc.zip
 $ rm protoc.zip
+# If /usr/local/bin is in your $PATH
+$ ln -s $(pwd)/bin/protoc /usr/local/bin/protoc
 $ cd ../..
 ```
 
-Make sure [here](https://github.com/protocolbuffers/protobuf/releases/tag/v21.5) that you are downloading the right executable for your computer.
+Make sure that:
+
+* `/usr/local/bin` is the right folder to link to in the command above.
+* You are downloading the right executable for your computer; see your options [here](https://github.com/protocolbuffers/protobuf/releases/tag/v21.5).
 
 </CodeGroupItem>
 
 <CodeGroupItem title="Docker">
 
-```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Dockerfile-ubuntu#L18]
-...
-ENV PACKAGES curl gcc jq make unzip
-...
+```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Dockerfile-ubuntu#L1-L50]
+-  FROM --platform=linux ubuntu:22.04
++  FROM --platform=linux ubuntu:22.04 as base
+    ARG BUILDARCH
+    ...
+    ENV MOCKGEN_VERSION=1.6.0
++  ENV PROTOC_VERSION=21.7
++
++  FROM base AS platform-amd64
++  ENV PROTOC_PLATFORM=x86_64
++
++  FROM base AS platform-arm64
++  ENV PROTOC_PLATFORM=aarch_64
++
++  FROM platform-${BUILDARCH}
+
+    ENV LOCAL=/usr/local
+    ...
+-  ENV PACKAGES curl gcc jq make
++  ENV PACKAGES curl gcc jq make unzip
+    ...
+    RUN go install github.com/golang/mock/mockgen@v${MOCKGEN_VERSION}
+
++  # Install ProtoC
++  RUN mkdir -p /usr/lib/protoc
++  WORKDIR /usr/lib/protoc
++  RUN curl -L https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-${PROTOC_PLATFORM}.zip -o protoc.zip
++  RUN unzip -o protoc.zip
++  RUN rm protoc.zip
++  RUN ln -s /usr/lib/protoc/bin/protoc ${LOCAL}/bin/protoc
+    ...
 ```
 
-Rebuild your Docker image and then:
+Rebuild your Docker image.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+Now install your additional modules:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```sh
-$ mkdir -p scripts/protoc
+$ cd scripts
+$ npm install ts-proto@1.121.6 --save-dev --save-exact
+$ cd ..
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
 $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers/scripts \
     checkers_i \
     npm install ts-proto@1.121.6 --save-dev --save-exact
-$ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers/scripts/protoc \
-    checkers_i \
-    bash -c "curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o /root/protoc.zip && unzip /root/protoc.zip"
 ```
 
 </CodeGroupItem>
@@ -122,7 +173,7 @@ Now compile:
 
 ```sh
 $ cd scripts
-$ ls ../proto/checkers | xargs -I {} ./protoc/bin/protoc \
+$ ls ../proto/checkers | xargs -I {} protoc \
     --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
@@ -139,7 +190,7 @@ $ ls proto/checkers | xargs -I {} docker run --rm \
     -v $(pwd):/checkers \
     -w /checkers/scripts \
     checkers_i \
-    ./protoc/bin/protoc \
+    protoc \
     --plugin="./node_modules/.bin/protoc-gen-ts_proto" \
     --ts_proto_out="../client/src/types/generated" \
     --proto_path="../proto" \
@@ -157,11 +208,12 @@ In order to easily repeat these steps in the future, you can add them to your ex
 
 ```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Makefile#L6-L31]
 install-protoc-gen-ts:
-    cd scripts && npm install
     mkdir -p scripts/protoc
+    cd scripts && npm install
     curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.5/protoc-21.5-linux-x86_64.zip -o scripts/protoc/protoc.zip
     cd scripts/protoc && unzip -o protoc.zip
     rm scripts/protoc/protoc.zip
+    ln -s $(pwd)/scripts/protoc/bin/protoc /usr/local/bin/protoc
 
 cosmos-version = v0.45.4
 
@@ -176,7 +228,7 @@ download-cosmos-proto:
 
 gen-protoc-ts: download-cosmos-proto install-protoc-gen-ts
     mkdir -p ./client/src/types/generated/
-    ls proto/checkers | xargs -I {} ./scripts/protoc/bin/protoc \
+    ls proto/checkers | xargs -I {} protoc \
         --plugin="./scripts/node_modules/.bin/protoc-gen-ts_proto" \
         --ts_proto_out="./client/src/types/generated" \
         --proto_path="./proto" \
@@ -184,7 +236,7 @@ gen-protoc-ts: download-cosmos-proto install-protoc-gen-ts
         checkers/{}
 ```
 
-Then whenever you want to re-run them:
+Whenever you want to re-compile them, run:
 
 <CodeGroup>
 
@@ -210,7 +262,7 @@ $ docker run --rm \
 
 </CodeGroup>
 
-You have created the [basic Protobuf objects](https://github.com/cosmos/academy-checkers-ui/tree/stargate/src/types/generated/checkers) that will assist you with communicating with the blockchain.
+You have created the [basic Protobuf objects](https://github.com/cosmos/academy-checkers-ui/tree/generated/src/types/generated/checkers) that will assist you with communicating with the blockchain.
 
 ## Prepare integration
 
@@ -220,7 +272,7 @@ At this point, you have the `generated` files in your `client` folder. If you ha
 $ cd client
 ```
 
-Also, if you use Docker and did not go through the trouble of building the Docker image for the checkers Cosmos SDK, you can use the `node:18.7` image.
+Also, if you use Docker and did not go through the trouble of building the Docker image for the checkers Cosmos SDK, you can use the `node:18.7-slim` image.
 
 Install the Protobuf.js package in your client project:
 
@@ -240,7 +292,7 @@ $ npm install protobufjs@7.0.0 --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install protobufjs@7.0.0 --save-exact
 ```
 
@@ -277,7 +329,7 @@ $ npm install @cosmjs/stargate@0.28.11 --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install @cosmjs/stargate@0.28.11 --save-exact
 ```
 
@@ -418,7 +470,11 @@ Install packages to run tests.
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
+$ npm install mocha@10.0.0 @types/mocha@9.1.1 \
+    chai@4.3.6 @types/chai@4.3.3 \
+    ts-node@10.9.1 @types/node@18.7.5 \
+    dotenv@16.0.1 @types/dotenv@8.2.0 \
+    --save-dev --save-exact
 ```
 
 </CodeGroupItem>
@@ -429,21 +485,45 @@ $ npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-no
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
-    npm install mocha@10.0.0 @types/mocha@9.1.1 chai@4.3.6 @types/chai@4.3.3 ts-node@10.9.1 @types/node@18.7.5 dotenv@16.0.1 @types/dotenv@8.2.0 --save-dev --save-exact
+    node:18.7-slim \
+    npm install mocha@10.0.0 @types/mocha@9.1.1 \
+        chai@4.3.6 @types/chai@4.3.3 \
+        ts-node@10.9.1 @types/node@18.7.5 \
+        dotenv@16.0.1 @types/dotenv@8.2.0 \
+        --save-dev --save-exact
 ```
 
 </CodeGroupItem>
 
 </CodeGroup>
 
-Describe how to connect to the running blockchain in a `.env` file in your project root:
+Describe how to connect to the running blockchain in a `.env` file in your project root. This depends on where you will run the tests, not on where you run the blockchain:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the checkers blockchain. If your chain runs in a Docker container, you may need to pass your actual IP address.
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
+RPC_URL="http://checkers:26657"
+```
+
+This will run the checkers chain in a container named `checkers`.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+Alternatively, use whichever address connects to the RPC port of the checkers blockchain.
 
 This information will be picked up by the `dotenv` package. Now let TypeScript know about this in an `environment.d.ts` file:
 
@@ -475,19 +555,20 @@ Also add your `tconfig.json` as you see fit:
 
 Add the line that describes how the tests are run:
 
-```json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/package.json#L7]
-{
-    ...
-    "scripts": {
-        "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --require ts-node/register 'test/**/*.ts'"
-    },
-    ...
-}
+```diff-json [https://github.com/cosmos/academy-checkers-ui/blob/stargate/package.json#L7]
+    {
+        ...
+        "scripts": {
+-          "test": "echo \"Error: no test specified\" && exit 1"
++          "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --require ts-node/register 'test/**/*.ts'"
+        },
+        ...
+    }
 ```
 
 ### First tests
 
-Because the intention is to run these tests against a running chain they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
+Because the intention is to run these tests against a running chain, possibly a fresh one, they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
 
 Create `test/integration/system-info.ts`:
 
@@ -566,15 +647,63 @@ Note the forced import of `import _ from "../../environment"`, to actively infor
 
 </HighlightBox>
 
+### Prepare your checkers chain
+
+There is more than one way to run a checkers blockchain. For instance:
+
+* If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite.
+* If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of the running chain in a minimal package. For this, you need Docker and to create an image:
+
+   1. Get the `Dockerfile`:
+
+       ```sh
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
+       ```
+
+   2. Build the image:
+
+       ```sh
+       $ docker build . \
+           -f Dockerfile-standalone \
+           -t checkersd_i:standalone
+       ```
+
+If you have another preferred method, make sure to adjust your above `RPC_URL` accordingly.
+
+<HighlightBox type="tip">
+
+If you are curious about how this `Dockerfile-standalone` was created, head to the [run in production](../4-run-in-prod/1-run-prod-docker.md) section.
+
+</HighlightBox>
+
 ### Launch the tests
 
-Launch your checkers chain, for instance from the checkers folder with:
-
-<!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
+Launch your checkers chain. You can choose your preferred method, as long as it can be accessed at the `RPC_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
 
 <CodeGroup>
 
-<CodeGroupItem title="Local" active>
+<CodeGroupItem title="Docker standalone" active>
+
+```sh
+$ docker network create checkers-net
+$ docker run --rm -it \
+    -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
+    checkersd_i:standalone start
+```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is okay.
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Local Ignite">
 
 ```sh
 $ ignite chain serve
@@ -582,25 +711,40 @@ $ ignite chain serve
 
 </CodeGroupItem>
 
-<CodeGroupItem title="Docker">
+<CodeGroupItem title="Docker Ignite">
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
-    -p 1317:1317 \
-    -p 4500:4500 \
-    -p 5000:5000 \
     -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
     checkers_i \
     ignite chain serve
 ```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is okay.
 
 </CodeGroupItem>
 
 </CodeGroup>
 
-Now if you run the tests:
+---
+
+When using Docker, note:
+
+* `--name checkers` matches the name you wrote in `RPC_URL`.
+* `--network checkers-net`, which is reused shortly if you also run your `npm` tests in Docker. See the paragraph on Docker network, later in this section.
+
+Now, if you run the tests in another shell:
 
 <CodeGroup>
 
@@ -618,15 +762,18 @@ $ npm test
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    --network checkers-net \
+    node:18.7-slim \
     npm test
 ```
 
-Make sure your Node container can access the chain, especially if you set the `RPC_URL` at `localhost`.
+This starts the container on the same network as the blockchain container.
 
 </CodeGroupItem>
 
 </CodeGroup>
+
+---
 
 This should return:
 
@@ -642,126 +789,66 @@ SystemInfo
 3 passing (287ms)
 ```
 
-## Within a Docker network
+The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL`.
 
-You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_. If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. If you think this could eventually be useful, you should complete this section.
+## A note on Docker networks
 
-Install [Docker](https://docs.docker.com/get-docker/).
+You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_.
 
-To run the checkers chain with Ignite CLI you have the choice between two Docker images:
+If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. In fact, in the [production section](../4-run-in-prod/1-run-prod-docker.md) of this hands-on exercise you do exactly that. If you think this could eventually be useful, you should go through this section. You may want to redo this section with [Docker](https://docs.docker.com/get-docker/).
 
-1. You can use the one published by Ignite themselves, for version `0.22.1`: [`ignitehq/cli:0.22.1`](https://hub.docker.com/layers/ignitehq/cli/0.22.1/images/sha256-8e2f353f943227488f966dd02558b718766a17dd8b611bccd2789facdceef0cf). This may be faster the first time you run it, but can become annoying if you plan on doing it many times as it will download the Go dependencies every time.
-2. You can build it yourself from the checkers [`Dockerfile-ubuntu`](https://github.com/cosmos/b9-checkers-academy-draft/blob/main/Dockerfile-ubuntu), with the command:
+Earlier you ran the command:
+
+```sh
+$ docker run --rm -it \
+    -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
+    --detach \
+    checkersd_i:standalone start
+```
+
+This produced the following results:
+
+1. A Docker network was created with the name `checkers-net`. If another container is started in this network, all ports are mutually accessible.
+2. Your container started in it with the resolvable name of `checkers`.
+3. With `-p 26657:26657`, port 26657 was forwarded to your host computer, on top of being already shared on the `checkers-net` network.
+
+Then, for tests:
+
+1. When you ran:
 
     ```sh
-    $ docker build -f Dockerfile-ubuntu . -t checkers_i
+    $ npm test
     ```
 
-    <HighlightBox type="best-practice">
+    Your tests, running on the **host** computer, accessed the checkers chain from the host computer via the forwarded port 26657. Hence `RPC_URL="http://localhost:26657"`.
 
-    This is the preferred method if you plan on using the image many times, as it downloads all Go dependencies once.
+2. When you ran:
+
+    ```sh
+    $ docker run --rm \
+        -v $(pwd):/client \
+        -w /client \
+        --network checkers-net \
+        node:18.7-slim \
+        npm test
+    ```
+
+    Your tests, running in a different container, accessed the checkers chain within the `checkers-net` **Docker network** thanks to the `checkers` name resolution. Hence `RPC_URL="http://checkers:26657"`.
+    
+    <HighlightBox type="note">
+
+    In particular, the `-p 26657:26657` port forwarding was not necessary. You can confirm that by stopping your chain and starting it again, this time without `-p`.
 
     </HighlightBox>
 
-Now that you have decided which Docker image to use, you can run the tests.
+Docker networks are explored further in the next section.
 
-Create a Docker user-defined bridge network for checkers:
-
-```sh
-$ docker network create checkers-net
-```
-
-Go to the checkers chain project folder. Launch the chain's container in the `checkers-net` network, using the DNS-resolvable name of `chain-serve`:
-
-<CodeGroup>
-
-<CodeGroupItem title="With checkers_i">
+When you are done, if you started the chain in Docker you can stop the containers with:
 
 ```sh
-$ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
-    --network checkers-net \
-    --name chain-serve \
-    checkers_i \
-    ignite chain serve
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="With ignitehq/cli">
-
-```sh
-$ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
-    --network checkers-net \
-    --name chain-serve \
-    ignitehq/cli:0.22.1 \
-    chain serve
-```
-
-Because `ignite` is already the image's entry point, you only need to pass `chain serve`.
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-<HighlightBox type="Note">
-
-This time no ports are published (`-p`) back to the host. Indeed, the communication for the Node.js tests will take place within the `checkers-net` network.
-
-</HighlightBox>
-
-The chain is served in a container named `chain-serve`. Update your `client` folder's `.env` with this information:
-
-<CodeGroup>
-
-<CodeGroupItem title="By hand">
-
-```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
-RPC_URL="http://chain-serve:26657"
-FAUCET_URL="http://chain-serve:4500"
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Linux sed">
-
-```sh
-$ sed -i -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
-$ sed -i -E 's/^FAUCET_URL=.*$/FAUCET_URL="http:\/\/chain-serve:4500"/g' .env
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="MacOS sed">
-
-```sh
-$ sed -i '' -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
-$ sed -i '' -E 's/^FAUCET_URL=.*$/FAUCET_URL="http:\/\/chain-serve:4500"/g' .env
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-Again in your `client` folder, you can now run the tests within the same `checkers-net` network:
-
-```sh
-$ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
-    --network checkers-net \
-    node:18.7 \
-    npm test
-```
-
-And that is it. You defined a network over which the Node.js tests' container could easily access the chain's container.
-
-To clean up after you have stopped the containers, you can safely delete the network:
-
-```sh
+$ docker stop checkers
 $ docker network rm checkers-net
 ```
 
@@ -771,7 +858,7 @@ To summarize, this section has explored:
 
 * The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your checkers application.
 * How to create the necessary Protobuf objects and clients in TypeScript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your checkers module.
-* How to use Docker to define a network to orchestrate and launch separate containers that mimic a production setup.
+* How to use Docker to define a network to launch separate containers that can communicate, for the purpose of integration testing.
 
 </HighlightBox>
 

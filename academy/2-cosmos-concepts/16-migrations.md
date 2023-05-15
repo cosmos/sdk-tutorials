@@ -207,13 +207,8 @@ You need new data structures for v2. With Ignite CLI you have:
 **Leaderboard on-the-go updating**
 
 Before thinking about the upgrade, take care of the code as if your v2 was a new project. You need to add code to your v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
-<br/><br/>
 
-<HighlightBox type="tip">
-
-If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
-</HighlightBox>
+Look at the links at the bottom of this page for the related hands-on guided exercise.
 
 **Genesis migration preparation**
 
@@ -229,11 +224,7 @@ Without going into too much detail, the following actions are taken:
 * A Go routine computes the intermediate pieces of player information and then passes them on.
 * These intermediate pieces are added to the player information totals from storage.
 
-<HighlightBox type="info">
-
-Look at [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) for more details.
-
-</HighlightBox>
+Again, look for links at the bottom of this page for the detailed implementation.
 
 **Past leaderboard**
 
@@ -267,11 +258,7 @@ func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, 
 }
 ```
 
-<HighlightBox type="info">
-
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
-</HighlightBox>
+For details about the implementation, look for the links at the bottom of this page.
 
 **Proper genesis migration**
 
@@ -358,6 +345,14 @@ if loadLatest {
 The migration mechanism helps identify how you can upgrade your blockchain to introduce new features.
 
 </ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+
+For even more detail, see [Introduce a Leaderboard After Production](/hands-on-exercise/4-run-in-prod/2-migration.md).
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

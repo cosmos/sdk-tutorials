@@ -26,9 +26,11 @@ Continue your journey with Ignite CLI: learn how to introduce a wager, manage ga
 In this chapter, you will:
 
 * Continuously develop your checkers blockchain with the Ignite CLI.
+* Introduce a game deadline.
+* Introduce a move count.
+* Order your games.
+* Introduce a game forfeiting mechanism.
 * Let players set a wager.
-* Order your games and introduce a game deadline.
-* Record the winners.
 * Help players do a correct move.
 * Explore how you can manage gas for your application-specific chain.
 
@@ -38,7 +40,7 @@ In this chapter, you will:
 
 ## Next up
 
-Begin by exploring modularity and data organization styles to introduce a FIFO data structure to put your games in order in the [next section](./1-game-fifo.md).
+Begin by preparing the ground for further data organization by adding a game deadline in the [next section](./1-game-deadline.md).
 
 ## Developer Resources
 

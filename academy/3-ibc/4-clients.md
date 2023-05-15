@@ -111,16 +111,16 @@ func NewClientState(
     upgradePath []string,
 ) *ClientState {
     return &ClientState{
-		ChainId:         chainID,
-		TrustLevel:      trustLevel,
-		TrustingPeriod:  trustingPeriod,
-		UnbondingPeriod: ubdPeriod,
-		MaxClockDrift:   maxClockDrift,
-		LatestHeight:    latestHeight,
-		FrozenHeight:    clienttypes.ZeroHeight(),
-		ProofSpecs:      specs,
-		UpgradePath:     upgradePath,
-	}
+        ChainId:         chainID,
+        TrustLevel:      trustLevel,
+        TrustingPeriod:  trustingPeriod,
+        UnbondingPeriod: ubdPeriod,
+        MaxClockDrift:   maxClockDrift,
+        LatestHeight:    latestHeight,
+        FrozenHeight:    clienttypes.ZeroHeight(),
+        ProofSpecs:      specs,
+        UpgradePath:     upgradePath,
+    }
 }
 ```
 
