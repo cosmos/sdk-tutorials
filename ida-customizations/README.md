@@ -32,7 +32,7 @@ overview:
           <b>Hands-on exercises</b><br/><br/>
           In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
           Week 1: Quiz - due date: Thursday, May 25th<br/><br/>
-          Week 2: Exercise - due date: Thursday, June 8th<br/><br/>
+          Week 2: Exercise - due date: Thursday, June 1st<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
@@ -49,7 +49,7 @@ overview:
     - title: How do I access Discord?
       description: |
         Follow these two steps to join the private Academy channels on Discord:<br/><br/>
-        Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork). Follow the verification process. It is straightforward, but if you need guidance read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839"</a>.<br/><br/>
+        Join the official Cosmos Discord by clicking <a href="https://discord.gg/cosmosnetwork">here</a>. Follow the verification process. It is straightforward, but if you need guidance read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839"</a>.<br/><br/>
         After joining the Discord server, go <a href="https://academy.interchain.io/onboarding/?token=%7B$b9_uuid%7D">here</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
         If you have any problems, email us at <a href="academy@interchain.io">academy@interchain.io</a>.<br/>
         We have put together a <a href="http://ida.interchain.io/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
@@ -61,7 +61,7 @@ overview:
         You will receive an email with further instructions on how to launch the exam request.<br/><br/>
         The exam is an individual exercise.<br/><br/>
         <div class="tm-bold">When do I get the results?</div>
-        You will receive your exam results by <span class="tm-bold">March 16th</span>.
+        You will receive your exam results by <span class="tm-bold">August 18th</span>.
 customModules:
   - title: Weekly Plan
     description: |
