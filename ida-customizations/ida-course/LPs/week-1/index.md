@@ -17,7 +17,7 @@ From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a 
 
 <HighlightBox type="info">
 
-As all blockchain ecosystems keep on growing and maturing, product stacks and terminologies evolve. Thus, please be aware that Cosmos is also known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers ("the stack") can be referred to collectively as the **Interchain Stack**.
+As all blockchain ecosystems keep on growing and maturing, product stacks and terminologies evolve. Thus, please be aware that Cosmos is also known as **the Interchain**. The terms "Cosmos", "Interchain Ecosystem", and "Interchain" are synonymous with each other, and the various tools available to developers ("the stack") can be referred to collectively as the **Interchain Stack**.
 
 </HighlightBox>
 
@@ -30,7 +30,7 @@ As all blockchain ecosystems keep on growing and maturing, product stacks and te
 In this chapter, you will:
 
 * Explore how Cosmos fits into the overall development of blockchain technology.
-* Begin to discover the Cosmos Ecosystem.
+* Begin to discover the Interchain Ecosystem.
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
 

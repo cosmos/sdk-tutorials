@@ -14,7 +14,7 @@ Congratulations for making it this far on your journey into Cosmos! There are va
 
 ## Jobs
 
-Searching for your next gig? B9lab and the Cosmos Ecosystem have been working on an improved jobs board where you can find all the open roles in the ecosystem. The board is available for all Interchain Developer Academy graduates. If you are interested in receiving updates, sign up below.
+Searching for your next gig? B9lab and the Interchain Ecosystem have been working on an improved jobs board where you can find all the open roles in the ecosystem. The board is available for all Interchain Developer Academy graduates. If you are interested in receiving updates, sign up below.
 
 <p>&nbsp;</p>
 
@@ -39,7 +39,7 @@ var ml_account = ml('accounts', '3880640', 'u4s6c9l6q6', 'load');
 
 ## Events
 
-Explore some of the great projects in the Cosmos Ecosystem and get to know the teams behind them by joining these events.
+Explore some of the great projects in the Interchain Ecosystem and get to know the teams behind them by joining these events.
 
 Upcoming events will be displayed here soon.
 

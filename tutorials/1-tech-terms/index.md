@@ -1,7 +1,7 @@
 ---
 parent:
   title: Good-To-Know Dev Terms
-  description: Review some technical terms essential when developing in Cosmos
+  description: Review some technical terms essential when developing in the Interchain
   number: 1
 order: 0
 title:
@@ -11,13 +11,13 @@ tags:
 
 # Good-To-Know Dev Terms
 
-You can find an overview of several technical terms in this section, including an explanation of each term and links to further resources - all of which are essential when developing with the Cosmos SDK.
+You can find an overview of several technical terms in this section, including an explanation of each term and links to further resources - all of which are essential when developing with the Interchain Stack and Cosmos SDK.
 
 <HighlightBox type="learning">
 
 In this section, you will take a look at the following terms:
 
-* Cosmos and Interchain
+* The Interchain and Interchain Stack
 * LCD
 * RPC
 * Protobuf - Protocol Buffers
@@ -30,9 +30,15 @@ All these terms relate to how node interaction is conducted in Cosmos SDK blockc
 
 Let's dive right into it.
 
-## Cosmos and Interchain
+## The Interchain
 
-**Cosmos** refers to _the network of application-specific blockchains_, built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC). However, Cosmos will soon become known as **the Interchain**. The terms "Cosmos", "Cosmos Ecosystem", and "Interchain" can be understood as synonyms.
+**Interchain** refers to _the network of application-specific blockchains_, built with the Interchain Stack and inter-connected through the Inter-Blockchain Communication Protocol (IBC).
+
+<HighlightBox type="info">
+
+In case you stumble across the term Cosmos, please be aware that **the Interchain** used to be known as Cosmos. The terms "Cosmos", "Interchain Ecosystem", and "Interchain" can be understood as synonyms.
+
+</HighlightBox>
 
 ### The Interchain Stack
 
@@ -96,7 +102,7 @@ A step-by-step RPC request could look like the following:
 
 <HighlightBox type="info">
 
-A stub is a small program routine substituting a longer program. This allows machines to behave as if a program on a remote machine was operating locally. The client has a stub which interfaces with the remote procedure, while the server has a stub to interface with the original request procedure.
+A stub is a small program routine substituting a longer program. This allows machines to behave as if a program on a remote machine was operating locally. The client has a stub that interfaces with the remote procedure, while the server has a stub to interface with the original request procedure.
 
 <br/>
 
@@ -148,11 +154,11 @@ The application layer is tasked with ensuring effective communication between ap
 
 </HighlightBox>
 
-### RPC and Cosmos
+### RPC and Interchain
 
-In Cosmos, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and CometBFT endpoint.
+In the Interchain Stack, RPCs are used by the command-line interface (CLI) among other things to access chains. A node exposes several endpoints - gRPC, REST, and CometBFT endpoint.
 
-Exposed by CometBFT, the CometBFT RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server default port is `9090`, and the REST server default port is `1317`. The CometBFT RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
+Exposed by CometBFT, the CometBFT RPC endpoint is an HTTP1.1 server. The default port is `26657`. The gRPC server's default port is `9090`, and the REST server's default port is `1317`. The CometBFT RPC is independent of the Cosmos SDK and can be configured. It uses HTTP `POST` and JSON-RPC 2.0 for data encoding.
 
 <HighlightBox type="tip">
 
@@ -162,7 +168,7 @@ For more information on the CometBFT RPC, gRPC, and the REST server, a closer lo
 
 <HighlightBox type="info">
 
-Cosmos exposes both the CometBFT RPC and the Cosmos LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
+The Interchain Stack exposes both the CometBFT RPC and the LCD. For example, [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md) uses RPC to implement a JSON-RPC API.
 
 </HighlightBox>
 
@@ -176,11 +182,11 @@ If you want to get more accustomed to Protobuf, a look at the [official document
 
 <br/>
 
-Also take a look at the [section on this platform on Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
+Also, take a look at the [section on this platform on Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 
 </HighlightBox>
 
-In Cosmos, Protobuf is a data serialization method that developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+In the Interchain Stack, Protobuf is a data serialization method that developers use to describe message formats. There is a lot of internal communication within an Interchain application, and Protobuf is central to how communication is done.
 
 With Cosmos SDK v0.40, Protobuf began replacing Amino as the data encoding format of chain states and transactions, in part because encoding/decoding performance is better with Protobuf than Amino. In addition, the developer tooling is also better for Protobuf. Another benefit of switching is that the use of gRPC is fostered, as Protobuf automatically defines and generates gRPC functions. Thus developers no longer have to implement the same query for RPC, LCD, and CLI.
 
@@ -196,9 +202,9 @@ For more on gRPC and very helpful information on getting started, take a look at
 
 gRPC uses HTTP2 for transport and Protocol Buffers (Protobuf) to encode data. gRPCs have a single specification, which makes all gRPC implementations consistent.
 
-### gRPC and Cosmos
+### gRPC and Interchain
 
-In Cosmos, gRPCs are transmission control protocol (TCP) servers with Protobuf and are used for data encoding. The default port is `9090`.
+In the Interchain Stack, gRPCs are transmission control protocol (TCP) servers with Protobuf and are used for data encoding. The default port is `9090`.
 
 <HighlightBox type="info">
 
@@ -256,9 +262,9 @@ Secret.js is a JavaScript SDK used to write applications interacting with the [S
 
 ### gRPC-gateway 
 
-**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. It helps provide APIs in gRPC and RESTful style, and reads gRPC service definitions and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
+**gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. It helps provide APIs in gRPC and RESTful style, reads gRPC service definitions, and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
 
-gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it, developers can benefit from all the advantages of gRPC and, at the same time, still provide a RESTful API - a very helpful tool when for example you want to develop a web application but have browsers that do not support HTTP2. This can help ensure backwards compatibility, and multi-language, multi-client support.
+gRPC-Gateway's aim is ["to provide that HTTP+JSON interface to your gRPC service"](https://grpc-ecosystem.github.io/grpc-gateway/docs/overview/background/). With it, developers can benefit from all the advantages of gRPC and, at the same time, still provide a RESTful API - a very helpful tool when for example you want to develop a web application but have browsers that do not support HTTP2. This can help ensure backward compatibility, and multi-language, multi-client support.
 
 <HighlightBox type="tip">
 
@@ -284,7 +290,7 @@ Usually, Amino codec types and interfaces are registered in the module's domain.
 
 <HighlightBox type="info">
 
-A concrete type is a non-interface type which implements a registered interface. Types need to be registered when stored in interface type fields, or in a list with interface elements.
+A concrete type is a non-interface type that implements a registered interface. Types need to be registered when stored in interface type fields, or in a list with interface elements.
 
 <br/>
 
