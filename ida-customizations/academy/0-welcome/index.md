@@ -61,6 +61,7 @@ overview:
         The exam is an individual exercise.<br/><br/>
         <div class="tm-bold">When do I get the results?</div>
         You will receive your exam results by <span class="tm-bold">August 18th</span>.
+customModules:
   title: Weekly Plan
   description: |
     The Academy runs for seven weeks. You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
