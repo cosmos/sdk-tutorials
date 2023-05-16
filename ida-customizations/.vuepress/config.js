@@ -318,6 +318,10 @@ module.exports = {
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
+                  title: "Light client development",
+                  path: "/academy/3-ibc/4-light-client-dev.html",
+                },
+                {
                   title: "IBC Token Transfer",
                   path: "/academy/3-ibc/5-token-transfer.html",
                 },
