@@ -31,8 +31,9 @@ overview:
           The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There is plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who will point you in the right direction!<br/><br/>
           <b>Hands-on exercises</b><br/><br/>
           In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
-          Week 1: Quiz - due date: Thursday, May 25th<br/><br/>
-          Week 2: Exercise - due date: Thursday, June 8th<br/><br/>
+          Week 1: Quiz - recommended date: Thursday, May 25th<br/><br/>
+          Week 2: Exercise - recommended date: Thursday, June 1st<br/><br/>
+          Week 1 Quiz & Week 2 Exercise - closing date: Thursday, July 6th<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
@@ -155,13 +156,13 @@ customModules:
         links: 
           - title: What is IBC?
             path: /academy/3-ibc/1-what-is-ibc.html
-          - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
+          - title: IBC/TAO - Connections, Channels, and Clients - OPTIONAL
             path: /academy/3-ibc/2-connections.html
           - title: Light client development - OPTIONAL
             path: /academy/3-ibc/4-light-client-dev.html
           - title: IBC token transfer
             path: /academy/3-ibc/7-token-transfer.html
-          - title: Interchain accounts - OPTIONAL
+          - title: Interchain Accounts - OPTIONAL
             path: /academy/3-ibc/8-ica.html
           - title: IBC Middleware - OPTIONAL
             path: /academy/3-ibc/9-ibc-mw-intro.html
@@ -169,7 +170,7 @@ customModules:
             path: /academy/3-ibc/12-ibc-tooling.html
           - title: What is CosmJS?
             path: /tutorials/7-cosmjs/1-cosmjs-intro.html
-          - title: Send tokens with CosmJS
+          - title: Your first CosmJS actions
             path: /tutorials/7-cosmjs/2-first-steps.html
           - title: Compose complex transactions
             path: /tutorials/7-cosmjs/3-multi-msg.html
@@ -178,10 +179,10 @@ customModules:
           - title: Create custom CosmJS interfaces
             path: /tutorials/7-cosmjs/5-create-custom.html
       - image: /planet-collection.svg
-        title: Week 4 - Ignite CLI and IBC
+        title: Week 4 - Ignite CLI Advanced and IBC Advanced
         href: /ida-course/LPs/week-4/
         description: |
-          You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
+          You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing and expanding your IBC knowledge to:
         links: 
           - title: Keep a game deadline
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
@@ -189,7 +190,7 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
           - title: Put your games in order
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
-          - title: Enforce auto-expiring games
+          - title: Auto-expiring games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Let players set a wager
             path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
@@ -215,15 +216,15 @@ customModules:
         description: |
           You will build on your previous work with CosmJS to implement a sound game GUI and a backend script that improves the user experience by:
         links: 
-          - title: Creating custom objects
+          - title: Create custom objects
             path: /hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html
-          - title: Creating custom messages
+          - title: Create custom messages
             path: /hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.html
-          - title: Getting an external GUI
+          - title: Get an external GUI
             path: /hands-on-exercise/3-cosmjs-adv/3-external-gui.html
-          - title: Integrating CosmJS and Keplr
+          - title: Integrate CosmJS and Keplr
             path: /hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html
-          - title: Using CosmJS for game indexing
+          - title: Backend script for game indexing
             path: /hands-on-exercise/3-cosmjs-adv/5-server-side.html
       - image: /moving-objects.svg
         title: Week 6 - IBC Deep Dive
@@ -259,14 +260,18 @@ customModules:
             path: /tutorials/9-path-to-prod/5-network.html
           - title: Configure, run, and set up a service
             path: /tutorials/9-path-to-prod/6-run.html
-          - title: Simulate a production setup with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
           - title: Prepare and do migrations
             path: /tutorials/9-path-to-prod/7-migration.html
-          - title: Simulate a migration in production with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
+          - title: Simulate production in Docker
+            path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
+          - title: Tally Player Info After Production
+            path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a leaderboard as a module
+            path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Add a migration for you leaderboard module
+            path: /tutorials/9-path-to-prod/4-migration-leaderboard.html
+          - title: Simulate production migration with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
 ---
 
 This repo contains the code and content for the published [Cosmos SDK Tutorials](https://tutorials.cosmos.network/).
