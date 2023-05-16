@@ -159,7 +159,9 @@ customModules:
           - title: IBC/TAO - Connections, Channels, and Clients - OPTIONAL
             path: /academy/3-ibc/2-connections.html
           - title: Light client development - OPTIONAL
-            path: /academy/3-ibc/4-light-client-dev.html
+            path: /academy/3-ibc/5-light-client-dev.html
+          - title: Solo machine client - OPTIONAL
+            path: /academy/3-ibc/6-solomachine.html
           - title: IBC token transfer
             path: /academy/3-ibc/7-token-transfer.html
           - title: Interchain Accounts - OPTIONAL

@@ -150,7 +150,7 @@ customModules:
         title: Cosmos Concepts
         href: /academy/2-cosmos-concepts/
         description: |
-          This chapter includes an introduction to the main concepts underlying Cosmos SDK:
+          This chapter includes an introduction to the main concepts underlying the Cosmos SDK:
         links:
           - title: Blockchain app architecture
             path: /academy/2-cosmos-concepts/1-architecture.html
@@ -179,7 +179,7 @@ customModules:
           - title: Bridges
             path: /academy/2-cosmos-concepts/15-bridges.html
           - title: Migrations
-            path: /academy/2-cosmos-concepts/16-migrations.html           
+            path: /academy/2-cosmos-concepts/16-migrations.html
       - image: /lp-images/planet-collection.svg
         title: Introduction to IBC
         href: /academy/3-ibc/
@@ -188,10 +188,12 @@ customModules:
         links:
           - title: What is IBC?
             path: /academy/3-ibc/1-what-is-ibc.html
-          - title: Transport, authentication, and ordering layer - connections, channels, and clients
+          - title: IBC/TAO - Connections, Channels, and Clients
             path: /academy/3-ibc/2-connections.html
           - title: Light client development
-            path: /academy/3-ibc/4-light-client-dev.html
+            path: /academy/3-ibc/5-light-client-dev.html
+          - title: Solo machine client
+            path: /academy/3-ibc/6-solomachine.html
           - title: Fungible token transfer
             path: /academy/3-ibc/7-token-transfer.html
           - title: Interchain accounts
