@@ -543,19 +543,19 @@ module.exports = {
                 },
                 {
                   title: "Tally Player Info After Production",
-                  path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html.html",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
                   title: "Add a Leaderboard as a module",
-                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                  path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
                 },
                 {
                   title: "Add a Migration for your Leaderboard Module",
-                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                  path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
                 },
                 {
                   title: "Simulate a Production Migration with Docker Compose",
-                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                  path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
                 },
                 {
                   title: "Final Exam",
