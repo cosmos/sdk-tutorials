@@ -50,7 +50,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   </ExpansionPanel>
 
-* As mentioned in the previous section, if the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
+* As mentioned in the previous section, if the middleware wishes to send a packet or acknowledgement without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 
   <ExpansionPanel title="Example code">
 
@@ -198,7 +198,7 @@ To summarize, this section has explored:
 * How to integrate IBC middleware(s) with a base application to Cosmos SDK blockchains.
 * Creating and registering a middleware's SDK module with the module manager, if the middleware is maintaining its state, processing SDK messages, or both.
 * The importance of registering all modules to the same `moduleManger` rather than creating multiple ones.
-* How middleware needing to send packets or acknowledgments without involving the underlying application will need access to the same `scopedKeeper` as the base application.
+* How middleware needing to send packets or acknowledgements without involving the underlying application will need access to the same `scopedKeeper` as the base application.
 * How each application stack must reserve a unique port with core IBC, even if two stacks share the same base application.
 * The importance of middleware ordering within a stack, since changes in the position of middlewares may produce different effects as function calls from and to the application transition up or down through the layers of the stack.
 * How only the top-layer middleware should be hooked to the IBC router, regardless of how many underlying middlewares are wrapped by it along with the application.

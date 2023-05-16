@@ -170,7 +170,7 @@ Core IBC A will commit the packet to its own state and the relayer can query thi
 
 Note that core IBC is unopinionated about the actual content of the packet data, as this data is at this point just bytes. It is the responsibility of the applications on either end to marshal and unmarshal the data from and to the expected data structures on either side. This is also why application version negotiation as discussed previously in the channel handshakes is important, as different versions of an application may result in different expected data structures on either end of the channel and application.
 
-After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS-20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgment` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
+After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS-20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgement` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
 
 <HighlightBox type="info">
 

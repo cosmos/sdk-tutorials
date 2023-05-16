@@ -327,7 +327,7 @@ Save those along with `generated` in `./client/src/types/modules`.
 
 ### For messages
 
-Messages, sub-types of `Msg`, are assembled into transactions that are then sent to Tendermint. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294) of CosmJS.
+Messages, sub-types of `Msg`, are assembled into transactions that are then sent to CometBFT. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/fe34588/packages/stargate/src/signingstargateclient.ts#L276-L294) of CosmJS.
 
 The `Msg` kind also needs to be added to a registry. To facilitate that, you should prepare them in a nested array:
 
@@ -509,7 +509,7 @@ To summarize, this section has explored:
 So what's next?  -->The Cosmos is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
-* Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
+* Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
 Head to the [What's Next](/academy/whats-next/index.md) section to find useful information to launch your journey into the Cosmos universe.

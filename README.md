@@ -12,13 +12,13 @@ tools:
       - name: Documentation
         url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
-  - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+  - title: CometBFT
+    description: Blockchain consensus engine using the Tendermint algorithm.
     links:
       - name: Learn more
-        url: https://tendermint.com/core/
+        url: https://docs.cometbft.com/v0.37/
       - name: Documentation
-        url: https://docs.tendermint.com/
+        url: https://docs.cometbft.com/v0.37/core/
     image: /tendermint-icon.svg
   - title: Ignite CLI
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
@@ -120,7 +120,7 @@ customModules:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI and preparing your chain to run in production.
+          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI, CosmJS and IBC, and preparing your chain to run in production.
         tags:
           - guided-coding
       - image:
@@ -186,6 +186,8 @@ customModules:
             path: /academy/3-ibc/1-what-is-ibc.html
           - title: Transport, authentication, and ordering layer - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
+          - title: Light client development
+            path: /academy/3-ibc/4-light-client-dev.html
           - title: Fungible token transfer
             path: /academy/3-ibc/5-token-transfer.html
           - title: Interchain accounts
@@ -301,21 +303,21 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game information
             path: /hands-on-exercise/1-ignite-cli/7-events.html
-          - title: Make sure a player can reject a game
-            path: /hands-on-exercise/1-ignite-cli/8-reject-game.html
+          - title: Recording the winners
+            path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
         href: /hands-on-exercise/2-ignite-cli-adv/
         description: |
           Continue developing your checkers blockchain with Ignite by:
         links:
-          - title: Putting your games in order
-            path: /hands-on-exercise/2-ignite-cli-adv/1-game-fifo.html
           - title: Including a game deadline
-            path: /hands-on-exercise/2-ignite-cli-adv/2-game-deadline.html
-          - title: Recording the winners
-            path: /hands-on-exercise/2-ignite-cli-adv/3-game-winner.html
-          - title: Including auto-expiring of games
+            path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
+          - title: Including a count move
+            path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
+          - title: Putting your games in order
+            path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
+          - title: Enforcing auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
           - title: Including a wager
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
@@ -326,7 +328,7 @@ customModules:
           - title: Help find correct moves
             path: /hands-on-exercise/2-ignite-cli-adv/7-can-play.html
           - title: Play with cross-chain tokens
-            path: hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
+            path: /hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html
       - image: /lp-images/green-planet.svg
         title: CosmJS - Advanced
         href: /hands-on-exercise/3-cosmjs-adv/
@@ -353,6 +355,8 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Introduce a leaderboard after production
             path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Simulate a migration in production with Docker Compose
+            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/
@@ -369,7 +373,7 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: Make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
-          - title: Add packet and acknowledgment data
+          - title: Add packet and acknowledgement data
             path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
             path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
@@ -391,7 +395,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
 * **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
-* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
+* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application through CometBFT
 
 The Developer Portal contains three types of content:
 

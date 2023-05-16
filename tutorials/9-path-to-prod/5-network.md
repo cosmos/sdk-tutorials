@@ -15,7 +15,7 @@ With the genesis created and received, a node operator needs to join the eventua
 1. To open your node to connections from other nodes.
 2. To know where the other nodes are, or at least a subset of them, so that your node can attempt to connect to them.
 
-In this section, you concern yourself with Tendermint and the peer-to-peer network. Other niceties like incorporating gRPC and REST into your Cosmos application are different concerns.
+In this section, you concern yourself with CometBFT and the peer-to-peer network. Other niceties like incorporating gRPC and REST into your Cosmos application are different concerns.
 
 ## Set up 
 
@@ -70,7 +70,7 @@ Keep in mind that a name is subject to the DNS being well configured and working
 external_address = "172.217.22.14:26656" # replace by your own
 ```
 
-The other piece of information that uniquely identifies your node is your **node ID**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public ID is that by which your peers will know your node. You can compute the public ID with the Tendermint command:
+The other piece of information that uniquely identifies your node is your **node ID**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public ID is that by which your peers will know your node. You can compute the public ID with the CometBFT command:
 
 ```sh
 $ ./myprojectd tendermint show-node-id
@@ -143,7 +143,7 @@ Among the network-scoped parameters, some deal with the intricacies of BFT, such
 
 Tangential to these parameters, you can find others in `~/.myprojectd/config/app.toml` that also relate to the network. For instance `minimum-gas-prices`, which you could set at `1nstone` for instance.
 
-To avoid surprises when looking at the configuration, keep in mind your Tendermint version:
+To avoid surprises when looking at the configuration, keep in mind your CometBFT version:
 
 ```sh
 $ ./myprojectd tendermint version

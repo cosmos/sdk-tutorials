@@ -23,7 +23,7 @@ Start by putting `myprojectd` into `/usr/local/bin`, or into whichever path you 
 $ myprojectd version
 ```
 
-In the previous section, you configured some parameters of your node when it comes to Tendermint, in `~/.myprojectd/config/config.toml`.
+In the previous section, you configured some parameters of your node when it comes to CometBFT, in `~/.myprojectd/config/config.toml`.
 
 In `config/app.toml`, you will find other parameters to configure. Take special note of `halt-height` which assists you in gracefully stopping the node, such as when applying a migration.
 
