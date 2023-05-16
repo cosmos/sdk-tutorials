@@ -262,13 +262,13 @@ Eventually, you will run these executables on computers. The command will be a p
 $ myprojectd start
 ```
 
-By default, Tendermint and the Cosmos app are launched together, run together, and communicate via sockets. This is the recommended way of launching. It is not the only way of launching, though.
+By default, CometBFT and the Cosmos app are launched together, run together, and communicate via sockets. This is the recommended way of launching. It is not the only way of launching, though.
 
-You can launch the Tendermint and the Cosmos app separately, and even on different computers. If you do so, ensure that only your Tendermint app can contact the Cosmos app on the ABCI.
+You can launch CometBFT and the Cosmos app separately, and even on different computers. If you do so, ensure that only your CometBFT app can contact the Cosmos app on the ABCI.
 
 For instance:
 
-* To start only the Tendermint node, run:
+* To start only the CometBFT node, run:
 
   ```sh
   $ myprojectd start --proxy_app tcp://192.168.0.5:26658
@@ -289,7 +289,7 @@ Again, this is not recommended for performance reasons - for example, due to net
 To summarize, this section has explored:
 
 * How to build the binary that the nodes will run, using `go build`, Ignite CLI, a `Makefile`, or a `Makefile` within Docker.
-* Different methods of deploying, such as by launching Tendermint and the Cosmos app simultaneously, or by starting either one independently of the other.
+* Different methods of deploying, such as by launching CometBFT and the Cosmos app simultaneously, or by starting either one independently of the other.
 * The importance of ensuring the binary will run equally well on computers using different OS and CPU types.
 
 </HighlightBox>

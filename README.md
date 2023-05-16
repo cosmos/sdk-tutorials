@@ -12,13 +12,13 @@ tools:
       - name: Documentation
         url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
-  - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+  - title: CometBFT
+    description: Blockchain consensus engine using the Tendermint algorithm.
     links:
       - name: Learn more
-        url: https://tendermint.com/core/
+        url: https://docs.cometbft.com/v0.37/
       - name: Documentation
-        url: https://docs.tendermint.com/
+        url: https://docs.cometbft.com/v0.37/core/
     image: /tendermint-icon.svg
   - title: Ignite CLI
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
@@ -373,7 +373,7 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: Make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
-          - title: Add packet and acknowledgment data
+          - title: Add packet and acknowledgement data
             path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
             path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
@@ -395,7 +395,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
 * **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
-* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
+* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application through CometBFT
 
 The Developer Portal contains three types of content:
 

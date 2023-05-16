@@ -168,7 +168,7 @@ module.exports = {
                   path: "/academy/1-what-is-cosmos/1-blockchain-and-cosmos.html",
                 },
                 {
-                  title: "The Cosmos Ecosystem",
+                  title: "The Interchain Ecosystem",
                   path: "/academy/1-what-is-cosmos/2-cosmos-ecosystem.html",
                 },
                 {

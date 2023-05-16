@@ -281,7 +281,7 @@ func (im IBCModule) OnRecvPacket(
 
 <HighlightBox type="note">
 
-Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method and are constructing the acknowledgment to be sent back.
+Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method and are constructing the acknowledgement to be sent back.
 
 </HighlightBox>
 
