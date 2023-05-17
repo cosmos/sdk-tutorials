@@ -69,9 +69,9 @@ module.exports = {
     label: "sdk",
     isIDAMode: true,
     algolia: {
-      id: "BH4D9OD16A",
-      key: "7976d773390a0be350dc24b0571eee15",
-      index: "cosmos-sdk_tutorials",
+      id: "QLS2QSP47E",
+      key: "ca3a435a218a2eb0f99a31f83b2ec309",
+      index: "cosmos_network_ida",
     },
     topbar: {
       banner: true,
@@ -168,7 +168,7 @@ module.exports = {
                   path: "/academy/1-what-is-cosmos/1-blockchain-and-cosmos.html",
                 },
                 {
-                  title: "The Cosmos Ecosystem",
+                  title: "The Interchain Ecosystem",
                   path: "/academy/1-what-is-cosmos/2-cosmos-ecosystem.html",
                 },
                 {
@@ -306,15 +306,15 @@ module.exports = {
                   path: "/academy/3-ibc/1-what-is-ibc.html",
                 },
                 {
-                  title: "IBC/TAO - Connections",
+                  title: "IBC/TAO - Connections - OPTIONAL",
                   path: "/academy/3-ibc/2-connections.html",
                 },
                 {
-                  title: "IBC/TAO - Channels",
+                  title: "IBC/TAO - Channels - OPTIONAL",
                   path: "/academy/3-ibc/3-channels.html",
                 },
                 {
-                  title: "IBC/TAO - Clients",
+                  title: "IBC/TAO - Clients - OPTIONAL",
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
@@ -326,12 +326,16 @@ module.exports = {
                   path: "/academy/3-ibc/5-token-transfer.html",
                 },
                 {
-                  title: "Interchain Accounts",
+                  title: "Interchain Accounts - OPTIONAL",
                   path: "/academy/3-ibc/6-ica.html",
                 },
                 {
                   title: "IBC Tooling",
                   path: "/academy/3-ibc/7-ibc-tooling.html",
+                },
+                {
+                  title: "IBC Solo Machines - OPTIONAL",
+                  path: "/academy/3-ibc/8-solomachine.html",
                 },
                 {
                   title: "What is CosmJS?",
@@ -387,6 +391,10 @@ module.exports = {
                 {
                   title: "Handle wager payments",
                   path: "/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html",
+                },
+                {
+                  title: "Add integration tests",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html",
                 },
                 {
                   title: "Incentivize Players",
@@ -530,12 +538,24 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
-                  title: "Introduce a Leaderboard After Production",
-                  path: "/hands-on-exercise/4-run-in-prod/2-migration.html",
+                  title: "Tally Player Info After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
+                },
+                {
+                  title: "Add a Leaderboard Module",
+                  path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
+                },
+                {
+                  title: "Migrate the Leaderboard Module After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
                 },
                 {
                   title: "Prepare and Do Migrations",
                   path: "/tutorials/9-path-to-prod/7-migration.html",
+                },
+                {
+                  title: "Simulate a Migration in Docker",
+                  path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
                 },
                 {
                   title: "Final Exam",

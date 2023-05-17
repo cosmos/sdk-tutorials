@@ -12,13 +12,13 @@ tools:
       - name: Documentation
         url: https://docs.cosmos.network/
     image: /cosmos-sdk-icon.svg
-  - title: Tendermint Core
-    description: Blockchain consensus engine and application interface.
+  - title: CometBFT
+    description: Blockchain consensus engine using the Tendermint algorithm.
     links:
       - name: Learn more
-        url: https://tendermint.com/core/
+        url: https://docs.cometbft.com/v0.37/
       - name: Documentation
-        url: https://docs.tendermint.com/
+        url: https://docs.cometbft.com/v0.37/core/
     image: /tendermint-icon.svg
   - title: Ignite CLI
     description: All-in-one platform to build, launch, and maintain apps on a sovereign and secured blockchain.
@@ -194,6 +194,8 @@ customModules:
             path: /academy/3-ibc/6-ica.html
           - title: IBC tooling
             path: /academy/3-ibc/7-ibc-tooling.html
+          - title: IBC solo machines
+            path: /academy/3-ibc/8-solomachine.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -323,6 +325,8 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-wager.html
           - title: Handling wager payments
             path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
+          - title: Adding integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html
           - title: Incentiving players
             path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find correct moves
@@ -353,10 +357,14 @@ customModules:
         links:
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Tally player info after production
+            path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a leaderboard module
+            path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Add a migration for your leaderboard module
+            path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - title: Simulate a migration in production with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
+            path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/
@@ -373,7 +381,7 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html
           - title: Make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html
-          - title: Add packet and acknowledgment data
+          - title: Add packet and acknowledgement data
             path: /hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html
           - title: Extend the checkers game with a leaderboard
             path: /hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html
@@ -395,7 +403,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
 * **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
-* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application
+* **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application through CometBFT
 
 The Developer Portal contains three types of content:
 

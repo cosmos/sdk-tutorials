@@ -197,11 +197,47 @@ There is a hidden file (not linked in the main menu) published at [/feature-test
 
 
 ## Platform Variants and Versions
-
 This repository contains the content for two different deployments at once:
 
 * The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
-* The Interchain Developer Academy platform (IDA) [interchainacademy.cosmos.network](https://interchainacademy.cosmos.network/).
+* The Interchain Developer Academy platform (IDA) [ida.interchain.io](http://ida.interchain.io/).
+
+
+### Working with Platform Variants
+
+The content for both platforms lives on the `master` branch. When building the project (`npm run build` and `npm run serve`), you are building the main platform. The IDA platform uses the same base files, but then adds additional changes on top of them (mostly different landing pages, menu adjustments, and small differences on a few content pages).
+
+In general, there are three types of files:
+
+* Files only used on one platform.
+* Files used on both platforms, with the same content.
+* Files used on both platforms with **different content**. This includes config files (`.vuepress/config.js`)
+
+The first two types of files do not require any special treatment. Only the last type - files used on both platforms which contain different content - requires you to undertake particular steps 
+
+### IDA platform
+
+There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customizations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/whats-next/index.md` (main platform) has an IDA variation in `/ida-customizations/academy/whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similarly, there is an IDA specific config in `/ida-customizations/.vuepress/config.js`
+
+### Switching variants
+
+There are two helper scripts available to switch between the main platform and the IDA platform variants.
+
+* Use `npm run switch-ida` to change your local filesystem to the IDA platform variant (copy in the IDA files).
+* Use `npm run switch-main` to switch back to the main platform variant (this moves your changes into the `ida-customizations` folder).
+
+**NOTE: Your working directory must be clean before switching to the IDA files**.
+
+When you switch back to the main variant, changes will be moved into the `ida-customizations` folder, and the original files are restored. The script uses `git stash` to restore the main files, so in case of an inadvertent switch (or any error) you can restore your original changes (see `git stash list` and `git stash pop`). Note however that any **changes in the `ida-customizations` folder will be overwritten** by this script!
+
+
+### Workflows
+
+To work on the IDA platform files, starting from a clean `master`:
+This repository contains the content for two different deployments at once:
+
+* The main platform, deployed to [tutorials.cosmos.network](https://tutorials.cosmos.network).
+* The Interchain Developer Academy platform (IDA) [ida.interchain.io](http://ida.interchain.io/).
 
 Furthermore, the platform features different _versions_ of the content to be deployed in one platform.
 

@@ -110,7 +110,7 @@ Middleware that does not need to negotiate with a counterparty middleware on the
 
 ### Capabilities
 
-The middleware should simply pass the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. The base application will then pass the capability up the stack in order to authenticate an outgoing packet/acknowledgment.
+The middleware should simply pass the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. The base application will then pass the capability up the stack in order to authenticate an outgoing packet/acknowledgement.
 
 ### Code snippets
 
@@ -392,13 +392,13 @@ See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f5
 
 ## ICS-4 wrappers
 
-Middleware must also implement the `ICS4Wrapper` interface so that any communication from the application to the `channelKeeper` goes through the middleware first. Similar to the packet callbacks, the middleware may modify outgoing acknowledgments and packets in any way it wishes.
+Middleware must also implement the `ICS4Wrapper` interface so that any communication from the application to the `channelKeeper` goes through the middleware first. Similar to the packet callbacks, the middleware may modify outgoing acknowledgements and packets in any way it wishes.
 
 ### Capabilities
 
 Earlier you saw that the handshake callbacks passed the capability in the callback arguments along to the underlying application so that it may be claimed by the base application. In the `ICS4Wrapper` methods, the base application will then pass the capability up the stack in order to authenticate an outgoing packet or acknowledgment.
 
-If the middleware wishes to send a packet or acknowledgment without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
+If the middleware wishes to send a packet or acknowledgement without the involvement of the underlying application, it should be given access to the same `scopedKeeper` as the base application so that it can retrieve the capabilities by itself.
 
 ### Code snippets
 
