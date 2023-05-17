@@ -112,6 +112,16 @@ This is just an extract of the different customizations that are available to yo
 
 When your network has been running sufficiently to be considered "established", your next steps are to advertise it and facilitate its eventual integration within the ecosystem. A good way to achieve this is to open a pull request on the [chain registry repository](https://github.com/cosmos/chain-registry) with `chain.json` and `assetlist.json` files that describe your chain in a systematic way. Make sure that your JSON files follow the given schemas, for instance by checking with this [online validator](https://www.jsonschemavalidator.net).
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Executables that run](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-executables-that-run), to see how to prepare (Docker) nodes to run.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

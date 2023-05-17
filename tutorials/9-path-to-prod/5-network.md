@@ -173,6 +173,17 @@ It is common practice to expose your regular nodes and to hide your validator no
 2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked unless the validator node can connect to the sentry node over the same private IP address.
 3. Your sentry nodes never gossip your validators' addresses over the peer-to-peer network, thanks to the use of `private_peer_ids` in `config.toml`.
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Network preparation](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#network-preparation), to see how to prepare nodes to know about each other, and to keep some things private.
+* [Networks they run in](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-networks-they-run-in), to see how the network topology is prepared.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
