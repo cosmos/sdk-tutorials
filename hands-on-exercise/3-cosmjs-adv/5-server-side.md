@@ -7,6 +7,8 @@ tags:
   - cosm-js
 ---
 
+# Backend Script for Game Indexing
+
 <HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
@@ -21,6 +23,7 @@ This exercise assumes that:
 1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
 
     ```sh
+    $ docker network create checkers-net
     $ docker run --rm -it \
         -p 26657:26657 \
         --name checkers \
@@ -64,8 +67,6 @@ This exercise assumes that:
     </CodeGroupItem>
 
     </CodeGroup>
-
-# Backend Script for Game Indexing
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on-chain.
 
@@ -342,10 +343,10 @@ $ npm run indexer-dev
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/client \
-    -w /client \
+    -v $(pwd):/client -w /client \
     -p 3001:3001 \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm run indexer-dev
 ```
@@ -508,10 +509,10 @@ $ npm run indexer-dev
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/client \
-    -w /client \
-    --network checkers-net \
+    -v $(pwd):/client -w /client \
     -p 3001:3001 \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm run indexer-dev
 ```
@@ -861,7 +862,9 @@ $ docker exec -it checkers \
     --yes
 ```
 
-In this case the indexer should not log anything. Because performing moves from the command line is laborious, using the GUI is advisable.
+In this case the indexer should not log anything.
+
+Because performing moves from the command line is laborious, using the GUI is advisable.
 
 </CodeGroupItem>
 
@@ -1114,7 +1117,7 @@ To simulate a case where the game is in the blockchain state but not the indexer
 
 1. Stop your indexer.
 2. Create a game and check at what block it is included (for example, at index `3` and block `1001`).
-3. Update your indexer's `db.json` and pretend that it already indexed the game's block by setting:
+3. Update your indexer's `db.json` to pretend that it already indexed the game's block by setting:
 
     ```json
     "status": {
@@ -1146,6 +1149,13 @@ Patch game: new, 3, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: c
 ```
 
 Develop your own ways to test the other scenarios.
+
+If you started the chain in Docker, when you are done you can stop the containers with:
+
+```sh
+$ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
+```
 
 ## Conclusion
 

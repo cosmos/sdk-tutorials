@@ -425,8 +425,10 @@ You now have:
 <HighlightBox type="tip">
 
 The expandable above is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise from scratch.
-
+<br/><br/>
 Relevant to this section on ABCI is the [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) section, where you use the Cosmos SDK to implement expiration in `EndBlock`. Be warned that this is an advanced section of the hands-on-exercise.
+<br/><br/>
+In the same vein, and advanced too, is the [Add Leaderboard Module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) section, where you add an action in `EndBlock` to reduce computation burdens.
 
 </HighlightBox>
 

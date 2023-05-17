@@ -937,21 +937,27 @@ Adjust what you did.
 * If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite, which has a faucet to start with.
 * If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of both the running chain and a faucet in a minimal package. For this, you need Docker and to create an image:
 
-   1. Get the `Dockerfile`:
+    1. Get the `Dockerfile`:
 
        ```sh
-       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/main/Dockerfile-standalone
        ```
 
-   2. Build the checkers image:
+    2. Build the Docker images:
 
-       ```sh
-       $ docker build . \
-           -f Dockerfile-standalone \
-           -t checkersd_i:standalone
-       ```
+        <CodeGroup>
 
-    3. Build the CosmJS faucet image:
+        <CodeGroupItem title="Checkers">
+
+        ```sh
+        $ docker build . \
+            -f Dockerfile-standalone \
+            -t checkersd_i:standalone
+        ```
+
+        </CodeGroupItem>
+
+        <CodeGroupItem title="Faucet">
 
         ```sh
         $ docker build . \
@@ -960,7 +966,11 @@ Adjust what you did.
             -t cosmos-faucet_i:0.28.11
         ```
 
-If you have another preferred method, make sure to adjust your above `RPC_URL` and `FAUCET_URL` accordingly.
+        </CodeGroupItem>
+
+        </CodeGroup>
+
+If you have another preferred method, make sure to keep track of the required `RPC_URL` and `FAUCET_URL` accordingly.
 
 <HighlightBox type="tip">
 
@@ -1004,7 +1014,6 @@ But that is okay.
 
 <HighlightBox type="note">
 
-* The names match those given in `RPC_URL` and `FAUCET_URL`.
 * The chain needs about 10 seconds to start listening on port 26657. The faucet does not _retry_, so you have to be sure the chain is started.
 * The faucet container itself takes about 20 seconds to be operational, as it creates 4 transactions in 4 blocks.
 * They are started in `--detach`ed mode, but you are free to start them attached in different shells.
@@ -1047,7 +1056,7 @@ But that is okay.
 
 <HighlightBox type="note">
 
-* The name and alias match those given in `RPC_URL` and `FAUCET_URL` respectively.
+An alias, `cosmos-faucet`, is added so that it can be accessed too.
 
 </HighlightBox>
 
@@ -1067,28 +1076,23 @@ Now you can run the tests:
 $ npm test
 ```
 
-<HighlightBox type="info">
-
-Remember that `RPC_URL` and `FAUCET_URL` have to mention `localhost` in this case.
-
-</HighlightBox>
-
 </CodeGroupItem>
 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
+$ docker run --rm -it \
+    -v $(pwd):/client -w /client \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
+    --env FAUCET_URL="http://cosmos-faucet:4500" \
     node:18.7-slim \
     npm test
 ```
 
 <HighlightBox type="info">
 
-Remember that `RPC_URL` and `FAUCET_URL` have to mention `checkers` and `cosmos-faucet` respectively in this case.
+Note how `RPC_URL` and `FAUCET_URL` override the default values found in `.env`, typically `localhost`.
 
 </HighlightBox>
 
@@ -1098,7 +1102,7 @@ Remember that `RPC_URL` and `FAUCET_URL` have to mention `checkers` and `cosmos-
 
 ---
 
-The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL` and `FAUCET_URL`.
+The only combination of running chain / running tests that will not work with the above is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL` and `FAUCET_URL`, for instance  `--env RPC_URL="http://YOUR-HOST-IP:26657"`.
 
 If you started the chain in Docker, when you are done you can stop the containers with:
 

@@ -203,7 +203,7 @@ This creates a `myprojectd` executable file.
 
 A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project with:
 
-```make
+```lang-makefile
 build-all:
     GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go

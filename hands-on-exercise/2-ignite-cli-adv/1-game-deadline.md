@@ -246,7 +246,7 @@ This demonstrates some missing information:
     ...
 ```
 
-In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
+In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration-info.md) to see how to update your blockchain state to avoid such a breaking change. This broken state still lets you test the update of the deadline on play:
 
 <CodeGroup>
 

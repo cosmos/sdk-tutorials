@@ -257,6 +257,7 @@ More precisely, you can jump to:
     * **Mocking** is introduced so as to mock the bank keeper.
 * [Integration Tests](/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.md) where:
     * The first **integration tests** are introduced, to test the integration with the bank keeper.
+* [Tally Player Info](/hands-on-exercise/4-run-in-prod/2-migration-info.md) where an in-place store migration is unit and integration tested.
 
 </HighlightBox>
 

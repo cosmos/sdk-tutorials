@@ -141,7 +141,7 @@ Although this game was already played on, the default `uint` value is applied:
     ...
 ```
 
-In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to see how to update your blockchain state to avoid such a breaking change.
+In effect, your blockchain state is broken. Eventually examine the [section on migrations](/hands-on-exercise/4-run-in-prod/2-migration-info.md) to see how to update your blockchain state to avoid such a breaking change.
 
 Restart your chain with `--reset-once`, create a new game, then:
 
