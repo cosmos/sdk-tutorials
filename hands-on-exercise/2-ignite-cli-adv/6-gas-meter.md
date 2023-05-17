@@ -1,6 +1,6 @@
 ---
 title: "Incentivize Players"
-order: 8
+order: 9
 description: Gas - reward validators proportional to their effort
 tags: 
   - guided-coding
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Go is installed.
-* You have the checkers blockchain codebase with the game wager and its handling. If not, follow the [previous steps](./5-payment-winning.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/integration-tests).
+* You have the checkers blockchain codebase with the integration tests. If not, follow the [previous steps](./5-integration-tests.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/integration-tests).
 
 </HighlightBox>
 
