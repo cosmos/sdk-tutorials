@@ -89,7 +89,7 @@ Your E2E tests should test flows that mirror what users would experience, and th
 
 <HighlightBox type="remember">
 
-As stated, if you work with Cosmos versions 0.46 or earlier, any tests that are labeled "integration tests" are actually E2E tests under the new designation from version 0.47 onward.
+As stated, if you work with Cosmos SDK versions 0.46 or earlier, any tests that are labeled "integration tests" are actually E2E tests under the new designation from version 0.47 onward.
 
 </HighlightBox>
 

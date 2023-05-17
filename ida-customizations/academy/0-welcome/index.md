@@ -70,7 +70,7 @@ customModules:
       title: Week 0 -   Getting Started
       href: /ida-course/LPs/week-0/
       description: |
-        This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Cosmos:
+        This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with the Interchain:
       links: 
         - title: Blockchain basics
           path: /ida-course/0-blockchain-basics/1-blockchain.html
@@ -81,12 +81,12 @@ customModules:
         - title: Docker introduction
           path: /tutorials/5-docker-intro/
     - image: /cosmos_dev_portal_module-03-lp.svg
-      title: Week 1 - Introduction to Cosmos
+      title: Week 1 - Introduction to the Interchain
       href: /ida-course/LPs/week-1/
       description: |
         You will discover the Interchain ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
       links: 
-        - title: Blockchain technology and Cosmos
+        - title: Blockchain technology and the Interchain
           path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
         - title: The Interchain Ecosystem
           path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html

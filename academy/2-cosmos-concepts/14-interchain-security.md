@@ -11,13 +11,13 @@ tags:
 
 <HighlightBox type="learning">
 
-Interchain Security is one of the main Interchain Services the Cosmos Hub provides. It enables other blockchains to be secured through Proof-of-Stake (PoS) by the ATOM token, which holds one of the largest market capitalizations in the Cosmos ecosystem. In this article, you will learn how it works and why you might be interested in launching your dApp as an Interchain Secured chain.
+Interchain Security is one of the main Interchain Services the Cosmos Hub provides. It enables other blockchains to be secured through Proof-of-Stake (PoS) by the ATOM token, which holds one of the largest market capitalizations in the Interchain ecosystem. In this article, you will learn how it works and why you might be interested in launching your dApp as an Interchain Secured chain.
 
 </HighlightBox>
 
 ## Overview
 
-Cosmos has emerged as the leading platform for building blockchains devoted to a single application. Cosmos chains provide more scalability, configurability, and sovereignty than deploying a contract on a smart contract platform such as Ethereum.
+The Interchain has emerged as the leading platform for building blockchains devoted to a single application. Chains created with the Cosmos SDK provide more scalability, configurability, and sovereignty than deploying a contract on a smart contract platform such as Ethereum.
 
 However, Cosmos chains have historically had a major challenge to overcome: they must be secured by a decentralized validator set, with a valuable staking token. This has been a hurdle for many projects that would otherwise benefit from running on a Cosmos chain. Putting together a validator set can be a distraction from building a community of engaged users, and building in a staking token can complicate a project's tokenomics. Furthermore, the chain's security is directly tied to the market cap of the staking token, which may take time to increase in value, thereby subjecting the project to numerous security risks along the way to maturity.
 
@@ -58,7 +58,7 @@ If you would like to learn more about how these tasks are executed, you can find
 
 There are many benefits for application developers who consume their security through the Cosmos Hub. Besides the obvious security bootstrapping that it enables, chains obtain a strong brand association with the Hub as well.
 
-However, before considering using Interchain Security for your dApp, it remains important to keep in mind why Cross Chain Validation was brought to the Cosmos Hub in the first place. Interchain Security was designed to enable _Hub minimalism_, which is a philosophy that positions the Cosmos Hub as a relatively lightweight and simple service provider to the Interchain. For a Hub to be secure, the number of attack surfaces needs to be minimized as much as possible. So, instead of launching a plethora of features directly on the Hub, additional functionality can be extended onto sovereign chains, thus improving the Cosmos network's resilience. If one specific service goes offline, others can continue to function.
+However, before considering using Interchain Security for your dApp, it remains important to keep in mind why Cross Chain Validation was brought to the Cosmos Hub in the first place. Interchain Security was designed to enable _Hub minimalism_, which is a philosophy that positions the Cosmos Hub as a relatively lightweight and simple service provider to the Interchain. For a Hub to be secure, the number of attack surfaces needs to be minimized as much as possible. So, instead of launching a plethora of features directly on the Hub, additional functionality can be extended onto sovereign chains, thus improving the Interchain network's resilience. If one specific service goes offline, others can continue to function.
 
 This was an argument that was made apparent when [a governance proposal](https://www.mintscan.io/cosmos/proposals/69) recommended that the smart contracting language [CosmWasm](../1-what-is-cosmos/2-cosmos-ecosystem.md#cosmwasm-multi-chain-smart-contracts) would be added to the Cosmos Hub. The community widely believed that a smart contracting platform would be useful to the Hub, but that it would not necessarily be required to run directly on the Hub itself, and that it potentially could have negative implications for the security of the chain.
 

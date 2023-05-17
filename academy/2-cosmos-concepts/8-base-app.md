@@ -27,7 +27,7 @@ In this section you will discover how to define an application state machine and
 
 </HighlightBox>
 
-`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
+`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Interchain application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
 
 <HighlightBox type="info">
 

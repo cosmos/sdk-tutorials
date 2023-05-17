@@ -11,7 +11,7 @@ tags:
 
 <HighlightBox type="learning">
 
-In this section you are going to learn all about accounts in Cosmos:
+In this section you are going to learn all about accounts in the Interchain:
 
 * What they are
 * How they are stored
@@ -97,7 +97,7 @@ Although it is technically feasible to generate and store multiple key pairs in 
 
 ### Do I need many addresses?
 
-Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Cosmos Ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
+Using multiple addresses can help you improve privacy. You may be a single individual or entity, but you may want to transact with others under different aliases. Additionally, you will likely interact with more than one blockchain in the Interchain Ecosystem. Conveniently, your inevitably-different addresses on different blockchains can all stem from a single seed.
 <br/><br/>
 A **hierarchical-deterministic wallet** uses a single seed phrase to generate many key pairs to reduce this complexity. Only the seed phrase needs to be backed up.
 
@@ -113,7 +113,7 @@ Click `Show entropy details` and enter random data in the `Entropy` field. This 
 
 </HighlightBox>
 
-Like most blockchain implementations, Cosmos derives addresses from the public keys.
+Like most blockchain implementations, the Interchain derives addresses from the public keys.
 
 ![HD wallets: The seed, keys, addresses, and accounts](/academy/2-cosmos-concepts/images/hd-accounts.png)
 
@@ -257,7 +257,7 @@ To summarize, this section has explored:
 * How an account consists of a public key (a unique account identifier which is safe to disclose) and a private key (a corresponding signature tool which must be kept confidential by the account holder).
 * How public private key pairs are used to sign and verify communications, forming the basis of user authentication in a blockchain.
 * How hierarchical-deterministic wallets provide a convenient way to generate and store key pairs and perform various basic activities such as creating transactions, signing messages, interacting with applications, and communicating with the blockchain.
-* How Cosmos uses the BIP32 cryptographic standard, and the employment of mnemonics as a means of securing a user's wallet.
+* How the Interchain uses the BIP32 cryptographic standard, and the employment of mnemonics as a means of securing a user's wallet.
 * The use of the keyring object for storing and managing keys, and the digital key schemes which are used by different SDK packages.
 * The three types of address which identify users, validator operators, and validator nodes.
 

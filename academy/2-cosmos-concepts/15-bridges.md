@@ -14,7 +14,7 @@ tags:
 
 Make sure to read the following sections as a preparation:
 
-* [The Cosmos Ecosystem](/academy/1-what-is-cosmos/2-cosmos-ecosystem.md)
+* [The Interchain Ecosystem](/academy/1-what-is-cosmos/2-cosmos-ecosystem.md)
 * [Transactions](./3-transactions.md)
 * [Messages](./4-messages.md)
 * [Events](./10-events.md)
@@ -23,21 +23,21 @@ Make sure to read the following sections as a preparation:
 
 <HighlightBox type="learning">
 
-In this section you will learn more about bridges in the Cosmos Ecosystem, including the Gravity Bridge that connects Cosmos with Ethereum.
+In this section you will learn more about bridges in the Interchain Ecosystem, including the Gravity Bridge that connects the Interchain with Ethereum.
 
 </HighlightBox>
 
 ## The Gravity Bridge
 
-The [Gravity Bridge](https://www.gravitybridge.net/) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Cosmos-based blockchains and back.
+The [Gravity Bridge](https://www.gravitybridge.net/) is an on-going project currently being built by Althea with the goal to facilitate the transfer of ERC-20 tokens to Interchain-based blockchains and back.
 
 <HighlightBox type="info">
 
-The Gravity Bridge allows for novel applications that combine the power of Cosmos with the value of assets from Ethereum.
+The Gravity Bridge allows for novel applications that combine the power of the Interchain with the value of assets from Ethereum.
 
 </HighlightBox>
 
-Developers can use a Cosmos chain for computation that is expensive or impossible to perform with Ethereum smart contracts. Developers could accept Ethereum ERC-20 tokens as payment, or build an entire Cosmos application around Ethereum tokens.
+Developers can use a Cosmos chain for computation that is expensive or impossible to perform with Ethereum smart contracts. Developers could accept Ethereum ERC-20 tokens as payment, or build an entire Interchain application around Ethereum tokens.
 
 ## How it works
 
@@ -45,12 +45,12 @@ The Gravity Bridge consists of several components:
 
 * **`Gravity.sol`:** an Ethereum smart contract on the Ethereum blockchain.
 * **Cosmos Gravity module:** a Cosmos module designed to run on the Cosmos Hub.
-* **Orchestrator:** a program that runs on Cosmos validators, which monitors the Ethereum chain and submits events that occur on Ethereum to Cosmos as messages.
+* **Orchestrator:** a program that runs on Cosmos validators, which monitors the Ethereum chain and submits events that occur on Ethereum to the Interchain as messages.
 * **Relayers:** a network of nodes that compete for the opportunity to earn fees for sending transactions on behalf of the Cosmos validators.
 
 Tokens are locked on the Ethereum side by sending them to the `Gravity.sol` smart contract. This emits an event that is observable to validators running the orchestrator. When a quorum of validators agrees that tokens have been locked on Ethereum, including the requisite confirmation blocks, a relayer is selected to send an instruction to the Cosmos Gravity module, which issues new tokens. This is non-dilutive - it does not increase the circulating supply because an equal number of tokens is locked on the Ethereum side.
 
-To transfer tokens from the Cosmos Hub to the Ethereum blockchain, tokens on the Cosmos network are destroyed and an equal number is released (they were previously deposited) from the `Gravity.sol` smart contract.
+To transfer tokens from the Cosmos Hub to the Ethereum blockchain, tokens on the Interchain network are destroyed and an equal number is released (they were previously deposited) from the `Gravity.sol` smart contract.
 
 <HighlightBox type="info">
 
@@ -109,8 +109,8 @@ Do you want to dive deeper when it comes to bridges? Here are some helpful resou
 
 To summarize, this section has explored:
 
-* The Gravity Bridge, which connects Cosmos with Ethereum and allows the transfer of ERC-20 tokens to and from Cosmos-based blockchains.
-* The component elements of the Gravity Bridge and how they reliably monitor and report to Cosmos applications about events on the Ethereum blockchain, providing the necessary confidence to perform transactions.
+* The Gravity Bridge, which connects the Interchain with Ethereum and allows the transfer of ERC-20 tokens to and from Cosmos-based blockchains.
+* The component elements of the Gravity Bridge and how they reliably monitor and report to Interchain applications about events on the Ethereum blockchain, providing the necessary confidence to perform transactions.
 * How the validator set forms a consensus about happenings on Ethereum.
 
 </HighlightBox>

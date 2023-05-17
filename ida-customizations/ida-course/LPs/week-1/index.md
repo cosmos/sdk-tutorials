@@ -1,6 +1,6 @@
 ---
 parent:
-  title: Introduction to Cosmos
+  title: Introduction to the Interchain
   description: A universe of limitless possibilities
   number: 2
 order: 0
@@ -9,11 +9,11 @@ tags:
 ---
 
 <div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">A universe of limitless possibilities</div>
-<h1 class="mt-4 mb-6">Introduction to Cosmos</h1>
+<h1 class="mt-4 mb-6">Introduction to the Interchain</h1>
 
 Enjoy an introduction to the main components of the Cosmos SDK.
 
-From Tendermint to the modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
+From Tendermint to the modules, keepers, queries, and transactions in the Interchain, a whole universe is waiting to be discovered.
 
 <HighlightBox type="info">
 
@@ -29,7 +29,7 @@ As all blockchain ecosystems keep on growing and maturing, product stacks and te
 
 In this chapter, you will:
 
-* Explore how Cosmos fits into the overall development of blockchain technology.
+* Explore how the Interchain fits into the overall development of blockchain technology.
 * Begin to discover the Interchain Ecosystem.
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
@@ -51,7 +51,7 @@ This is a **recording** of the live session _Introduction to Cosmos_ with Billy 
 
 ## Next up
 
-Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and Cosmos](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
+Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and the Interchain](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
 
 ## Developer Resources
 

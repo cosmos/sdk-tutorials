@@ -13,7 +13,7 @@ tags:
 
 Enjoy an introduction to the main components of the Cosmos SDK.
 
-From Tendermint to modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
+From Tendermint to modules, keepers, queries, and transactions in the Interchain, a whole universe is waiting to be discovered.
 
 Do you have a preferred **learning style**? For instance:
 

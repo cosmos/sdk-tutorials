@@ -11,7 +11,7 @@ tags:
 
 <HighlightBox type="learning">
 
-In this section you will dive into the various functions and features of making transactions in Cosmos:
+In this section you will dive into the various functions and features of making transactions in the Interchain:
 
 * Transactions and Messages
 * Signing Transactions

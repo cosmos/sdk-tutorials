@@ -96,7 +96,7 @@ func (k Keeper) GetAll(ctx sdk.Context) (list []returnType)
 
 The Cosmos SDK offers different store types to work with. It is important to gain a good overview of the different store types available for development.
 
-### `KVStore` and `Multistore` in Cosmos
+### `KVStore` and `Multistore` in the Interchain
 
 Each Cosmos SDK application contains a state at its root, the `Multistore`. It is subdivided into separate compartments managed by each module in the application. The `Multistore` is a store of `KVStore`s that follows the [`Multistore interface`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
 
