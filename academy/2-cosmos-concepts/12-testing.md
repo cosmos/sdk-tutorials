@@ -255,7 +255,9 @@ More precisely, you can jump to:
 * [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) for the first **unit test** of a message delivery.
 * [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where:
     * **Mocking** is introduced so as to mock the bank keeper.
+* [Integration Tests](/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.md) where:
     * The first **integration tests** are introduced, to test the integration with the bank keeper.
+* [Tally Player Info](/hands-on-exercise/4-run-in-prod/2-migration-info.md) where an in-place store migration is unit and integration tested.
 
 </HighlightBox>
 

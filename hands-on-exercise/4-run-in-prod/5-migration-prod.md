@@ -1,6 +1,6 @@
 ---
 title: "Simulate a migration in production in Docker"
-order: 4
+order: 6
 description: Introduce the leaderboard in a simulated production setup with Docker Compose
 tags: 
   - guided-coding
@@ -8,13 +8,15 @@ tags:
   - dev-ops
 ---
 
+# Simulate a migration in Docker
+
 <HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
 
 * You understand the concepts of [migrations](/academy/2-cosmos-concepts/13-migrations.md), [production](/tutorials/9-path-to-prod/index.md), and [migrations in production](/tutorials/9-path-to-prod/7-migration.md).
 * Docker is installed and you [understand it](/tutorials/5-docker-intro/index.md).
-* You have the checkers blockchain codebase up to the migration. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/2-migration.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/migration).
+* You have the checkers blockchain codebase up to the migrations. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/leaderboard-migration).
 
 </HighlightBox>
 
@@ -29,8 +31,6 @@ In this section, you will:
 * Test it.
 
 </HighlightBox>
-
-# Simulate a migration in Docker
 
 In previous sections, you have:
 
@@ -49,16 +49,22 @@ You will reuse the nodes, validators, and sentries created for Alice, Bob, and C
 
 In this section, you will accomplish the following steps:
 
-1. Build the checkers v1 software.
-2. Build the checkers v2 software.
-3. Build Cosmovisor and set it up for a known upgrade on all nodes.
-4. Launch everything.
-5. Create an upgrade governance proposal.
-6. Have the proposal pass.
-7. Observe the migration take place.
-8. Stop everything and start it again safely.
+1. Build the checkers v2 software.
+2. Build the checkers v1.1 software.
+3. Build the checkers v1 software.
+4. Build Cosmovisor and set it up for two consecutive known upgrades on all nodes.
+5. Launch everything.
+6. Create the first upgrade governance proposal, `v1tov1_1`.
+7. Have the first proposal pass.
+8. Repeat with the second upgrade governance proposal, `v1_1tov2`.
+9. Observe the first migration take place.
+10. Have the second proposal pass.
+11. Observe the second migration take place.
+12. Stop everything and start it again safely in v2.
 
-In a real production situation, node operators would wait for a named upgrade governance proposal to be on the ballot (if not wait for it to be approved) before they went to the trouble of setting up Cosmovisor; therefore point 5 would happen some time before point 3. However, because we know that the proposal will go through, we will use the above order in the interest of time.
+In a real production situation, node operators would wait for a named upgrade governance proposal to be on the ballot (if not wait for it to be approved) before they went to the trouble of setting up Cosmovisor; therefore point 6 would happen some time before points 2 and 4. However, because we know that the proposal will go through, we will use the above order in the interest of time.
+
+Also, both proposals will be created before the first upgrade, and the second proposal with be _passed_ after the first upgrade. That is in the interest of the exercise, so as to see the second proposal cross the first upgrade in its pending state.
 
 ## Prepare checkers executables
 
@@ -70,23 +76,43 @@ $ docker build . \
     -t checkersd_i:v2-alpine
 ```
 
-To get to v1, you need to check out the code before all the migration code was added. This should be the [`run-prod`](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod) branch.
+To build v1 and v1.1, you first need to check out the code before the migration code steps were added. Depending on your branch names, this would be:
 
-```sh
-$ git checkout run-prod
+<CodeGroup>
+
+<CodeGroupItem title="Build v1.1">
+
+```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/player-info-migration]
+$ git checkout player-info-migration
+$ docker build . \
+    -f prod-sim/Dockerfile-checkersd-alpine \
+    -t checkersd_i:v1.1-alpine
 ```
 
-Now you can create checkers v1:
+</CodeGroupItem>
 
-```sh
+<CodeGroupItem title="Build v1">
+
+```sh [https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod]
+$ git checkout run-prod
 $ docker build . \
     -f prod-sim/Dockerfile-checkersd-alpine \
     -t checkersd_i:v1-alpine
 ```
 
+</CodeGroupItem>
+
+</CodeGroup>
+
+Do not forget to come back to your v2 branch. For instance, with:
+
+```sh
+$ git checkout leaderboard-migration
+```
+
 ## Blockchain elements
 
-Since you are in the `run-prod` branch, your genesis elements should also be in v1. You can confirm this by verifying that there are no leaderboards in the [checkers genesis store](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/genesis.json#L85).
+Your genesis elements should still be in v1 as they were created in the `run-prod` branch. You can confirm this by verifying that there are no player infos and no leaderboards in the [checkers genesis store](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/genesis.json#L85).
 
 As you did in the [migration section](/hands-on-exercise/4-run-in-prod/2-migration.md), you need to reduce the voting period from 2 days to 10 minutes to make the exercise bearable:
 
@@ -100,7 +126,7 @@ $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/val-bob/c
 $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/node-carol/config/genesis.json > prod-sim/node-carol/config/genesis-2.json && mv prod-sim/node-carol/config/genesis-2.json prod-sim/node-carol/config/genesis.json
 ```
 
-The name of the upgrade proposal will be `v1tov2`. The name is important, as Cosmovisor uses it to determine which executable to run.
+The names of the upgrade proposals will be `v1tov2_1` and `v1_1tov2`. The names are important, as they are defined in the code, and Cosmovisor uses them to determine which executable to run.
 
 ## Prepare the Cosmovisor executable
 
@@ -110,7 +136,7 @@ You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-a
 
 1. You need to build Cosmovisor from its code:
 
-    ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L1-L25]
+    ```Dockerfile [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L1-L26]
     FROM --platform=linux golang:1.18.7-alpine AS builder
 
     ENV COSMOS_VERSION=v0.45.4
@@ -134,7 +160,7 @@ You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-a
 
 2. Cosmovisor is instructed via [environment variables](https://docs.cosmos.network/v0.45/run-node/cosmovisor.html#command-line-arguments-and-environment-variables). In the eventual containers, the `/root/.checkers` folder comes from a volume mount, so to avoid any conflict it is better not to put the `cosmovisor` folder directly inside it. Instead pick `/root/.checkers-upgrade`:
 
-    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L20-L23]
+    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L21-L24]
         ...
         FROM --platform=linux alpine
         
@@ -146,24 +172,31 @@ You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-a
         ...
     ```
 
-3. With the folder decided, you can introduce both the v1 and v2 checkers executables. They can be conveniently taken from their respective Docker images:
+3. With the folder decided, you can introduce all three checkers executables. They can be conveniently taken from their respective Docker images:
 
-    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L15-L27]
+    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L15-L29]
     +  FROM --platform=linux checkersd_i:v1-alpine AS v1
+    +  FROM --platform=linux checkersd_i:v1.1-alpine AS v1.1
     +  FROM --platform=linux checkersd_i:v2-alpine AS v2
         FROM --platform=linux alpine
         ...
         COPY --from=builder /root/cosmos-sdk/cosmovisor/cosmovisor ${LOCAL}/bin/cosmovisor
     +  COPY --from=v1 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/genesis/bin/checkersd
+    +  COPY --from=v1.1 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov1_1/bin/checkersd
     +  COPY --from=v2 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov2/bin/checkersd
         ...
     ```
 
-    Checkers starts at v1, therefore the v1 code goes into `.../genesis`, and we know that the code of the eventual upgrade named `v1tov2` is the v2. Note also the decision to use `/usr/local` explicitly, as this is knowledge that is kept in a separate Docker image.
+    Checkers starts at v1, therefore the v1 executable goes into `.../genesis`. We know that:
+    
+    * The executable of the eventual upgrade named `v1tov1_1` is the v1.1 one.
+    * The executable of the eventual upgrade named `v1_1tov2` is the v2 one.
+
+    Note also the decision to use `/usr/local` explicitly, as this is knowledge that is kept in a separate Docker image.
 
 4. Now make Cosmovisor start by default:
 
-    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L29]
+    ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L31]
         COPY --from=v2 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov2/bin/checkersd
 
     +  ENTRYPOINT [ "cosmovisor" ]
@@ -187,6 +220,7 @@ WORKDIR /root/cosmos-sdk/cosmovisor
 RUN make cosmovisor
 
 FROM --platform=linux checkersd_i:v1-alpine AS v1
+FROM --platform=linux checkersd_i:v1.1-alpine AS v1.1
 FROM --platform=linux checkersd_i:v2-alpine AS v2
 FROM --platform=linux alpine
 
@@ -198,7 +232,8 @@ ENV DAEMON_RESTART_AFTER_UPGRADE=true
 
 COPY --from=builder /root/cosmos-sdk/cosmovisor/cosmovisor ${LOCAL}/bin/cosmovisor
 COPY --from=v1 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/genesis/bin/checkersd
-COPY --from=v2 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov2/bin/checkersd
+COPY --from=v1.1 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1tov1_1/bin/checkersd
+COPY --from=v2 /usr/local/bin/checkersd $DAEMON_HOME/cosmovisor/upgrades/v1_1tov2/bin/checkersd
 
 ENTRYPOINT [ "cosmovisor" ]
 ```
@@ -271,17 +306,17 @@ $ docker compose \
     --detach
 ```
 
-In fact, at this stage there is no difference from the previous prod setup, which was what we now call v1. Blocks are being created.
+In fact, at this stage there is no difference from the previous prod setup, which was what you now call v1. Blocks are being created.
 
 Confirm you are on v1:
 
-* One way to confirm is to use checkers v2 to query Carol's node for the leaderboard:
+* One way to confirm is to use checkers v1.1 to query Carol's node for the player infos:
 
     ```sh
     $ docker run --rm -it \
         --network checkers-prod_net-public \
-        checkersd_i:v2-alpine \
-        query checkers show-leaderboard \
+        checkersd_i:v1.1-alpine \
+        query checkers list-player-info \
         --node "tcp://node-carol:26657"
     ```
 
@@ -291,9 +326,9 @@ Confirm you are on v1:
     Error: rpc error: code = Unknown desc = unknown query path: unknown request
     ```
 
-    This confirms that there are no leaderboards in storage.
+    This confirms that the anwering node does not know about such structure.
 
-* Another way to confirm is to see to which folder Cosmovisor's `current` folder is soft linking:
+* Another way to confirm is to see to which folder Cosmovisor's `current` folder is symbolically linking:
 
     ```sh
     $ docker exec -it node-carol \
@@ -308,7 +343,7 @@ Confirm you are on v1:
 
     Again, this confirms that it is running v1, as found in `.../genesis`.
 
-## Make an upgrade proposal
+## Add games
 
 You will now need Alice and Bob's addresses, so take them from the keyrings found on their respective _desktops_.
 
@@ -342,7 +377,63 @@ $ bob=$(echo password | docker run --rm -i \
 
 </CodeGroup>
 
-Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration.md#governance-proposal), with one block every 5 seconds, you make a proposal to run in 15 minutes (i.e. 180 blocks).
+The CosmJS tests use `stake` and `token` whereas this production setup uses only `upawn`. Therefore, do a text search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
+
+Copying what you did in [leaderboard migration section](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md), credit the test accounts so that the CosmJS tests do not attempt to call a missing faucet:
+
+```sh
+$ echo password | docker run --rm -i \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
+    --network checkers-prod_net-public \
+    checkersd_i:v1-alpine tx bank \
+    send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300upawn \
+    --from $alice \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --chain-id checkers-1 \
+    --node http://node-carol:26657 \
+    --broadcast-mode block --yes
+$ echo password | docker run --rm -i \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
+    --network checkers-prod_net-public \
+    checkersd_i:v1-alpine tx bank \
+    send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300upawn \
+    --from $bob \
+    --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --chain-id checkers-1 \
+    --node http://node-carol:26657 \
+    --broadcast-mode block --yes
+```
+
+Then run the tests. One run of the tests creates one completed game. It is okay do this multiple times:
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd)/client:/client \
+    -w /client \
+    --network checkers-prod_net-public \
+    --env RPC_URL="http://node-carol:26657" \
+    node:18.7-slim \
+    npm test
+```
+
+Note how the `RPC_URL` is passed via an environment variable. This uses the fact that `dotenv`'s `config()` function does not overwrite existing variables.
+
+The completed game will count for the future leaderboard.
+
+## Prepare the upgrade proposals
+
+Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration.md#governance-proposal), with one block every 5 seconds, you make:
+
+* The first upgrade proposal to be run in 15 minutes (i.e. 180 blocks).
+* The second upgrade proposal to be run in 25 minutes (i.e. 300 blocks).
+
+Remember that both proposals will have a voting period of 10 minutes, with the second one straddling the first upgrade:
+
+* At _t=0_, the first proposal is in its voting period, for an upgrade 15 minutes later (_t=+15 min_).
+* At _t=+10 min_, the first proposal should pass, and at about the same time, you create the second proposal (it does not matter if it is a bit before or a bit after) for an upgrade 15 minutes later (_t=+25 min_).
+* At _t=+15 min_, the first upgrade happens automatically thanks to Cosmovisor. You will now be running v1.1.
+* At _t=+20 min_, the second proposal should pass.
+* At _t=+25 min_, the second upgrade happens. You will now be running v2.
 
 Find the current block height with:
 
@@ -360,6 +451,8 @@ This returns something like:
 1000
 ```
 
+### Send the first upgrade proposal
+
 With a minimum deposit of 10,000,000 upawn, you can now have Alice send the governance proposal from her desktop to Carol's public node:
 
 ```sh
@@ -367,10 +460,10 @@ $ echo password | docker run --rm -i \
     -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     --network checkers-prod_net-public \
     checkersd_i:v1-alpine \
-    tx gov submit-proposal software-upgrade v1tov2 \
+    tx gov submit-proposal software-upgrade v1tov1_1 \
     --node "tcp://node-carol:26657" \
-    --title "v1tov2" \
-    --description "Increase engagement via the use of a leaderboard" \
+    --title "v1_1tov2" \
+    --description "First step - add player infos" \
     --upgrade-height 1180 \
     --deposit 10000000upawn \
     --from $alice --keyring-backend file --keyring-dir /root/.checkers/keys \
@@ -390,7 +483,7 @@ The command is long but it makes sense when you look at it carefully. It returns
     value: "1"
 ```
 
-## Vote on the proposal
+### Vote on the first proposal
 
 Have both Alice and Bob vote "yes" on the proposal:
 
@@ -428,7 +521,9 @@ echo password | docker run --rm -i \
 
 </CodeGroup>
 
-## Refill your cup
+### Refill your cup
+
+Wait 10 minutes from the time you created the first proposal.
 
 When the proposal voting period ends, check that the votes went through and what the latest block height is:
 
@@ -438,7 +533,6 @@ When the proposal voting period ends, check that the votes went through and what
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
     --network checkers-prod_net-public \
     checkersd_i:v1-alpine \
     query gov votes 1 \
@@ -451,7 +545,6 @@ $ docker run --rm -it \
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
     --network checkers-prod_net-public \
     checkersd_i:v1-alpine \
     query gov proposal 1 \
@@ -486,37 +579,177 @@ You must wait until after the proposal status changes to:
 status: PROPOSAL_STATUS_PASSED
 ```
 
-You must now wait longer, this time for the upgrade block to be reached.
+You must now wait longer, this time for the upgrade block to be reached. In the mean time...
 
-## The live upgrade
+### Send the second upgrade proposal
+
+Between the time the first proposal has passed and the first upgrade takes place, send the second proposal, this time by Bob:
+
+```sh
+$ echo password | docker run --rm -i \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
+    --network checkers-prod_net-public \
+    checkersd_i:v1-alpine \
+    tx gov submit-proposal software-upgrade v1_1tov2 \
+    --node "tcp://node-carol:26657" \
+    --title "v1_1tov2" \
+    --description "Leaderboard introduction" \
+    --upgrade-height 1300 \
+    --deposit 10000000upawn \
+    --from $bob --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --broadcast-mode block \
+    --yes
+```
+
+This returns you the second proposal id:
+
+```yaml
+- attributes:
+  - key: proposal_id
+    value: "2"
+  - key: proposal_type
+    value: SoftwareUpgrade
+  - key: voting_period_start
+    value: "2"
+```
+
+Similarly, have Alice and Bob vote on it:
+
+<CodeGroup>
+
+<CodeGroupItem title="Alice">
+
+```sh
+echo password | docker run --rm -i \
+    -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
+    --network checkers-prod_net-public \
+    checkersd_i:v1-alpine \
+    tx gov vote 2 yes \
+    --node "tcp://node-carol:26657" \
+    --from $alice --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --yes
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Bob">
+
+```sh
+echo password | docker run --rm -i \
+    -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
+    --network checkers-prod_net-public \
+    checkersd_i:v1-alpine \
+    tx gov vote 2 yes \
+    --node "tcp://node-carol:26657" \
+    --from $bob --keyring-backend file --keyring-dir /root/.checkers/keys \
+    --yes
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+## The first live upgrade
 
 If you are scanning the logs of one of the containers, for instance from Docker's GUI, you should see something like:
 
 ```txt
-ERR UPGRADE "v1tov2" NEEDED at height: 1180:
+ERR UPGRADE "v1tov1_1" NEEDED at height: 1180:
 INF starting node with ABCI Tendermint in-process
 ```
 
-That was v1's last message followed by v2's first message.
+That was v1's last message, followed by v1_1's first message.
 
-After that, you should be able to query for the presence of a leaderboard:
+After that, you should be able to query for the presence of player infos:
 
 ```sh
 $ docker run --rm -it \
     --network checkers-prod_net-public \
-    checkersd_i:v2-alpine \
-    query checkers show-leaderboard \
+    checkersd_i:v1.1-alpine \
+    query checkers list-player-info \
     --node "tcp://node-carol:26657"
 ```
 
 This should return:
 
 ```yaml
-Leaderboard:
-  winners: []
+playerInfo:
+- forfeitedCount: "0"
+  index: cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql
+  lostCount: "0"
+  wonCount: "2"
+- forfeitedCount: "0"
+  index: cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22
+  lostCount: "2"
 ```
 
-An empty leaderboard, true, but it is absolutely here, which is what we were after.
+You can also confirm that the leaderboard is still missing:
+
+```sh
+$ docker run --rm -it \
+    --network checkers-prod_net-public \
+    checkersd_i:v2-alpine \
+    query leaderboard show-leaderboard \
+    --node "tcp://node-carol:26657"
+```
+
+This still returns:
+
+```txt
+Error: rpc error: code = Unknown desc = unknown query path: unknown request
+```
+
+You can also verify with Cosmosvisor that it is now running v1.1:
+
+```sh
+$ docker exec -it node-carol \
+    ls -l /root/.checkers-upgrade/cosmovisor/current
+```
+
+This should return:
+
+```txt
+... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1tov1_1
+```
+
+## The second live upgrade
+
+You can follow the status of the second proposal with:
+
+```sh
+$ docker run --rm -it \
+    --network checkers-prod_net-public \
+    checkersd_i:v1.1-alpine \
+    query gov proposal 2 \
+    --node "tcp://node-carol:26657"
+```
+
+Observe that it changes to `PASSED` after the first upgrade. After that, if you are scanning the logs of one of the containers (for instance from Docker's GUI) you should see something like:
+
+```txt
+ERR UPGRADE "v1_1tov2" NEEDED at height: 1300:
+INF starting node with ABCI Tendermint in-process
+```
+
+That was v1.1's last message, followed by v2's first message. You can confirm that the leaderboard has been populated:
+
+```sh
+$ docker run --rm -it \
+    --network checkers-prod_net-public \
+    checkersd_i:v2-alpine \
+    query leaderboard show-leaderboard \
+    --node "tcp://node-carol:26657"
+```
+
+This returns:
+
+```yaml
+Leaderboard:
+  winners:
+  - addedAt: "1683213831"
+    address: cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql
+    wonCount: "2"
+```
 
 ## What about stop and restart?
 
@@ -530,20 +763,20 @@ $ docker exec -it node-carol \
 This should return:
 
 ```txt
-... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1tov2
+... /root/.checkers-upgrade/cosmovisor/current -> /root/.checkers-upgrade/cosmovisor/upgrade/v1_1tov2
 ```
 
-It will return this until the containers are stopped and deleted, that is.
+It will return this **until the containers are stopped** and deleted, that is.
 
 <HighlightBox type="warn">
 
 Remember that the containers are loaded from a Docker image configured with Cosmovisor. In the current configuration, Cosmovisor starts with what it finds at `genesis/bin/checkersd`, i.e. v1.
 <br/><br/>
-All this is to say that you should not expect to stop and start your Cosmovisor Compose setup as is.
+All this is to say that you should not expect it to work if you stop and start your Cosmovisor Compose setup as is.
 
 </HighlightBox>
 
-If you were using real production servers, Cosmovisor would not reset itself on restart, so you would be safe in this regard. You would have time to revisit your server's configuration so as to launch `checkersd` v2 natively.
+If you were using real production servers, Cosmovisor's symbolic link would not reset itself on restart, so you would be safe in this regard. You would have time to revisit your server's configuration so as to launch `checkersd` v2 natively.
 
 In this example you can prepare yet another Compose file, this time specifically for v2:
 
@@ -599,11 +832,17 @@ $ docker compose \
     --detach
 ```
 
+<HighlightBox type="note">
+
 If you want to test other migration configurations, for instance where Carol _forgot_ to put Cosmovisor on her node, you can revert all your blockchain files to v1 with:
 
 ```sh
 $ ./prod-sim/unsafe-reset-state.sh
 ```
+
+Another exercise you can attempt is create a `v1tov2` upgrade that does **both** upgrades in one go. You would have to add this `v1tov2` name into the Go code, and make sure it is handled correctly.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 
@@ -611,7 +850,7 @@ To summarize, this section has explored:
 
 * How to prepare multi-stage Docker images for different executable versions.
 * How to prepare Cosmovisor for a simulated production migration.
-* How to upgrade a blockchain in production, by live migrating from v1 of the blockchain to v2.
+* How to upgrade a blockchain in production, by live migrating from v1 of the blockchain to v1.1 and then v2.
 * How to launch all that with the help of Docker Compose.
 * A complete procedure for how to conduct the update via the CLI.
 

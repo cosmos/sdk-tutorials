@@ -76,7 +76,7 @@ First, build the executable(s) that will be launched by Docker Compose within th
 
 Update your `Makefile` with:
 
-```make [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
+```lang-makefile [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/Makefile#L33-L45]
 build-linux:
     GOOS=linux GOARCH=amd64 go build -o ./build/checkersd-linux-amd64 ./cmd/checkersd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/checkersd-linux-arm64 ./cmd/checkersd/main.go
@@ -1516,34 +1516,79 @@ Whenever you submit a transaction to `node-carol`, it will be propagated to the 
 
 At this juncture, you may ask: Is it still possible to run a full game in almost a single block, as you did earlier in the [CosmJS integration tests](/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.md#multiple-transactions-in-a-block)? After all, when `node-carol` passes on the transactions as they come, it is not certain that the recipients will honor the order in which they were received. Of course, they make sure to order Alice's transactions, thanks to the `sequence`, as well as Bob's. But do they keep the A-B-A-B... order in which they were sent?
 
-To find out:
+To find out, you need to credit the tests' Alice and Bob accounts:
 
-* Update `client/.env` so that:
-    * You connect within `net-public` to [`RPC_URL="http://node-carol:26657"`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L1).
-    * You use the Alice and Bob of this document as the CosmJS _test_ Alice and Bob. Copy the content of `prod-sim/desk-alice/keys/mnemonic-alice.txt` into `client/.env`'s [`MNEMONIC_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L3). Then do the same for Bob.
-    * Update the [`ADDRESS_TEST_ALICE`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/.env#L4) address to contain the correct ones, and repeat the same for Bob.
-* Skip the call to the (Ignite) faucet by adding a `return` in the relevant `before` in the test file:
+1. Get your prod setup's respective addresses for Alice and Bob:
 
-  ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L63]
-  before("credit test accounts", async function () {
-      return
-      ...
-  })
-  ```
+   <CodeGroup>
 
-* Text-replace all the [`token`](https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/test/integration/stored-game-action.ts#L89) with `upawn`.
+    <CodeGroupItem title="Alice">
 
-* Launch the lot within `net-public`:
+    ```sh
+    $ alice=$(echo password | docker run --rm -i \
+        -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
+        checkersd_i:v1-alpine \
+        keys \
+        --keyring-backend file --keyring-dir /root/.checkers/keys \
+        show alice --address)
+    ```
 
-  ```sh
-  $ docker run --rm -it \
-      -v $(pwd)/client:/client -w /client \
-      --network checkers-prod_net-public \
-      node:18.7-slim \
-      npm test
-  ```
+    </CodeGroupItem>
 
-  Tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
+    <CodeGroupItem title="Bob">
+
+    ```sh
+    $ bob=$(echo password | docker run --rm -i \
+        -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
+        checkersd_i:v1-alpine \
+        keys \
+        --keyring-backend file --keyring-dir /root/.checkers/keys \
+        show bob --address)
+    ```
+
+    </CodeGroupItem>
+
+    </CodeGroup>
+
+2. The CosmJS tests use `stake` and `token`, whereas this production setup uses only `upawn`. Therefore, do a _text_ search and change all occurrences of `stake` and `token` to `upawn` in [`client/test/integration/stored-game-action.ts`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts). Also remove the [`upawn: 1,`](https://github.com/cosmos/academy-checkers-ui/blob/main/test/integration/stored-game-action.ts#L56-L60) lines that prevent compilation.
+
+3. Credit the test accounts so that the CosmJS tests do not attempt to call a missing faucet:
+
+    ```sh
+    $ echo password | docker run --rm -i \
+        -v $(pwd)/prod-sim/desk-alice:/root/.checkers \
+        --network checkers-prod_net-public \
+        checkersd_i:v1-alpine tx bank \
+        send $alice cosmos1fx6qlxwteeqxgxwsw83wkf4s9fcnnwk8z86sql 300upawn \
+        --from $alice \
+        --keyring-backend file --keyring-dir /root/.checkers/keys \
+        --chain-id checkers-1 \
+        --node http://node-carol:26657 \
+        --broadcast-mode block --yes
+    $ echo password | docker run --rm -i \
+        -v $(pwd)/prod-sim/desk-bob:/root/.checkers \
+        --network checkers-prod_net-public \
+        checkersd_i:v1-alpine tx bank \
+        send $bob cosmos1mql9aaux3453tdghk6rzkmk43stxvnvha4nv22 300upawn \
+        --from $bob \
+        --keyring-backend file --keyring-dir /root/.checkers/keys \
+        --chain-id checkers-1 \
+        --node http://node-carol:26657 \
+        --broadcast-mode block --yes
+    ```
+
+Now you can launch everything within `net-public`:
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd)/client:/client -w /client \
+    --network checkers-prod_net-public \
+    --env RPC_URL="http://node-carol:26657" \
+    node:18.7-slim \
+    npm test
+```
+
+  The tests should pass. _Should_ as in there is no protocol guarantee that they will, but it looks like they do.
 
 ### Stopping Compose
 
@@ -2057,33 +2102,22 @@ You now have a container running both the checkers and a faucet. You are ready t
 
 ### Test your standalone checkers
 
-Prepare the `client/.env` values depending on whether you will run `npm test` locally or in Docker:
+Which `RPC_URL` and which `FAUCET_URL` will the tests require?
 
-<CodeGroup>
+* If locally, the defaults will do:
 
-<CodeGroupItem title="Local">
+    ```ini
+    RPC_URL="http://localhost:26657"
+    FAUCET_URL="http://localhost:4500"
+    ```
 
-```ini
-RPC_URL="http://localhost:26657"
-FAUCET_URL="http://localhost:4500"
-```
+* If running from Docker, you have to pass values to the tests that resolve via Docker's automatic name resolution within `checkers-net`:
 
-</CodeGroupItem>
 
-<CodeGroupItem title="Docker">
-
-```ini
-RPC_URL="http://checkers:26657"
-FAUCET_URL="http://cosmos-faucet:4500"
-```
-
-Where you insert the `--name`s used when launching the Docker containers.
-
-</CodeGroupItem>
-
-</CodeGroup>
-
----
+    ```ini
+    RPC_URL="http://checkers:26657"
+    FAUCET_URL="http://cosmos-faucet:4500"
+    ```
 
 Now you can launch the tests:
 
@@ -2101,20 +2135,17 @@ $ npm test --prefix client
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd)/client:/client \
-    -w /client \
+    -v $(pwd)/client:/client -w /client \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
+    --env FAUCET_URL="http://cosmos-faucet:4500" \
     node:18.7-slim \
     npm test
 ```
 
-Note how the container is also inserted in `--network checkers-net`, so as to benefit from the automatic name resolution.
-
 </CodeGroupItem>
 
 </CodeGroup>
-
----
 
 To stop (and `--rm`) both containers, run:
 
