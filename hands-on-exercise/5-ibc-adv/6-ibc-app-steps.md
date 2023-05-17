@@ -674,7 +674,7 @@ Previous steps sometimes referenced keeper methods that deal with binding to and
 
 For a full overview, check out the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/keeper.html) and compare it with the `x/leaderboard/keeper/keeper.go` file.
 
-You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/develop/ignite/pkg/cosmosibckeeper).
+You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/v0.22.1/ignite/pkg/cosmosibckeeper).
 
 #### Routing and `app.go`
 
