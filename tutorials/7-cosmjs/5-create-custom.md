@@ -21,7 +21,7 @@ In this section, you will:
 
 </HighlightBox>
 
-CosmJS comes out of the box with interfaces that connect with the standard Cosmos modules such as `bank` and `gov` and understand the way their messages are serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
+CosmJS comes out of the box with interfaces that connect with the standard Cosmos SDK modules such as `bank` and `gov` and understand the way their messages are serialized. Since your own blockchain's modules are unique, they need custom CosmJS interfaces. That process consists of several steps:
 
 1. Creating the Protobuf objects and clients in TypeScript.
 2. Creating extensions that facilitate the use of the above clients.
@@ -497,7 +497,7 @@ More specifically, you can jump to:
 
 To summarize, this section has explored:
 
-* How CosmJS's out-of-the-box interfaces understand how messages of standard Cosmos modules are serialized, meaning that your unique modules will require custom CosmJS interfaces of their own.
+* How CosmJS's out-of-the-box interfaces understand how messages of standard Cosmos SDK modules are serialized, meaning that your unique modules will require custom CosmJS interfaces of their own.
 * How to create the necessary Protobuf objects and clients in Typescript, the extensions that facilitate the use of these clients, and any further level of abstraction that you deem useful for integration.
 * How to integrate CosmJS with Ignite's client and signing client, which are typically the ultimate abstractions that facilitate the querying and sending of transactions.
 
@@ -506,10 +506,10 @@ To summarize, this section has explored:
 ## What next?
 
 <!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
-So what's next?  -->The Cosmos is vast, with lots of projects, people and concepts to discover:
+So what's next?  -->The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
 * Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next](/academy/whats-next/index.md) section to find useful information to launch your journey into the Cosmos universe.
+Head to the [What's Next](/academy/whats-next/index.md) section to find useful information to launch your journey into the Interchain universe.

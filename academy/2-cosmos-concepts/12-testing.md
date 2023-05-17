@@ -32,7 +32,7 @@ The Cosmos SDK implements its own testing vision for its modules, and it would b
 
 ## Testing pyramid
 
-After some [reflection](https://docs.cosmos.network/main/architecture/adr-059-test-scopes.html), Cosmos divides tests into four broad categories of somewhat increasing scope:
+After some [reflection](https://docs.cosmos.network/main/architecture/adr-059-test-scopes.html), the Cosmos SDK divides tests into four broad categories of somewhat increasing scope:
 
 * [Unit tests](https://docs.cosmos.network/main/building-modules/testing#unit-tests)
 * [Integration tests](https://docs.cosmos.network/main/building-modules/testing#integration-tests)

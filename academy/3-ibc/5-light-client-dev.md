@@ -26,7 +26,7 @@ In this section, you will learn:
 
 ## IBC ecosystem expansion
 
-IBC was envisioned in the original Cosmos whitepaper to be both a crucial component of the appchain thesis for the Cosmos network and also a generic and universally applicable standard with respect to blockchain interoperability.
+IBC was envisioned in the original Cosmos whitepaper to be both a crucial component of the appchain thesis for the Interchain network and also a generic and universally applicable standard with respect to blockchain interoperability.
 
 Whereas the protocol always envisioned the wider adoption of IBC, the ibc-go implementation initially was focused on its usage in Cosmos SDK chains connecting to similar chains. In order to expand IBC to other chain ecosystems, the [ibc-go v7 release](https://github.com/cosmos/ibc-go/releases/tag/v7.0.0) included a refactor to the `02-client` submodule, which should streamline the development of light clients to connect ibc-go to chains with other consensus than `07-tendermint`.
 
