@@ -115,10 +115,10 @@ This is a two-part update. You set the winner where relevant, but you also intro
 
 Start with a new error that you define as a constant:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L18]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L21]
     var (
         ...
-+      ErrGameFinished = sdkerrors.Register(ModuleName, 1107, "game is already finished")
++      ErrGameFinished = sdkerrors.Register(ModuleName, 1110, "game is already finished")
     )
 ```
 
