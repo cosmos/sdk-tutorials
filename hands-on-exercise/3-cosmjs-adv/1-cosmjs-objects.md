@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
-* You have finished the checkers blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -497,13 +497,33 @@ $ docker run --rm \
 
 </CodeGroup>
 
-Describe how to connect to the running blockchain in a `.env` file in your project root:
+Describe how to connect to the running blockchain in a `.env` file in your project root. This depends on where you will run the tests, not on where you run the blockchain:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local">
 
 ```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
 RPC_URL="http://localhost:26657"
 ```
 
-Alternatively, use whichever address connects to the RPC port of the checkers blockchain. If your chain runs in a Docker container, you may need to pass your host's IP address.
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
+RPC_URL="http://checkers:26657"
+```
+
+This will run the checkers chain in a container named `checkers`.
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+---
+
+Alternatively, use whichever address connects to the RPC port of the checkers blockchain.
 
 This information will be picked up by the `dotenv` package. Now let TypeScript know about this in an `environment.d.ts` file:
 
@@ -548,7 +568,7 @@ Add the line that describes how the tests are run:
 
 ### First tests
 
-Because the intention is to run these tests against a running chain they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
+Because the intention is to run these tests against a running chain, possibly a fresh one, they cannot expect too much, such as how many games have been created so far. Still, it is possible to at least test that the connection is made and queries pass through.
 
 Create `test/integration/system-info.ts`:
 
@@ -627,15 +647,63 @@ Note the forced import of `import _ from "../../environment"`, to actively infor
 
 </HighlightBox>
 
+### Prepare your checkers chain
+
+There is more than one way to run a checkers blockchain. For instance:
+
+* If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite.
+* If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of the running chain in a minimal package. For this, you need Docker and to create an image:
+
+   1. Get the `Dockerfile`:
+
+       ```sh
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/main/Dockerfile-standalone
+       ```
+
+   2. Build the image:
+
+       ```sh
+       $ docker build . \
+           -f Dockerfile-standalone \
+           -t checkersd_i:standalone
+       ```
+
+If you have another preferred method, make sure to keep track of the required `RPC_URL` accordingly.
+
+<HighlightBox type="tip">
+
+If you are curious about how this `Dockerfile-standalone` was created, head to the [run in production](../4-run-in-prod/1-run-prod-docker.md) section.
+
+</HighlightBox>
+
 ### Launch the tests
 
-Launch your checkers chain, for instance from the checkers folder with:
-
-<!-- TODO create a Docker container that contains everything for a pure CosmJS dev to follow along -->
+Launch your checkers chain. You can choose your preferred method, as long as it can be accessed at the `RPC_URL` you defined earlier. For the purposes of this exercise, you have the choice between three methods:
 
 <CodeGroup>
 
-<CodeGroupItem title="Local" active>
+<CodeGroupItem title="Docker standalone" active>
+
+```sh
+$ docker network create checkers-net
+$ docker run --rm -it \
+    -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
+    checkersd_i:standalone start
+```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is okay.
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Local Ignite">
 
 ```sh
 $ ignite chain serve
@@ -643,25 +711,40 @@ $ ignite chain serve
 
 </CodeGroupItem>
 
-<CodeGroupItem title="Docker">
+<CodeGroupItem title="Docker Ignite">
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
-    -p 1317:1317 \
-    -p 4500:4500 \
-    -p 5000:5000 \
     -p 26657:26657 \
+    --name checkers \
+    --network checkers-net \
     checkers_i \
     ignite chain serve
 ```
+
+If your `checkers-net` network already exists, the first command fails with:
+
+```txt
+Error response from daemon: network with name checkers-net already exists
+```
+
+But that is okay.
 
 </CodeGroupItem>
 
 </CodeGroup>
 
-Now if you run the tests:
+---
+
+When using Docker, note:
+
+* `--name checkers` either matches the name you wrote in `RPC_URL`, or can be passed as an environment variable to another container to override the value found in `.env`.
+* `--network checkers-net`, which is reused shortly if you also run your `npm` tests in Docker. See the paragraph on Docker network, later in this section.
+
+Now, if you run the tests in another shell:
 
 <CodeGroup>
 
@@ -677,17 +760,24 @@ $ npm test
 
 ```sh
 $ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
+    -v $(pwd):/client -w /client \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm test
 ```
 
-It starts the container on the same network as the blockchain container.
+<HighlightBox type="note">
+
+This starts the container on the same network as the blockchain container, where `checkers` resolves to the checkers container. And it also passes `RPC_URL` as an override of the value found in `.env`, typically `localhost`.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
 </CodeGroup>
+
+---
 
 This should return:
 
@@ -703,127 +793,67 @@ SystemInfo
 3 passing (287ms)
 ```
 
-## Within a Docker network
+The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `--env RPC_URL="http://YOUR-HOST-IP:26657"`.
 
-You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_. If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. If you think this could eventually be useful, you should complete this section.
+## A note on Docker networks
 
-Install [Docker](https://docs.docker.com/get-docker/) and clone the [Checkers repository](https://github.com/cosmos/b9-checkers-academy-draft) at the `cosmjs-elements` branch:
+You may not have used Docker up to this point. The following paragraphs acquaint you with a Docker _user-defined bridged network_.
 
-```sh
-$ git clone --branch cosmjs-elements https://github.com/cosmos/b9-checkers-academy-draft.git
-```
+If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. In fact, in the [production section](../4-run-in-prod/1-run-prod-docker.md) of this hands-on exercise you do exactly that. If you think this could eventually be useful, you should go through this section. You may want to redo this section with [Docker](https://docs.docker.com/get-docker/).
 
-To run the checkers chain with Ignite CLI you have the choice between two Docker images:
-
-1. You can use the one published by Ignite themselves, for version `0.22.1`: [`ignitehq/cli:0.22.1`](https://hub.docker.com/layers/ignitehq/cli/0.22.1/images/sha256-8e2f353f943227488f966dd02558b718766a17dd8b611bccd2789facdceef0cf). This may be faster the first time you run it, but can become annoying if you plan on doing it many times as it will download the Go dependencies every time.
-2. You can build it yourself from the checkers [`Dockerfile-ubuntu`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/Dockerfile-ubuntu), with the command:
-
-    ```sh
-    $ docker build -f Dockerfile-ubuntu . -t checkers_i
-    ```
-
-    <HighlightBox type="best-practice">
-
-    This is the preferred method if you plan on using the image many times, as it downloads all Go dependencies once.
-
-    </HighlightBox>
-
-Now that you have decided which Docker image to use, you can run the tests.
-
-Create a Docker user-defined bridge network for checkers:
+Earlier you ran the commands:
 
 ```sh
 $ docker network create checkers-net
-```
-
-Go to the checkers repository folder. Launch the chain's container in the `checkers-net` network, using the DNS-resolvable name of `chain-serve`:
-
-<CodeGroup>
-
-<CodeGroupItem title="With checkers_i">
-
-```sh
 $ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
+    -p 26657:26657 \
+    --name checkers \
     --network checkers-net \
-    --name chain-serve \
-    checkers_i \
-    ignite chain serve
+    --detach \
+    checkersd_i:standalone start
 ```
 
-</CodeGroupItem>
+This produced the following results:
 
-<CodeGroupItem title="With ignitehq/cli">
+1. A Docker network was created with the name `checkers-net`. If containers are started in this network, all ports are mutually accessible.
+2. Your container started in it with the resolvable name of `checkers`.
+3. With `-p 26657:26657`, port 26657 was forwarded to your host computer, on top of being already shared on the `checkers-net` network.
+
+Then, for tests:
+
+1. When you ran:
+
+    ```sh
+    $ npm test
+    ```
+
+    Your tests, running on the **host** computer, accessed the checkers chain from the host computer via the forwarded port 26657. Hence `RPC_URL="http://localhost:26657"`.
+
+2. When you ran:
+
+    ```sh
+    $ docker run --rm \
+        -v $(pwd):/client -w /client \
+        --network checkers-net \
+        --env RPC_URL="http://checkers:26657" \
+        node:18.7-slim \
+        npm test
+    ```
+
+    Your tests, running in a different container, accessed the checkers chain within the `checkers-net` **Docker network** thanks to the `checkers` name resolution. Hence `RPC_URL="http://checkers:26657"`.
+    
+    <HighlightBox type="note">
+
+    In particular, the `-p 26657:26657` port forwarding was not necessary. You can confirm that by stopping your chain and starting it again, this time without `-p`.
+
+    </HighlightBox>
+
+Docker networks are explored further in the next section.
+
+When you are done, if you started the chain in Docker you can stop the containers with:
 
 ```sh
-$ docker run --rm -it \
-    -v $(pwd):/checkers \
-    -w /checkers \
-    --network checkers-net \
-    --name chain-serve \
-    ignitehq/cli:0.22.1 \
-    chain serve
-```
-
-Because `ignite` is already the image's entry point, you only need to pass `chain serve`.
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-<HighlightBox type="note">
-
-This time there is no need to publish ports (`-p`) back to the host. Indeed, the communication for the Node.js tests will take place within the `checkers-net` network.
-
-</HighlightBox>
-
-The chain is now served in a container named `chain-serve`. Update your `client` folder's `.env` with this information:
-
-<CodeGroup>
-
-<CodeGroupItem title="By hand">
-
-```ini [https://github.com/cosmos/academy-checkers-ui/blob/stargate/.env#L1]
-RPC_URL="http://chain-serve:26657"
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Linux sed">
-
-```sh
-$ sed -i -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="MacOS sed">
-
-```sh
-$ sed -i '' -E 's/^RPC_URL=.*$/RPC_URL="http:\/\/chain-serve:26657"/g' .env
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
-
-Again in your `client` folder, you can now run the tests within the same `checkers-net` network:
-
-```sh
-$ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
-    --network checkers-net \
-    node:18.7-slim \
-    npm test
-```
-
-And that is it. You defined a network over which the Node.js tests' container could easily access the chain's container.
-
-To clean up after you have stopped the containers, you can safely delete the network:
-
-```sh
+$ docker stop checkers
 $ docker network rm checkers-net
 ```
 
@@ -833,7 +863,7 @@ To summarize, this section has explored:
 
 * The need to prepare the elements that will eventually allow you to create a GUI and/or server-side scripts for your checkers application.
 * How to create the necessary Protobuf objects and clients in TypeScript, the extensions that facilitate the use of these clients, so that CosmJS will understand and be able to interact with your checkers module.
-* How to use Docker to define a network to orchestrate and launch separate containers that can communicate for the purpose of integration testing.
+* How to use Docker to define a network to launch separate containers that can communicate, for the purpose of integration testing.
 
 </HighlightBox>
 

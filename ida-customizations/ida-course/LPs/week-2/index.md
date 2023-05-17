@@ -34,7 +34,7 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by Thursday, 15th of December, 23:59 UTC.**
+**This week, make sure to submit your exercise by Thursday, 1st of June, 23:59 UTC.**
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
 

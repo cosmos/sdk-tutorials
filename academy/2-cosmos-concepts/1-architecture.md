@@ -44,7 +44,7 @@ Tendermint BFT is maintained even when 1/3rd of all machines fail, by providing 
 
 <HighlightBox type="tip">
 
-Want to continue exploring this useful component of the Cosmos SDK? Find further information beneath under _Consensus in Tendermint Core and Cosmos_, or in the [Tendermint Core documentation](https://docs.tendermint.com/v0.34/tendermint-core/#).
+Want to continue exploring this useful component of the Cosmos SDK? Find further information through the [CometBFT documentation](https://docs.cometbft.com/v0.37/).
 
 </HighlightBox>
 
@@ -93,7 +93,7 @@ The Tendermint BFT provides security guarantees, including the following:
 * **Strict accountability** for fork creation allows determination of liability.
 * Transactions are **finalized** as soon as a block is created.
 
-The Tendermint BFT is not concerned with the interpretation of transactions. That occurs at the application layer. Tendermint presents confirmed, well-formed transactions and blocks of transactions agnostically. Tendermint is un-opinionated about the meaning any transactions have.
+CometBFT is not concerned with the interpretation of transactions. That occurs at the application layer. CometBFT presents confirmed, well-formed transactions and blocks of transactions agnostically. CometBFT is un-opinionated about the meaning any transactions have.
 
 The _block time_ is approximately seven seconds, and blocks may contain thousands of transactions. Transactions are finalized and cannot be overturned as soon as they appear in a block.
 
@@ -425,8 +425,10 @@ You now have:
 <HighlightBox type="tip">
 
 The expandable above is meant as a design exercise. If you want to go from the design phase to the **implementation** phase, head to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), which is a completely separate exercise from scratch.
-
+<br/><br/>
 Relevant to this section on ABCI is the [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) section, where you use the Cosmos SDK to implement expiration in `EndBlock`. Be warned that this is an advanced section of the hands-on-exercise.
+<br/><br/>
+In the same vein, and advanced too, is the [Add Leaderboard Module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) section, where you add an action in `EndBlock` to reduce computation burdens.
 
 </HighlightBox>
 

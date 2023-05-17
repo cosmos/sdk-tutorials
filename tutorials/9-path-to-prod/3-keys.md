@@ -70,7 +70,7 @@ Now, take a closer look at generating keys, a consensus and an app key.
 
 When you run the standard `simd init` command, it creates a default Tendermint consensus key on disk at path [`~/.simapp/config/priv_validator_key.json`](https://docs.cosmos.network/main/run-node/run-node.html#initialize-the-chain). This is convenient if you are starting a testnet, for which the security requirements are low. However, for a more valuable network, you should delete this file to avoid using it by mistake, or [import it](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) into the KMS and then delete it if that is your choice.
 
-To use Tendermint's KMS follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html), or how it is applied in the [checkers hands-on exercise](/hands-on-exercise/2-ignite-cli-adv/9-run-prod-docker.md). When it is installed, configured, and running, you can ask it for its public key, which will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance:
+To use CometBFT's KMS follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html), or how it is applied in the [checkers hands-on exercise](/hands-on-exercise/2-ignite-cli-adv/9-run-prod-docker.md). When it is installed, configured, and running, you can ask it for its public key, which will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance:
 
 ```json
 {"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}
@@ -87,6 +87,17 @@ For this key, you can follow standard procedures for cold keys on your computer,
 With your keys set up, you want to eventually cover your validator costs, if not run a profitable business. Part of the equation is to have third-party token holders delegate to your validator so you can collect a commission from their share of the rewards. Also, given that only a limited number of validators can be in the validating pool, you have to increase the amount delegated to your validator in order to gain entry to said pool.
 
 You want to make sure potential delegators can find your validator operator application key, and present your service in an attractive manner. It is highly specific to your chain and can be in dedicated Web 2.0 forums or purpose-built indexed websites.
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Keys](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#keys), to see how to handle validator **operator** keys.
+* [Prepare the KMS](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#prepare-the-kms), to see how to handle validator **consensus** keys.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

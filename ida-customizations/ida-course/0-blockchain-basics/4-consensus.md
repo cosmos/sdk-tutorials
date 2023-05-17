@@ -14,7 +14,7 @@ This problem is commonly known as the **Byzantine Generals Problem** and mitigat
 
 An overview of well-known blockchain solutions provides perspective and insight into the options Cosmos offers, because Cosmos allows a network designer to choose the consensus algorithm that is best suited to the developer's purpose.
 
-In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. The generals can only rely on **unsecured communication channels** to achieve this. A lack of acknowledgment can either be caused by a failure to deliver a message, by a dead general, or by a failure to deliver the acknowledgment. While there are variations of the problem description to adapt to varying real-world fault-tolerance situations, most descriptions include an element of catastrophe if the generals fail to coordinate their actions.
+In the traditional description of the problem, generals, whose armies are spread around a target city, need to reach consensus on a time to attack. The generals can only rely on **unsecured communication channels** to achieve this. A lack of acknowledgement can either be caused by a failure to deliver a message, by a dead general, or by a failure to deliver the acknowledgement. While there are variations of the problem description to adapt to varying real-world fault-tolerance situations, most descriptions include an element of catastrophe if the generals fail to coordinate their actions.
 
 ![Byzantine Generals Problem](/ida-course/0-blockchain-basics/images/00_06_byzantine_generals_dark_notitle-01.png)
 
@@ -89,7 +89,7 @@ Alongside ascribing the role of witnesses to some participants, DPoS networks al
 
 Many consider DPoS algorithms superior to PoW and PoS because of their fast block creation, high degree of security, energy efficiency, level of integrity, and democratic structure. However, DPoS systems are less decentralized than PoW and PoS systems because they have fixed validator sets and higher barriers to entry.
 
-## Practical Byzantine Fault Tolerance (pBFT) and Tendermint
+## Practical Byzantine Fault Tolerance (pBFT) and CometBFT
 
 <ExpansionPanel title="What is Byzantine Fault Tolerance?">
 
@@ -123,13 +123,13 @@ pBFT brings two main advantages to consensus on blockchains:
 
 This of course is a very simplified presentation.
 
-While most consensus implementations are tightly coupled with a particular blockchain project, **Tendermint** is a toolkit that focuses on simplifying the process of creating blockchains (among others) by offering a decentralized consensus mechanism called Tendermint Core. Tendermint's decentralized consensus engine runs its own public blockchain. It differs from Ethereum on its consensus protocol, as it uses the concept of validators who need to bind funds to validate, and who then validate blocks over the course of a certain number of rounds.
+While most consensus implementations are tightly coupled with a particular blockchain project, **CometBFT** is a toolkit that focuses on simplifying the process of creating blockchains (among others) by offering a decentralized consensus mechanism called CometBFT. CometBFT's decentralized consensus engine runs its own public blockchain. It differs from Ethereum on its consensus protocol, as it uses the concept of validators who need to bind funds to validate, and who then validate blocks over the course of a certain number of rounds.
 
-As the reader might guess, Cosmos relies on Tendermint Core. It offers the most mature Byzantine Fault Tolerance, transaction finality, and a great deal of flexibility - flexibility that is passed to the developers of custom blockchains built with the Cosmos SDK.
+As the reader might guess, Cosmos relies on CometBFT. It offers the most mature Byzantine Fault Tolerance, transaction finality, and a great deal of flexibility - flexibility that is passed to the developers of custom blockchains built with the Cosmos SDK.
 
 <HighlightBox type="info">
 
-Tendermint will be explored in detail in the [Main Concepts](/academy/2-cosmos-concepts/index.md) section.
+CometBFT will be explored in detail in the [Main Concepts](/academy/2-cosmos-concepts/index.md) section.
 
 </HighlightBox>
 
@@ -156,6 +156,6 @@ To summarize, this section has explored:
 * How **Proof-of-Authority (PoA)** provides a more energy efficient alternative to PoW at the cost of some centralization of power, by assigning block creation duties to "validator nodes" which are assumed to be trustworthy based on their preexisting authority.
 * How **Proof-of-Stake (PoS)** reduces the reliance on validator trust, as validators now undertake the duties of block creation in proportion to their stake of financial value in the network, earning rewards for beneficial behavior but having penalties levied on their stake for poor performance.
 * How PoS's extension, **Delegated Proof-of-Work (DPoS)**, restores some of the "democratic" aspect of PoW and reduces value centralization, as users are able to delegate their own stakes to those of the validators', sharing the rewards (and possibly penalties) associated with block creation through the network.
-* How **Practical Byzantine Fault Tolerance (pBFT)** represents the capacity for a distributed network to keep reaching consensus even if significant numbers of nodes are either failing to respond or are responding with wrong information. An example of pBFT in action is **Tendermint**, which underpins custom blockchains built with the Cosmos SDK.
+* How **Practical Byzantine Fault Tolerance (pBFT)** represents the capacity for a distributed network to keep reaching consensus even if significant numbers of nodes are either failing to respond or are responding with wrong information. An example of pBFT in action is **CometBFT**, which underpins custom blockchains built with the Cosmos SDK.
 
 </HighlightBox>

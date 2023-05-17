@@ -111,7 +111,7 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the number of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from CometBFT KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 
@@ -240,6 +240,17 @@ This is the only _block_ that needs a social consensus on its content. All other
 ## Import
 
 In turn, each validator and node operator copies this file on their own machine, in the designated folder, typically `~/.myprojectd/config/genesis.json`.
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Blockchain elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#blockchain-elements), to see how to prepare early blockchain elements like the consensus denom.
+* [Genesis](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#genesis), to see how to prepare the blockchain's genesis, including the genesis validator transactions.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

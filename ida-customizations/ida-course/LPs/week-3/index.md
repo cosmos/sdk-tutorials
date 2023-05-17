@@ -63,7 +63,9 @@ The following sections are optional and **NOT** final exam relevant:
 * [IBC/TAO - Connections](/academy/3-ibc/2-connections.md)
 * [IBC/TAO - Channels](/academy/3-ibc/3-channels.md)
 * [IBC/TAO - Clients](/academy/3-ibc/4-clients.md)
+* [Light Client Development](/academy/3-ibc/4-light-client-dev.md)
 * [Interchain Accounts](/academy/3-ibc/6-ica.md)
+* [IBC Solo Machines](/academy/3-ibc/8-solomachine.md)
 
 </HighlightBox>
 
