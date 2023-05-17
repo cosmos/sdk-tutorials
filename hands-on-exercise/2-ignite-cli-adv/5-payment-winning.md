@@ -652,14 +652,14 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
         black, _ := sdk.AccAddressFromBech32(alice)
         escrow.EXPECT().
             SendCoinsFromAccountToModule(ctx, black, types.ModuleName, gomock.Any()).
-            Return(errors.New("Oops"))
+            Return(errors.New("oops"))
         err := keeper.CollectWager(ctx, &types.StoredGame{
             Black:     alice,
             MoveCount: 0,
             Wager:     45,
         })
         require.NotNil(t, err)
-        require.EqualError(t, err, "black cannot pay the wager: Oops")
+        require.EqualError(t, err, "black cannot pay the wager: oops")
     }
     ```
 
@@ -691,11 +691,11 @@ After these adjustments, it is a good idea to add unit tests directly on the wag
         escrow.EXPECT().
             SendCoinsFromModuleToAccount(ctx, types.ModuleName, black, gomock.Any()).
             Times(1).
-            Return(errors.New("Oops"))
+            Return(errors.New("oops"))
         defer func() {
             r := recover()
             require.NotNil(t, r, "The code did not panic")
-            require.Equal(t, r, "cannot pay winnings to winner: Oops")
+            require.Equal(t, r, "cannot pay winnings to winner: oops")
         }()
         keeper.MustPayWinnings(ctx, &types.StoredGame{
             Black:     alice,

@@ -377,7 +377,7 @@ var ctx sdk.Context
 var playerAddress sdk.AccAddress
 err := bank.SendCoinsFromAccountToModule(ctx, playerAddress, "checkers", payment)
 if err != nil {
-    return errors.New("Player cannot pay the wager")
+    return errors.New("player cannot pay the wager")
 }
 ```
 
