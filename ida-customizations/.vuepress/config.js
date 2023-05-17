@@ -69,9 +69,9 @@ module.exports = {
     label: "sdk",
     isIDAMode: true,
     algolia: {
-      id: "BH4D9OD16A",
-      key: "7976d773390a0be350dc24b0571eee15",
-      index: "cosmos-sdk_tutorials",
+      id: "QLS2QSP47E",
+      key: "ca3a435a218a2eb0f99a31f83b2ec309",
+      index: "cosmos_network_ida",
     },
     topbar: {
       banner: true,
@@ -168,7 +168,7 @@ module.exports = {
                   path: "/academy/1-what-is-cosmos/1-blockchain-and-cosmos.html",
                 },
                 {
-                  title: "The Cosmos Ecosystem",
+                  title: "The Interchain Ecosystem",
                   path: "/academy/1-what-is-cosmos/2-cosmos-ecosystem.html",
                 },
                 {
@@ -314,15 +314,15 @@ module.exports = {
                   path: "/academy/3-ibc/1-what-is-ibc.html",
                 },
                 {
-                  title: "IBC/TAO - Connections",
+                  title: "IBC/TAO - Connections - OPTIONAL",
                   path: "/academy/3-ibc/2-connections.html",
                 },
                 {
-                  title: "IBC/TAO - Channels",
+                  title: "IBC/TAO - Channels - OPTIONAL",
                   path: "/academy/3-ibc/3-channels.html",
                 },
                 {
-                  title: "IBC/TAO - Clients",
+                  title: "IBC/TAO - Clients - OPTIONAL",
                   path: "/academy/3-ibc/4-clients.html",
                 },
                 {
@@ -338,24 +338,28 @@ module.exports = {
                   path: "/academy/3-ibc/7-token-transfer.html",
                 },
                 {
-                  title: "Interchain Accounts",
-                  path: "/academy/3-ibc/8-ica.html",
+                  title: "Interchain Accounts - OPTIONAL",
+                  path: "/academy/3-ibc/6-ica.html",
                 },
                 {
-                  title: "IBC Middleware",
+                  title: "IBC Middleware - OPTIONAL",
                   path: "/academy/3-ibc/9-ibc-mw-intro.html",
                 },
                 {
-                  title: "Create a custom IBC Middleware",
+                  title: "Create a custom IBC Middleware - OPTIONAL",
                   path: "/academy/3-ibc/10-ibc-mw-develop.html",
                 },
                 {
-                  title: "Integrating IBC Middleware into a chain",
+                  title: "Integrating IBC Middleware into a chain - OPTIONAL",
                   path: "/academy/3-ibc/11-ibc-mw-integrate.html",
                 },
                 {
                   title: "IBC Tooling",
                   path: "/academy/3-ibc/12-ibc-tooling.html",
+                },
+                {
+                  title: "IBC Solo Machines - OPTIONAL",
+                  path: "/academy/3-ibc/8-solomachine.html",
                 },
                 {
                   title: "What is CosmJS?",
@@ -415,6 +419,10 @@ module.exports = {
                 {
                   title: "Integration tests",
                   path: "/hands-on-exercise/2-ignite-cli-adv/8-integration-tests.html",
+                },
+                {
+                  title: "Add integration tests",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html",
                 },
                 {
                   title: "Incentivize Players",
@@ -550,8 +558,12 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
-                  title: "Add a Leaderboard as a module",
+                  title: "Add a Leaderboard Module",
                   path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
+                },
+                {
+                  title: "Migrate the Leaderboard Module After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
                 },
                 {
                   title: "Add a Migration for your Leaderboard Module",
@@ -559,6 +571,10 @@ module.exports = {
                 },
                 {
                   title: "Simulate a Production Migration with Docker Compose",
+                  path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
+                },
+                {
+                  title: "Simulate a Migration in Docker",
                   path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
                 },
                 {

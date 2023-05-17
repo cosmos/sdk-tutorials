@@ -202,6 +202,8 @@ customModules:
             path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
             path: /academy/3-ibc/12-ibc-tooling.html
+          - title: IBC solo machines
+            path: /academy/3-ibc/8-solomachine.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -327,15 +329,15 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
           - title: Enforcing auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
-          - title: Let players set a wager
+          - title: Including a wager
             path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
-          - title: Handle wager payments
+          - title: Handling wager payments
             path: /hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html
-          - title: Integration tests
-            path: /hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html
-          - title: Incentive players
+          - title: Adding integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html
+          - title: Incentiving players
             path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
-          - title: Help find a correct move
+          - title: Help find correct moves
             path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
           - title: Play with cross-chain tokens
             path: hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html
@@ -363,10 +365,14 @@ customModules:
         links:
           - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Introduce a leaderboard after production
-            path: /hands-on-exercise/4-run-in-prod/2-migration.html
+          - title: Tally player info after production
+            path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
+          - title: Add a leaderboard module
+            path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
+          - title: Add a migration for your leaderboard module
+            path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - title: Simulate a migration in production with Docker Compose
-            path: /hands-on-exercise/4-run-in-prod/3-migration-prod.html
+            path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
       - image: /lp-images/cosmos_dev_portal_module-04-lp.png
         title: IBC - Advanced
         href: /hands-on-exercise/5-ibc-adv/
@@ -419,5 +425,4 @@ The code and docs for each tutorial are based on a specific version of the softw
 
 Use the tutorials landing page as your entry point to articles on [Cosmos blog](https://blog.cosmos.network/), videos on [Cosmos YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
 
-This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](CONTRIBUTING.md) and [/sdk-tutorials/TECHNICAL-SETUP](TECHNICAL-SETUP.md).
-The tutorials are formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md).
+This repo manages and publishes the developer platform. **If you would like to contribute**, please take a look at our [CONTRIBUTION GUIDELINES](CONTRIBUTING.md) and [/sdk-tutorials/TECHNICAL-SETUP](TECHNICAL-SETUP.md) documents.

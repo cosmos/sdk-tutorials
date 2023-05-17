@@ -203,7 +203,7 @@ This creates a `myprojectd` executable file.
 
 A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project with:
 
-```make
+```lang-makefile
 build-all:
     GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
@@ -283,6 +283,16 @@ For instance:
   ```
 
 Again, this is not recommended for performance reasons - for example, due to network latency.
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Docker elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#docker-elements), to see how to compile the necessary software.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

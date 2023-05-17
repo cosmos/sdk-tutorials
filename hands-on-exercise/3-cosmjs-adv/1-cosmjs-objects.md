@@ -657,7 +657,7 @@ There is more than one way to run a checkers blockchain. For instance:
    1. Get the `Dockerfile`:
 
        ```sh
-       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/main/Dockerfile-standalone
        ```
 
    2. Build the image:
@@ -668,7 +668,7 @@ There is more than one way to run a checkers blockchain. For instance:
            -t checkersd_i:standalone
        ```
 
-If you have another preferred method, make sure to adjust your above `RPC_URL` accordingly.
+If you have another preferred method, make sure to keep track of the required `RPC_URL` accordingly.
 
 <HighlightBox type="tip">
 
@@ -741,7 +741,7 @@ But that is okay.
 
 When using Docker, note:
 
-* `--name checkers` matches the name you wrote in `RPC_URL`.
+* `--name checkers` either matches the name you wrote in `RPC_URL`, or can be passed as an environment variable to another container to override the value found in `.env`.
 * `--network checkers-net`, which is reused shortly if you also run your `npm` tests in Docker. See the paragraph on Docker network, later in this section.
 
 Now, if you run the tests in another shell:
@@ -760,14 +760,18 @@ $ npm test
 
 ```sh
 $ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
+    -v $(pwd):/client -w /client \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm test
 ```
 
-This starts the container on the same network as the blockchain container.
+<HighlightBox type="note">
+
+This starts the container on the same network as the blockchain container, where `checkers` resolves to the checkers container. And it also passes `RPC_URL` as an override of the value found in `.env`, typically `localhost`.
+
+</HighlightBox>
 
 </CodeGroupItem>
 
@@ -789,7 +793,7 @@ SystemInfo
 3 passing (287ms)
 ```
 
-The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL`.
+The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `--env RPC_URL="http://YOUR-HOST-IP:26657"`.
 
 ## A note on Docker networks
 
@@ -797,9 +801,10 @@ You may not have used Docker up to this point. The following paragraphs acquaint
 
 If you plan on using Docker Compose at a later stage, having a first taste of such networks is beneficial. Docker Compose can be used to orchestrate and launch separate containers in order to mimic a production setup. In fact, in the [production section](../4-run-in-prod/1-run-prod-docker.md) of this hands-on exercise you do exactly that. If you think this could eventually be useful, you should go through this section. You may want to redo this section with [Docker](https://docs.docker.com/get-docker/).
 
-Earlier you ran the command:
+Earlier you ran the commands:
 
 ```sh
+$ docker network create checkers-net
 $ docker run --rm -it \
     -p 26657:26657 \
     --name checkers \
@@ -810,7 +815,7 @@ $ docker run --rm -it \
 
 This produced the following results:
 
-1. A Docker network was created with the name `checkers-net`. If another container is started in this network, all ports are mutually accessible.
+1. A Docker network was created with the name `checkers-net`. If containers are started in this network, all ports are mutually accessible.
 2. Your container started in it with the resolvable name of `checkers`.
 3. With `-p 26657:26657`, port 26657 was forwarded to your host computer, on top of being already shared on the `checkers-net` network.
 
@@ -828,9 +833,9 @@ Then, for tests:
 
     ```sh
     $ docker run --rm \
-        -v $(pwd):/client \
-        -w /client \
+        -v $(pwd):/client -w /client \
         --network checkers-net \
+        --env RPC_URL="http://checkers:26657" \
         node:18.7-slim \
         npm test
     ```

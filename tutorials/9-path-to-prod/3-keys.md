@@ -88,6 +88,17 @@ With your keys set up, you want to eventually cover your validator costs, if not
 
 You want to make sure potential delegators can find your validator operator application key, and present your service in an attractive manner. It is highly specific to your chain and can be in dedicated Web 2.0 forums or purpose-built indexed websites.
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Keys](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#keys), to see how to handle validator **operator** keys.
+* [Prepare the KMS](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#prepare-the-kms), to see how to handle validator **consensus** keys.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

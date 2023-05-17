@@ -43,8 +43,10 @@ This exercise assumes that:
 1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
 
     ```sh
+    $ docker network create checkers-net
     $ docker run --rm -it \
         -p 26657:26657 \
+        -p 1317:1317 \
         --name checkers \
         --network checkers-net \
         --detach \
@@ -640,7 +642,7 @@ $ npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
 $ docker run --rm -it \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install @keplr-wallet/types@0.10.17 --save-exact --save-dev
 ```
 
@@ -1172,6 +1174,13 @@ With this done:
 Now you can play test in the GUI. Make sure to put your Keplr address as the black player, so that you start with this one. You will need a second account on Keplr with which to play red, otherwise you must play red from the command line. Alternatively, put the same Keplr address for both black and red.
 
 Either way, it is now possible to play the game from the GUI. Congratulations!
+
+If you started the chain in Docker, when you are done you can stop the containers with:
+
+```sh
+$ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
+```
 
 ## Further exercise ideas
 

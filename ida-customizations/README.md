@@ -8,7 +8,7 @@ intro:
     image: /graphics-sdk-course.png
     description: |
       Welcome to the Interchain Developer Academy!<br/><br/>
-      Over the next seven weeks, you will dive deep into the Cosmos Ecosystem. Let's get started!
+      Over the next seven weeks, you will dive deep into the Interchain Ecosystem. Let's get started!
     action:
       label: Start learning!
       url: /ida-course/LPs/week-0/
@@ -23,17 +23,16 @@ overview:
         Results available: August 18th, 2023<br/><br/>
     - title: What you will learn
       description: |
-        Over the next seven weeks, you will dive deep into the Cosmos Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next, you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use the Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol (IBC). You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on a Cosmos blockchain; and run a relaying infrastructure between IBC-connected chains.
+        Over the next seven weeks, you will dive deep into the Interchain Ecosystem, starting with a high-level introduction to familiarize yourself with the main concepts. Next, you will put theory into practice by learning how to initiate and build an application-specific blockchain using the Cosmos SDK; how to use Ignite CLI to scaffold modules for your blockchain; and how to connect a chain with other chains using the Inter-Blockchain Communication Protocol (IBC). You will learn how to build frontend and backend applications using CosmJS; operate nodes and validate on an Interchain blockchain; and run a relaying infrastructure between IBC-connected chains.
     - title: How to get the most out of the Academy
       description: |
           The Academy is self-paced and flexible, so you do not have to be online at particular times. You can follow the weekly plan or go through the learning material at your own pace. We recommend allocating about 10 to 15 hours a week to get through all the material.<br/><br/>
-          We will offer some live sessions with Cosmos experts about various topics. These live sessions will be announced via email and discord. The sessions will be recorded in case you cannot join them live.<br/><br/>
           The material is delivered in various formats, including text, images, videos, quizzes, and exercises. There is plenty of additional material embedded in the content to deepen your understanding of particular concepts. And if you want even more, ask your tutors and expert instructors, who will point you in the right direction!<br/><br/>
           <b>Hands-on exercises</b><br/><br/>
-          In each module, you will find quizzes and/or code exercises. In the first two weeks, you can submit a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass a quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program.<br/><br/>
+          In each module, you will find quizzes, code exercises, and/or code examples. In the first two weeks, you can find a quiz (end of Week 1) and an exercise (end of Week 2). It does not matter if you pass the quiz or exercise - think of these as opportunities to practice and demonstrate your engagement with the program. Both will remain open until the launch of the final exam, we do recommend taking them as soon as you finish Week 1 and 2.<br/><br/>
           Week 1: Quiz - recommended date: Thursday, May 25th<br/><br/>
           Week 2: Exercise - recommended date: Thursday, June 1st<br/><br/>
-          Week 1 Quiz & Week 2 Exercise - closing date: Thursday, July 6th<br/><br/>
+          Week 1 Quiz & Week 2 Exercise - <b>closing date</b>: Thursday, July 7th<br/><br/>
           You will get the results of submitted exercises.<br/><br/>
           <b>Technical requirements</b><br/><br/>
           No special technical requirements of HW or SW are needed. You need a computer with at least 8 GB RAM and 4 GB free hard disk space.
@@ -43,30 +42,29 @@ overview:
         All the materials are available right from the start of the program.
     - title: What support will I get in the Academy? 
       description: |
-        We have set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your tutors and expert instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you will get the most out of the Academy.<br/><br/>
+        We have set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you will get the most out of the Academy.<br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6 AM UTC and 4 PM UTC. We do not provide support during the weekends.<br/><br/>
         Click <a href="/ida-course/discord-info.html">here</a> to learn how to join and use Discord.<br/><br/>
         You will get detailed information on how to join and use Discord via email.
     - title: How do I access Discord?
       description: |
         Follow these two steps to join the private Academy channels on Discord:<br/><br/>
-        Join the official Cosmos Discord by clicking [here](https://discord.gg/cosmosnetwork). Follow the verification process. It is straightforward, but if you need guidance read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839"</a>.<br/><br/>
-        After joining the Discord server, go <a href="https://academy.interchain.io/onboarding/?token=%7B$b9_uuid%7D">here</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
-        If you have any problems, email us at <a href="academy@interchain.io">academy@interchain.io</a>.<br/>
-        We have put together a <a href="http://ida.interchain.io/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
+        1. Join the official Cosmos Discord by clicking <a href="https://discord.gg/cosmosnetwork">here</a>.Follow the verification process. It is straightforward but if you need guidance, read <a href="https://medium.com/@alicemeowuk/cosmos-developers-discord-access-7c15951cc839">this article</a>.<br/><br/>
+        2. After joining the Discord server, go <a href="https://academy.interchain.io/onboarding/?token=%7B$b9_uuid%7D">here</a> and enter your Discord ID. You will automatically be added to the Discord area for participants called "Interchain Developer Academy".<br/><br/>
+        If you have any problems, email us at <a href="mailto:academy@interchain.io">academy@interchain.io</a>.<br/><br/>
+        We have put together a <a href="/ida-course/discord-info.html">quick guide</a> explaining how to best communicate on Discord.
     - title: How do I get certified?
       description: |
-        After the seven-week program, you will have four weeks to complete an exam - a combination of quizzes and a code project. The exam will be open from <b>July 6th, 2023</b> and you have to complete it by <b>August 4th, 2023</b>.<br/><br/>
+        After the seven-week program, you will have four weeks to complete an Final Exam - a combination of quizzes and a code project. The exam will be open from <b>July 6th, 2023</b> and you have to complete it by <b>August 4th, 2023</b>.<br/><br/>
         You will receive an email and notification via Discord closer to the date.<br/><br/>
         If you complete the program earlier you can take the exam sooner. The earliest you can take the exam is from the fourth week of the program.<br/><br/>
-        You will receive an email with further instructions on how to launch the exam request.<br/><br/>
         The exam is an individual exercise.<br/><br/>
         <div class="tm-bold">When do I get the results?</div>
-        You will receive your exam results by <span class="tm-bold">March 16th</span>.
+        You will receive your exam results by <span class="tm-bold">August 18th</span>.
 customModules:
   - title: Weekly Plan
     description: |
-      This cohort of the Academy runs for seven weeks. You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
+      The Academy runs for seven weeks. You can follow the weekly structure or decide to go your individual path - just make sure to be ready for the Final Exam at the end of the program.
     sections:
       - image: /cosmos_dev_portal_module-02-lp.png
         title: Week 0 - Getting Started
@@ -86,11 +84,11 @@ customModules:
         title: Week 1 - Introduction to Cosmos
         href: /ida-course/LPs/week-1/
         description: |
-          You will discover the Cosmos ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
+          You will discover the Interchain Ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
         links: 
           - title: Blockchain technology and Cosmos
             path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
-          - title: The Cosmos Ecosystem
+          - title: The Interchain Ecosystem
             path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
           - title: Getting ATOM and staking it
             path: /academy/1-what-is-cosmos/3-atom-staking.html
@@ -166,6 +164,8 @@ customModules:
             path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
             path: /academy/3-ibc/12-ibc-tooling.html
+          - title: IBC solo machines - OPTIONAL
+            path: /academy/3-ibc/8-solomachine.html
           - title: What is CosmJS?
             path: /tutorials/7-cosmjs/1-cosmjs-intro.html
           - title: Your first CosmJS actions
@@ -193,11 +193,11 @@ customModules:
           - title: Let players set a wager
             path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
           - title: Handle wager payments
-            path: /hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html
-          - title: Integration tests
-            path: /hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html
-          - title: Incentivize players
-            path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
+            path: /hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html
+          - title: Add integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html
+          - title: Incentivize players and manage gas
+            path: /hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html
           - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
           - title: Understand IBC denoms
@@ -230,9 +230,9 @@ customModules:
         description: |
           Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
         links: 
-          - title: Custom IBC application module introduction
+          - title: Writing a custom IBC application
             path: /hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html
-          - title: Make a module IBC-enabled
+          - title: How to make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html
           - title: Adding packet and acknowledgement data
             path: /hands-on-exercise/5-ibc-adv/5-ibc-app-packets.html
@@ -258,17 +258,17 @@ customModules:
             path: /tutorials/9-path-to-prod/5-network.html
           - title: Configure, run, and set up a service
             path: /tutorials/9-path-to-prod/6-run.html
-          - title: Prepare and do migrations
-            path: /tutorials/9-path-to-prod/7-migration.html
-          - title: Simulate production in Docker
+          - title: Simulate a production setup with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Tally Player Info After Production
             path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
-          - title: Add a leaderboard as a module
+          - title: Add a Leaderboard Module
             path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
-          - title: Add a migration for you leaderboard module
-            path: /tutorials/9-path-to-prod/4-migration-leaderboard.html
-          - title: Simulate production migration with Docker Compose
+          - title: Migrate the Leaderboard Module After Production
+            path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
+          - title: Prepare and do migrations
+            path: /tutorials/9-path-to-prod/7-migration.html
+          - title: Simulate a migration in production with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
 ---
 

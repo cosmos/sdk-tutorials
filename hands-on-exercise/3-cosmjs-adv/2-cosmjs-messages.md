@@ -682,14 +682,14 @@ Fortunately, the [`sign`](https://github.com/cosmos/cosmjs/blob/v0.28.11/package
 
 Because JavaScript has low assurances when it comes to threading, you need to make sure that each `sign` command happens after the previous one, or your `sequence` incrementing may get messed up. For that, you should not use `Promise.all` on something like `array.forEach(() => { await })`, which fires all promises roughly at the same time. Instead you will use a `while() { await }` pattern.
 
-There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into the function's body, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This CometBFT client function returns only [the transaction hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
+There is a **second difficulty** when you want to send that many signed transactions. The client's `broadcastTx` function [waits for it](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L420-L424) to be included in a block, which would defeat the purpose of signing separately. Fortunately, if you look into its content, you can see that it calls [`this.forceGetTmClient().broadcastTxSync`](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/stargate/src/stargateclient.ts#L410). This CometBFT client function returns only [the hash](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L172), that is _before any inclusion in a block_.
 
 On the other hand, you want the last transaction to be included in the block so that when you query for the stored game you get the expected values. Therefore you will:
 
 1. Send the first 21 signed transactions with the _fast_ `this.forceGetTmClient().broadcastTxSync`.
 2. Send the last signed transaction with a _slow_ client `broadcastTx`.
 
-Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before their turn. At this point, you have to trust that CometBFT includes the transactions in the order in which they were submitted. If CometBFT does any shuffling between Alice and Bob, you may end up with a "play before their turn" error.
+Here again, you need to make sure that you submit all transactions in sequential manner, otherwise a player may in effect try to play before their turn. At this point, you trust that CometBFT includes the transactions in the order in which they were submitted. If CometBFT does any shuffling between Alice and Bob, you may end up with a "play before their turn" error.
 
 With luck, all transactions may end up in a single block, which would make the test 22 times faster than if you had waited for each transaction to get into its own block.
 
@@ -937,21 +937,27 @@ Adjust what you did.
 * If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite, which has a faucet to start with.
 * If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of both the running chain and a faucet in a minimal package. For this, you need Docker and to create an image:
 
-   1. Get the `Dockerfile`:
+    1. Get the `Dockerfile`:
 
        ```sh
-       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/run-prod/Dockerfile-standalone
+       $ curl -O https://raw.githubusercontent.com/cosmos/b9-checkers-academy-draft/main/Dockerfile-standalone
        ```
 
-   2. Build the checkers image:
+    2. Build the Docker images:
 
-       ```sh
-       $ docker build . \
-           -f Dockerfile-standalone \
-           -t checkersd_i:standalone
-       ```
+        <CodeGroup>
 
-    3. Build the CosmJS faucet image:
+        <CodeGroupItem title="Checkers">
+
+        ```sh
+        $ docker build . \
+            -f Dockerfile-standalone \
+            -t checkersd_i:standalone
+        ```
+
+        </CodeGroupItem>
+
+        <CodeGroupItem title="Faucet">
 
         ```sh
         $ docker build . \
@@ -960,7 +966,11 @@ Adjust what you did.
             -t cosmos-faucet_i:0.28.11
         ```
 
-If you have another preferred method, make sure to adjust your above `RPC_URL` and `FAUCET_URL` accordingly.
+        </CodeGroupItem>
+
+        </CodeGroup>
+
+If you have another preferred method, make sure to keep track of the required `RPC_URL` and `FAUCET_URL` accordingly.
 
 <HighlightBox type="tip">
 
@@ -1004,7 +1014,6 @@ But that is okay.
 
 <HighlightBox type="note">
 
-* The names match those given in `RPC_URL` and `FAUCET_URL`.
 * The chain needs about 10 seconds to start listening on port 26657. The faucet does not _retry_, so you have to be sure the chain is started.
 * The faucet container itself takes about 20 seconds to be operational, as it creates 4 transactions in 4 blocks.
 * They are started in `--detach`ed mode, but you are free to start them attached in different shells.
@@ -1047,7 +1056,7 @@ But that is okay.
 
 <HighlightBox type="note">
 
-* The name and alias match those given in `RPC_URL` and `FAUCET_URL` respectively.
+An alias, `cosmos-faucet`, is added so that it can be accessed too.
 
 </HighlightBox>
 
@@ -1067,28 +1076,23 @@ Now you can run the tests:
 $ npm test
 ```
 
-<HighlightBox type="info">
-
-Remember that `RPC_URL` and `FAUCET_URL` have to mention `localhost` in this case.
-
-</HighlightBox>
-
 </CodeGroupItem>
 
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm \
-    -v $(pwd):/client \
-    -w /client \
+$ docker run --rm -it \
+    -v $(pwd):/client -w /client \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
+    --env FAUCET_URL="http://cosmos-faucet:4500" \
     node:18.7-slim \
     npm test
 ```
 
 <HighlightBox type="info">
 
-Remember that `RPC_URL` and `FAUCET_URL` have to mention `checkers` and `cosmos-faucet` respectively in this case.
+Note how `RPC_URL` and `FAUCET_URL` override the default values found in `.env`, typically `localhost`.
 
 </HighlightBox>
 
@@ -1098,7 +1102,7 @@ Remember that `RPC_URL` and `FAUCET_URL` have to mention `checkers` and `cosmos-
 
 ---
 
-The only combination of running chain / running tests that will not work is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL` and `FAUCET_URL`.
+The only combination of running chain / running tests that will not work with the above is if you run Ignite on your local computer and the tests in a container. For this edge case, you should put your host IP address in `RPC_URL` and `FAUCET_URL`, for instance  `--env RPC_URL="http://YOUR-HOST-IP:26657"`.
 
 If you started the chain in Docker, when you are done you can stop the containers with:
 

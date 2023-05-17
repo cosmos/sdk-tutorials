@@ -22,7 +22,7 @@ In this section, you will learn:
 
 ## What you will be building and why
 
-The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain. You can see an example of this in the [migration section](../4-run-in-prod/2-migration.md).
+The checkers blockchain you have built has the ability to create games, play them, forfeit them, and wager on them (potentially with cross-chain tokens). A further optimization would be to include a leaderboard. This could be executed locally on the checkers blockchain to rank the best players on the checkers blockchain. You can see an example of this in the [migration sections](../4-run-in-prod/2-migration-info.md).
 
 But what if there is more than one checkers chain? Or better yet, other game chains that allow players to play competitive games. Would it not be great to enable a standard to send the game data from the local game chain to an application-specific chain that keeps a global leaderboard? This is exactly what you will be building in the next few sections.
 
@@ -457,7 +457,7 @@ Add the call for a _forfeit_ in `x/checkers/keeper/end_block_server_game.go`:
 
 That will get the job done, and add the player's _win_, _loss_, or _forfeit_ counts to the store.
 
-If you did the [migration part](../4-run-in-prod/2-migration.md) of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
+If you did the [migration part](../4-run-in-prod/2-migration-info.md) of this hands-on exercise, you may notice that, here, although the player info is updated, the leaderboard is not. This is deliberate in order to show a different workflow.
 
 Here, the leaderboard is updated on-demand by adding the signers of a message as candidates to the leaderboard. Scaffold a new message:
 
@@ -532,7 +532,7 @@ func UpdatePlayerInfoList(winners []PlayerInfo, candidates []PlayerInfo) (update
 }
 ```
 
-The function that sorts players is rather inefficient, as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the [migration section](../4-run-in-prod/2-migration.md) for an example.
+The function that sorts players is rather inefficient, as it parses dates a lot. To optimize this part, you would have to introduce a new type with the date already parsed. See the [migration section](../4-run-in-prod/2-migration-info.md) for an example.
 
 If it cannot parse the date information, it will return an error that you need to declare in `x/leaderboard/types/errors.go`:
 

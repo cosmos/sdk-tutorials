@@ -529,9 +529,9 @@ pagination:
 
 That is correct.
 
-## Live testing with a relayer
+<!--
 
-<!-- TODO it looks like it is no longer possible with this version of Ignite -->
+## Live testing with a relayer
 
 With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [TypeScript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
@@ -559,6 +559,8 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 </HighlightBox>
 
+-->
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
@@ -574,6 +576,6 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](/hands-on-exercise/4-run-in-prod/2-migration.md), you will learn how to conduct chain upgrades through migrations.-->
+In the [next section](/hands-on-exercise/4-run-in-prod/2-migration-info.md), you will learn how to conduct chain upgrades through migrations.-->
 
 Alternatively, you can learn how to create the [TypeScript client elements](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) for your blockchain.
