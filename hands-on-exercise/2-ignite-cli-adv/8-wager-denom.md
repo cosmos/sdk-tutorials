@@ -529,9 +529,9 @@ pagination:
 
 That is correct.
 
-## Live testing with a relayer
+<!--
 
-<!-- TODO it looks like it is no longer possible with this version of Ignite -->
+## Live testing with a relayer
 
 With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [TypeScript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
@@ -558,6 +558,8 @@ This is how the TypeScript relayer built in by Ignite CLI lets you experiment wi
 As soon as you close the browser window the channels on both ends are no longer monitored, and therefore no token transfers will take place. Also depending on the development state of Ignite CLI, after you close it the relayer may not be able to reuse a channel it created earlier. **Do not use this for production**.
 
 </HighlightBox>
+
+-->
 
 <HighlightBox type="synopsis">
 
