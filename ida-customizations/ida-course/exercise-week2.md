@@ -10,8 +10,12 @@ tags:
 
 You are about to perform a small, simple exercise on our Academy Gitlab, to check you're paying attention! Before you [try](https://git.academy.b9lab.com/ida-p4-exercise-week-2/exercise-code), here is a summary of what you will be asked to do.
 
-Note that the final exam will have the same format, so this is a good way to acquaint yourself with the modus operandi.
+<HighlightBox type="note">
 
+The final exam will have the same format, so this is a good way to acquaint yourself with the modus operandi.
+
+</HighlightBox>
+  
 ## Preparation
 
 We created a Docker container with the included `Dockerfile`:
