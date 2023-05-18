@@ -645,8 +645,8 @@ module.exports = {
               url: "https://hub.cosmos.network",
             },
             {
-              title: "Tendermint Core",
-              url: "https://docs.tendermint.com",
+              title: "CometBFT",
+              url: "https://docs.cometbft.com/",
             },
             {
               title: "IBC Protocol",
@@ -745,15 +745,15 @@ module.exports = {
         image: "/cosmos-sdk-icon.svg",
       },
       {
-        title: "Tendermint Core",
+        title: "CometBFT",
         description: "Blockchain consensus engine and application interface",
         links: [
           {
             name: "Documentation",
-            url: "https://docs.tendermint.com/",
+            url: "https://docs.cometbft.com/",
           },
         ],
-        image: "/tendermint-icon.svg",
+        image: "/comet-bft-logo.svg",
       },
       {
         title: "Cosmos Hub",
