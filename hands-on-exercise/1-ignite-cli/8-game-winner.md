@@ -115,10 +115,10 @@ This is a two-part update. You set the winner where relevant, but you also intro
 
 Start with a new error that you define as a constant:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L18]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/errors.go#L21]
     var (
         ...
-+      ErrGameFinished = sdkerrors.Register(ModuleName, 1107, "game is already finished")
++      ErrGameFinished = sdkerrors.Register(ModuleName, 1110, "game is already finished")
     )
 ```
 
@@ -195,7 +195,7 @@ Add [tests](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner
 
 You also need to update your existing tests so that they pass with a new `Winner` value. Most of your tests need to add this line:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_moveo_test.go#L107]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_test.go#L107]
     ...
     require.EqualValues(t, types.StoredGame{
         ...
@@ -321,7 +321,7 @@ Feel free to create another game won by the red player.
 
 ## Interact via the CLI
 
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. At some point, look at [migrations](/hands-on-exercise/4-run-in-prod/2-migration.md) to avoid falling into such a situation with a blockchain in production.
+If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. At some point, look at [migrations](/hands-on-exercise/4-run-in-prod/2-migration-info.md) to avoid falling into such a situation with a blockchain in production.
 
 Start again:
 
@@ -420,7 +420,7 @@ This should show:
 ...
 ```
 
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests (as done here) or with a nice GUI. You will be able to partially test this with the CLI in the [next section](./4-game-forfeit.md), via a forfeit.
+Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests (as done here) or with a nice GUI. You will be able to partially test this with the CLI in the [next section](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md), via a forfeit.
 
 <HighlightBox type="synopsis">
 

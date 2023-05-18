@@ -77,5 +77,8 @@
   "engines": {
     "node": ">=14 <15",
     "npm": ">=7"
+  },
+  "check-md": {
+    "root": ["./", "./.vuepress/public", "./ida-customizations"]
   }
 }

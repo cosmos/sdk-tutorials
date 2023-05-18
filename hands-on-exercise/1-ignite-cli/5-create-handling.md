@@ -428,7 +428,7 @@ func TestCreate1GameHasSaved(t *testing.T) {
 }
 ```
 
-Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L252). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L253). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
 
 ## Interact via the CLI
 
@@ -657,8 +657,8 @@ You will learn how to modify this handling in later sections by:
 
 * Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to the stored information.
 * Adding [an event](./7-events.md).
-* Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
+* Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/8-gas-meter.md).
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
-* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md).
+* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.md).
 
 <!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./6-play-game.md).-->

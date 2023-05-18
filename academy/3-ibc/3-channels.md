@@ -29,7 +29,7 @@ For example, in the case of interchain accounts, there are two different port ID
 
 </HighlightBox>
 
-Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application-specific logic which interprets the packets that have been sent over the transport layer. This concern separation between transport and application layer in IBC is similar to the concern separation between Tendermint's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
+Contrary to the core IBC transport layer logic, which handles only verification, ordering, and all around basic packet correctness, the application layer over channels handles only the application-specific logic which interprets the packets that have been sent over the transport layer. This concern separation between transport and application layer in IBC is similar to the concern separation between CometBFT's consensus layer (consensus, mempool, ordering of transactions) and ABCI layer (process of those transaction bytes).
 
 <HighlightBox type="remember">
 
@@ -67,17 +67,17 @@ Crossing hellos have been removed from ibc-go v4 onward, as referenced in [this 
 
 </HighlightBox>
 
-Similarly, there are also [callbacks for the closing of channels](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/05-port/types/module.go#L71-L81). However, it is up to the application developers to decide if it makes sense for users to be able to trigger the closing of a channel. For token transfers for example, this is not desirable due to the risk of locking liquidity on a closed channel, hence that is [why this feature has been disallowed in the canonical `transfer` module](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/apps/transfer/ibc_module.go#L146-L153).
+Similarly, there are also [callbacks for the closing of channels](https://github.com/cosmos/ibc/tree/main/spec/core/ics-004-channel-and-packet-semantics#closing-handshake). However, it is up to the application developers to decide if it makes sense for users to be able to trigger the closing of a channel. For token transfers for example, this is not desirable due to the risk of locking liquidity on a closed channel, hence that is [why this feature has been disallowed in the canonical `transfer` module](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/apps/transfer/ibc_module.go#L151).
 
 ## Example code: `ChannelOpenInit`
 
-You can find the implementation of `ChannelOpenInit` in the the [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/keeper/msg_server.go)
+You can find the implementation of `ChannelOpenInit` in core IBC's [`msg_server.go`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/keeper/msg_server.go#L166)
 
 The important part to note in this code snippet is that an application module has capabilities for the requested port. Therefore, an application module can only use a channel and port if the application owns the capability for that port and the module which attempting to open a channel is the module we have granted capabilities to in `app.go`:
 
 <!-- TODO: add more content on capabilites based on Colin's deep dive https://github.com/cosmos/sdk-tutorials/issues/1277-->
 
-```go
+```go [https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/keeper/msg_server.go#L166]
 // ChannelOpenInit defines a rpc handler method for MsgChannelOpenInit.
 // ChannelOpenInit will perform 04-channel checks, route to the application
 // callback, and write an OpenInit channel into state upon successful execution.
@@ -130,27 +130,18 @@ As stated previously, application modules communicate with each other by sending
 
 A relayer will monitor channels for events emitted when updates have been submitted to these paths, and (after first submitting a `MsgUpdateClient` to update the sending chain light client on the destination chain) relay the message containing the packet data along with a proof that the state transition contained in the message has been commited to the state of the sending chain. The destination chain then verifies this packet and packet commitmentment proof against the state contained in the light client.
 
-Take a look at the [packet definition](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/core/04-channel/types/packet.go) to see the packet structure:
+Take a look at the [packet definition](https://github.com/cosmos/ibc/tree/main/spec/core/ics-004-channel-and-packet-semantics#definitions) to see the packet structure:
 
-```go
-// NewPacket creates a new Packet instance. It panics if the provided
-// packet data interface is not registered.
-func NewPacket(
-    data []byte,
-    sequence uint64, sourcePort, sourceChannel,
-    destinationPort, destinationChannel string,
-    timeoutHeight clienttypes.Height, timeoutTimestamp uint64,
-) Packet {
-    return Packet{
-        Data:               data,
-        Sequence:           sequence,
-        SourcePort:         sourcePort,
-        SourceChannel:      sourceChannel,
-        DestinationPort:    destinationPort,
-        DestinationChannel: destinationChannel,
-        TimeoutHeight:      timeoutHeight,
-        TimeoutTimestamp:   timeoutTimestamp,
-    }
+```typescript
+interface Packet {
+  sequence: uint64
+  timeoutHeight: Height
+  timeoutTimestamp: uint64
+  sourcePort: Identifier
+  sourceChannel: Identifier
+  destPort: Identifier
+  destChannel: Identifier
+  data: bytes
 }
 ```
 
@@ -170,7 +161,7 @@ Core IBC A will commit the packet to its own state and the relayer can query thi
 
 Note that core IBC is unopinionated about the actual content of the packet data, as this data is at this point just bytes. It is the responsibility of the applications on either end to marshal and unmarshal the data from and to the expected data structures on either side. This is also why application version negotiation as discussed previously in the channel handshakes is important, as different versions of an application may result in different expected data structures on either end of the channel and application.
 
-After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS-20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgment` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
+After receiving the packet data from core IBC, application B will then marshal the data blob into the expected structure and apply the relevant application logic. In the case of an ICS-20 token transfer, for example, this would entail the minting of the received tokens on chain B to the specified receiver user account. Application B will then send an `Acknowledgement` message to core IBC B, which will again commit it to its own state so it can be queried and sent by a relayer to core IBC A.
 
 <HighlightBox type="info">
 

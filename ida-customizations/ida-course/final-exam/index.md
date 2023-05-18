@@ -7,14 +7,16 @@ tags:
 
 # Final Exam
 
-The Final Exam will be released on **Thursday, February 2nd, 2023**.
+The Final Exam will be released on **Thursday, July 6th, 2023**.
 
-Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until the **2nd of March** and can submit your exam whenever you feel ready. Importantly, the 2nd of March is a hard cut-off, and we are not granting extensions.
+Congratulations on getting this far! You are now ready to take the exam. You can work on your exam until **August 4th** and can submit your exam whenever you feel ready. Importantly, August 4th is a hard cut-off, and we are not granting extensions.
 
 The exam is composed of two parts:
 
 * One **coding project** that involves the Cosmos SDK, Ignite CLI, and CosmJS.
 * One **IBC relayer operations** exercise.
+
+<!--
 
 ## Coding project
 
@@ -72,3 +74,5 @@ There are a number of emails that you have received, will receive, or could rece
 4. A _pass_ or _fail_ email, that you will receive after the deadline.
 
 Good luck!
+
+-->

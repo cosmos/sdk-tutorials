@@ -1,5 +1,5 @@
 ---
-title: "Store Object - Make a Checkers Blockchain"
+title: "Store Object"
 order: 4
 description: Create the object that stores a game
 tags: 
@@ -7,7 +7,7 @@ tags:
   - cosmos-sdk
 ---
 
-# Store Object - Make a Checkers Blockchain
+# Store Object
 
 <HighlightBox type="prerequisite">
 
@@ -481,7 +481,7 @@ Your stored game's `black` and `red` fields are only strings, but they represent
         }
         board.Turn = rules.StringPieces[storedGame.Turn].Player
         if board.Turn.Color == "" {
-            return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("Turn: %s", storedGame.Turn)), ErrGameNotParseable.Error())
+            return nil, sdkerrors.Wrapf(fmt.Errorf("turn: %s", storedGame.Turn), ErrGameNotParseable.Error())
         }
         return board, nil
     }
@@ -761,7 +761,7 @@ Also make sure that a default test created by Ignite CLI is correct in using the
     }
 ```
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.md) where you learn about them.
 
 ## Interact via the CLI
 

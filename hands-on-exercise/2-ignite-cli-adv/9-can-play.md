@@ -1,6 +1,6 @@
 ---
 title: "Help Find a Correct Move"
-order: 9
+order: 10
 description: Query - help players make good transactions
 tags: 
   - guided-coding
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [queries](/academy/2-cosmos-concepts/9-queries.md) and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have Go installed.
-* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./6-gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./8-gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 

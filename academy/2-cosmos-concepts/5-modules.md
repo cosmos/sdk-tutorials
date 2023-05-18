@@ -33,7 +33,7 @@ Modules define most of the logic of Cosmos SDK applications.
 
 ![Transaction message flow to modules](/academy/2-cosmos-concepts/images/message_processing.png)
 
-When a transaction is relayed from the underlying Tendermint consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction and routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
+When a transaction is relayed from the underlying CometBFT consensus engine, `BaseApp` decomposes the `Messages` contained within the transaction and routes messages to the appropriate module for processing. Interpretation and execution occur when the appropriate module message handler receives the message.
 
 Developers compose together modules using the Cosmos SDK to build custom application-specific blockchains.
 
@@ -41,7 +41,7 @@ Developers compose together modules using the Cosmos SDK to build custom applica
 
 Modules include **core** functionality that every blockchain node needs:
 
-* A boilerplate implementation of the Application Blockchain Interface (ABCI) that communicates with the underlying Tendermint consensus engine.
+* A boilerplate implementation of the Application Blockchain Interface (ABCI) that communicates with CometBFT.
 * A general-purpose data store that persists the module state called `multistore`.
 * A server and interfaces to facilitate interactions with the node.
 
@@ -333,7 +333,7 @@ Earlier the goal was to let players play with _money_. With the introduction of 
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
-* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the opponent rejects the game or the game times out, the first player gets refunded.
+* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the game times out, the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
@@ -377,7 +377,7 @@ var ctx sdk.Context
 var playerAddress sdk.AccAddress
 err := bank.SendCoinsFromAccountToModule(ctx, playerAddress, "checkers", payment)
 if err != nil {
-    return errors.New("Player cannot pay the wager")
+    return errors.New("player cannot pay the wager")
 }
 ```
 
@@ -412,9 +412,10 @@ If you want to go beyond the code samples in the expandable above and instead se
 More specifically, you can jump to:
 
 * [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md) to create a new blockchain with your checkers module.
-* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning) to have your checkers module access and use the bank module.
-* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers) to add a second custom module to your checkers blockchain.
-* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard) to create a new blockchain with a module, once again.
+* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/6-payment-winning.md) to have your checkers module access and use the bank module.
+* [Add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) and loosely couple it with another module with the use of the hooks pattern. It also leverages the module's `Params` construct.
+* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.md) to add a second custom IBC module to your checkers blockchain.
+* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.md) to create a new blockchain with a module, once again.
 
 </HighlightBox>
 
@@ -424,7 +425,7 @@ To summarize, this section has explored:
 
 * How Cosmos SDK modules can be viewed as purpose-specific state machines that define the unique properties of the larger state machine that is each blockchain.
 * How messages are decomposed from the incoming transaction containing them and routed to the appropriate module for processing.
-* How all modules comprise three core functionalities: an implementation of ABCI to communicate with the Tendermint consensus engine; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
+* How all modules comprise three core functionalities: an implementation of ABCI to communicate with CometBFT; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
 * How the majority of work for developers is in building custom modules that satisfy their unique needs, which are then integrated into a coherent application alongside existing modules from the Cosmos SDK of third-party developers.
 * How the Cosmos SDK's set of core modules address common applications needs (such as tokens, staking, and governance) while providing useful benefits like standardization across the Ecosystem, less duplication of effort, and practical examples of effective structure, style, and best practices.
 * How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.             

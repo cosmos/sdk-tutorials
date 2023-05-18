@@ -1,12 +1,12 @@
 # Hey there,
 
-Thank you for taking the final exam for the Interchain Developer Academy. Unfortunately, you didn't pass the exam.
+Thank you for taking the Final Exam for the Interchain Developer Academy. Unfortunately, you didn't pass the exam.
 
-**However, given how far you've come, we'd like to invite you to join the next cohort of the Academy. The program starts on 2nd of March.**
+**However, given how far you have come, we'd like to invite you to join the next cohort of the Academy. The program starts on 2nd of March.**
 
-You won't need to do the screening test, take the quizzes, or complete any exercises apart from the final exam.
+You will not need to do the screening test, take the quizzes, or complete any exercises apart from the Final Exam.
 
-You'll have access to all the updated materials, the Discord channels, and support, and you'll be able to take the exam again (the exam period of the 4th cohort is from 2nd of March 2023 to 20th of April 2023).
+You will have access to all the updated materials, the Discord channels, and support, and you will be able to take the exam again (the exam period of the 4th cohort is from July 6th to August 4th, 2023).
 
 [Click on this link if you'd like to take the exam with the next cohort](https://www.subscribepage.com/ida_confirmed_c3_for_c4).
 

@@ -23,7 +23,7 @@ Start by putting `myprojectd` into `/usr/local/bin`, or into whichever path you 
 $ myprojectd version
 ```
 
-In the previous section, you configured some parameters of your node when it comes to Tendermint, in `~/.myprojectd/config/config.toml`.
+In the previous section, you configured some parameters of your node when it comes to CometBFT, in `~/.myprojectd/config/config.toml`.
 
 In `config/app.toml`, you will find other parameters to configure. Take special note of `halt-height` which assists you in gracefully stopping the node, such as when applying a migration.
 
@@ -111,6 +111,16 @@ Now that you have a running network, you may consider coming back to it and try 
 This is just an extract of the different customizations that are available to you. For more ideas, peruse [this documentation](https://hub.cosmos.network/main/hub-tutorials/join-mainnet.html).
 
 When your network has been running sufficiently to be considered "established", your next steps are to advertise it and facilitate its eventual integration within the ecosystem. A good way to achieve this is to open a pull request on the [chain registry repository](https://github.com/cosmos/chain-registry) with `chain.json` and `assetlist.json` files that describe your chain in a systematic way. Make sure that your JSON files follow the given schemas, for instance by checking with this [online validator](https://www.jsonschemavalidator.net).
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Executables that run](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-executables-that-run), to see how to prepare (Docker) nodes to run.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

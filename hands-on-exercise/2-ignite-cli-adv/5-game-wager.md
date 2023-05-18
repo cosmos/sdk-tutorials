@@ -45,7 +45,7 @@ When thinking about implementing a wager on games, ask:
 * Where is a wager recorded?
 * At what junctures do you need to handle payments, refunds, and wins?
 
-This is a lot to go through. Therefore, the work is divided into two sections. In this section, you only add new information, while the [next section](./5-payment-winning.md) is where the tokens are actually handled.
+This is a lot to go through. Therefore, the work is divided into three sections. In this first section, you only add new information, while the [second section](./5-payment-winning.md) is where the tokens are actually handled, and in the [third section](./5-integration-tests.md) you add integration tests.
 
 Some answers:
 

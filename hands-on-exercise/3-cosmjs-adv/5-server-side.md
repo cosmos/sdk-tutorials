@@ -7,6 +7,8 @@ tags:
   - cosm-js
 ---
 
+# Backend Script for Game Indexing
+
 <HighlightBox type="prerequisite">
 
 Make sure you have all you need before proceeding:
@@ -21,6 +23,7 @@ This exercise assumes that:
 1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
 
     ```sh
+    $ docker network create checkers-net
     $ docker run --rm -it \
         -p 26657:26657 \
         --name checkers \
@@ -64,8 +67,6 @@ This exercise assumes that:
     </CodeGroupItem>
 
     </CodeGroup>
-
-# Backend Script for Game Indexing
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on-chain.
 
@@ -342,10 +343,10 @@ $ npm run indexer-dev
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/client \
-    -w /client \
+    -v $(pwd):/client -w /client \
     -p 3001:3001 \
     --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm run indexer-dev
 ```
@@ -508,10 +509,10 @@ $ npm run indexer-dev
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/client \
-    -w /client \
-    --network checkers-net \
+    -v $(pwd):/client -w /client \
     -p 3001:3001 \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
     node:18.7-slim \
     npm run indexer-dev
 ```
@@ -861,7 +862,9 @@ $ docker exec -it checkers \
     --yes
 ```
 
-In this case the indexer should not log anything. Because performing moves from the command line is laborious, using the GUI is advisable.
+In this case the indexer should not log anything.
+
+Because performing moves from the command line is laborious, using the GUI is advisable.
 
 </CodeGroupItem>
 
@@ -875,7 +878,7 @@ What remains is handling the games that get removed or forfeited in `EndBlock`.
 
 Nicely formatted `EndBlock` events are still missing from CosmJS, so these require a little extra work:
 
-1. To get a block's `EndBlock` events, you need to ask for the block information from a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
+1. To get a block's `EndBlock` events, you need to ask for the block information from a CometBFT client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
 2. The function to call is [`blockResults`](https://github.com/cosmos/cosmjs/blob/5ee3f82/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L88).
 3. It returns a [`BlockResultsResponse`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L55), of which `endBlockEvents: Event` is of interest.
 4. This [`Event`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L182) type has `attributes: Attribute[]` of interest.
@@ -883,7 +886,7 @@ Nicely formatted `EndBlock` events are still missing from CosmJS, so these requi
 
 With this information, you can do the necessary actions:
 
-1. To handle the conversion of Tendermint `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
+1. To handle the conversion of CometBFT `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/events.ts#L1-L17]
     import { fromUtf8 } from "@cosmjs/encoding"
@@ -905,7 +908,7 @@ With this information, you can do the necessary actions:
     }
     ```
 
-2. To handle the call to `blockResults`, you need access to a Tendermint client. One option is to make a copy of the private Tendermint client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
+2. To handle the call to `blockResults`, you need access to a CometBFT client. One option is to make a copy of the private CometBFT client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer_stargateclient.ts]
 import { StargateClientOptions } from "@cosmjs/stargate"
@@ -1019,7 +1022,7 @@ Forfeit game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosm
 
 <HighlightBox type="tip">
 
-In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.mdl#interact-via-the-cli).
+In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.md#interact-via-the-cli).
 
 </HighlightBox>
 
@@ -1114,7 +1117,7 @@ To simulate a case where the game is in the blockchain state but not the indexer
 
 1. Stop your indexer.
 2. Create a game and check at what block it is included (for example, at index `3` and block `1001`).
-3. Update your indexer's `db.json` and pretend that it already indexed the game's block by setting:
+3. Update your indexer's `db.json` to pretend that it already indexed the game's block by setting:
 
     ```json
     "status": {
@@ -1147,6 +1150,13 @@ Patch game: new, 3, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: c
 
 Develop your own ways to test the other scenarios.
 
+If you started the chain in Docker, when you are done you can stop the containers with:
+
+```sh
+$ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
+```
+
 ## Conclusion
 
 You have created a small server that:
@@ -1160,10 +1170,10 @@ These are examples of server-side scripts, which can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
 
-So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
+<!-- So what's next? The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
-* Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
+* Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
+Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Interchain universe. -->

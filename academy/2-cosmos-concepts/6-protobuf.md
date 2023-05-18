@@ -20,7 +20,7 @@ Before diving into this section, it is recommended to read the following section
 
 <HighlightBox type="learning">
 
-Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within a Cosmos application, and Protobuf is central to how communication is done.
+Protobuf is a data serialization method which developers use to describe message formats. There is a lot of internal communication within an Interchain application, and Protobuf is central to how communication is done.
 <br/><br/>
 You can find a code example for your checkers blockchain at the end of the section to dive further into Protobuf and message creation.
 
@@ -62,7 +62,7 @@ Go developers access the setters and getters in the generated source code throug
 
 <HighlightBox type="docs">
 
-For more on encoding in Cosmos, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
+For more on encoding in the Interchain, see the [Cosmos SDK documentation on encoding](https://docs.cosmos.network/main/core/encoding.html).
 <br/><br/>
 Here you can find the [Protobuf documentation overview](https://docs.cosmos.network/main/core/proto-docs.html).
 
@@ -174,8 +174,8 @@ If you want to dive straight into coding your chain, go to [Run Your Own Cosmos 
 <br/><br/>
 More specifically, you can jump to:
 
-* [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game) to have Ignite CLI create your first Protobuf object.
-* [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message) to have Ignite CLI create another Protobuf object, this time for messaging. You also get a walk-through of the services created.
+* [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) to have Ignite CLI create your first Protobuf object.
+* [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) to have Ignite CLI create another Protobuf object, this time for messaging. You also get a walk-through of the services created.
 
 </HighlightBox>
 
@@ -183,7 +183,7 @@ More specifically, you can jump to:
 
 To summarize, this section has explored:
 
-* How Protocol Buffers (Protobuf) are an open-source, extensible, cross-platform, and language-agnostic method of serializing object data, primarily for network communication and storage, and are central to how communication is done in Cosmos applications.
+* How Protocol Buffers (Protobuf) are an open-source, extensible, cross-platform, and language-agnostic method of serializing object data, primarily for network communication and storage, and are central to how communication is done in Interchain applications.
 * How the Google-authored Remote Procedure Call (gRPC) uses Protobuf as both its interface definition language and as its underlying message interchange format, allowing a client to directly call a method on a server application on a different machine as if it were a local object.
 * How a Cosmos SDK application's core mainly consists of type definitions and constructor functions, comprising a reference to the `BaseApp`, a list of store keys, a list of each module's keepers, a reference to the codec used, and a reference to the module manager.
 

@@ -30,16 +30,23 @@ This re-introduction of a degree of centralization is usually considered accepta
 
 In general, user interfaces help users interpret the blockchain state, compose and sign transactions, and send them - all things that are potentially accomplished by other less convenient methods. A user interface is supported by servers or micro-services that also interact with the blockchain.
 
+<HighlightBox type="info">
+
+Here you can find the recording of a live session with Noam Cohen of the Interchain Foundation, providing an _Introduction to CosmJS_:
+
+<YoutubePlayer videoId="RlqjEVIv1Pg"/>
+
+</HighlightBox>
+
 ## Some examples
 
 Developers who are engaged in developing intuitive and coherent user interfaces need to accomplish certain things at the browser level:
 
-* Help the user create unsigned Cosmos SDK transactions.
+* Help the user create unsigned Cosmos SDK transactions with one or multiple messages.
 * Let the user sign an unsigned transaction with their wallet.
 * Help the user submit a signed transaction to a Cosmos SDK endpoint.
 * Query the state from the Cosmos Hub or a custom module using the legacy REST endpoint.
 * Query the state from the Cosmos Hub or a custom module using the gRPC endpoint.
-* Help the user submit multiple messages in a single transaction.
 
 Backend systems are often useful components of the overall design:
 

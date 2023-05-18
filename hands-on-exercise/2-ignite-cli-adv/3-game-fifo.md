@@ -70,9 +70,9 @@ Now, think about what possible code changes and additions you should consider:
 
 For now, do not bother yet with future ideas like wager handling.
 
-## Why would you reject?
+## Why would you get rid of stale games?
 
-There are two ways for a game to advance through its lifecycle until resolution, win or draw: _play_ and _reject_.
+There is only one way for a game to advance through its lifecycle until resolution, win or draw: to _play_ it.
 
 Game inactivity could become a factor. What if a player never shows up again? Should a game remain in limbo forever?
 
@@ -94,7 +94,7 @@ findAll(game => game.deadline < now)
 
 This approach is **expensive** in terms of computation. The `EndBlock` code should not have to pull up all games out of the storage just to find a few that are relevant. Doing a `findAll` costs [`O(n)`](https://en.wikipedia.org/wiki/Big_O_notation), where `n` is the total number of games.
 
-## How can you reject?
+## How can you get rid of expired games?
 
 You need another data structure. The simplest option is a First-In-First-Out (FIFO) that is constantly updated, so that:
 

@@ -199,11 +199,11 @@ $ tar xzf myproject_linux_amd64.tar.gz
 
 This creates a `myprojectd` executable file.
 
-### With a Makefile
+### With a `Makefile`
 
 A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project with:
 
-```make
+```lang-makefile
 build-all:
     GOOS=linux GOARCH=amd64 go build -o ./build/myproject-linux-amd64 ./cmd/myprojectd/main.go
     GOOS=linux GOARCH=arm64 go build -o ./build/myproject-linux-arm64 ./cmd/myprojectd/main.go
@@ -235,7 +235,7 @@ $ make build-with-checksum
 
 If you want to see what a vastly more complex `Makefile` looks like, head to the [Cosmos Hub's own `Makefile`](https://github.com/cosmos/gaia/blob/main/Makefile).
 
-### With a Makefile within Docker
+### With a `Makefile` within Docker
 
 If you do not want to install Go or `make` on your build computer, and [have Docker](https://docs.docker.com/engine/install/), you can:
 
@@ -262,13 +262,13 @@ Eventually, you will run these executables on computers. The command will be a p
 $ myprojectd start
 ```
 
-By default, Tendermint and the Cosmos app are launched together, run together, and communicate via sockets. This is the recommended way of launching. It is not the only way of launching, though.
+By default, CometBFT and the Cosmos app are launched together, run together, and communicate via sockets. This is the recommended way of launching. It is not the only way of launching, though.
 
-You can launch the Tendermint and the Cosmos app separately, and even on different computers. If you do so, ensure that only your Tendermint app can contact the Cosmos app on the ABCI.
+You can launch CometBFT and the Cosmos app separately, and even on different computers. If you do so, ensure that only your CometBFT app can contact the Cosmos app on the ABCI.
 
 For instance:
 
-* To start only the Tendermint node, run:
+* To start only the CometBFT node, run:
 
   ```sh
   $ myprojectd start --proxy_app tcp://192.168.0.5:26658
@@ -284,12 +284,22 @@ For instance:
 
 Again, this is not recommended for performance reasons - for example, due to network latency.
 
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Docker elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#docker-elements), to see how to compile the necessary software.
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
 
 * How to build the binary that the nodes will run, using `go build`, Ignite CLI, a `Makefile`, or a `Makefile` within Docker.
-* Different methods of deploying, such as by launching Tendermint and the Cosmos app simultaneously, or by starting either one independently of the other.
+* Different methods of deploying, such as by launching CometBFT and the Cosmos app simultaneously, or by starting either one independently of the other.
 * The importance of ensuring the binary will run equally well on computers using different OS and CPU types.
 
 </HighlightBox>

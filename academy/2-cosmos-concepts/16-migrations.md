@@ -1,6 +1,6 @@
 ---
 title: "Migrations"
-order: 14
+order: 17
 description: How to handle on-chain upgrades
 tags: 
   - concepts
@@ -22,7 +22,7 @@ To better understand this section, first read the following sections:
 
 Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
 <br/><br/>
-Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
+Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Interchain's comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
 <br/><br/>
 At the end of the section, the code example demonstrates how you would use migration to upgrade your checkers blockchain with new features even after it has been in operation for some time.
 
@@ -349,8 +349,8 @@ The migration mechanism helps identify how you can upgrade your blockchain to in
 <HighlightBox type="tip">
 
 If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
-For even more detail, see [Introduce a Leaderboard After Production](/hands-on-exercise/4-run-in-prod/2-migration.md).
+<br/><br/>
+For even more detail, see [Tally Player Info After Production](/hands-on-exercise/4-run-in-prod/2-migration-info.md).
 
 </HighlightBox>
 

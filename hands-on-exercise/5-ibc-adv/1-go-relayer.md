@@ -1,6 +1,6 @@
 ---
 title: "Go Relayer"
-order: 3
+order: 2
 description: Relayer implementation in Golang
 tags:
   - guided-coding
@@ -47,7 +47,7 @@ The repository offers a script to start two chains, which you need to test the r
 
 <HighlightBox type="note">
 
-The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than Tendermint and event-based processing that results in performance improvements.
+The most up-to-date major version of the Go relayer is v2. This version delivered major updates and improvements, including the introduction of a provider interface to accommodate chains with different consensus types than CometBFT and event-based processing that results in performance improvements.
 <br/><br/>
 It is recommended to use this latest version, and the following commands assume you are using v2.
 
@@ -139,8 +139,6 @@ To customize the memo for all relaying, use the `--memo` flag when initializing 
 ```shell
 $ rly config init --memo "My custom memo"
 ```
-
-<br/><br/>
 
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
 <br/><br/>
@@ -447,7 +445,7 @@ The default key used for checkersa is _alice_.
 
 You created the commitment proof on `checkersa` to send the packet, but no relaying has taken place yet.
 
-### Relay packets/acknowledgments
+### Relay packets/acknowledgements
 
 Running `rly start demo` would essentially loop these two commands:
 

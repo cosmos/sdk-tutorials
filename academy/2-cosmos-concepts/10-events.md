@@ -168,7 +168,8 @@ More precisely, you can jump to:
 
 * [Emit Game Information](/hands-on-exercise/1-ignite-cli/7-events.md) to see how to add events to your checkers blockchain
 * [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) to see when this is done in `EndBlock`
-* [Let Players Set a Wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) to see how to update your events when adding a new feature
+* [Let Players Set a Wager](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) to see how to update your events when adding a new feature
+* Tangentially, if you are looking for something akin to events but between modules, look for the hooks pattern in the [Add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) section.
 
 </HighlightBox>
 
@@ -179,7 +180,7 @@ To summarize, this section has explored:
 * How events are objects used by service providers such as block explorers and wallets to track the execution of messages and index transactions by applications.
 * The types and attributes of events are defined on a per-module basis and developers can attach additional information to them, so events can be queried or filtered.
 * Events are managed, tracked, and triggered by the `EventManager` abstraction.
-* You can subscribe to different categories of event using Tendermint's WebSocket.
+* You can subscribe to different categories of event using CometBFT's WebSocket.
 
 </HighlightBox>
 

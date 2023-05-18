@@ -1,6 +1,6 @@
 ---
 title: "Play With Cross-Chain Tokens"
-order: 10
+order: 11
 description: Let players wager any fungible token
 tags: 
   - guided-coding
@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](/academy/2-cosmos-concepts/4-messages.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and [IBC](/academy/3-ibc/1-what-is-ibc.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Thus, you could expand the pool of your potential players by extending the pool of possible wager denominations via the use of IBC. How can you do this?
 
@@ -529,9 +529,9 @@ pagination:
 
 That is correct.
 
-## Live testing with a relayer
+<!--
 
-<!-- TODO it looks like it is no longer possible with this version of Ignite -->
+## Live testing with a relayer
 
 With the checkers application ready to accommodate IBC-foreign tokens, you should run some tests locally with another blockchain's tokens without running a large-scale operation. Conveniently, Ignite CLI has the [TypeScript relayer](https://docs.ignite.com/kb/relayer.html) built in. If you look at the GUI Ignite CLI created in your checkers blockchain, you will see a _Relayers_ section on the left.
 
@@ -559,6 +559,8 @@ As soon as you close the browser window the channels on both ends are no longer 
 
 </HighlightBox>
 
+-->
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
@@ -574,6 +576,6 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-In the [next section](/hands-on-exercise/4-run-in-prod/2-migration.md), you will learn how to conduct chain upgrades through migrations.-->
+In the [next section](/hands-on-exercise/4-run-in-prod/2-migration-info.md), you will learn how to conduct chain upgrades through migrations.-->
 
 Alternatively, you can learn how to create the [TypeScript client elements](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) for your blockchain.
