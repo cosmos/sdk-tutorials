@@ -141,7 +141,7 @@ Create the folder structure to receive the compiled files:
 $ mkdir -p client/src/types/generated
 ```
 
-Check what Cosmos version you are using:
+Check what Cosmos SDK version you are using:
 
 ```sh
 $ grep cosmos-sdk go.mod

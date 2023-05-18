@@ -114,6 +114,6 @@ The score that appears on Gitlab's CI is the _correct_ one.
 
 Please push your exercise solution to the [Week 2 Exercise repo](https://git.academy.b9lab.com/ida-p4-exercise-week-2/exercise-code).
 
-**Please make sure to submit your exercise by Thursday, July 6th, 11:59 UTC.**
+**Please make sure to submit your exercise by Thursday, July 6th, 11:59pm UTC.**
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
