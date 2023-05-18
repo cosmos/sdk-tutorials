@@ -26,7 +26,7 @@ Testing is the general umbrella that describes all that revolves around making s
 
 </HighlightBox>
 
-Testing is an integral part of software development in general. Done well, it helps teams catch bugs earlier, and thus, repairing problems becomes cheaper. In the context of blockchains, which can lock large amounts of value and where [migrations](./12-migrations.md) are not simply one redeploy away from a fix, bugs can be catastrophic.
+Testing is an integral part of software development in general. Done well, it helps teams catch bugs earlier, and thus, repairing problems becomes cheaper. In the context of blockchains, which can lock large amounts of value and where [migrations](./13-migrations.md) are not simply one redeploy away from a fix, bugs can be catastrophic.
 
 The Cosmos SDK implements its own testing vision for its modules, and it would be good if your project followed the same patterns. Following the same patterns will help everyone in the ecosystem _speak the same language_. Speaking the same language is also beneficial when you open the code for a bug bounty. Indeed, readable tests increase the trust that casual observers have in your code overall and, by extension, your project, and allow interested bounty hunters to be _onboarded_ faster.
 

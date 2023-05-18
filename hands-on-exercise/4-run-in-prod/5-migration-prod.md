@@ -114,7 +114,7 @@ $ git checkout leaderboard-migration
 
 Your genesis elements should still be in v1 as they were created in the `run-prod` branch. You can confirm this by verifying that there are no player infos and no leaderboards in the [checkers genesis store](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/node-carol/config/genesis.json#L85).
 
-As you did in the [migration section](/hands-on-exercise/4-run-in-prod/2-migration.md), you need to reduce the voting period from 2 days to 10 minutes to make the exercise bearable:
+As you did in the [migration section](/hands-on-exercise/4-run-in-prod/2-migration-info.md), you need to reduce the voting period from 2 days to 10 minutes to make the exercise bearable:
 
 ```sh
 $ jq -j '.app_state.gov.voting_params.voting_period = "600s"' prod-sim/desk-alice/config/genesis.json > prod-sim/desk-alice/config/genesis-2.json && mv prod-sim/desk-alice/config/genesis-2.json prod-sim/desk-alice/config/genesis.json
@@ -422,7 +422,7 @@ The completed game will count for the future leaderboard.
 
 ## Prepare the upgrade proposals
 
-Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration.md#governance-proposal), with one block every 5 seconds, you make:
+Copying what was done in the [previous migration section](/hands-on-exercise/4-run-in-prod/2-migration-info.md#governance-proposal), with one block every 5 seconds, you make:
 
 * The first upgrade proposal to be run in 15 minutes (i.e. 180 blocks).
 * The second upgrade proposal to be run in 25 minutes (i.e. 300 blocks).

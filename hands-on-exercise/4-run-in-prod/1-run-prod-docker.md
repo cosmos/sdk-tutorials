@@ -644,7 +644,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
 
 Now you need to import `val-alice`'s consensus key in `secrets/val-alice-consensus.key`.
 
-The private key will no longer be needed on `val-alice`. However, during the genesis creation Alice will need access to her consensus public key. Save it in a new [`pub_validator_key.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/pub_validator_key.json) on Alice's desk without any new line:
+The private key will no longer be needed on `val-alice`. However, during the genesis creation Alice will need access to her consensus public key. Save it in a new [`pub_validator_key-val-alice.json`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/pub_validator_key-val-alice.json) on Alice's desk without any new line:
 
 ```sh
 $ docker run --rm -t \
