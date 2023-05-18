@@ -82,7 +82,7 @@ The Interchain network focuses on an ecosystem for easy blockchain development t
 
 Before the Interchain came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entirely flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of the Interchain's mission.
 
-The main aim of the Interchain network is to provide an **ecosystem for easy blockchain development** based on CometBFT, the Tendermint BFT for the Interchain stack, and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+The main aim of the Interchain network is to provide an **ecosystem for easy blockchain development** based on CometBFT, the Tendermint BFT for the Interchain Stack, and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
 Each chain in the Interchain Ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in the Interchain, the Tendermint consensus mechanism is also utilized in the [Binance Chain](https://www.binance.org/en), [Kava](https://www.kava.io/), and more.
 
@@ -143,7 +143,7 @@ If you want more detailed information on hubs and zones on the mainnet and in th
 
 ## The Cosmos Hub
 
-The **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)** was the first blockchain built with the Interchain stack. It is a public Proof-of-Stake (PoS) blockchain with a native token, ATOM. ATOM is used to secure the network and pay for transaction fees, but is also the token that has funded the development of the Interchain stack and other projects in the wider ecosystem.
+The **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)** was the first blockchain built with the Interchain Stack. It is a public Proof-of-Stake (PoS) blockchain with a native token, ATOM. ATOM is used to secure the network and pay for transaction fees, but is also the token that has funded the development of the Interchain Stack and other projects in the wider ecosystem.
 
 The Cosmos Hub can be understood as a router facilitating transactions between the chains connected to it. For example, the Cosmos Hub allows for transaction fees to be paid in different tokens, as long as the zone trusts the Cosmos Hub and the other zones connected to it.
 

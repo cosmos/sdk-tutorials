@@ -13,7 +13,7 @@ This page provides further information on the versions of this **Developer Porta
 
 You can select different versions of this portal in the dropdown in the upper, right-hand corner of each page.
 
-When selecting the version of this portal you want to work with, please be aware of the different versions of the Interchain stack used.
+When selecting the version of this portal you want to work with, please be aware of the different versions of the Interchain Stack used.
 
 ## Current Version - Master
 
