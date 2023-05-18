@@ -10,7 +10,7 @@ You have reached the end of Week 1. Time for a check-up to see how much you have
 
 **Please make sure you enter the same email address used to sign up for this Academy when submitting the quiz.**
 
-Follow this link: [Week 1 Quiz](https://hr.gs/ida-c4-week1-quiz), to submit a pop quiz covering general questions on the Interchain and its main concepts. The quiz contains 37 questions, and you have 120 minutes to complete it.
+Follow this link: [Week 1 Quiz](https://hr.gs/ida-c4-week1-quiz), to submit a pop quiz covering general questions on the Interchain and its main concepts. The quiz contains 37 questions, and you have 120 minutes to complete it. That is a lot more time than we expect you to need.
 
 <HighlightBox type="note">
 

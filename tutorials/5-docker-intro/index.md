@@ -46,7 +46,7 @@ There exist registries that store and/or reference them, like your regular packa
 
 </HighlightBox>
 
-This introduces an interesting concept whereby [a machine is described as a file](https://twitter.com/FrancescoCiull4/status/1509458241524224005), which is very useful for reproducibility and DevOps. Further, the images are optimized so that each image is a _diff_ of a parent one.
+This introduces an interesting concept whereby [a machine is described as a file](https://twitter.com/FrancescoCiull4/status/1509458241524224005), which is very useful for reproducibility and DevOps. Further, the images are optimized so that each image is a _diff_ of a parent one. <!-- markdown-link-check-disable-line -->
 
 Images can be versioned and even referenced by their content hash so that you can be sure to use the expected one. For instance, [Node.js](https://hub.docker.com/_/node) has a long list of images. Do you want [Node 19.1](https://hub.docker.com/layers/library/node/19.1/images/sha256-fcf7d55d2bea9d86f6890a8c44aec9a9ae2cb8f6351aae50e9d684fc81a4415f), or [Node 19.1 built specifically on Debian Buster](https://hub.docker.com/layers/library/node/19.1-buster/images/sha256-9d37aa88366e0a26b621c84e6cb9aff5bee5589d1e783f84d053f7ffe93cfb82)?
 

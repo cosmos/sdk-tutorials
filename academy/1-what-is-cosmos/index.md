@@ -15,7 +15,7 @@ How does the Interchain network of interoperable blockchains fit into the overal
 
 Dive into the history of blockchain technology and discover the Interchain Ecosystem – it is a galaxy of wallets, services, tokens, and dApps. Then, get your first Cosmos Hub native token and find out how to stake your ATOM.
 
-![](/academy/1-what-is-cosmos/images/cosmos_dev_portal_module-02-lp.png)
+![An atom surrounded by star constellations](/academy/1-what-is-cosmos/images/cosmos_dev_portal_module-02-lp.png)
 
 ## In this chapter
 

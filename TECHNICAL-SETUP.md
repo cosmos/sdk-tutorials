@@ -344,4 +344,4 @@ This installation method removes existing Go installations, installs Go in `/usr
 
 ## Markdown lint
 
-The content is formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md), the config can be found in [markdownlint.json](./markdownlint.json).
+The content is formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md), the config can be found in [.markdownlint.json](./.markdownlint.json).

@@ -81,7 +81,7 @@ All other Academy chapters will be displayed on this page starting **May 18th**.
 
 ## Next up
 
-First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md).
+First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md). <!-- markdown-link-check-disable-line -->
 
 Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
 

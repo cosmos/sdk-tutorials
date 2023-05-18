@@ -140,7 +140,7 @@ CometBFT will be explored in detail in the [Main Concepts](/academy/2-cosmos-con
 * [Castro, M. & Liskov, B. (1999): Practical Byzantine Fault Tolerance](http://pmg.csail.mit.edu/papers/osdi99.pdf)
 * [Castro, M. & Liskov, B.: Practical Byzantine Fault Tolerance presentation](https://www.comp.nus.edu.sg/~rahul/allfiles/cs6234-16-pbft.pdf)
 * [Curran, B. (2018): What is Pracictcal Byzantine Fault Tolerance? Complete Beginner's Guide](https://blockonomi.com/practical-byzantine-fault-tolerance/)
-* [Kwon, Jae (2014): Tendermint: Consensus without Mining](http://tendermint.com/docs/tendermint.pdf)
+* [Kwon, Jae (2014): Tendermint: Consensus without Mining](https://tendermint.com/static/docs/tendermint.pdf)
 * [Vasa (2018): ConsensusPedia: An Encyclopedia of 30 Consensus Algorithms. A complete list of all consensus algorithms](https://hackernoon.com/consensuspedia-an-encyclopedia-of-29-consensus-algorithms-e9c4b4b7d08f)
 * [Vitalik Buterin (2016): On Settlement Finality](https://blog.ethereum.org/2016/05/09/on-settlement-finality/)
 * [Witherspoon, Z. (2013): A Hitchhiker’s Guide to Consensus Algorithms. A quick classification of cryptocurrency consensus types](https://hackernoon.com/a-hitchhikers-guide-to-consensus-algorithms-d81aae3eb0e3)

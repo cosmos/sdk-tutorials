@@ -1024,7 +1024,7 @@ balances:
 
 This is correct: Bob was the winner by forfeit.
 
-Similarly, you can test that Alice gets her wager back when Alice creates a game, Alice plays, and then Bob rejects it.
+Similarly, you can test that Alice gets her wager back when Alice creates a game, Alice plays, and then Bob lets it expire.
 
 It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI, or by using integration tests as is done in the [next section](./7-integration-tests.md).
 
