@@ -307,6 +307,8 @@ You can also implement other messages:
     }
     ```
 
+    This message is not implemented in the coding exercise as it is not necessary if you implement an expiration.
+
 **Other considerations**
 
 What would happen if one of the two players has accepted the game by playing, but the other player has neither accepted nor rejected the game? You can address this scenario by:

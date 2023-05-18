@@ -333,7 +333,7 @@ Earlier the goal was to let players play with _money_. With the introduction of 
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
-* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the opponent rejects the game or the game times out, the first player gets refunded.
+* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the game times out, the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
