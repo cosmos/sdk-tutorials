@@ -1,15 +1,15 @@
 ---
 parent:
   title: Ignite CLI Advanced
-  description: Continue developing your own Cosmos chain
+  description: Continue developing your Cosmos chain
   number: 2
 order: 0
-title: Chapter Overview - Continue developing your own Cosmos chain
+title: Chapter Overview - Continue Developing Your Cosmos Shain
 tags:
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Continue developing your own Cosmos chain</div>
-<h1 class="mt-4 mb-6">Continue developing your own Cosmos chain</h1>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Continue developing your Cosmos chain</div>
+<h1 class="mt-4 mb-6">Continue developing your Cosmos chain</h1>
 
 You will work further on your checkers blockchain and make your next steps with Ignite CLI. You have a workable checkers blockchain, one which lets players play.
 

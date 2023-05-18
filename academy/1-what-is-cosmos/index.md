@@ -4,7 +4,7 @@ parent:
   description: From the vision to the ecosystem
   number: 1
 order: 0
-title: Chapter Overview - the Interchain, its Ecosystem, and ATOM
+title: Chapter Overview - The Interchain, Its Ecosystem, and ATOM
 tags:
 ---
 
