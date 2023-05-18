@@ -10,13 +10,13 @@ tags:
 
 # Understand the Feegrant Module
 
-The [`feegrant`](https://docs.cosmos.network/v0.44/modules/feegrant/) module enables the granter (a user, contract, or module) to pay the fees for someone else (the grantee) when the grantee wants to broadcast a transaction on the blockchain. The granter retains full access to their tokens and is able to revoke the allowance at any time.
+The [`feegrant`](https://docs.cosmos.network/v0.45/modules/feegrant/) module enables the granter (a user, contract, or module) to pay the fees for someone else (the grantee) when the grantee wants to broadcast a transaction on the blockchain. The granter retains full access to their tokens and is able to revoke the allowance at any time.
 
 ## Using feegrant to grant an allowance
 
 An often-discussed use case for the `feegrant` module is _improved onboarding experience_, because new users do not have to acquire tokens before they can start interacting with the blockchain or smart contract.
 
-Two [fee allowance types](https://docs.cosmos.network/v0.44/modules/feegrant/01_concepts.html#fee-allowance-types) are implemented with the `feegrant` module:
+Two [fee allowance types](https://docs.cosmos.network/v0.45/modules/feegrant/01_concepts.html#fee-allowance-types) are implemented with the `feegrant` module:
 
 * `BasicAllowance`
 
@@ -268,4 +268,4 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-There is a lot more that you can do with the `feegrant` module. You can add a list of allowed messages, set an expiration date, and set a time duration after which the spend limit is refilled. To learn more about the `feegrant` module and different types of allowances, check out the Cosmos SDK [Feegrant Module](https://docs.cosmos.network/v0.44/modules/feegrant/) documentation.
+There is a lot more that you can do with the `feegrant` module. You can add a list of allowed messages, set an expiration date, and set a time duration after which the spend limit is refilled. To learn more about the `feegrant` module and different types of allowances, check out the Cosmos SDK [Feegrant Module](https://docs.cosmos.network/v0.45/modules/feegrant/) documentation.

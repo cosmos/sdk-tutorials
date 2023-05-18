@@ -789,7 +789,6 @@ StoredGame
 SystemInfo
   ✔ can get system info
 
-
 3 passing (287ms)
 ```
 

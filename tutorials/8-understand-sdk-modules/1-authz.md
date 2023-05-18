@@ -10,7 +10,7 @@ tags:
 
 # Understand the Authz Module
 
-The [authz](https://docs.cosmos.network/main/modules/authz/) (authorization) module enables one user (the granter) to authorize another (the grantee) to execute messages on their behalf. The authz module is different from the [auth](https://docs.cosmos.network/main/modules/auth/) (authentication) module that is responsible for specifying the base transaction and account types.
+The [authz](https://docs.cosmos.network/main/modules/authz) (authorization) module enables one user (the granter) to authorize another (the grantee) to execute messages on their behalf. The authz module is different from the [auth](https://docs.cosmos.network/main/modules/auth) (authentication) module that is responsible for specifying the base transaction and account types.
 
 ## Use authz to grant authorizations
 
@@ -166,7 +166,7 @@ $ simd query gov proposal 1
 
 Next, the granter must `grant` an authorization to the grantee.
 
-The authorization is a "generic" authorization, which is one that takes a message type (such as `MsgVote`) as a parameter and allows the grantee unlimited authorization to execute that message on behalf of the granter. Other [authorization types](https://docs.cosmos.network/v0.44/modules/authz/01_concepts.html#built-in-authorizations) include "send", "delegate", "unbond", and "redelegate" in which case a limit on the number of tokens can be set by the granter. In this case, the grantee can vote as many times as they want until the granter revokes the authorization.
+The authorization is a "generic" authorization, which is one that takes a message type (such as `MsgVote`) as a parameter and allows the grantee unlimited authorization to execute that message on behalf of the granter. Other [authorization types](https://docs.cosmos.network/v0.45/modules/authz/01_concepts.html#built-in-authorizations) include "send", "delegate", "unbond", and "redelegate" in which case a limit on the number of tokens can be set by the granter. In this case, the grantee can vote as many times as they want until the granter revokes the authorization.
 
 Create authorization:
 
@@ -245,4 +245,4 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/v0.44/modules/authz/).
+To learn more about the authorization module and different types of authorizations, check out the [authz module documentation](https://docs.cosmos.network/main/modules/authz).

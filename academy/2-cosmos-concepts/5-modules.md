@@ -333,7 +333,7 @@ Earlier the goal was to let players play with _money_. With the introduction of 
 The initial ideas are:
 
 * The wager amount is declared when creating a game.
-* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the opponent rejects the game or the game times out, the first player gets refunded.
+* Each player is billed the amount when making their first move, which is interpreted as "challenge accepted". The amount should not be deducted on the game creation. If the game times out, the first player gets refunded.
 * Subsequent moves by a player do not cost anything.
 * If a game ends in a win or times out on a forfeit, the winning player gets the total wager amount.
 * If a game ends in a draw, then both players get back their amount.
@@ -412,10 +412,10 @@ If you want to go beyond the code samples in the expandable above and instead se
 More specifically, you can jump to:
 
 * [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md) to create a new blockchain with your checkers module.
-* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning) to have your checkers module access and use the bank module.
+* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) to have your checkers module access and use the bank module.
 * [Add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) and loosely couple it with another module with the use of the hooks pattern. It also leverages the module's `Params` construct.
-* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers) to add a second custom IBC module to your checkers blockchain.
-* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard) to create a new blockchain with a module, once again.
+* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.md) to add a second custom IBC module to your checkers blockchain.
+* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.md) to create a new blockchain with a module, once again.
 
 </HighlightBox>
 

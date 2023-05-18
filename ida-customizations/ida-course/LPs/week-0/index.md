@@ -81,13 +81,13 @@ All other Academy chapters will be displayed on this page starting **May 18th**.
 
 ## Next up
 
-First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md).
+First, you can take a look at blockchain technology by starting with the section on [Blockchain 101](/ida-course/0-blockchain-basics/1-blockchain.md). <!-- markdown-link-check-disable-line -->
 
 Then, for a quick overview on Golang, begin with the section [Go Introduction - First Steps](/tutorials/4-golang-intro/1-install.md).
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
 
-Finally, so you are ready for the hands-on-exercises, consult the [introduction to Docker](tutorials/5-docker-intro/).
+Finally, so you are ready for the hands-on-exercises, consult the [introduction to Docker](tutorials/5-docker-intro/index.md).
 
 ## Developer Resources
 

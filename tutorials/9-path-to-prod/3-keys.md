@@ -70,7 +70,7 @@ Now, take a closer look at generating keys, a consensus and an app key.
 
 When you run the standard `simd init` command, it creates a default Tendermint consensus key on disk at path [`~/.simapp/config/priv_validator_key.json`](https://docs.cosmos.network/main/run-node/run-node.html#initialize-the-chain). This is convenient if you are starting a testnet, for which the security requirements are low. However, for a more valuable network, you should delete this file to avoid using it by mistake, or [import it](https://github.com/iqlusioninc/tmkms/blob/v0.12.2/README.txsigner.md#architecture) into the KMS and then delete it if that is your choice.
 
-To use CometBFT's KMS follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html), or how it is applied in the [checkers hands-on exercise](/hands-on-exercise/2-ignite-cli-adv/9-run-prod-docker.md). When it is installed, configured, and running, you can ask it for its public key, which will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance:
+To use CometBFT's KMS follow the instructions [here](https://hub.cosmos.network/main/validators/kms/kms.html), or how it is applied in the [checkers hands-on exercise](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md). When it is installed, configured, and running, you can ask it for its public key, which will be useful at the genesis stage. It has to be Protobuf JSON encoded, for instance:
 
 ```json
 {"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}
