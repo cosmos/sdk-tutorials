@@ -17,7 +17,7 @@ You will learn more about the transportation, authentication, and ordering layer
 
 <HighlightBox type="info">
   
-**OPTIONAL**: the sections on [IBC/TAO connections, channels, and clients](/academy/3-ibc/2-connections.md), [interchain accounts](/academy/3-ibc/6-ica.md), and [IBC Solo machines](/academy/3-ibc/8-solomachine.md) are made available in case you want to dive deeper. This content **will not** be tested in the final exam.
+**OPTIONAL**: the sections on [IBC/TAO connections, channels, and clients](/academy/3-ibc/2-connections.md), [interchain accounts](/academy/3-ibc/6-ica.md), and [IBC middleware](/academy/3-ibc/9-ibc-mw-intro.md) are made available in case you want to dive deeper. This content **will not** be tested in the final exam.
   
 </HighlightBox>
 
@@ -63,9 +63,8 @@ The following sections are optional and **NOT** final exam relevant:
 * [IBC/TAO - Connections](/academy/3-ibc/2-connections.md)
 * [IBC/TAO - Channels](/academy/3-ibc/3-channels.md)
 * [IBC/TAO - Clients](/academy/3-ibc/4-clients.md)
-* [Light Client Development](/academy/3-ibc/4-light-client-dev.md)
 * [Interchain Accounts](/academy/3-ibc/6-ica.md)
-* [IBC Solo Machines](/academy/3-ibc/8-solomachine.md)
+* [IBC Middleware](/academy/3-ibc/9-mw-intro.md)
 
 </HighlightBox>
 

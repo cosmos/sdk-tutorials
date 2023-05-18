@@ -32,7 +32,8 @@ In this chapter, you will:
 
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
-* Learn about Interchain Security.
+* Learn about relaying with the Inter-Blockchain Communication Protocol (IBC).
+* Discover hod dApp developers can benefit from Interchain Security.
 
 </HighlightBox>
 

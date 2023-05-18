@@ -138,10 +138,10 @@ customModules:
           path: /academy/3-ibc/5-token-transfer.html
         - title: Interchain accounts - OPTIONAL
           path: /academy/3-ibc/6-ica.html
+        - title: IBC middleware - OPTIONAL
+          path: /academy/3-ibc/9-ibc-mw-intro
         - title: IBC tooling
           path: /academy/3-ibc/7-ibc-tooling.html
-        - title: IBC solo machines - OPTIONAL
-          path: /academy/3-ibc/8-solomachine.html
         - title: What is CosmJS?
           path: tutorials/6-comsjs/1-cosmjs-intro.html
         - title: Send tokens with CosmJS

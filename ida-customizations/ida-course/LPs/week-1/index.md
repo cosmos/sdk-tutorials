@@ -33,25 +33,31 @@ In this chapter, you will:
 * Begin to discover the Interchain Ecosystem.
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
-* Learn about Interchain Security.
+* Learn about relaying with the Inter-Blockchain Communication Protocol (IBC).
+* Discover how dApp developers can benefit from Interchain Security.
 
 </HighlightBox>
 
-**This week, make sure to submit your quiz by Thursday, 25th of May, 23:59 UTC.**
+**This week, make sure to submit your quiz once you feel ready to test your knowledge.**
+
+The quiz will be available until the Final Exam is launched on July 6th.
 
 Do not worry if you do not pass the quiz: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
-
-<HighlightBox type="info">
-
-This is a **recording** of the live session _Introduction to Cosmos_ with Billy Rennekamp:
-
-<YoutubePlayer videoId="5_ZkZ-NF184"/>
-
-</HighlightBox>
 
 ## Next up
 
 Want to get started with the main concepts of the Cosmos SDK? Go ahead and begin with a look at [Blockchain Technology and the Interchain](/academy/1-what-is-cosmos/1-blockchain-and-cosmos.md).
+
+<HighlightBox type="tip">
+
+But before you dive in, ask yourself: _what kind of a learner are you?_
+
+* **Do you like to learn the theory first, then build on that foundation?** If that sounds like you, then we recommend you begin with the Week 1 content and continue through the program chronologically.
+* **Do you like to get your hands dirty right away, then work back to fill in the conceptual gaps?** If this is your _modus operandi_, then we suggest you start with the Week 2 material now, then go back to read through Week 1 before you continue.
+
+Whichever way you decide to approach the program, we **highly recommend** that you complete both Week 1 and Week 2!
+
+</HighlightBox>
 
 ## Developer Resources
 

@@ -86,7 +86,7 @@ customModules:
         description: |
           You will discover the Interchain Ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
         links: 
-          - title: Blockchain technology and Cosmos
+          - title: Blockchain technology and the Interchain
             path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
           - title: The Interchain Ecosystem
             path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
@@ -154,13 +154,13 @@ customModules:
         links: 
           - title: What is IBC?
             path: /academy/3-ibc/1-what-is-ibc.html
-          - title: IBC/TAO - Connections, Channels, and Clients - OPTIONAL
+          - title: IBC/TAO - Connections, Channels, and Clients (OPTIONAL)
             path: /academy/3-ibc/2-connections.html
           - title: IBC token transfer
             path: /academy/3-ibc/7-token-transfer.html
-          - title: Interchain Accounts - OPTIONAL
+          - title: Interchain Accounts (OPTIONAL)
             path: /academy/3-ibc/8-ica.html
-          - title: IBC Middleware - OPTIONAL
+          - title: IBC Middleware (OPTIONAL)
             path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
             path: /academy/3-ibc/12-ibc-tooling.html
