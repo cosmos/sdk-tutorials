@@ -4,7 +4,7 @@ order: 2
 description: The Interchain as part of blockchain technology
 tags: 
   - concepts
-  - tendermint
+  - cometbft
   - cosmos-sdk
 ---
 

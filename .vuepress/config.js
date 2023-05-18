@@ -262,7 +262,7 @@ module.exports = {
               url: "https://hub.cosmos.network",
             },
             {
-              title: "Tendermint Core",
+              title: "CometBFT",
               url: "https://docs.tendermint.com",
             },
             {
@@ -322,9 +322,9 @@ module.exports = {
         color: '#05BDFC',
         label: 'CosmWasm'
       },
-      'tendermint': {
+      'cometbft': {
         color: '#00B067',
-        label: 'Tendermint'
+        label: 'CometBFT'
       },
       'cosmos-hub': {
         color: '#f7f199',

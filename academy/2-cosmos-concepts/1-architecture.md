@@ -1,7 +1,7 @@
 ---
 title: "A Blockchain App Architecture"
 order: 2
-description: ABCI, Tendermint, and state machines
+description: ABCI, CometBFT, and state machines
 tags: 
   - concepts
   - cosmos-sdk
@@ -15,7 +15,7 @@ In this section, you will look closer at the application architecture underlying
 
 In this section, you will deepen your understanding of the application architecture underlying blockchains built with the Cosmos SDK. You will explore:
 
-* What Tendermint is
+* What Tendermint and CometBFT is
 * Consensus in the Interchain
 * The Application Blockchain Interface
 * The Cosmos SDK
@@ -23,7 +23,7 @@ In this section, you will deepen your understanding of the application architect
 
 </HighlightBox>
 
-## What is Tendermint?
+## What are Tendermint and CometBFT?
 
 Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains with a ready-made networking and consensus solution, so developers do not have to recreate these features for each new case. You may already use Tendermint without being aware of it, as other blockchains like [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain) use Tendermint.
 
@@ -223,7 +223,7 @@ In the following suggested exercise, you will create a minimal distributed state
 
 ## Test yourself - a pseudo-coding exercise
 
-With all you have learned about Tendermint, can you **design** a minimal distributed state machine, and think about relevant pseudo-code, for a blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of Tendermint.
+With all you have learned about Tendermint and CometBFt, can you **design** a minimal distributed state machine, and think about relevant pseudo-code, for a blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of Tendermint.
 
 You will continue to apply what you learn in later sections to your checkers game, and design a blockchain by using elements of the Cosmos SDK. Alternatively, you can continue directly to learn about [accounts in the Cosmos SDK](./2-accounts.md).
 

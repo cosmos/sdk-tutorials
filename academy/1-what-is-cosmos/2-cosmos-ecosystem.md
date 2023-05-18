@@ -4,7 +4,7 @@ order: 3
 description: A universe to discover
 tags: 
   - concepts
-  - tendermint
+  - cometbft
   - cosm-wasm
   - ibc
   - cosmos-sdk
@@ -82,7 +82,7 @@ The Interchain network focuses on an ecosystem for easy blockchain development t
 
 Before the Interchain came along, developing a whole new chain was much more difficult and expensive than building a smart contract. Now, with the Cosmos SDK, entirely flexible, secure, high performance, and sovereign **application-specific blockchains** can be developed. To allow this, building modular, adaptable, and interchangeable open-source development tools is at the center of the Interchain's mission.
 
-The main aim of the Interchain network is to provide an **ecosystem for easy blockchain development** based on the Tendermint BFT and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
+The main aim of the Interchain network is to provide an **ecosystem for easy blockchain development** based on CometBFT, the Tendermint BFT for the Interchain stack, and the Inter-Blockchain Communication Protocol (IBC) with the so-called [Cosmos SDK](https://v1.cosmos.network/sdk).
 
 Each chain in the Interchain Ecosystem relies on the Tendermint **fast-finality BFT consensus algorithm**. This ensures a common consensus mechanism at work in all chains of the network. Next to its use in the Interchain, the Tendermint consensus mechanism is also utilized in the [Binance Chain](https://www.binance.org/en), [Kava](https://www.kava.io/), and more.
 
@@ -109,7 +109,7 @@ The Cosmos SDK is built on the [object-capability model](https://docs.cosmos.net
 
 <HighlightBox type="info">
 
-The default consensus mechanism available when developing with the SDK is the [Tendermint Core](https://docs.tendermint.com/v0.34/tendermint-core/).
+The default consensus mechanism available when developing with the SDK is CometBFT, which is based on [Tendermint Core](https://docs.tendermint.com/v0.34/tendermint-core/).
 
 </HighlightBox>
 
@@ -147,7 +147,7 @@ The **[Cosmos Hub](https://hub.cosmos.network/main/hub-overview/overview.html)**
 
 The Cosmos Hub can be understood as a router facilitating transactions between the chains connected to it. For example, the Cosmos Hub allows for transaction fees to be paid in different tokens, as long as the zone trusts the Cosmos Hub and the other zones connected to it.
 
-_How do you connect your chain to a non-Tendermint chain?_ The IBC connection is not limited to Tendermint-based chains. If another, non-Tendermint blockchain uses a fast-finality consensus algorithm, a connection can be established by adapting IBC to work with the non-Tendermint consensus mechanism.
+_How do you connect your chain to a non-Tendermint (non-CometBFT) chain?_ The IBC connection is not limited to Tendermint-based chains. If another, non-Tendermint blockchain uses a fast-finality consensus algorithm, a connection can be established by adapting IBC to work with the non-Tendermint consensus mechanism.
 
 If the other chain is a **probabilistic-finality chain**, a simple adaptation of IBC is not sufficient. A proxy chain called a **peg-zone** helps establish interoperability. Peg-zones are fast-finality blockchains which track chain states to establish finality. The peg-zone chain itself is IBC-compatible and acts as a **bridge** between the rest of the IBC network's chains and the probabilistic-finality chain.
 
@@ -181,7 +181,7 @@ Read the [node explorer documentation](https://github.com/cosmos/atlas/blob/main
 
 ## Ignite CLI - building application-specific blockchains with one command
 
-[Ignite CLI](https://ignite.com/cli) is a developer-friendly, command-line interface (CLI) tool for application-specific blockchains which builds on Tendermint and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Ignite CLI makes the process from initial idea to production 95% faster. This lets developers build a blockchain in minutes, and frees them to focus more strongly on the business logic of their application.
+[Ignite CLI](https://ignite.com/cli) is a developer-friendly, command-line interface (CLI) tool for application-specific blockchains which builds on Tendermint/CometBFT and the Cosmos SDK. The CLI tool offers everything developers need to build, test, and launch a chain. It accelerates blockchain development by scaffolding and assembling all components needed for a production-ready blockchain. Ignite CLI makes the process from initial idea to production 95% faster. This lets developers build a blockchain in minutes, and frees them to focus more strongly on the business logic of their application.
 
 With Ignite CLI, developers can:
 
@@ -238,7 +238,7 @@ For more on Ethermint, consult the [Ethermint documentation](https://github.com/
 
 </HighlightBox>
 
-All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint. Developers can even port their Solidity smart contracts to interact with the Interchain Ecosystem. Building a chain is not necessary to develop Interchain-compatible smart contracts, it can be all done with Ethermint. However, while Ethermint allows running vanilla Ethereum as a Cosmos application-specific blockchain, developers benefit from the Tendermint BFT.
+All Ethereum tools (such as Truffle and Metamask) are compatible with Ethermint. Developers can even port their Solidity smart contracts to interact with the Interchain Ecosystem. Building a chain is not necessary to develop Interchain-compatible smart contracts, it can be all done with Ethermint. However, while Ethermint allows running vanilla Ethereum as a Cosmos application-specific blockchain, developers benefit from the CometBFT.
 
 <HighlightBox type="synopsis">
 

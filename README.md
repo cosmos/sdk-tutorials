@@ -37,7 +37,7 @@ tools:
         url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
   - title: CosmWasm
-    description: Smart contracting platform built for the Cosmos Ecosystem.
+    description: Smart contracting platform built for the Interchain Ecosystem.
     links:
       - name: Learn more
         url: https://cosmwasm.com/
@@ -45,7 +45,7 @@ tools:
         url: https://docs.cosmwasm.com/docs/1.0/
     image: /cosmwasm-icon.svg
   - title: Cosmos Hub
-    description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
+    description: Software powering Cosmos Hub, the heart of the Interchain network, and home of the ATOM token.
     links:
       - name: Documentation
         url: https://hub.cosmos.network/
@@ -67,11 +67,11 @@ articles:
     url: https://medium.com/the-interchain-foundation/eli5-what-is-ibc-def44d7b5b4c
     image: /article-banner-04.jpg
 intro:
-  - overline: Begin Your Cosmos Journey
+  - overline: Begin Your Interchain Journey
     title: Developer Portal
     image: /graphics-sdk-course.png
     description: |
-      Cosmos is a network of interoperable blockchains built on BFT consensus.<br/><br/>
+      The Interchain is a network of interoperable blockchains built on BFT consensus.<br/><br/>
       The ever-expanding ecosystem provides an SDK, tokens, wallets, applications, and services. Discover the Cosmos SDK to develop application-specific blockchains.<br/><br/>
       Ready to begin your journey?
     action:
@@ -89,7 +89,7 @@ overview:
         This portal offers an overview of the Interchain stack (the Cosmos SDK, Ignite, CosmJS, etc.), as well as examples and exercises to help developers get a quick start.
     - title: How should I go through the portal?
       description: |
-        The portal content unfolds the Cosmos universe, beginning with a big-picture perspective and getting into how to create your application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its concepts, and dApps built on the Interchain stack, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing such as managing gas fees, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
+        The portal content unfolds the Interchain universe, beginning with a big-picture perspective and getting into how to create your application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its concepts, and dApps built on the Interchain stack, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing such as managing gas fees, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
         You can follow your own path or go through the content chronologically. To follow your own path, select the tags for the subjects you are interested in and all the chapters and sections relating to that subject will be displayed. <br/>
         Additionally, you can select a version of the portal if you want to explore the content in a specific Interchain stack version. For more information on which stack version is used in the different versions of the portal, please <a href="/versions.html">go to the page on Platform Versions</a>. In general, we do recommend using the most current version.
     - title: What do I need to know?
@@ -98,12 +98,12 @@ overview:
     - title: How long will it take?
       description: |
         With the concept sections, you will gain a solid understanding of Cosmos and the Interchain stack. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
-        Welcome to the cosmos!
+        Welcome to the Interchain!
 
 customModules:
   - title: All there is to discover
     description: |
-      The portal has three different sections, with content to take you through the fundamentals of Cosmos, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
+      The portal has three different sections, with content to take you through the fundamentals of the Interchain, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
     useNarrowCards: true
     hideFilter: true
     image: /lp-images/planets-15-gradient.jpg
@@ -156,7 +156,7 @@ customModules:
             path: /academy/2-cosmos-concepts/1-architecture.html
             tags: 
               - concepts
-              - tendermint
+              - cometbft
               - cosmos-sdk
           - title: Accounts
             path: /academy/2-cosmos-concepts/2-accounts.html
@@ -397,7 +397,7 @@ This repo contains the code and content for the [Developer Portal](https://devel
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
 
-These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Interchain Stack. The Interchain Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
+These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Interchain stack. The Interchain stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
 * **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
@@ -405,7 +405,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 The Developer Portal contains three types of content:
 
-* **Concepts**, informational content explaining the how the Interchain Stack functions
+* **Concepts**, informational content explaining the how the Interchain stack functions
 * **Individual Tutorials**, short tutorials to get you up to speed with individual components
 * **Checkers Game**, a modular tutorial that covers the full stack and teaches you every element from set-up to launching in production with a front-end application attached.
 
@@ -413,7 +413,7 @@ Going through the entire content will teach you about:
 
 * Blockchain technology and cryptography
 * Developing with the Cosmos SDK & Ignite CLI
-* The Tendermint consensus algorithm
+* The CometBFT consensus algorithm
 * The Inter-Blockchain Communication Protocol
 * Building front- and backends with CosmJS
 * Integrating wallets such as Keplr

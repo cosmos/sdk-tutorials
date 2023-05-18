@@ -21,7 +21,7 @@ In this chapter, you will:
 * Understand how Cosmos fits in the overall development of blockchain technology.
 * Discover the Cosmos universe's ecosystem.
 * Learn how to get your first ATOM and how to stake it.
-* Get an introduction to Tendermint and consensus in the Cosmos SDK.
+* Get an introduction to Tendermint (CometBFT) and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
 
 </HighlightBox>

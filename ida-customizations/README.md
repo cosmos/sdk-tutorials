@@ -70,7 +70,7 @@ customModules:
         title: Week 0 - Getting Started
         href: /ida-course/LPs/week-0/
         description: |
-          This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Interchain Stack:
+          This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Interchain stack:
         links: 
           - title: Blockchain basics
             path: /ida-course/0-blockchain-basics/1-blockchain.html
