@@ -1,10 +1,8 @@
-const path = require('path');
-require("dotenv").config();
+const path = require("path");
 
 module.exports = {
   theme: "cosmos",
-  title: "Developer Portal",
-  base: process.env.VUEPRESS_BASE || "/",
+  title: "Interchain Developer Academy",
   head: [
     [
       "link",
@@ -49,18 +47,31 @@ module.exports = {
       `const userThemeMode = localStorage?.getItem("vuepress-theme-cosmos-user-theme") || 'dark-mode'
       document.documentElement.className = userThemeMode`,
     ],
+    [
+      "script",
+      {
+        async: true,
+        src: "https://www.googletagmanager.com/gtag/js?id=G-KZ2X8K22XG",
+      },
+    ],
+    [
+      "script",
+      {},
+      [
+        "window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-KZ2X8K22XG');",
+      ],
+    ],
   ],
   themeConfig: {
-    siteVersions: (process.env.DOCS_VERSIONS || "").split(" "),
     repo: "cosmos/sdk-tutorials",
     docsRepo: "cosmos/sdk-tutorials",
     editLinks: true,
     label: "sdk",
-    isIDAMode: false,
+    isIDAMode: true,
     algolia: {
       id: "QLS2QSP47E",
       key: "ca3a435a218a2eb0f99a31f83b2ec309",
-      index: "cosmos_network_tutorials",
+      index: "cosmos_network_ida",
     },
     topbar: {
       banner: true,
@@ -71,116 +82,492 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Introduction to Cosmos",
-          order: 1,
+          title: "Cosmos Developer Academy",
           children: [
             {
-              title: "What is Cosmos?",
-              path: "/academy/1-what-is-cosmos/",
+              title: "Week 0 - Getting Started",
               directory: true,
+              children: [
+                {
+                  title: "Getting Started",
+                  path: "/ida-course/LPs/week-0/",
+                },
+                {
+                  title: "Blockchain 101",
+                  path: "/ida-course/0-blockchain-basics/1-blockchain.html",
+                },
+                {
+                  title: "Blockchain History",
+                  path: "/ida-course/0-blockchain-basics/2-public.html",
+                },
+                {
+                  title: "Public and Managed Blockchains",
+                  path: "/ida-course/0-blockchain-basics/3-managed.html",
+                },
+                {
+                  title: "Consensus in Distributed Networks",
+                  path: "/ida-course/0-blockchain-basics/4-consensus.html",
+                },
+                {
+                  title: "Cryptography",
+                  path: "/ida-course/0-blockchain-basics/5-crypto.html",
+                },
+                {
+                  title: "Self-Assessment Quiz",
+                  path: "/ida-course/0-blockchain-basics/6-quiz.html",
+                },
+                {
+                  title: "Go Introduction - First Steps",
+                  path: "/tutorials/4-golang-intro/1-install.html",
+                },
+                {
+                  title: "Go Basics",
+                  path: "/tutorials/4-golang-intro/2-basics.html",
+                },
+                {
+                  title: "Go Interfaces",
+                  path: "/tutorials/4-golang-intro/3-interfaces.html",
+                },
+                {
+                  title: "Control Structures in Go",
+                  path: "/tutorials/4-golang-intro/4-control.html",
+                },
+                {
+                  title: "Arrays and Slices in Go",
+                  path: "/tutorials/4-golang-intro/5-arrays.html",
+                },
+                {
+                  title: "Standard Packages in Go",
+                  path: "/tutorials/4-golang-intro/6-packages.html",
+                },
+                {
+                  title: "Concurrency in Go",
+                  path: "/tutorials/4-golang-intro/7-concurrency.html",
+                },
+                {
+                  title: "Good-To-Know Dev Terms",
+                  path: "/tutorials/1-tech-terms/",
+                },
+                {
+                  title: "Docker Introduction",
+                  path: "/tutorials/5-docker-intro/",
+                },
+              ],
             },
             {
-              title: "Cosmos Concepts",
-              path: "/academy/2-cosmos-concepts/",
+              title: "Week 1 - Introduction to Cosmos",
               directory: true,
+              order: 2,
+              children: [
+                {
+                  title: "Introduction to Cosmos",
+                  path: "/ida-course/LPs/week-1/",
+                },
+                {
+                  title: "Blockchain Technology and Cosmos",
+                  path: "/academy/1-what-is-cosmos/1-blockchain-and-cosmos.html",
+                },
+                {
+                  title: "The Interchain Ecosystem",
+                  path: "/academy/1-what-is-cosmos/2-cosmos-ecosystem.html",
+                },
+                {
+                  title: "Getting ATOM and Staking It",
+                  path: "/academy/1-what-is-cosmos/3-atom-staking.html",
+                },
+                {
+                  title: "A Blockchain App Architecture",
+                  path: "/academy/2-cosmos-concepts/1-architecture.html",
+                },
+                {
+                  title: "Accounts",
+                  path: "/academy/2-cosmos-concepts/2-accounts.html",
+                },
+                {
+                  title: "Transactions",
+                  path: "/academy/2-cosmos-concepts/3-transactions.html",
+                },
+                {
+                  title: "Messages",
+                  path: "/academy/2-cosmos-concepts/4-messages.html",
+                },
+                {
+                  title: "Modules",
+                  path: "/academy/2-cosmos-concepts/5-modules.html",
+                },
+                {
+                  title: "Protobuf",
+                  path: "/academy/2-cosmos-concepts/6-protobuf.html",
+                },
+                {
+                  title: "Multistore and Keepers",
+                  path: "/academy/2-cosmos-concepts/7-multistore-keepers.html",
+                },
+                {
+                  title: "BaseApp",
+                  path: "/academy/2-cosmos-concepts/8-base-app.html",
+                },
+                {
+                  title: "Queries",
+                  path: "/academy/2-cosmos-concepts/9-queries.html",
+                },
+                {
+                  title: "Events",
+                  path: "/academy/2-cosmos-concepts/10-events.html",
+                },
+                {
+                  title: "Context",
+                  path: "/academy/2-cosmos-concepts/11-context.html",
+                },
+                {
+                  title: "Testing",
+                  path: "/academy/2-cosmos-concepts/12-testing.html", // TODO uncomment when #1266 merged
+                },
+                {
+                  title: "Migrations",
+                  path: "/academy/2-cosmos-concepts/13-migrations.html",
+                },
+                {
+                  title: "Bridges",
+                  path: "/academy/2-cosmos-concepts/14-bridges.html",
+                },
+                {
+                  title: "Week 1 Quiz",
+                  path: "/ida-course/quiz-week1.html",
+                },
+              ],
             },
             {
-              title: "Introduction to IBC",
-              path: "/academy/3-ibc/",
+              title: "Week 2 - First Steps",
               directory: true,
-            },
-          ],
-        },
-        {
-          title: "Tutorials",
-          order: 2,
-          children: [
-            {
-              title: "Good-To-Know Dev Terms",
-              path: "/tutorials/1-tech-terms/",
-              directory: true,
-            },
-            {
-              title: "Set Up Your Work Environment",
-              path: "/tutorials/2-setup/",
-              directory: true,
-            },
-            {
-              title: "Run a Node, API, and CLI",
-              path: "/tutorials/3-run-node/",
-              directory: true,
-            },
-            {
-              title: "Golang Introduction",
-              path: "/tutorials/4-golang-intro/",
-              directory: true,
-            },
-            {
-              title: "Docker Introduction",
-              path: "/tutorials/5-docker-intro/",
-              directory: true,
-            },
-            {
-              title: "IBC Developers",
-              path: "/tutorials/6-ibc-dev/",
-              directory: true,
-            },
-            {
-              title: "Introduction to CosmJS",
-              path: "/tutorials/7-cosmjs/",
-              directory: true,
-            },
-            {
-              title: "Understand SDK modules",
-              path: "/tutorials/8-understand-sdk-modules/",
-              directory: true,
-            },
-            {
-              title: "The Path to Production",
-              path: "/tutorials/9-path-to-prod/",
-              directory: true,
-            },
-          ],
-        },
-        {
-          title: "Hands-on Exercise",
-          order: 3,
-          children: [
-            {
-              title: "Run Your Own Cosmos Chain",
-              path: "/hands-on-exercise/1-ignite-cli/",
-              directory: true,
+              order: 3,
+              children: [
+                {
+                  title: "First Steps",
+                  path: "/ida-course/LPs/week-2/",
+                },
+                {
+                  title: "Setup Your Work Environment",
+                  path: "/tutorials/2-setup/",
+                },
+                {
+                  title: "Run a Node, API, and CLI",
+                  path: "/tutorials/3-run-node/",
+                },
+                {
+                  title: "Ignite CLI",
+                  path: "/hands-on-exercise/1-ignite-cli/1-ignitecli.html",
+                },
+                {
+                  title: "Exercise - Make a Checkers Blockchain",
+                  path: "/hands-on-exercise/1-ignite-cli/2-exercise-intro.html",
+                },
+                {
+                  title: "Store Object - Make a Checkers Blockchain",
+                  path: "/hands-on-exercise/1-ignite-cli/3-stored-game.html",
+                },
+                {
+                  title: "Create Custom Messages",
+                  path: "/hands-on-exercise/1-ignite-cli/4-create-message.html",
+                },
+                {
+                  title: "Create and Save a Game Properly",
+                  path: "/hands-on-exercise/1-ignite-cli/5-create-handling.html",
+                },
+                {
+                  title: "Add a Way to Make a Move",
+                  path: "/hands-on-exercise/1-ignite-cli/6-play-game.html",
+                },
+                {
+                  title: "Emit Game Information",
+                  path: "/hands-on-exercise/1-ignite-cli/7-events.html",
+                },
+                {
+                  title: "Record the Game Winner",
+                  path: "/hands-on-exercise/1-ignite-cli/8-game-winner.html",
+                },
+                {
+                  title: "Week 2 Exercise",
+                  path: "/ida-course/exercise-week2.html",
+                },
+              ],
             },
             {
-              title: "Continue Developing Your Chain",
-              path: "/hands-on-exercise/2-ignite-cli-adv/",
+              title: "Week 3 - Introduction to IBC and CosmJS",
               directory: true,
+              order: 4,
+              children: [
+                {
+                  title: "Introduction to IBC and CosmJS",
+                  path: "/ida-course/LPs/week-3/",
+                },
+                {
+                  title: "What is IBC?",
+                  path: "/academy/3-ibc/1-what-is-ibc.html",
+                },
+                {
+                  title: "IBC/TAO - Connections - OPTIONAL",
+                  path: "/academy/3-ibc/2-connections.html",
+                },
+                {
+                  title: "IBC/TAO - Channels - OPTIONAL",
+                  path: "/academy/3-ibc/3-channels.html",
+                },
+                {
+                  title: "IBC/TAO - Clients - OPTIONAL",
+                  path: "/academy/3-ibc/4-clients.html",
+                },
+                {
+                  title: "Light client development",
+                  path: "/academy/3-ibc/4-light-client-dev.html",
+                },
+                {
+                  title: "IBC Token Transfer",
+                  path: "/academy/3-ibc/5-token-transfer.html",
+                },
+                {
+                  title: "Interchain Accounts - OPTIONAL",
+                  path: "/academy/3-ibc/6-ica.html",
+                },
+                {
+                  title: "IBC Tooling",
+                  path: "/academy/3-ibc/7-ibc-tooling.html",
+                },
+                {
+                  title: "IBC Solo Machines - OPTIONAL",
+                  path: "/academy/3-ibc/8-solomachine.html",
+                },
+                {
+                  title: "What is CosmJS?",
+                  path: "/tutorials/7-cosmjs/1-cosmjs-intro.html",
+                },
+                {
+                  title: "Your First CosmJS Actions",
+                  path: "/tutorials/7-cosmjs/2-first-steps.html",
+                },
+                {
+                  title: "Compose Complex Transactions",
+                  path: "/tutorials/7-cosmjs/3-multi-msg.html",
+                },
+                {
+                  title: "Learn to Integrate Keplr",
+                  path: "/tutorials/7-cosmjs/4-with-keplr.html",
+                },
+                {
+                  title: "Create Custom CosmJS Interfaces",
+                  path: "/tutorials/7-cosmjs/5-create-custom.html",
+                },
+              ],
             },
             {
-              title: "CosmJS for Your Chain",
-              path: "/hands-on-exercise/3-cosmjs-adv/",
+              title: "Week 4 - Ignite CLI and IBC Advanced",
               directory: true,
+              order: 5,
+              children: [
+                {
+                  title: "Ignite CLI and IBC Advanced",
+                  path: "/ida-course/LPs/week-4/",
+                },
+                {
+                  title: "Keep an Up-To-Date Game Deadline",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
+                },
+                {
+                  title: "Record the Move Count",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/2-move-count.html",
+                },
+                {
+                  title: "Put Your Games in Order",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html",
+                },
+                {
+                  title: "Auto-Expiring Games",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html",
+                },
+                {
+                  title: "Let Players Set a Wager",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/4-game-wager.html",
+                },
+                {
+                  title: "Handle wager payments",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.html",
+                },
+                {
+                  title: "Add integration tests",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html",
+                },
+                {
+                  title: "Incentivize Players",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.html",
+                },
+                {
+                  title: "Help Find a Correct Move",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/7-can-play.html",
+                },
+                {
+                  title: "Understand IBC Denoms",
+                  path: "/tutorials/6-ibc-dev/",
+                },
+                {
+                  title: "Play With Cross-Chain Tokens",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.html",
+                },
+                {
+                  title: "Relaying With IBC",
+                  path: "/hands-on-exercise/5-ibc-adv/2-relayer-intro.html",
+                },
+                {
+                  title: "Go Relayer",
+                  path: "/hands-on-exercise/5-ibc-adv/3-go-relayer.html",
+                },
+                {
+                  title: "Hermes Relayer",
+                  path: "/hands-on-exercise/5-ibc-adv/4-hermes-relayer.html",
+                },
+              ],
             },
             {
-              title: "From Code to MVP to Production",
-              path: "/hands-on-exercise/4-run-in-prod/",
+              title: "Week 5 - CosmJS Advanced",
               directory: true,
+              order: 6,
+              children: [
+                {
+                  title: "CosmJS Advanced",
+                  path: "/ida-course/LPs/week-5/",
+                },
+                {
+                  title: "Create Custom Objects",
+                  path: "/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html",
+                },
+                {
+                  title: "Create Custom Messages",
+                  path: "/hands-on-exercise/3-cosmjs-adv/2-cosmjs-messages.html",
+                },
+                {
+                  title: "Get an External GUI",
+                  path: "/hands-on-exercise/3-cosmjs-adv/3-external-gui.html",
+                },
+                {
+                  title: "Integrate CosmJS and Keplr",
+                  path: "/hands-on-exercise/3-cosmjs-adv/4-cosmjs-gui.html",
+                },
+                {
+                  title: "Backend Script for Game Indexing",
+                  path: "/hands-on-exercise/3-cosmjs-adv/5-server-side.html",
+                },
+              ],
             },
             {
-              title: "IBC Advanced",
-              path: "/hands-on-exercise/5-ibc-adv/",
+              title: "Week 6 - IBC Deep Dive",
               directory: true,
+              order: 7,
+              children: [
+                {
+                  title: "IBC Deep Dive",
+                  path: "/ida-course/LPs/week-6/",
+                },
+                {
+                  title: "IBC Application Developer Introduction",
+                  path: "/hands-on-exercise/5-ibc-adv/5-ibc-app-intro.html",
+                },
+                {
+                  title: "Make a Module IBC-Enabled",
+                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.html",
+                },
+                {
+                  title: "Adding Packet and Acknowledgment Data",
+                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-packets.html",
+                },
+                {
+                  title: "Extend the Checkers Game With a Leaderboard",
+                  path: "/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.html"
+                },
+                {
+                  title: "Create a Leaderboard Chain",
+                  path: "/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.html"
+                },
+                {
+                  title: "IBC Middleware",
+                  path: "/hands-on-exercise/5-ibc-adv/10-ibc-mw-intro.html",
+                },
+                {
+                  title: "Create a Custom IBC Middleware",
+                  path: "/hands-on-exercise/5-ibc-adv/11-ibc-mw-develop.html",
+                },
+                {
+                  title: "Integrating IBC Middleware Into a Chain",
+                  path: "/hands-on-exercise/5-ibc-adv/12-ibc-mw-integrate.html",
+                },
+              ],
             },
-          ],
-        },
-        {
-          title: "What's Next",
-          order: 4,
-          children: [
             {
-              title: "Continue Your Cosmos Journey",
+              title: "Week 7 - From Code to MVP to Production and Migrations",
+              directory: true,
+              order: 8,
+              children: [
+                {
+                  title: "From Code to MVP to Production and Migrations",
+                  path: "/ida-course/LPs/week-7/",
+                },
+                {
+                  title: "Overview",
+                  path: "/tutorials/9-path-to-prod/1-overview.html",
+                },
+                {
+                  title: "Prepare the Software to Run",
+                  path: "/tutorials/9-path-to-prod/2-software.html",
+                },
+                {
+                  title: "Prepare a Validator and Keys",
+                  path: "/tutorials/9-path-to-prod/3-keys.html",
+                },
+                {
+                  title: "Prepare Where the Node Starts",
+                  path: "/tutorials/9-path-to-prod/4-genesis.html",
+                },
+                {
+                  title: "Prepare and Connect to Other Nodes",
+                  path: "/tutorials/9-path-to-prod/5-network.html",
+                },
+                {
+                  title: "Configure, Run, and Set Up a Service",
+                  path: "/tutorials/9-path-to-prod/6-run.html",
+                },
+                {
+                  title: "Simulate Production in Docker",
+                  path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
+                },
+                {
+                  title: "Tally Player Info After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
+                },
+                {
+                  title: "Add a Leaderboard Module",
+                  path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
+                },
+                {
+                  title: "Migrate the Leaderboard Module After Production",
+                  path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
+                },
+                {
+                  title: "Prepare and Do Migrations",
+                  path: "/tutorials/9-path-to-prod/7-migration.html",
+                },
+                {
+                  title: "Simulate a Migration in Docker",
+                  path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
+                },
+                {
+                  title: "Final Exam",
+                  path: "/ida-course/final-exam/",
+                },
+              ],
+            },
+            {
+              title: "What's Next?",
+              directory: true,
+              order: 9,
               path: "/academy/whats-next/",
-              directory: false,
             },
           ],
         },
@@ -210,7 +597,7 @@ module.exports = {
     footer: {
       privacy: "https://v1.cosmos.network/privacy",
       question: {
-        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
+        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out in the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
       logo: "/brand.png",
       textLink: {
@@ -262,8 +649,8 @@ module.exports = {
               url: "https://hub.cosmos.network",
             },
             {
-              title: "Tendermint Core",
-              url: "https://docs.tendermint.com",
+              title: "CometBFT",
+              url: "https://docs.cometbft.com/",
             },
             {
               title: "IBC Protocol",
@@ -353,56 +740,66 @@ module.exports = {
       {
         title: "Cosmos SDK",
         description: "A framework to build application-specific blockchains",
-        links: [{
-          name: "Documentation",
-          url: "https://docs.cosmos.network/"
-        }],
+        links: [
+          {
+            name: "Documentation",
+            url: "https://docs.cosmos.network/",
+          },
+        ],
         image: "/cosmos-sdk-icon.svg",
       },
       {
-        title: "Tendermint Core",
+        title: "CometBFT",
         description: "Blockchain consensus engine and application interface",
-        links: [{
-          name: "Documentation",
-          url: "https://docs.tendermint.com/"
-        }],
-        image: "/tendermint-icon.svg",
+        links: [
+          {
+            name: "Documentation",
+            url: "https://docs.cometbft.com/",
+          },
+        ],
+        image: "/comet-bft-logo.svg",
       },
       {
         title: "Cosmos Hub",
-        description: "First interconnected public blockchain on the Cosmos network",
-        links: [{
-          name: "Documentation",
-          url: "https://hub.cosmos.network/"
-        }],
+        description:
+          "First interconnected public blockchain on the Cosmos network",
+        links: [
+          {
+            name: "Documentation",
+            url: "https://hub.cosmos.network/",
+          },
+        ],
         image: "/generic-star-icon.svg",
       },
       {
         title: "IBC",
-        description: "Industry standard protocol for inter-blockchain communication",
-        links: [{
-          name: "Documentation",
-          url: "https://ibc.cosmos.network/"
-        }],
+        description:
+          "Industry standard protocol for inter-blockchain communication",
+        links: [
+          {
+            name: "Documentation",
+            url: "https://ibc.cosmos.network/",
+          },
+        ],
         image: "/ibc-icon.svg",
       },
     ],
     assetsOptimization: {
       breakpoints: [200, 600, 988, 1200],
-      blacklist: ['node_modules', '.vuepress/dist', '.vuepress/theme', '.vuepress/public/resized-images', '.vuepress/public/h5p']
+      blacklist: [
+        "node_modules",
+        ".vuepress/dist",
+        ".vuepress/theme",
+        ".vuepress/public/resized-images",
+        ".vuepress/public/h5p",
+      ],
     },
   },
   plugins: [
     [
       "@vuepress/google-analytics",
       {
-        ga: "UA-51029217-2",
-      },
-    ],
-    [
-      "vuepress-plugin-google-tag-manager",
-      {
-        gtm: "UA-51029217-2",
+        ga: "UA-62891515-12",
       },
     ],
     [
@@ -414,33 +811,16 @@ module.exports = {
         },
       },
     ],
-    [
-      require("vuepress-reading-time-extended"),
-      {
-        wordsPerMinute: 200,
-        imageTime: 2,
-        codeTimePerLine: 0.5,
-        customComponents: [
-          {
-            name: 'H5PComponent',
-            time: 5,
-          },
-        ],
-      },
-    ],
-    [
-      '@vuepress/html-redirect',
-      {
-        countdown: 0,
-      },
-    ],
   ],
   patterns: [
     "README.md",
-    "versions.md",
     "feature-test/*.md",
     "academy/*/*.md",
     "tutorials/*/*.md",
+    "authz-module/*.md",
+    "ida-course/*/*/*.md",
+    "ida-course/*/*.md",
+    "ida-course/*.md",
     "course-ida/*/*.md",
     "course-ida/*.md",
     "hands-on-exercise/*/*.md",
