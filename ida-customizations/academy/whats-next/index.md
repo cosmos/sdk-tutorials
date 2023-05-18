@@ -157,10 +157,10 @@ There are different ways you can contribute to the Cosmos SDK and related reposi
 <br/>
 
 <Resource
-  title="Tendermint Core"
+  title="CometBFT"
   description="Help solve existing issues and continue the development of the robust Tendermint BFT consensus!"
-  :links="[{name: 'Github Repository', url: 'https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md'}]"
-  image="/tendermint-icon.svg"
+  :links="[{name: 'Github Repository', url: 'https://github.com/cometbft/cometbft/blob/main/CONTRIBUTING.md'}]"
+  image="/comet-bft-logo.svg"
   :large="true"
 />
 
