@@ -1,5 +1,5 @@
 ---
-title: "Simulate a migration in production in Docker"
+title: "Simulate a Migration in Docker"
 order: 6
 description: Introduce the leaderboard in a simulated production setup with Docker Compose
 tags: 
@@ -8,7 +8,7 @@ tags:
   - dev-ops
 ---
 
-# Simulate a migration in Docker
+# Simulate a Migration in Docker
 
 <HighlightBox type="prerequisite">
 
