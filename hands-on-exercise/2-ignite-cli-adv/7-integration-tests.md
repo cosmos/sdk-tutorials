@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md), [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md), and [testing](/academy/2-cosmos-concepts/12-testing.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the wager payments. If not, follow the [previous steps](./5-payment-winning.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/payment-winning).
+* You have the checkers blockchain codebase up to the wager payments. If not, follow the [previous steps](./6-payment-winning.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/payment-winning).
 
 </HighlightBox>
 
@@ -27,7 +27,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./5-payment-winning.md), you handled wager payments and added unit tests that pass. You added mocks of the bank keeper. Mocks are useful to embody your expectations of the bank keeper's behavior and then quickly confirm that your code does what you expect. By interacting via the CLI, you also confirmed that the bank keeper behaved as you expected.
+In the [previous section](./6-payment-winning.md), you handled wager payments and added unit tests that pass. You added mocks of the bank keeper. Mocks are useful to embody your expectations of the bank keeper's behavior and then quickly confirm that your code does what you expect. By interacting via the CLI, you also confirmed that the bank keeper behaved as you expected.
 
 Now, it would be better to automatically check that your expectations of the bank keeper's behavior are correct. This is done with integration tests, and is the focus of this section.
 

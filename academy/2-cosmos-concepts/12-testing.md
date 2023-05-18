@@ -32,7 +32,7 @@ The Cosmos SDK implements its own testing vision for its modules, and it would b
 
 ## Testing pyramid
 
-After some [reflection](https://docs.cosmos.network/main/architecture/adr-059-test-scopes.html), Cosmos divides tests into four broad categories of somewhat increasing scope:
+After some [reflection](https://docs.cosmos.network/main/architecture/adr-059-test-scopes.html), the Cosmos SDK divides tests into four broad categories of somewhat increasing scope:
 
 * [Unit tests](https://docs.cosmos.network/main/building-modules/testing#unit-tests)
 * [Integration tests](https://docs.cosmos.network/main/building-modules/testing#integration-tests)
@@ -89,7 +89,7 @@ Your E2E tests should test flows that mirror what users would experience, and th
 
 <HighlightBox type="remember">
 
-As stated, if you work with Cosmos versions 0.46 or earlier, any tests that are labeled "integration tests" are actually E2E tests under the new designation from version 0.47 onward.
+As stated, if you work with Cosmos SDK versions 0.46 or earlier, any tests that are labeled "integration tests" are actually E2E tests under the new designation from version 0.47 onward.
 
 </HighlightBox>
 
@@ -253,9 +253,9 @@ More precisely, you can jump to:
 
 * [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) for the very first, somewhat pointless, unit test.
 * [Create Custom Messages](/hands-on-exercise/1-ignite-cli/4-create-message.md) for the first **unit test** of a message delivery.
-* [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where:
+* [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/6-payment-winning.md) where:
     * **Mocking** is introduced so as to mock the bank keeper.
-* [Integration Tests](/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.md) where:
+* [Integration Tests](/hands-on-exercise/2-ignite-cli-adv/7-integration-tests.md) where:
     * The first **integration tests** are introduced, to test the integration with the bank keeper.
 * [Tally Player Info](/hands-on-exercise/4-run-in-prod/2-migration-info.md) where an in-place store migration is unit and integration tested.
 

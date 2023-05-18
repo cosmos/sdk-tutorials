@@ -1,8 +1,8 @@
 ---
 title: "Interchain Accounts"
-order: 7
+order: 9
 description: Understand ICA
-tags:
+tags: 
   - concepts
   - ibc
 ---

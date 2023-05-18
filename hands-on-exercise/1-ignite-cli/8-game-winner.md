@@ -420,7 +420,7 @@ This should show:
 ...
 ```
 
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests (as done here) or with a nice GUI. You will be able to partially test this with the CLI in the [next section](../2-ignite-cli-adv/1-game-deadline.md), via a forfeit.
+Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests (as done here) or with a nice GUI. You will be able to partially test this with the CLI in the [next section](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md), via a forfeit.
 
 <HighlightBox type="synopsis">
 

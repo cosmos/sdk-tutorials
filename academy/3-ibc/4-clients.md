@@ -100,7 +100,7 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 </HighlightBox>
 
-In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [CometBFT client](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#client-state) is offered out of the box:
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [CometBFT (Tendermint) client](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#client-state) is offered out of the box:
 
 ```typescript
 interface ClientState {

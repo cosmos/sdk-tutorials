@@ -315,6 +315,6 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You have created and updated the deadline. The [section two steps ahead](./1-game-forfeit.md) describes how to use the deadline.
+You have created and updated the deadline. The [section two steps ahead](./4-game-forfeit.md) describes how to use the deadline.
 
 Before you can do that, there is one other field you need to add. Discover which in the [next section](../1-ignite-cli/8-game-winner.md).-->

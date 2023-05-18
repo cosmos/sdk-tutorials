@@ -1,6 +1,6 @@
 ---
 title: "Go Relayer"
-order: 3
+order: 2
 description: Relayer implementation in Golang
 tags:
   - guided-coding
@@ -139,8 +139,6 @@ To customize the memo for all relaying, use the `--memo` flag when initializing 
 ```shell
 $ rly config init --memo "My custom memo"
 ```
-
-<br/><br/>
 
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
 <br/><br/>

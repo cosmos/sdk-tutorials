@@ -1,5 +1,5 @@
 ---
-title: "Store Object - Make a Checkers Blockchain"
+title: "Store Object"
 order: 4
 description: Create the object that stores a game
 tags: 
@@ -7,7 +7,7 @@ tags:
   - cosmos-sdk
 ---
 
-# Store Object - Make a Checkers Blockchain
+# Store Object
 
 <HighlightBox type="prerequisite">
 

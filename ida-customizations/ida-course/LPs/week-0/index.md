@@ -87,7 +87,7 @@ Then, for a quick overview on Golang, begin with the section [Go Introduction - 
 
 In case you want to take a look at some technical terms, go ahead and visit the section [Good-To-Know Dev Terms](/tutorials/1-tech-terms/index.md).
 
-Finally, so you are ready for the hands-on-exercises, consult the [introduction to Docker](tutorials/5-docker-intro/index.md).
+Finally, so you are ready for the hands-on-exercises, consult the [introduction to Docker](/tutorials/5-docker-intro/index.md).
 
 ## Developer Resources
 

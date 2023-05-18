@@ -543,7 +543,7 @@ With a view to reusing them, add convenience methods that encapsulate the extrac
     export type GamePiece = Player | "*"
     ```
 
-### Create and Play
+### Create and play
 
 Start by creating a game, extracting its index from the logs, and confirming that you can fetch it.
 

@@ -1,6 +1,6 @@
 ---
 title: "Adding Packet and Acknowledgement Data"
-order: 7
+order: 6
 description: 
 tags: 
   - guided-coding
@@ -14,7 +14,7 @@ This section demonstrates how to define packets and acks (acknowledgements) for 
 
 <HighlightBox type="note">
 
-This blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains, not sending them. This will be handled in the [checkers blockchain extension section](./9-ibc-app-leaderboard.md). 
+This blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains, not sending them. This will be handled in the [checkers blockchain extension section](./7-ibc-app-leaderboard.md). 
 
 </HighlightBox>
 
@@ -343,7 +343,7 @@ Remember that the `OnRecvPacket` callback writes an acknowledgement as well (thi
 
 Similarly to the `OnRecvPacket` case before, Ignite CLI has already prepared the structure of the `OnAcknowledgementPacket` with the switch statement. Again, scaffolding the packet adds a case to the switch:
 
-```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/separate/leaderboard/ida-content/x/leaderboard/module_ibc.go#L197]
+```go
 // @ switch packet := modulePacketData.Packet.(type) in OnAcknowledgementPacket
 case *types.LeaderboardPacketData_IbcTopRankPacket:
     err := am.keeper.OnAcknowledgementIbcTopRankPacket(ctx, modulePacket, *packet.IbcTopRankPacket, ack)
@@ -428,8 +428,6 @@ You can go back to the code examined so far to take note of the events emitted.
 
 </HighlightBox>
 
-## Summary
-
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
@@ -445,7 +443,7 @@ To summarize, this section has explored:
 
 <HighlightBox type="note">
 
-Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the [checkers blockchain extension exercise](8-ibc-app-checkers.md).
+Even though the ability to send and receive packets is now enabled, no application logic to execute has yet been implemented. This is outside the scope of this section. The reader is invited to follow the [checkers blockchain extension exercise](./6-ibc-app-checkers.md).
 
 </HighlightBox>
 

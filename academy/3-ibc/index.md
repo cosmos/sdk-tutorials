@@ -13,7 +13,7 @@ tags:
 
 Ever wondered how cross-chain communication is possible? Get a fast introduction to the world of the Inter-Blockchain Communication Protocol (IBC).
 
-Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a quick look at interchain accounts and the tools that are available to visualize networks of chains connected with IBC.
+Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a quick look at Interchain accounts and the tools that are available to visualize networks of chains connected with IBC.
 
 ![A few planets lit up by an atom](/planet-collection.svg)
 
@@ -25,8 +25,11 @@ In this chapter, you will:
 
 * Discover what IBC is.
 * Get an introduction to the different layers of IBC and how connections, channels, and clients relate to each other in IBC.
+* Explore light client development.
+* Dive into working with the solo machine client.
 * Take a look at IBC token transfers.
-* Explore interchain accounts.
+* Explore Interchain accounts.
+* Dive into IBC Middleware, with a focus on creating custom IBC Middleware, and how to integrate it into a chain.
 * Get an overview of helpful tools for IBC.
 
 </HighlightBox>

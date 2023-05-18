@@ -412,10 +412,10 @@ If you want to go beyond the code samples in the expandable above and instead se
 More specifically, you can jump to:
 
 * [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md) to create a new blockchain with your checkers module.
-* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) to have your checkers module access and use the bank module.
+* The advanced [Handle Wager Payments](/hands-on-exercise/2-ignite-cli-adv/6-payment-winning.md) to have your checkers module access and use the bank module.
 * [Add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) and loosely couple it with another module with the use of the hooks pattern. It also leverages the module's `Params` construct.
-* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/8-ibc-app-checkers.md) to add a second custom IBC module to your checkers blockchain.
-* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/9-ibc-app-leaderboard.md) to create a new blockchain with a module, once again.
+* The IBC-advanced [Extend the Checkers Game With a Leaderboard](/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.md) to add a second custom IBC module to your checkers blockchain.
+* The IBC-advanced [Create a Leaderboard Chain](/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.md) to create a new blockchain with a module, once again.
 
 </HighlightBox>
 

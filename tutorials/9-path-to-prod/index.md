@@ -1,10 +1,10 @@
 ---
 parent:
-  title: Run in Production
+  title: The Path to Production
   description: See your chain in action
   number: 9
 order: 0
-title: Chapter Overview - See your chain in action
+title: Chapter Overview - See Your Chain in Action
 tags:
 ---
 

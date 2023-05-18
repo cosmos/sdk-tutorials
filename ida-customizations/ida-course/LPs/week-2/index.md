@@ -34,7 +34,9 @@ In this chapter, you will:
 
 </HighlightBox>
 
-**This week, make sure to submit your exercise by Thursday, 1st of June, 23:59 UTC.**
+**This week, make sure to submit your exercise once you feel ready to test your knowledge.**
+
+The exercise will be available until the Final Exam is launched on July 6th.
 
 Do not worry if you do not pass the exercise: it is simply meant to be an opportunity to practice and demonstrate your engagement with the program.
 
@@ -49,6 +51,17 @@ This is a **recording** of the live session _Introduction to app.go_ with Julien
 ## Next up
 
 Before you begin [running a node](/tutorials/3-run-node/index.md) and exploring [Ignite CLI](/hands-on-exercise/1-ignite-cli/1-ignitecli.md), prep everything for the running exercise - _creating a checkers blockchain_ - by going through the section [Setup Your Work Environment](/tutorials/2-setup/index.md).
+
+<HighlightBox type="tip">
+
+But before you dive in, ask yourself: _what kind of a learner are you?_
+
+* **Do you like to learn the theory first, then build on that foundation?** If that sounds like you, then we recommend you begin with the Week 1 content and continue through the program chronologically.
+* **Do you like to get your hands dirty right away, then work back to fill in the conceptual gaps?** If this is your _modus operandi_, then we suggest you start with the Week 2 material now, then go back to read through Week 1 before you continue.
+
+Whichever way you decide to approach the program, we **highly recommend** that you complete both Week 1 and Week 2!
+
+</HighlightBox>
 
 ## Developer Resources
 
