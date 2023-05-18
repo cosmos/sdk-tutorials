@@ -18,7 +18,7 @@ This introduction to Golang is meant as a useful overview of Go and as such, a s
 
 You can also use it as a refresher if you feel a bit rusty when it comes to Go.
 
-![](/lp-images/go-lp.svg)
+![A star and two planets overlaid with isohedrons](/lp-images/go-lp.svg)
 
 ## In this chapter
 

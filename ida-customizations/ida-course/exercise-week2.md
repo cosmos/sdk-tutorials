@@ -10,6 +10,12 @@ tags:
 
 You are about to perform a small, simple exercise on our Academy Gitlab, to check you're paying attention! Before you [try](https://git.academy.b9lab.com/ida-p4-exercise-week-2/exercise-code), here is a summary of what you will be asked to do.
 
+<HighlightBox type="note">
+
+The final exam will have the same format, so this is a good way to acquaint yourself with the modus operandi.
+
+</HighlightBox>
+  
 ## Preparation
 
 We created a Docker container with the included `Dockerfile`:
@@ -25,7 +31,10 @@ Create this Docker image right now, before you start working on the exercise. It
 We created the rest of this repository with Ignite CLI v0.22.1 and the following command:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 ignite scaffold chain github.com/b9lab/other-world
+$ docker run --rm -it \
+    -v $(pwd):/exercise -w /exercise \
+    exercise-w2 \
+    ignite scaffold chain github.com/b9lab/other-world
 ```
 
 The idea is that this is the blockchain backing a future metaverse. The blockchain will account for anything of value in it.
@@ -35,8 +44,8 @@ We have added:
 * One file that duplicates what accessing the storage looks like: `x/otherworld/keeper/world_params_duplicate.go`.
 * And 2 test files:
 
-  * `x/otherworld/types/world_params_student_test.go`
-  * `x/otherworld/keeper/world_params_student_test.go`
+    * `x/otherworld/types/world_params_student_test.go`
+    * `x/otherworld/keeper/world_params_student_test.go`
 
 All 3 files cannot compile until you have completed the following tasks.
 
@@ -59,7 +68,10 @@ The following tests must pass:
 * `x/otherworld/types/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/types
+    $ docker run --rm -it \
+        -v $(pwd):/exercise -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/types
     ```
 
     Or:
@@ -71,7 +83,10 @@ The following tests must pass:
 * `x/otherworld/keeper/world_params_student_test.go`: It needs to pass with:
 
     ```sh
-    $ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 go test github.com/b9lab/other-world/x/otherworld/keeper
+    $ docker run --rm -it \
+        -v $(pwd):/exercise -w /exercise \
+        exercise-w2 \
+        go test github.com/b9lab/other-world/x/otherworld/keeper
     ```
 
     Or:
@@ -83,7 +98,9 @@ The following tests must pass:
 To run them both at the same time, run:
 
 ```sh
-$ docker run --rm -it -v $(pwd):/exercise -w /exercise exercise-w2 /exercise/score.sh
+$ docker run --rm -it \
+    -v $(pwd):/exercise -w /exercise \
+    exercise-w2 /exercise/score.sh
 ```
 
 Or:

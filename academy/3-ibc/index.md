@@ -15,7 +15,7 @@ Ever wondered how cross-chain communication is possible? Get a fast introduction
 
 Learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, have a quick look at interchain accounts and the tools that are available to visualize networks of chains connected with IBC.
 
-![](/planet-collection.svg)
+![A few planets lit up by an atom](/planet-collection.svg)
 
 ## In this chapter
 
