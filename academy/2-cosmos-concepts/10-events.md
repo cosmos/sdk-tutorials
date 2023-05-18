@@ -168,7 +168,7 @@ More precisely, you can jump to:
 
 * [Emit Game Information](/hands-on-exercise/1-ignite-cli/7-events.md) to see how to add events to your checkers blockchain
 * [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) to see when this is done in `EndBlock`
-* [Let Players Set a Wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) to see how to update your events when adding a new feature
+* [Let Players Set a Wager](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) to see how to update your events when adding a new feature
 * Tangentially, if you are looking for something akin to events but between modules, look for the hooks pattern in the [Add a leaderboard module](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) section.
 
 </HighlightBox>

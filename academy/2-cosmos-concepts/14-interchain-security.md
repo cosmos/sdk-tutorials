@@ -70,7 +70,7 @@ Before building out your chain to run on Interchain Security, it is recommended 
 
 If you find that your chain has significant support from the Cosmos Hub's community and you would like to go ahead with incorporating the consumer CCV Module into your chain, please have a look at the [repository](https://github.com/cosmos/interchain-security) that contains the Go implementation of Interchain Security. Interchain Security generally does not require any changes to your application's core logic. If you really want to take a deep dive, read [the Cross-Chain Validation specification](https://github.com/cosmos/ibc/blob/main/spec/app/ics-028-cross-chain-validation) to understand what functionality your chain will need to incorporate.
 
-It is recommended to run a [local testnet](https://github.com/cosmos/testnets/) of the latest version of `Gaia`, the binary that runs the Cosmos Hub. Make sure you have a good understanding of the [IBC Protocol](../3-ibc/1-what-is-ibc.md) and [how to run the relayer](../../hands-on-exercise/5-ibc-adv/2-relayer-intro.md) that moves the packages between your chain and the provider chain.
+It is recommended to run a [local testnet](https://github.com/cosmos/testnets/) of the latest version of `Gaia`, the binary that runs the Cosmos Hub. Make sure you have a good understanding of the [IBC Protocol](../3-ibc/1-what-is-ibc.md) and [how to run the relayer](../2-cosmos-concepts/13-relayer-intro.md) that moves the packages between your chain and the provider chain.
 
 <HighlightBox type="synopsis">
 
