@@ -13,7 +13,7 @@ Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
 Do you want to develop your own application-specific blockchain? Or contribute to development of the SDK? <br/><br/>
 Here you can find useful information to launch your journey into the Cosmos universe.
 
-![](/green-planet.svg)
+![A green planet overlaid with an isohedron](/green-planet.svg)
 
 ## Community
 
