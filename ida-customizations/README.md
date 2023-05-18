@@ -70,7 +70,7 @@ customModules:
         title: Week 0 - Getting Started
         href: /ida-course/LPs/week-0/
         description: |
-          This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Cosmos:
+          This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with Interchain Stack:
         links: 
           - title: Blockchain basics
             path: /ida-course/0-blockchain-basics/1-blockchain.html
@@ -81,7 +81,7 @@ customModules:
           - title: Docker introduction
             path: /tutorials/5-docker-intro/
       - image: /cosmos_dev_portal_module-03-lp.svg
-        title: Week 1 - Introduction to Cosmos
+        title: Week 1 - Introduction to the Interchain
         href: /ida-course/LPs/week-1/
         description: |
           You will discover the Interchain Ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
@@ -288,7 +288,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 The code and docs for each tutorial are based on a specific version of the software. Be sure to follow the tutorial instructions to download and use the right version.
 
-Use the tutorials landing page as your entry point to articles on [Cosmos blog](https://blog.cosmos.network/), videos on [Cosmos YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
+Use the tutorials landing page as your entry point to articles on [Interchain blog](https://blog.cosmos.network/), videos on [Interchain YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
 
 This repo manages and publishes the tutorials. For details, see [CONTRIBUTING](/sdk-tutorials/CONTRIBUTING.md) and [TECHNICAL-SETUP](/sdk-tutorials/TECHNICAL-SETUP.md).
 The tutorials are formatted using [markdownlint](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md).

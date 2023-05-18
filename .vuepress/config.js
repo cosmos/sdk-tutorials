@@ -71,16 +71,16 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Introduction to Cosmos",
+          title: "Introduction to the Interchain",
           order: 1,
           children: [
             {
-              title: "What is Cosmos?",
+              title: "What is the Interchain?",
               path: "/academy/1-what-is-cosmos/",
               directory: true,
             },
             {
-              title: "Cosmos Concepts",
+              title: "Interchain Concepts",
               path: "/academy/2-cosmos-concepts/",
               directory: true,
             },
@@ -178,7 +178,7 @@ module.exports = {
           order: 4,
           children: [
             {
-              title: "Continue Your Cosmos Journey",
+              title: "Continue Your Interchain Journey",
               path: "/academy/whats-next/",
               directory: false,
             },
@@ -191,7 +191,7 @@ module.exports = {
       editLink: true,
       chat: {
         title: "Discord",
-        text: "Chat with Cosmos developers on Discord.",
+        text: "Chat with Interchain developers on Discord.",
         url: "https://discordapp.com/channels/669268347736686612",
         bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)",
       },
@@ -210,7 +210,7 @@ module.exports = {
     footer: {
       privacy: "https://v1.cosmos.network/privacy",
       question: {
-        text: "Chat with Cosmos developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
+        text: "Chat with Interchain developers in <a href='https://discord.gg/cosmosnetwork' target='_blank'>Discord</a> or reach out on the <a href='https://forum.cosmos.network/c/cosmos-sdk' target='_blank'>SDK Developer Forum</a> to learn more.",
       },
       logo: "/brand.png",
       textLink: {
@@ -275,7 +275,7 @@ module.exports = {
           title: "Community",
           children: [
             {
-              title: "Cosmos blog",
+              title: "Interchain blog",
               url: "https://blog.cosmos.network",
             },
             {
@@ -370,7 +370,7 @@ module.exports = {
       },
       {
         title: "Cosmos Hub",
-        description: "First interconnected public blockchain on the Cosmos network",
+        description: "First interconnected public blockchain in the Interchain network",
         links: [{
           name: "Documentation",
           url: "https://hub.cosmos.network/"

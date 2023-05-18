@@ -82,7 +82,7 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Cosmos Developer Academy",
+          title: "Interchain Developer Academy",
           children: [
             {
               title: "Week 0 - Getting Started",
@@ -574,7 +574,7 @@ module.exports = {
       editLink: true,
       chat: {
         title: "Discord",
-        text: "Chat with Cosmos developers on Discord.",
+        text: "Chat with Interchain developers on Discord.",
         url: "https://discordapp.com/channels/669268347736686612",
         bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)",
       },
@@ -658,7 +658,7 @@ module.exports = {
           title: "Community",
           children: [
             {
-              title: "Cosmos blog",
+              title: "Interchain blog",
               url: "https://blog.cosmos.network",
             },
             {
@@ -758,7 +758,7 @@ module.exports = {
       {
         title: "Cosmos Hub",
         description:
-          "First interconnected public blockchain on the Cosmos network",
+          "First interconnected public blockchain in the Interchain network",
         links: [
           {
             name: "Documentation",
