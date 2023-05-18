@@ -112,16 +112,16 @@ You can also define the children pages of a module manually:
 
 ```json
 {
-  title: "Week 1 - Cosmos and Its Main Concepts",
+  title: "Week 1 - Interchain and Its Main Concepts",
   directory: true,
   order: 2,
   children: [
     {
-      title: "Cosmos and its Main Concepts",
+      title: "Interchain and its Main Concepts",
       path: "/course-ida/landingpages/week1-lp.html"
     },
     {
-      title: "Blockchain Technology and Cosmos",
+      title: "Blockchain Technology and the Interchain",
       path: "/academy/1-what-is-cosmos/blockchain-and-cosmos.html"
     }
 }

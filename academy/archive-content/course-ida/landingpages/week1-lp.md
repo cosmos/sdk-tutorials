@@ -1,10 +1,10 @@
 ---
-title: "Cosmos and Its Main Concepts"
+title: "Interchain and Its Main Concepts"
 order: 1
 description: FROM THE VISION TO THE ECOSYSTEM - A UNIVERSE MADE UP OF PARTICLES
 ---
 
-## Cosmos and Its Main Concepts
+## Interchain and Its Main Concepts
 
 How does the Cosmos network of interoperable blockchains fit into the overall development of blockchain technology?
 
