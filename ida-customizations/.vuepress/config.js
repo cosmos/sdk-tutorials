@@ -406,7 +406,7 @@ module.exports = {
                 },
                 {
                   title: "Integration tests",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/8-integration-tests.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html",
                 },
                 {
                   title: "Incentivize Players",

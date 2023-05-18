@@ -503,13 +503,15 @@ To summarize, this section has explored:
 
 </HighlightBox>
 
-## What next?
+<!-- ## What next?
 
-<!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
-So what's next?  -->The Interchain is vast, with lots of projects, people and concepts to discover:
+The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
 * Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next](/academy/whats-next/index.md) section to find useful information to launch your journey into the Interchain universe.
+Head to the [What's Next](/academy/whats-next/index.md) section to find useful information to launch your journey into the Interchain universe. -->
+
+<!-- INCLUDE AFTER NEW STRUCTURE IS IMPLEMENTED: Head right into the [next section](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md) to begin creating custom objects for your checkers blockchain.
+So what's next?  -->

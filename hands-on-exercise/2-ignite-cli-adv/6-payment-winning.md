@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [modules](/academy/2-cosmos-concepts/5-modules.md) and [keepers](/academy/2-cosmos-concepts/7-multistore-keepers.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the game wager. If not, follow the [previous steps](./4-game-wager.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
+* You have the checkers blockchain codebase up to the game wager. If not, follow the [previous steps](./5-game-wager.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-wager).
 
 </HighlightBox>
 
@@ -29,7 +29,7 @@ In this section, you will:
 
 </HighlightBox>
 
-In the [previous section](./4-game-wager.md), you introduced a wager. On its own, having a `Wager` field is just a piece of information, it does not transfer tokens just by existing.
+In the [previous section](./5-game-wager.md), you introduced a wager. On its own, having a `Wager` field is just a piece of information, it does not transfer tokens just by existing.
 
 Transferring tokens is what this section is about.
 
@@ -1026,7 +1026,7 @@ This is correct: Bob was the winner by forfeit.
 
 Similarly, you can test that Alice gets her wager back when Alice creates a game, Alice plays, and then Bob rejects it.
 
-It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI, or by using integration tests as is done in the [next section](./5-integration-tests.md).
+It would be difficult to test by CLI when there is a winner after a full game. That would be better tested with a GUI, or by using integration tests as is done in the [next section](./7-integration-tests.md).
 
 <HighlightBox type="synopsis">
 
