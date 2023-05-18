@@ -428,8 +428,6 @@ You can go back to the code examined so far to take note of the events emitted.
 
 </HighlightBox>
 
-## Summary
-
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

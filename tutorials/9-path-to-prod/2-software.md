@@ -199,7 +199,7 @@ $ tar xzf myproject_linux_amd64.tar.gz
 
 This creates a `myprojectd` executable file.
 
-### With a Makefile
+### With a `Makefile`
 
 A [`Makefile`](https://tutorialedge.net/golang/makefiles-for-go-developers/) is just a way to keep track of potentially complex commands and summon them with simpler commands. Create your own `Makefile` in the root folder of your project with:
 
@@ -235,7 +235,7 @@ $ make build-with-checksum
 
 If you want to see what a vastly more complex `Makefile` looks like, head to the [Cosmos Hub's own `Makefile`](https://github.com/cosmos/gaia/blob/main/Makefile).
 
-### With a Makefile within Docker
+### With a `Makefile` within Docker
 
 If you do not want to install Go or `make` on your build computer, and [have Docker](https://docs.docker.com/engine/install/), you can:
 
