@@ -31,7 +31,7 @@ In this chapter, you will:
 
 ## Next up
 
-To start with custom IBC applications, begin with an [introduction to IBC application development](/hands-on-exercise/5-ibc-adv/35-ibc-app-intro.md) to then dive into [making an IBC-enabled module](/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.md) and [adding packet and acknowledgement data](/hands-on-exercise/5-ibc-adv/5-ibc-app-packets.md).
+To start with custom IBC applications, begin with an [introduction to IBC application development](/hands-on-exercise/5-ibc-adv/3-ibc-app-intro.md) to then dive into [making an IBC-enabled module](/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.md) and [adding packet and acknowledgement data](/hands-on-exercise/5-ibc-adv/5-ibc-app-packets.md).
 
 You are then ready to dive into [extending your checkers game with a leaderboard](/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.md) making it IBC-enabled. Once you made an existing chain IBC-enabled, it is time to [create a global leaderboard chain](/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.md) that can receive information (player scores) from other chains.
 

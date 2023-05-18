@@ -1170,10 +1170,10 @@ These are examples of server-side scripts, which can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
 
-So what's next? The Interchain is vast, with lots of projects, people and concepts to discover:
+<!-- So what's next? The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
 * Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Interchain universe.
+Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Interchain universe. -->

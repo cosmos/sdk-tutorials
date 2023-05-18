@@ -12,6 +12,12 @@ title: Continue Your Interchain Journey
 
 Congratulations for making it this far on your journey into the Interchain! There are various ways you can continue to explore, learn, and contribute to the ecosystem, whether you want to develop your own application-specific blockchain, contribute to the development of the SDK, or connect with others in the ecosystem. Read on to find out more.
 
+The Interchain is vast, with lots of projects, people and concepts to discover:
+
+* Reach out to the community.
+* Contribute to the Cosmos SDK, IBC, and CometBFT development.
+* Get support for enterprise solutions which you are developing.
+
 ## Jobs
 
 Searching for your next gig? B9lab and the Interchain Ecosystem have been working on an improved jobs board where you can find all the open roles in the ecosystem. The board is available for all Interchain Developer Academy graduates. If you are interested in receiving updates, sign up below.

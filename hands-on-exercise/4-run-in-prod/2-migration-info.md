@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
+* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/16-migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _Simulate Production in Docker_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod).
 
@@ -34,7 +34,7 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 <HighlightBox type="tip">
 
-This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./3-migration-leaderboard.md).
+This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./4-migration-leaderboard.md).
 
 </HighlightBox>
 
