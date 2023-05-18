@@ -733,7 +733,7 @@ To populate candidate winners in your transient store, you are going to _listen_
 * It will be the duty of `app.go` to hook the leaderboard's listener to the checkers emitter.
 * To reduce the dependency of the leaderboard module on elements of the checkers module, you are going to restrict to a single file.
 
-With Cosmos SDK hooks are a design pattern, so you have to code them.
+With the Cosmos SDK, hooks are a design pattern so you have to code them.
 
 ### On the checkers module
 

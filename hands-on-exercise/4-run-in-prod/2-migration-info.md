@@ -40,7 +40,7 @@ This is not done in vain. Instead, looking forward, this is done to support the 
 
 For now, a good tally should be such that for any player who has **ever** played it should be possible to access a tally of games won. While you are at it, you will add games lost and forfeited. Fortunately, this is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial tally.
 
-For the avoidance of doubt, **v1 and v1.1 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not. As it happens, your application has a single module, apart from those coming from Cosmos SDK.
+For the avoidance of doubt, **v1 and v1.1 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not. As it happens, your application has a single module, apart from those coming from the Cosmos SDK.
 
 ## Introducing a new data structure
 
