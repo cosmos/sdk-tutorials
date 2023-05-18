@@ -2,7 +2,7 @@
 title: "Go Interfaces"
 order: 4
 description: Get an overview of interfaces in Go
-tags: 
+tags:
   - tutorial
 ---
 
@@ -94,7 +94,7 @@ package sumutil
 func Sum(a,b int) (s int) {
     for i:=a; i<=b; i++ {
         s+=i
-    } 
+    }
     return
 }
 ```
@@ -112,7 +112,7 @@ func TestSum(t *testing.T) {
     }{
             { 5, 6, 11 },
             { 1, 9, 45 }, // (1+9)+(2+8)+(3+7)+(4+6)+5=45
-            { 0, 9, 45 }, 
+            { 0, 9, 45 },
             { 1, 3, 6 },
             { 10, 19, 145 }, // 10+(10+1)+(10+2)+...+(10+9)=
                          // 10*10+sum(1,9)=145

@@ -138,7 +138,7 @@ customModules:
         href: /academy/1-what-is-cosmos/
         description: |
           Get a fast overview of:
-        links: 
+        links:
           - title: Blockchain technology and the Interchain
             path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
           - title: The Interchain Ecosystem
@@ -154,7 +154,7 @@ customModules:
         links:
           - title: Blockchain app architecture
             path: /academy/2-cosmos-concepts/1-architecture.html
-            tags: 
+            tags:
               - concepts
               - cometbft
               - cosmos-sdk
@@ -344,7 +344,7 @@ customModules:
         href: /hands-on-exercise/3-cosmjs-adv/
         description: |
           Apply your knowledge of CosmJS to the checkers blockchain exercise. You will:
-        links: 
+        links:
           - title: Create custom objects
             path: /hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.html
           - title: Create custom messages
@@ -400,7 +400,7 @@ Note: The layout metadata at the top of the README.md file controls how the tuto
 These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Interchain Stack. The Interchain Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
-* **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
+* **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate
 * **Tendermint**, the algorithm that provides the consensus and networking layer for your blockchain application through CometBFT
 
 The Developer Portal contains three types of content:

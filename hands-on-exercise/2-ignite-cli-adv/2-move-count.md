@@ -2,7 +2,7 @@
 title: "Keep Track Of How Many Moves Have Been Played"
 order: 3
 description: Store field - store the move count
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---

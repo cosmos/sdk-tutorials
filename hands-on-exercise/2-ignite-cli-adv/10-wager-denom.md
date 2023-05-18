@@ -2,7 +2,7 @@
 title: "Play With Cross-Chain Tokens"
 order: 11
 description: Let players wager any fungible token
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - ibc
@@ -231,7 +231,7 @@ With the new helpers in, you can pepper call expectations with [`"coin"`](https:
 
 ## Integration tests
 
-You have fixed your unit tests. You need to do the same for your integration tests. 
+You have fixed your unit tests. You need to do the same for your integration tests.
 
 ### Adjustments
 
@@ -286,7 +286,7 @@ You can also take this opportunity to expand the genesis state so that it includ
     +          Total: addAll(coins),
             }
             ...
-        }    
+        }
     ```
 
 * Also adjust the helper that checks bank balances. Add a function to reduce the amount of refactoring:

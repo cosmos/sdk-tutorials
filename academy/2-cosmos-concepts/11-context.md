@@ -2,7 +2,7 @@
 title: "Context"
 order: 12
 description: Information on the state of the app, the block, and the transaction
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -48,7 +48,7 @@ The context has the following properties:
 * **Multistore:** every application's `BaseApp` contains a `CommitMultiStore`, which is provided when a context is created. Calling the `KVStore()` and `TransientStore()` methods allows modules to fetch their respective `KVStore`s using their unique `StoreKey`s.
 * **ABCI Header:** the header is an ABCI type. It carries important information about the state of the blockchain, such as block height and the proposer of the current block.
 * **Chain ID:** the unique identification number of the blockchain a block pertains to.
-* **Transaction bytes:** the []byte representation of a transaction is processed using the context. 
+* **Transaction bytes:** the []byte representation of a transaction is processed using the context.
 
 <HighlightBox type="info">
 
@@ -58,7 +58,7 @@ Every transaction is processed by various parts of the Cosmos SDK and consensus 
 
 * **Logger:** a logger from the Tendermint libraries. [Learn more about logs here](https://github.com/tendermint/tendermint/blob/master/libs/log/logger.go). Modules call this method to create their unique module-specific logger.
 * **`VoteInfo`:** a list of the ABCI type `VoteInfo`, which includes the name of a validator and a boolean indicating whether they have signed the block.
-* **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to. 
+* **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to.
 
 <HighlightBox type="info">
 

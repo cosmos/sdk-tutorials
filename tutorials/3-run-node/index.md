@@ -5,7 +5,7 @@ parent:
   number: 3
 order: 0
 title:
-tags: 
+tags:
   - tutorial
   - dev-ops
   - cosmos-sdk
@@ -369,7 +369,6 @@ It does not ask for any passphrase, and saves them _in the clear_ in `./private/
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"}'
   mnemonic: ""
 
-
 **Important:** write this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
@@ -590,7 +589,7 @@ $ docker run --rm -it \
     simd start
 ```
 
-Note that here you name the container `simd` so as to connect to it easily later. 
+Note that here you name the container `simd` so as to connect to it easily later.
 
 </CodeGroupItem>
 

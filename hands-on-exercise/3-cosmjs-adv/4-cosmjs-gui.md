@@ -2,7 +2,7 @@
 title: "Integrate CosmJS and Keplr"
 order: 5
 description: Take a checkers GUI and use the elements
-tags: 
+tags:
   - guided-coding
   - cosm-js
 ---
@@ -749,7 +749,7 @@ The `chainId` value has to **match exactly** that returned by `client.getChainId
 
 ### Prepare a signing client
 
-Just as components that need a `CheckersStargateClient` keep one in their state, components that need a `SigningCheckersStargateClient` keep one in their state too. Some components may have both. 
+Just as components that need a `CheckersStargateClient` keep one in their state, components that need a `SigningCheckersStargateClient` keep one in their state too. Some components may have both.
 
 <HighlightBox type="best-practice">
 
@@ -958,7 +958,7 @@ If you do not yet know your Keplr address on the checkers network, you will have
 
 1. Run the initialization code by pretending to create a game. This makes Keplr prompt you to accept adding the `checkers` network and accessing your account. Accept both, but optionally reject the prompt to accept a transaction if your balance is zero.
 
-    ![Checkers prompting to add support for Checkers](/hands-on-exercise/3-cosmjs-adv/images/checkers-add-support.png)![Checkers prompting to access account](/hands-on-exercise/3-cosmjs-adv/images/checkers-access-address.png)    
+    ![Checkers prompting to add support for Checkers](/hands-on-exercise/3-cosmjs-adv/images/checkers-add-support.png)![Checkers prompting to access account](/hands-on-exercise/3-cosmjs-adv/images/checkers-access-address.png)
 
 2. Select _Checkers_ in Keplr. Make a note of your address, for instance `cosmos17excjd99u45c4fkzljwlx8eqyn5dplcujkwag8`.
 

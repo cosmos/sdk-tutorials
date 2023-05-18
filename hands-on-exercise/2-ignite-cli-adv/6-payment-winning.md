@@ -248,9 +248,9 @@ Now set up collecting a wager, paying winnings, and refunding a wager:
     ```
 
     You double the wager only if the red player has also played and therefore both players have paid their wagers.
-    
+
     If you did this wrongly, you could end up in a situation where a game with a single move pays out as if both players had played. This would be a serious bug that an attacker could exploit to drain your module's escrow fund.
-    
+
     Then pay the winner:
 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/keeper/wager_handler.go#L50-L53]
@@ -389,7 +389,7 @@ With the library installed, you still need to do a one time creation of the mock
 ```sh
 $ mockgen -source=x/checkers/types/expected_keepers.go \
     -package testutil \
-    -destination=x/checkers/testutil/expected_keepers_mocks.go 
+    -destination=x/checkers/testutil/expected_keepers_mocks.go
 ```
 
 </CodeGroupItem>
@@ -404,7 +404,7 @@ $ docker run --rm -it \
     mockgen \
     -source=x/checkers/types/expected_keepers.go \
     -package testutil \
-    -destination=x/checkers/testutil/expected_keepers_mocks.go 
+    -destination=x/checkers/testutil/expected_keepers_mocks.go
 ```
 
 </CodeGroupItem>
@@ -423,7 +423,7 @@ Create the `Makefile`:
 mock-expected-keepers:
     mockgen -source=x/checkers/types/expected_keepers.go \
         -package testutil \
-        -destination=x/checkers/testutil/expected_keepers_mocks.go 
+        -destination=x/checkers/testutil/expected_keepers_mocks.go
 ```
 
 At any time, you can rebuild the mocks with:

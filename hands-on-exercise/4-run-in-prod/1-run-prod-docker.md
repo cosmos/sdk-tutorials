@@ -454,7 +454,7 @@ The default initialization sets the base token to `stake`, so to get it to be `u
         checkersd_i \
         -i 's/"stake"/"upawn"/g' /root/.checkers/config/genesis.json
     ```
-  
+
     Note how the command overrides the default `checkersd` entry point and replaces it with `--entrypoint sed`.
 2. In all seven [`config/app.toml`](https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/desk-alice/config/app.toml#L11):
 
@@ -550,7 +550,7 @@ $ docker run --rm -it \
 In the newly-created `kms-alice/tmkms.toml` file:
 
 1. Make sure that you use the right protocol version. In your case:
-  
+
     <CodeGroup>
 
     <CodeGroupItem title="TOML">
@@ -575,7 +575,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
     ```
 
     </CodeGroupItem>
-    
+
     </CodeGroup>
 
 2. Pick an expressive name for the file that will contain the `softsign` key for `val-alice`:
@@ -604,7 +604,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
     ```
 
     </CodeGroupItem>
-    
+
     </CodeGroup>
 
 3. Replace `cosmoshub-3` with `checkers-1`, the name of your blockchain, wherever the former appears:
@@ -637,7 +637,7 @@ In the newly-created `kms-alice/tmkms.toml` file:
     ```
 
     </CodeGroupItem>
-    
+
     </CodeGroup>
 
 ### Import the consensus key
@@ -709,7 +709,7 @@ $ docker run --rm -i \
     tmkms_i:v0.12.2 \
     -Ei 's/^addr = "tcp:.*$/addr = "tcp:\/\/val-alice:26659"/g' /root/tmkms/tmkms.toml
 ```
-  
+
 </CodeGroupItem>
 
 </CodeGroup>
@@ -914,7 +914,7 @@ Bob is not using the Tendermint KMS but instead uses the validator key on file `
 
 ```sh
 $ cp prod-sim/val-bob/config/priv_validator_key.json \
-    prod-sim/desk-bob/config/priv_validator_key.json 
+    prod-sim/desk-bob/config/priv_validator_key.json
 ```
 
 Bob appears in second position in `app_state.accounts`, so his `account_number` ought to be `1`; but it is in fact written as `0`, so you use `0`:
@@ -1092,7 +1092,7 @@ private_peer_ids = "f2673103417334a839f5c20096909c3023ba4903"
 Repeat the procedure for the other nodes, taking into account their specific circumstances:
 
 * `val-alice`'s:
-  
+
     ```toml [https://github.com/cosmos/b9-checkers-academy-draft/blob/run-prod/prod-sim/val-alice/config/config.toml#L215]
     persistent_peers = "83144b58031953ad60eaccb0a790955450f1ddef@sentry-alice:26656"
     ```
@@ -1192,7 +1192,6 @@ As a last step, you can disable CORS policies so that you are not surprised if y
 
 2. In `app.toml`, first location:
 
-
   <CodeGroup>
 
   <CodeGroupItem title="TOML">
@@ -1221,7 +1220,6 @@ As a last step, you can disable CORS policies so that you are not surprised if y
   </CodeGroup>
 
 3. In `app.toml`, second location:
-
 
   <CodeGroup>
 
@@ -1294,7 +1292,7 @@ services:
     command: start
     container_name: val-bob
     image: checkersd_i
-  
+
   sentry-bob:
     command: start
     container_name: sentry-bob
@@ -1336,7 +1334,7 @@ services:
     ...
     volumes:
       - ./val-bob:/root/.checkers
-  
+
   sentry-bob:
     ...
     volumes:
@@ -1386,7 +1384,7 @@ services:
     ...
     networks:
       - net-bob
-  
+
   sentry-bob:
     ...
     networks:
@@ -1661,8 +1659,8 @@ Now may be a good time to prepare a standalone setup that can be used by anyone 
 
 * It uses a single `Dockerfile`.
 * Such an image could be generated and uploaded into a Docker image registry to increase ease of use.
-* It can be run by someone who just wants to try checkers without going through node and genesis setups. 
-* The `Dockerfile` does not need to be in the repository to be usable. It could be copied elsewhere and still work, i.e. no `ADD`ing local files. 
+* It can be run by someone who just wants to try checkers without going through node and genesis setups.
+* The `Dockerfile` does not need to be in the repository to be usable. It could be copied elsewhere and still work, i.e. no `ADD`ing local files.
 * The image(s) should be as small as is reasonable.
 * It uses `stake` instead of `upawn`, and has `token` so as to be compatible with the current state of the checkers CosmJS exercise.
 * It also provides a faucet to further facilitate tests.
@@ -1723,7 +1721,6 @@ This returns something like:
   address: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A/E6dHn3W2XvCrLkhp/dNxAQyVpmduxEXPBg/nP/PyMa"}'
   mnemonic: ""
-
 
 **Important** write this mnemonic phrase in a safe place.
 It is the only way to recover your account if you ever forget your password.
@@ -2000,7 +1997,7 @@ ENTRYPOINT [ "checkersd" ]
 
 ### Build your standalone images
 
-Your two Docker images will run in the same Docker network. To build them, run: 
+Your two Docker images will run in the same Docker network. To build them, run:
 
 <CodeGroup>
 
@@ -2096,7 +2093,7 @@ And to check the faucet status, you can use:
 
 ```sh
 $ curl http://localhost:4500/status
-``` 
+```
 
 You now have a container running both the checkers and a faucet. You are ready to run your CosmJS tests in `client`.
 
@@ -2112,7 +2109,6 @@ Which `RPC_URL` and which `FAUCET_URL` will the tests require?
     ```
 
 * If running from Docker, you have to pass values to the tests that resolve via Docker's automatic name resolution within `checkers-net`:
-
 
     ```ini
     RPC_URL="http://checkers:26657"

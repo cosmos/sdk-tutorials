@@ -135,7 +135,6 @@ For the avoidance of doubt, in the JSON above, Alice is labeled with some metada
 
 Create the group:
 
-
 Note that, according to the [group documentation](https://docs.cosmos.network/v0.46/modules/group/06_metadata.html), the metadata of a group must be off-chain. This means that, should you choose IPFS as your storage, you must put the IPFS CID of the group metadata in the `metadata` field. To learn more about IPFS, check out the [IPFS tutorial](https://tutorials.cosmos.network/tutorials/how-to-use-ipfs).
 
 Here is what the metadata of Alice and Bob looks like:
@@ -166,7 +165,7 @@ $ simd query tx 079D9B213DCDE99DB0E31A8AFE9B0FDC605C81C1880D08D99A493A7BC52FAC23
 ```
 
 This returns something like:
-    
+
 ```json
 [
   {
@@ -282,7 +281,7 @@ Check and verify your newly created group policy, and in particular the address 
 
 ```sh
 $ export GROUP_POLICY_ADDRESS=$(simd query tx 06DB56C25457E10CCAB5476C8BE84534EBC6E10241953C137AEC9CD6C35A5F3B --output json | jq '.events' | jq -r '.[] | select(.type == "cosmos.group.v1.EventCreateGroupPolicy") | .attributes[0].value' | base64 --decode | jq -r '.')
-``` 
+```
 
 You can also find the group policy by querying the group:
 
@@ -363,7 +362,7 @@ $ export PROPOSAL_ID=$(simd query tx E3CBE6932254088D5A80CD5CB18BB0F4D35396A542B
 
 You can also find the proposal ID via your group policy:
 
-```sh 
+```sh
 $ simd query group proposals-by-group-policy $GROUP_POLICY_ADDRESS --output json | jq '.proposals[0]'
 ```
 
@@ -415,7 +414,7 @@ Proposals are not immediately executed to account for the possibility that not e
 Next time, if you wish to try to execute a proposal immediately after its submission, you can do so by using the `--exec 1` flag. It will count the proposers' signatures as _Yes_ votes.
 
 </HighlightBox>
-    
+
 Execute the proposal now:
 
 ```sh
@@ -429,7 +428,7 @@ If there were any errors when executing the proposal messages, none of the messa
 </HighlightBox>
 
 Verify that the proposal has been executed:
-    
+
 ```sh
 $ simd query group proposal $PROPOSAL_ID
 ```

@@ -2,7 +2,7 @@
 title: "Incentivize Players"
 order: 9
 description: Gas - reward validators proportional to their effort
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -304,7 +304,7 @@ There is only a difference of `4000`. The rest of the system likely had some und
 ```sh
 $ checkersd tx checkers create-game \
     $alice $bob 1000000 \
-    --from $alice -y | 
+    --from $alice -y | \
         grep gas_used
 ```
 

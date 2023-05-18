@@ -4,12 +4,11 @@ about: Create a report to help us improve
 title: ''
 labels: report
 assignees: ''
-
 ---
 
-Thank you for helping us improve Cosmos SDK tutorials. 
+Thank you for helping us improve Cosmos SDK tutorials.
 
-Use this form to submit a bug report for a specific tutorial. 
+Use this form to submit a bug report for a specific tutorial.
 
 To submit a bug report for the Developer Portal in general, use [Developer Portal bug report](devportal-bug-report.md).
 
@@ -17,15 +16,16 @@ To submit a bug report for the Developer Portal in general, use [Developer Porta
 Paste the URL of the Cosmos SDK tutorial.
 
 **Describe the bug**
-Tell us about your challenges. A clear and concise description of your problem helps us reproduce the issue. You can even provide a video or screenshot as needed. 
+Tell us about your challenges. A clear and concise description of your problem helps us reproduce the issue. You can even provide a video or screenshot as needed.
 
 **To reproduce**
 Steps to reproduce the behavior:
+
 1. 
 
 **What versions of software are you running?**
 
-What is your version of the Cosmos SDK? 
+What is your version of the Cosmos SDK?
 
 Include the output of these commands.
 
@@ -35,7 +35,7 @@ Ignite CLI: `ignite version`
 
 Gaia: `gaiad version --long`
 
-**Tell us about your environment** 
+**Tell us about your environment**
 
 Your system: `uname -a`
 

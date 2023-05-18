@@ -2,7 +2,7 @@
 title: "Your First CosmJS Actions"
 order: 3
 description: Interact with a Cosmos SDK chain through CosmJS
-tags: 
+tags:
   - tutorial
   - cosm-js
   - dev-ops
@@ -976,7 +976,7 @@ Find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tr
 <HighlightBox type="info">
 
 If you want a detailed introduction to CosmJS, check out the following video with Noam Cohan, former Developer Relations Lead for Cosmos Hub.
-  
+
 <YoutubePlayer videoId="RlqjEVIv1Pg"/>
 
 </HighlightBox>

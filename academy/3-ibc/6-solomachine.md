@@ -23,7 +23,7 @@ In this section, you will:
 
 IBC is the Inter-Blockchain Communication protocol, so its scope must be limited for use within blockchains right? Well, not quite. IBC was indeed conceived as a solution for interoperability between blockchains, or more generally between distributed ledgers. However, at the same time the design of the protocol aimed to be as universal and extensible as possible. It aims to **set a minimal set of requirements or interfaces a state machine must satisfy to communicate with remote counterparties**. This includes replicated state machines (i.e. blockchains), but the interfaces can also be satisfied by other data systems, such as _solo machines_.
 
-A solo machine is a standalone process that can interact with blockchains through IBC. It can store key information, like signed messages and private keys, but has no consensus algorithm of its own. The _solo machine client_ can be seen as a verification algorithm capable of authenticating messages sent from a solo machine. With solo machines, one can access the IBC transport layer and blockchains (including features built on them) within the Interchain without developing one's own blockchain. 
+A solo machine is a standalone process that can interact with blockchains through IBC. It can store key information, like signed messages and private keys, but has no consensus algorithm of its own. The _solo machine client_ can be seen as a verification algorithm capable of authenticating messages sent from a solo machine. With solo machines, one can access the IBC transport layer and blockchains (including features built on them) within the Interchain without developing one's own blockchain.
 
 Anything from a web application hosted on a server, to a browser, to the mobile in your pocket is a solo machine. And these systems are capable of speaking IBC!
 
@@ -47,7 +47,7 @@ Unlike a typical [IBC light client](4-clients.md), which uses Merkle proofs to v
 
 Even though solo machines don’t have a provable consensus algorithm, they are still capable of **storing a public/private key pair and can also support multi-signature keys**.
 
-![solomachine-overview](/academy/3-ibc/images/solomachine.png) 
+![solomachine-overview](/academy/3-ibc/images/solomachine.png)
 
 As an example, when blockchain A communicates with a solo machine over IBC, it registers the solo machine’s public key(s) in its (blockchain A’s) state machine through the _solo machine client_. Verifying the validity of a message sent from the solo machine is as simple as ensuring that the message was signed by its private key (as shown in Figure 1 above).
 
@@ -63,7 +63,7 @@ A solo machine with a single key pair can be suitable for a PoA-like/trusted set
 
 There are three key benefits to using an IBC solo machine client:
 
-1. It provides access to the IBC transport layer — and as a result, all the chains and ecosystems connected to it (as well as the features and applications built on top). 
+1. It provides access to the IBC transport layer — and as a result, all the chains and ecosystems connected to it (as well as the features and applications built on top).
 2. It removes the economic and operational overhead that comes with developing an entire blockchain in order to use IBC.
 3. It is suitable to directly interoperate with chains where implementing a regular IBC light client can be complex (for example, on Ethereum due to its probabilistic finality).
 
@@ -159,7 +159,7 @@ The solo machine will sign over some data, `SignBytes`:
 ``` typescript
 interface SignBytes {
   sequence: uint64
-  timestamp: uint64  
+  timestamp: uint64
   diversifier: string
   path: []byte
   data: []byte
@@ -189,7 +189,7 @@ interface Header {
 
 #### Client message signature verification
 
-Remember from the section on light client development that the client can be updated (with new state or evidence of misbehavior) by submitting a `ClientMessage`. 
+Remember from the section on light client development that the client can be updated (with new state or evidence of misbehavior) by submitting a `ClientMessage`.
 
 The `ClientMessage` will be passed onto the client by submitting a `MsgUpdateClient`. Although IBC messages are typically submitted by relayers, it can be advantageous to integrate a relayer directly into the solo machine's server in certain cases, such as with crypto.com's implementation. The `02-client`'s [`UpdateClient`](https://github.com/cosmos/ibc-go/blob/v7.0.0/modules/core/02-client/keeper/client.go#L48) method will then handle the client message by using [these four methods on the `ClientState` interface](https://github.com/cosmos/ibc-go/blob/02-client-refactor-beta1/modules/core/exported/client.go#L98-L109):
 

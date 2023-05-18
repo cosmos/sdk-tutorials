@@ -2,7 +2,7 @@
 title: "Keep an Up-To-Date Game Deadline"
 order: 2
 description: Store field - games can expire
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---

@@ -2,7 +2,7 @@
 title: "First Steps"
 order: 2
 description: Get started with Golang
-tags: 
+tags:
   - tutorial
 ---
 

@@ -2,7 +2,7 @@
 title: "Create Custom Objects"
 order: 2
 description: Create the objects for your checkers blockchain GUI
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - cosm-js
@@ -35,7 +35,7 @@ $ git submodule add git@github.com:cosmos/academy-checkers-ui.git client
 
 Replace the path with your own repository. In effect, this creates a new `client` folder. This `client` folder makes it possible for you to easily update another repository with content generated out of your Go code.
 
-Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation: 
+Create a folder named `scripts` in your project root. This is where you will launch the Protobuf compilation:
 
 ```sh
 $ mkdir -p scripts/protoc
@@ -840,7 +840,7 @@ Then, for tests:
     ```
 
     Your tests, running in a different container, accessed the checkers chain within the `checkers-net` **Docker network** thanks to the `checkers` name resolution. Hence `RPC_URL="http://checkers:26657"`.
-    
+
     <HighlightBox type="note">
 
     In particular, the `-p 26657:26657` port forwarding was not necessary. You can confirm that by stopping your chain and starting it again, this time without `-p`.

@@ -2,14 +2,13 @@
 title: "The Interchain Ecosystem"
 order: 3
 description: A universe to discover
-tags: 
+tags:
   - concepts
   - cometbft
   - cosm-wasm
   - ibc
   - cosmos-sdk
   - cosmos-hub
-
 ---
 
 # The Interchain Ecosystem

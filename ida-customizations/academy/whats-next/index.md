@@ -49,7 +49,7 @@ Explore some of the great projects in the Interchain Ecosystem and get to know t
 
 Upcoming events will be displayed here soon.
 
-<!-- Update once available 
+<!-- Update once available
 ### Meet the Interchain's Core Teams - an Interchain Developer Academy Exclusive Series
 
 If you are looking for your next role in the Interchain ecosystem, then make sure you register for this series of events exclusively for Academy participants.

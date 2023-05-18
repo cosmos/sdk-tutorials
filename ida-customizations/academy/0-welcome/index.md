@@ -40,7 +40,7 @@ overview:
       description: |
         There are roughly 80 hours of learning material and exercises to work through. In addition, you need to plan for about 20 hours to complete the final exam. In our experience, participants who allocate about 10 to 15 hours of work per week tend to get the most out of the program and perform best. However, learning styles are different, so work at a pace that suits you!<br/><br/>
         All the materials are available right from the start of the program.
-    - title: What support will I get in the Academy? 
+    - title: What support will I get in the Academy?
       description: |
         We have set up a private Discord for the Academy for all teaching and ongoing communication. You can reach out to your instructors anytime for support. We encourage you to proactively collaborate with other participants in your cohort and with your instructors. Ask questions, request feedback, and seek help if you are stuck! That way, you will get the most out of the Academy.<br/><br/>
         We aim to answer your questions within a few hours. Our maximum response time is 24 hours. Main support hours are on weekdays between 6 AM UTC and 4 PM UTC. We do not provide support during the weekends.<br/><br/>
@@ -71,7 +71,7 @@ customModules:
       href: /ida-course/LPs/week-0/
       description: |
         This chapter is completely optional and a good introduction if you are new to blockchain technology or need a refresher on Golang and a short overview of dev terms you will encounter when working with the Interchain:
-      links: 
+      links:
         - title: Blockchain basics
           path: /ida-course/0-blockchain-basics/1-blockchain.html
         - title: Golang
@@ -85,7 +85,7 @@ customModules:
       href: /ida-course/LPs/week-1/
       description: |
         You will discover the Interchain ecosystem and learn about the main concepts of the Cosmos SDK, from its Tendermint consensus to learning how keys, accounts, and transactions relate to each other. Dive into:
-      links: 
+      links:
         - title: Blockchain technology and the Interchain
           path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
         - title: The Interchain Ecosystem
@@ -115,7 +115,7 @@ customModules:
       href: /ida-course/LPs/week-2/
       description: |
         You will discover how to run a node and learn how to build your own chain by following the example implementation of a checkers blockchain:
-      links: 
+      links:
         - title: How to set up your work environment
           path: /tutorials/2-setup
         - title: How to run a node, API, and CLI
@@ -129,7 +129,7 @@ customModules:
       href: /ida-course/LPs/week-3/
       description: |
         You will dive into IBC to learn more about cross-chain communication and take a look at how to use CosmJS for your chain:
-      links: 
+      links:
         - title: What is IBC?
           path: /academy/3-ibc/1-what-is-ibc.html
         - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
@@ -157,7 +157,7 @@ customModules:
       href: /ida-course/LPs/week-4/
       description: |
         You will dive deeper into customizing the checkers blockchain to make your game more interesting and unique with Ignite, while also testing  and expanding your IBC knowledge to:
-      links: 
+      links:
         - title: Keep a game deadline
           path: /hands-on-exercise/2-ignite-cli/1-game-deadline.html
         - title: Keep a count of moves
@@ -187,7 +187,7 @@ customModules:
       href: /ida-course/LPs/week-5/
       description: |
         You will build on your previous work with CosmJS to implement a sound game GUI and a backend script that improves the user experience by:
-      links: 
+      links:
         - title: Creating custom objects
           path: hands-on-exercise/3-cosmjs/1-cosmjs-objects.html
         - title: Creating custom messages
@@ -205,7 +205,7 @@ customModules:
       href: /ida-course/LPs/week-6/
       description: |
         Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
-      links: 
+      links:
         - title: Writing a custom IBC application
           path: /hands-on-exercise/4-ibc-dev/5-ibc-app-intro.html
         - title: How to make a module IBC-enabled
@@ -227,7 +227,7 @@ customModules:
       href: /ida-course/LPs/week-7/
       description: |
         In this chapter, you will build on your previous work for the checkers blockchain to adapt your blockchain to the demands of running in production:
-      links: 
+      links:
         - title: Get a quick overview
           path: /hands-on-exercise/5-run-in-prod/1-overview.html
         - title: Prepare the software to run

@@ -2,7 +2,7 @@
 title: "Blockchain 101"
 order: 2
 description: A universe to discover
-tags: 
+tags:
   - concepts
 ---
 

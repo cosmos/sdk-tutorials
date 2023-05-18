@@ -82,7 +82,7 @@ A **remote procedure call (RPC)** is _a software communication protocol_. The te
 
 RPC can be understood as a client-server interaction in which the "caller" is the client, more specifically the requesting program, and the "executor" is the server, more specifically the service-providing program. The interaction is implemented through a request-response message-passing system.
 
-In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine. 
+In short, RPC is a request-response protocol, initiated by a client sending a request to a remote server to execute the subroutine.
 
 RPC allows calling functions in different address spaces. Usually, the called functions are run on a different computer than the one calling them. However, with RPC, the developer codes as if the subroutine would be local; the developer does not have to code in details for remote interaction. Thus, with RPCs it is implied that all calling procedures are basically the same, independent of them being local or remote calls.
 
@@ -247,7 +247,6 @@ For more on gRPC-web, a closer look at the [gRPC repository](https://github.com/
 
 <br/>
 
-
 To dive into developing with gRPC-web, the [documentation's quick start](https://grpc.io/docs/platforms/web/quickstart/) and [basics tutorials](https://grpc.io/docs/platforms/web/basics/) are very valuable resources.
 
 </HighlightBox>
@@ -260,7 +259,7 @@ Secret.js is a JavaScript SDK used to write applications interacting with the [S
 
 </HighlightBox>
 
-### gRPC-gateway 
+### gRPC-gateway
 
 **gRPC-gateway** is a tool to expose gRPC endpoints as REST endpoints. It helps provide APIs in gRPC and RESTful style, reads gRPC service definitions, and generates reverse-proxy servers that can translate a RESTful JSON API into gRPC. For each gRPC endpoint defined in a Protobuf `Query` service, the Cosmos SDK offers a corresponding REST endpoint.
 

@@ -25,7 +25,7 @@ You can find more information about how IPFS works in their [documentation](http
 
 In this tutorial, you will learn how to store files and websites on IPFS.
 
-## Requirements 
+## Requirements
 
 First download and install IPFS, find the instructions for your OS [here](https://docs.ipfs.io/install/command-line/).
 

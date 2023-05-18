@@ -2,13 +2,13 @@
 title: Exercise - Message - Create a Message to Create a Game
 order:
 description: Exercise - Introduce the message to create a game
-tags: 
+tags:
   - deep-dive
 ---
 
 # Exercise - Message - Create a Message to Create a Game
 
-You have created your game object type and have decided how to lay games in storage. Time to make it possible for participants to create games. 
+You have created your game object type and have decided how to lay games in storage. Time to make it possible for participants to create games.
 
 ## Think
 

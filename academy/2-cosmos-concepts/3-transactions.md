@@ -2,7 +2,7 @@
 title: "Transactions"
 order: 4
 description: Generating, signing, and broadcasting transactions
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---

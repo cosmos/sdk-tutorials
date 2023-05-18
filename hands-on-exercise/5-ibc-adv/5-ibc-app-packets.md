@@ -1,8 +1,8 @@
 ---
 title: "Adding Packet and Acknowledgement Data"
 order: 6
-description: 
-tags: 
+description:
+tags:
   - guided-coding
   - dev-ops
   - ibc
@@ -14,7 +14,7 @@ This section demonstrates how to define packets and acks (acknowledgements) for 
 
 <HighlightBox type="note">
 
-This blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains, not sending them. This will be handled in the [checkers blockchain extension section](./7-ibc-app-leaderboard.md). 
+This blockchain will mostly be receiving packets from the checkers blockchain or other gaming chains, not sending them. This will be handled in the [checkers blockchain extension section](./7-ibc-app-leaderboard.md).
 
 </HighlightBox>
 

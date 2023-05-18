@@ -2,7 +2,7 @@
 title: "IBC Tooling"
 order: 13
 description: Overview of some helpful tools
-tags: 
+tags:
   - concepts
   - ibc
 ---
@@ -39,7 +39,7 @@ You can also change the time being visualized by the MapOfZones in the lower rig
 * Seven days
 * 30 days
 
-The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains. 
+The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains.
 
 The individual chains are visualized by circle icons, sometimes including the chain's logo. Additionally, you can see connecting lines between the different chains. These lines represent connections between chains.
 

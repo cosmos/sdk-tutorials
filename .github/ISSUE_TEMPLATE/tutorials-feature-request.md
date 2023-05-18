@@ -4,12 +4,11 @@ about: Suggest a new tutorial, article, or idea.
 title: ''
 labels: request
 assignees: ''
-
 ---
 
-Thank you for helping us improve Cosmos SDK Tutorials. 
+Thank you for helping us improve Cosmos SDK Tutorials.
 
-Use this form to submit a feature request for a specific tutorial. 
+Use this form to submit a feature request for a specific tutorial.
 
 To submit a feature request for the Developer Portal in general, use [Developer Portal feature request](devportal-feature-request.md).
 

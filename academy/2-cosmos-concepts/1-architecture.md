@@ -2,7 +2,7 @@
 title: "A Blockchain App Architecture"
 order: 2
 description: ABCI, CometBFT, and state machines
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---

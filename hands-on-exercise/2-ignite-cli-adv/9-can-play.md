@@ -2,7 +2,7 @@
 title: "Help Find a Correct Move"
 order: 10
 description: Query - help players make good transactions
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -84,7 +84,7 @@ $ ignite scaffold query canPlayMove \
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it 
+$ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
     checkers_i \

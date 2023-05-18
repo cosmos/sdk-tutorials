@@ -2,7 +2,7 @@
 title: "Ignite CLI"
 order: 2
 description: An easy way to build your application-specific blockchain
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -146,7 +146,7 @@ Use "ignite [command] --help" for more information about a command.
 
 ## Prepare Docker
 
-If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](../../tutorials/5-docker-intro/index.md).
+If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro/index.md).
 
 First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
@@ -727,7 +727,6 @@ Want another demonstration? In the following video Denis Fadeev, creator of and 
 <YoutubePlayer videoId="aQuHeE7fWK0"/>
 
 </HighlightBox>
-
 
 <HighlightBox type="synopsis">
 

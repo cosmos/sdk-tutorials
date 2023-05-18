@@ -2,7 +2,7 @@
 title: "Blockchain Technology and the Interchain"
 order: 2
 description: The Interchain as part of blockchain technology
-tags: 
+tags:
   - concepts
   - cometbft
   - cosmos-sdk
@@ -81,7 +81,6 @@ In the world of blockchains, "speed" means **transaction speed**. You can unders
 
 **State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
-
 <Accordion :items="
     [
         {
@@ -94,7 +93,6 @@ In the world of blockchains, "speed" means **transaction speed**. You can unders
         }
     ]
 "/>
-
 
 <ExpansionPanel title="Finality in PoW and PoS networks">
 

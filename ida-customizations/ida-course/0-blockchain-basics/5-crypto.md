@@ -2,7 +2,7 @@
 title: "Cryptographic Fundamentals of Blockchain"
 order: 6
 description: Public-key cryptography
-tags: 
+tags:
   - concepts
 ---
 

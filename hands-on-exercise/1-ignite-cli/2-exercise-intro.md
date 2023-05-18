@@ -2,7 +2,7 @@
 title: "Exercise - Make a Checkers Blockchain"
 order: 3
 description: Exercise introduction
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -32,7 +32,6 @@ Although the guided coding exercises use Cosmos SDK **v0.45.4**, the current rel
 For a sense of the scale of the Cosmos SDK's ongoing development, you can review **all** the changes that have been implemented to date at [this link](https://github.com/cosmos/cosmos-sdk/releases).
 
 </HighlightBox>
-
 
 <!--## Next up
 

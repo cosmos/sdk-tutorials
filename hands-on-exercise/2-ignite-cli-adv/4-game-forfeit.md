@@ -2,7 +2,7 @@
 title: "Auto-Expiring Games"
 order: 5
 description: EndBlock - enforce the expiration of games
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -694,7 +694,7 @@ To summarize, this section has explored:
 
 * How games can expire under two conditions: when the game never really begins or only one player makes an opening move, in which case it is removed; or when both players have participated but one has since failed to play a move in time, in which case the game is forfeited.
 * What new information and functions need to be created, and to update `EndBlock` to call the `ForfeitExpiredGames` function at the end of each block.
-* The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game. 
+* The correct coding for how to prepare the main loop through the FIFO, identify an expired game, and handle an expired game.
 * How to test your code to ensure that it functions as desired.
 * How to interact with the CLI to check the effectiveness of your code for handling expired games.
 

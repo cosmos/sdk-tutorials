@@ -2,7 +2,7 @@
 title: "IBC Middleware"
 order: 10
 description: Custom middleware to wrap an IBC application
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops

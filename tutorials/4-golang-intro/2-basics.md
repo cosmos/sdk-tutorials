@@ -2,7 +2,7 @@
 title: "Go Basics"
 order: 3
 description: Basic types, string formatting, functions, and methods
-tags: 
+tags:
   - tutorial
 ---
 # Go Basics
@@ -110,7 +110,7 @@ This second example **does not work**: the "number" constant and the variable "f
 `fmt.Printf` writes to standard output and returns the number of bytes written and the write error. The string formatting is:
 
 ```go
-%v for a value, which will be converted into a string with default options. 
+%v for a value, which will be converted into a string with default options.
 %T for the type of a value
 %x for the hex encoding
 %d for integer
