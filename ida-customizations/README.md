@@ -124,21 +124,21 @@ customModules:
         description: |
           You will discover how to run a node and learn how to build your own chain by following the example implementation of a checkers blockchain:
         links: 
-          - title: How to set up your work environment
+          - title: Set up your work environment
             path: /tutorials/2-setup/
-          - title: How to run a node, API, and CLI
+          - title: Run a node, API, and CLI
             path: /tutorials/3-run-node/
           - title: Introduction to Ignite CLI
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
           - title: Exercise - Make a Checkers Blockchain
             path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
-          - title: How to store a game
+          - title: Store a game
             path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
           - title: Create your first message
             path: /hands-on-exercise/1-ignite-cli/4-create-message.html
-          - title: Handle the message to create a game
+          - title: Create and save a game
             path: /hands-on-exercise/1-ignite-cli/5-create-handling.html
-          - title: Another message to play on a game
+          - title: Add a way to make a move
             path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game events
             path: /hands-on-exercise/1-ignite-cli/7-events.html
@@ -154,13 +154,13 @@ customModules:
         links: 
           - title: What is IBC?
             path: /academy/3-ibc/1-what-is-ibc.html
-          - title: IBC/TAO - Connections, Channels, and Clients (OPTIONAL)
+          - title: IBC/TAO - connections, channels, and clients (OPTIONAL)
             path: /academy/3-ibc/2-connections.html
           - title: IBC token transfer
             path: /academy/3-ibc/7-token-transfer.html
-          - title: Interchain Accounts (OPTIONAL)
+          - title: Interchain accounts (OPTIONAL)
             path: /academy/3-ibc/8-ica.html
-          - title: IBC Middleware (OPTIONAL)
+          - title: IBC middleware (OPTIONAL)
             path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
             path: /academy/3-ibc/12-ibc-tooling.html
@@ -198,10 +198,10 @@ customModules:
             path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
           - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
-          - title: Understand IBC denoms
-            path: /tutorials/6-ibc-dev/
           - title: Play with cross-chain tokens
             path: /hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html
+          - title: Understand IBC denoms
+            path: /tutorials/6-ibc-dev/
           - title: Go relayer
             path: /hands-on-exercise/5-ibc-adv/1-go-relayer.html
           - title: Hermes relayer
@@ -228,7 +228,7 @@ customModules:
         description: |
           Ready for an IBC deep dive? In this chapter, you will further deepen your knowledge of IBC by looking into:
         links: 
-          - title: Custom IBC application module introduction
+          - title: IBC app developer introduction
             path: /hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html
           - title: Make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html
@@ -260,11 +260,11 @@ customModules:
             path: /tutorials/9-path-to-prod/7-migration.html
           - title: Simulate production in Docker
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
-          - title: Tally Player Info After Production
+          - title: Tally player info after production
             path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
           - title: Add a leaderboard as a module
             path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
-          - title: Add a migration for you leaderboard module
+          - title: Migrate the leaderboard module after production
             path: /tutorials/9-path-to-prod/4-migration-leaderboard.html
           - title: Simulate production migration with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html

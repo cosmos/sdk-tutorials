@@ -147,7 +147,7 @@ module.exports = {
           order: 3,
           children: [
             {
-              title: "Run Your Own Cosmos Chain",
+              title: "Run Your Cosmos Chain",
               path: "/hands-on-exercise/1-ignite-cli/",
               directory: true,
             },

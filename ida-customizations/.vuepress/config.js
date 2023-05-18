@@ -342,7 +342,7 @@ module.exports = {
                   path: "/academy/3-ibc/10-ibc-mw-develop.html",
                 },
                 {
-                  title: "Integrating IBC Middleware Into a Chain (OPTIONAL)",
+                  title: "Integrate IBC Middleware Into a Chain (OPTIONAL)",
                   path: "/academy/3-ibc/11-ibc-mw-integrate.html",
                 },
                 {
@@ -385,7 +385,7 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
                 },
                 {
-                  title: "Record the Move Count",
+                  title: "Keep Track Of How Many Moves Have Been Played",
                   path: "/hands-on-exercise/2-ignite-cli-adv/2-move-count.html",
                 },
                 {
@@ -417,12 +417,12 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/9-can-play.html",
                 },
                 {
-                  title: "Understand IBC Denoms",
-                  path: "/tutorials/6-ibc-dev/",
-                },
-                {
                   title: "Play With Cross-Chain Tokens",
                   path: "/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html",
+                },
+                {
+                  title: "Understand IBC Denoms",
+                  path: "/tutorials/6-ibc-dev/",
                 },
                 {
                   title: "Go Relayer",
@@ -475,7 +475,7 @@ module.exports = {
                   path: "/ida-course/LPs/week-6/",
                 },
                 {
-                  title: "Custom IBC application module introduction",
+                  title: "IBC Application Developer Introduction",
                   path: "/hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html",
                 },
                 {
@@ -506,7 +506,7 @@ module.exports = {
                   path: "/ida-course/LPs/week-7/",
                 },
                 {
-                  title: "Overview",
+                  title: "Run in Production",
                   path: "/tutorials/9-path-to-prod/1-overview.html",
                 },
                 {
@@ -534,7 +534,7 @@ module.exports = {
                   path: "/tutorials/9-path-to-prod/7-migration.html",
                 },
                 {
-                  title: "Simulate Production with Docker Compose",
+                  title: "Simulate Production in Docker",
                   path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
@@ -542,15 +542,15 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
-                  title: "Add a Leaderboard as a module",
+                  title: "Add a Leaderboard as a Module",
                   path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
                 },
                 {
-                  title: "Add a Migration for your Leaderboard Module",
+                  title: "Migrate the Leaderboard Module After Production",
                   path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
                 },
                 {
-                  title: "Simulate a Production Migration with Docker Compose",
+                  title: "Simulate a Migration in Docker",
                   path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
                 },
                 {
