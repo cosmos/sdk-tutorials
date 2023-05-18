@@ -16,6 +16,8 @@ The exam is composed of two parts:
 * One **coding project** that involves the Cosmos SDK, Ignite CLI, and CosmJS.
 * One **IBC relayer operations** exercise.
 
+<!--
+
 ## Coding project
 
 An experienced developer can tackle the coding project in 4 hours or less. We have created a repository for you to upload your work on `git.academy.b9lab.com`. You can find your own repository [here](https://git.academy.b9lab.com/ida-p3-final-exam/student-projects). It was forked from [another repository](https://git.academy.b9lab.com/ida-p3-final-exam/exam-code) to which you have read-only access.
@@ -72,3 +74,5 @@ There are a number of emails that you have received, will receive, or could rece
 4. A _pass_ or _fail_ email, that you will receive after the deadline.
 
 Good luck!
+
+-->
