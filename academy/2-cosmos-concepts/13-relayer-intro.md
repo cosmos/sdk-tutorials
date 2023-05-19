@@ -18,7 +18,7 @@ In this section, you will learn how relayers fit into the Inter-Blockchain Commu
 
 ![IBC overview](/academy/3-ibc/images/ibcoverview.png)
 
-It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic concerning the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-f469883e0ffe)).
+It is useful to briefly recap what relaying is and why it is important. IBC aims to offer blockchains a protocol to enable reliable, secure, and permissionless transfer of packets of data. The protocol is agnostic concerning the data, paving the way for application developers to develop a range of possible interchain services (fungible and non-fungible token transfers are an obvious candidate, but also arbitrary cross-chain messaging via [interchain accounts](https://interchain-io.medium.com/welcome-to-the-ibc-gang-lets-talk-2f5b95133a5d)).
 
 On a high level, this works as follows. A module on a source chain wants to send a packet to a destination chain. It submits a message to the source chain that stores a commitment proof on-chain and logs an event with the packet information. With this information and the proof, you can submit a message to the IBC client on the destination chain, which will verify the proof and (if successful) store a receipt on-chain and have the receiving module execute the required actions according to the packet data. The acknowledgement and timeout functionality has been discussed [previously](/academy/3-ibc/3-channels.md).
 
@@ -108,4 +108,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./3-go-relayer.md).-->
+You now have a solid understanding of relaying in general. It is time to look a closer look at specific relayers for IBC: the Go and Hermes relayer. Start with the Go relayer in the [next section](./1-go-relayer.md).-->

@@ -901,6 +901,6 @@ Add events to the existing message handlers for relevant information. This is th
 
 <HighlightBox type="tip">
 
-If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
+If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md).
 
 </HighlightBox>-->

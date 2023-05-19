@@ -212,7 +212,7 @@ With CosmWasm, smart contracts can run on multiple chains with the help of the I
 
 <HighlightBox type="docs">
 
-For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
+For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs).
 
 </HighlightBox>
 

@@ -173,7 +173,7 @@ customModules:
         - title: Incentivize players and manage gas
           path: /hands-on-exercise/2-ignite-cli/6-gas-meter.html
         - title: Help find a correct move
-          path: /hands-on-exercise/2-ignite-cli/7-can-play.html
+          path: /hands-on-exercise/2-ignite-cli/9-can-play.html
         - title: Move your chain to production
           path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
         - title: Understand IBC denoms
