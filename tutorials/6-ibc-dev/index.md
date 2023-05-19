@@ -107,7 +107,7 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/5-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/7-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
 <HighlightBox type="best-practice">
 

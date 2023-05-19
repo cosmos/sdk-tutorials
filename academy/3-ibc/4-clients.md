@@ -281,4 +281,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./5-token-transfer.md) takes a closer look at cross-chain fungible token transfers.-->
+Now that you explored connections, channels, and clients of the transport, authentication, and ordering layer, the [next section](./7-token-transfer.md) takes a closer look at cross-chain fungible token transfers.-->
