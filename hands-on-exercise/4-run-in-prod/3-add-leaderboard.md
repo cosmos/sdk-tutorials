@@ -1237,7 +1237,7 @@ Confirm also that it overwrites when it receives [an update for the same address
 
 You introduced a new type, the `MultiHook`. You should test that it indeed distributes calls to the elements of the list. This calls for a mock of the `CheckersHooks` expected interface.
 
-Run again your [existing script](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) that rebuilds all the mocks.
+Run again your [existing script](/hands-on-exercise/2-ignite-cli-adv/6-payment-winning.md) that rebuilds all the mocks.
 
 <CodeGroup>
 

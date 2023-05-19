@@ -377,4 +377,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./7-can-play.md).-->
+Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./9-can-play.md).-->

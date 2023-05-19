@@ -342,7 +342,7 @@ With the desired steps defined in the wager handling functions, it is time to in
 
 ## Unit tests
 
-If you try running your existing tests you get a compilation error on the [test keeper builder](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L44-L49). Passing `nil` would not get you far with the tests and creating a full-fledged bank keeper would be a lot of work and not a unit test. See the next section on [integration tests](./5-integration-tests.md) for that.
+If you try running your existing tests you get a compilation error on the [test keeper builder](https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/testutil/keeper/checkers.go#L44-L49). Passing `nil` would not get you far with the tests and creating a full-fledged bank keeper would be a lot of work and not a unit test. See the next section on [integration tests](./7-integration-tests.md) for that.
 
 Instead, you create mocks and use them in unit tests, not only to get the existing tests to pass but also to verify that the bank is called as expected.
 
@@ -853,7 +853,7 @@ Confirm that the balances of both Alice and Bob are unchanged - as they have not
 
 <HighlightBox type="note">
 
-In this example, Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./6-gas-meter.md).
+In this example, Alice paid no gas fees, other than the transaction costs, to create a game. The gas price is likely `0` here anyway. This is fixed in the [next section](./8-gas-meter.md).
 
 </HighlightBox>
 

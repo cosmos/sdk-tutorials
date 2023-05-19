@@ -27,7 +27,7 @@ This document serves as a guide for middleware developers who want to write thei
 
 ## When to use middleware?
 
-IBC applications are designed to be self-contained modules that implement their own application-specific logic through a set of interfaces with the core IBC handlers. This was discussed in the [previous section](./4-ibc-app-steps.md).
+IBC applications are designed to be self-contained modules that implement their own application-specific logic through a set of interfaces with the core IBC handlers. This is discussed in the [hands-on section](/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.md).
 
 These core IBC handlers are designed to enforce the correctness properties of [IBC (transport, authentication, ordering)](/academy/3-ibc/1-what-is-ibc.md) while delegating all application-specific handling to the IBC application modules. **However, there are cases where some functionality may be desired by many applications, yet not appropriate to place in core IBC**...this is where middleware enters the picture.
 

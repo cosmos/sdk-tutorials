@@ -761,7 +761,7 @@ Also make sure that a default test created by Ignite CLI is correct in using the
     }
 ```
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.md) where you learn about them.
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/7-integration-tests.md) where you learn about them.
 
 ## Interact via the CLI
 

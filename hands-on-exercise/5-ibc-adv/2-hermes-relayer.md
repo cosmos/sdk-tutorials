@@ -169,7 +169,7 @@ Start by cloning the repository:
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
-Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./3-go-relayer.md) section:
+Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./1-go-relayer.md) section:
 
 ```sh
 $ cd cosmos-ibc-docker/tokentransfer/checkers
