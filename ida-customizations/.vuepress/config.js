@@ -346,18 +346,6 @@ module.exports = {
                   path: "/academy/3-ibc/11-ibc-mw-integrate.html",
                 },
                 {
-                  title: "IBC Middleware - OPTIONAL",
-                  path: "/academy/3-ibc/9-ibc-mw-intro.html",
-                },
-                {
-                  title: "Create a custom IBC Middleware - OPTIONAL",
-                  path: "/academy/3-ibc/10-ibc-mw-develop.html",
-                },
-                {
-                  title: "Integrating IBC Middleware into a chain - OPTIONAL",
-                  path: "/academy/3-ibc/11-ibc-mw-integrate.html",
-                },
-                {
                   title: "IBC Tooling",
                   path: "/academy/3-ibc/12-ibc-tooling.html",
                 },
