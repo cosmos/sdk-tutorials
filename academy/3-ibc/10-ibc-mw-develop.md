@@ -10,7 +10,7 @@ tags:
 
 # Create a Custom IBC Middleware
 
-When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/5-ibc-adv/6-ibc-app-steps.md).
+When developing a custom IBC application, one of the first things to do is to implement the `IBCModule` interface, as seen [previously](/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.md).
 
 The interface can be found [here](https://github.com/cosmos/ibc-go/blob/main/modules/core/05-port/types/module.go).
 
@@ -65,6 +65,8 @@ func NewIBCMiddleware(app porttypes.IBCModule, k keeper.Keeper) IBCMiddleware {
     }
 }
 ```
+
+For simplification, in the snippet above, `keeper.Keeper` is supposed to implement the `ICS4Wrapper` interface. See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f50645591a2/modules/apps/29-fee/keeper/relay.go#L16-L65) for an example implementation of this interface for the ICS29 Fee Middleware module.
 
 Below you will take a closer look at how to implement the handshake callbacks and the packet callbacks, to satisfy the `IBCModule` interface, and also the `SendPacket`, `WriteAcknowledgement` and `GetAppVersion` methods, to satisfy the `ICS4Wrapper` interface.
 
@@ -150,13 +152,14 @@ func (im IBCMiddleware) OnChanOpenInit(
             )
         }
         else {
-        metadata = {
-            // set middleware version to default value
-            MiddlewareVersion: defaultMiddlewareVersion,
-            // allow the application to return its default version
-            AppVersion: "",
+            metadata = {
+                // set middleware version to default value
+                MiddlewareVersion: defaultMiddlewareVersion,
+                // allow the application to return its default version
+                AppVersion: "",
             }
         }
+    }
     doCustomLogic()
     // if the version string is empty, OnChanOpenInit is expected to return
     // a default version string representing the version(s) it supports
@@ -175,7 +178,6 @@ func (im IBCMiddleware) OnChanOpenInit(
     }
     version := constructVersion(metadata.MiddlewareVersion, appVersion)
     return version, nil
-    }
 }
 ```
 
@@ -201,7 +203,7 @@ func (im IBCMiddleware) OnChanOpenTry(
     // otherwise, pass version directly to app callback.
     cpMetadata, err := Unmarshal(counterpartyVersion)
     if err != nil {
-        return app.OnChanOpenTry(
+        return im.app.OnChanOpenTry(
             ctx,
             order,
             connectionHops,
@@ -215,7 +217,7 @@ func (im IBCMiddleware) OnChanOpenTry(
     doCustomLogic()
     // Call the underlying application's OnChanOpenTry callback.
     // The try callback must select the final app-specific version string and return it.
-    appVersion, err := app.OnChanOpenTry(
+    appVersion, err := im.app.OnChanOpenTry(
         ctx,
         order,
         connectionHops,
@@ -254,14 +256,14 @@ func (im IBCMiddleware) OnChanOpenAck(
     // otherwise, pass version directly to app callback.
     cpMetadata, err = UnmarshalJSON(counterpartyVersion)
     if err != nil {
-        return app.OnChanOpenAck(ctx, portID, channelID, counterpartyChannelID, counterpartyVersion)
+        return im.app.OnChanOpenAck(ctx, portID, channelID, counterpartyChannelID, counterpartyVersion)
     }
     if !isCompatible(cpMetadata.MiddlewareVersion) {
         return error
     }
     doCustomLogic()
     // call the underlying application's OnChanOpenTry callback
-    return app.OnChanOpenAck(ctx, portID, channelID, counterpartyChannelID, cpMetadata.AppVersion)
+    return im.app.OnChanOpenAck(ctx, portID, channelID, counterpartyChannelID, cpMetadata.AppVersion)
 }
 ```
 
@@ -278,7 +280,7 @@ func (im IBCMiddleware) OnChanOpenConfirm(
     channelID string,
 ) error {
     doCustomLogic()
-    return app.OnChanOpenConfirm(ctx, portID, channelID)
+    return im.app.OnChanOpenConfirm(ctx, portID, channelID)
 }
 ```
 
@@ -297,7 +299,7 @@ func (im IBCMiddleware) OnChanCloseInit(
     channelID string,
 ) error {
     doCustomLogic()
-    return app.OnChanCloseInit(ctx, portID, channelID)
+    return im.app.OnChanCloseInit(ctx, portID, channelID)
 }
 ```
 
@@ -314,7 +316,7 @@ func (im IBCMiddleware) OnChanCloseConfirm(
     channelID string,
 ) error {
     doCustomLogic()
-    return app.OnChanCloseConfirm(ctx, portID, channelID)
+    return im.app.OnChanCloseConfirm(ctx, portID, channelID)
 }
 ```
 
@@ -344,9 +346,9 @@ func (im IBCMiddleware) OnRecvPacket(
     packet channeltypes.Packet,
     relayer sdk.AccAddress,
 ) ibcexported.Acknowledgement {
-    doCustomLogic(packet)
-    ack := app.OnRecvPacket(ctx, packet, relayer)
-    doCustomLogic(ack) // middleware may modify outgoing ack
+    doCustomLogicOnPacket(packet)
+    ack := im.app.OnRecvPacket(ctx, packet, relayer)
+    doCustomLogicOnAck(ack) // middleware may modify outgoing ack
     return ack
 }
 ```
@@ -365,7 +367,7 @@ func (im IBCMiddleware) OnAcknowledgementPacket(
     relayer sdk.AccAddress,
 ) error {
     doCustomLogic(packet, ack)
-    return app.OnAcknowledgementPacket(ctx, packet, ack, relayer)
+    return im.app.OnAcknowledgementPacket(ctx, packet, ack, relayer)
 }
 ```
 
@@ -382,7 +384,7 @@ func (im IBCMiddleware) OnTimeoutPacket(
     relayer sdk.AccAddress,
 ) error {
     doCustomLogic(packet)
-    return app.OnTimeoutPacket(ctx, packet, relayer)
+    return im.app.OnTimeoutPacket(ctx, packet, relayer)
 }
 ```
 
@@ -407,14 +409,14 @@ Note that the code snippets below contain _pseudo code_, like `doCustomLogic(arg
 <ExpansionPanel title="`SendPacket`">
 
 ```go
-func SendPacket(
+func (im IBCMiddleware) SendPacket(
     ctx sdk.Context,
     chanCap *capabilitytypes.Capability,
     appPacket exported.PacketI,
 ) {
     // middleware may modify packet
     packet = doCustomLogic(appPacket)
-    return ics4Keeper.SendPacket(ctx, chanCap, packet)
+    return im.keeper.SendPacket(ctx, chanCap, packet)
 }
 ```
 
@@ -426,7 +428,7 @@ See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f5
 
 ```go
 // only called for async acks
-func WriteAcknowledgement(
+func (im IBCMiddleware) WriteAcknowledgement(
     ctx sdk.Context,
     chanCap *capabilitytypes.Capability,
     packet exported.PacketI,
@@ -434,7 +436,7 @@ func WriteAcknowledgement(
 ) {
     // middleware may modify acknowledgement
     ack_bytes = doCustomLogic(ack)
-    return ics4Keeper.WriteAcknowledgement(packet, ack_bytes)
+    return im.keeper.WriteAcknowledgement(packet, ack_bytes)
 }
 ```
 
@@ -446,12 +448,12 @@ See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f5
 
 ```go
 // middleware must return the underlying application version
-func GetAppVersion(
+func (im IBCMiddleware) GetAppVersion(
     ctx sdk.Context,
     portID,
     channelID string,
 ) (string, bool) {
-    version, found := ics4Keeper.GetAppVersion(ctx, portID, channelID)
+    version, found := im.keeper.GetAppVersion(ctx, portID, channelID)
     if !found {
         return "", false
     }
@@ -466,6 +468,8 @@ func GetAppVersion(
     return metadata.AppVersion, true
 }
 ```
+
+See [here](https://github.com/cosmos/ibc-go/blob/48a6ae512b4ea42c29fdf6c6f5363f50645591a2/modules/apps/29-fee/ibc_middleware.go#L355-L358) for an example implementation of this function for the ICS29 Fee Middleware module.
 
 </ExpansionPanel>
 

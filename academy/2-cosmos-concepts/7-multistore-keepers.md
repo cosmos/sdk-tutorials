@@ -96,7 +96,7 @@ func (k Keeper) GetAll(ctx sdk.Context) (list []returnType)
 
 The Cosmos SDK offers different store types to work with. It is important to gain a good overview of the different store types available for development.
 
-### `KVStore` and `Multistore` in Cosmos
+### `KVStore` and `Multistore` in the Interchain
 
 Each Cosmos SDK application contains a state at its root, the `Multistore`. It is subdivided into separate compartments managed by each module in the application. The `Multistore` is a store of `KVStore`s that follows the [`Multistore interface`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
 
@@ -522,7 +522,7 @@ If you want to go beyond out-of-context code samples like the above and see in m
 More precisely, you can jump to:
 
 * [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) for general detail of how you handle your game in storage.
-* [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling) for how you would handle the game when it is being created.
+* [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) for how you would handle the game when it is being created.
 * [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), where you add a small feature to your chain.
 * [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to see the implementation of the FIFO within the constraints of the store.
 * [Store leaderboard candidates](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) in the context's transient store.

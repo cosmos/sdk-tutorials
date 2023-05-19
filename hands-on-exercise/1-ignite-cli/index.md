@@ -1,15 +1,15 @@
 ---
 parent:
   title: First Steps
-  description: Get started with Ignite CLI and run your own Cosmos chain
+  description: Get started with Ignite CLI and run your Cosmos chain
   number: 1
 order: 0
-title: Chapter Overview - First steps to run your own chain
+title: Chapter Overview - First Steps to Run Your Chain
 tags:
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Get started with Ignite CLI and run your own Cosmos chain</div>
-<h1 class="mt-4 mb-6">First Steps - Run Your Own Cosmos Chain</h1>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">Get started with Ignite CLI and run your Cosmos chain</div>
+<h1 class="mt-4 mb-6">First Steps - Run Your Cosmos Chain</h1>
 
 Do you want to find out how to run Cosmos chains? Take it step-by-step.
 
@@ -17,7 +17,7 @@ Begin with an introduction to Ignite CLI. Then discover the first steps to build
 
 In the next chapters, you will learn how to implement a checkers game blockchain with all the different aspects this can entail.
 
-![](/hands-on-exercise/1-ignite-cli/images/cosmos_dev_portal_module-05-lp.png)
+![A sphere going through a sort of portal](/hands-on-exercise/1-ignite-cli/images/cosmos_dev_portal_module-05-lp.png)
 
 ## In this chapter
 

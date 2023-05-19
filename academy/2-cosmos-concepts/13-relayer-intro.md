@@ -92,7 +92,7 @@ The Go relayer has built-in functionality to fetch chain and path information fr
 
 ## FAQ
 
-Cosmos is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the **developers** forum and use the `run-infrastructure` tag in case you need help.
+The Interchain is developing fast, and minor changes can cause big problems for inexperienced users. Luckily you have the option to make direct contact with developers through the [Cosmos Developer Discord](https://discord.com/invite/cosmosnetwork). There you can find the **developers** forum and use the `run-infrastructure` tag in case you need help.
 
 <HighlightBox type="synopsis">
 

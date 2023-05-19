@@ -1,6 +1,6 @@
 ---
-title: "IBC solo machine"
-order: 9
+title: "IBC Solo Machine"
+order: 7
 description: Solo machine client
 tags:
   - concepts
@@ -8,7 +8,18 @@ tags:
   - dev-ops
 ---
 
-# Solo machine Client
+# Solo Machine Client
+
+<HighlightBox type="learning">
+
+In this section, you will:
+
+* Get a high-level overview of the solo machine client and the specification for solo machines.
+* Dive into how the solo machine client works.
+* Learn about the benefits of using the client.
+* Explore a solo machine implementation.
+
+</HighlightBox>
 
 IBC is the Inter-Blockchain Communication protocol, so its scope must be limited for use within blockchains right? Well, not quite. IBC was indeed conceived as a solution for interoperability between blockchains, or more generally between distributed ledgers. However, at the same time the design of the protocol aimed to be as universal and extensible as possible. It aims to **set a minimal set of requirements or interfaces a state machine must satisfy to communicate with remote counterparties**. This includes replicated state machines (i.e. blockchains), but the interfaces can also be satisfied by other data systems, such as _solo machines_.
 
@@ -18,7 +29,7 @@ Anything from a web application hosted on a server, to a browser, to the mobile 
 
 This is made possible using the IBC solo machine client.
 
-<HighlightBox type=note>
+<HighlightBox type="note">
 
 Note that we are discussing two different things here. On the one hand is the solo machine, the actual standalone machine used to sign messages to interact with IBC-enabled chains (see the examples above).
 <br/><br/>
@@ -72,7 +83,7 @@ Read more about Crypto.org's use of solo machines in [their docs](https://crypto
 
 </HighlightBox>
 
-## Solomachine client
+## Solo machine client
 
 The ibc-go implementation contains a solo machine client, `06-solomachine`, which enables Cosmos SDK chains to interact with solo machines over IBC. In this section, a high-level overview is provided into the [specification for solo machines](https://github.com/cosmos/ibc/tree/main/spec/client/ics-006-solo-machine-client).
 
@@ -135,7 +146,7 @@ It must of course also implement the `ConsensusState` methods defined in [the sp
 
 ### Verifying signatures
 
-The essence of the solo machine / solo machine client pair is that we can verify signatures based on public/private key cryptography. The public key is stored in the `ConsensusState` of the solo machine client, and can be used to verify signatures signed with the solo machine private key corresponding to the available public key. This signature verification is used in the following situations:
+The essence of the solo machine/solo machine client pair is that we can verify signatures based on public/private key cryptography. The public key is stored in the `ConsensusState` of the solo machine client, and can be used to verify signatures signed with the solo machine private key corresponding to the available public key. This signature verification is used in the following situations:
 
 * When updating the `ConsensusState` with a new public key or diversifier through submitting a `Header`.
 * When submitting evidence of `Misbehaviour` to freeze a malicious client.
@@ -375,3 +386,15 @@ IBC offers a unique and powerful framework for trust-minimized interoperability,
 While implementing light clients has been the standard design to plug into IBC, the options are not limited to this one method, and the solo machine (and client) offers an alternative to implementing IBC light clients. Given its simple proof verification method, the solo machine client is considerably easier to deploy from an engineering standpoint, and an effective solution in deployment scenarios where other potential concerns (eg. security) are mitigated by design.
 
 In conclusion, having access to IBC offers a host of benefits, but it is equally important to facilitate ease of access to IBC as much as possible. On this latter point, the solo machine client offers one of the best solutions available today.
+
+<HighlightBox type="synopsis">
+
+To summarize, this section has explored:
+
+* A solo machine is a standalone process that can interact with blockchains through IBC.
+* It can store key information but has no consensus algorithm of its own.
+* The ibc-go implementation contains a solo machine client enabling Cosmos SDK chains to interact with solo machines over IBC.
+* The benefits of using the solo machine client.
+* The implementation of solo machines.
+
+</HighlightBox>

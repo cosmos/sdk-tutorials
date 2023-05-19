@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concept of gas.
 * Go is installed.
-* You have the checkers blockchain codebase with the integration tests. If not, follow the [previous steps](./5-integration-tests.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/integration-tests).
+* You have the checkers blockchain codebase with the integration tests. If not, follow the [previous steps](./7-integration-tests.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/integration-tests).
 
 </HighlightBox>
 
@@ -157,22 +157,7 @@ func TestCreate1GameConsumedGas(t *testing.T) {
 }
 ```
 
-Now add another test for [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move_test.go#L176-L192). Note that `after` is much less than `before`:
-
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_reject_game_test.go#L96-L107]
-func TestRejectGameByBlackRefundedGas(t *testing.T) {
-    msgServer, _, context, ctrl, _ := setupMsgServerWithOneGameForRejectGame(t)
-    ctx := sdk.UnwrapSDKContext(context)
-    defer ctrl.Finish()
-    before := ctx.GasMeter().GasConsumed()
-    msgServer.RejectGame(context, &types.MsgRejectGame{
-        Creator:   bob,
-        GameIndex: "1",
-    })
-    after := ctx.GasMeter().GasConsumed()
-    require.LessOrEqual(t, after, before-5_000)
-}
-```
+Now add another test for [play](https://github.com/cosmos/b9-checkers-academy-draft/blob/gas-meter/x/checkers/keeper/msg_server_play_move_test.go#L176-L192).
 
 These new tests are lame, because their `5_000` or `25_000` values cannot be predicted but have to be found by trial and error.
 
@@ -236,7 +221,7 @@ $ docker exec -it checkers \
 
 </CodeGroup>
 
-Say, this time you get `54422`. This is good: the `15000` gas is no longer part of the estimation, as expected. Uncomment the `.ConsumeGas` line. You can try `--dry-run` on play and reject too.
+Say, this time you get `54422`. This is good: the `15000` gas is no longer part of the estimation, as expected. Uncomment the `.ConsumeGas` line. You can try `--dry-run` on play too.
 
 Estimating with `--dry-run` is a good start. Now have Alice create a game and check the gas used in the transaction:
 

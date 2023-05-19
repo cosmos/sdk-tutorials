@@ -543,7 +543,7 @@ With a view to reusing them, add convenience methods that encapsulate the extrac
     export type GamePiece = Player | "*"
     ```
 
-### Create and Play
+### Create and play
 
 Start by creating a game, extracting its index from the logs, and confirming that you can fetch it.
 
@@ -1116,7 +1116,7 @@ $ docker network rm checkers-net
 To summarize, this section has explored:
 
 * How to create the elements necessary for you to begin sending transactions to your checkers blockchain, including encodable messages, a signing client, and action methods that permit interaction with the blockchain.
-* How to test your signing client, including key preparation (with either a mnemonic or a private key) and client preparation, followed by functions such as creating a game, rejecting a game, or playing a move.
+* How to test your signing client, including key preparation (with either a mnemonic or a private key) and client preparation, followed by functions such as creating a game, or playing a move.
 * How to send multiple transactions in one block, simulating a stress test.
 * How to send multiple messages in a single transaction.
 

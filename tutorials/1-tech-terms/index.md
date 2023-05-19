@@ -276,12 +276,6 @@ In the Cosmos SDK, gRPC-Gateway provides an HTTP1.1 server with REST API and a b
 
 For example, if you cannot use gRPC for your application because a browser does not support HTTP2, you can still use the Cosmos SDK. The SDK provides REST routes via gRPC-Gateway.
 
-<HighlightBox type="info">
-
-[Terra.js](https://terra-money.github.io/terra.js/), a JavaScript SDK for applications interacting with the Terra blockchain, uses gRPC-gateway.
-
-</HighlightBox>
-
 ## Amino
 
 Amino is an object encoding specification. In the Cosmos SDK, every module uses an **Amino codec** that helps serialize types and interfaces. Amino handles interfaces by prefixing bytes before concrete types.

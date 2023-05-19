@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
-* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/108-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 
@@ -141,7 +141,7 @@ Create the folder structure to receive the compiled files:
 $ mkdir -p client/src/types/generated
 ```
 
-Check what Cosmos version you are using:
+Check what Cosmos SDK version you are using:
 
 ```sh
 $ grep cosmos-sdk go.mod
@@ -788,7 +788,6 @@ StoredGame
 
 SystemInfo
   ✔ can get system info
-
 
 3 passing (287ms)
 ```

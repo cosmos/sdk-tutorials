@@ -1,7 +1,7 @@
 ---
 title: "A Blockchain App Architecture"
 order: 2
-description: ABCI, Tendermint, and state machines
+description: ABCI, CometBFT, and state machines
 tags: 
   - concepts
   - cosmos-sdk
@@ -15,15 +15,15 @@ In this section, you will look closer at the application architecture underlying
 
 In this section, you will deepen your understanding of the application architecture underlying blockchains built with the Cosmos SDK. You will explore:
 
-* What Tendermint is
-* Consensus in Cosmos
+* What Tendermint and CometBFT is
+* Consensus in the Interchain
 * The Application Blockchain Interface
 * The Cosmos SDK
 * State machines
 
 </HighlightBox>
 
-## What is Tendermint?
+## What are Tendermint and CometBFT?
 
 Created in 2014, [Tendermint](https://tendermint.com/) accelerates the development of distinct blockchains with a ready-made networking and consensus solution, so developers do not have to recreate these features for each new case. You may already use Tendermint without being aware of it, as other blockchains like [Hyperledger Burrow](https://hyperledger.github.io/burrow/#/) and the [Binance Chain](https://www.binance.org/en/smartChain) use Tendermint.
 
@@ -50,7 +50,7 @@ Want to continue exploring this useful component of the Cosmos SDK? Find further
 
 </ExpansionPanel>
 
-## Consensus with CometBFT and Cosmos
+## Consensus with CometBFT and the Interchain
 
 CometBFT is a high-performance, consistent, flexible, and secure **consensus** module with strict fork accountability. It relies on Proof-of-Stake (PoS) with delegation and [Practical Byzantine Fault Tolerance](https://arxiv.org/abs/1807.04938). Participants signal support for well-behaved, reliable nodes that create and confirm blocks. Users signal support by staking ATOM, or the native token of the respective chain. Staking bears the possibility of acquiring a share of the network transaction fees, but also the risk of reduced returns or even losses should the supported node become unreliable.
 
@@ -81,7 +81,7 @@ Validators and delegators are the parties who vote on proposals, with weights pr
 
 ## Application Blockchain Interface (ABCI)
 
-[CometBFTBFT](https://docs.cometbft.com/v0.37/) packages the networking and consensus layers of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers can focus on higher-order concerns and delegate peer-discovery, validator selection, staking, upgrades, and consensus to CometBFT. The consensus engine runs in one process and controls the state machine, while the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
+[CometBFT](https://docs.cometbft.com/v0.37/) packages the networking and consensus layers of a blockchain and presents an interface to the application layer, the **Application Blockchain Interface (ABCI)**. Developers can focus on higher-order concerns and delegate peer-discovery, validator selection, staking, upgrades, and consensus to CometBFT. The consensus engine runs in one process and controls the state machine, while the application runs in another process. The architecture is equally appropriate for **private or public blockchains**.
 
 CometBFT is connected to the application by a socket protocol. ABCI provides a socket for applications written in other languages. If the application is written in the same language as the CometBFT implementation, the socket is not used.
 
@@ -223,7 +223,7 @@ In the following suggested exercise, you will create a minimal distributed state
 
 ## Test yourself - a pseudo-coding exercise
 
-With all you have learned about Tendermint, can you **design** a minimal distributed state machine, and think about relevant pseudo-code, for a blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of Tendermint.
+With all you have learned about Tendermint and CometBFt, can you **design** a minimal distributed state machine, and think about relevant pseudo-code, for a blockchain that allows people to play the game of checkers? Open the following section, **Creating a checkers blockchain**, to start this reflection and reinforce your understanding of Tendermint.
 
 You will continue to apply what you learn in later sections to your checkers game, and design a blockchain by using elements of the Cosmos SDK. Alternatively, you can continue directly to learn about [accounts in the Cosmos SDK](./2-accounts.md).
 
@@ -441,7 +441,7 @@ To summarize, this section has explored:
 * How CometBFT ensures the upgradeability of chains without the possibility of forking, since (like blocks) any proposed upgrades must be validated by a majority of nodes, and there is no process for reversing validation after the fact.
 * The Application Blockchain Interface (ABCI), through which developers are able to work on the higher-order aspects of their projects. The ABCI connects to CometBFT through a socket protocol, and also provides a socket for applications written in other languages, providing additional flexibility to developers.
 * The Cosmos SDK, an array of well-solved modular components that developers can rapidly configure and integrate to create the foundations for unique, custom-designed applications.
-* The Inter-Blockchain Communication Protocol (IBC), a common framework within Cosmos which allows information exchange between blockchains both inside and outside the Cosmos Ecosystem.
+* The Inter-Blockchain Communication Protocol (IBC), a common framework within the Interchain which allows information exchange between blockchains both inside and outside the Interchain Ecosystem.
 
 </HighlightBox>
 
@@ -454,7 +454,7 @@ The following sections will extend your comprehension of the Cosmos SDK and the 
 * It would be good to have an elegant way to serialize data objects of interest and your transactions. [Protobuf](./6-protobuf.md) can help with this.
 * How can you penalize spam and bad transactions, and also to be able to play for money? Incorporate tokens defined in another [existing Cosmos SDK module](./5-modules.md).
 * There is a new transaction type: to _create a game_. The Cosmos SDK [context object](./11-context.md) allows you to tailor gas costs according to transaction type.
-* If you need to handle validator lists during communication, Cosmos does this out of the box with [BaseApp](./8-base-app.md).
+* If you need to handle validator lists during communication, the Interchain does this out of the box with [BaseApp](./8-base-app.md).
 * Do you want the player's GUI to easily reload any pending games, or let them know whether a move is valid or not? These are good uses of Cosmos SDK [queries](./9-queries.md).
 * If you want to use CometBFT to notify players when it's their turn, Cosmos SDK provides that option with [events](./10-events.md).
-* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./13-migrations.md).
+* What if you want to add changes to your system in the future after production? You can easily handle this with Cosmos SDK [migrations](./16-migrations.md).

@@ -6,7 +6,7 @@ tags:
   - tutorial
 ---
 
-# Go Introduction - First Steps
+# First Steps
 
 Golang (Go) is an open-source, statically typed, and compiled programming language introduced by Google and first released in 2012. It has a BSD-style license. Its Git repository is located at [https://go.googlesource.com/go](https://go.googlesource.com/go).
 

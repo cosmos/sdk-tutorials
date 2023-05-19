@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), [modules](/academy/2-cosmos-concepts/5-modules.md), and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
+* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), [modules](/academy/2-cosmos-concepts/5-modules.md), and [migrations](/academy/2-cosmos-concepts/16-migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _Tally Player Info After Production_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/2-migration-info.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/player-info-migration).
 
@@ -733,7 +733,7 @@ To populate candidate winners in your transient store, you are going to _listen_
 * It will be the duty of `app.go` to hook the leaderboard's listener to the checkers emitter.
 * To reduce the dependency of the leaderboard module on elements of the checkers module, you are going to restrict to a single file.
 
-With Cosmos SDK hooks are a design pattern, so you have to code them.
+With the Cosmos SDK, hooks are a design pattern so you have to code them.
 
 ### On the checkers module
 

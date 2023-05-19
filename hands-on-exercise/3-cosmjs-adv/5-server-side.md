@@ -1022,7 +1022,7 @@ Forfeit game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosm
 
 <HighlightBox type="tip">
 
-In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.mdl#interact-via-the-cli).
+In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.md#interact-via-the-cli).
 
 </HighlightBox>
 
@@ -1170,10 +1170,10 @@ These are examples of server-side scripts, which can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
 
-So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
+<!-- So what's next? The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
 * Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
+Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Interchain universe. -->

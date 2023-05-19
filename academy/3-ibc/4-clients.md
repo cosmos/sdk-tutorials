@@ -100,7 +100,7 @@ Because of this separation of concerns, IBC clients can be created for any numbe
 
 </HighlightBox>
 
-In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [CometBFT client](https://github.com/cosmos/ibc-go/blob/v5.1.0/modules/light-clients/07-tendermint/client_state.go) is offered out of the box:
+In addition, you can see that the function expects a `ClientState`. This `ClientState` will look different depending on which type of client is to be created for IBC. In the case of Cosmos-SDK chains and the corresponding implementation of ibc-go, the [CometBFT (Tendermint) client](https://github.com/cosmos/ibc/tree/main/spec/client/ics-007-tendermint-client#client-state) is offered out of the box:
 
 ```typescript
 interface ClientState {
@@ -154,7 +154,7 @@ The CometBFT client `ConsensusState` tracks the timestamp of the block being cre
 
 <HighlightBox type="tip">
 
-The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](/academy/3-ibc/4-clients.html#updating-a-client) for more information about what happens when a validator set changes between blocks.
+The next validator set is used for verifying subsequent submitted headers or updates to the counterparty `ConsensusState`. See the following part on [Updating clients](/academy/3-ibc/4-clients.md#updating-a-client) for more information about what happens when a validator set changes between blocks.
 
 </HighlightBox>
 

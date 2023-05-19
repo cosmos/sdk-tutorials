@@ -27,19 +27,19 @@ In this section you will discover how to define an application state machine and
 
 </HighlightBox>
 
-`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
+`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Interchain application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
 
 <HighlightBox type="info">
 
-The Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
+The CometBFT consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
 
 </HighlightBox>
 
-Applications that rely on the Tendermint consensus must implement concrete functions that support the ABCI interface. `BaseApp` includes an implementation of ABCI so developers are not required to construct one.
+Applications that rely on the CometBFT consensus must implement concrete functions that support the ABCI interface. `BaseApp` includes an implementation of ABCI so developers are not required to construct one.
 
 ABCI itself includes methods such as `DeliverTx`, which delivers a transaction. The interpretation of the transaction is an application-level responsibility. Since a typical application supports more than one type of transaction, interpretation implies the need for a service router that will send the transaction to different interpreters based on the transaction type. `BaseApp` includes a service router implementation.
 
-As well as an ABCI implementation, `BaseApp` also provides a state machine implementation. The implementation of a state machine is an application-level concern because the Tendermint consensus is application-agnostic. The Cosmos SDK state machine implementation contains an overall state that is subdivided into various substates. Subdivisions include module states, persistent states, and transient states. These are all implemented in `BaseApp`.
+As well as an ABCI implementation, `BaseApp` also provides a state machine implementation. The implementation of a state machine is an application-level concern because the CometBFT consensus is application-agnostic. The Cosmos SDK state machine implementation contains an overall state that is subdivided into various substates. Subdivisions include module states, persistent states, and transient states. These are all implemented in `BaseApp`.
 
 `BaseApp` provides a secure interface between the application, the blockchain, and the state machine while defining as little as possible about the state machine.
 

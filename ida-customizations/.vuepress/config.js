@@ -69,9 +69,9 @@ module.exports = {
     label: "sdk",
     isIDAMode: true,
     algolia: {
-      id: "QLS2QSP47E",
-      key: "ca3a435a218a2eb0f99a31f83b2ec309",
-      index: "cosmos_network_ida",
+      id: "BH4D9OD16A",
+      key: "7976d773390a0be350dc24b0571eee15",
+      index: "cosmos-sdk_tutorials",
     },
     topbar: {
       banner: true,
@@ -82,7 +82,7 @@ module.exports = {
       filterByTagEnabled: true,
       nav: [
         {
-          title: "Cosmos Developer Academy",
+          title: "Interchain Developer Academy",
           children: [
             {
               title: "Week 0 - Getting Started",
@@ -155,16 +155,16 @@ module.exports = {
               ],
             },
             {
-              title: "Week 1 - Introduction to Cosmos",
+              title: "Week 1 - Introduction to the Interchain",
               directory: true,
               order: 2,
               children: [
                 {
-                  title: "Introduction to Cosmos",
+                  title: "Introduction to the Interchain",
                   path: "/ida-course/LPs/week-1/",
                 },
                 {
-                  title: "Blockchain Technology and Cosmos",
+                  title: "Blockchain Technology and the Interchain",
                   path: "/academy/1-what-is-cosmos/1-blockchain-and-cosmos.html",
                 },
                 {
@@ -271,7 +271,7 @@ module.exports = {
                   path: "/hands-on-exercise/1-ignite-cli/2-exercise-intro.html",
                 },
                 {
-                  title: "Store Object - Make a Checkers Blockchain",
+                  title: "Store Object",
                   path: "/hands-on-exercise/1-ignite-cli/3-stored-game.html",
                 },
                 {
@@ -314,32 +314,36 @@ module.exports = {
                   path: "/academy/3-ibc/1-what-is-ibc.html",
                 },
                 {
-                  title: "IBC/TAO - Connections - OPTIONAL",
+                  title: "IBC/TAO - Connections (OPTIONAL)",
                   path: "/academy/3-ibc/2-connections.html",
                 },
                 {
-                  title: "IBC/TAO - Channels - OPTIONAL",
+                  title: "IBC/TAO - Channels (OPTIONAL)",
                   path: "/academy/3-ibc/3-channels.html",
                 },
                 {
-                  title: "IBC/TAO - Clients - OPTIONAL",
+                  title: "IBC/TAO - Clients (OPTIONAL)",
                   path: "/academy/3-ibc/4-clients.html",
-                },
-                {
-                  title: "Light client development",
-                  path: "/academy/3-ibc/5-light-client-dev.html",
-                },
-                {
-                  title: "Solo machine client",
-                  path: "/academy/3-ibc/6-solomachine.html",
                 },
                 {
                   title: "IBC Token Transfer",
                   path: "/academy/3-ibc/7-token-transfer.html",
                 },
                 {
-                  title: "Interchain Accounts - OPTIONAL",
-                  path: "/academy/3-ibc/6-ica.html",
+                  title: "Interchain Accounts (OPTIONAL)",
+                  path: "/academy/3-ibc/8-ica.html",
+                },
+                {
+                  title: "IBC Middleware (OPTIONAL)",
+                  path: "/academy/3-ibc/9-ibc-mw-intro.html",
+                },
+                {
+                  title: "Create a Custom IBC Middleware (OPTIONAL)",
+                  path: "/academy/3-ibc/10-ibc-mw-develop.html",
+                },
+                {
+                  title: "Integrate IBC Middleware Into a Chain (OPTIONAL)",
+                  path: "/academy/3-ibc/11-ibc-mw-integrate.html",
                 },
                 {
                   title: "IBC Middleware - OPTIONAL",
@@ -356,10 +360,6 @@ module.exports = {
                 {
                   title: "IBC Tooling",
                   path: "/academy/3-ibc/12-ibc-tooling.html",
-                },
-                {
-                  title: "IBC Solo Machines - OPTIONAL",
-                  path: "/academy/3-ibc/8-solomachine.html",
                 },
                 {
                   title: "What is CosmJS?",
@@ -397,7 +397,7 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html",
                 },
                 {
-                  title: "Record the Move Count",
+                  title: "Keep Track Of How Many Moves Have Been Played",
                   path: "/hands-on-exercise/2-ignite-cli-adv/2-move-count.html",
                 },
                 {
@@ -418,11 +418,7 @@ module.exports = {
                 },
                 {
                   title: "Integration tests",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/8-integration-tests.html",
-                },
-                {
-                  title: "Add integration tests",
-                  path: "/hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html",
+                  path: "/hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html",
                 },
                 {
                   title: "Incentivize Players",
@@ -433,12 +429,12 @@ module.exports = {
                   path: "/hands-on-exercise/2-ignite-cli-adv/9-can-play.html",
                 },
                 {
-                  title: "Understand IBC Denoms",
-                  path: "/tutorials/6-ibc-dev/",
-                },
-                {
                   title: "Play With Cross-Chain Tokens",
                   path: "/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html",
+                },
+                {
+                  title: "Understand IBC Denoms",
+                  path: "/tutorials/6-ibc-dev/",
                 },
                 {
                   title: "Go Relayer",
@@ -491,7 +487,7 @@ module.exports = {
                   path: "/ida-course/LPs/week-6/",
                 },
                 {
-                  title: "Custom IBC application module introduction",
+                  title: "IBC Application Developer Introduction",
                   path: "/hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html",
                 },
                 {
@@ -504,11 +500,11 @@ module.exports = {
                 },
                 {
                   title: "Extend the Checkers Game With a Leaderboard",
-                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.html"
+                  path: "/hands-on-exercise/5-ibc-adv/6-ibc-app-checkers.html",
                 },
                 {
                   title: "Create a Leaderboard Chain",
-                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.html"
+                  path: "/hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.html",
                 },
               ],
             },
@@ -522,7 +518,7 @@ module.exports = {
                   path: "/ida-course/LPs/week-7/",
                 },
                 {
-                  title: "Overview",
+                  title: "Run in Production",
                   path: "/tutorials/9-path-to-prod/1-overview.html",
                 },
                 {
@@ -550,7 +546,7 @@ module.exports = {
                   path: "/tutorials/9-path-to-prod/7-migration.html",
                 },
                 {
-                  title: "Simulate Production with Docker Compose",
+                  title: "Simulate Production in Docker",
                   path: "/hands-on-exercise/4-run-in-prod/1-run-prod-docker.html",
                 },
                 {
@@ -558,20 +554,12 @@ module.exports = {
                   path: "/hands-on-exercise/4-run-in-prod/2-migration-info.html",
                 },
                 {
-                  title: "Add a Leaderboard Module",
+                  title: "Add a Leaderboard as a Module",
                   path: "/hands-on-exercise/4-run-in-prod/3-add-leaderboard.html",
                 },
                 {
                   title: "Migrate the Leaderboard Module After Production",
                   path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
-                },
-                {
-                  title: "Add a Migration for your Leaderboard Module",
-                  path: "/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html",
-                },
-                {
-                  title: "Simulate a Production Migration with Docker Compose",
-                  path: "/hands-on-exercise/4-run-in-prod/5-migration-prod.html",
                 },
                 {
                   title: "Simulate a Migration in Docker",
@@ -598,7 +586,7 @@ module.exports = {
       editLink: true,
       chat: {
         title: "Discord",
-        text: "Chat with Cosmos developers on Discord.",
+        text: "Chat with Interchain developers on Discord.",
         url: "https://discordapp.com/channels/669268347736686612",
         bg: "linear-gradient(225.11deg, #2E3148 0%, #161931 95.68%)",
       },
@@ -669,8 +657,8 @@ module.exports = {
               url: "https://hub.cosmos.network",
             },
             {
-              title: "Tendermint Core",
-              url: "https://docs.tendermint.com",
+              title: "CometBFT",
+              url: "https://docs.cometbft.com/",
             },
             {
               title: "IBC Protocol",
@@ -682,7 +670,7 @@ module.exports = {
           title: "Community",
           children: [
             {
-              title: "Cosmos blog",
+              title: "Interchain blog",
               url: "https://blog.cosmos.network",
             },
             {
@@ -707,49 +695,49 @@ module.exports = {
       ],
     },
     tags: {
-      'dev-ops': {
-        color: '#54ffe0',
-        label: 'DevOps',
-        isBright: true
+      "dev-ops": {
+        color: "#54ffe0",
+        label: "DevOps",
+        isBright: true,
       },
-      'cosmos-sdk': {
-        color: '#F69900',
-        label: 'Cosmos SDK',
-        isBright: true
+      "cosmos-sdk": {
+        color: "#F69900",
+        label: "Cosmos SDK",
+        isBright: true,
       },
-      'ibc': {
-        color: '#ff1717',
-        label: 'IBC'
+      ibc: {
+        color: "#ff1717",
+        label: "IBC",
       },
-      'cosm-js': {
-        color: '#6836D0',
-        label: 'CosmJS'
+      "cosm-js": {
+        color: "#6836D0",
+        label: "CosmJS",
       },
-      'cosm-wasm': {
-        color: '#05BDFC',
-        label: 'CosmWasm'
+      "cosm-wasm": {
+        color: "#05BDFC",
+        label: "CosmWasm",
       },
-      'tendermint': {
-        color: '#00B067',
-        label: 'Tendermint'
+      cometbft: {
+        color: "#00B067",
+        label: "CometBFT",
       },
-      'cosmos-hub': {
-        color: '#f7f199',
-        label: 'Cosmos Hub',
-        isBright: true
+      "cosmos-hub": {
+        color: "#f7f199",
+        label: "Cosmos Hub",
+        isBright: true,
       },
-      'concepts': {
-        color: '#AABAFF',
-        label: 'Concept',
-        isBright: true
+      concepts: {
+        color: "#AABAFF",
+        label: "Concept",
+        isBright: true,
       },
-      'tutorial': {
-        color: '#F46800',
-        label: 'Tutorial'
+      tutorial: {
+        color: "#F46800",
+        label: "Tutorial",
       },
-      'guided-coding': {
-        color: '#F24CF4',
-        label: 'Guided Coding'
+      "guided-coding": {
+        color: "#F24CF4",
+        label: "Guided Coding",
       },
     },
     feedback: {
@@ -769,20 +757,20 @@ module.exports = {
         image: "/cosmos-sdk-icon.svg",
       },
       {
-        title: "Tendermint Core",
+        title: "CometBFT",
         description: "Blockchain consensus engine and application interface",
         links: [
           {
             name: "Documentation",
-            url: "https://docs.tendermint.com/",
+            url: "https://docs.cometbft.com/",
           },
         ],
-        image: "/tendermint-icon.svg",
+        image: "/comet-bft-logo.svg",
       },
       {
         title: "Cosmos Hub",
         description:
-          "First interconnected public blockchain on the Cosmos network",
+          "First interconnected public blockchain in the Interchain network",
         links: [
           {
             name: "Documentation",

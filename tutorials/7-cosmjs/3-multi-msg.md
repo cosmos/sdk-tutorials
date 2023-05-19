@@ -12,7 +12,7 @@ tags:
 
 <HighlightBox type="learning">
 
-In Cosmos, a transaction is able to encapsulate multiple messages.
+In the Interchain, a transaction is able to encapsulate multiple messages.
 <br/><br/>
 In this section, you will:
 
@@ -247,7 +247,7 @@ Note how the custom fee input was replaced with the `auto` input, which simulate
 
 The above example shows you two token-transfer messages in a single transaction. You can see this with their `typeUrl: "/cosmos.bank.v1beta1.MsgSend"`.
 
-Neither Cosmos nor CosmJS limits you to combining messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
+Neither the Cosmos SDK nor CosmJS limits you to combining messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to a validator.

@@ -16,7 +16,7 @@ Make sure you have all you need before proceeding:
 
 * You understand the concepts of [messages](/academy/2-cosmos-concepts/4-messages.md), [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md), and [IBC](/academy/3-ibc/1-what-is-ibc.md).
 * Go is installed.
-* You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
+* You have the checkers blockchain codebase up to the _can play_ query. If not, follow some [previous steps](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/can-play-move-handler).
 
 </HighlightBox>
 
@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
+When you [introduced a wager](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) you enabled players to play a game and bet on the outcome using the base staking token of your blockchain. What if your players want to play with _other_ currencies? Your blockchain can represent a token from any other connected blockchain by using the Inter-Blockchain Communication Protocol (IBC).
 
 Thus, you could expand the pool of your potential players by extending the pool of possible wager denominations via the use of IBC. How can you do this?
 

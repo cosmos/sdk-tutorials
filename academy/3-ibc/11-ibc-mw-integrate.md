@@ -45,7 +45,6 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
       transfer.NewAppModule(transferKeeper),
       custom.NewAppModule(customKeeper)
   )
-
   ```
 
   </ExpansionPanel>
@@ -55,23 +54,21 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   <ExpansionPanel title="Example code">
 
   ```go
-      //app.go
+  //app.go
 
-      // add scoped keepers in case the middleware wishes to
-      // send a packet or acknowledgement without
-      // the involvement of the underlying application
-      scopedKeeperTransfer := capabilityKeeper.NewScopedKeeper("transfer")
-      scopedKeeperCustom1 := capabilityKeeper.NewScopedKeeper("custom1")
-      scopedKeeperCustom2 := capabilityKeeper.NewScopedKeeper("custom2")
-
-
+  // add scoped keepers in case the middleware wishes to
+  // send a packet or acknowledgement without
+  // the involvement of the underlying application
+  scopedKeeperTransfer := capabilityKeeper.NewScopedKeeper("transfer")
+  scopedKeeperCustom1 := capabilityKeeper.NewScopedKeeper("custom1")
+  scopedKeeperCustom2 := capabilityKeeper.NewScopedKeeper("custom2")
   ```
 
   </ExpansionPanel>
 
   For example, if the middleware `mw1` needs the ability to send a packet on custom2's port without involving the underlying application `custom2`, it would require access to the latter's `scopedKeeper`:
 
-  ```diff
+  ```diff-go
   - mw1Keeper := mw1.NewKeeper(storeKey1)
   + mw1Keeper := mw1.NewKeeper(storeKey1, scopedKeeperCustom2)
   ```
@@ -87,14 +84,13 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   <ExpansionPanel title="Example code">
 
   ```go
-      // initialize base IBC applications
-      //
-      // if you want to create two different stacks with the same base application,
-      // they must be given different scopedKeepers and assigned different ports
-      transferIBCModule := transfer.NewIBCModule(transferKeeper)
-      customIBCModule1 := custom.NewIBCModule(customKeeper, "portCustom1")
-      customIBCModule2 := custom.NewIBCModule(customKeeper, "portCustom2")
-
+  // initialize base IBC applications
+  //
+  // if you want to create two different stacks with the same base application,
+  // they must be given different scopedKeepers and assigned different ports
+  transferIBCModule := transfer.NewIBCModule(transferKeeper)
+  customIBCModule1 := custom.NewIBCModule(customKeeper, "portCustom1")
+  customIBCModule2 := custom.NewIBCModule(customKeeper, "portCustom2")
   ```
 
   </ExpansionPanel>
@@ -106,9 +102,9 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   In addition to the diagram shown in the [introduction](./10-ibc-mw-intro.md), also note the direction of information flow through the middleware by looking at the interface:
 
   ```go
-      type Middleware interface {
-          IBCModule
-          ICS4Wrapper
+  type Middleware interface {
+      IBCModule
+      ICS4Wrapper
   }
   ```
 
@@ -118,33 +114,33 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
 
   In the code snippet below, three different stacks are defined:
 
-    <ExpansionPanel title="Example code">
-    
-    ```go
-        // create IBC stacks by combining middleware with the base application
-        // NOTE: since middleware2 is stateless it does not require a Keeper
-        // stack 1 contains mw1 -> mw3 -> transfer
-        stack1 := mw1.NewIBCMiddleware(mw3.NewIBCMiddleware(transferIBCModule, mw3Keeper), mw1Keeper)
-        // stack 2 contains mw3 -> mw2 -> custom1
-        stack2 := mw3.NewIBCMiddleware(mw2.NewIBCMiddleware(customIBCModule1), mw3Keeper)
-        // stack 3 contains mw2 -> mw1 -> custom2
-        stack3 := mw2.NewIBCMiddleware(mw1.NewIBCMiddleware(customIBCModule2, mw1Keeper))
-        // associate each stack with the moduleName provided by the underlying scopedKeeper
-        
-    ```
-    </ExpansionPanel>
+  <ExpansionPanel title="Example code">
+  
+  ```go
+  // create IBC stacks by combining middleware with the base application
+  // NOTE: since middleware2 is stateless it does not require a Keeper
+  // stack 1 contains mw1 -> mw3 -> transfer
+  stack1 := mw1.NewIBCMiddleware(mw3.NewIBCMiddleware(transferIBCModule, mw3Keeper), mw1Keeper)
+  // stack 2 contains mw3 -> mw2 -> custom1
+  stack2 := mw3.NewIBCMiddleware(mw2.NewIBCMiddleware(customIBCModule1), mw3Keeper)
+  // stack 3 contains mw2 -> mw1 -> custom2
+  stack3 := mw2.NewIBCMiddleware(mw1.NewIBCMiddleware(customIBCModule2, mw1Keeper))
+  // associate each stack with the moduleName provided by the underlying scopedKeeper
+  ```
+
+  </ExpansionPanel>
 
 * All middleware must be connected to the IBC router and wrap over an underlying base IBC application. An IBC application may be wrapped by many layers of middleware, **but only the top-layer middleware should be hooked to the IBC router**, with all underlying middlewares and application getting wrapped by it.
 
   <ExpansionPanel title="Example code">
 
   ```go
-      // associate each stack with the moduleName provided by the underlying scopedKeeper
-      ibcRouter := porttypes.NewRouter()
-      ibcRouter.AddRoute("transfer", stack1)
-      ibcRouter.AddRoute("custom1", stack2)
-      ibcRouter.AddRoute("custom2", stack3)
-      app.IBCKeeper.SetRouter(ibcRouter)
+  // associate each stack with the moduleName provided by the underlying scopedKeeper
+  ibcRouter := porttypes.NewRouter()
+  ibcRouter.AddRoute("transfer", stack1)
+  ibcRouter.AddRoute("custom1", stack2)
+  ibcRouter.AddRoute("custom2", stack3)
+  app.IBCKeeper.SetRouter(ibcRouter)
   ```
 
   </ExpansionPanel>
@@ -173,6 +169,7 @@ app.moduleManager = module.NewManager(
     mw3.NewAppModule(mw3Keeper),
     transfer.NewAppModule(transferKeeper),
     custom.NewAppModule(customKeeper)
+)
 
 transferIBCModule := transfer.NewIBCModule(transferKeeper)
 customIBCModule1 := custom.NewIBCModule(customKeeper, "portCustom1")

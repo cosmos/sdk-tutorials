@@ -174,7 +174,7 @@ If you want to go beyond out-of-context code samples like the above and see more
 <br/><br/>
 More precisely, you can jump to:
 
-* [Help Find a Correct Move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md) to see how to implement a query with the help of Ignite CLI.
+* [Help Find a Correct Move](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md) to see how to implement a query with the help of Ignite CLI.
 
 </HighlightBox>
 

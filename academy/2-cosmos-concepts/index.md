@@ -13,7 +13,7 @@ tags:
 
 Enjoy an introduction to the main components of the Cosmos SDK.
 
-From Tendermint to modules, keepers, queries, and transactions in Cosmos, a whole universe is waiting to be discovered.
+From Tendermint to modules, keepers, queries, and transactions in the Interchain, a whole universe is waiting to be discovered.
 
 Do you have a preferred **learning style**? For instance:
 
@@ -32,7 +32,8 @@ In this chapter, you will:
 
 * Get an introduction to Tendermint and consensus in the Cosmos SDK.
 * Develop an understanding of the different components of the Cosmos SDK.
-* Learn about Interchain Security.
+* Learn about relaying with the Inter-Blockchain Communication Protocol (IBC).
+* Discover hod dApp developers can benefit from Interchain Security.
 
 </HighlightBox>
 

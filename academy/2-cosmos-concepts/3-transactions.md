@@ -11,7 +11,7 @@ tags:
 
 <HighlightBox type="learning">
 
-In this section you will dive into the various functions and features of making transactions in Cosmos:
+In this section you will dive into the various functions and features of making transactions in the Interchain:
 
 * Transactions and Messages
 * Signing Transactions
@@ -151,7 +151,7 @@ See this [code example](https://github.com/cosmos/cosmos-sdk/blob/master/docs/do
 
 ### CometBFT RPC
 
-The three methods presented previously are higher abstractions on the CometBFT RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [CometBFT RPC endpoints](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html) to directly broadcast the transaction through CometBFT if you wish to.
+The three methods presented previously are higher abstractions on the CometBFT RPC `/broadcast_tx_{async,sync,commit}` endpoints. You can use the [Tendermint RPC endpoints](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html) to directly broadcast the transaction through CometBFT if you wish to.
 
 <HighlightBox type="info">
 
@@ -161,7 +161,7 @@ CometBFT supports the following RPC protocols:
 * JSONRPC over HTTP.
 * JSONRPC over WebSockets.
 
-For more information on broadcasting with CometBFT RPC, see the documentation on [CometBFT RPC transactions broadcast APIs](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html).
+For more information on broadcasting with CometBFT RPC, see the documentation on [Tendermint RPC transactions broadcast APIs](https://docs.tendermint.com/v0.34/tendermint-core/rpc.html).
 
 </HighlightBox>
 

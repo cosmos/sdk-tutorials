@@ -1044,7 +1044,7 @@ Also, look at [`simapp/app.go`](https://github.com/cosmos/cosmos-sdk/blob/v0.45.
 ...
 ```
 
-The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Cosmos stack. To understand a module, the best way is to have a look at the respective `spec` folder. For example, look at the [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/bank/spec/01_state.md) to understand the state of the `bank` module which you used in this section.
+The modules in the `/cosmos-sdk/x/` folder are maintained by several organisations working on the Interchain Stack. To understand a module, the best way is to have a look at the respective `spec` folder. For example, look at the [`cosmos-sdk/x/bank/spec/01_state.md`](https://github.com/cosmos/cosmos-sdk/blob/v0.45.4/x/bank/spec/01_state.md) to understand the state of the `bank` module which you used in this section.
 
 <HighlightBox type="tip">
 

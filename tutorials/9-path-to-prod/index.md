@@ -4,7 +4,7 @@ parent:
   description: See your chain in action
   number: 9
 order: 0
-title: Chapter Overview - See your chain in action
+title: Chapter Overview - See Your Chain in Action
 tags:
 ---
 
@@ -13,7 +13,7 @@ tags:
 
 After having developed your chain, now you will take the next step to move your chain into production.
 
-![](/lp-images/universe.svg)
+![Several planets around a star](/lp-images/universe.svg)
 
 ## In this chapter
 

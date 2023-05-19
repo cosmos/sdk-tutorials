@@ -107,7 +107,7 @@ func (im IBCModule) OnChanOpenInit(
 
 ## Transfer packet flow
 
-You have seen an introduction to the application packet flow in [the section on channels](./3-channels.md/#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
+You have seen an introduction to the application packet flow in [the section on channels](./3-channels.md#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
 
 ### Sending a transfer packet
 

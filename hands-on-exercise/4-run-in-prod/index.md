@@ -8,12 +8,12 @@ title: Chapter Overview - See Your Chain in Action
 tags:
 ---
 
-<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See your chain in action</div>
+<div class="tm-overline tm-rf-1 tm-lh-title tm-medium tm-muted">See Your Chain in Action</div>
 <h1 class="mt-4 mb-6">From Code to MVP to Production and Migrations</h1>
 
 After having developed your chain, now you will take the next step to move your chain to a proof-of-concept and into production.
 
-![](/lp-images/universe.svg)
+![Several planets around a star](/lp-images/universe.svg)
 
 ## In this chapter
 

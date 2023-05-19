@@ -4,7 +4,7 @@
 
 Accessing the exam is a simple process:
 
-Check your email (and spam folder) for an invitation to the [B9lab academy Gitlab server](https://git.academy.b9lab.com/). The email contains a link to setup your password. Follow this link to finish your account creation and log into the Gitlab server.
+Check your email (and spam folder) for an invitation to the [B9Lab Academy Gitlab server](https://git.academy.b9lab.com/). The email contains a link to setup your password. Follow this link to finish your account creation and log into the Gitlab server.
 
 Once you are in you will see three repositories:
 
@@ -31,11 +31,11 @@ The two parts are independent and you can tackle them in any order.
 
 [End of Tip box]
 
-You can work on your exam until the **2nd of March** and can submit your exam whenever you feel ready. Importantly, **2nd of March** is a hard cut-off, and we are not granting extensions**.
+You can work on your exam until **August 4th** and can submit your exam whenever you feel ready. Importantly, **August 4th** is a hard cut-off, and we are not granting extensions**.
 
 We are providing reduced support on Discord during the exam period. However, we are always happy to help, so reach out if you have questions and issues. It may take us longer to get back to you. As always, we do not provide support on the weekends.
 
-You will get your results by the 16th of March.
+You will get your results by August 18th.
 
 Please do not disclose solutions or details of a solution of the exam on public forums so that it can stay relevant as long as possible.
 

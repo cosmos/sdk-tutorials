@@ -140,8 +140,6 @@ To customize the memo for all relaying, use the `--memo` flag when initializing 
 $ rly config init --memo "My custom memo"
 ```
 
-<br/><br/>
-
 Custom memos will have `rly(VERSION)` appended. For example, a memo of `My custom memo` running on relayer version `v2.0.0` would result in a transaction memo of `My custom memo | rly(v2.0.0)`.
 <br/><br/>
 The `--memo` flag is also available for other `rly` commands that involve sending transactions, such as `rly tx link` and `rly start`. It can be passed there to override the `config.yaml` value if desired.

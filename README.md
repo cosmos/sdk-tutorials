@@ -37,7 +37,7 @@ tools:
         url: https://ibc.cosmos.network/
     image: /ibc-icon.svg
   - title: CosmWasm
-    description: Smart contracting platform built for the Cosmos Ecosystem.
+    description: Smart contracting platform built for the Interchain Ecosystem.
     links:
       - name: Learn more
         url: https://cosmwasm.com/
@@ -45,7 +45,7 @@ tools:
         url: https://docs.cosmwasm.com/docs/1.0/
     image: /cosmwasm-icon.svg
   - title: Cosmos Hub
-    description: Software powering Cosmos Hub, the heart of the Cosmos network, and home of the ATOM token.
+    description: Software powering Cosmos Hub, the heart of the Interchain network, and home of the ATOM token.
     links:
       - name: Documentation
         url: https://hub.cosmos.network/
@@ -67,11 +67,11 @@ articles:
     url: https://medium.com/the-interchain-foundation/eli5-what-is-ibc-def44d7b5b4c
     image: /article-banner-04.jpg
 intro:
-  - overline: Begin Your Cosmos Journey
+  - overline: Begin Your Interchain Journey
     title: Developer Portal
     image: /graphics-sdk-course.png
     description: |
-      Cosmos is a network of interoperable blockchains built on BFT consensus.<br/><br/>
+      The Interchain is a network of interoperable blockchains built on BFT consensus.<br/><br/>
       The ever-expanding ecosystem provides an SDK, tokens, wallets, applications, and services. Discover the Cosmos SDK to develop application-specific blockchains.<br/><br/>
       Ready to begin your journey?
     action:
@@ -86,77 +86,77 @@ overview:
   items:
     - title: Is this portal for me?
       description: |
-        This portal offers an overview of the Interchain stack (the Cosmos SDK, Ignite, CosmJS, etc.), as well as examples and exercises to help developers get a quick start.
+        This portal offers an overview of the Interchain Stack (the Cosmos SDK, Ignite, CosmJS, etc.), as well as examples and exercises to help developers get a quick start.
     - title: How should I go through the portal?
       description: |
-        The portal content unfolds the Cosmos universe, beginning with a big-picture perspective and getting into how to create your application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its concepts, and dApps built on the Interchain stack, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing such as managing gas fees, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
+        The portal content unfolds the Interchain universe, beginning with a big-picture perspective and getting into how to create your application-specific blockchain with the Cosmos SDK. The introductory chapters give you a solid overview of the Cosmos SDK, its concepts, and dApps built on the Interchain Stack, while the hands-on exercises put theory into practice – showcasing how to address application concerns when developing such as managing gas fees, working with Ignite CLI, running a node, and making a chain IBC-enabled. A look into all chapters is recommended, as a basic understanding helps when things get tricky. <br/>
         You can follow your own path or go through the content chronologically. To follow your own path, select the tags for the subjects you are interested in and all the chapters and sections relating to that subject will be displayed. <br/>
-        Additionally, you can select a version of the portal if you want to explore the content in a specific Interchain stack version. For more information on which stack version is used in the different versions of the portal, please <a href="/versions.html">go to the page on Platform Versions</a>. In general, we do recommend using the most current version.
+        Additionally, you can select a version of the portal if you want to explore the content in a specific Interchain Stack version. For more information on which stack version is used in the different versions of the portal, please <a href="/versions.html">go to the page on Platform Versions</a>. In general, we do recommend using the most current version.
     - title: What do I need to know?
       description: |
         For the conceptual, high-level sections, you should have a solid understanding of blockchain technology and be familiar with decentralized applications. The deep dives are specially designed for experienced developers.
     - title: How long will it take?
       description: |
-        With the concept sections, you will gain a solid understanding of Cosmos and the Interchain stack. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
-        Welcome to the cosmos!
+        With the concept sections, you will gain a solid understanding of Cosmos and the Interchain Stack. This might be a matter of just a couple of hours. The time you spend on the other chapters and the hands-on exercise depends on you – there are endless possibilities to discover. <br/><br/>
+        Welcome to the Interchain!
 
 customModules:
   - title: All there is to discover
     description: |
-      The portal has three different sections, with content to take you through the fundamentals of Cosmos, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
+      The portal has three different sections, with content to take you through the fundamentals of the Interchain, dive deeper in the tutorials, and apply your conceptual knowledge in the hands-on exercise chapters.
     useNarrowCards: true
     hideFilter: true
     image: /lp-images/planets-15-gradient.jpg
     imageLightMode: /lp-images/universe.svg
     sections:
       - image:
-        title: Introduction to Cosmos
+        title: Introduction to the Interchain
         href: /academy/1-what-is-cosmos/
         description: |
-          From a high-level overview of the Cosmos Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at these more conceptual introductions to begin your journey.
+          From a high-level overview of the Interchain Ecosystem to the main concepts of the Cosmos SDK and IBC, take a look at these more conceptual introductions to begin your journey.
         tags:
           - concepts
       - image:
         title: Hands-on Exercise
         href: /hands-on-exercise/1-ignite-cli/
         description: |
-          Work with the full Cosmos stack while developing a checkers game blockchain with Ignite CLI, CosmJS and IBC, and preparing your chain to run in production.
+          Work with the full Interchain Stack while developing a checkers game blockchain with Ignite CLI, CosmJS and IBC, and preparing your chain to run in production.
         tags:
           - guided-coding
       - image:
         title: Tutorials
         href: /tutorials/1-tech-terms/
         description: |
-          Dive into these tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the other SDK modules. The tutorials walk you through code examples to translate Cosmos concepts into practice.
+          Dive into these tutorials to help get you started and to take a more detailed look at IBC, CosmJS, and some of the other SDK modules. The tutorials walk you through code examples to translate Interchain concepts into practice.
 
-  - title: Introduction to Cosmos
+  - title: Introduction to the Interchain
     description: |
-      Discover the Cosmos Ecosystem, Cosmos SDK, and IBC. Feel free to start with the first chapter, or select one or more tags to filter the available content.
+      Discover the Interchain Ecosystem, Cosmos SDK, and IBC. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
       - image: /lp-images/cosmos_dev_portal_module-02-lp.png
-        title: What is Cosmos?
+        title: What is the Interchain?
         href: /academy/1-what-is-cosmos/
         description: |
           Get a fast overview of:
         links: 
-          - title: Blockchain technology and Cosmos
+          - title: Blockchain technology and the Interchain
             path: /academy/1-what-is-cosmos/1-blockchain-and-cosmos.html
-          - title: The Cosmos Ecosystem
+          - title: The Interchain Ecosystem
             path: /academy/1-what-is-cosmos/2-cosmos-ecosystem.html
-          - title: How to get ATOM and stake it
+          - title: Getting ATOM and staking it
             path: /academy/1-what-is-cosmos/3-atom-staking.html
       #- {} Example of section break
       - image: /lp-images/cosmos_dev_portal_module-03-lp-new.png
-        title: Cosmos Concepts
+        title: Interchain Concepts
         href: /academy/2-cosmos-concepts/
         description: |
-          This chapter includes an introduction to the main concepts underlying the Cosmos SDK:
+          This chapter includes an introduction to the main concepts underlying the Interchain Stack and Cosmos SDK:
         links:
           - title: Blockchain app architecture
             path: /academy/2-cosmos-concepts/1-architecture.html
             tags: 
               - concepts
-              - tendermint
+              - cometbft
               - cosmos-sdk
           - title: Accounts
             path: /academy/2-cosmos-concepts/2-accounts.html
@@ -172,7 +172,7 @@ customModules:
             path: /academy/2-cosmos-concepts/9-queries.html
           - title: Testing
             path: /academy/2-cosmos-concepts/12-testing.html
-          - title: Relaying With IBC
+          - title: Relaying with IBC
             path: /academy/2-cosmos-concepts/13-relayer-intro.html
           - title: Interchain Security
             path: /academy/2-cosmos-concepts/14-interchain-security.html
@@ -188,22 +188,20 @@ customModules:
         links:
           - title: What is IBC?
             path: /academy/3-ibc/1-what-is-ibc.html
-          - title: IBC/TAO - Connections, Channels, and Clients
+          - title: IBC/TAO - connections, channels, and clients
             path: /academy/3-ibc/2-connections.html
           - title: Light client development
             path: /academy/3-ibc/5-light-client-dev.html
           - title: Solo machine client
             path: /academy/3-ibc/6-solomachine.html
-          - title: Fungible token transfer
+          - title: IBC token transfer
             path: /academy/3-ibc/7-token-transfer.html
           - title: Interchain accounts
             path: /academy/3-ibc/8-ica.html
-          - title: IBC Middleware
+          - title: IBC middleware
             path: /academy/3-ibc/9-ibc-mw-intro.html
           - title: IBC tooling
             path: /academy/3-ibc/12-ibc-tooling.html
-          - title: IBC solo machines
-            path: /academy/3-ibc/8-solomachine.html
   - title: Tutorials
     description: |
       Get started and explore IBC, CosmJS, and Cosmos SDK modules. Feel free to start with the first chapter, or select one or more tags to filter the available content.
@@ -212,7 +210,7 @@ customModules:
         title: Good-to-know dev terms
         href: /tutorials/1-tech-terms/
         description: |
-          From gRPC to Protobuf - a brief overview of dev terms you encounter in the Cosmos Ecosystem.
+          From gRPC to Protobuf - a brief overview of dev terms you encounter in the Interchain Ecosystem.
         links:
       - image:
         title: Set up your work environment
@@ -243,11 +241,11 @@ customModules:
         title: Introduction to CosmJS
         href: /tutorials/7-cosmjs/
         description: |
-          Want to integrate frontend user interfaces and backend servers with you Cosmos chain? Take a closer look at:
+          Want to integrate frontend user interfaces and backend servers with your Cosmos chain? Take a closer look at:
         links:
           - title: What is CosmJS?
             path: /tutorials/7-cosmjs/1-cosmjs-intro.html
-          - title: Send tokens with CosmJS
+          - title: Your first CosmJS actions
             path: /tutorials/7-cosmjs/2-first-steps.html
           - title: Compose complex transactions
             path: /tutorials/7-cosmjs/3-multi-msg.html
@@ -275,7 +273,7 @@ customModules:
         description: |
           Prepare your blockchain to run in production:
         links:
-          - title: Overview
+          - title: Run in production
             path: /tutorials/9-path-to-prod/1-overview.html
           - title: Prepare the software to run
             path: /tutorials/9-path-to-prod/2-software.html
@@ -291,7 +289,7 @@ customModules:
             path: /tutorials/9-path-to-prod/7-migration.html
   - title: Hands-on Exercise
     description: |
-      From zero to hero - work with the full Cosmos stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
+      From zero to hero - work with the full Interchain Stack while developing a checkers game blockchain. Feel free to start with the first chapter, or select one or more tags to filter the available content.
     sections:
       - image: /lp-images/cosmos_dev_portal_module-05-lp.png
         title: Ignite CLI - Basics
@@ -303,7 +301,7 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/1-ignitecli.html
           - title: First steps for your checkers blockchain
             path: /hands-on-exercise/1-ignite-cli/2-exercise-intro.html
-          - title: Make a checkers blockchain
+          - title: Store object
             path: /hands-on-exercise/1-ignite-cli/3-stored-game.html
           - title: Create custom messages
             path: /hands-on-exercise/1-ignite-cli/4-create-message.html
@@ -313,7 +311,7 @@ customModules:
             path: /hands-on-exercise/1-ignite-cli/6-play-game.html
           - title: Emit game information
             path: /hands-on-exercise/1-ignite-cli/7-events.html
-          - title: Recording the winners
+          - title: Record the winners
             path: /hands-on-exercise/1-ignite-cli/8-game-winner.html
       - image: /lp-images/moving-objects.svg
         title: Ignite CLI - Advanced
@@ -321,23 +319,23 @@ customModules:
         description: |
           Continue developing your checkers blockchain with Ignite by:
         links:
-          - title: Including a game deadline
+          - title: Keep an up-to-date game deadline
             path: /hands-on-exercise/2-ignite-cli-adv/1-game-deadline.html
-          - title: Including a count move
+          - title: Keep track of moves being played
             path: /hands-on-exercise/2-ignite-cli-adv/2-move-count.html
-          - title: Putting your games in order
+          - title: Put your games in order
             path: /hands-on-exercise/2-ignite-cli-adv/3-game-fifo.html
-          - title: Enforcing auto-expiring of games
+          - title: Enforce auto-expiring of games
             path: /hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.html
-          - title: Including a wager
+          - title: Let players set a wager
             path: /hands-on-exercise/2-ignite-cli-adv/5-game-wager.html
-          - title: Handling wager payments
+          - title: Handle wager payments
             path: /hands-on-exercise/2-ignite-cli-adv/6-payment-winning.html
-          - title: Adding integration tests
-            path: /hands-on-exercise/2-ignite-cli-adv/5-integration-tests.html
-          - title: Incentiving players
+          - title: Integration tests
+            path: /hands-on-exercise/2-ignite-cli-adv/7-integration-tests.html
+          - title: Incentivize players
             path: /hands-on-exercise/2-ignite-cli-adv/8-gas-meter.html
-          - title: Help find correct moves
+          - title: Help find a correct move
             path: /hands-on-exercise/2-ignite-cli-adv/9-can-play.html
           - title: Play with cross-chain tokens
             path: hands-on-exercise/2-ignite-cli-adv/10-wager-denom.html
@@ -367,9 +365,9 @@ customModules:
             path: /hands-on-exercise/4-run-in-prod/1-run-prod-docker.html
           - title: Tally player info after production
             path: /hands-on-exercise/4-run-in-prod/2-migration-info.html
-          - title: Add a leaderboard module
+          - title: Add a leaderboard as a module
             path: /hands-on-exercise/4-run-in-prod/3-add-leaderboard.html
-          - title: Add a migration for your leaderboard module
+          - title: Migrate the leaderboard module after production
             path: /hands-on-exercise/4-run-in-prod/4-migration-leaderboard.html
           - title: Simulate a migration in production with Docker Compose
             path: /hands-on-exercise/4-run-in-prod/5-migration-prod.html
@@ -383,7 +381,7 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/1-go-relayer.html
           - title: Hermes relayer
             path: /hands-on-exercise/5-ibc-adv/2-hermes-relayer.html
-          - title: IBC app development
+          - title: IBC app development introduction
             path: /hands-on-exercise/5-ibc-adv/3-ibc-app-intro.html
           - title: Make a module IBC-enabled
             path: /hands-on-exercise/5-ibc-adv/4-ibc-app-steps.html
@@ -399,7 +397,7 @@ This repo contains the code and content for the [Developer Portal](https://devel
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
 
-These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Cosmos Stack. The Cosmos Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
+These tutorials guide you through actionable steps and walk-throughs to teach you how to use the Interchain Stack. The Interchain Stack is the world’s most popular framework for building application-specific blockchains, it consists of several products:
 
 * **Cosmos SDK**, a modular framework to build blockchain applications
 * **IBC**, the Inter-Blockchain Communication protocol that allows blockchains to communicate 
@@ -407,7 +405,7 @@ These tutorials guide you through actionable steps and walk-throughs to teach yo
 
 The Developer Portal contains three types of content:
 
-* **Concepts**, informational content explaining the how the Cosmos Stack functions
+* **Concepts**, informational content explaining the how the Interchain Stack functions
 * **Individual Tutorials**, short tutorials to get you up to speed with individual components
 * **Checkers Game**, a modular tutorial that covers the full stack and teaches you every element from set-up to launching in production with a front-end application attached.
 
@@ -415,14 +413,14 @@ Going through the entire content will teach you about:
 
 * Blockchain technology and cryptography
 * Developing with the Cosmos SDK & Ignite CLI
-* The Tendermint consensus algorithm
+* The CometBFT consensus algorithm
 * The Inter-Blockchain Communication Protocol
 * Building front- and backends with CosmJS
 * Integrating wallets such as Keplr
-* Relaying in the Cosmos Network
+* Relaying in the Interchain network
 
 The code and docs for each tutorial are based on a specific version of the software. Be sure to follow the tutorial instructions to download and use the right version.
 
-Use the tutorials landing page as your entry point to articles on [Cosmos blog](https://blog.cosmos.network/), videos on [Cosmos YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
+Use the tutorials landing page as your entry point to articles on [Interchain blog](https://blog.cosmos.network/), videos on [Interchain YouTube](https://www.youtube.com/c/CosmosProject/videos), and ways to get help and support.
 
 This repo manages and publishes the developer platform. **If you would like to contribute**, please take a look at our [CONTRIBUTION GUIDELINES](CONTRIBUTING.md) and [/sdk-tutorials/TECHNICAL-SETUP](TECHNICAL-SETUP.md) documents.

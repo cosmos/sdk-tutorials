@@ -44,7 +44,7 @@ To be specific:
 
 To achieve this, the easiest way is to add a new `MoveCount` to the `StoredGame`. In `proto/checkers/stored_game.proto`:
 
-```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/proto/checkers/stored_game.proto#L14]
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/move-count/proto/checkers/stored_game.proto#L14]
     message StoredGame {
         ...
 +      uint64 moveCount = 8;
@@ -81,7 +81,7 @@ $ docker run --rm -it \
 
 1. Adjust it first in the handler when creating the game:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game.go#L30]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/move-count/x/checkers/keeper/msg_server_create_game.go#L30]
         storedGame := types.StoredGame{
             ...
     +      MoveCount: 0,
@@ -90,7 +90,7 @@ $ docker run --rm -it \
 
 2. Before saving to the storage, adjust it in the handler when playing a move:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move.go#L71]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/move-count/x/checkers/keeper/msg_server_play_move.go#L71]
         ...
         storedGame.Deadline = types.FormatDeadline(types.GetNextDeadline(ctx))
     +  storedGame.MoveCount++
@@ -106,7 +106,7 @@ This value is not emitted in events, because (as it stands) it will be only used
 
 ## Unit tests
 
-You have to fix the existing tests by adding [`MoveCount: 0`](https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L57) ([or more](https://github.com/cosmos/b9-checkers-academy-draft/blob/reject-game-handler/x/checkers/keeper/msg_server_play_move_winner_test.go#L34)) when testing a retrieved `StoredGame`.
+You have to fix the existing tests by adding [`MoveCount: 0`](https://github.com/cosmos/b9-checkers-academy-draft/blob/move-count/x/checkers/keeper/msg_server_create_game_test.go#L57) ([or more](https://github.com/cosmos/b9-checkers-academy-draft/blob/move-count/x/checkers/keeper/msg_server_play_move_winner_test.go#L34)) when testing a retrieved `StoredGame`.
 
 ## Interact via the CLI
 

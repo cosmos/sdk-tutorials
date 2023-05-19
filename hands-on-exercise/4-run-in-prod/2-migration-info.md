@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/13-migrations.md).
+* You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md) and [migrations](/academy/2-cosmos-concepts/16-migrations.md).
 * Go is installed.
 * You have the checkers blockchain codebase up to the _Simulate Production in Docker_. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/run-prod).
 
@@ -34,13 +34,13 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 <HighlightBox type="tip">
 
-This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./3-migration-leaderboard.md).
+This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./4-migration-leaderboard.md).
 
 </HighlightBox>
 
 For now, a good tally should be such that for any player who has **ever** played it should be possible to access a tally of games won. While you are at it, you will add games lost and forfeited. Fortunately, this is possible because all past games and their outcomes are kept in the chain's state. Migration is a good method to tackle the initial tally.
 
-For the avoidance of doubt, **v1 and v1.1 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not. As it happens, your application has a single module, apart from those coming from Cosmos SDK.
+For the avoidance of doubt, **v1 and v1.1 refer to the overall versions of the application**, and not to the _consensus versions_ of individual modules, which may change or not. As it happens, your application has a single module, apart from those coming from the Cosmos SDK.
 
 ## Introducing a new data structure
 

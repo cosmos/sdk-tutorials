@@ -35,7 +35,7 @@ Additionally, you can choose to:
 1. Start a local chain that exposes RPCs instead of using a testnet.
 2. Run the same basic CosmJS commands, but for this local chain.
 
-Along the way, you learn the basic CosmJS concepts needed to start interacting with the Cosmos Ecosystem.
+Along the way, you learn the basic CosmJS concepts needed to start interacting with the Interchain Ecosystem.
 
 ## Script preparation
 
@@ -123,7 +123,7 @@ You will soon make this script more meaningful. With the basic script ready, you
 
 ## Testnet preparation
 
-The Cosmos Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/public) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
+The Interchain Ecosystem has a number of testnets running. The Cosmos Hub is currently running a [public testnet](https://github.com/cosmos/testnets/tree/master/public) for the Theta upgrade that you are connecting to and running your script on. You need to connect to a public node so that you can query information and broadcast transactions. One of the available nodes is:
 
 ```[https://github.com/cosmos/testnets/tree/master/public#endpoints]
 RPC: https://rpc.sentry-01.theta-testnet.polypore.xyz
@@ -995,9 +995,9 @@ More specifically, you can jump to:
 
 To summarize, this section has explored:
 
-* How to gain familiarity with CosmJS by implementing a basic feature of the Cosmos Ecosystem, the ability to send tokens via the `bank` module.
+* How to gain familiarity with CosmJS by implementing a basic feature of the Interchain Ecosystem, the ability to send tokens via the `bank` module.
 * How to clone a ready-made test repository and install the required modules in order to experiment with CosmJS, for which NodeJs and Visual Studio Code will be required.
-* How to connect to a public node in the Cosmos Ecosystem, acquire a wallet address on a testnet, and create a key for an imaginary user for the purposes of experimenting.
+* How to connect to a public node in the Interchain Ecosystem, acquire a wallet address on a testnet, and create a key for an imaginary user for the purposes of experimenting.
 * How to add your imports, define your connection, get a balance, get the faucet address, prepare a signing client, and successfully send tokens on a chain being run by someone else.
 * How to connect with your own locally running blockchain, including how to prepare your keys and update your script.
 

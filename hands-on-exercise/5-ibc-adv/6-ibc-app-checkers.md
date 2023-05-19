@@ -28,7 +28,7 @@ But what if there is more than one checkers chain? Or better yet, other game cha
 
 <HighlightBox type="remember">
 
-Remember the [appchain thesis that is an integral part of the Cosmos philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains) - where every application has its own chain and can be optimized for the application-specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialized functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
+Remember the [appchain thesis that is an integral part of the Interchain philosophy](../../academy/3-ibc/1-what-is-ibc.md#internet-of-blockchains) - where every application has its own chain and can be optimized for the application-specific logic it executes. Then IBC can be used to interoperate between all the chains that have specialized functionality. This is the idea behind the prototype checkers and leaderboard chains you're building, enabling IBC packets to be sent between those chains to create cross-chain applications.
 
 </HighlightBox>
 
