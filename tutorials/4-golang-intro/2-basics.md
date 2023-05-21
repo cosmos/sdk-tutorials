@@ -20,12 +20,12 @@ uint        uint8       uint16      uint32      uint64      uintptr
 
 * **int** will be 32 or 64 bits long depending on the OS. However, one can specify precisely how many bits are used with 8, 16, 32, and 64.
 * **uint** defines the unsigned integers, which are simply positive integers.
+* **uintptr** is an integer ["to hold the bit pattern of any pointer"](https://golang.org/pkg/builtin/#uintptr).
 
 There are two aliases:
 
 * **byte** for **uint8**
-* **run** for **int32**
-* **uintptr** is an integer ["to hold the bit pattern of any pointer"](https://golang.org/pkg/builtin/#uintptr).
+* **rune** for **int32**
 
 The types for floating-point arithmetic are `float32` and `float64`. These are only an *approximation* for real numbers because of the [finite precision](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
 
