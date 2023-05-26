@@ -4,7 +4,7 @@ parent:
   description: Continue developing your Cosmos chain
   number: 2
 order: 0
-title: Chapter Overview - Continue Developing Your Cosmos Shain
+title: Chapter Overview - Continue Developing Your Cosmos Chain
 tags:
 ---
 
