@@ -511,6 +511,41 @@ Run the tests again with the same command as before:
 $ go test github.com/alice/checkers/x/checkers/keeper
 ```
 
+If the above fails with errors:
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/keeper
+--- FAIL: TestPlayMoveUpToWinner (0.00s)
+    msg_server_play_move_winner_test.go:20:
+        	Error Trace: github.com/alice/checkers/x/checkers/keeper/msg_server_play_move_winner_test.go:20
+        	Error:      	Not equal:
+        	            	expected: types.SystemInfo{NextId:0x2, FifoHeadIndex:"", FifoTailIndex:""}
+        	            	actual  : types.SystemInfo{NextId:0x2, FifoHeadIndex:"-1", FifoTailIndex:"-1"}
+
+        	            	Diff:
+        	            	--- Expected
+        	            	+++ Actual
+        	            	@@ -2,4 +2,4 @@
+        	            	  NextId: (uint64) 2,
+        	            	- FifoHeadIndex: (string) "",
+        	            	- FifoTailIndex: (string) ""
+        	            	+ FifoHeadIndex: (string) (len=2) "-1",
+        	            	+ FifoTailIndex: (string) (len=2) "-1"
+        	            	 }
+        	Test:       	TestPlayMoveUpToWinner
+FAIL
+FAIL	github.com/alice/checkers/x/checkers/keeper	0.214s
+FAIL
+```
+
+Update the respective tests giving those errors:
+
+1. `msg_server_create_game_fifo_test.go` with the updated [tests.](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_fifo_test.go)
+
+2. `msg_server_play_move_fifo_test.go` with the updated [tests.](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_fifo_test.go)
+
+3. `msg_server_play_move_winner_test.go` with the updated [tests.](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_winner_test.go)
+
 </CodeGroupItem>
 
 <CodeGroupItem title="Docker">
