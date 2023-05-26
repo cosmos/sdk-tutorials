@@ -106,7 +106,7 @@ Helper functions can encode and decode the deadline in the storage.
 
 1. Define a new error:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L19]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-deadline/x/checkers/types/errors.go#L22]
         var (
             ...
     +      ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1108, "deadline cannot be parsed: %s")
