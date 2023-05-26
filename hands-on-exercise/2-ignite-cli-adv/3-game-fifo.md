@@ -188,6 +188,23 @@ How do you implement a FIFO from which you extract elements at random positions?
         }
     ```
 
+6. Adjust the types genesis test, so that it incorporates the newly added fields FifoHeadIndex and FifoTailIndex with the correct initialization values.
+
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/types/genesis_test.go#L71-L75]
+    func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
+	require.EqualValues(t,
+		&types.GenesisState{
+			StoredGameList: []types.StoredGame{},
+	+		SystemInfo: types.SystemInfo{
+	+			NextId:        uint64(1),
+	+			FifoHeadIndex: "-1",
+	+			FifoTailIndex: "-1",
+	+		},
+		},
+		types.DefaultGenesis())
+        }
+    ```
+
 ## FIFO management
 
 Now that the new fields are created, you need to update them to keep your FIFO up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with the following:
