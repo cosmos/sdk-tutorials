@@ -346,7 +346,7 @@ Adding unit tests for this play message is very similar to what you did for the 
 
 Adjust and add to `types/message_play_move_test.go`. First, change its package for consistency:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/keeper/msg_server_play_move_test.go#L1-L8]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move_test.go#L1-L8]
 -  package types
 +  package types_test
 
