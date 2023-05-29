@@ -188,23 +188,6 @@ How do you implement a FIFO from which you extract elements at random positions?
         }
     ```
 
-6. Adjust the types genesis test, so that it incorporates the newly added fields FifoHeadIndex and FifoTailIndex with the correct initialization values.
-
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/types/genesis_test.go#L71-L75]
-    func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
-	require.EqualValues(t,
-		&types.GenesisState{
-			StoredGameList: []types.StoredGame{},
-	+		SystemInfo: types.SystemInfo{
-	+			NextId:        uint64(1),
-	+			FifoHeadIndex: "-1",
-	+			FifoTailIndex: "-1",
-	+		},
-		},
-		types.DefaultGenesis())
-        }
-    ```
-
 ## FIFO management
 
 Now that the new fields are created, you need to update them to keep your FIFO up-to-date. It's better to create a separate file that encapsulates this knowledge. Create `x/checkers/keeper/stored_game_in_fifo.go` with the following:
@@ -339,6 +322,23 @@ You have implemented a FIFO that is updated but never really used. It will be us
 ## Unit tests
 
 At this point, your previous unit tests are failing, so they must be fixed. Add `FifoHeadIndex` and `FifoTailIndex` in your value requirements on `SystemInfo` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L46-L47) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L98-L99). Also add `BeforeIndex` and `AfterIndex` in your value requirements on `StoredGame` as you [create games](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L60-L61) and [play moves](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_play_move_test.go#L112-L113).
+
+Edit `types/genesis_test.go`, so that it incorporates the newly added fields `FifoHeadIndex` and `FifoTailIndex` with the correct initialization values.
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/fifo-fields/x/checkers/types/genesis_test.go#L71-L75]
+func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
+	require.EqualValues(t,
+		&types.GenesisState{
+			StoredGameList: []types.StoredGame{},
+	+		SystemInfo: types.SystemInfo{
+	+			NextId:        uint64(1),
+	+			FifoHeadIndex: "-1",
+	+			FifoTailIndex: "-1",
+	+		},
+		},
+		types.DefaultGenesis())
+    }
+```
 
 Next, you should add more specific FIFO tests. For instance, testing what happens to `SystemInfo` and `StoredGame` as you create up to three new games, instead of [only checking at the end](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-fifo/x/checkers/keeper/msg_server_create_game_test.go#L165-L232):
 
