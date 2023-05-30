@@ -165,7 +165,7 @@ checkersModuleAddress := app.AccountKeeper.GetModuleAddress(types.ModuleName)
 
 There are several new error situations that you can enumerate with new variables:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/types/errors.go#L23-L28]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/payment-winning/x/checkers/types/errors.go#L24-L29]
     var (
         ...
 +      ErrBlackCannotPay    = sdkerrors.Register(ModuleName, 1110, "black cannot pay the wager")
