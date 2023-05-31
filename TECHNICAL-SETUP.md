@@ -34,7 +34,7 @@ This will start a local server on [localhost:8080](http://localhost:8080/).
 
 Your build may fail with the following:
 
-```txt
+```
 Error: error:0308010C:digital envelope routines::unsupported
     at new Hash (node:internal/crypto/hash:71:19)
 ```
@@ -161,12 +161,13 @@ All content pages are implemented in markdown.
 
 The page header should expose the following attributes for all content pages:
 
-```txt
+```yaml
 ---
 title: "Getting ATOM and Staking It"
 order: 4
 description: Stake your first ATOM
-tags:  - concepts
+tags:  
+  - concepts
   - cosmos-hub
 ---
 ```
@@ -175,7 +176,7 @@ tags:  - concepts
 
 **Images must be linked using an absolute path!** On build, images are automatically resized and compressed into a set with different sizes, defined in the vuepress config:
 
-```json
+```javascript
 assetsOptimization: {
    breakpoints: [200, 600, 988, 1200]
 }
