@@ -66,9 +66,9 @@ _**Introduction to Docker**_
 _**Technical terms**_
 
 * Review some technical terms essential when developing in Cosmos like LCD, RPC, Protobuf, gRPC, and Amino.
-  
+
 _**Docker intro**_
-  
+
 * Get an introduction to Docker and explore how to use it. The main tutorials to come will also rely on using Docker.
 
 </HighlightBox>

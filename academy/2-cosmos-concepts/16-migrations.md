@@ -2,7 +2,7 @@
 title: "Migrations"
 order: 17
 description: How to handle on-chain upgrades
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -358,7 +358,7 @@ For even more detail, see [Tally Player Info After Production](/hands-on-exercis
 
 To summarize, this section has explored:
 
-* How Cosmos SDK migrations provide developers with an orderly, on-chain process for upgrading their applications, reliably avoiding forks through the use of a "plan" in which upgrades are proposed to occur at a specific future block height. 
+* How Cosmos SDK migrations provide developers with an orderly, on-chain process for upgrading their applications, reliably avoiding forks through the use of a "plan" in which upgrades are proposed to occur at a specific future block height.
 * How consensus over accepting or rejecting a plan is reached through the normal governance process, ensuring unity across all nodes, as is any "cancel proposal" intended to prevent a previously accepted plan from executing.
 * How the temporary halting of normal activity allows for simultaneous and potentially profound modifications of the blockchain across all nodes, including the reorganization of existing data stores to maintain compatibility with the upgraded application.
 

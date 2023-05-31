@@ -2,7 +2,7 @@
 title: "Simulate a Migration in Docker"
 order: 6
 description: Introduce the leaderboard in a simulated production setup with Docker Compose
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - dev-ops
@@ -163,7 +163,7 @@ You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-a
     ```diff [https://github.com/cosmos/b9-checkers-academy-draft/blob/migration-prod/prod-sim/Dockerfile-cosmovisor-alpine#L21-L24]
         ...
         FROM --platform=linux alpine
-        
+
         ENV LOCAL=/usr/local
     +  ENV DAEMON_HOME=/root/.checkers-upgrade
     +  ENV DAEMON_NAME=checkersd
@@ -188,7 +188,7 @@ You can describe the steps in a new Dockerfile `prod-sim/Dockerfile-cosmovisor-a
     ```
 
     Checkers starts at v1, therefore the v1 executable goes into `.../genesis`. We know that:
-    
+
     * The executable of the eventual upgrade named `v1tov1_1` is the v1.1 one.
     * The executable of the eventual upgrade named `v1_1tov2` is the v2 one.
 

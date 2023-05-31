@@ -2,7 +2,7 @@
 title: "Messages"
 order: 5
 description: Introduction to MsgService and the flow of messages
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -213,10 +213,10 @@ Your work is mostly done. You want to create the specific game creation code to 
     <HighlightBox type="info">
 
     For more details, and to avoid diving too deep in this section, see:
-    
+
     * [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md) to start the guided coding exercise from scratch,
     * [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) to jump straight where you handle the new message.
-      
+
     </HighlightBox>
 
 2. Extract and verify addresses, such as:
@@ -350,7 +350,7 @@ To summarize, this section has explored:
 
 * Messages, one of two primary objects handled by a module in the Cosmos SDK, which inform the state and have the potential to alter it.
 * How one or more messages form a transaction in the Cosmos SDK, and messages are only processed after a transaction is signed by a validator and included in a block by the consensus layer.
-* An example of more complex message handling capabilities related to the checkers game blockchain. 
+* An example of more complex message handling capabilities related to the checkers game blockchain.
 
 </HighlightBox>
 

@@ -15,7 +15,7 @@ You are about to perform a small, simple exercise on our Academy Gitlab, to chec
 The final exam will have the same format, so this is a good way to acquaint yourself with the modus operandi.
 
 </HighlightBox>
-  
+
 ## Preparation
 
 We created a Docker container with the included `Dockerfile`:

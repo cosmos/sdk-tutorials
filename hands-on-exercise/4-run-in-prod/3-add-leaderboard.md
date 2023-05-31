@@ -2,7 +2,7 @@
 title: "Add a Leaderboard Module"
 order: 4
 description: A leaderboard integrated with checkers for your blockchain
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - cosm-js
@@ -51,7 +51,7 @@ When you introduce the leaderboard in production, you also have to consider migr
 
 The leaderboard is not strictly the concern of the game of checkers. It is a side concern. The concept of a leaderboard is also very generic, you could easily imagine it being used for other types of game. Therefore, it makes sense to introduce it as a **separate module** next to the checkers module.
 
-The checkers and leaderboard modules will exchange information. More specifically, the leaderboard needs to know when a player's total wins change, as this may warrant entering the leaderboard. If you have the checkers module call the leaderboard module (just as it calls the bank when handling wagers), the checkers module needs to know the details of the leaderboard module. It is best to avoid such tight coupling. 
+The checkers and leaderboard modules will exchange information. More specifically, the leaderboard needs to know when a player's total wins change, as this may warrant entering the leaderboard. If you have the checkers module call the leaderboard module (just as it calls the bank when handling wagers), the checkers module needs to know the details of the leaderboard module. It is best to avoid such tight coupling.
 
 Fortunately, you can reuse a **_hooks_ pattern** already used in the Cosmos SDK. With this future addition, the leaderboard module adds a listener to the hook interface of the checkers module. With this the checkers module informs any listeners, whether there are none, one, or many.
 
@@ -64,9 +64,9 @@ Thinking about early performance optimization, you have to decide what operation
 3. If added, sort and clip the list.
 4. Put the leaderboard back in storage.
 
-These are a lot of expensive operations for a single candidate. 
+These are a lot of expensive operations for a single candidate.
 
-Fortunately, there is a better way. The leaderboard needs to be computed and saved when the block is prepared, but it does not need to be up to date after each (checkers) transaction. You can imagine keeping the leaderboard (or something approximating it) in memory for the whole length of the block. 
+Fortunately, there is a better way. The leaderboard needs to be computed and saved when the block is prepared, but it does not need to be up to date after each (checkers) transaction. You can imagine keeping the leaderboard (or something approximating it) in memory for the whole length of the block.
 
 In the section about [expiring games](../2-ignite-cli-adv/4-game-forfeit.md), you learned about `EndBlock`. There is also a `BeginBlock` callback. It is conceivable to prepare the leaderboard in `BeginBlock` and **keep it in the context or a memory or transient storage**. Then it would be recalled with each candidate, and finally (in `EndBlock`, and only there) it would be sorted and clipped before being saved in storage proper.
 
@@ -75,7 +75,7 @@ Better still, though, you do not need to _prepare_ the leaderboard in `BeginBloc
 ## What you will do
 
 Several things need to be addressed to build your v2 blockchain:
-    
+
 1. Add the leaderboard module.
 2. Define your new data types.
 3. Add helper functions to encapsulate clearly defined actions, like leaderboard sorting.
@@ -87,7 +87,7 @@ Several things need to be addressed to build your v2 blockchain:
 
 ## New v2 module
 
-As discussed, you will introduce a new leaderboard module. This is conveniently done with Ignite CLI. 
+As discussed, you will introduce a new leaderboard module. This is conveniently done with Ignite CLI.
 
 Ignite also offers the possibilty to add new `Params` to the module. These are module-wide parameters:
 
@@ -436,7 +436,7 @@ In `leaderboard.proto`, add:
 +  }
 ```
 
-Where `bytes address` is the player's undecoded address. 
+Where `bytes address` is the player's undecoded address.
 
 Remember that `sdk.AccAddress`'s underlying type is `byte[]`.
 
@@ -448,7 +448,7 @@ func (candidate Candidate) GetAccAddress() string {
 }
 ```
 
-Where `sdk.AccAddress(candidate.Address)` is casting the `byte[]` into `sdk.AccAddress`. 
+Where `sdk.AccAddress(candidate.Address)` is casting the `byte[]` into `sdk.AccAddress`.
 
 Also add a function to convert it into a leaderboard rung at a given time:
 
@@ -604,7 +604,7 @@ This key will be identified by a new string in `app.go`'s list of transient stor
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/leaderboard-handling/x/leaderboard/types/keys.go#L19-L20]
     MemStoreKey = "mem_leaderboard"
-+  
++
 +  // TStoreKey defines the transient store key
 +  TStoreKey = "transient_leaderboard"
 ```

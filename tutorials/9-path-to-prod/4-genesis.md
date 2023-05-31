@@ -63,7 +63,7 @@ If you are planning on having more denominations than your staking token, this i
 
 Genesis accounts are accounts that exist in the genesis. They can be there because of a pre-sale of tokens, or of simple allotments, or for any other reason.
 
-Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses that must be collected. 
+Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses that must be collected.
 
 <HighlightBox type="note">
 
@@ -73,7 +73,7 @@ If these genesis accounts are third parties, make sure in more ways than one tha
 
 Your addresses have a prefix, which you can define instead of the Cosmos Hub default of `cosmos`. Your blockchain may use the prefix `cavedweller` for example. This is typically defined in `app/app.go`.
 
-You can also decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts or the number of extra tokens in the genesis. 
+You can also decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts or the number of extra tokens in the genesis.
 
 If you introduce another token named `nflint`, and Alice has the address `cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq`, you could make her a genesis account with:
 
@@ -214,12 +214,12 @@ When a validator returns a signed transaction to you, make sure that it is the o
 When you have all of the validator responses, you add them all in the genesis like so:
 
 ```sh
-$ ./myprojectd collect-gentxs 
+$ ./myprojectd collect-gentxs
 ```
 
 If some validators are not cooperating fast enough, you can do the operation when you have received a reply from enough of them to start a valid network. Late potential validators can always send transactions to the live network to become validators at a later date.
 
-<!-- 
+<!--
 Confirm whether doing it multiple times is idempotent.
 Also what happens when sequence numbers are incorrect.
 -->
@@ -234,7 +234,7 @@ The relevant parties should also come to a consensus that this genesis represent
 
 * Parties are being granted genesis tokens and one may not accept being omitted.
 * Parties are enroling to be validators, so there needs to be agreement on this file.
- 
+
 This is the only _block_ that needs a social consensus on its content. All other blocks will be agreed on technically by the PoS consensus.
 
 ## Import

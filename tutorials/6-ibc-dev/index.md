@@ -27,7 +27,6 @@ Take this example: you have some ATOM on the Cosmos Hub but would like to swap t
 
 _Sending token from blockchain A to blockchain B_
 
-
 Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828BAAF5C55E499D62A58E2927542CB2FB57B587BA77BF5BB044FFBF). There you see some general information about the transaction, as well as data, particularly on the IBC transfer message that was included in the transaction. Dropping sender and receiver you find:
 
 | Key            | Value         |
@@ -239,7 +238,6 @@ $ gaiad query ibc-transfer denom-trace 14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF
 
 </HighlightBox>
 
-
 From the terminal output, you now know that there is an IBC port `transfer` and channel `channel-141` that corresponds to the IBC connection between the Hub and Osmosis. To learn the IBC light client behind the port and channel, you need to perform another query.
 
 <HighlightBox type="info">
@@ -403,7 +401,7 @@ To summarize, this section has explored:
 * The basics of ICS-20 token transfer over IBC.
 * How you might encounter the IBC denom notation `ibc/...` containing a hash of the path information when you interact with assets that were transferred over IBC.
 * How to derive an IBC denom, or perform a _denomtrace_ query to retrieve the path information and base denom of the asset.
-* How to query from the path information to identify chain IDs associated with a light client, making use of the chain registry (and soon CNS). 
+* How to query from the path information to identify chain IDs associated with a light client, making use of the chain registry (and soon CNS).
 * How to reason about the security of an IBC asset based on the path information contained in the IBC denom.
 
 </HighlightBox>

@@ -87,7 +87,6 @@ const style: CSS.Properties = {
 +    return {};
 ```
 
-
 ```py [https://github.com/cosmos/cosmos-sdk/blob/master/scripts/linkify_changelog.py]
 for line in fileinput.input(inplace=1):
     line = re.sub(r"\s\\#([0-9]+)", r" [\\#\1](https://github.com/cosmos/cosmos-sdk/issues/\1)", line.rstrip())
@@ -288,7 +287,6 @@ This document explains what application-specific blockchains are, and why develo
 This document explains what application-specific blockchains are, and why developers would want to build one as opposed to writing Smart Contracts.
 
 </HighlightBox>
-
 
 ## H5P
 

@@ -2,7 +2,7 @@
 title: "Get an External GUI"
 order: 4
 description: Find a checkers GUI before integrating with CosmJS
-tags: 
+tags:
   - guided-coding
 ---
 

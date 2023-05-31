@@ -2,7 +2,7 @@
 title: "Migrate the Leaderboard Module After Production"
 order: 5
 description: A migration of the leaderboard module for your in-production blockchain via state migration
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - cosm-js
@@ -159,7 +159,7 @@ Note that:
 * This passes along the channel a tuple `PlayerInfosChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error.
 * It uses the paginated query so as to not overwhelm the memory if there are millions of infos.
 * It closes the channel upon exit whether there is an error or not via the use of `defer`.
- 
+
 </HighlightBox>
 
 This routine populates the player info channel. What about the routine that consumes it?
@@ -432,11 +432,11 @@ After all these changes it is worthwhile adding tests, at least on the helpers.
 You introduced a new expected keeper. If you want to unit test your migration helpers properly, you have to mock this new expected interface:
 
 1. Add to the relevant `Makefile` target:
-   
+
     ```diff-lang-makefile
         mock-expected-keepers:
             ...
-                -destination=x/checkers/testutil/expected_keepers_mocks.go 
+                -destination=x/checkers/testutil/expected_keepers_mocks.go
     +      mockgen -source=x/leaderboard/types/expected_keepers.go \
     +          -package testutil \
     +          -destination=x/leaderboard/testutil/expected_keepers_mocks.go
@@ -645,7 +645,7 @@ $ docker run --rm -it \
 
 Given the configuration difficulty of the mock, only this test will do.
 
-It is not possible to add integration tests on the migration proper, because when the app is created it is already at v2. 
+It is not possible to add integration tests on the migration proper, because when the app is created it is already at v2.
 
 ## Interact via the CLI
 
@@ -1170,7 +1170,7 @@ $ jq ".app_state.gov.deposit_params.min_deposit" \
 ```sh
 $ docker exec -t checkers \
     bash -c 'jq ".app_state.gov.deposit_params.min_deposit" \
-        /root/.checkers/config/genesis.json' 
+        /root/.checkers/config/genesis.json'
 ```
 
 </CodeGroupItem>
@@ -1367,7 +1367,7 @@ Now wait for the chain to reach the desired block height, which should take five
 ```txt
 ...
 6:29PM INF finalizing commit of block hash=E6CB6F1E8CF4699543950F756F3E15AE447701ABAC498CDBA86633AC93A73EE7 height=1180 module=consensus num_txs=0 root=21E51E52AA3F06BE59C78CE11D3171E6F7240D297E4BCEAB07FC5A87957B3BE2
-6:29PM ERR UPGRADE "v1_1tov2" NEEDED at height: 1180: 
+6:29PM ERR UPGRADE "v1_1tov2" NEEDED at height: 1180:
 6:29PM ERR CONSENSUS FAILURE!!! err="UPGRADE \"v1_1tov2\" NEEDED at height: 1180: " module=consensus stack="goroutine 62 [running]:\nruntime/debug.Stack
 ...
 6:29PM INF Stopping baseWAL service impl={"Logger":{}} module=consensus wal=/root/.checkers/data/cs.wal/wal

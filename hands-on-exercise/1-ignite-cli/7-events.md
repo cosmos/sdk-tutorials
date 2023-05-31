@@ -2,7 +2,7 @@
 title: "Emit Game Information"
 order: 8
 description: Use events to emit game information
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---

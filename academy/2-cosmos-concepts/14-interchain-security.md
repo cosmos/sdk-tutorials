@@ -2,7 +2,7 @@
 title: "Interchain Security"
 order: 15
 description: What is Interchain Security?
-tags: 
+tags:
   - concepts
   - cosmos-hub
 ---
@@ -43,7 +43,7 @@ The IBC protocol is comprised of several Interchain Standards (ICSs) that make u
 
 Each chain that is part of the Interchain Secured network contains either a provider or consumer [CCV module](https://github.com/cosmos/interchain-security/tree/main/x/ccv) which takes care of the following tasks:
 
-* **Channel initialization:** After a governance proposal to add a consumer chain passes, the provider chain creates a [light client](../3-ibc/4-clients.md) of the consumer chain which relayers use to initiate the [connection](../3-ibc/2-connections.md). Once the consumer chain starts running at the [`spawn_time`](https://github.com/cosmos/interchain-security/blob/main/proto/interchain_security/ccv/provider/v1/provider.proto#L36), validators are expected to have their nodes up and running on the consumer chain. Relayers then create the [channel](../3-ibc/3-channels.md) which is dedicated to Cross-Chain Validation. 
+* **Channel initialization:** After a governance proposal to add a consumer chain passes, the provider chain creates a [light client](../3-ibc/4-clients.md) of the consumer chain which relayers use to initiate the [connection](../3-ibc/2-connections.md). Once the consumer chain starts running at the [`spawn_time`](https://github.com/cosmos/interchain-security/blob/main/proto/interchain_security/ccv/provider/v1/provider.proto#L36), validators are expected to have their nodes up and running on the consumer chain. Relayers then create the [channel](../3-ibc/3-channels.md) which is dedicated to Cross-Chain Validation.
 * **Validator set changes:** If a validator on the Cosmos Hub changes its voting power through a change in delegations or through being jailed, this change needs to be communicated to all consumer chains. The provider CCV module sends what is called a _Validator Set Change_ (VSC) using the IBC protocol. The consumer CCV module applies these changes to its consensus engine and communicates that the changes have been applied to the provider chain, which then registers its success in its own CCV module.
 * **Consumer initiated slashing:** If a validator misbehaves on the consumer chain, the provider chain needs to be informed so that it can slash a portion of the staked ATOM. Once the evidence has been submitted to and accepted by the consumer chain, it then uses the CCV channel to transfer a `SlashPacket` to the Cosmos Hub, which then executes a slashing operation on the staked ATOM. In some cases, a (temporary) jailing of the validator can also occur. This effectively means that if a validator misbehaves and gets jailed on one consumer chain, it will be affected on all consumer chains, as well as the Cosmos Hub.
 * **Reward distribution:** Similar to other Cosmos SDK chains, consumer chains can have a native token that gets paid out as a block reward for validators and delegators. At each block, a fraction of the block rewards is transferred to the consumer's CCV module. These tokens are then transferred to the distribution module on the Cosmos Hub at regular intervals through an [IBC token transfer](../3-ibc/5-token-transfer.md). The distribution module then distributes the tokens to validators and delegators as it ordinarily would for ATOM tokens.
@@ -66,7 +66,7 @@ As such, one of the primary questions dApp developers need to answer when consid
 
 ## Building with Interchain Security
 
-Before building out your chain to run on Interchain Security, it is recommended to make your intentions clear through a post on the [Cosmos Hub forum](https://forum.cosmos.network/), and potentially in the future through a governance proposal. 
+Before building out your chain to run on Interchain Security, it is recommended to make your intentions clear through a post on the [Cosmos Hub forum](https://forum.cosmos.network/), and potentially in the future through a governance proposal.
 
 If you find that your chain has significant support from the Cosmos Hub's community and you would like to go ahead with incorporating the consumer CCV Module into your chain, please have a look at the [repository](https://github.com/cosmos/interchain-security) that contains the Go implementation of Interchain Security. Interchain Security generally does not require any changes to your application's core logic. If you really want to take a deep dive, read [the Cross-Chain Validation specification](https://github.com/cosmos/ibc/blob/main/spec/app/ics-028-cross-chain-validation) to understand what functionality your chain will need to incorporate.
 

@@ -2,7 +2,7 @@
 title: "Backend Script for Game Indexing"
 order: 6
 description: Introduce a Web2.0 server to track games per player
-tags: 
+tags:
   - guided-coding
   - cosm-js
 ---
@@ -43,7 +43,7 @@ This exercise assumes that:
 2. You have the following in `.env`:
 
     <CodeGroup>
-    
+
     <CodeGroupItem title="Local">
 
     ```ini
@@ -52,9 +52,9 @@ This exercise assumes that:
     ```
 
     When you run `npm` on your local computer.
-    
+
     </CodeGroupItem>
-    
+
     <CodeGroupItem title="Docker">
 
     ```ini
@@ -63,7 +63,7 @@ This exercise assumes that:
     ```
 
     When you run `npm` in a Docker container.
-    
+
     </CodeGroupItem>
 
     </CodeGroup>

@@ -2,7 +2,7 @@
 title: "Control Structures in Go"
 order: 5
 description: if, switch, and for statements
-tags: 
+tags:
   - tutorial
 ---
 
@@ -18,7 +18,7 @@ The syntax is as follows:
 if boolean_expression_1 {
     // execute, if boolean_expression_1 is true
 } else if boolean_expression_2 {
-    // execute, if boolean_expression_1 is false but boolean_expression_2 
+    // execute, if boolean_expression_1 is false but boolean_expression_2
     // is true
 // } else if ...
 } else if boolean_expression_n {
@@ -98,7 +98,7 @@ switch {
     // ...
     case boolean_expression_n:
         // else if
-    default: 
+    default:
         // else
 }
 ```

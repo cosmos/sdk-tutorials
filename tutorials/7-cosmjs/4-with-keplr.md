@@ -2,7 +2,7 @@
 title: "Learn to Integrate Keplr"
 order: 5
 description: Interact with a Cosmos SDK chain through CosmJS and Keplr
-tags: 
+tags:
   - tutorial
   - cosm-js
   - dev-ops
@@ -13,9 +13,9 @@ tags:
 <HighlightBox type="learning">
 
 Build applications that interact with the Keplr browser extension.
-<br/><br/> 
-In this section, you will learn more about: 
-    
+<br/><br/>
+In this section, you will learn more about:
+
 * Detecting Keplr.
 * Getting chain information.
 * Working with the user interaction flow.
@@ -123,8 +123,6 @@ export interface FaucetSenderProps {
 }
 
 export class FaucetSender extends Component<FaucetSenderProps, FaucetSenderState> {
-
-
     // Set the initial state
     constructor(props:FaucetSenderProps) {
         super(props)

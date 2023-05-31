@@ -2,7 +2,7 @@
 title: "Create Custom Messages"
 order: 3
 description: Introduce the message to create a game in your checkers blockchain
-tags: 
+tags:
   - guided-coding
   - cosm-js
 ---
@@ -169,7 +169,7 @@ public async playMove(
 
 <HighlightBox type="best-practice">
 
-You should not consider these two functions as the **only** ones that users of `CheckersSigningStargateClient` should ever use. Rather, see them as a demonstration regarding to how to build messages properly. 
+You should not consider these two functions as the **only** ones that users of `CheckersSigningStargateClient` should ever use. Rather, see them as a demonstration regarding to how to build messages properly.
 
 </HighlightBox>
 
@@ -304,7 +304,7 @@ Just saving keys on disk does not magically make these keys hold tokens on your 
 
 1. If you use Ignite, it has created a faucet endpoint for you at port `4500`. The page `http://localhost:4500` explains the API.
 2. If you use the [CosmJS faucet](https://www.npmjs.com/package/@cosmjs/faucet), you can make it serve on port `4500` too.
- 
+
 For the purpose of this exercise, you will prepare for both faucets.
 
 Add the faucet(s) address in `.env`:
@@ -932,7 +932,7 @@ You can add further tests, for instance to see what happens with token balances 
 
 If you launch the tests just like you did in the [previous section](/hands-on-exercise/3-cosmjs-adv/1-cosmjs-objects.md), you may be missing a faucet.
 
-Adjust what you did. 
+Adjust what you did.
 
 * If you came here after going through the rest of the hands-on exercise, you know how to launch a running chain with Ignite, which has a faucet to start with.
 * If you arrived here and are only focused on learning CosmJS, it is possible to abstract away niceties of both the running chain and a faucet in a minimal package. For this, you need Docker and to create an image:

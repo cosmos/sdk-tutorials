@@ -23,7 +23,7 @@ In this chapter, you will:
 
 * Learn to scaffold an IBC-enabled module.
 * See IBC callbacks and packet flow in the generated code.
-* Discover how to make an existing chain IBC-enabled and how to create an IBC-enabled chain. 
+* Discover how to make an existing chain IBC-enabled and how to create an IBC-enabled chain.
 * Learn to write your own custom middleware to wrap an IBC application.
 * Understand how to hook different middlewares to IBC base applications to form different IBC application stacks.
 

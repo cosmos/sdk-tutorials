@@ -2,7 +2,7 @@
 title: Exercise - IBC Token - Play With Cross-Chain Tokens
 order:
 description: Exercise - Let players wager any fungible token
-tags: 
+tags:
   - deep-dive
 ---
 

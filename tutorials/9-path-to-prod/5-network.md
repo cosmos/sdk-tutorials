@@ -17,7 +17,7 @@ With the genesis created and received, a node operator needs to join the eventua
 
 In this section, you concern yourself with CometBFT and the peer-to-peer network. Other niceties like incorporating gRPC and REST into your Cosmos application are different concerns.
 
-## Set up 
+## Set up
 
 As a node operator, from the time of genesis or at any time in the future, and on each machine, you first run an `init` command to at least set up the folders and pick an ASCII-only moniker:
 
@@ -62,7 +62,7 @@ In the [`config.toml` file](https://docs.tendermint.com/v0.34/tendermint-core/us
 laddr = "tcp://0.0.0.0:26656"
 ```
 
-Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `172.217.22.14`. If you use a DNS-resolvable name, like `lascaux.myproject.example.com`, you can use that as well instead of the IP address. 
+Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `172.217.22.14`. If you use a DNS-resolvable name, like `lascaux.myproject.example.com`, you can use that as well instead of the IP address.
 
 Keep in mind that a name is subject to the DNS being well configured and working well. Add this too so that, whenever your node contacts a new node, yours can tell the other node which address is preferred:
 

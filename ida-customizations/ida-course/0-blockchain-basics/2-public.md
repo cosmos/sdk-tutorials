@@ -2,7 +2,7 @@
 title: "Blockchain History"
 order: 3
 description: A brief history of blockchain technology
-tags: 
+tags:
   - concepts
 ---
 

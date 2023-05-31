@@ -12,7 +12,6 @@ Include for Week 0 start, later back into comment, plus everything below needs t
 
 "Detailed information will be available during the week."
 
-
 <!--
 The private channels for the Academy on the official Discord is where you will communicate and collaborate with your instructors, tutors, and fellow participants.
 
@@ -43,7 +42,7 @@ You can post a message with your question directly into any channel.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-question.png)
 
-When posting a question in the **c4-support-forum**, you need to add a title and select the tag of the topic your question is related to. 
+When posting a question in the **c4-support-forum**, you need to add a title and select the tag of the topic your question is related to.
 
 ![IMAGE DESCRIPTION](/ida-course/images/discord-howto-supportforum.jpg)
 

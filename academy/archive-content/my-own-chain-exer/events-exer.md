@@ -2,7 +2,7 @@
 title: Exercise - Events - Emit Game Information
 order: 9
 description: Exercise - Emit game information using events
-tags: 
+tags:
   - deep-dive
 ---
 

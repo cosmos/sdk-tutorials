@@ -1,8 +1,8 @@
 ---
 title: Final Exam
 order:
-description: 
-tags: 
+description:
+tags:
 ---
 
 # Final Exam

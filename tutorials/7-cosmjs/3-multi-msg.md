@@ -2,7 +2,7 @@
 title: "Compose Complex Transactions"
 order: 4
 description: Send multiple tokens and messages through CosmJS
-tags: 
+tags:
   - tutorial
   - cosm-js
   - dev-ops
@@ -185,7 +185,6 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
         ...
     }
     ```
-
 
 <HighlightBox type="info">
 

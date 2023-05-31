@@ -232,7 +232,7 @@ Your upcoming integration tests will include checks on wagers being paid, lost, 
     ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/integration-tests/tests/integration/checkers/keeper/keeper_integration_suite_test.go#L19-L28]
     import (
         "github.com/alice/checkers/x/checkers/testutil"
-    ) 
+    )
 
     const (
         alice = testutil.Alice

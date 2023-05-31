@@ -2,7 +2,7 @@
 title: "Create a Custom IBC Middleware"
 order: 11
 description: Implementing interfaces
-tags: 
+tags:
   - guided-coding
   - ibc
   - dev-ops

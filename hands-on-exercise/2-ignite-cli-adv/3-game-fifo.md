@@ -2,7 +2,7 @@
 title: "Put Your Games in Order"
 order: 4
 description: Store FIFO - prepare to expire games
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---

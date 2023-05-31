@@ -2,7 +2,7 @@
 title: "Integrating IBC Middleware Into a Chain"
 order: 12
 description: Integrate IBC middleware with a base application
-tags: 
+tags:
   - guided-coding
   - ibc
   - dev-ops
@@ -115,7 +115,7 @@ To integrate middleware (or a middleware stack) you must do the following in `ap
   In the code snippet below, three different stacks are defined:
 
   <ExpansionPanel title="Example code">
-  
+
   ```go
   // create IBC stacks by combining middleware with the base application
   // NOTE: since middleware2 is stateless it does not require a Keeper

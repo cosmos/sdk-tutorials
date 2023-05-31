@@ -2,7 +2,7 @@
 title: "Store Object"
 order: 4
 description: Create the object that stores a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -234,11 +234,11 @@ The `StoredGame` object looks like this:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/stored_game.proto#L6-L12]
 message StoredGame {
-    string index = 1; 
-    string board = 2; 
-    string turn = 3; 
-    string black = 4; 
-    string red = 5; 
+    string index = 1;
+    string board = 2;
+    string turn = 3;
+    string black = 4;
+    string red = 5;
 }
 ```
 
@@ -631,12 +631,12 @@ You want your tests to pass when everything is okay, but you also want them to f
 
 ```txt
 --- FAIL: TestDefaultGenesisState_ExpectedInitialNextId (0.00s)
-    genesis_test.go:68: 
+    genesis_test.go:68:
         Error Trace:    genesis_test.go:68
-        Error:          Not equal: 
+        Error:          Not equal:
                 expected: &types.GenesisState{Params:types.Params{}, SystemInfo:types.SystemInfo{NextId:0x2}, StoredGameList:[]types.StoredGame{}}
                 actual  : &types.GenesisState{Params:types.Params{}, SystemInfo:types.SystemInfo{NextId:0x1}, StoredGameList:[]types.StoredGame{}}
-                            
+
                 Diff:
                 --- Expected
                 +++ Actual
@@ -791,7 +791,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
 
     <HighlightBox type="note">
-    
+
     The throwaway container is started with the name `checkers`, so that you can connect to it for the next commands.
 
     </HighlightBox>

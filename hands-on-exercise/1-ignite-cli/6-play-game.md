@@ -2,7 +2,7 @@
 title: "Add a Way to Make a Move"
 order: 7
 description: Play a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -610,7 +610,7 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-If you restarted from the [previous section](./5-create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
+If you restarted from the [previous section](./5-create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI.
 
 ### Bob plays out of turn
 

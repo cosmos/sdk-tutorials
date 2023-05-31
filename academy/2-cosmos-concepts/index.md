@@ -46,10 +46,10 @@ Want to get started with the main concepts of the Cosmos SDK? Go ahead and start
 ## Developer Resources
 
 <div v-for="resource in $themeConfig.resources">
-  <Resource 
-    :title="resource.title" 
-    :description="resource.description" 
-    :links="resource.links" 
+  <Resource
+    :title="resource.title"
+    :description="resource.description"
+    :links="resource.links"
     :image="resource.image"
     :large="true"
   />

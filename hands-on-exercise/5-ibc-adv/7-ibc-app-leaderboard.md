@@ -2,7 +2,7 @@
 title: "Create a Leaderboard Chain"
 order: 8
 description: A global leaderboard for your games
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops

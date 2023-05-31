@@ -2,7 +2,7 @@
 title: "What is CosmJS?"
 order: 2
 description: CosmJS and what it can do for me
-tags: 
+tags:
   - tutorial
   - concepts
   - cosm-js
@@ -15,7 +15,7 @@ tags:
 Build applications that interact with Cosmos blockchains with CosmJS.
 <br/><br/>
 In this section, you will learn:
-  
+
 * What CosmJS is.
 * What you can use it for.
 * More details regarding the modular design of CosmJS.

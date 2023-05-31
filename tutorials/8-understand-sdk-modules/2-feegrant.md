@@ -256,7 +256,6 @@ Want a demonstration of x/feegrant and x/authz? In the following video Amaury Ma
 
 </HighlightBox>
 
-
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:

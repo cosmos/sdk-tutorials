@@ -2,7 +2,7 @@
 title: "Modules"
 order: 6
 description: Core Cosmos SDK modules and their components
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -428,7 +428,7 @@ To summarize, this section has explored:
 * How all modules comprise three core functionalities: an implementation of ABCI to communicate with CometBFT; a general-purpose data store which persists the module state; and the server and interfaces which facilitate interactions with the node.
 * How the majority of work for developers is in building custom modules that satisfy their unique needs, which are then integrated into a coherent application alongside existing modules from the Cosmos SDK of third-party developers.
 * How the Cosmos SDK's set of core modules address common applications needs (such as tokens, staking, and governance) while providing useful benefits like standardization across the Ecosystem, less duplication of effort, and practical examples of effective structure, style, and best practices.
-* How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.             
+* How modules should ideally define and register their own set of errors (in addition to the Cosmos SDK's set of common errors), allowing developers to add context and meaning to failed executions.
 
 </HighlightBox>
 

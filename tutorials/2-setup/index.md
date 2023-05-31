@@ -5,7 +5,7 @@ parent:
   number: 2
 order: 0
 title:
-tags: 
+tags:
   - tutorial
   - dev-ops
 ---

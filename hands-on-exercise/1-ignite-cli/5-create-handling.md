@@ -2,7 +2,7 @@
 title: "Create and Save a Game Properly"
 order: 6
 description: Create a proper game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -233,10 +233,10 @@ This should return:
 ```txt
 --- FAIL: TestMsgCreateGame_ValidateBasic (0.00s)
     --- FAIL: TestMsgCreateGame_ValidateBasic/valid_address (0.00s)
-        message_create_game_test.go:37: 
+        message_create_game_test.go:37:
                 Error Trace:    /Users/alice/checkers/x/checkers/types/message_create_game_test.go:37
                 Error:          Received unexpected error:
-                            
+
                                 github.com/alice/checkers/x/checkers/types.(*MsgCreateGame).ValidateBasic
                                         /Users/alice/checkers/x/checkers/types/message_create_game.go:50
                                 github.com/alice/checkers/x/checkers/types.TestMsgCreateGame_ValidateBasic.func1
@@ -246,7 +246,6 @@ This should return:
 ```
 
 First, change the file's package to `types_test` for consistency:
-
 
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/types/message_create_game_test.go#L1-L7]
 -  package types

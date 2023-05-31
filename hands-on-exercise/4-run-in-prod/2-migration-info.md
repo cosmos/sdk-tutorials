@@ -2,7 +2,7 @@
 title: "Tally Player Info After Production"
 order: 3
 description: A new player info for your in-production blockchain via state migration
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
   - cosm-js
@@ -30,7 +30,7 @@ In this section, you will:
 
 </HighlightBox>
 
-If you have been running _v1_ of your checkers blockchain for a while, games have been created, played on, won, and lost. In this section, you will introduce _v1.1_ of your blockchain where wins and losses and tallied in a new storage data structure. 
+If you have been running _v1_ of your checkers blockchain for a while, games have been created, played on, won, and lost. In this section, you will introduce _v1.1_ of your blockchain where wins and losses and tallied in a new storage data structure.
 
 <HighlightBox type="tip">
 
@@ -448,7 +448,7 @@ The processing **routines** will be divided as per the following:
     * Close the _stored-game_ channel after the last array, or on an error.
 
 2. The **game processing** routine will:
-    
+
     * Receive separate arrays of games from the _stored-game_ channel.
     * Compute the aggregate player info records from them (i.e. **_map_**).
     * Send the results on the _player-info_ channel.
@@ -537,7 +537,7 @@ Note that:
 * The helper function passes along the channel a tuple `storedGamesChunk` that may contain an error. This is to obtain a result similar to when a function returns an optional error .
 * It uses the paginated query so as to not overwhelm the memory if there are millions of infos.
 * It closes the channel upon exit whether there is an error or not via the use of `defer`.
- 
+
 </HighlightBox>
 
 Next, create the routine function to process the games:
@@ -711,7 +711,7 @@ func TestBuildPlayerInfosInPlace(t *testing.T) {
 Add the simple tests cases, such as:
 
 1. Nothing:
-    
+
     ```go
     {
         name:     "nothing to assemble",
@@ -1716,7 +1716,7 @@ $ jq ".app_state.gov.deposit_params.min_deposit" \
 ```sh
 $ docker exec -t checkers \
     bash -c 'jq ".app_state.gov.deposit_params.min_deposit" \
-        /root/.checkers/config/genesis.json' 
+        /root/.checkers/config/genesis.json'
 ```
 
 </CodeGroupItem>
@@ -1913,7 +1913,7 @@ Now, wait for the chain to reach the desired block height, which should take fiv
 ```txt
 ...
 6:29PM INF finalizing commit of block hash=E6CB6F1E8CF4699543950F756F3E15AE447701ABAC498CDBA86633AC93A73EE7 height=1180 module=consensus num_txs=0 root=21E51E52AA3F06BE59C78CE11D3171E6F7240D297E4BCEAB07FC5A87957B3BE2
-6:29PM ERR UPGRADE "v1tov1_1" NEEDED at height: 1180: 
+6:29PM ERR UPGRADE "v1tov1_1" NEEDED at height: 1180:
 6:29PM ERR CONSENSUS FAILURE!!! err="UPGRADE \"v1tov1_1\" NEEDED at height: 1180: " module=consensus stack="goroutine 62 [running]:\nruntime/debug.Stack
 ...
 6:29PM INF Stopping baseWAL service impl={"Logger":{}} module=consensus wal=/root/.checkers/data/cs.wal/wal

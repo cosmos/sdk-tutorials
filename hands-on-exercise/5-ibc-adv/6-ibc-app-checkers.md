@@ -2,7 +2,7 @@
 title: "Extend the Checkers Game With a Leaderboard"
 order: 7
 description: Make your checkers game IBC-enabled
-tags: 
+tags:
   - concepts
   - guided-coding
   - ibc
@@ -143,12 +143,12 @@ For example, for `proto/leaderboard/board.proto` try this:
     package b9lab.checkers.leaderboard;
 
     option go_package = "github.com/b9lab/checkers/x/leaderboard/types";
-    import "leaderboard/player_info.proto"; 
+    import "leaderboard/player_info.proto";
 +  import "gogoproto/gogo.proto";
 
     message Board {
--      PlayerInfo playerInfo = 1; 
-+      repeated PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false]; 
+-      PlayerInfo playerInfo = 1;
++      repeated PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false];
     }
 ```
 
@@ -219,7 +219,7 @@ Continue preparing your new leaderboard module.
 
 The checkers module is the authority when it comes to who won and who lost; the leaderboard module is the authority when it comes to how to tally scores and rank players. Therefore, the leaderboard module will only expose to the checkers module functions to inform on wins and losses, like `MustAddWonGameResultToPlayer(...)`.
 
-To achieve this, first you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code: 
+To achieve this, first you need to write those functions. Create a `x/leaderboard/keeper/player_info_handler.go` file with the following code:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/b9-checkers-academy-draft/x/leaderboard/keeper/player_info_handler.go]
 package keeper

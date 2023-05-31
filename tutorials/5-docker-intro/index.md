@@ -4,7 +4,7 @@ parent:
   description: Know your way around Docker
   number: 5
 order: 0
-title: Docker Introduction 
+title: Docker Introduction
 tags:
   - tutorial
   - dev-ops

@@ -235,7 +235,7 @@ Do you have access to an existing chain?
         * Implement IBC core:
             * Source code.
             * Smart contract based.
-            
+
 * **Yes.** Is it a Cosmos SDK chain?
     * Yes. Move on to application development.
     * No.
