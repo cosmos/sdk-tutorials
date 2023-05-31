@@ -274,23 +274,23 @@ func TestPlayMoveUpToWinner(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
 
-    testutil.PlayAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", bob, carol, testutil.Game1Moves)
 
     systemInfo, found := keeper.GetSystemInfo(ctx)
     require.True(t, found)
     require.EqualValues(t, types.SystemInfo{
-        NextId:        2,
+        NextId: 2,
     }, systemInfo)
 
     game, found := keeper.GetStoredGame(ctx, "1")
     require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Index:       "1",
-        Board:       "",
-        Turn:        "b",
-        Black:       bob,
-        Red:         carol,
-        Winner:      "b",
+        Index:  "1",
+        Board:  "",
+        Turn:   "b",
+        Black:  bob,
+        Red:    carol,
+        Winner: "b",
     }, game)
     events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
     require.Len(t, events, 2)
