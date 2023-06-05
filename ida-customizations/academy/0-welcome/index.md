@@ -135,7 +135,7 @@ customModules:
         - title: Transport, authentication, and ordering layer - connections, channels, and clients - OPTIONAL
           path: /academy/3-ibc/2-connections.html
         - title: IBC token transfer
-          path: /academy/3-ibc/5-token-transfer.html
+          path: /academy/3-ibc/7-token-transfer.html
         - title: Interchain accounts - OPTIONAL
           path: /academy/3-ibc/6-ica.html
         - title: IBC middleware - OPTIONAL
@@ -173,7 +173,7 @@ customModules:
         - title: Incentivize players and manage gas
           path: /hands-on-exercise/2-ignite-cli/6-gas-meter.html
         - title: Help find a correct move
-          path: /hands-on-exercise/2-ignite-cli/7-can-play.html
+          path: /hands-on-exercise/2-ignite-cli/9-can-play.html
         - title: Move your chain to production
           path: /hands-on-exercise/2-ignite-cli-adv/8-run-prod.html
         - title: Understand IBC denoms

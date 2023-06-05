@@ -104,7 +104,7 @@ In the current arrangement, if a player hits an error (such as a failure to pay 
 
 If you decide to move the gas metering line closer to the beginning of the function's body, then you will charge the player extra gas for any move that contains errors _despite the fact that the requested move will not be accepted_.
 
-This alternate approach would certainly dis-incentivize players from submitting erroneous moves, but it also risks alienating them through financial punishment for accidental mistakes. Better is to implement a feature that allows players to check a move is valid _before_ they pay the cost of handling. This is explored in the [next section](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
+This alternate approach would certainly dis-incentivize players from submitting erroneous moves, but it also risks alienating them through financial punishment for accidental mistakes. Better is to implement a feature that allows players to check a move is valid _before_ they pay the cost of handling. This is explored in the [next section](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md).
 
 </HighlightBox>
 
@@ -377,4 +377,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./7-can-play.md).-->
+Make your checkers blockchain more user-friendly by helping players avoid bad transactions via a query that tests a move. Just follow the exercise in the [next section](./9-can-play.md).-->

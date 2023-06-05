@@ -17,7 +17,7 @@ Make sure you have everything you need before proceeding:
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have completed the introductory [CosmJS tutorial](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 * Go and npm are installed.
-* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/108-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
+* You have finished the checkers Go blockchain exercise. If not, you can follow the tutorial [here](/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.md), or just clone and checkout the [relevant branch](https://github.com/cosmos/b9-checkers-academy-draft/tree/wager-denomination) that contains the final version.
 
 </HighlightBox>
 

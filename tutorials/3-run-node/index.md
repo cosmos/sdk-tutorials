@@ -341,7 +341,7 @@ Now you can add a new key:
 ```sh
 $ ./build/simd keys add alice \
     --home ./private/.simapp \
-    --keyring-backend file
+    --keyring-backend test
 ```
 
 </CodeGroupItem>

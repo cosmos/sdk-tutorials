@@ -17,7 +17,7 @@ The Interchain vision set out by the original [Cosmos whitepaper](https://v1.cos
 
 _Sounds great, right? But wait, what does that actually mean?_
 
-Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solo machine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-fb55ba0b0234)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
+Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solo machine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-5af93618ef63)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
 
 However, the first and still most dominant example to date is to transfer a (fungible) token from a source chain to a destination chain.
 
@@ -70,7 +70,7 @@ In this tutorial you will:
 
 <HighlightBox type="info">
 
-Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/5-token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
+Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/7-token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
 
 </HighlightBox>
 
@@ -106,7 +106,7 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/5-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/7-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
 <HighlightBox type="best-practice">
 

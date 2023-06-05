@@ -34,7 +34,7 @@ If you have been running _v1_ of your checkers blockchain for a while, games hav
 
 <HighlightBox type="tip">
 
-This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./4-migration-leaderboard.md).
+This is not done in vain. Instead, looking forward, this is done to support the addition of a leaderboard module for your _v2_ in the [next section](./3-add-leaderboard.md).
 
 </HighlightBox>
 

@@ -48,7 +48,7 @@ Google provides the [gRPC project](https://grpc.io/). This universal RPC framewo
 
 First you must define a data structure in a `.proto` file. This is a normal text file with descriptive syntax. Data is represented as a message containing name-value pairs called fields.
 
-Next, compile your Protobuf schema. `.protoc` generates data access classes, with accessors for each field in your preferred language according to the command-line options. Accessors include serializing, deserializing, and parsing.
+Next, compile your Protobuf schema. `protoc` generates data access classes, with accessors for each field in your preferred language according to the command-line options. Accessors include serializing, deserializing, and parsing.
 
 ## Protobuf basics for Go
 

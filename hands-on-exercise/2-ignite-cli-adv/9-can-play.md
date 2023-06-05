@@ -153,13 +153,11 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 3. Is the `player` given actually one of the game players?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L32-L46]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L32-L44]
     isBlack := rules.PieceStrings[rules.BLACK_PLAYER] == req.Player
     isRed := rules.PieceStrings[rules.RED_PLAYER] == req.Player
     var player rules.Player
-    if isBlack && isRed {
-        player = rules.StringPieces[storedGame.Turn].Player
-    } else if isBlack {
+    if isBlack {
         player = rules.BLACK_PLAYER
     } else if isRed {
         player = rules.RED_PLAYER
@@ -173,7 +171,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 4. Is it the player's turn?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L47-L56]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L45-L54]
     game, err := storedGame.ParseGame()
     if err != nil {
         return nil, err
@@ -188,7 +186,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 5. Attempt the move and report back:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L57-L72]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L55-L70]
     _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
@@ -209,7 +207,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 6. If all went well:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L74-L77]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L72-L75]
     -  return &types.QueryCanPlayMoveResponse{}, nil
     +  return &types.QueryCanPlayMoveResponse{
     +      Possible: true,

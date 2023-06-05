@@ -143,7 +143,7 @@ Available Commands:
 
 ### With Ignite
 
-Whether you prepared your project with or without Ignite, you can still [build it with Ignite](https://docs.ignite.com/cli#ignite-chain-build). To see how to write a build command you can do:
+Whether you prepared your project with or without Ignite, you can still [build it with Ignite](https://docs.ignite.com/references/cli#ignite-chain-build). To see how to write a build command you can do:
 
 ```sh
 $ ignite chain build --help

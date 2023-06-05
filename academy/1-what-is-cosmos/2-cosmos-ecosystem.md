@@ -150,7 +150,7 @@ If the other chain is a **probabilistic-finality chain**, a simple adaptation of
 
 <HighlightBox type="info">
 
-A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/14-bridges.md).
+A peg-zone implementation exists for Ethereum and is named the **[Gravity Bridge](https://github.com/cosmos/gravity-bridge)**. For more information on bridges and the Gravity bridge, see the section [Bridges](/academy/2-cosmos-concepts/15-bridges.md).
 
 </HighlightBox>
 
@@ -211,7 +211,7 @@ With CosmWasm, smart contracts can run on multiple chains with the help of the I
 
 <HighlightBox type="docs">
 
-For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs/1.0/).
+For a deeper dive, read the [CosmWasm documentation](https://docs.cosmwasm.com/docs).
 
 </HighlightBox>
 

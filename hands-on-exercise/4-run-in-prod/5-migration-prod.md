@@ -14,7 +14,7 @@ tags:
 
 Make sure you have all you need before proceeding:
 
-* You understand the concepts of [migrations](/academy/2-cosmos-concepts/13-migrations.md), [production](/tutorials/9-path-to-prod/index.md), and [migrations in production](/tutorials/9-path-to-prod/7-migration.md).
+* You understand the concepts of [migrations](/academy/2-cosmos-concepts/16-migrations.md), [production](/tutorials/9-path-to-prod/index.md), and [migrations in production](/tutorials/9-path-to-prod/7-migration.md).
 * Docker is installed and you [understand it](/tutorials/5-docker-intro/index.md).
 * You have the checkers blockchain codebase up to the migrations. If not, follow the [previous steps](/hands-on-exercise/4-run-in-prod/4-migration-leaderboard.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/leaderboard-migration).
 
