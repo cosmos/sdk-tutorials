@@ -973,14 +973,6 @@ Find the complete set of files [here](https://github.com/b9lab/cosmjs-sandbox/tr
 
 </HighlightBox>
 
-<HighlightBox type="info">
-
-If you want a detailed introduction to CosmJS, check out the following video with Noam Cohan, former Developer Relations Lead for Cosmos Hub.
-
-<YoutubePlayer videoId="RlqjEVIv1Pg"/>
-
-</HighlightBox>
-
 <HighlightBox type="tip">
 
 If you would like to see how to do more actions when listening to events from your own checkers game, you can go straight to the related exercise in [CosmJS for Your Chain](/hands-on-exercise/3-cosmjs-adv/index.md).
