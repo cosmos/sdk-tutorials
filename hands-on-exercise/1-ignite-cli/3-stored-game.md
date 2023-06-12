@@ -188,6 +188,19 @@ You can rely on Ignite CLI's assistance for both the counter and the game:
 
 The Ignite CLI `scaffold` command creates several files, as you can see [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/d5a93bf) and [here](https://github.com/cosmos/b9-checkers-academy-draft/commit/8679295).
 
+<HighlightBox type="node">
+
+Why have the game `index` be a string when it is created out of `nextId`, a number?
+
+The fact that the underlying value is parseable to a number is an artefact of its creation, and not a necessity:
+
+* By default, objects stored in a map have a key as a string, so you might as well stay within the standard.
+* At no other point in the code is there an embedded assumption that the game index is a number.
+
+Looking ahead, you keep your data structure versatile.
+
+</HighlightBox>
+
 ### Looking around
 
 The command added new constants:

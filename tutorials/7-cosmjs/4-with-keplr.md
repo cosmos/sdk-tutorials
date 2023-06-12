@@ -37,7 +37,7 @@ In your project folder create the ready-made Next.js app, which automatically pl
 <CodeGroupItem title="Local">
 
 ```sh
-$ npx create-next-app@latest --typescript
+$ npx create-next-app@13.2.4 --typescript
 ```
 
 </CodeGroupItem>
@@ -48,7 +48,7 @@ $ npx create-next-app@latest --typescript
 $ docker run --rm -it \
     -v $(pwd):/root -w /root \
     node:lts-slim \
-    npx create-next-app@latest --typescript
+    npx create-next-app@13.2.4 --typescript
 ```
 
 </CodeGroupItem>

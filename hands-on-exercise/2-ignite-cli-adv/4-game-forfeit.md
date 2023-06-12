@@ -98,7 +98,7 @@ Also prepare a new error:
 ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/forfeit-game/x/checkers/types/errors.go#L23]
     var (
         ...
-+      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1109, "cannot find winner by color: %s")
++      ErrCannotFindWinnerByColor = sdkerrors.Register(ModuleName, 1112, "cannot find winner by color: %s")
     )
 ```
 
