@@ -213,6 +213,8 @@ The first two types of files do not require any special treatment. Only the last
 
 There is a separate folder for files with different content for the IDA platform in the repository root, named `ida-customizations`. When building the IDA platform, the content of this folder is copied into the main folder, overwriting the main platform files. For example, the file `/academy/whats-next/index.md` (main platform) has an IDA variation in `/ida-customizations/academy/whats-next/index.md`. When building the IDA platform, the original file will be overwritten with the IDA file version before building. Similarly, there is an IDA specific config in `/ida-customizations/.vuepress/config.js`
 
+**To disable versions (feature/ui selection) when building the IDA platform**, empty the versions.txt file.
+
 ### Switching variants
 
 There are two helper scripts available to switch between the main platform and the IDA platform variants.
