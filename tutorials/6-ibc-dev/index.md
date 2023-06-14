@@ -343,7 +343,7 @@ A type of _Chain Name Service_ can verify the combination of the chain ID and th
 
   The [chain registry](https://github.com/cosmos/chain-registry) repo is a stopgap solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork the `registry` repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
 
-  Every chain ID is represented by a folder, and within that folder, a `peers.json` file contains a list of nodes that you can connect to.
+  Every chain ID is represented by a folder, and within that folder, a `chain.json` file contains a list of nodes that you can connect to.
 
 Being able to list all possible blockchain paths is still an unsolved problem. Some ecosystem efforts are already being developed to help bridge this gap. Take for example this [IBC-Cosmos repo by Pulsar](https://github.com/PulsarDefi/IBC-Cosmos): it attempts to aggregate all known IBC denoms on all IBC connected chains. They use the following data schema:
 
