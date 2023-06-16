@@ -25,7 +25,7 @@ You can find more information about how IPFS works in their [documentation](http
 
 In this tutorial, you will learn how to store files and websites on IPFS.
 
-## Requirements 
+## Requirements
 
 First download and install IPFS, find the instructions for your OS [here](https://docs.ipfs.io/install/command-line/).
 
@@ -98,7 +98,7 @@ As you want to store the metadata permanently, without running your IPFS own nod
 
 Pinning services are services that pin files on their nodes, making them available on the network, without having to run your own node.
 
-For this tutorial, you will use [Web3.storage](https://web3.storage/), a pinning service provided by **Protocol Labs**, the main developers of IPFS. Feel free to use any other pinning service you prefer, such as [Pinata](https://pinata.cloud), [Infura](https://infura.io/product/ipfs), etc.
+For this tutorial, you will use [Web3.storage](https://web3.storage/), a pinning service provided by **Protocol Labs**, the main developers of IPFS. Feel free to use any other pinning service you prefer, such as [Pinata](https://pinata.cloud), [Infura](https://infura.io/product/ipfs), etc. <!-- markdown-link-check-disable-line -->
 
 First, create an account on [Web3.storage](https://web3.storage/) and get an [API token](https://web3.storage/tokens/?create=true). With Web3.storage, you need to request access to the pinning API, or you can upload the file directly from the interface.
 

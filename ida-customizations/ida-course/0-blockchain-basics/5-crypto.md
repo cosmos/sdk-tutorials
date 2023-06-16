@@ -2,7 +2,7 @@
 title: "Cryptographic Fundamentals of Blockchain"
 order: 6
 description: Public-key cryptography
-tags: 
+tags:
   - concepts
 ---
 
@@ -45,9 +45,9 @@ writing RSA key
 
 This is like a password that is used to encrypt your private key on disk. If the private key was not encrypted, it would be at greater risk of theft. Since you are just testing here, you can put in nothing or just a simple word. Still remember that whenever you create keys in the future, you need to protect them with a proper password.
 
-<HighlightBox type="tip">
+<HighlightBox type="note">
 
-Note that you may need openssl version 1.0 or a newer one.
+You may need openssl version 1.0 or a newer one.
 
 </HighlightBox>
 

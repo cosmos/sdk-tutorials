@@ -2,12 +2,71 @@
 title: "Backend Script for Game Indexing"
 order: 6
 description: Introduce a Web2.0 server to track games per player
-tags: 
+tags:
   - guided-coding
   - cosm-js
 ---
 
 # Backend Script for Game Indexing
+
+<HighlightBox type="prerequisite">
+
+Make sure you have all you need before proceeding:
+
+* You understand the concepts of [CosmJS](/tutorials/7-cosmjs/1-cosmjs-intro.md).
+* You have the checkers CosmJS codebase up to the integrated GUI. If not, follow the [previous steps](./4-cosmjs-gui.md) or go ahead and clone and checkout [this branch](https://github.com/cosmos/academy-checkers-ui/tree/gui) to get the version needed for this tutorial.
+
+</HighlightBox>
+
+This exercise assumes that:
+
+1. You are running your [checkers blockchain](./2-cosmjs-messages.md#prepare-your-checkers-chain) with:
+
+    ```sh
+    $ docker network create checkers-net
+    $ docker run --rm -it \
+        -p 26657:26657 \
+        --name checkers \
+        --network checkers-net \
+        --detach \
+        checkersd_i:standalone start
+    $ sleep 10
+    $ docker run --rm -it \
+        -p 4500:4500 \
+        --name cosmos-faucet \
+        --network checkers-net \
+        --detach \
+        cosmos-faucet_i:0.28.11 start http://checkers:26657
+    $ sleep 20
+    ```
+
+2. You have the following in `.env`:
+
+    <CodeGroup>
+
+    <CodeGroupItem title="Local">
+
+    ```ini
+    RPC_URL="http://localhost:26657"
+    FAUCET_URL="http://localhost:4500"
+    ```
+
+    When you run `npm` on your local computer.
+
+    </CodeGroupItem>
+
+    <CodeGroupItem title="Docker">
+
+    ```ini
+    RPC_URL="http://checkers:26657"
+    FAUCET_URL="http://cosmos-faucet:4500"
+    ```
+
+    When you run `npm` in a Docker container.
+
+    </CodeGroupItem>
+
+    </CodeGroup>
 
 Now that your blockchain is complete, you can think about additional data and services that would add value without increasing cost or complexity on-chain.
 
@@ -19,7 +78,7 @@ To implement this functionality, build a Web 2.0 server to do the indexing. The 
 
 1. Listens to updates from the checkers chain:
     1. On a game creation event, adds the game ID under each player.
-    2. On a game deletion event, removes it. This happens either because of a rejection or in an end-block.
+    2. On a game deletion event, removes it.
 2. When asked about its status, returns the latest block height up to which it has indexed players.
 3. When asked about a given player, returns the list of game IDs for this player.
 4. When a game ID is submitted, patches its information about that game ID on a best effort basis (to palliate potential de-synchronization).
@@ -50,12 +109,12 @@ $ npm install @types/express@4.17.13 --save-dev --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install express@4.18.1 --save-exact
 $ docker run --rm \
     -v $(pwd):/client \
     -w /client \
-    node:18.7 \
+    node:18.7-slim \
     npm install @types/express@4.17.13 --save-dev --save-exact
 ```
 
@@ -121,9 +180,9 @@ Generally, it is a good idea to use deletes to prevent the state from simply gro
 
 ### Empty indexer module
 
-A barebones server without any Cosmos elements is defined in an `indexer.ts`. This is not CosmJS related, so start from something else if you prefer.
+Define a barebones server without any Cosmos elements in an `indexer.ts`. This is not CosmJS related, so start from something else if you prefer.
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/20e6149/src/server/indexer.ts]
+```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts]
 import { writeFile } from "fs/promises"
 import { Server } from "http"
 import express, { Express, Request, Response } from "express"
@@ -211,7 +270,7 @@ export const createIndexer = async () => {
 Note:
 
 1. The timer is set at the end of the previous poll, in case indexing takes longer than the interval.
-2. The _database_ is purely in memory as it runs and is saved on exit by catching the interruption signal.
+2. The _database_ is, for now, purely in memory as it runs and is saved on exit by catching the interruption signal.
 
 </HighlightBox>
 
@@ -284,10 +343,11 @@ $ npm run indexer-dev
 
 ```sh
 $ docker run --rm -it \
-    -v $(pwd):/client \
-    -w /client \
+    -v $(pwd):/client -w /client \
     -p 3001:3001 \
-    node:18.7 \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
+    node:18.7-slim \
     npm run indexer-dev
 ```
 
@@ -431,44 +491,46 @@ Add the following to `indexer.ts`:
     }
     ```
 
-The `.env` file contains the `RPC_URL`, adjust it to your situation, in particular if you are using Docker. If necessary, launch the checkers blockchain:
+If you have not done it yet, start your checkers chain as described at the beginning of this section.
 
-* If you are running it with Ignite CLI:
+Relaunch the indexer:
 
-    <CodeGroup>
+<CodeGroup>
 
-    <CodeGroupItem title="Local" active>
+<CodeGroupItem title="Local">
 
-    ```sh
-    $ ignite chain serve
-    ```
+```sh
+$ npm run indexer-dev
+```
 
-    </CodeGroupItem>
+</CodeGroupItem>
 
-    <CodeGroupItem title="Docker">
+<CodeGroupItem title="Docker">
 
-    ```sh
-    $ docker run --rm -it \
-        -v $(pwd):/checkers \
-        -w /checkers \
-        -p 1317:1317 \
-        -p 4500:4500 \
-        -p 5000:5000 \
-        -p 26657:26657 \
-        checkers_i \
-        ignite chain serve
-    ```
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/client -w /client \
+    -p 3001:3001 \
+    --network checkers-net \
+    --env RPC_URL="http://checkers:26657" \
+    node:18.7-slim \
+    npm run indexer-dev
+```
 
-    </CodeGroupItem>
+<HighlightBox type="tip">
 
-    </CodeGroup>
+Note how the container is started inside `checkers-net` alongside the checkers blockchain.
 
-* If not, follow the relevant instructions to run it, or access a testnet.
+</HighlightBox>
 
-Relaunch `npm run indexer-dev`. You should see the current height rising:
+</CodeGroupItem>
+
+</CodeGroup>
+
+You should see the current height rising:
 
 ```txt
-Connected to chain-id: checkers
+Connected to chain-id: checkers-1
 
 server started at http://localhost:3001
 2022-04-20T17:46:29.962Z Current heights: 0 <= 1353
@@ -480,8 +542,7 @@ server started at http://localhost:3001
 To index games, take each block and listen for the following relevant events:
 
 1. A transaction with a `new-game-created` event.
-2. A transaction with a `game-rejected` event.
-3. An `EndBlock` with a `game-forfeited` event.
+2. An `EndBlock` with a `game-forfeited` event.
 
 Start by getting each block from your last saved state. Update `poll`:
 
@@ -547,15 +608,16 @@ const handleBlock = async (block: Block) => {
 
 This needs new imports:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L1-L3]
-import { sha256 } from "@cosmjs/crypto"
-import { toHex } from "@cosmjs/encoding"
-import { Block, IndexedTx } from "@cosmjs/stargate"
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L1-L3]
++  import { sha256 } from "@cosmjs/crypto"
++  import { toHex } from "@cosmjs/encoding"
+-  import { Block } from "@cosmjs/stargate"
++  import { Block, IndexedTx } from "@cosmjs/stargate"
 ```
 
 <HighlightBox type="note">
 
-* `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
+* `while() { await }` simplifies the syntax of `await`ing multiple times sequentially.
 * The hash is calculated this way as per [here](https://github.com/cosmos/cosmjs/blob/v0.28.11/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L77).
 * `console.log("")` puts a new line (`poll` does a `process.stdout.write` which adds no line).
 * The `handleBlock` function uses a new function, `handleTx`. Create one and put `console.log(indexed)` inside to explore what this object is and consider what actions you can take with it.
@@ -613,7 +675,7 @@ const handleEvents = async (events: StringEvent[]): Promise<void> => {
 * `while() {}` simplifies the syntax of `await`ing multiple times sequentially.
 * The `handleEvents` function only keeps events that emanate from the `checkers` module.
 * It uses a new function, `handleEvent`. Create one and put `console.log(event)` inside to explore what this object is and consider what actions you can take with it.
-* It skips in case of error, as the likely cause is that the transactions in fact failed.
+* It skips in case of error, as the likely cause is that the transactions in fact failed. This is not good enough if the goal is to be absolutely accurate.
 
 </HighlightBox>
 
@@ -627,10 +689,6 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
         // Function yet to be declared
         await handleEventCreate(event)
     }
-    if (event.type == "game-rejected") {
-        // Function yet to be declared
-        await handleEventReject(event)
-    }
     if (event.type == "move-played") {
         // Function yet to be declared
         await handleEventPlay(event)
@@ -640,8 +698,8 @@ const handleEvent = async (event: StringEvent): Promise<void> => {
 
 <HighlightBox type="note">
 
-* [`new-game-created`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L31), [`game-rejected`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L51), and [`move-played`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L41) are constant values defined in your Go code. They are put as the [event's type](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/keeper/msg_server_create_game.go#L50).
-* `handleEvent` uses three new functions: `handleEventCreate`, `handleEventReject`, and `handleEventPlay`. Create them and put `console.log(event)` inside each to explore what these objects are and consider what actions you would take with them.
+* [`new-game-created`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L31) and [`move-played`](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/types/keys.go#L41) are constant values defined in your Go code. They are put as the [event's type](https://github.com/cosmos/b9-checkers-academy-draft/blob/cosmjs-elements/x/checkers/keeper/msg_server_create_game.go#L50).
+* `handleEvent` uses two new functions: `handleEventCreate` and `handleEventPlay`. Create them and put `console.log(event)` inside each to explore what these objects are and consider what actions you would take with them.
 
 </HighlightBox>
 
@@ -700,36 +758,6 @@ const handleEventCreate = async (event: StringEvent): Promise<void> => {
 
 </HighlightBox>
 
-## Handle one reject event
-
-`handleEventReject` is the counterpart of `handleEventCreate`, as it soft-removes games from the system.
-
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L164-L177]
-const handleEventReject = async (event: StringEvent): Promise<void> => {
-    const rejectedId: string | undefined = getAttributeValueByKey(event.attributes, "game-index")
-    if (!rejectedId) throw new Error(`Reject event missing game-index`)
-    const blackAddress: string | undefined = db.games[rejectedId]?.blackAddress
-    const redAddress: string | undefined = db.games[rejectedId]?.redAddress
-    console.log(`Reject game: ${rejectedId}, black: ${blackAddress}, red: ${redAddress}`)
-    const blackGames: string[] = db.players[blackAddress]?.gameIds ?? []
-    const redGames: string[] = db.players[redAddress]?.gameIds ?? []
-    const indexInBlack: number = blackGames.indexOf(rejectedId)
-    if (0 <= indexInBlack) blackGames.splice(indexInBlack, 1)
-    const indexInRed: number = redGames.indexOf(rejectedId)
-    if (0 <= indexInRed) redGames.splice(indexInRed, 1)
-    if (db.games[rejectedId]) db.games[rejectedId].deleted = true
-}
-```
-
-<HighlightBox type="note">
-
-* `handleEventReject` keeps the game information in the `db`. This is a debatable choice, but helps the `patch` function identify old games that once existed as opposed to games that never existed.
-* It marks the game as `deleted: true`, though.
-* And it removes the id from both players' list of games.
-* There is additional error handling.
-
-</HighlightBox>
-
 ## Handle one play event
 
 Not all play events are equal. `handleEventPlay` is only interested when there is a winner. Until then, there is no need to take any action.
@@ -756,35 +784,39 @@ const handleEventPlay = async (event: StringEvent): Promise<void> => {
 <HighlightBox type="note">
 
 * `handleEventPlay` returns quietly if there is no winner, because this means there is nothing to do.
-* As when there is a rejected game, it keeps the game information in the `db`.
-* It also removes the id from both players' list of games.
+* It keeps the game information in the `db`.
+* It removes the id from both players' list of games.
 
 </HighlightBox>
 
 ## Test time
 
-You can now test what happens when a game is created and rejected. Restart `npm run indexer-dev`.
+You can now test what happens when a game is created and played on. Restart `npm run indexer-dev` locally or in Docker.
 
-You can choose how to create and reject games:
+You can choose how to create and play games:
 
-* Run the GUI with `npm start`, although it does not have a reject function at the time of writing.
+* Run the GUI prepared in the [previous section](./4-cosmjs-gui.md) with `npm start`.
 * Run `checkersd` command lines.
 * Any other way available.
 
-And in another terminal 3:
+Via command lines, in another terminal:
 
 <CodeGroup>
 
 <CodeGroupItem title="Create game">
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1 token --from $alice
+$ docker exec -it checkers sh -c \
+    "checkersd tx checkers \
+    create-game \$ALICE cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s 0 stake \
+    --from alice --keyring-backend test \
+    --yes"
 ```
 
 Alternatively, use a GUI if preferred. The indexer should log something like:
 
 ```txt
-New game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+New game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 It should update `db.json` to:
@@ -797,7 +829,7 @@ It should update `db.json` to:
         }
     },
     "players": {
-        "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw": {
+        "cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn": {
             "gameIds": [
                 "1"
             ]
@@ -811,49 +843,8 @@ It should update `db.json` to:
     "games": {
         "1": {
             "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
-            "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw",
+            "blackAddress": "cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn",
             "deleted": false
-        }
-    }
-}
-```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Reject game">
-
-```sh
-$ checkersd tx checkers reject-game 1 --from $bob -y
-```
-
-The indexer should log something like:
-
-```txt
-Reject game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
-```
-
-It should update `db.json` to:
-
-```json
-{
-    "status": {
-        "block": {
-            "height": 100
-        }
-    },
-    "players": {
-        "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw": {
-            "gameIds": []
-        },
-        "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s": {
-            "gameIds": []
-        }
-    },
-    "games": {
-        "1": {
-            "redAddress": "cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s",
-            "blackAddress": "cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw",
-            "deleted": true
         }
     }
 }
@@ -863,12 +854,17 @@ It should update `db.json` to:
 
 <CodeGroupItem title="Play game">
 
-
 ```sh
-$ checkersd tx checkers play-move 1 1 2 2 3 --from $bob -y
+$ docker exec -it checkers \
+    checkersd tx checkers \
+    play-move 1 1 2 2 3 \
+    --from alice --keyring-backend test \
+    --yes
 ```
 
-In this case the indexer should not log anything. Because performing moves from the command line is laborious, using the GUI is advisable.
+In this case the indexer should not log anything.
+
+Because performing moves from the command line is laborious, using the GUI is advisable.
 
 </CodeGroupItem>
 
@@ -882,7 +878,7 @@ What remains is handling the games that get removed or forfeited in `EndBlock`.
 
 Nicely formatted `EndBlock` events are still missing from CosmJS, so these require a little extra work:
 
-1. To get a block's `EndBlock` events, you need to ask for the block information from a Tendermint client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
+1. To get a block's `EndBlock` events, you need to ask for the block information from a CometBFT client. This client is a [`private` field](https://github.com/cosmos/cosmjs/blob/902f21b/packages%2Fstargate%2Fsrc%2Fstargateclient.ts#L140) of `StargateClient`.
 2. The function to call is [`blockResults`](https://github.com/cosmos/cosmjs/blob/5ee3f82/packages/tendermint-rpc/src/tendermint34/tendermint34client.ts#L88).
 3. It returns a [`BlockResultsResponse`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L55), of which `endBlockEvents: Event` is of interest.
 4. This [`Event`](https://github.com/cosmos/cosmjs/blob/ca969f2/packages/tendermint-rpc/src/tendermint34/responses.ts#L182) type has `attributes: Attribute[]` of interest.
@@ -890,7 +886,7 @@ Nicely formatted `EndBlock` events are still missing from CosmJS, so these requi
 
 With this information, you can do the necessary actions:
 
-1. To handle the conversion of Tendermint `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
+1. To handle the conversion of CometBFT `Event`s into `StringEvent`s, create a helper in a new `src/server/events.ts`:
 
     ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/events.ts#L1-L17]
     import { fromUtf8 } from "@cosmjs/encoding"
@@ -912,7 +908,7 @@ With this information, you can do the necessary actions:
     }
     ```
 
-2. To handle the call to `blockResults`, you need access to a Tendermint client. One option is to make a copy of the private Tendermint client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
+2. To handle the call to `blockResults`, you need access to a CometBFT client. One option is to make a copy of the private CometBFT client. You can do this only on construction, so create a child class of `CheckersStargateClient` to do that. It is recommended to keep it close by `indexer.ts`. In a new `indexer_stargateclient.ts`:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer_stargateclient.ts]
 import { StargateClientOptions } from "@cosmjs/stargate"
@@ -978,23 +974,23 @@ const handleBlock = async (block: Block) => {
 
 The events that you have converted are compatible with those emanating from transactions, so you can just pass them on. You still need to update `handleEvent` so that it acts on the new event type:
 
-```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
-const handleEvent = async (event: StringEvent): Promise<void> => {
-    ...
-    if (event.type == "game-forfeited") {
-        // Function yet to be declared
-        await handleEventForfeit(event)
+```diff-typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L130-L132]
+    const handleEvent = async (event: StringEvent): Promise<void> => {
+        ...
++      if (event.type == "game-forfeited") {
++          // Function yet to be declared
++          await handleEventForfeit(event)
++      }
     }
-}
 ```
 
 To achieve this, add a new function:
 
 ```typescript [https://github.com/cosmos/academy-checkers-ui/blob/server-indexing/src/server/indexer.ts#L196-L212]
 const handleEventForfeit = async (event: StringEvent): Promise<void> => {
-    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "GameIndex")
+    const forfeitedId: string | undefined = getAttributeValueByKey(event.attributes, "game-index")
     if (!forfeitedId) throw new Error(`Forfeit event missing forfeitedId`)
-    const winner: string | undefined = getAttributeValueByKey(event.attributes, "Winner")
+    const winner: string | undefined = getAttributeValueByKey(event.attributes, "winner")
     const blackAddress: string | undefined = db.games[forfeitedId]?.blackAddress
     const redAddress: string | undefined = db.games[forfeitedId]?.redAddress
     console.log(
@@ -1021,8 +1017,14 @@ Again there is a lot of error handling. `handleEvent` only soft-deletes the game
 Run the previous tests again. Create a game and see how the deletion event is picked up:
 
 ```txt
-Forfeit game: 1, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: *
+Forfeit game: 1, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s, winner: *
 ```
+
+<HighlightBox type="tip">
+
+In the standalone checkers in Docker, the deadline is unfortunately set at 24 hours, so feedback is not exactly coming fast. At this state of the exercise, if you want to test the expiry quickly, you will have to run Ignite CLI and adjust the `MaxTurnDuration` as described [here](../2-ignite-cli-adv/4-game-forfeit.md#interact-via-the-cli).
+
+</HighlightBox>
 
 ## Patch a game
 
@@ -1115,7 +1117,7 @@ To simulate a case where the game is in the blockchain state but not the indexer
 
 1. Stop your indexer.
 2. Create a game and check at what block it is included (for example, at index `3` and block `1001`).
-3. Update your indexer's `db.json` and pretend that it already indexed the game's block by setting:
+3. Update your indexer's `db.json` to pretend that it already indexed the game's block by setting:
 
     ```json
     "status": {
@@ -1143,16 +1145,23 @@ It should return:
 And the indexer should log something like:
 
 ```txt
-Patch game: new, 3, black: cosmos1ac6srz8wh848zc08wrfghyghuf5cf3tvd45pnw, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
+Patch game: new, 3, black: cosmos1am3fnp5dd6nndk5jyjq9mpqh3yvt2jmmdv83xn, red: cosmos1t88fkwurlnusf6agvptsnm33t40kr4hlq6h08s
 ```
 
 Develop your own ways to test the other scenarios.
+
+If you started the chain in Docker, when you are done you can stop the containers with:
+
+```sh
+$ docker stop cosmos-faucet checkers
+$ docker network rm checkers-net
+```
 
 ## Conclusion
 
 You have created a small server that:
 
-* Polls the blockchain to get events about created, rejected, won, and forfeited games.
+* Polls the blockchain to get events about created, won, and forfeited games.
 * Maintains a database with information indexed in real time.
 * Offers this information as a Web service.
 * Accepts requests for patches.
@@ -1161,10 +1170,10 @@ These are examples of server-side scripts, which can improve user experience.
 
 You can find the complete code [here](https://github.com/cosmos/academy-checkers-ui/tree/server-indexing).
 
-So what's next? The Cosmos is vast, with lots of projects, people and concepts to discover:
+<!-- So what's next? The Interchain is vast, with lots of projects, people and concepts to discover:
 
 * Reach out to the community.
-* Contribute to the Cosmos SDK, IBC, and Tendermint BFT consensus development.
+* Contribute to the Cosmos SDK, IBC, and CometBFT development.
 * Get support for enterprise solutions which you are developing.
 
-Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Cosmos universe.
+Head to the [What's Next section](/academy/whats-next/index.md) to find useful information to launch your journey into the Interchain universe. -->

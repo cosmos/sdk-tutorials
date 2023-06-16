@@ -2,7 +2,7 @@
 title: Exercise - Message and Handler - Add a Way to Make a Move
 order:
 description: Exercise - Play a game
-tags: 
+tags:
   - deep-dive
 ---
 

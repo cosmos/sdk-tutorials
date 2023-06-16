@@ -1,8 +1,8 @@
 ---
 title: "Record the Game Winner"
-order: 4
+order: 9
 description: Store field - store the winner of a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * Go is installed.
-* You have the checkers blockchain codebase with the deadline field and its handling. If not, follow the [previous steps](./2-game-deadline.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/game-deadline).
+* You have the checkers blockchain codebase with the new events. If not, follow the [previous steps](/hands-on-exercise/1-ignite-cli/7-events.md) or check out the [relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/two-events).
 
 </HighlightBox>
 
@@ -28,7 +28,11 @@ In this section, you will:
 
 </HighlightBox>
 
-To be able to terminate games, you need to discern between games that are current and those that have reached an end - for example, when they have been won. Therefore a good field to add is for the **winner**. It needs to contain:
+In a [previous section](/hands-on-exercise/1-ignite-cli/6-play-game.md) you made it possible to determine the outcome of a game by declaring a winner. You also [emitted it](/hands-on-exercise/1-ignite-cli/7-events.md).
+
+The next logical step is to also record this information in storage. That will assist you in discerning between games that are current and those that have reached an end by winning. As you will see in subsequent sections about forfeit, there are other ways for a game to finish.
+
+Therefore, a reasonable field to add is for the **winner**. It needs to contain:
 
 * The winner of a game that reaches completion.
 * Or the winner _by forfeit_ when a game is expired.
@@ -36,11 +40,11 @@ To be able to terminate games, you need to discern between games that are curren
 
 <HighlightBox type="note">
 
-In this exercise a draw is not handled and it would perhaps require yet another value to save in _winner_.
+In this section a draw is not handled and it would perhaps require yet another value to be saved in _winner_.
 
 </HighlightBox>
 
-It is time to introduce another consideration. When a game has been won, no one else is going to play it. Its board will no longer be updated and is no longer used for any further decisions. In effect, the board becomes redundant. With a view to keeping a node's storage requirement low, you should delete the board's content but keep the rest of the game's information.
+It is time to introduce another consideration. When a game has been won, no one else is going to play it. Its board will no longer be updated and is no longer used for any further on-chain decisions. In effect, the board becomes redundant. With a view to keeping a node's storage requirement low, you should delete the board's content but keep the rest of the game's information.
 
 To keep a trace of the last state of the board, you emit it with an event.
 
@@ -48,10 +52,10 @@ To keep a trace of the last state of the board, you emit it with an event.
 
 In the `StoredGame` Protobuf definition file:
 
-```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/proto/checkers/stored_game.proto#L16]
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/proto/checkers/stored_game.proto#L12]
     message StoredGame {
         ...
-+      string winner = 10;
++      string winner = 6;
     }
 ```
 
@@ -83,7 +87,7 @@ $ docker run --rm -it \
 
 Add a helper function to get the winner's address, if it exists. A good location is in `full_game.go`:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/full_game.go#L48-L66]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/full_game.go#L34-L52]
 func (storedGame StoredGame) GetPlayerAddress(color string) (address sdk.AccAddress, found bool, err error) {
     black, err := storedGame.GetBlackAddress()
     if err != nil {
@@ -120,17 +124,18 @@ Start with a new error that you define as a constant:
 
 And a new event attribute:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/keys.go#L45]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/keys.go#L43]
     const (
         MovePlayedEventType      = "move-played"
         ...
+        MovePlayedEventWinner    = "winner"
 +      MovePlayedEventBoard     = "board"
     )
 ```
 
 At creation, in the _create game_ message handler, start with a neutral value:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_create_game.go#L32]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_create_game.go#L28]
     ...
     storedGame := types.StoredGame{
         ...
@@ -152,36 +157,25 @@ With further checks when handling a play in the handler:
         ...
     ```
 
-2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/master/checkers/checkers.go#L165) if there is no winner yet:
+2. Update the winner field, which [remains neutral](https://github.com/batkinson/checkers-go/blob/master/checkers/checkers.go#L165) if there is no winner yet, and adjust the board depending on whether the game is finished or not:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L61]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L61-L68]
         ...
+    -  storedGame.Board = game.String()
     +  storedGame.Winner = rules.PieceStrings[game.Winner()]
-        systemInfo, found := k.Keeper.GetSystemInfo(ctx)
-        ...
-    ```
-
-3. Handle the FIFO differently depending on whether the game is finished or not, and adjust the board:
-
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L67-L74]
-        ...
-    -  k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
+    +
     +  lastBoard := game.String()
     +  if storedGame.Winner == rules.PieceStrings[rules.NO_PLAYER] {
-    +      k.Keeper.SendToFifoTail(ctx, &storedGame, &systemInfo)
     +      storedGame.Board = lastBoard
     +  } else {
-    +      k.Keeper.RemoveFromFifo(ctx, &storedGame, &systemInfo)
     +      storedGame.Board = ""
     +  }
         ...
-    -  storedGame.Board = game.String()
-        ...
     ```
 
-4. Add the new attribute in the event:
+3. Add the new attribute in the event:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L89]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move.go#L80]
         ...
         ctx.EventManager().EmitEvent(
             sdk.NewEvent(types.MovePlayedEventType,
@@ -193,31 +187,19 @@ With further checks when handling a play in the handler:
         ...
     ```
 
-And when rejecting a game, in its handler:
-
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_reject_game.go#L20-L22]
-    ...
-+  if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER] {
-+      return nil, types.ErrGameFinished
-+  }
-    if storedGame.Black == msg.Creator {
-        ...
-    }
-```
-
 Confirm the code compiles, add unit tests, and you are ready to handle the expiration of games.
 
 ## Unit tests
 
-Add [tests](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/full_game_test.go#L120-L194) for your new functions.
+Add [tests](https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/types/full_game_test.go#L100-L174) for your new functions.
 
 You also need to update your existing tests so that they pass with a new `Winner` value. Most of your tests need to add this line:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_fifo_test.go#L47]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_test.go#L107]
     ...
     require.EqualValues(t, types.StoredGame{
         ...
-+      Winner:    "*",
++      Winner: "*",
     }, game1)
     ...
 ```
@@ -252,21 +234,28 @@ var (
 You may want to add a small function that converts `"b"` and `"r"` into their respective player addresses:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L65-L70]
-func GetPlayer(color string) string {
+func GetPlayer(color string, black string, red string) string {
     if color == "b" {
-        return Bob
+        return black
     }
-    return Carol
+    return red
 }
 ```
 
 And another that applies all the moves. This could become handy if you have multiple games in the future:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L72-L84]
-func PlayAllMoves(t *testing.T, msgServer types.MsgServer, context context.Context, gameIndex string, moves []GameMoveTest) {
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/testutil/full_game_helpers.go#L72-L91]
+func PlayAllMoves(
+    t *testing.T,
+    msgServer types.MsgServer,
+    context context.Context,
+    gameIndex string,
+    black string,
+    red string,
+    moves []GameMoveTest) {
     for _, move := range Game1Moves {
         _, err := msgServer.PlayMove(context, &types.MsgPlayMove{
-            Creator:   GetPlayer(move.player),
+            Creator:   GetPlayer(move.player, black, red),
             GameIndex: gameIndex,
             FromX:     move.fromX,
             FromY:     move.fromY,
@@ -278,36 +267,30 @@ func PlayAllMoves(t *testing.T, msgServer types.MsgServer, context context.Conte
 }
 ```
 
-Now, in a new file, create the test that plays all the moves, and checks at the end that the game has been saved with the right winner and that the FIFO is empty again:
+Now, in a new file, create the test that plays all the moves, and checks at the end that the game has been saved with the right winner:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L12-L52]
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-winner/x/checkers/keeper/msg_server_play_move_winner_test.go#L12-L46]
 func TestPlayMoveUpToWinner(t *testing.T) {
     msgServer, keeper, context := setupMsgServerWithOneGameForPlayMove(t)
     ctx := sdk.UnwrapSDKContext(context)
 
-    testutil.PlayAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", bob, carol, testutil.Game1Moves)
 
     systemInfo, found := keeper.GetSystemInfo(ctx)
     require.True(t, found)
     require.EqualValues(t, types.SystemInfo{
-        NextId:        2,
-        FifoHeadIndex: "-1",
-        FifoTailIndex: "-1",
+        NextId: 2,
     }, systemInfo)
 
     game, found := keeper.GetStoredGame(ctx, "1")
     require.True(t, found)
     require.EqualValues(t, types.StoredGame{
-        Index:       "1",
-        Board:       "",
-        Turn:        "b",
-        Black:       bob,
-        Red:         carol,
-        MoveCount:   uint64(len(testutil.Game1Moves)),
-        BeforeIndex: "-1",
-        AfterIndex:  "-1",
-        Deadline:    types.FormatDeadline(ctx.BlockTime().Add(types.MaxTurnDuration)),
-        Winner:      "b",
+        Index:  "1",
+        Board:  "",
+        Turn:   "b",
+        Black:  bob,
+        Red:    carol,
+        Winner: "b",
     }, game)
     events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
     require.Len(t, events, 2)
@@ -326,7 +309,11 @@ func TestPlayMoveUpToWinner(t *testing.T) {
 
 <HighlightBox type="note">
 
-When checking the attributes, it only cares about the last five.
+When checking the attributes, it only cares about the last six:
+
+```go
+event.Attributes[(len(testutil.Game1Moves)-1)*6:])
+```
 
 </HighlightBox>
 
@@ -334,7 +321,9 @@ Feel free to create another game won by the red player.
 
 ## Interact via the CLI
 
-If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. Start again:
+If you have created games in an earlier version of the code, you are now in a broken state. You cannot even play the old games because they have `.Winner == ""` and this will be caught by the `if storedGame.Winner != rules.PieceStrings[rules.NO_PLAYER]` test. At some point, look at [migrations](/hands-on-exercise/4-run-in-prod/2-migration-info.md) to avoid falling into such a situation with a blockchain in production.
+
+Start again:
 
 <CodeGroup>
 
@@ -431,7 +420,7 @@ This should show:
 ...
 ```
 
-Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests or with a nice GUI. You will be able to partially test this in the [next section](./4-game-forfeit.md), via a forfeit.
+Testing with the CLI up to the point where the game is resolved with a rightful winner is better covered by unit tests (as done here) or with a nice GUI. You will be able to partially test this with the CLI in the [next section](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md), via a forfeit.
 
 <HighlightBox type="synopsis">
 
@@ -446,4 +435,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-You have introduced a [game FIFO](./1-game-fifo.md), a [game deadline](./2-game-deadline.md), and a game winner. Time to turn your attention to the [next section](./4-game-forfeit.md) to look into game forfeits.-->
+You have introduced a [game FIFO](../2-ignite-cli-adv/3-game-fifo.md), a [game deadline](./1-game-deadline.md), and a game winner. Time to turn your attention to the [next section](./4-game-forfeit.md) to look into game forfeits.-->

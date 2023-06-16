@@ -1,8 +1,8 @@
 ---
 title: "Migrations"
-order: 14
+order: 17
 description: How to handle on-chain upgrades
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -22,7 +22,7 @@ To better understand this section, first read the following sections:
 
 Have you ever wondered how an upgrade is done in the Cosmos SDK? In this section you will find out how Cosmos SDK migrations are conducted.
 <br/><br/>
-Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Cosmos comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
+Blockchains can be upgraded through a predictable process that reliably avoids forks. Discover the Interchain's comprehensive process that includes governance, data migrations, node upgrades, and more, to ensure upgrades proceed smoothly and without service disruption.
 <br/><br/>
 At the end of the section, the code example demonstrates how you would use migration to upgrade your checkers blockchain with new features even after it has been in operation for some time.
 
@@ -207,13 +207,8 @@ You need new data structures for v2. With Ignite CLI you have:
 **Leaderboard on-the-go updating**
 
 Before thinking about the upgrade, take care of the code as if your v2 was a new project. You need to add code to your v2 to update the leaderboard after a game has been determined. This means a lot of array sorting and information adjustment on the previous code.
-<br/><br/>
 
-<HighlightBox type="tip">
-
-If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
-</HighlightBox>
+Look at the links at the bottom of this page for the related hands-on guided exercise.
 
 **Genesis migration preparation**
 
@@ -229,11 +224,7 @@ Without going into too much detail, the following actions are taken:
 * A Go routine computes the intermediate pieces of player information and then passes them on.
 * These intermediate pieces are added to the player information totals from storage.
 
-<HighlightBox type="info">
-
-Look at [Run Your Own Cosmos Chain](hands-on-exercise/1-ignite-cli/index.md) for more details.
-
-</HighlightBox>
+Again, look for links at the bottom of this page for the detailed implementation.
 
 **Past leaderboard**
 
@@ -267,11 +258,7 @@ func PerformMigration(ctx sdk.Context, k keeper.Keeper, storedGameChunk uint64, 
 }
 ```
 
-<HighlightBox type="info">
-
-If you want more details about the number of helper functions like `AddCandidatesAndSortAtNow`, go to [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
-
-</HighlightBox>
+For details about the implementation, look for the links at the bottom of this page.
 
 **Proper genesis migration**
 
@@ -359,11 +346,19 @@ The migration mechanism helps identify how you can upgrade your blockchain to in
 
 </ExpansionPanel>
 
+<HighlightBox type="tip">
+
+If you want more details on how to update the leaderboard, look at [Running Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+For even more detail, see [Tally Player Info After Production](/hands-on-exercise/4-run-in-prod/2-migration-info.md).
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
 
-* How Cosmos SDK migrations provide developers with an orderly, on-chain process for upgrading their applications, reliably avoiding forks through the use of a "plan" in which upgrades are proposed to occur at a specific future block height. 
+* How Cosmos SDK migrations provide developers with an orderly, on-chain process for upgrading their applications, reliably avoiding forks through the use of a "plan" in which upgrades are proposed to occur at a specific future block height.
 * How consensus over accepting or rejecting a plan is reached through the normal governance process, ensuring unity across all nodes, as is any "cancel proposal" intended to prevent a previously accepted plan from executing.
 * How the temporary halting of normal activity allows for simultaneous and potentially profound modifications of the blockchain across all nodes, including the reorganization of existing data stores to maintain compatibility with the upgraded application.
 

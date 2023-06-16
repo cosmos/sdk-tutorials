@@ -29,7 +29,7 @@ Before starting, review some terminology:
 
   <HighlightBox type="tip">
 
-  The proposer is not obliged to submit the totality of the deposit amount. Other users can also contribute to the deposit. 
+  The proposer is not obliged to submit the totality of the deposit amount. Other users can also contribute to the deposit.
 
   </HighlightBox>
 
@@ -172,8 +172,8 @@ $ simd tx gov draft-proposal
 You will first create a simple text proposal. A text proposal does not contain any message, but only proposal [metadata](https://docs.cosmos.network/v0.46/modules/gov/08_metadata.html).
 
 ```sh
-Use the arrow keys to navigate: ↓ ↑ → ← 
-? Select proposal type: 
+Use the arrow keys to navigate: ↓ ↑ → ←
+? Select proposal type:
   ▸ text
     community-pool-spend
     software-upgrade
@@ -205,7 +205,7 @@ Then, replace the generated metadata field with the IPFS CID.
 The `draft-proposal` command has now generated two files:
 
 * **draft_metadata.json**
-* **draft_proposal.json** 
+* **draft_proposal.json**
 
 The content of `draft_metadata.json` contains the information you have just entered:
 

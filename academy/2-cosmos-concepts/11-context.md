@@ -2,7 +2,7 @@
 title: "Context"
 order: 12
 description: Information on the state of the app, the block, and the transaction
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -48,17 +48,17 @@ The context has the following properties:
 * **Multistore:** every application's `BaseApp` contains a `CommitMultiStore`, which is provided when a context is created. Calling the `KVStore()` and `TransientStore()` methods allows modules to fetch their respective `KVStore`s using their unique `StoreKey`s.
 * **ABCI Header:** the header is an ABCI type. It carries important information about the state of the blockchain, such as block height and the proposer of the current block.
 * **Chain ID:** the unique identification number of the blockchain a block pertains to.
-* **Transaction bytes:** the []byte representation of a transaction is processed using the context. 
+* **Transaction bytes:** the []byte representation of a transaction is processed using the context.
 
 <HighlightBox type="info">
 
-Every transaction is processed by various parts of the Cosmos SDK and consensus engine (for example Tendermint) throughout its lifecycle, some of which do not have any understanding of transaction types. Thus, transactions are marshaled into a generic `[]byte` type using some kind of encoding format such as Amino.
+Every transaction is processed by various parts of the Cosmos SDK and consensus engine (for example CometBFT) throughout its lifecycle, some of which do not have any understanding of transaction types. Thus, transactions are marshaled into a generic `[]byte` type using some kind of encoding format such as Amino.
 
 </HighlightBox>
 
 * **Logger:** a logger from the Tendermint libraries. [Learn more about logs here](https://github.com/tendermint/tendermint/blob/master/libs/log/logger.go). Modules call this method to create their unique module-specific logger.
 * **`VoteInfo`:** a list of the ABCI type `VoteInfo`, which includes the name of a validator and a boolean indicating whether they have signed the block.
-* **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to. 
+* **Gas meters:** specifically, a `gasMeter` for the transaction currently being processed, using the context and a `blockGasMeter` for the entire block it belongs to.
 
 <HighlightBox type="info">
 
@@ -69,7 +69,7 @@ Users specify how much in fees they wish to pay for the execution of their trans
 * **`CheckTx` mode:** a boolean value indicating whether a transaction should be processed in `CheckTx` or `DeliverTx` mode.
 * **Min gas price:** the minimum gas price a node is willing to take to include a transaction in its block. This price is a local value configured by each node individually, and should therefore not be used in any functions in sequences leading to state transitions.
 * **Consensus params:** the ABCI type `Consensus Parameters`, which specifies certain limits for the blockchain, such as maximum gas for a block.
-* **Event manager:** allows any caller with access to a context to emit events. Modules may define module-specific events by defining various types and attributes, or by using the common definitions found in `types/`. Clients can subscribe or query for these events. These events are collected through `DeliverTx`, `BeginBlock`, and `EndBlock` and are returned to Tendermint for indexing.
+* **Event manager:** allows any caller with access to a context to emit events. Modules may define module-specific events by defining various types and attributes, or by using the common definitions found in `types/`. Clients can subscribe or query for these events. These events are collected through `DeliverTx`, `BeginBlock`, and `EndBlock` and are returned to CometBFT for indexing.
 
 ## Golang Context Package
 
@@ -106,6 +106,77 @@ Prior to calling `runMsgs` on any messages in the transaction, `app.cacheTxConte
 * If the process is running in `checkTxMode`, there is no need to write the changes. The result is returned immediately.
 * If the process is running in `deliverTxMode` and the result indicates a successful run over all the messages, the branched multistore is written back to the original.
 
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+**Game deadline**
+
+When a game is created or a move is played, the game needs to set its deadline some time in the future. The time it takes as _now_ comes from the context.
+
+To get this, you need a function that looks like:
+
+```go
+func GetNextDeadline(ctx sdk.Context) time.Time {
+    return ctx.BlockTime().Add(MaxTurnDuration)
+}
+```
+
+After that, it is a matter of serializing this data so it is stored alongside the other parameters of the game, and of deserializing it when checking whether it has reached the deadline.
+
+**Gas costs**
+
+Another point where the context is explicitly used is when you want to make your players pay with gas for operations you specify. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
+
+* **Create a game:** costs **15_000**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
+* **Play a move:** costs **1_000**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
+* **Reject a game:** could cost **zero**, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions. So you can in fact refund some gas to the player, for instance **14_000**.
+
+So you define the cost:
+
+```go
+const (
+    CreateGameGas = 15_000
+    PlayMoveGas   = 1_000
+    RejectGameRefundGas = 14_000
+)
+```
+
+Next you add the line in your `MsgCreateGame` handler, which already has access to the context:
+
+```go
+func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
+    ...
+    ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+    ...
+}
+```
+
+As for the refund when rejecting, you have to make sure that you are not trying to refund more than what was already consumed:
+
+```go
+func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
+    ...
+    refund := uint64(types.RejectGameRefundGas)
+    if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
+        refund = consumed
+    }
+    ctx.GasMeter().RefundGas(refund, "Reject game")
+    ...
+}
+```
+
+</ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump to:
+
+* [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), where you add the deadline feature to your chain
+* [Incentivize Players](/hands-on-exercise/2-ignite-cli-adv/8-gas-meter.md), to implement gas costs
+
+</HighlightBox>
+
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
@@ -119,4 +190,4 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Go to the [next section](./12-migrations.md) for an introduction to migrations in the Cosmos SDK.-->
+Go to the [next section](./13-migrations.md) for an introduction to migrations in the Cosmos SDK.-->

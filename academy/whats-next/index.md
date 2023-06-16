@@ -13,7 +13,7 @@ Are you ready to continue your journey with Cosmos? What’s next? <br/><br/>
 Do you want to develop your own application-specific blockchain? Or contribute to development of the SDK? <br/><br/>
 Here you can find useful information to launch your journey into the Cosmos universe.
 
-![](/green-planet.svg)
+![A green planet overlaid with an isohedron](/green-planet.svg)
 
 ## Community
 
@@ -63,10 +63,10 @@ There are different ways you can contribute to the Cosmos SDK and related reposi
 <br/>
 
 <Resource
-  title="Tendermint core"
+  title="CometBFT"
   description="Help solve existing issues and continue the development of the robust Tendermint BFT consensus!"
-  :links="[{name: 'Github Repository', url: 'https://github.com/tendermint/tendermint/blob/master/CONTRIBUTING.md'}]"
-  image="/tendermint-icon.svg"
+  :links="[{name: 'Github Repository', url: 'https://github.com/cometbft/cometbft/blob/main/CONTRIBUTING.md'}]"
+  image="/comet-bft-logo.svg"
   :large="true"
 />
 

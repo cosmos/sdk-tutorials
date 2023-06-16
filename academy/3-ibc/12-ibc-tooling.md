@@ -1,8 +1,8 @@
 ---
 title: "IBC Tooling"
-order: 8
+order: 13
 description: Overview of some helpful tools
-tags: 
+tags:
   - concepts
   - ibc
 ---
@@ -25,9 +25,9 @@ While going through the overview, it is recommended to try out all there is to d
 
 These types of tools help maintain an overview of the overall IBC network, but can also assist with things like relayer selection, as they provide an overview of essential metrics when it comes to relaying.
 
-## MapOfZones - explore the Cosmos network
+## MapOfZones - explore the Interchain network
 
-[MapOfZones](https://mapofzones.com/) is a Cosmos network explorer.
+[MapOfZones](https://mapofzones.com/) is an Interchain network explorer.
 
 By default, the explorer shows you a visual overview of the IBC network for the last 24 hours:
 
@@ -39,7 +39,7 @@ You can also change the time being visualized by the MapOfZones in the lower rig
 * Seven days
 * 30 days
 
-The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains. 
+The overview is dynamic and gives you a good feeling of the current activity in the overall network and between specific chains.
 
 The individual chains are visualized by circle icons, sometimes including the chain's logo. Additionally, you can see connecting lines between the different chains. These lines represent connections between chains.
 
@@ -87,7 +87,7 @@ You can also sort the list in either ascending or descending order with a click 
 
 ## Mintscan
 
-[Mintscan](https://hub.mintscan.io) is another Cosmos network explorer.
+[Mintscan](https://hub.mintscan.io) is another Interchain network explorer.
 
 It gives an overview of IBC networks, including a visualization (left side) and a list (right side). For the former, the default is set to give you a visualization based on IBC transactions within a 30-day period:
 
@@ -217,8 +217,8 @@ The connections displayed in the visualizer have either a regular or a dotted li
 
 To summarize, this section has explored:
 
-* **MapOfZones**, a network explorer for the Cosmos Ecosystem, which provides a variety of dynamic visualizations of network activity over time, allowing easy comprehension of transactions occurring between specific individual chains, access to detailed traffic data and in-depth information about chains, and useful information regarding the most active zones by IBC volume in USD.
-* **Mintscan**, another Cosmos network explorer, which provides an overview of IBC network activity over time, and can focus in on specific chains to show their total transactions (measured in transactions and USD) and connections (with the number of chains and relayers), also providing graphs for transaction and volume history, and can provide highly detailed breakdowns of data at various levels of network detail.
+* **MapOfZones**, a network explorer for the Interchain Ecosystem, which provides a variety of dynamic visualizations of network activity over time, allowing easy comprehension of transactions occurring between specific individual chains, access to detailed traffic data and in-depth information about chains, and useful information regarding the most active zones by IBC volume in USD.
+* **Mintscan**, another Interchain network explorer, which provides an overview of IBC network activity over time, and can focus in on specific chains to show their total transactions (measured in transactions and USD) and connections (with the number of chains and relayers), also providing graphs for transaction and volume history, and can provide highly detailed breakdowns of data at various levels of network detail.
 * **IOBScan**, another blockchain explorer, which provides a quick overview of networks, channels, IBC token transfers, and IBC tokens from its homepage; it allows for searching by transaction hash, and also offers the IOBSCAN Network State Visualizer for an alternative high level presentation of connection data between chains.
 
 </HighlightBox>

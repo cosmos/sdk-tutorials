@@ -2,7 +2,7 @@
 title: "Multistore and Keepers"
 order: 8
 description: Store types, the AnteHandler, and keepers
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -96,7 +96,7 @@ func (k Keeper) GetAll(ctx sdk.Context) (list []returnType)
 
 The Cosmos SDK offers different store types to work with. It is important to gain a good overview of the different store types available for development.
 
-### `KVStore` and `Multistore` in Cosmos
+### `KVStore` and `Multistore` in the Interchain
 
 Each Cosmos SDK application contains a state at its root, the `Multistore`. It is subdivided into separate compartments managed by each module in the application. The `Multistore` is a store of `KVStore`s that follows the [`Multistore interface`](https://github.com/cosmos/cosmos-sdk/blob/v0.40.0-rc6/store/types/store.go#L104-L133).
 
@@ -196,7 +196,7 @@ This is pseudo-code because:
 * Prefixes have to be `byte[]` instead of `string`. This is easily handled with a cast such as `[]byte("games-")`.
 * The Cosmos SDK prevents you from directly accessing any random module's store, such that `globalStore.getAtPrefix("checkers-")` is not allowed and instead has to be accessed via a secret key.
 
-Define the ID of the `StoredGame`. To return a single object, include `StoredGame` in the object's value:
+Define the ID of the `StoredGame`. To return a single object, include `Index` in the object's value:
 
 ```go
 type StoredGame struct {
@@ -251,7 +251,7 @@ func (k Keeper) SetStoredGame(ctx sdk.Context, storedGame types.StoredGame) {
 
 If you want to delete a stored game, you call `gamesStore.Delete(byte[](storedGame.Index))`.
 <br/><br/>
-The `KVStore` allows you to obtain an iterator on a given prefix. You can list all stored games because they share the same prefix, which you do with:
+The `KVStore` also allows you to obtain an iterator on a given prefix. You can list all stored games because they share the same prefix, which you do with:
 
 ```go
 func (k Keeper) GetAllStoredGame(ctx sdk.Context) (list []types.StoredGame) {
@@ -284,20 +284,17 @@ See the [previous section on Protobuf](./6-protobuf.md) to explore how Protobuf 
 Note how the `Set`, `Get`, `Remove`, and `GetAll` functions shown previously look like boilerplate too. Do you have to redo these functions for every type? *No* - it was all created with this Ignite CLI command:
 
 ```sh
-$ ignite scaffold map storedGame board turn black red wager:uint --module checkers --no-message
+$ ignite scaffold map storedGame \
+        board turn black red wager:uint \
+        --module checkers \
+        --no-message
 ```
 
 `map` is the command that tells Ignite CLI to add an `Index` and store all elements under a map-like structure.
 
-<HighlightBox type="tip">
-
-To create the above boilerplate in your module, you can use Ignite CLI. Go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md), for more on Ignite CLI, and if you want to go beyond out-of-context code samples to see more in detail how to define these features.
-
-</HighlightBox>
-
 **Other storage elements**
 
-How do you create the `storedGame.Index`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `SystemInfo` object has to be at a unique location in the storage.
+How do you pick a value for the `Index` in `storedGame`? A viable idea is to keep a counter in storage for the next game. Unlike `StoredGame`, which is saved as a map, this `SystemInfo` object has to be at a unique location in the storage.
 <br/><br/>
 First define the object:
 
@@ -383,16 +380,16 @@ Extract and sanitize the message elements:
 ```go
     creator, err := sdk.AccAddressFromBech32(msg.Creator)
     if err != nil {
-        return nil, errors.New("Creator address invalid")
+        return nil, errors.New("creator address invalid")
     }
     black, err := sdk.AccAddressFromBech32(msg.Black)
     if err != nil {
         // Standard error because users can make mistakes.
-        return nil, errors.New("Black address invalid")
+        return nil, errors.New("black address invalid")
     }
     red, err := sdk.AccAddressFromBech32(msg.Red)
     if err != nil {
-        return nil, errors.New("Red address invalid")
+        return nil, errors.New("red address invalid")
     }
 ```
 
@@ -431,11 +428,13 @@ Return the game ID for reference:
     }, nil
 ```
 
-You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise?
+You would also do the same for `MsgPlayMoveResponse` and `MsgRejectGame`. Why not try it out as an exercise? See the bottom of the page for relevant links.
 <br/><br/>
 **More on game theory**
 
-Time to introduce a game deadline:
+Some players may drop out from games, especially if they know they are about to lose. As the blockchain designer, you need to protect your blockchain, and in particular to avoid bloat, or locked tokens.
+
+A good first point is to introduce a game deadline. This demonstrates how you would add a small feature to your existing blockchain:
 
 ```go
 const (
@@ -477,7 +476,9 @@ if deadline.Before(ctx.BlockTime()) {
 
 **How to expire games**
 
-How can you know what games should be removed? Should you load *all* games and filter for those that have expired? That would be extremely expensive. Better is to keep a First-In-First-Out (FIFO), where fresh games are pushed back to the tail so that the head contains the next games to expire.
+How can you know what games should be removed? Should you load _all_ games and filter for those that have expired? That would be extremely expensive, O(n) of the number of games in fact. This means the more successful your blockchain becomes, the slower it would run.
+
+Better is to use a First-In-First-Out (FIFO) strategy, where fresh games are pushed back to the tail so that the head contains the next games to expire.
 <br/><br/>
 In the context of the Cosmos SDK, you need to keep track of where the FIFO starts and stops by saving the corresponding game IDs:
 
@@ -510,76 +511,23 @@ Next, you need to code a regular FIFO, whereby:
 
 **When to expire games**
 
-When do you verify that a game has expired? An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. To expire games that have timed out at the end of a block, you need to hook your keeper to the right call. The Cosmos SDK will call into each module at various points when building the whole application. The function it calls at each block's end looks like this:
-
-```go
-func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
-    // TODO
-    return []abci.ValidatorUpdate{}
-}
-```
-
-This is where you write the necessary code, preferably in the keeper. For example:
-
-```go
-am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
-```
-
-How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
-<br/><br/>
-The timeout duration is fixed, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time or block height `h`, with margins of error `h-1` and `h+1`.
-<br/><br/>
-These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum size and a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle. This is a worst-case scenario, but most likely it is still manageable.
-
-<HighlightBox type="warn">
-
-Be careful about letting the game creator pick a timeout duration. This could allow a malicious actor to stagger game creations over a large number of blocks *with decreasing timeouts*, so that they all expire at the same time.
-
-</HighlightBox>
-
-**Gas costs**
-
-The keeper also makes it easy to charge the gas to the players as required. This gas fee comes on top of the configured standard fee for transactions on your chain. Propose some ratios, which would have to be adjusted so they make sense compared to the base transaction costs:
-
-* **Create a game:** costs **15_000**. This should also include the costs of *closing* a game. If that was not the case, a losing player would be incentivized to let the game hit its timeout to penalize the winner.
-* **Play a move:** costs **1_000**. You could also make the final move cost zero when the player loses the game, to incentivize the player to conclude the game instead of letting it hit the timeout.
-* **Reject a game:** could cost **zero**, because you want to incentivize cleaning up the state. This transaction would still cost what your chain is configured to charge for basic transactions. So you can in fact refund some gas to the player, for instance **14_000**.
-
-So you define the cost:
-
-```go
-const (
-    CreateGameGas = 15_000
-    PlayMoveGas   = 1_000
-    RejectGameRefundGas = 14_000
-)
-```
-
-Then, you add the line in your `MsgCreateGame` handler:
-
-```go
-func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
-    ...
-    ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
-    ...
-}
-```
-
-As for the refund when rejecting, you have to make sure that you are not trying to refund more than what was already consumed:
-
-```go
-func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
-    ...
-	refund := uint64(types.RejectGameRefundGas)
-	if consumed := ctx.GasMeter().GasConsumed(); consumed < refund {
-		refund = consumed
-	}
-	ctx.GasMeter().RefundGas(refund, "Reject game")
-    ...
-}
-```
+See the next section about the [BaseApp](/academy/2-cosmos-concepts/8-base-app.md) for a possible solution.
 
 </ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump to:
+
+* [Store Object - Make a Checkers Blockchain](/hands-on-exercise/1-ignite-cli/3-stored-game.md) for general detail of how you handle your game in storage.
+* [Create and Save a Game Properly](/hands-on-exercise/1-ignite-cli/5-create-handling.md) for how you would handle the game when it is being created.
+* [Keep an Up-To-Date Game Deadline](/hands-on-exercise/2-ignite-cli-adv/1-game-deadline.md), where you add a small feature to your chain.
+* [Put Your Games in Order](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to see the implementation of the FIFO within the constraints of the store.
+* [Store leaderboard candidates](/hands-on-exercise/4-run-in-prod/3-add-leaderboard.md) in the context's transient store.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

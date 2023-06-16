@@ -15,12 +15,6 @@ Ever wondered how cross-chain communication is possible? Get a fast introduction
 
 You will learn more about the transportation, authentication, and ordering layer of IBC and take a deeper dive into how token transfers between chains become possible. Finally, you will take a more detailed look at relaying with IBC.
 
-<HighlightBox type="info">
-  
-**OPTIONAL**: the sections on [IBC/TAO connections, channels, and clients](/academy/3-ibc/2-connections.md), and [interchain accounts](/academy/3-ibc/6-ica.md) are made available in case you want to dive deeper. This content **will not** be tested in the final exam.
-  
-</HighlightBox>
-
 You will also learn about CosmJS, the TypeScript library for the Cosmos SDK. With step-by-step examples, you will learn how to work with CosmJS when building your application-specific blockchain.
 
 ![LP image - Week 3](/planet-pod.svg)
@@ -50,40 +44,19 @@ In this chapter, you will:
 
 <HighlightBox type="info">
 
-This chapter covers quite a lot of content that goes very deep into the intricacies of IBC.
-
-Please be aware that the recommended **essentials** for IBC are:
+This chapter covers quite a lot of content that goes very deep into the intricacies of IBC. Please be aware that the recommended **essentials** for IBC are:
 
 * [What is IBC?](/academy/3-ibc/1-what-is-ibc.md)
-* [IBC Token Transfer](/academy/3-ibc/5-token-transfer.md)
-* [IBC Tooling](/academy/3-ibc/7-ibc-tooling.md)
+* [IBC Token Transfer](/academy/3-ibc/7-token-transfer.md)
+* [IBC Tooling](/academy/3-ibc/12-ibc-tooling.md)
 
-The following sections are optional and **NOT** final exam relevant:
-
-* [IBC/TAO - Connections](/academy/3-ibc/2-connections.md)
-* [IBC/TAO - Channels](/academy/3-ibc/3-channels.md)
-* [IBC/TAO - Clients](/academy/3-ibc/4-clients.md)
-* [Interchain Accounts](/academy/3-ibc/6-ica.md)
-
-</HighlightBox>
-
-<HighlightBox type="info">
-
-Here you can find **recordings** of the live sessions _Introduction to CosmJS_ with Noam Cohen and _Introduction to IBC_ with Thomas Dekeyser, Developer Relations Engineer for IBC:
-  
-* _Introduction to CosmJS_ with Noam Cohen:
-
-<YoutubePlayer videoId="RlqjEVIv1Pg"/>
-
-* _Introduction to IBC_ with Thomas Dekeyser:
-
-<YoutubePlayer videoId="HCO7qTOdNGI"/>
+The sections on [IBC/TAO connections, channels, and clients](/academy/3-ibc/2-connections.md), [Interchain accounts](/academy/3-ibc/8-ica.md), and [IBC middleware](/academy/3-ibc/9-ibc-mw-intro.md) are optional and **NOT** final exam relevant. They are made available only in case you want to dive deeper.
 
 </HighlightBox>
 
 ## Next up
 
-First, begin with an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), then you can go ahead an head to the section on [fungible token transfers](/academy/3-ibc/5-token-transfer.md). After getting an [overview on helpful tools for IBC](/academy/3-ibc/7-ibc-tooling.md), you can start your ComsJS journey with an [introduction section](/tutorials/7-cosmjs/1-cosmjs-intro.md).
+First, begin with an [introduction to IBC](/academy/3-ibc/1-what-is-ibc.md), then you can go ahead an head to the section on [fungible token transfers](/academy/3-ibc/7-token-transfer.md). After getting an [overview on helpful tools for IBC](/academy/3-ibc/12-ibc-tooling.md), you can start your ComsJS journey with an [introduction section](/tutorials/7-cosmjs/1-cosmjs-intro.md).
 
 ## Developer Resources
 

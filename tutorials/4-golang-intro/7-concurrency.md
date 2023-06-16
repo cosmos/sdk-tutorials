@@ -2,19 +2,19 @@
 title: "Concurrency in Go"
 order: 8
 description: Goroutines and Channels
-tags: 
+tags:
   - tutorial
 ---
 
 # Concurrency in Go
 
-Go has built-in concurrency. Concurrency and parallel execution are different things: you need concurrency (*program structure*) to enable parallel execution; actual parallelism during execution depends on the hardware. 
+Go has built-in concurrency. Concurrency and parallel execution are different things: you need concurrency (*program structure*) to enable parallel execution; actual parallelism during execution depends on the hardware.
 
 For concurrency, Go offers so-called *Goroutines* and *Channels*.
 
 ## Goroutines
 
-A *Goroutine* is a concurrent thread managed by the Go runtime. 
+A *Goroutine* is a concurrent thread managed by the Go runtime.
 
 To call a goroutine use the following:
 
@@ -57,7 +57,7 @@ Go offers *channels* for communication between goroutines. Channels may be buffe
 ch:= make(chan type)
 ```
 
-You can use this channel to send and receive messages with the `<-` operator. 
+You can use this channel to send and receive messages with the `<-` operator.
 
 **Send to** channel `ch` as follows:
 
@@ -93,7 +93,7 @@ func main() {
     go doSomething(10, c)
     go doSomething(20, c)
     go doSomething(30, c)
-    
+
     x, y, z := <-c, <-c, <-c
     fmt.Println(x, y, z)
 }
@@ -107,7 +107,7 @@ func main() {
 
 Run this program. What happened?
 
-In this case, you do not need to use `time.Sleep` anymore, because sends and receives are blocked until the other side is ready. 
+In this case, you do not need to use `time.Sleep` anymore, because sends and receives are blocked until the other side is ready.
 
 To avoid blocking, you can create *buffered* channels:
 
@@ -147,7 +147,7 @@ func doAll(c chan int) {
 
 func main() {
     c := make(chan int)
-    
+
     go doAll(c)
     for i := range c {
         fmt.Println(i)
@@ -210,7 +210,7 @@ func main() {
 
 </HighlightBox>
 
-The default case will run if no other channel is ready. 
+The default case will run if no other channel is ready.
 
 <HighlightBox type="synopsis">
 

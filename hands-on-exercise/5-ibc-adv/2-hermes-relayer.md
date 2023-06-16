@@ -1,6 +1,6 @@
 ---
 title: "Hermes Relayer"
-order: 4
+order: 2
 description: Relayer implementation in Rust
 tags:
   - guided-coding
@@ -35,7 +35,7 @@ In this section, you will learn:
 
 <HighlightBox type="docs">
 
-Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/quick-start/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/commands/index.html) on the Hermes website.
+Installation instructions can be found [in the Hermes documentation from Informal Systems](https://hermes.informal.systems/quick-start/installation.html). Check the CLI commands with `hermes -h`. Alternatively, check out the [commands reference](https://hermes.informal.systems/documentation/commands/index.html) on the Hermes website.
 <br/><br/>
 Recently the Hermes relayer upgraded the major version to v1. This is the first stable release and contains loads of improvements which you can check out in the [changelog](https://github.com/informalsystems/ibc-rs/blob/master/CHANGELOG.md#v100). It is recommended to use v1 or higher from this point forward, and the commands below assume you are using v1.x.y.
 
@@ -169,7 +169,7 @@ Start by cloning the repository:
 $ git clone https://github.com/b9lab/cosmos-ibc-docker.git
 ```
 
-Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./3-go-relayer.md) section:
+Then build the **images for the checkers blockchain** if you did not already do so in the [Go Relayer](./1-go-relayer.md) section:
 
 ```sh
 $ cd cosmos-ibc-docker/tokentransfer/checkers
@@ -278,7 +278,7 @@ To query the clients for the chain **checkersa**, run:
 $ hermes query clients --host-chain checkersa
 ```
 
-There should be one Tendermint client for the chain **checkersb**.
+There should be one CometBFT client for the chain **checkersb**.
 
 Query the connections for **checkersa**:
 
@@ -409,7 +409,7 @@ SUCCESS [
 ]
 ```
 
-Send an acknowledgment to **checkersa**:
+Send an acknowledgement to **checkersa**:
 
 ```sh
 $ hermes tx packet-ack --dst-chain checkersa --src-chain checkersb --src-port transfer --src-channel channel-1

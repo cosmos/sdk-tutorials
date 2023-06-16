@@ -2,7 +2,7 @@
 title: "IBC Middleware"
 order: 10
 description: Custom middleware to wrap an IBC application
-tags: 
+tags:
   - concepts
   - ibc
   - dev-ops
@@ -12,7 +12,7 @@ tags:
 
 Middleware is a well-known concept in software engineering. In traditional web development (web 2.0) for example, middleware is a piece of software that is implemented in the HTTP request-response cycle. One or more pieces of middleware stacked on top have access to the request and response object when an HTTP request comes in at a web server. They can execute custom logic for adding authentication, requesting headers, parsing request bodies, error handling, and many other tasks.
 
-The use of middleware enables the composability and reusability of logical building blocks while allowing applications to focus on their application-specific logic. This suits the Cosmos philosophy well, and it is, therefore, no surprise that middleware can also play an important role in Inter-Blokchain Communication Protocol (IBC) applications.
+The use of middleware enables the composability and reusability of logical building blocks while allowing applications to focus on their application-specific logic. This suits the Interchain philosophy well, and it is, therefore, no surprise that middleware can also play an important role in Inter-Blokchain Communication Protocol (IBC) applications.
 
 <HighlightBox type="learning">
 
@@ -27,7 +27,7 @@ This document serves as a guide for middleware developers who want to write thei
 
 ## When to use middleware?
 
-IBC applications are designed to be self-contained modules that implement their own application-specific logic through a set of interfaces with the core IBC handlers. This was discussed in the [previous section](./6-ibc-app-steps.md).
+IBC applications are designed to be self-contained modules that implement their own application-specific logic through a set of interfaces with the core IBC handlers. This is discussed in the [hands-on section](/hands-on-exercise/5-ibc-adv/4-ibc-app-steps.md).
 
 These core IBC handlers are designed to enforce the correctness properties of [IBC (transport, authentication, ordering)](/academy/3-ibc/1-what-is-ibc.md) while delegating all application-specific handling to the IBC application modules. **However, there are cases where some functionality may be desired by many applications, yet not appropriate to place in core IBC**...this is where middleware enters the picture.
 
@@ -58,7 +58,7 @@ The diagram below gives an overview of a middleware stack consisting of two midd
 
 Keep in mind that:
 
-* **The order of the middleware matters** (more on how to correctly define your stack in the code will follow in the [integration section](./12-ibc-mw-integrate.md)).
+* **The order of the middleware matters** (more on how to correctly define your stack in the code will follow in the [integration section](./11-ibc-mw-integrate.md)).
 * Depending on the type of message, it will either be passed on from the base application up the middleware stack to core IBC or down the stack in the reverse situation (handshake and packet callbacks).
 * IBC middleware will wrap over an underlying IBC application and sits between core IBC and the application. It has complete control in modifying any message coming from IBC to the application, and any message coming from the application to core IBC. **Middleware must be completely trusted by chain developers who wish to integrate them**, as this gives them complete flexibility in modifying the application(s) they wrap.
 * Scaffolding middleware modules with Ignite CLI is currently not supported.

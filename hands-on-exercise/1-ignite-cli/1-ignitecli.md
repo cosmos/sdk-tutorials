@@ -2,7 +2,7 @@
 title: "Ignite CLI"
 order: 2
 description: An easy way to build your application-specific blockchain
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -37,7 +37,7 @@ You can follow a hands-on exercise for Ignite CLI in the sections that follow th
 
 </HighlightBox>
 
-The Cosmos SDK provides the building blocks for a complete Tendermint blockchain, which implements the Inter-Blockchain Communication Protocol (IBC). The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for the specific blockchain application is to create specific modules and integrate them with BaseApp to make the application _your own_.
+The Cosmos SDK provides the building blocks for a complete CometBFT blockchain, which implements the Inter-Blockchain Communication Protocol (IBC). The _BaseApp_ of the Cosmos SDK assembles these building blocks and provides a fully-running blockchain. All there is left to do for the specific blockchain application is to create specific modules and integrate them with BaseApp to make the application _your own_.
 
 <HighlightBox type="info">
 
@@ -146,7 +146,7 @@ Use "ignite [command] --help" for more information about a command.
 
 ## Prepare Docker
 
-If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro).
+If you want to allow for portability and avoid version issues, it is advisable to use [Docker](https://docs.docker.com/engine/install/). If you are new to Docker, have a look at [this tutorial](/tutorials/5-docker-intro/index.md).
 
 First, you need to create a `Dockerfile` that details the same preparation steps. Save this as `Dockerfile-ubuntu`:
 
@@ -727,7 +727,6 @@ Want another demonstration? In the following video Denis Fadeev, creator of and 
 <YoutubePlayer videoId="aQuHeE7fWK0"/>
 
 </HighlightBox>
-
 
 <HighlightBox type="synopsis">
 

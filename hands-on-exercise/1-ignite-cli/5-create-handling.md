@@ -2,7 +2,7 @@
 title: "Create and Save a Game Properly"
 order: 6
 description: Create a proper game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -50,11 +50,26 @@ For now, do not bother with niceties like gas metering or event emission.
 
 You must add code that:
 
+* Verifies input sanity.
 * Creates a brand new game.
 * Saves it in storage.
 * Returns the ID of the new game.
 
-Ignite CLI isolated this concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
+For input sanity, your code can only accept or reject a message. You cannot _fix_ a message, as that would change its content and break the signature. However, remember that your application is called via [ABCI's `CheckTx`](/academy/2-cosmos-concepts/1-architecture.md#checktx) for each transaction that it receives. It is at this point that your application can statelessly _sanitize_ inputs. For each message type, Ignite CLI isolates this concern into a `ValidateBasic` function:
+
+```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/types/message_create_game.go#L41-L47]
+func (msg *MsgCreateGame) ValidateBasic() error {
+    _, err := sdk.AccAddressFromBech32(msg.Creator)
+    if err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+    }
+    return nil
+}
+```
+
+It is in here that you can add further stateless checks on the message.
+
+Ignite CLI isolated the _create a new game_ concern into a separate file, `x/checkers/keeper/msg_server_create_game.go`, for you to edit:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/keeper/msg_server_create_game.go#L10-L17]
 func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (*types.MsgCreateGameResponse, error) {
@@ -67,7 +82,31 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 Ignite CLI has conveniently created all the message processing code for you. You are only required to code the key features.
 
-## Coding steps
+## Message verification coding steps
+
+What is a well-formatted `MsgCreateGame`? Eventually, you want the black and red players to be able to play moves. They will send and sign transactions for that. So, at the very least, you can check that the addresses passed are valid:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/types/message_create_game.go#L46-L55]
+    func (msg *MsgCreateGame) ValidateBasic() error {
+        _, err := sdk.AccAddressFromBech32(msg.Creator)
+        if err != nil {
+            return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+        }
++      _, err = sdk.AccAddressFromBech32(msg.Black)
++      if err != nil {
++          return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid black address (%s)", err)
++      }
++      _, err = sdk.AccAddressFromBech32(msg.Red)
++      if err != nil {
++          return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid red address (%s)", err)
++      }
+        return nil
+    }
+```
+
+You should not try to check whether they have enough tokens to play as that would be a stateful check. Stateful checks are handled as part of the message handling behind ACBI's [`DeliverTx`](/academy/2-cosmos-concepts/1-architecture.md#delivertx).
+
+## Message handling coding steps
 
 Given that you have already done a lot of preparatory work, what coding is involved? How do you replace `// TODO: Handling the message`?
 
@@ -163,7 +202,107 @@ You just handled the _create game_ message by actually creating the game.
 
 ## Unit tests
 
-Try the unit test you prepared in the previous section again:
+To test your additions to the message's `ValidateBasic`, you can simply add cases to the existing [`message_create_game_test.go`](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-msg/x/checkers/types/message_create_game_test.go#L17-L28). You can verify that your additions have made the existing test fail:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/types
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/types
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+This should return:
+
+```txt
+--- FAIL: TestMsgCreateGame_ValidateBasic (0.00s)
+    --- FAIL: TestMsgCreateGame_ValidateBasic/valid_address (0.00s)
+        message_create_game_test.go:37:
+                Error Trace:    /Users/alice/checkers/x/checkers/types/message_create_game_test.go:37
+                Error:          Received unexpected error:
+
+                                github.com/alice/checkers/x/checkers/types.(*MsgCreateGame).ValidateBasic
+                                        /Users/alice/checkers/x/checkers/types/message_create_game.go:50
+                                github.com/alice/checkers/x/checkers/types.TestMsgCreateGame_ValidateBasic.func1
+                                        /Users/alice/checkers/x/checkers/types/message_create_game_test.go:32
+                                invalid black address (empty address string is not allowed): invalid address
+                Test:           TestMsgCreateGame_ValidateBasic/valid_address
+```
+
+First, change the file's package to `types_test` for consistency:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/types/message_create_game_test.go#L1-L7]
+-  package types
++  package types_test
+
+    import(
++      "github.com/b9lab/checkers/x/checkers/types"
+    )
+```
+
+Then adjust the existing test cases and add to them:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/types/message_create_game_test.go#L18-L52]
+    {
+-      name: "invalid address",
+-      msg: MsgCreateGame{
++      name: "invalid creator address",
++      msg: types.MsgCreateGame{
+            Creator: "invalid_address",
++          Black:   sample.AccAddress(),
++          Red:     sample.AccAddress(),
+        },
+        err: sdkerrors.ErrInvalidAddress,
+    },
++  {
++      name: "invalid black address",
++      msg: types.MsgCreateGame{
++          Creator: sample.AccAddress(),
++          Black:   "invalid_address",
++          Red:     sample.AccAddress(),
++      },
++      err: sdkerrors.ErrInvalidAddress,
++  },
++  {
++      name: "invalid red address",
++      msg: types.MsgCreateGame{
++          Creator: sample.AccAddress(),
++          Black:   sample.AccAddress(),
++          Red:     "invalid_address",
++      },
++      err: sdkerrors.ErrInvalidAddress,
++  },
+    {
+-      name: "valid address",
+-      msg: MsgCreateGame{
++      name: "valid addresses",
++      msg: types.MsgCreateGame{
+            Creator: sample.AccAddress(),
++          Black:   sample.AccAddress(),
++          Red:     sample.AccAddress(),
+        },
+    },
+```
+
+Your tests on `/types` should now pass.
+
+Moving on to the keeper, try the unit test you prepared in the previous section again:
 
 <CodeGroup>
 
@@ -191,7 +330,7 @@ $ docker run --rm -it \
 
 This should fail with:
 
-```
+```txt
 panic: SystemInfo not found [recovered]
         panic: SystemInfo not found
 ...
@@ -288,7 +427,7 @@ func TestCreate1GameHasSaved(t *testing.T) {
 }
 ```
 
-Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L252). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
+Or when you [create 3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L102-L127) games. Other tests could include whether the _get all_ functionality works as expected after you have created [1 game](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L58-L74), or [3](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L181-L221), or if you create a game in a hypothetical [far future](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L223-L253). Also add games with [badly formatted](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L76-L87) or [missing input](https://github.com/cosmos/b9-checkers-academy-draft/blob/create-game-handler/x/checkers/keeper/msg_server_create_game_test.go#L89-L100).
 
 ## Interact via the CLI
 
@@ -504,6 +643,7 @@ When you are done with this exercise you can stop Ignite's `chain serve.`
 
 To summarize, this section has explored:
 
+* How to add stateless checks on your message.
 * How to implement a Message Handler that will create a new game, save it in storage, and return its ID on receiving the appropriate prompt message.
 * How to create unit tests to demonstrate the validity of your code.
 * How to interact via the CLI to confirm that sending the appropriate transaction will successfully create a game.
@@ -514,10 +654,10 @@ To summarize, this section has explored:
 
 You will learn how to modify this handling in later sections by:
 
-* Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/1-game-fifo.md) to the stored information.
+* Adding [new fields](/hands-on-exercise/2-ignite-cli-adv/3-game-fifo.md) to the stored information.
 * Adding [an event](./7-events.md).
-* Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/6-gas-meter.md).
+* Consuming [some gas](/hands-on-exercise/2-ignite-cli-adv/8-gas-meter.md).
 * Facilitating the eventual [deadline enforcement](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md).
-* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/4-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/8-wager-denom.md).
+* Adding [_money_](/hands-on-exercise/2-ignite-cli-adv/5-game-wager.md) handling, including [foreign tokens](/hands-on-exercise/2-ignite-cli-adv/10-wager-denom.md).
 
 <!--Now that a game is created, it is time to play it by adding moves. That is the subject of the [next section](./6-play-game.md).-->

@@ -1,6 +1,6 @@
 ---
 title: "Make a Module IBC-Enabled"
-order: 6
+order: 5
 description:
 tags:
   - guided-coding
@@ -10,7 +10,7 @@ tags:
 
 # Make a Module IBC-Enabled
 
-In this section, you will build a conceptual SDK blockchain with one module: first as a regular module, and second as an IBC module. This will introduce you to what makes a module IBC-enabled.
+In this section, you will build a conceptual Cosmos SDK blockchain with one module: first as a regular module, and second as an IBC module. This will introduce you to what makes a module IBC-enabled.
 
 ## Scaffold a leaderboard chain
 
@@ -22,7 +22,7 @@ To begin, scaffold a `leaderboard` chain:
 $ ignite scaffold chain github.com/cosmonaut/leaderboard
 ```
 
-This creates a chain with `x/leaderboard` a regular SDK module.
+This creates a chain with `x/leaderboard` as a regular SDK module.
 
 Next, scaffold another chain (for example in another git branch), but this time add the `--no-module` flag:
 
@@ -52,7 +52,13 @@ modify x/leaderboard/types/keys.go
 
 <HighlightBox type="warning">
 
-The code in this section was scaffolded with Ignite CLI v0.22. This includes ibc-go v3 as a dependency. The latest version of ibc-go is already past v3 so there may be some differences compared to the code in this section. For documentation on the latest version of ibc-go, please refer to the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html).
+The code in this section was scaffolded with Ignite CLI v0.22.1. This version includes ibc-go v3 as a dependency, which has [reached past end-of-life](https://github.com/cosmos/ibc-go/blob/143e5d85e9d2fc5fc2fc53adc42127a439ee2b79/RELEASES.md#stable-release-policy) and is no longer actively supported. 
+<br/><br/>
+**It is thus highly discouraged to deploy any code in production using ibc-go code scaffolded by Ignite CLI v0.22.1.**
+<br/><br/>
+<!--- TODO: add link to section on upgrading ibc-go version --->
+
+[All actively supported versions of ibc-go](https://github.com/cosmos/ibc-go/blob/main/RELEASES.md#stable-release-policy) have reached past v3, so there may be some differences compared to the code in this section. For documentation on the latest version of ibc-go, please refer to the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html).
 </br></br>
 For example, channel callbacks from v4 onwards now return a _version_ string next to an error:
 
@@ -89,7 +95,7 @@ You can use git or GitHub to visualize the `git diff`s or alternatively use [dif
 
 ## IBC application module requirements
 
-What does Ignite CLI do behind the scenes when creating an IBC module for us? What do you need to implement if you want to upgrade a regular custom application module to an IBC-enabled module?
+What does Ignite CLI do behind the scenes when creating an IBC module for you? What do you need to implement if you want to upgrade a regular custom application module to an IBC-enabled module?
 
 The required steps to implement can be found in the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html). There you will find:
 
@@ -103,7 +109,7 @@ The required steps to implement can be found in the [ibc-go docs](https://ibc.co
     * Packet callbacks
 * Bind to a port(s).
 * Add keeper methods.
-* Define your packet data and acknowledgment structs as well as how to encode/decode them.
+* Define your packet data and acknowledgement structs as well as how to encode/decode them.
 * Add a route to the IBC router.
 
 </HighlightBox>
@@ -120,7 +126,7 @@ For a full explanation, visit the [ibc-go docs](https://ibc.cosmos.network/main/
 
 The Cosmos SDK expects all IBC modules to implement the [`IBCModule` interface](https://github.com/cosmos/ibc-go/tree/main/modules/core/05-port/types/module.go). This interface contains all of the callbacks IBC expects modules to implement. This includes callbacks related to:
 
-* Channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OncChanOpenAck`, and `OnChanOpenConfirm`)
+* Channel handshake (`OnChanOpenInit`, `OnChanOpenTry`, `OnChanOpenAck`, and `OnChanOpenConfirm`)
 * Channel closing (`OnChanCloseInit` and `OnChanCloseConfirm`)
 * Packets (`OnRecvPacket`, `OnAcknowledgementPacket`, and `OnTimeoutPacket`).
 
@@ -162,14 +168,14 @@ func (am AppModule) OnChanOpenInit(
 
 // OnChanOpenTry implements the IBCModule interface
 func (am AppModule) OnChanOpenTry(
-ctx sdk.Context,
-order channeltypes.Order,
-connectionHops []string,
-portID,
-channelID string,
-chanCap *capabilitytypes.Capability,
-counterparty channeltypes.Counterparty,
-counterpartyVersion string,
+    ctx sdk.Context,
+    order channeltypes.Order,
+    connectionHops []string,
+    portID,
+    channelID string,
+    chanCap *capabilitytypes.Capability,
+    counterparty channeltypes.Counterparty,
+    counterpartyVersion string,
 ) (string, error) {
 
     // Require portID is the portID module is bound to
@@ -199,53 +205,53 @@ counterpartyVersion string,
 
 // OnChanOpenAck implements the IBCModule interface
 func (am AppModule) OnChanOpenAck(
-ctx sdk.Context,
-portID,
-channelID string,
-_,
-counterpartyVersion string,
+    ctx sdk.Context,
+    portID,
+    channelID string,
+    _,
+    counterpartyVersion string,
 ) error {
-if counterpartyVersion != types.Version {
-return sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: %s, expected %s", counterpartyVersion, types.Version)
-}
-return nil
+    if counterpartyVersion != types.Version {
+        return sdkerrors.Wrapf(types.ErrInvalidVersion, "invalid counterparty version: %s, expected %s", counterpartyVersion, types.Version)
+    }
+    return nil
 }
 
 // OnChanOpenConfirm implements the IBCModule interface
 func (am AppModule) OnChanOpenConfirm(
-ctx sdk.Context,
-portID,
-channelID string,
+    ctx sdk.Context,
+    portID,
+    channelID string,
 ) error {
-return nil
+    return nil
 }
 
 // OnChanCloseInit implements the IBCModule interface
 func (am AppModule) OnChanCloseInit(
-ctx sdk.Context,
-portID,
-channelID string,
+    ctx sdk.Context,
+    portID,
+    channelID string,
 ) error {
-// Disallow user-initiated channel closing for channels
-return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user cannot close channel")
+    // Disallow user-initiated channel closing for channels
+    return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "user cannot close channel")
 }
 
 // OnChanCloseConfirm implements the IBCModule interface
 func (am AppModule) OnChanCloseConfirm(
-ctx sdk.Context,
-portID,
-channelID string,
+    ctx sdk.Context,
+    portID,
+    channelID string,
 ) error {
-return nil
+    return nil
 }
 
 // OnRecvPacket implements the IBCModule interface
 func (am AppModule) OnRecvPacket(
-ctx sdk.Context,
-modulePacket channeltypes.Packet,
-relayer sdk.AccAddress,
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    relayer sdk.AccAddress,
 ) ibcexported.Acknowledgement {
-var ack channeltypes.Acknowledgement
+    var ack channeltypes.Acknowledgement
 
     // this line is used by starport scaffolding # oracle/packet/module/recv
 
@@ -262,22 +268,22 @@ var ack channeltypes.Acknowledgement
         return channeltypes.NewErrorAcknowledgement(errMsg)
     }
 
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
     return ack
 
 }
 
 // OnAcknowledgementPacket implements the IBCModule interface
 func (am AppModule) OnAcknowledgementPacket(
-ctx sdk.Context,
-modulePacket channeltypes.Packet,
-acknowledgement []byte,
-relayer sdk.AccAddress,
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    acknowledgement []byte,
+    relayer sdk.AccAddress,
 ) error {
-var ack channeltypes.Acknowledgement
-if err := types.ModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
-return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet acknowledgement: %v", err)
-}
+    var ack channeltypes.Acknowledgement
+    if err := types.ModuleCdc.UnmarshalJSON(acknowledgement, &ack); err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet acknowledgement: %v", err)
+    }
 
     // this line is used by starport scaffolding # oracle/packet/module/ack
 
@@ -327,14 +333,14 @@ return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet ack
 
 // OnTimeoutPacket implements the IBCModule interface
 func (am AppModule) OnTimeoutPacket(
-ctx sdk.Context,
-modulePacket channeltypes.Packet,
-relayer sdk.AccAddress,
+    ctx sdk.Context,
+    modulePacket channeltypes.Packet,
+    relayer sdk.AccAddress,
 ) error {
-var modulePacketData types.LeaderboardPacketData
-if err := modulePacketData.Unmarshal(modulePacket.GetData()); err != nil {
-return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet data: %s", err.Error())
-}
+    var modulePacketData types.LeaderboardPacketData
+    if err := modulePacketData.Unmarshal(modulePacket.GetData()); err != nil {
+        return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet data: %s", err.Error())
+    }
 
     // Dispatch packet
     switch packet := modulePacketData.Packet.(type) {
@@ -347,20 +353,19 @@ return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "cannot unmarshal packet dat
     return nil
 
 }
-
 ````
 
 </ExpansionPanel>
 
 Additionally, in the `module.go` file, add the following line (and the corresponding import):
 
-```diff
-var (
-    _ module.AppModule      = AppModule{}
-    _ module.AppModuleBasic = AppModuleBasic{}
-    // Add this line
-+   _ porttypes.IBCModule   = IBCModule{}
-)
+```diff-go
+   var (
+       _ module.AppModule      = AppModule{}
+       _ module.AppModuleBasic = AppModuleBasic{}
+       // Add this line
++     _ porttypes.IBCModule   = IBCModule{}
+   )
 ```
 
 #### Channel handshake version negotiation
@@ -379,7 +384,7 @@ Application modules are expected to verify the versioning used during the channe
 
 Versions must be strings but can implement any versioning structure. Often a simple template is used that combines the name of the application and an iteration number, like `leaderboard-1` for the leaderboard IBC module.
 <br/><br/>
-However, the version string can also include metadata to indicate attributes of the channel you are supporting, like applicable middleware and the underlying app version. An example of this is the version string for middleware, which is discussed in a [later section](./11-ibc-mw-develop.md).
+However, the version string can also include metadata to indicate attributes of the channel you are supporting, like applicable middleware and the underlying app version. An example of this is the version string for middleware, which is discussed in this [IBC section](/academy/3-ibc/10-ibc-mw-develop.md).
 
 </HighlightBox>
 
@@ -411,16 +416,16 @@ For advanced readers, more on capabilities can be found in the [ibc-go docs](htt
 
 To handle receiving packets, the module must implement the `OnRecvPacket` callback. This gets invoked by the IBC module after the packet has been proved valid and correctly processed by the IBC keepers. Thus, the `OnRecvPacket` callback only needs to worry about making the appropriate state changes given the packet data without worrying about whether the packet is valid or not.
 
-Modules may return to the IBC handler an acknowledgment which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgment of the packet so that a relayer may relay the acknowledgment back to the sender module.
+Modules may return to the IBC handler an acknowledgement which implements the `Acknowledgement` interface. The IBC handler will then commit this acknowledgement of the packet so that a relayer may relay the acknowledgement back to the sender module.
 
 The state changes that occurred during this callback will only be written if:
 
-* The acknowledgment was successful as indicated by the `Success()` function of the acknowledgement.
-* The acknowledgment returned is nil, indicating that an asynchronous process is occurring.
+* The acknowledgement was successful as indicated by the `Success()` function of the acknowledgement.
+* The acknowledgement returned is nil, indicating that an asynchronous process is occurring.
 
 <HighlightBox type="note">
 
-Applications that process asynchronous acknowledgments must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgments.
+Applications that process asynchronous acknowledgements must handle reverting state changes when appropriate. Any state changes that occurred during the `OnRecvPacket` callback will be written for asynchronous acknowledgements.
 
 </HighlightBox>
 
@@ -444,12 +449,12 @@ func (am AppModule) OnRecvPacket(
         errMsg := fmt.Sprintf("unrecognized %s packet type: %T", types.ModuleName, packet)
         return channeltypes.NewErrorAcknowledgement(errMsg)
     }
-    // NOTE: acknowledgment will be written synchronously during IBC handler execution.
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
     return ack
 }
 ```
 
-The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking, you only need to decode the packet data (which is discussed in an upcoming section) and return the acknowledgment after processing the packet. However, the structure provided by Ignite CLI is useful to get set up but can be changed according to the preference of the developer.
+The _dispatch packet_ switch statement is added by Ignite CLI. As it is stated in the docs, strictly speaking, you only need to decode the packet data (which is discussed in an upcoming section) and return the acknowledgement after processing the packet. However, the structure provided by Ignite CLI is useful to get set up but can be changed according to the preference of the developer.
 
 As a reminder, this is the `Acknowledgement` interface:
 
@@ -466,9 +471,9 @@ type Acknowledgement interface {
 
 The last step of the packet flow depends on whether you have a happy path, when the packet has been successfully relayed, or a timeout when something went wrong.
 
-After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgment using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
+After a module writes an `Acknowledgement`, a relayer can relay it back to the sender module. The sender module can then process the acknowledgement using the `OnAcknowledgementPacket` callback. The contents of the `Acknowledgement` are entirely up to the modules on the channel (just like the packet data); however, it may often contain information on whether the packet was successfully processed, along with some additional data that could be useful for remediation if the packet processing failed.
 
-Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgments, IBC will pass in the acknowledgments as `[]byte` to this callback. The callback is responsible for decoding the acknowledgment and processing it.
+Since the modules are responsible for agreeing on an encoding/decoding standard for packet data and acknowledgements, IBC will pass in the acknowledgements as `[]byte` to this callback. The callback is responsible for decoding the acknowledgement and processing it.
 
 In `x/leaderboard/module_ibc.go` scaffolded by Ignite CLI you will find `OnAcknowledgementPacket`:
 
@@ -562,42 +567,42 @@ Currently, ports must be bound on app initialization. In order to bind modules t
 
 1. Add port ID to the `GenesisState` proto definition:
 
-   ```diff
-       @@ proto/leaderboard/genesis.proto
-       // GenesisState defines the leaderboard module's genesis state.
-       message GenesisState {
-           Params params = 1 [(gogoproto.nullable) = false];
-   +       string port_id = 2;
-           // this line is used by starport scaffolding # genesis/proto/state
-   }
+   ```diff-protobuf
+      @@ proto/leaderboard/genesis.proto
+      // GenesisState defines the leaderboard module's genesis state.
+      message GenesisState {
+          Params params = 1 [(gogoproto.nullable) = false];
+   +     string port_id = 2;
+          // this line is used by starport scaffolding # genesis/proto/state
+      }
    ```
 
 2. Add port ID as a key to the module store in `x/leaderboard/types/keys.go`:
 
-   ```diff
-       @@ const in x/leaderboard/types.go
-       // MemStoreKey defines the in-memory store key
-       MemStoreKey = "mem_leaderboard"
-   +    // Version defines the current version the IBC module supports
-   +    Version = "leaderboard-1"
-   +    // PortID is the default port id that module binds to
-   +    PortID = "leaderboard"
-   +    )
-   +    var (
-   +        // PortKey defines the key to store the port ID in store
-   +        PortKey = KeyPrefix("leaderboard-port-")
+   ```diff-go
+           @@ const in x/leaderboard/types/keys.go
+           // MemStoreKey defines the in-memory store key
+           MemStoreKey = "mem_leaderboard"
+   +      // Version defines the current version the IBC module supports
+   +      Version = "leaderboard-1"
+   +      // PortID is the default port id that module binds to
+   +      PortID = "leaderboard"
+   +  )
+   +  var (
+   +      // PortKey defines the key to store the port ID in store
+   +      PortKey = KeyPrefix("leaderboard-port-")
        )
    ```
 
-<HighlightBox type="note">
+    <HighlightBox type="note">
 
-By default, the `portID` is indeed set to the module name, and the application version is set to `<modulename>-n` with `n` as an incrementing value.
+    By default, the `portID` is indeed set to the module name, and the application version is set to `<modulename>-n` with `n` as an incrementing value.
 
-</HighlightBox>
+    </HighlightBox>
 
 3. Add port ID to `x/leaderboard/types/genesis.go`:
 
-   ```diff
+   ```diff-go
        // DefaultGenesisState returns a GenesisState with "transfer" as the default PortID.
        func DefaultGenesisState() *GenesisState {
            return &GenesisState{
@@ -618,28 +623,28 @@ By default, the `portID` is indeed set to the module name, and the application v
 
 4. Bind the IBC module to the port in `x/leaderboard/genesis.go`:
 
-   ```diff
+   ```diff-go
        @@ InitGenesis
        func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
            // this line is used by starport scaffolding # genesis/module/init
-   +       k.SetPort(ctx, genState.PortId)
-   +       // Only try to bind to port if it is not already bound, since we may already own
-   +       // port capability from capability InitGenesis
-   +       if !k.IsBound(ctx, genState.PortId) {
-   +           // module binds to the port on InitChain
-   +           // and claims the returned capability
-   +           err := k.BindPort(ctx, genState.PortId)
-   +           if err != nil {
-   +               panic("could not claim port capability: " + err.Error())
-   +           }
-           }
-           k.SetParams(ctx, genState.Params)
+   +      k.SetPort(ctx, genState.PortId)
+   +      // Only try to bind to port if it is not already bound, since we may already own
+   +      // port capability from capability InitGenesis
+   +      if !k.IsBound(ctx, genState.PortId) {
+   +          // module binds to the port on InitChain
+   +          // and claims the returned capability
+   +          err := k.BindPort(ctx, genState.PortId)
+   +          if err != nil {
+   +              panic("could not claim port capability: " + err.Error())
+   +          }
+          }
+          k.SetParams(ctx, genState.Params)
        }
        @@ ExportGenesis
        func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
            genesis := types.DefaultGenesis()
            genesis.Params = k.GetParams(ctx)
-   +        genesis.PortId = k.GetPort(ctx)
+   +      genesis.PortId = k.GetPort(ctx)
            // this line is used by starport scaffolding # genesis/module/export
            return genesis
        }
@@ -669,18 +674,18 @@ Previous steps sometimes referenced keeper methods that deal with binding to and
 
 For a full overview, check out the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/keeper.html) and compare it with the `x/leaderboard/keeper/keeper.go` file.
 
-You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/develop/ignite/pkg/cosmosibckeeper).
+You will notice that Ignite CLI uses a custom `cosmosibckeeper` package which you can find [here](https://github.com/ignite/cli/tree/v0.22.1/ignite/pkg/cosmosibckeeper).
 
 #### Routing and `app.go`
 
 When looking at `app.go` you will see some minor additions, the most prominent of which is adding a route to the `Leaderboard` module on the `IBC Router`.
 
-```diff
+```diff-go
     @@ func New in app/app.go
     ibcRouter := ibcporttypes.NewRouter()
     ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferIBCModule)
     ibcRouter.AddRoute(monitoringptypes.ModuleName, monitoringModule)
-+   ibcRouter.AddRoute(leaderboardmoduletypes.ModuleName, leaderboardModule)
++  ibcRouter.AddRoute(leaderboardmoduletypes.ModuleName, leaderboardModule)
     // this line is used by starport scaffolding # ibc/app/router
     app.IBCKeeper.SetRouter(ibcRouter)
 ```
@@ -698,5 +703,5 @@ To summarize, this section has explored:
 </HighlightBox>
 
 <!--#### Next up
-Until now how to define packet and acknowledgment data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.-->
+Until now how to define packet and acknowledgement data has not been explored. In the next section you will first scaffold the packet with Ignite CLI and again compare the additions with a `git diff`.-->
 ````

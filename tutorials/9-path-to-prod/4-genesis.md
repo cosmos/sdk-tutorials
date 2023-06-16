@@ -63,7 +63,7 @@ If you are planning on having more denominations than your staking token, this i
 
 Genesis accounts are accounts that exist in the genesis. They can be there because of a pre-sale of tokens, or of simple allotments, or for any other reason.
 
-Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses that must be collected. 
+Genesis accounts need to be included in the genesis using the command `add-genesis-account`. Like any account, genesis accounts have addresses that must be collected.
 
 <HighlightBox type="note">
 
@@ -73,14 +73,14 @@ If these genesis accounts are third parties, make sure in more ways than one tha
 
 Your addresses have a prefix, which you can define instead of the Cosmos Hub default of `cosmos`. Your blockchain may use the prefix `cavedweller` for example. This is typically defined in `app/app.go`.
 
-You can also decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts or the number of extra tokens in the genesis. 
+You can also decide to allocate new tokens to your genesis accounts. There is no limit to the number of genesis accounts or the number of extra tokens in the genesis.
 
 If you introduce another token named `nflint`, and Alice has the address `cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq`, you could make her a genesis account with:
 
 ```sh
 $ ./myprojectd add-genesis-account \
   cavedweller1nw793j9xvdzl2uc9ly8fas5tcfwfetercpdfqq \
-  5000000000nstone 2000000000nflint
+  5000000000nstone,2000000000nflint
 ```
 
 This credits her with 5 STONE and 2 FLINT. It has also given her an `account_number` in the genesis.
@@ -111,7 +111,7 @@ To each validator you send:
 * The `account_number` that was given to them when calling `add-genesis-account`.
 * A confirmation of the number of tokens that you have credited them.
 
-Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from Tendermint KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
+Each validator operator then has to run a `gentx` command. **This command is not to be run on the server**. Instead, it is run on the computer that hosts the _cold_ validator operator app key, using the keyring of your choice. Collect the consensus public key from CometBFT KMS, for instance `{"@type":"/cosmos.crypto.ed25519.PubKey","key":"byefX/uKpgTsyrcAZKrmYYoFiXG0tmTOOaJFziO3D+E="}`.
 
 If this is Alice, she may run:
 
@@ -214,12 +214,12 @@ When a validator returns a signed transaction to you, make sure that it is the o
 When you have all of the validator responses, you add them all in the genesis like so:
 
 ```sh
-$ ./myprojectd collect-gentxs 
+$ ./myprojectd collect-gentxs
 ```
 
 If some validators are not cooperating fast enough, you can do the operation when you have received a reply from enough of them to start a valid network. Late potential validators can always send transactions to the live network to become validators at a later date.
 
-<!-- 
+<!--
 Confirm whether doing it multiple times is idempotent.
 Also what happens when sequence numbers are incorrect.
 -->
@@ -234,12 +234,23 @@ The relevant parties should also come to a consensus that this genesis represent
 
 * Parties are being granted genesis tokens and one may not accept being omitted.
 * Parties are enroling to be validators, so there needs to be agreement on this file.
- 
+
 This is the only _block_ that needs a social consensus on its content. All other blocks will be agreed on technically by the PoS consensus.
 
 ## Import
 
 In turn, each validator and node operator copies this file on their own machine, in the designated folder, typically `~/.myprojectd/config/genesis.json`.
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Blockchain elements](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#blockchain-elements), to see how to prepare early blockchain elements like the consensus denom.
+* [Genesis](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#genesis), to see how to prepare the blockchain's genesis, including the genesis validator transactions.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

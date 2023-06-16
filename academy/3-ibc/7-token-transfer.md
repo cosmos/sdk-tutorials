@@ -1,6 +1,6 @@
 ---
 title: "IBC Token Transfer"
-order: 6
+order: 8
 description: Fungible token transfers across chains
 tags:
   - concepts
@@ -48,7 +48,7 @@ Shortly you will see the corresponding code. Now again have a look at a transfer
 
 ![Source to sink](/academy/3-ibc/images/sourcetosink.png)
 
-Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}` (or rather their [IBC denom representation](../../tutorials/5-ibc-dev/index.md) on chain). The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **ibc/<hash of transfer/channel-40/uatom>**. The **channel-id** will be increased sequentially per channel on a given connection.
+Above the **source** is chain A. The source channel is **channel-2** and the destination channel is **channel-40**. The token denominations are represented as `{Port}/{Channel}/{denom}` (or rather their [IBC denom representation](../../tutorials/6-ibc-dev/index.md) on chain). The prefixed port and channel pair indicate which channel the funds were previously sent through. You see **transfer/channel-...** because the transfer module will bind to a port, which is named transfer. If chain A sends 100 ATOM tokens, chain B will receive 100 ATOM tokens and append the destination prefix **port/channel-id**. So chain B will mint those 100 ATOM tokens as **ibc/<hash of transfer/channel-40/uatom>**. The **channel-id** will be increased sequentially per channel on a given connection.
 
 <HighlightBox type="note">
 
@@ -107,7 +107,7 @@ func (im IBCModule) OnChanOpenInit(
 
 ## Transfer packet flow
 
-You have seen an introduction to the application packet flow in [the section on channels](./3-channels.md/#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
+You have seen an introduction to the application packet flow in [the section on channels](./3-channels.md#application-packet-flow). This section will analyze this packet flow for the specific case of the _transfer_ module.
 
 ### Sending a transfer packet
 
@@ -236,52 +236,52 @@ func (im IBCModule) OnRecvPacket(
 ) ibcexported.Acknowledgement {
     ack := channeltypes.NewResultAcknowledgement([]byte{byte(1)})
 
-	var data types.FungibleTokenPacketData
-	var ackErr error
-	if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-		ackErr = sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
-		ack = channeltypes.NewErrorAcknowledgement(ackErr)
-	}
+    var data types.FungibleTokenPacketData
+    var ackErr error
+    if err := types.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+        ackErr = sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
+        ack = channeltypes.NewErrorAcknowledgement(ackErr)
+    }
 
-	// only attempt the application logic if the packet data
-	// was successfully decoded
-	if ack.Success() {
-		err := im.keeper.OnRecvPacket(ctx, packet, data)
-		if err != nil {
-			ack = channeltypes.NewErrorAcknowledgement(err)
-			ackErr = err
-		}
-	}
+    // only attempt the application logic if the packet data
+    // was successfully decoded
+    if ack.Success() {
+        err := im.keeper.OnRecvPacket(ctx, packet, data)
+        if err != nil {
+            ack = channeltypes.NewErrorAcknowledgement(err)
+            ackErr = err
+        }
+    }
 
-	eventAttributes := []sdk.Attribute{
-		sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
-		sdk.NewAttribute(sdk.AttributeKeySender, data.Sender),
-		sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
-		sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
-		sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
-		sdk.NewAttribute(types.AttributeKeyMemo, data.Memo),
-		sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
-	}
+    eventAttributes := []sdk.Attribute{
+        sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),
+        sdk.NewAttribute(sdk.AttributeKeySender, data.Sender),
+        sdk.NewAttribute(types.AttributeKeyReceiver, data.Receiver),
+        sdk.NewAttribute(types.AttributeKeyDenom, data.Denom),
+        sdk.NewAttribute(types.AttributeKeyAmount, data.Amount),
+        sdk.NewAttribute(types.AttributeKeyMemo, data.Memo),
+        sdk.NewAttribute(types.AttributeKeyAckSuccess, fmt.Sprintf("%t", ack.Success())),
+    }
 
-	if ackErr != nil {
-		eventAttributes = append(eventAttributes, sdk.NewAttribute(types.AttributeKeyAckError, ackErr.Error()))
-	}
+    if ackErr != nil {
+        eventAttributes = append(eventAttributes, sdk.NewAttribute(types.AttributeKeyAckError, ackErr.Error()))
+    }
 
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(
-			types.EventTypePacket,
-			eventAttributes...,
-		),
-	)
+    ctx.EventManager().EmitEvent(
+        sdk.NewEvent(
+            types.EventTypePacket,
+            eventAttributes...,
+        ),
+    )
 
-	// NOTE: acknowledgement will be written synchronously during IBC handler execution.
-	return ack
+    // NOTE: acknowledgement will be written synchronously during IBC handler execution.
+    return ack
 }
 ```
 
 <HighlightBox type="note">
 
-Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method and are constructing the acknowledgment to be sent back.
+Observe in the previous example how we redirect to the module keeper's `OnRecvPacket` method and are constructing the acknowledgement to be sent back.
 
 </HighlightBox>
 

@@ -2,7 +2,7 @@
 title: "CosmWasm"
 order: 21
 description: Multi-chain smart contracts
-tags: 
+tags:
   - tutorial
   - cosmos-sdk
   - dev-ops
@@ -425,7 +425,7 @@ Check again with a `resolve_record` query to confirm that the transfer was succe
 
 <HighlightBox type="docs">
 
-CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here](https://docs.cosmwasm.com/docs/1.0/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
+CosmWasm offers good [documentation](https://docs.cosmwasm.com/docs/). This section is a summary of the [Getting Started section](https://docs.cosmwasm.com/docs/getting-started/intro/). Store the `env` script from [here](https://docs.cosmwasm.com/docs/getting-started/setting-env#setup-go-cli) in case you wish to test it on your local node. Also look at the [contract semantics](https://docs.cosmwasm.com/docs/SEMANTICS/).
 <br/>
 
 You can find more information in the [CosmWasm Developer Academy](https://docs.cosmwasm.com/dev-academy/intro) and modular tutorials in the [Wasm tutorials](https://docs.cosmwasm.com/tutorials/hijack-escrow/intro). You can also find various hands-on videos on the [workshops](https://docs.cosmwasm.com/tutorials/videos-workshops) page.
@@ -443,7 +443,7 @@ To summarize, this section has explored:
 
 * CosmWasm, the *Cosmos* way of using *WebAssembly*, which provides a multi-chain solution for smart contracts through an actor-model design pattern that delivers reliable distributed systems.
 * How CosmWasm is code agnostic, requiring only that a Cosmos SDK application embeds the `Wasm` module, and not only makes it possible to connect chains but facilitates an application changing the chain it is platformed on.
-* How you will need **Go** to use the Cosmos SDK and **Rust** to write smart contracts. 
+* How you will need **Go** to use the Cosmos SDK and **Rust** to write smart contracts.
 * How to connect to a testnet; add accounts and query their balance; compile a smart contract; upload a smart contract binary; instantiate the smart contract; and call the smart contract, including how to register, verify, and transfer a name.
 
 </HighlightBox>

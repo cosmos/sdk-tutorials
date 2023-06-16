@@ -17,7 +17,7 @@ The Interchain vision set out by the original [Cosmos whitepaper](https://v1.cos
 
 _Sounds great, right? But wait, what does that actually mean?_
 
-Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solo machine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-fb55ba0b0234)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
+Well, IBC enables arbitrary message passing between chains (in fact, even more generalized state machines like a [solo machine](https://interchain-io.medium.com/ibc-beyond-light-clients-solo-machine-5af93618ef63)), so developers can go ahead and create all sorts of IBC applications that exchange packets of data over IBC to enable application logic.
 
 However, the first and still most dominant example to date is to transfer a (fungible) token from a source chain to a destination chain.
 
@@ -26,7 +26,6 @@ Take this example: you have some ATOM on the Cosmos Hub but would like to swap t
 ![IBC token transfer](/tutorials/6-ibc-dev/images/ibc_token.png)
 
 _Sending token from blockchain A to blockchain B_
-
 
 Take the [following transaction](https://www.mintscan.io/cosmos/txs/F7196B37828BAAF5C55E499D62A58E2927542CB2FB57B587BA77BF5BB044FFBF). There you see some general information about the transaction, as well as data, particularly on the IBC transfer message that was included in the transaction. Dropping sender and receiver you find:
 
@@ -71,7 +70,7 @@ In this tutorial you will:
 
 <HighlightBox type="info">
 
-Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/5-token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
+Token transfers or ICS-20 is discussed in detail in the [IBC section](/academy/3-ibc/7-token-transfer.md). The "ICS" in ICS-20 is shorthand for _Interchain standards_. In the section, you can find an in-depth look at how IBC enables the transfer of (fungible) tokens across chains. For the purposes of this tutorial, here comes a brief and simplified summary.
 
 </HighlightBox>
 
@@ -107,7 +106,7 @@ The only way to unlock the locked tokens on blockchain A is to send the `voucher
 
 ## How are IBC denoms derived?
 
-IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/5-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
+IBC is a protocol that allows for permissionless creation of clients, connections, and channels by relayers. Again, refer to the [IBC section](/academy/3-ibc/7-token-transfer.md) for more in-depth information. As explained there, **a consequence of the permissionless creation of clients, connections, and channels is that tokens that have traveled different paths have different security guarantees**. To account for this, the IBC protocol makes sure to prepend the path information to a base denomination when representing the `voucher`s minted on the sink chain when transferring tokens over IBC.
 
 <HighlightBox type="best-practice">
 
@@ -239,7 +238,6 @@ $ gaiad query ibc-transfer denom-trace 14F9BC3E44B8A9C1BE1FB08980FAB87034C9905EF
 
 </HighlightBox>
 
-
 From the terminal output, you now know that there is an IBC port `transfer` and channel `channel-141` that corresponds to the IBC connection between the Hub and Osmosis. To learn the IBC light client behind the port and channel, you need to perform another query.
 
 <HighlightBox type="info">
@@ -345,7 +343,7 @@ A type of _Chain Name Service_ can verify the combination of the chain ID and th
 
   The [chain registry](https://github.com/cosmos/chain-registry) repo is a stopgap solution. Each chain ID has a folder describing its genesis and a list of peers. To claim their chain ID, a blockchain operator must fork the `registry` repo, create a branch with their chain ID, and submit a pull request to include their chain ID in the official `cosmos/registry` of chain IDs.
 
-  Every chain ID is represented by a folder, and within that folder, a `peers.json` file contains a list of nodes that you can connect to.
+  Every chain ID is represented by a folder, and within that folder, a `chain.json` file contains a list of nodes that you can connect to.
 
 Being able to list all possible blockchain paths is still an unsolved problem. Some ecosystem efforts are already being developed to help bridge this gap. Take for example this [IBC-Cosmos repo by Pulsar](https://github.com/PulsarDefi/IBC-Cosmos): it attempts to aggregate all known IBC denoms on all IBC connected chains. They use the following data schema:
 
@@ -403,7 +401,7 @@ To summarize, this section has explored:
 * The basics of ICS-20 token transfer over IBC.
 * How you might encounter the IBC denom notation `ibc/...` containing a hash of the path information when you interact with assets that were transferred over IBC.
 * How to derive an IBC denom, or perform a _denomtrace_ query to retrieve the path information and base denom of the asset.
-* How to query from the path information to identify chain IDs associated with a light client, making use of the chain registry (and soon CNS). 
+* How to query from the path information to identify chain IDs associated with a light client, making use of the chain registry (and soon CNS).
 * How to reason about the security of an IBC asset based on the path information contained in the IBC denom.
 
 </HighlightBox>

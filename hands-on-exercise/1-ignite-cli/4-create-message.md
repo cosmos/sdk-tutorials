@@ -2,7 +2,7 @@
 title: "Create Custom Messages"
 order: 5
 description: Introduce the message to create a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -181,7 +181,6 @@ This code is created only once. You can modify it as you see fit.
 
 Ignite CLI also adds a new function to your gRPC interface that receives all transaction messages for the module, because the message is meant to be sent and received. The interface is called `service Msg` and is declared inside `proto/checkers/tx.proto`.
 
-
 <HighlightBox type="info">
 
 Ignite CLI creates this [`tx.proto`](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/tx.proto) file at the beginning when you scaffold your project's module. Ignite CLI separates different concerns into different files so that it knows where to add elements according to instructions received. Ignite CLI adds a function to the empty `service Msg` with your instruction.
@@ -212,7 +211,7 @@ import "github.com/b9lab/checkers/x/checkers/testutil"
 const (
     alice = testutil.Alice
     bob   = testutil.Bob
-    carol = testutil.Bob
+    carol = testutil.Carol
 )
 ```
 
@@ -541,6 +540,103 @@ create_game%
 Which can be found again in `.raw_log`.
 
 </ExpansionPanel>
+
+<HighlightBox type="reading">
+
+**Troubleshooting - key not found**
+
+On some systems, you may encounter errors stating _keys not found_. First verify that you do indeed have the correct addresses; if this is the case, then the errors may be because one command uses keyring A while another command uses keyring B. Keyrings do not share keys, so this can explain the error message.
+
+In this situation, you may need to specify your preferred keyring explicitly so that it is consistent across commands. For instance:
+
+* When creating keys:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ checkersd keys add alice --keyring-backend test
+  $ checkersd keys add bob --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ docker exec checkers checkersd keys add alice --keyring-backend test
+  $ docker exec checkers checkersd keys add bob --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+* When collecting keys:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ export alice=$(checkersd keys show alice -a --keyring-backend test)
+  $ export bob=$(checkersd keys show bob -a --keyring-backend test)
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ export alice=$(docker exec checkers checkersd keys show alice -a --keyring-backend test)
+  $ export bob=$(docker exec checkers checkersd keys show bob -a --keyring-backend test)
+  ```
+
+  <HighlightBox type="note">
+
+  `docker` is called without `-it`, otherwise it would add a `\r` to the addresses.
+
+  </HighlightBox>
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+* When sending a transaction:
+
+  <CodeGroup>
+
+  <CodeGroupItem title="Local" active>
+
+  ```sh
+  $ checkersd tx \
+      checkers create-game \
+      $alice $bob \
+      --from $alice \
+      --gas auto \
+      --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  <CodeGroupItem title="Docker">
+
+  ```sh
+  $ docker exec -it checkers \
+      checkersd tx \
+      checkers create-game \
+      $alice $bob \
+      --from $alice \
+      --gas auto \
+      --keyring-backend test
+  ```
+
+  </CodeGroupItem>
+
+  </CodeGroup>
+
+</HighlightBox>
 
 You can query your chain to check whether the system info remains unchanged:
 

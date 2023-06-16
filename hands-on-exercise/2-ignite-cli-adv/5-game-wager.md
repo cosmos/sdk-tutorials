@@ -2,7 +2,7 @@
 title: "Let Players Set a Wager"
 order: 6
 description: Token - Players set a wager
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -45,7 +45,7 @@ When thinking about implementing a wager on games, ask:
 * Where is a wager recorded?
 * At what junctures do you need to handle payments, refunds, and wins?
 
-This is a lot to go through. Therefore, the work is divided into two sections. In this section, you only add new information, while the [next section](./5-payment-winning.md) is where the tokens are actually handled.
+This is a lot to go through. Therefore, the work is divided into three sections. In this first section, you only add new information, while the [second section](./6-payment-winning.md) is where the tokens are actually handled, and in the [third section](./7-integration-tests.md) you add integration tests.
 
 Some answers:
 
@@ -76,7 +76,7 @@ Add this wager value to the `StoredGame`'s Protobuf definition:
 
 You can let players choose the wager they want by adding a dedicated field in the message to create a game, in `proto/checkers/tx.proto`:
 
-```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/tx.proto#L20]
+```diff-protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/proto/checkers/tx.proto#L19]
     message MsgCreateGame {
         ...
 +      uint64 wager = 4;
@@ -155,7 +155,8 @@ Time to ensure that the new field is saved in the storage and it is part of the 
 4. Modify the constructor among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go` to avoid surprises:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/message_create_game.go#L17]
-        func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
+    -  func NewMsgCreateGame(creator string, red string, black string) *MsgCreateGame {
+    +  func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
             return &MsgCreateGame{
                 ...
     +          Wager: wager,
@@ -163,9 +164,9 @@ Time to ensure that the new field is saved in the storage and it is part of the 
         }
     ```
 
-5. Adjust the CLI client accordingly:
+1. Adjust the CLI client accordingly:
 
-    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/compare/forfeit-game..game-wager#diff-499219a70e143a1a848af38d250273a6de287507bfc67f89ff0f46cc8222a7a1]
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/client/cli/tx_create_game.go#L17-L37]
         func CmdCreateGame() *cobra.Command {
             cmd := &cobra.Command{
     -          Use:   "create-game [black] [red]",

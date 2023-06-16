@@ -1,8 +1,8 @@
 ---
 title: "Help Find a Correct Move"
-order: 9
+order: 10
 description: Query - help players make good transactions
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -15,7 +15,7 @@ Make sure you have everything you need before proceeding:
 
 * You understand the concepts of [queries](/academy/2-cosmos-concepts/9-queries.md) and [Protobuf](/academy/2-cosmos-concepts/6-protobuf.md).
 * You have Go installed.
-* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./6-gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
+* You have the checkers blockchain codebase up to gas metering. If not, follow the [previous steps](./8-gas-meter.md) or check out [the relevant version](https://github.com/cosmos/b9-checkers-academy-draft/tree/gas-meter).
 
 </HighlightBox>
 
@@ -32,7 +32,7 @@ A player sends a `MsgPlayMove` when [making a move](/hands-on-exercise/1-ignite-
 
 Since sending transactions includes costs, how do you assist participants in making sure they at least do not make a wrong move?
 
-Players should be able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
+Players would appreciate being able to confirm that a move is valid before burning gas. To add this functionality, you need to create a way for the player to call the [`Move`](https://github.com/batkinson/checkers-go/blob/a09daeb/checkers/checkers.go#L274) function without changing the game's state. Use a query because they are evaluated in memory and do not commit anything permanently to storage.
 
 ## Some initial thoughts
 
@@ -73,7 +73,8 @@ As with other data structures, you can create the query message object with Igni
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
+$ ignite scaffold query canPlayMove \
+    gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
     --module checkers \
     --response possible:bool,reason
 ```
@@ -83,11 +84,12 @@ $ ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:u
 <CodeGroupItem title="Docker">
 
 ```sh
-$ docker run --rm -it 
+$ docker run --rm -it \
     -v $(pwd):/checkers \
     -w /checkers \
     checkers_i \
-    ignite scaffold query canPlayMove gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
+    ignite scaffold query canPlayMove \
+    gameIndex player fromX:uint fromY:uint toX:uint toY:uint \
     --module checkers \
     --response possible:bool,reason
 ```
@@ -118,7 +120,7 @@ Ignite CLI has created the following boilerplate for you:
 
 * The [Protobuf gRPC interface function](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-query/proto/checkers/query.proto#L35-L37) to submit your new `QueryCanPlayMoveRequest` and its default implementation.
 * The [routing of this new query](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-query/x/checkers/types/query.pb.gw.go#L424-L445) in the query facilities.
-* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/blob/f8a6e14/x/checkers/keeper/grpc_query_can_play_move.go#L19) ready to implement the action.
+* An [empty function](https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-query/x/checkers/keeper/grpc_query_can_play_move.go#L19) ready to implement the action.
 
 ## Query handling
 
@@ -129,11 +131,13 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 1. The game needs to be fetched. If it does not exist at all, you can return an error message because you did not test the move:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L22-L25]
-    storedGame, found := k.GetStoredGame(ctx, req.GameIndex)
-    if !found {
-        return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "%s", req.GameIndex)
-    }
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L22-L25]
+    -  // TODO: Process the query
+    -  _ = ctx
+    +  storedGame, found := k.GetStoredGame(ctx, req.GameIndex)
+    +  if !found {
+    +      return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "%s", req.GameIndex)
+    +  }
     ```
 
 2. Has the game already been won?
@@ -149,13 +153,11 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 3. Is the `player` given actually one of the game players?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L32-L46]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L32-L44]
     isBlack := rules.PieceStrings[rules.BLACK_PLAYER] == req.Player
     isRed := rules.PieceStrings[rules.RED_PLAYER] == req.Player
     var player rules.Player
-    if isBlack && isRed {
-        player = rules.StringPieces[storedGame.Turn].Player
-    } else if isBlack {
+    if isBlack {
         player = rules.BLACK_PLAYER
     } else if isRed {
         player = rules.RED_PLAYER
@@ -169,7 +171,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 4. Is it the player's turn?
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L47-L56]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L45-L54]
     game, err := storedGame.ParseGame()
     if err != nil {
         return nil, err
@@ -184,7 +186,7 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 5. Attempt the move and report back:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L57-L72]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L55-L70]
     _, moveErr := game.Move(
         rules.Pos{
             X: int(req.FromX),
@@ -205,11 +207,12 @@ Now you need to implement the answer to the player's query in `grpc_query_can_pl
 
 6. If all went well:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L74-L77]
-    return &types.QueryCanPlayMoveResponse{
-        Possible: true,
-        Reason:   "ok",
-    }, nil
+    ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move.go#L72-L75]
+    -  return &types.QueryCanPlayMoveResponse{}, nil
+    +  return &types.QueryCanPlayMoveResponse{
+    +      Possible: true,
+    +      Reason:   "ok",
+    +  }, nil
     ```
 
 Quite straightforward.
@@ -321,11 +324,11 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
 
 6. With the test cases defined, add a single test function that runs all the cases:
 
-    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L243-L263]
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/can-play-move-handler/x/checkers/keeper/grpc_query_can_play_move_test.go#L243-L262]
     func TestCanPlayCasesAsExpected(t *testing.T) {
-        keeper, ctx := keepertest.CheckersKeeper(t)
-        goCtx := sdk.WrapSDKContext(ctx)
         for _, testCase := range canPlayTestRange {
+            keeper, ctx := keepertest.CheckersKeeper(t)
+            goCtx := sdk.WrapSDKContext(ctx)
             t.Run(testCase.desc, func(t *testing.T) {
                 keeper.SetStoredGame(ctx, testCase.game)
                 response, err := keeper.CanPlayMove(goCtx, testCase.request)
@@ -339,7 +342,6 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
                 } else {
                     require.EqualError(t, err, testCase.err)
                 }
-                keeper.RemoveStoredGame(ctx, testCase.game.Index)
             })
         }
     }
@@ -347,7 +349,7 @@ Take inspiration from [the other tests on queries](https://github.com/cosmos/b9-
 
 <HighlightBox type="note">
 
-Note how all test cases are run within a single unit test. In other words, the keeper used for the second case is the same as that used for the first case, and so on for all. So to mitigate the risk of interference from one case to the next, you ought to do `keeper.RemoveStoredGame(ctx, testCase.game.Index)` at the end of the test case.
+All test cases are run within a single unit test. To avoid having one case bleed into the next, the keeper is created afresh inside the loop.
 
 </HighlightBox>
 
@@ -403,7 +405,7 @@ $ docker exec -it checkers \
 
 Which prints:
 
-```
+```txt
 ...
 Available Commands:
   can-play-move    Query canPlayMove
@@ -455,7 +457,7 @@ When there is no such game:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd query checkers can-play-move 2048 red 1 2 2 3
+$ checkersd query checkers can-play-move 2048 r 1 2 2 3
 ```
 
 </CodeGroupItem>
@@ -464,7 +466,7 @@ $ checkersd query checkers can-play-move 2048 red 1 2 2 3
 
 ```sh
 $ docker exec -it checkers \
-    checkersd query checkers can-play-move 2048 red 1 2 2 3
+    checkersd query checkers can-play-move 2048 r 1 2 2 3
 ```
 
 </CodeGroupItem>
@@ -503,7 +505,9 @@ When you ask for a bad player color:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y
 $ checkersd query checkers can-play-move 1 w 1 2 2 3
 ```
 
@@ -513,7 +517,9 @@ $ checkersd query checkers can-play-move 1 w 1 2 2 3
 
 ```sh
 $ docker exec -it checkers \
-    checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y
 $ docker exec -it checkers \
     checkersd query checkers can-play-move 1 w 1 2 2 3
 ```
@@ -686,7 +692,9 @@ After the game has been forfeited:
 <CodeGroupItem title="Local" active>
 
 ```sh
-$ checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+$ checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y
 $ checkersd tx checkers play-move 2 1 2 2 3 --from $alice -y
 $ checkersd tx checkers play-move 2 0 5 1 4 --from $bob -y
 $ checkersd query checkers can-play-move 2 b 2 3 0 5
@@ -698,7 +706,9 @@ $ checkersd query checkers can-play-move 2 b 2 3 0 5
 
 ```sh
 $ docker exec -it checkers \
-    checkersd tx checkers create-game $alice $bob 1000000 --from $alice -y
+    checkersd tx checkers create-game \
+    $alice $bob 1000000 \
+    --from $alice -y
 $ docker exec -it checkers \
     checkersd tx checkers play-move 2 1 2 2 3 --from $alice -y
 $ docker exec -it checkers \
@@ -758,9 +768,9 @@ These query results satisfy our expectations.
 
 To summarize, this section has explored:
 
-* How application usability can be improved with queries, such as by avoiding the cost of sending *technically* valid transactions which will nevertheless inevitably be rejected due to the application's current state.
+* How application usability can be improved with queries, such as by avoiding the cost of sending _technically_ valid transactions which will nevertheless inevitably be rejected due to the application's current state.
 * How queries allow the user to evaluate the application state in read-only mode, without committing anything permanently to storage, with the result that a planned transaction can be judged as acceptable or not before burning gas.
-* How effective query construction will allow the application to signal not just that a planned transaction will fail but also the *reason* it will fail, improving the user's knowledge base for future actions.
+* How effective query construction will allow the application to signal not just that a planned transaction will fail but also the _reason_ it will fail, improving the user's knowledge base for future actions.
 * How to create a query object with Ignite CLI; implement appropriate answers to a player's query; perform integration tests which extrapolate on the application's actual current state; and interact via the CLI to test the effectiveness of the query object.
 
 </HighlightBox>

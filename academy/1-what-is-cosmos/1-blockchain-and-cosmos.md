@@ -1,18 +1,18 @@
 ---
-title: "Blockchain Technology and Cosmos"
+title: "Blockchain Technology and the Interchain"
 order: 2
-description: Cosmos as part of blockchain technology
-tags: 
+description: The Interchain as part of blockchain technology
+tags:
   - concepts
-  - tendermint
+  - cometbft
   - cosmos-sdk
 ---
 
-# Blockchain Technology and Cosmos
+# Blockchain Technology and the Interchain
 
 <HighlightBox type="learning">
 
-Begin your journey with this brief review of blockchain technology, how Cosmos came into being, and what it brings to the world of blockchain technology:
+Begin your journey with this brief review of blockchain technology, how the Interchain came into being, and what it brings to the world of blockchain technology:
 
 * An internet of blockchains
 * A better decentralized application (dApp) user experience
@@ -81,7 +81,6 @@ In the world of blockchains, "speed" means **transaction speed**. You can unders
 
 **State finality** is an additional concern. Finality describes whether and when committed blocks with transactions can no longer be reverted/revoked. It is important to differentiate between *probabilistic* and *absolute finality*.
 
-
 <Accordion :items="
     [
         {
@@ -94,7 +93,6 @@ In the world of blockchains, "speed" means **transaction speed**. You can unders
         }
     ]
 "/>
-
 
 <ExpansionPanel title="Finality in PoW and PoS networks">
 
@@ -112,13 +110,13 @@ The eventual development of more complex applications required a more flexible e
 
 **General-purpose chains are limited to simplistic use case applications, while application-specific chains only fit certain use cases.** This provokes the question, _Is it possible to build a platform for all use cases that does away with the limitations of general-purpose chains?_
 
-## How does Cosmos fit into the general development of blockchain technology?
+## How does the Interchain fit into the general development of blockchain technology?
 
-In 2016, Jae Kwon and Ethan Buchman founded the Cosmos network with its consensus algorithm, [Tendermint](https://tendermint.com/).
+In 2016, Jae Kwon and Ethan Buchman founded the Interchain network with its consensus algorithm, [Tendermint](https://tendermint.com/).
 
 <HighlightBox type="docs">
 
-See the 2016 [Cosmos Whitepaper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of Cosmos.
+See the 2016 [Cosmos Whitepaper](https://v1.cosmos.network/resources/whitepaper) to find out more about the origins of the Interchain.
 
 </HighlightBox>
 
@@ -143,26 +141,26 @@ For more on Tendermint, see this helpful [introduction](https://docs.tendermint.
 
 </ExpansionPanel>
 
-Initially, Cosmos was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation (ICF)** has assisted with the development and launch of the network. The ICF is a Swiss non-profit that raised funds in 2017 to finance the development of open-source projects building on the Cosmos network.
+Initially, the Interchain was an open-source community project built by the Tendermint team. Since then, the **Interchain Foundation (ICF)** has assisted with the development and launch of the network. The ICF is a Swiss non-profit that raised funds in 2017 to finance the development of open-source projects building on the the Interchain network.
 
-The founding **vision** of Cosmos is that of an easy development environment for blockchain technology. Cosmos wants to address the main issues of previous blockchain projects and provide interoperability between chains to foster an **internet of blockchains**.
+The founding **vision** of the Interchain is that of an easy development environment for blockchain technology. The Interchain wants to address the main issues of previous blockchain projects and provide interoperability between chains to foster an **internet of blockchains**.
 
-*How is Cosmos an internet of blockchains?* Cosmos is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. Cosmos lets developers create blockchains that maintain sovereignty free from any "main chain" governance, have fast transaction processing, and are interoperable. With Cosmos, a multitude of use cases becomes feasible.
+*How is the Interchain an internet of blockchains?* The Interchain is a **network of interoperable blockchains**, each implemented with different properties suitable for their individual use cases. The Interchain lets developers create blockchains that maintain sovereignty free from any "main chain" governance, have fast transaction processing, and are interoperable. With the Interchain, a multitude of use cases becomes feasible.
 
 To achieve this vision and type of network, the ecosystem relies on an **open-source toolkit**, including the [Inter-Blockchain Communication Protocol (IBC)](https://ibcprotocol.dev), its implementation in the [Cosmos SDK](https://v1.cosmos.network/sdk), and [Tendermint](https://tendermint.com/) as the base layer providing distributed state finality. A set of modular, adaptable, and interchangeable tools helps not only to quickly create a blockchain but also facilitates the customization of secure and scalable chains.
 
-The interoperable application blockchains on Cosmos are built with the Cosmos SDK. The Cosmos SDK includes the prerequisites that make it possible for created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication Protocol (IBC). Chains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is explored in more detail in the sections that follow.
+The interoperable application blockchains on the Interchain are built with the Cosmos SDK. The Cosmos SDK includes the prerequisites that make it possible for created blockchains to participate in inter-chain communications using the Inter-Blockchain Communication Protocol (IBC). Chains built with the Cosmos SDK use the Tendermint consensus. Each of these topics is explored in more detail in the sections that follow.
 
-### How does Cosmos solve the scalability issue?
+### How does the Interchain solve the scalability issue?
 
-Scalability is a core challenge of blockchain technology. Cosmos allows applications to scale to millions of users. This degree of scalability is possible as Cosmos addresses **two types of scalability**:
+Scalability is a core challenge of blockchain technology. The Interchain allows applications to scale to millions of users. This degree of scalability is possible as the Interchain addresses **two types of scalability**:
 
 * **Horizontal scalability:** scaling by adding similar machines to the network. When "scaling *out*", the network can accept more nodes to participate in the state replication, consensus observation, and any activity that queries the state.
 * **Vertical scalability:** scaling by improving the network's components to increase its computational power. When "scaling *up*", the network can accept more transactions and any activity that modifies the state.
 
-In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, Cosmos achieves vertical scalability with the help of the Tendermint BFT. The Cosmos Hub currently conducts transactions in seven seconds. The only remaining bottleneck is then the application.
+In a blockchain context, vertical scalability is typically achieved through the optimization of the consensus mechanism and applications running on the chain. On the consensus side, the Interchain achieves vertical scalability with the help of the Tendermint BFT. The Cosmos Hub currently conducts transactions in seven seconds. The only remaining bottleneck is then the application.
 
-The consensus mechanism and application optimization of your blockchain can only take you so far. To overcome the limits of vertical scalability, the multi-chain architecture of Cosmos allows for **one application to run in parallel** on different but IBC-coordinated chains, whether operated by the same validator set or not. This inter-chain, horizontal scalability theoretically allows for infinite vertical-like scalability, minus the coordination overhead.
+The consensus mechanism and application optimization of your blockchain can only take you so far. To overcome the limits of vertical scalability, the multi-chain architecture of the Interchain allows for **one application to run in parallel** on different but IBC-coordinated chains, whether operated by the same validator set or not. This inter-chain, horizontal scalability theoretically allows for infinite vertical-like scalability, minus the coordination overhead.
 
 <HighlightBox type="info">
 
@@ -170,31 +168,31 @@ In blockchain, a **validator** is one or more cooperating computers that partici
 
 </HighlightBox>
 
-### How does Cosmos promote sovereignty?
+### How does the Interchain promote sovereignty?
 
 Applications deployed on general-purpose blockchains all share the same underlying environment. When a change in an application needs to be made, it not only depends on the governance structures of the application but also on that of the environment. The feasibility of implementing changes depends on the governance mechanisms set by the protocol on which the application builds. The chain's governance limits the application's sovereignty. For this reason it is often called **two-layer governance**.
 
 For example, an application on a typical blockchain has its governance structure, but it exists atop the blockchain governance, and chain upgrades can potentially break applications. Application sovereignty is therefore diminished in two-layer governance environments.
 
-Cosmos resolves this issue, as developers can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. Cosmos follows a **one-layer governance design**.
+The Interchain resolves this issue, as developers can build a blockchain tailored to the application. There are no limits to the application's governance when every chain is maintained by its own set of validators. The Interchain follows a **one-layer governance design**.
 
-### How does Cosmos improve user experience?
+### How does the Interchain improve user experience?
 
-In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. In the Cosmos universe, the standardization of architecture components is combined with customization opportunities to offer the possibility of an unconstrained, seamless, and intuitive user experience.
+In the world of traditional general-purpose blockchains, application design and efficiency are limited for blockchain developers. In the Interchain universe, the standardization of architecture components is combined with customization opportunities to offer the possibility of an unconstrained, seamless, and intuitive user experience.
 
-It becomes easier for users to navigate between different blockchains and applications, as the same ground rules apply because of the standardization of components. Cosmos makes the world easier for developers while making dApps more user-friendly. Cosmos enables sovereignty with interoperability!
+It becomes easier for users to navigate between different blockchains and applications, as the same ground rules apply because of the standardization of components. The Interchain makes the world easier for developers while making dApps more user-friendly. The Interchain enables sovereignty with interoperability!
 
 <HighlightBox type="synopsis">
 
 To summarize, this section has explored:
 
-* A brief history of blockchain technology, leading to the appearance of purpose-built or application-specific blockchains limited by legacy platform characteristics which Cosmos is designed to overcome.
-* How Cosmos provides blockchain interoperability for a better decentralized application (dApp) user experience, and an open-source toolkit of modular resources for a simplified, specialized dApp development experience.
-* How Cosmos responds to issues of scalability, using the horizontal scalability of its multi-chain architecture to deliver theoretically infinite capacity for vertical scalability.
-* How Cosmos increases sovereignty by providing a one-layer governance design in which each chain is maintained by its own set of validators, and improves both developer and user experience through the use of modular, interoperable systems.
+* A brief history of blockchain technology, leading to the appearance of purpose-built or application-specific blockchains limited by legacy platform characteristics which the Interchain is designed to overcome.
+* How the Interchain provides blockchain interoperability for a better decentralized application (dApp) user experience, and an open-source toolkit of modular resources for a simplified, specialized dApp development experience.
+* How the Interchain responds to issues of scalability, using the horizontal scalability of its multi-chain architecture to deliver theoretically infinite capacity for vertical scalability.
+* How the Interchain increases sovereignty by providing a one-layer governance design in which each chain is maintained by its own set of validators, and improves both developer and user experience through the use of modular, interoperable systems.
 
 </HighlightBox>
 
 <!--## Next up
 
-In the [next section](./2-cosmos-ecosystem.md) you can find an introduction to all that the Cosmos ecosystem has to offer.-->
+In the [next section](./2-cosmos-ecosystem.md) you can find an introduction to all that the Interchain ecosystem has to offer.-->

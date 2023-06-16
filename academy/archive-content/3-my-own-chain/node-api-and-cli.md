@@ -2,7 +2,7 @@
 title: "Run a Node, API, and CLI"
 order: 3
 description: Interact with a Cosmos SDK chain through simapp
-tags: 
+tags:
   - tutorial
   - dev-ops
   - cosmos-sdk
@@ -10,7 +10,7 @@ tags:
 
 # Run a Node, API, and CLI
 
-<HighlightBox type=“synopsis”>
+<HighlightBox type="synopsis">
 
 In this first section, you will learn how to run a blockchain and discover how to interact with it.
 
@@ -300,7 +300,6 @@ Which prints something similar to:
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"A6TrsRO/OH91fAEFLohw7RwFB832NRsRWhQvE2t8cfLK"}'
   mnemonic: ""
 
-
 **Important:** write this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 
 ivory uniform actual spot floor vessel monster rose yellow noise smile odor veteran human reason miss stadium phrase assault puzzle sentence approve coral apology
@@ -540,7 +539,6 @@ Which prints:
   address: cosmos1m95dh3uc2s7fkn4w6v3ueux3sya96dhdudwa24
   pubkey: '{"@type":"/cosmos.crypto.secp256k1.PubKey","key":"AgDYHucSs5vZ4viGyyoC0Qz6M7/+fEdqgOesEmeTdPE/"}'
   mnemonic: ""
-
 
 **Important** record this mnemonic phrase in a safe place. It is the only way to recover your account if you ever forget your password.
 

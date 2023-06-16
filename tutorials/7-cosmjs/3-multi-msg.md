@@ -2,7 +2,7 @@
 title: "Compose Complex Transactions"
 order: 4
 description: Send multiple tokens and messages through CosmJS
-tags: 
+tags:
   - tutorial
   - cosm-js
   - dev-ops
@@ -12,7 +12,7 @@ tags:
 
 <HighlightBox type="learning">
 
-In Cosmos, a transaction is able to encapsulate multiple messages.
+In the Interchain, a transaction is able to encapsulate multiple messages.
 <br/><br/>
 In this section, you will:
 
@@ -26,7 +26,7 @@ In this section, you will:
 
 In the [previous exercise](./2-first-steps.md), you had Alice send tokens back to the faucet. To refresh your memory, this is what the `sendTokens` function takes as input:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L217-L223]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L180-L186]
 public async sendTokens(
     senderAddress: string,
     recipientAddress: string,
@@ -76,7 +76,7 @@ const result = await signingClient.sendTokens(
 </CodeGroupItem>
 </CodeGroup>
 
-However, there are limitations. First, Alice **can only target a single recipient per transaction**, `faucet` in the previous examples. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it is considered a bad user experience to make users sign multiple transactions.
+However, there are limitations with this function. First, Alice **can only target a single recipient per transaction**, `faucet` in the previous examples. If she wants to send tokens to multiple recipients, then she needs to create as many transactions as there are recipients. Multiple transactions cost slightly more than packing transfers into the array because of transaction overhead. Additionally, in some cases it is considered a bad user experience to make users sign multiple transactions.
 
 The second limitation is that **separate transfers are not atomic**. It is possible that Alice wants to send tokens to two recipients and it is important that either they both receive them or neither of them receive anything.
 
@@ -86,7 +86,7 @@ Fortunately, there is a way to atomically send tokens to multiple recipients.
 
 `SigningStargateClient` has the `signAndBroadcast` function:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L317-L322]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L280-L285]
 public async signAndBroadcast(
     signerAddress: string,
     messages: readonly EncodeObject[],
@@ -101,7 +101,7 @@ The basic components of a transaction are the `signerAddress`, the `messages` th
 
 In order to use `signAndBroadcast` to send tokens, you need to figure out what messages go into the `messages: readonly EncodeObject[]`. Examine the `sendTokens` function body:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L224-L232]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L187-L195]
 const sendMsg: MsgSendEncodeObject = {
     typeUrl: "/cosmos.bank.v1beta1.MsgSend",
     value: {
@@ -127,7 +127,7 @@ const result = await signingClient.sendTokens(
 )
 ```
 
-Alice calls:
+Alice may as well call:
 
 ```typescript
 const result = await signingClient.signAndBroadcast(
@@ -156,9 +156,15 @@ const result = await signingClient.signAndBroadcast(
 
 Confirm this by making the change in your `experiment.ts` from the previous section, and running it again.
 
+<HighlightBox type="best-practice">
+
+Building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases, and to demonstrate how to build messages.
+
+</HighlightBox>
+
 <HighlightBox type="tip">
 
-Building a transaction in this way is recommended. `SigningStargateClient` offers you convenience methods such as `sendTokens` for simple use cases only.
+If you are wondering whether there could be any legitimate situation where the transaction's signer (here `alice`) could ever be different from the message's `fromAddress` (here `alice` too), then have a look at the [tutorial on authz](/tutorials/8-understand-sdk-modules/1-authz.md).
 
 </HighlightBox>
 
@@ -179,7 +185,6 @@ As a reminder from the previous tutorial, the `typeUrl: "/cosmos.bank.v1beta1.Ms
         ...
     }
     ```
-
 
 <HighlightBox type="info">
 
@@ -226,35 +231,39 @@ const result = await signingClient.signAndBroadcast(
 
 Note how the custom fee input was replaced with the `auto` input, which simulates the transaction to estimate the fee for you. In order to make that work well, you need to define the `gasPrice` you are willing to pay and its `prefix` when setting up your `signingClient`. You replace your original line of code with:
 
-```typescript
-const signingClient = await SigningStargateClient.connectWithSigner(
-    rpc,
-    aliceSigner,
-    {
-        prefix: "cosmos",
-        gasPrice: GasPrice.fromString("0.0025uatom")
-    }
-)
+```diff-typescript
+    const signingClient = await SigningStargateClient.connectWithSigner(
+        rpc,
+        aliceSigner,
++      {
++          prefix: "cosmos",
++          gasPrice: GasPrice.fromString("0.0025uatom")
++      }
+    )
 ```
 
 ## Mixing other message types
 
 The above example shows you two token-transfer messages in a single transaction. You can see this with their `typeUrl: "/cosmos.bank.v1beta1.MsgSend"`.
 
-Neither Cosmos nor CosmJS limits you to combining messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
+Neither the Cosmos SDK nor CosmJS limits you to combining messages of the same type. You can decide to combine other message types together with a token transfer. For instance, in one transaction Alice could:
 
 1. Send tokens to the faucet.
 2. Delegate some of her tokens to a validator.
 
-How would Alice create the second message? The `SigningStargateClient` contains a predefined list of `typeUrls` that are supported by default, because they're considered to be the most commonly used messages in the Cosmos SDK. One is `MsgDelegate`, and that is exactly what you need. Click the source link below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
+How would Alice create the second message? The `SigningStargateClient` contains a predefined list (a _registry_) of `typeUrls` that are [supported by default](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L55-L69), because they're considered to be the most commonly used messages in the Cosmos SDK. Among the [staking types](https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/signingstargateclient.ts#L62) there is `MsgDelegate`, and that is exactly what you need. Click the source links above and below to see the rest of the `typeUrls` that come with `SigningStargateClient`:
 
-```typescript [https://github.com/cosmos/cosmjs/blob/7aad551/packages/stargate/src/signingstargateclient.ts#L94]
+```typescript [https://github.com/cosmos/cosmjs/blob/v0.28.2/packages/stargate/src/modules/staking/messages.ts#L13]
+export const stakingTypes: ReadonlyArray<[string, GeneratedType]> = [
+    ...
     ["/cosmos.staking.v1beta1.MsgDelegate", MsgDelegate],
+    ...
+];
 ```
 
-Click through to the type definition, and the `cosmjs-types` repository:
+Click through to the type definition, and in the `cosmjs-types` repository:
 
-```typescript [https://github.com/confio/cosmjs-types/blob/a14662d/src/cosmos/staking/v1beta1/tx.ts#L46-L50]
+```typescript [https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/staking/v1beta1/tx.ts#L46-L50]
 export interface MsgDelegate {
     delegatorAddress: string;
     validatorAddress: string;
@@ -293,10 +302,7 @@ const result = await signingClient.signAndBroadcast(
             },
           },
     ],
-    {
-        amount: [{ denom: "uatom", amount: "500" }],
-        gas: "200000",
-    }
+    "auto"
 )
 ```
 

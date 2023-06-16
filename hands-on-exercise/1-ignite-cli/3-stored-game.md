@@ -1,13 +1,13 @@
 ---
-title: "Store Object - Make a Checkers Blockchain"
+title: "Store Object"
 order: 4
 description: Create the object that stores a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
 
-# Store Object - Make a Checkers Blockchain
+# Store Object
 
 <HighlightBox type="prerequisite">
 
@@ -234,11 +234,11 @@ The `StoredGame` object looks like this:
 
 ```protobuf [https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/proto/checkers/stored_game.proto#L6-L12]
 message StoredGame {
-    string index = 1; 
-    string board = 2; 
-    string turn = 3; 
-    string black = 4; 
-    string red = 5; 
+    string index = 1;
+    string board = 2;
+    string turn = 3;
+    string black = 4;
+    string red = 5;
 }
 ```
 
@@ -304,7 +304,7 @@ You can find query objects as part of the boilerplate objects created by Ignite 
 message QueryGetSystemInfoRequest {}
 
 message QueryGetSystemInfoResponse {
-	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
+    SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
 }
 ```
 
@@ -435,17 +435,17 @@ service Query {
         option (google.api.http).get = "/alice/checkers/checkers/params";
     }
 
-	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/system_info";
-	}
+    rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/system_info";
+    }
 
-	rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/stored_game/{index}";
-	}
+    rpc StoredGame(QueryGetStoredGameRequest) returns (QueryGetStoredGameResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/stored_game/{index}";
+    }
 
-	rpc StoredGameAll(QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
-		option (google.api.http).get = "/alice/checkers/checkers/stored_game";
-	}
+    rpc StoredGameAll(QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
+        option (google.api.http).get = "/alice/checkers/checkers/stored_game";
+    }
 }
 ```
 
@@ -481,7 +481,7 @@ Your stored game's `black` and `red` fields are only strings, but they represent
         }
         board.Turn = rules.StringPieces[storedGame.Turn].Player
         if board.Turn.Color == "" {
-            return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("Turn: %s", storedGame.Turn)), ErrGameNotParseable.Error())
+            return nil, sdkerrors.Wrapf(fmt.Errorf("turn: %s", storedGame.Turn), ErrGameNotParseable.Error())
         }
         return board, nil
     }
@@ -631,12 +631,12 @@ You want your tests to pass when everything is okay, but you also want them to f
 
 ```txt
 --- FAIL: TestDefaultGenesisState_ExpectedInitialNextId (0.00s)
-    genesis_test.go:68: 
+    genesis_test.go:68:
         Error Trace:    genesis_test.go:68
-        Error:          Not equal: 
+        Error:          Not equal:
                 expected: &types.GenesisState{Params:types.Params{}, SystemInfo:types.SystemInfo{NextId:0x2}, StoredGameList:[]types.StoredGame{}}
                 actual  : &types.GenesisState{Params:types.Params{}, SystemInfo:types.SystemInfo{NextId:0x1}, StoredGameList:[]types.StoredGame{}}
-                            
+
                 Diff:
                 --- Expected
                 +++ Actual
@@ -747,7 +747,21 @@ You can do the same for [`Red`](https://github.com/cosmos/b9-checkers-academy-dr
 
 Test that [you can parse a game](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L67-L71), even [if it has been tampered with](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L73-L79), except [if the tamper is wrong](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L81-L88) or [if the turn is wrongly saved](https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/types/full_game_test.go#L90-L97).
 
-Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/5-payment-winning.md) where you learn about them.
+Also make sure that a default test created by Ignite CLI is correct in using the default values of `SystemInfo` instead of erasing them:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/full-game-object/x/checkers/client/cli/query_system_info_test.go#L24-L30]
+    func networkWithSystemInfoObjects(t *testing.T) (*network.Network, types.SystemInfo) {
+        ...
+-      systemInfo := &types.SystemInfo{}
++      systemInfo := state.SystemInfo
+        nullify.Fill(&systemInfo)
+        ...
+-      return network.New(t, cfg), *state.SystemInfo
++      return network.New(t, cfg), state.SystemInfo
+    }
+```
+
+Interested in integration tests? Skip ahead to the [section](/hands-on-exercise/2-ignite-cli-adv/7-integration-tests.md) where you learn about them.
 
 ## Interact via the CLI
 
@@ -777,7 +791,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     ```
 
     <HighlightBox type="note">
-    
+
     The throwaway container is started with the name `checkers`, so that you can connect to it for the next commands.
 
     </HighlightBox>
@@ -931,7 +945,7 @@ Ignite CLI created a set of files for you. It is time to see whether you can alr
     {"SystemInfo":{"nextId":"1"}}
     ```
 
-3. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/client/cli/query_stored_game.go#L14):
+4. You can similarly confirm there are no [stored games](https://github.com/cosmos/b9-checkers-academy-draft/blob/stored-game/x/checkers/client/cli/query_stored_game.go#L14):
 
     <CodeGroup>
 

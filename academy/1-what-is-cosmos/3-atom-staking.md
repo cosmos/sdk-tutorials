@@ -2,7 +2,7 @@
 title: "Getting ATOM and Staking It"
 order: 4
 description: Stake your first ATOM
-tags: 
+tags:
   - concepts
   - cosmos-hub
 ---
@@ -39,7 +39,7 @@ Open Google Chrome on your computer and go to the [Keplr extension page](https:/
 
 <HighlightBox type="warn">
 
-It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Cosmos Ecosystem overview page](https://cosmos.network/ecosystem/wallets).
+It is always good practice to be careful with links to wallet software because of the possibility of fraudulent software designed to steal from you. A link to the official Keplr extension can also be found on the [Interchain Ecosystem overview page](https://cosmos.network/ecosystem/wallets).
 
 </HighlightBox>
 
@@ -63,7 +63,7 @@ Click _Create new account_. A new page offers you a mnemonic (a secret list of w
 
 * Whoever knows the **mnemonic seed** has access to **all** the assets in the wallet as easily as you do. This means that:
     * Nobody else should be looking at your screen right now. If that is not the case, click _Back_.
-    * You should only ever share your mnemonic seed with parties you would also give access to your bank account. **Do not** share it with an exchange, a proof-of-stake validator, another blockchain service, or "someone from Cosmos" on the phone  - these are _not_ trusted partners.
+    * You should only ever share your mnemonic seed with parties you would also give access to your bank account. **Do not** share it with an exchange, a proof-of-stake validator, another blockchain service, or "someone from the Interchain" on the phone  - these are _not_ trusted partners.
     * You should save the mnemonic seed in a safe place, so that you can import it back into this or another wallet at a later date. **Make sure** you write it down somewhere safe.
 * Keplr saves your seed on disk but in an encrypted form.
 * Keplr asks you for the **encryption password**, which is used to encrypt your mnemonic on your computer. For the password, keep in mind:
@@ -116,7 +116,7 @@ For the purpose of this section we assume you buy one ATOM.
 
 <HighlightBox type="info">
 
-As you can see in the [Get ATOM and stake page](https://cosmos.network/learn/get-atom) from Cosmos, there is a [list of exchanges](https://messari.io/asset/cosmos/markets) that are known by Cosmos for offering ATOM tokens.
+As you can see in the [Get ATOM and stake page](https://cosmos.network/learn/get-atom) from the Interchain, there is a [list of exchanges](https://messari.io/asset/cosmos/markets) that are known by the Interchain for offering ATOM tokens.
 
 </HighlightBox>
 
@@ -175,7 +175,7 @@ You can do this by delegating some of your ATOM as stake to a network validator.
 When considering staking, keep the following factors in mind:
 
 * Unlike a centralized exchange that holds your assets in a custodial wallet, when you delegate your ATOM **you remain in charge of your ATOM**. The validator does not have access to your assets. Think of your stake as a weighted vote of confidence.
-* There is a non-zero risk that the validator you chose behaves incorrectly or even maliciously, which exposes the faulty validator *and you* to **protocol penalties**.
+* There is a non-zero risk that the validator you chose behaves incorrectly or even maliciously, which exposes the faulty validator _and you_ to **protocol penalties**.
 * When you delegate ATOM to a validator, it becomes **locked**. You cannot use it for anything else, and **there is a time commitment**. Should you decide to un-delegate your stake, you will have to wait **three weeks** to regain access to your delegated stake.
 
 </HighlightBox>
@@ -184,7 +184,7 @@ Now find a validator and delegate your ATOM to it. Click the _Stake_ button in K
 
 ![Keplr: list of validators](/academy/1-what-is-cosmos/images/keplr-validator-list.png)
 
-You can immediately discard any validators that keep 100% of the rewards for themselves, as they work for custodial wallets kept on behalf of their customers. Pick a validator that you like, click _Manage_, and a link will direct you to more information on this validator. You can see more information on each validator on [Mintscan's validator list for Cosmos](https://www.mintscan.io/cosmos/validators). Pay attention to the uptime, as a missed block would cost you penalties.
+You can immediately discard any validators that keep 100% of the rewards for themselves, as they work for custodial wallets kept on behalf of their customers. Pick a validator that you like, click _Manage_, and a link will direct you to more information on this validator. You can see more information on each validator on [Mintscan's validator list for the Interchain](https://www.mintscan.io/cosmos/validators). Pay attention to the uptime, as a missed block would cost you penalties.
 
 A validator can have small or large voting power. The larger the voting power, the more often the validator is tasked with issuing a block. Voting power is closely linked to the reward amount you can expect:
 
@@ -237,7 +237,7 @@ Your rewards are added straight to your wallet:
 
 If you want to re-stake this amount and benefit from the compound effect, go ahead, but make sure you do not lose too much in transaction costs.
 
-This completes the exercise: you are set up to participate in the Cosmos Hub network, and even contribute to its security. Your stake will work for you as you continue your Cosmos training journey.
+This completes the exercise: you are set up to participate in the Cosmos Hub network, and even contribute to its security. Your stake will work for you as you continue your Interchain training journey.
 
 <HighlightBox type="synopsis">
 
@@ -251,3 +251,5 @@ To summarize, this section has explored:
 <!--## Next up
 
 In the [next chapter](../2-cosmos-concepts/index.md), you will continue to explore the Cosmos SDK and learn about the underlying blockchain application architecture.-->
+
+<!--In the [next chapter](../3-ibc/index.md), you will learn about the Inter-Blockchain Communication Protocol.-->

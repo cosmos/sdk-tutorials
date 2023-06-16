@@ -2,7 +2,7 @@
 title: "BaseApp"
 order: 9
 description: Work with BaseApp to implement applications
-tags: 
+tags:
   - concepts
   - cosmos-sdk
 ---
@@ -27,19 +27,19 @@ In this section you will discover how to define an application state machine and
 
 </HighlightBox>
 
-`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Cosmos application needs, starting with an implementation of the Tendermint Application Blockchain Interface (ABCI).
+`BaseApp` is a boilerplate implementation of a Cosmos SDK application. This abstraction implements functionalities that every Interchain application needs, starting with an implementation of the CometBFT Application Blockchain Interface (ABCI).
 
 <HighlightBox type="info">
 
-The Tendermint consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
+The CometBFT consensus is application agnostic. It establishes the canonical transaction list and sends confirmed transactions to Cosmos SDK applications for interpretation, and in turn receives transactions from Cosmos SDK applications and submits them to the validators for confirmation.
 
 </HighlightBox>
 
-Applications that rely on the Tendermint consensus must implement concrete functions that support the ABCI interface. `BaseApp` includes an implementation of ABCI so developers are not required to construct one.
+Applications that rely on the CometBFT consensus must implement concrete functions that support the ABCI interface. `BaseApp` includes an implementation of ABCI so developers are not required to construct one.
 
 ABCI itself includes methods such as `DeliverTx`, which delivers a transaction. The interpretation of the transaction is an application-level responsibility. Since a typical application supports more than one type of transaction, interpretation implies the need for a service router that will send the transaction to different interpreters based on the transaction type. `BaseApp` includes a service router implementation.
 
-As well as an ABCI implementation, `BaseApp` also provides a state machine implementation. The implementation of a state machine is an application-level concern because the Tendermint consensus is application-agnostic. The Cosmos SDK state machine implementation contains an overall state that is subdivided into various substates. Subdivisions include module states, persistent states, and transient states. These are all implemented in `BaseApp`.
+As well as an ABCI implementation, `BaseApp` also provides a state machine implementation. The implementation of a state machine is an application-level concern because the CometBFT consensus is application-agnostic. The Cosmos SDK state machine implementation contains an overall state that is subdivided into various substates. Subdivisions include module states, persistent states, and transient states. These are all implemented in `BaseApp`.
 
 `BaseApp` provides a secure interface between the application, the blockchain, and the state machine while defining as little as possible about the state machine.
 
@@ -55,7 +55,7 @@ Watch Julien Robert, Developer Relations Engineer for the Cosmos SDK, introduce 
 
 Developers usually create a custom type for their application by referencing `BaseApp` and declaring store keys, keepers, and a module manager, like this:
 
-```
+```go
 type App struct {
   // reference to a BaseApp
   *baseapp.BaseApp
@@ -87,10 +87,10 @@ Important parameters that are initialized during the bootstrapping of the applic
   An `sdk.Msg` here refers to the transaction component that needs to be processed by a service to update the application state, and not to the ABCI message, which implements the interface between the application and the underlying consensus engine.
 
 * **gRPC Query Router:** the `grpcQueryRouter` facilitates the routing of gRPC queries to the appropriate module that will process them. These queries are not ABCI messages themselves. They are relayed to the relevant module's gRPC query service.
-* **`TxDecoder`:** this is used to decode raw transaction bytes relayed by the underlying Tendermint engine.
+* **`TxDecoder`:** this is used to decode raw transaction bytes relayed by the CometBFT.
 * **`ParamStore`:** this is the parameter store used to get and set application consensus parameters.
 * **`AnteHandler`:** this is used to handle signature verification, fee payment, and other pre-message execution checks when a transaction is received. It is executed during `CheckTx/RecheckTx` and `DeliverTx`.
-* **`InitChainer`, `BeginBlocker`, and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from the underlying Tendermint engine.
+* **`InitChainer`, `BeginBlocker`, and `EndBlocker`:** these are the functions executed when the application receives the `InitChain`, `BeginBlock`, and `EndBlock` ABCI messages from CometBFT.
 
 #### Volatile state
 
@@ -111,7 +111,7 @@ Consensus parameters define the overall consensus state:
 
 Consider the following simple constructor:
 
-```
+```go
 func NewBaseApp(
   name string, logger log.Logger, db dbm.DB, txDecoder sdk.TxDecoder, options ...func(*BaseApp),
 ) *BaseApp {
@@ -185,6 +185,53 @@ Other ABCI message handlers being implemented are:
 * `Commit`
 * `Info`
 * `Query`
+
+<ExpansionPanel title="Show me some code for my checkers blockchain">
+
+[Earlier](/academy/2-cosmos-concepts/7-multistore-keepers.md) in the design of your blockchain, you defined a game deadline. When do you verify that a game has expired?
+
+An interesting feature of an ABCI application is that you can have it perform some actions at the end of each block. To expire games that have timed out at the end of a block, you need to hook your keeper to the right call.
+
+The Cosmos SDK will call into each module at various points when building the whole application. The function it calls at each block's end looks like this:
+
+```go
+func (am AppModule) EndBlock(ctx sdk.Context, _ abci.RequestEndBlock) []abci.ValidatorUpdate {
+    // TODO
+    return []abci.ValidatorUpdate{}
+}
+```
+
+This is where you write the necessary code, preferably in the keeper. For example:
+
+```go
+am.keeper.ForfeitExpiredGames(sdk.WrapSDKContext(ctx))
+```
+
+How can you ensure that the execution of this `EndBlock` does not become prohibitively expensive? After all, the potential number of games to expire is unbounded, which can be disastrous in the blockchain world. Is there a situation or attack vector that makes this a possibility? And what can you do to prevent it?
+<br/><br/>
+The timeout duration is **fixed**, and is the same for all games. This means that the `n` games that expire in a given block have all been created or updated at roughly the same time, or block height `h`, with margins of error `h-1` and `h+1`.
+<br/><br/>
+These created and updated games are limited in number, because (as established in the chain consensus parameters) every block has a maximum amount of gas and therefore a limited number of transactions it can include. If by chance all games in blocks `h-1`, `h`, and `h+1` expire now, then the `EndBlock` function would have to expire three times as many games as a block can handle with its transactions. This is a worst-case scenario, but most likely it is still manageable.
+
+<br/>
+
+<HighlightBox type="warn">
+
+Be careful about letting the game creator pick a timeout duration. This could allow a malicious actor to stagger game creations over a large number of blocks _with decreasing timeouts_, so that they all expire at the same time.
+
+</HighlightBox>
+
+</ExpansionPanel>
+
+<HighlightBox type="tip">
+
+If you want to go beyond out-of-context code samples like the above and see in more detail how to define these features, go to [Run Your Own Cosmos Chain](/hands-on-exercise/1-ignite-cli/index.md).
+<br/><br/>
+More precisely, you can jump to:
+
+* [Auto-Expiring Games](/hands-on-exercise/2-ignite-cli-adv/4-game-forfeit.md) to see how to implement the expiration of games in `EndBlock`.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

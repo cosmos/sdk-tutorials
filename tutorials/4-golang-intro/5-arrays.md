@@ -2,7 +2,7 @@
 title: "Arrays and Slices in Go"
 order: 6
 description: A closer look at arrays and slices
-tags: 
+tags:
   - tutorial
 ---
 
@@ -133,14 +133,14 @@ func main() {
     m["E"]  = 2.7182818284
     m["Pi"] = 3.1415926535
     m["Phi"]= 1.6180339887
-    
+
     for key, v := range m {
         fmt.Printf("Key: %v, Value: %v, Value: %v \n", key, v, m[key])
     }
     delete(m, "E") // does not return anything. It does nothing, if the key does not exist.
     fmt.Println("len:", len(m))
     fmt.Println("map:", m)
-    
+
     _, ok := m["E"] // does the key exists?
     fmt.Println("ok:", ok)
 }
@@ -173,7 +173,7 @@ When iterating over maps, the order is not deterministic.
 To summarize, this section has explored:
 
 * How the size of an array is part of the type, therefor arrays have a fixed size.
-* How slices are flexible abstractions built on top of arrays. 
+* How slices are flexible abstractions built on top of arrays.
 * How maps are stored key/value pairs.
 
 </HighlightBox>

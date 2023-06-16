@@ -5,7 +5,7 @@ parent:
   number: 2
 order: 0
 title:
-tags: 
+tags:
   - tutorial
   - dev-ops
 ---
@@ -30,7 +30,7 @@ On a general note, it is advisable to **prepare a separate project folder to kee
 
 ## Install Docker
 
-Docker is very helpful to do the exercises. So you may need to install Docker. To install, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/). If you are new to Docker have a look at this [quick introduction](/tutorials/5-docker-intro).
+Docker is very helpful to do the exercises. So you may need to install Docker. To install, head to the [Install Docker Engine page](https://docs.docker.com/engine/install/). If you are new to Docker have a look at this [quick introduction](/tutorials/5-docker-intro/index.md).
 
 ## Install Go
 
@@ -88,4 +88,4 @@ The first time you open a Cosmos SDK project with Visual Studio Code, it offers 
 
 <!--## Next up
 
-Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](/hands-on-exercise/3-run-node/index.md).-->
+Now that you are all set, dive right into running a node and explore working with `simapp` in the [next section](/tutorials/3-run-node/index.md).-->

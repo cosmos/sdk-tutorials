@@ -15,9 +15,9 @@ With the genesis created and received, a node operator needs to join the eventua
 1. To open your node to connections from other nodes.
 2. To know where the other nodes are, or at least a subset of them, so that your node can attempt to connect to them.
 
-In this section, you concern yourself with Tendermint and the peer-to-peer network. Other niceties like incorporating gRPC and REST into your Cosmos application are different concerns.
+In this section, you concern yourself with CometBFT and the peer-to-peer network. Other niceties like incorporating gRPC and REST into your Cosmos application are different concerns.
 
-## Set up 
+## Set up
 
 As a node operator, from the time of genesis or at any time in the future, and on each machine, you first run an `init` command to at least set up the folders and pick an ASCII-only moniker:
 
@@ -62,7 +62,7 @@ In the [`config.toml` file](https://docs.tendermint.com/v0.34/tendermint-core/us
 laddr = "tcp://0.0.0.0:26656"
 ```
 
-Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `172.217.22.14`. If you use a DNS-resolvable name, like `lascaux.myproject.example.com`, you can use that as well instead of the IP address. 
+Here it listens on port `26656` of all IP addresses. Define or find out your publicly accessible IP address, for instance `172.217.22.14`. If you use a DNS-resolvable name, like `lascaux.myproject.example.com`, you can use that as well instead of the IP address.
 
 Keep in mind that a name is subject to the DNS being well configured and working well. Add this too so that, whenever your node contacts a new node, yours can tell the other node which address is preferred:
 
@@ -70,7 +70,7 @@ Keep in mind that a name is subject to the DNS being well configured and working
 external_address = "172.217.22.14:26656" # replace by your own
 ```
 
-The other piece of information that uniquely identifies your node is your **node ID**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public ID is that by which your peers will know your node. You can compute the public ID with the Tendermint command:
+The other piece of information that uniquely identifies your node is your **node ID**. Its private key is stored in `~/.myprojectd/config/node_key.json`. The public ID is that by which your peers will know your node. You can compute the public ID with the CometBFT command:
 
 ```sh
 $ ./myprojectd tendermint show-node-id
@@ -143,7 +143,7 @@ Among the network-scoped parameters, some deal with the intricacies of BFT, such
 
 Tangential to these parameters, you can find others in `~/.myprojectd/config/app.toml` that also relate to the network. For instance `minimum-gas-prices`, which you could set at `1nstone` for instance.
 
-To avoid surprises when looking at the configuration, keep in mind your Tendermint version:
+To avoid surprises when looking at the configuration, keep in mind your CometBFT version:
 
 ```sh
 $ ./myprojectd tendermint version
@@ -172,6 +172,17 @@ It is common practice to expose your regular nodes and to hide your validator no
 1. Your [sentry nodes](https://forum.cosmos.network/t/sentry-node-architecture-overview/454) are located in a cloud infrastructure, where the database (or filesystem) and the software part of the node are separated. With this, the same sentry node can release its old public IP address and receive a new one within a few seconds; or a new sentry node can spring up at a different IP address by using the same database (or filesystem), as in a game of whack-a-mole.
 2. Your validator nodes are located anywhere, with persistent addresses, but connect only to the sentry nodes, with the use of `persistent_peers` in `config.toml`. The content of this field has to change when a sentry node has been whacked unless the validator node can connect to the sentry node over the same private IP address.
 3. Your sentry nodes never gossip your validators' addresses over the peer-to-peer network, thanks to the use of `private_peer_ids` in `config.toml`.
+
+<HighlightBox type="tip">
+
+If you would like to see how to apply what you've learned, you can go straight to the exercise in [Simulate production in Docker](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md) to start from scratch.
+
+More specifically, you can jump to:
+
+* [Network preparation](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#network-preparation), to see how to prepare nodes to know about each other, and to keep some things private.
+* [Networks they run in](/hands-on-exercise/4-run-in-prod/1-run-prod-docker.md#the-networks-they-run-in), to see how the network topology is prepared.
+
+</HighlightBox>
 
 <HighlightBox type="synopsis">
 

@@ -2,7 +2,7 @@
 title: "Add a Way to Make a Move"
 order: 7
 description: Play a game
-tags: 
+tags:
   - guided-coding
   - cosmos-sdk
 ---
@@ -118,32 +118,130 @@ message MsgPlayMoveResponse {
 }
 ```
 
-All you have to do is fill in the needed part in `x/checkers/keeper/msg_server_play_move.go`:
+All you have to do is fill in the needed parts:
 
-```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-msg/x/checkers/keeper/msg_server_play_move.go#L10-L17]
-func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
-    ctx := sdk.UnwrapSDKContext(goCtx)
+* In `x/checkers/types/message_play_move.go`:
 
-    // TODO: Handling the message
-    _ = ctx
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-msg/x/checkers/types/message_play_move.go#L44-L50]
+    func (msg *MsgPlayMove) ValidateBasic() error {
+        _, err := sdk.AccAddressFromBech32(msg.Creator)
+        if err != nil {
+            return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
+        }
+        return nil
+    }
+    ```
 
-    return &types.MsgPlayMoveResponse{}, nil
-}
+* And in `x/checkers/keeper/msg_server_play_move.go`:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-msg/x/checkers/keeper/msg_server_play_move.go#L10-L17]
+    func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*types.MsgPlayMoveResponse, error) {
+        ctx := sdk.UnwrapSDKContext(goCtx)
+
+        // TODO: Handling the message
+        _ = ctx
+
+        return &types.MsgPlayMoveResponse{}, nil
+    }
+    ```
+
+    Where the `TODO` is replaced as per the following.
+
+## The message basic validation
+
+With a game index and board positions, there are a number of stateless error situations that can be detected:
+
+* You know there will not be a game index at the value given.
+* A piece position is out of the bounds of the board.
+* `from` and `to` are identical.
+
+Declare your new errors:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/errors.go#L14-L16]
+    var (
+        ...
++      ErrInvalidGameIndex     = sdkerrors.Register(ModuleName, 1103, "game index is invalid")
++      ErrInvalidPositionIndex = sdkerrors.Register(ModuleName, 1104, "position index is invalid")
++      ErrMoveAbsent           = sdkerrors.Register(ModuleName, 1105, "there is no move")
+    )
 ```
 
-Where the `TODO` is replaced as per the following.
+Then you can check that:
+
+1. The game index is reasonable:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move.go#L52-L58]
+    gameIndex, err := strconv.ParseInt(msg.GameIndex, 10, 64)
+    if err != nil {
+        return sdkerrors.Wrapf(ErrInvalidGameIndex, "not parseable (%s)", err)
+    }
+    if uint64(gameIndex) < DefaultIndex {
+        return sdkerrors.Wrapf(ErrInvalidGameIndex, "number too low (%d)", gameIndex)
+    }
+    ```
+
+2. The positions are within bounds, checking an array of situations:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move.go#L59-L84]
+    boardChecks := []struct {
+        value uint64
+        err   string
+    }{
+        {
+            value: msg.FromX,
+            err:   "fromX out of range (%d)",
+        },
+        {
+            value: msg.ToX,
+            err:   "toX out of range (%d)",
+        },
+        {
+            value: msg.FromY,
+            err:   "fromY out of range (%d)",
+        },
+        {
+            value: msg.ToY,
+            err:   "toY out of range (%d)",
+        },
+    }
+    for _, situation := range boardChecks {
+        if situation.value < 0 || rules.BOARD_DIM <= situation.value {
+            return sdkerrors.Wrapf(ErrInvalidPositionIndex, situation.err, situation.value)
+        }
+    }
+    ```
+
+    Yes, a `uint64` like `msg.FromY` can never be `< 0`, but since there is no compilation warning you can keep it for future reference if the type changes.
+
+3. There is an actual move:
+
+    ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move.go#L85-L87]
+    if msg.FromX == msg.ToX && msg.FromY == msg.ToY {
+        return sdkerrors.Wrapf(ErrMoveAbsent, "x (%d) and y (%d)", msg.FromX, msg.FromY)
+    }
+    ```
+
+<HighlightBox type="best-practice">
+
+It is conceivable, perhaps even for the benefit of players, to add more stateless checks. For instance, to detect when playing out of wrong cells; after all, only half the cells are valid. Or to detect when moves are not along a diagonal.
+<br/><br/>
+These are all worthy checks, although they tend to distract from learning about Cosmos SDK.
+<br/><br/>
+If you are nonetheless interested, a good place to look at for a start is the [rules file](https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/rules/checkers.go#L66-L69).
+
+</HighlightBox>
 
 ## The move handling
 
 The `rules` represent the ready-made file containing the rules of the game you imported earlier. Declare your new errors in `x/checkers/types/errors.go`, given your code has to handle new error situations:
 
-```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/errors.go#L14-L17]
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/errors.go#L17-L20]
     var (
         ...
-+      ErrGameNotFound     = sdkerrors.Register(ModuleName, 1103, "game by id not found")
-+      ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1104, "message creator is not a player")
-+      ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1105, "player tried to play out of turn")
-+      ErrWrongMove        = sdkerrors.Register(ModuleName, 1106, "wrong move")
++      ErrGameNotFound     = sdkerrors.Register(ModuleName, 1106, "game by id not found")
++      ErrCreatorNotPlayer = sdkerrors.Register(ModuleName, 1107, "message creator is not a player")
++      ErrNotPlayerTurn    = sdkerrors.Register(ModuleName, 1108, "player tried to play out of turn")
++      ErrWrongMove        = sdkerrors.Register(ModuleName, 1109, "wrong move")
     )
 ```
 
@@ -242,7 +340,152 @@ This completes the move process, facilitated by good preparation and the use of 
 
 ## Unit tests
 
-Adding unit tests for this play message is very similar to what you did for the previous message: create a new `msg_server_play_move_test.go` file and declare it as `package keeper_test`. Start with a function that conveniently sets up the keeper for the tests. In this case, already having a game saved can reduce several lines of code in each test:
+Adding unit tests for this play message is very similar to what you did for the previous message.
+
+### On the message
+
+Adjust and add to `types/message_play_move_test.go`. First, change its package for consistency:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/types/message_play_move_test.go#L1-L8]
+-  package types
++  package types_test
+
+    import(
++      "github.com/b9lab/checkers/x/checkers/types"
+    )
+```
+
+Then adjust and add to the test cases:
+
+```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/keeper/msg_server_play_move_test.go#L19-L113]
+    {
+        name: "invalid address",
+-      msg: MsgPlayMove{
++      msg: types.MsgPlayMove{
+            Creator:   "invalid_address",
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     5,
++          ToX:       1,
++          ToY:       4,
+        },
+        err: sdkerrors.ErrInvalidAddress,
+    },
++  {
++      name: "invalid game index",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "invalid_index",
++          FromX:     0,
++          FromY:     5,
++          ToX:       1,
++          ToY:       4,
++      },
++      err: types.ErrInvalidGameIndex,
++  },
++  {
++      name: "invalid fromX too high",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     rules.BOARD_DIM,
++          FromY:     5,
++          ToX:       1,
++          ToY:       4,
++      },
++      err: types.ErrInvalidPositionIndex,
++  },
++  {
++      name: "invalid fromY too high",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     rules.BOARD_DIM,
++          ToX:       1,
++          ToY:       4,
++      },
++      err: types.ErrInvalidPositionIndex,
++  },
++  {
++      name: "invalid toX too high",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     5,
++          ToX:       rules.BOARD_DIM,
++          ToY:       4,
++      },
++      err: types.ErrInvalidPositionIndex,
++  },
++  {
++      name: "invalid toY too high",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     5,
++          ToX:       1,
++          ToY:       rules.BOARD_DIM,
++      },
++      err: types.ErrInvalidPositionIndex,
++  },
++  {
++      name: "invalid no move",
++      msg: types.MsgPlayMove{
++          Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     5,
++          ToX:       0,
++          ToY:       5,
++      },
++      err: types.ErrMoveAbsent,
++  },
+    {
+        name: "valid address",
+-      msg: MsgPlayMove{
++      msg: types.MsgPlayMove{
+            Creator:   sample.AccAddress(),
++          GameIndex: "5",
++          FromX:     0,
++          FromY:     5,
++          ToX:       1,
++          ToY:       4,
+        },
+    },
+```
+
+You can try these tests:
+
+<CodeGroup>
+
+<CodeGroupItem title="Local" active>
+
+```sh
+$ go test github.com/alice/checkers/x/checkers/types
+```
+
+</CodeGroupItem>
+
+<CodeGroupItem title="Docker">
+
+```sh
+$ docker run --rm -it \
+    -v $(pwd):/checkers \
+    -w /checkers \
+    checkers_i \
+    go test github.com/alice/checkers/x/checkers/types
+```
+
+</CodeGroupItem>
+
+</CodeGroup>
+
+### On the keeper
+
+Create a new `keeper/msg_server_play_move_test.go` file and declare it as `package keeper_test`. Start with a function that conveniently sets up the keeper for the tests. In this case, already having a game saved can reduce several lines of code in each test:
 
 ```go [https://github.com/cosmos/b9-checkers-academy-draft/blob/play-move-handler/x/checkers/keeper/msg_server_play_move_test.go#L15-L26]
 func setupMsgServerWithOneGameForPlayMove(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
@@ -367,7 +610,9 @@ $ docker run --rm -it \
 
 </CodeGroup>
 
-If you restarted from the [previous section](./5-create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI. 
+If you restarted from the [previous section](./5-create-handling.md), there is already one game in storage and it is waiting for Alice's move. If that is not the case, recreate a game via the CLI.
+
+### Bob plays out of turn
 
 Can Bob make a move? Look at the `play-move` message and which parameters it expects:
 
@@ -482,38 +727,80 @@ raw_log: 'failed to execute message; message index: 0: {red}: player tried to pl
 
 </HighlightBox>
 
-Can Alice, who plays _black_, make a move? Can she make a wrong move? For instance, a move from `0-1` to `1-0`, which is occupied by one of her pieces.
+This error by Bob was caught when he tried to play out of turn. The check was a _stateful_ check as the message itself was valid. This failure cost him gas.
 
-<CodeGroup>
+### Alice plays a wrong move
 
-<CodeGroupItem title="Local" active>
+Can Alice, who plays _black_, make a move? Can she make a wrong move? There are two kinds of wrong moves that Alice can make: she can make one whose wrongness will be caught statelessly, and another that will be caught because of the current state of the board.
 
-```sh
-$ checkersd tx checkers play-move 1 1 0 0 1 --from $alice
-```
+1. As an example of a _statelessly wrong_ move, she could try to take a piece on the side and move it just outside the board:
 
-</CodeGroupItem>
+    <CodeGroup>
 
-<CodeGroupItem title="Docker">
+    <CodeGroupItem title="Local" active>
 
-```sh
-$ docker exec -it checkers \
-    checkersd tx checkers play-move 1 1 0 0 1 --from $alice
-```
+    ```sh
+    $ checkersd tx checkers play-move 1 7 2 8 3 --from $alice
+    ```
 
-</CodeGroupItem>
+    </CodeGroupItem>
 
-</CodeGroup>
+    <CodeGroupItem title="Docker">
 
-The computer says "no":
+    ```sh
+    $ docker exec -it checkers \
+        checkersd tx checkers play-move 1 7 2 8 3 --from $alice
+    ```
 
-```txt
-...
-raw_log: 'failed to execute message; message index: 0: Already piece at destination
-  position: {0 1}: wrong move'
-```
+    </CodeGroupItem>
+
+    </CodeGroup>
+
+    The computer says "no" immediately:
+
+    ```txt
+    Error: toX out of range (8): position index is invalid
+    ...
+    ```
+
+    The transaction never went into the mem pool. This mistake did not cost Alice any gas.
+
+2. As an example of a _statefully wrong_ move, Alice can try to move from `0-1` to `1-0`, which is occupied by one of her pieces.
+
+    <CodeGroup>
+
+    <CodeGroupItem title="Local" active>
+
+    ```sh
+    $ checkersd tx checkers play-move 1 1 0 0 1 --from $alice
+    ```
+
+    </CodeGroupItem>
+
+    <CodeGroupItem title="Docker">
+
+    ```sh
+    $ docker exec -it checkers \
+        checkersd tx checkers play-move 1 1 0 0 1 --from $alice
+    ```
+
+    </CodeGroupItem>
+
+    </CodeGroup>
+
+    The computer says "no" again, but this time after the transaction has been validated:
+
+    ```txt
+    ...
+    raw_log: 'failed to execute message; message index: 0: Already piece at destination
+    position: {0 1}: wrong move'
+    ```
+
+    This mistake cost Alice some gas.
 
 So far all seems to be working.
+
+### Alice plays correctly
 
 Time for Alice to make a correct move:
 
@@ -589,7 +876,7 @@ r*r*r*r*
 r*r*r*r*
 ```
 
-Bob's piece moved down and right.
+Alice's piece moved down and right.
 
 When you are done with this exercise you can stop Ignite's `chain serve`.
 
@@ -597,6 +884,7 @@ When you are done with this exercise you can stop Ignite's `chain serve`.
 
 To summarize, this section has explored:
 
+* How to add stateless checks on your message.
 * How to use messages and handlers, in this case to add the capability of actually playing moves on checkers games created in your application.
 * The information that needs to be specified for a game move message to function, which are the game ID, the initial positions of the pawn to be moved, and the final positions of the pawn at the end of the move.
 * The information necessary to return, which includes the game ID, the location of any captured piece, and the registration of a winner should the game be won as a result of the move.
@@ -609,10 +897,10 @@ To summarize, this section has explored:
 
 <!--## Next up
 
-Before you add a third message to let a player [reject a game](./8-reject-game.md), add events to the existing message handlers for relevant information. This is the object of the [next section](./7-events.md).
+Add events to the existing message handlers for relevant information. This is the object of the [next section](./7-events.md).
 
 <HighlightBox type="tip">
 
-If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](/hands-on-exercise/2-ignite-cli-adv/7-can-play.md).
+If you want to skip ahead and see how you can assist a player in not submitting a transaction that would result in a failed move, you can [create a query to test a move](/hands-on-exercise/2-ignite-cli-adv/9-can-play.md).
 
 </HighlightBox>-->
