@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/cosmos/sdk-tutorials#readme",
   "dependencies": {
-    "@cosmos-ui/vue": "^0.35.0",
+    "@cosmos-ui/vue": "^0.36.3",
     "@vuepress/plugin-google-analytics": "1.7.1",
     "@vuepress/plugin-html-redirect": "^0.1.4",
     "algoliasearch": "^4.2.0",
