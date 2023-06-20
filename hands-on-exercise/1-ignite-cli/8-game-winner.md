@@ -253,7 +253,7 @@ func PlayAllMoves(
     black string,
     red string,
     moves []GameMoveTest) {
-    for _, move := range Game1Moves {
+    for _, move := range moves {
         _, err := msgServer.PlayMove(context, &types.MsgPlayMove{
             Creator:   GetPlayer(move.player, black, red),
             GameIndex: gameIndex,

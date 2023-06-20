@@ -739,7 +739,7 @@ func TestPlayMoveUpToWinnerCalledBank(t *testing.T) {
     payCarol := escrow.ExpectPay(context, carol, 45).Times(1).After(payBob)
     escrow.ExpectRefund(context, bob, 90).Times(1).After(payCarol)
 
-    playAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
+    testutil.PlayAllMoves(t, msgServer, context, "1", testutil.Game1Moves)
 }
 ```
 
