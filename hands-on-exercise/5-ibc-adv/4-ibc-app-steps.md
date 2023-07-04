@@ -357,7 +357,7 @@ func (am AppModule) OnTimeoutPacket(
 
 </ExpansionPanel>
 
-Additionally, in the `module.go` file, following line (and the corresponding import) will be added:
+Additionally, in the `module.go` file, the following line (and the corresponding import) will be added:
 
 ```diff-go
    var (
