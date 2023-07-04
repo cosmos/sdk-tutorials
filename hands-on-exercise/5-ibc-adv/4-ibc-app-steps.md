@@ -357,13 +357,13 @@ func (am AppModule) OnTimeoutPacket(
 
 </ExpansionPanel>
 
-Additionally, in the `module.go` file, add the following line (and the corresponding import):
+Additionally, in the `module.go` file, the following line (and the corresponding import) will be added:
 
 ```diff-go
    var (
        _ module.AppModule      = AppModule{}
        _ module.AppModuleBasic = AppModuleBasic{}
-       // Add this line
+       // this line is used by starport scaffolding # ibc/module/interface
 +     _ porttypes.IBCModule   = IBCModule{}
    )
 ```
@@ -565,7 +565,7 @@ The `portID` does not refer to a certain numerical ID, like `localhost:8080` wit
 
 Currently, ports must be bound on app initialization. In order to bind modules to their respective ports on initialization, the following needs to be implemented:
 
-1. Add port ID to the `GenesisState` proto definition:
+1. Port ID in the `GenesisState` proto definition:
 
    ```diff-protobuf
       @@ proto/leaderboard/genesis.proto
@@ -577,7 +577,7 @@ Currently, ports must be bound on app initialization. In order to bind modules t
       }
    ```
 
-2. Add port ID as a key to the module store in `x/leaderboard/types/keys.go`:
+2. Port ID as a key in the module store in `x/leaderboard/types/keys.go`:
 
    ```diff-go
            @@ const in x/leaderboard/types/keys.go
@@ -600,7 +600,7 @@ Currently, ports must be bound on app initialization. In order to bind modules t
 
     </HighlightBox>
 
-3. Add port ID to `x/leaderboard/types/genesis.go`:
+3. Port ID in the `x/leaderboard/types/genesis.go`:
 
    ```diff-go
        // DefaultGenesisState returns a GenesisState with "transfer" as the default PortID.
@@ -621,7 +621,7 @@ Currently, ports must be bound on app initialization. In order to bind modules t
        }
    ```
 
-4. Bind the IBC module to the port in `x/leaderboard/genesis.go`:
+4. Binding of the IBC module to the port in `x/leaderboard/genesis.go`:
 
    ```diff-go
        @@ InitGenesis
