@@ -194,10 +194,10 @@ Why have the game `index` be a string when it is created out of `nextId`, a numb
 
 The fact that the underlying value is parseable to a number is an artefact of its creation, and not a necessity:
 
-* By default, objects stored in a map have a key as a string, so you might as well stay within the standard.
+* By default, any object stored in a map has a string as its key, so you might as well stay within that standard.
 * At no other point in the code is there an embedded assumption that the game index is a number.
 
-Looking ahead, you keep your data structure versatile.
+Looking ahead, you should keep your data structure versatile.
 
 </HighlightBox>
 
