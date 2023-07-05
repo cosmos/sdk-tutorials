@@ -245,7 +245,7 @@ There are two places where you can call for an update on the board structure:
 * In `OnRecvCandidatePacket`, so each player sending information will pay the fee for sorting and clipping the leaderboard. This is the choice here, for simplicity.
 * Or you can change your data structure a little bit and handle the sorting and clipping of the leaderboard in `EndBlock`.
 
-Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for a leaderboard update in `OnRecvCandidatePacket`. You need to create some helper functions in a new `x/leaderboard/typesboard.go/board.go`:
+Here you will extend the `x/leaderboard/keeper/candidate.go` file in order to call for a leaderboard update in `OnRecvCandidatePacket`. You need to create some helper functions in a new `x/leaderboard/types/board.go`:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/types/board.go]
 func ParseDateAddedAsTime(dateAdded string) (dateAddedParsed time.Time, err error) {
@@ -273,7 +273,7 @@ And in `x/leaderboard/keeper/board.go`, introduce a new `UpdateBoard` function:
 
 ```go [https://github.com/b9lab/cosmos-ibc-docker/blob/main/modular/leaderboard/x/leaderboard/keeper/board.go#L36-L46]
 func (k Keeper) UpdateBoard(ctx sdk.Context, playerInfoList []types.PlayerInfo) {
-    SortPlayerInfo(playerInfoList)
+    types.SortPlayerInfo(playerInfoList)
 
     if types.LeaderboardWinnerLength < uint64(len(playerInfoList)) {
         playerInfoList = playerInfoList[:types.LeaderboardWinnerLength]
