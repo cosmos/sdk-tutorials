@@ -155,8 +155,8 @@ Time to ensure that the new field is saved in the storage and it is part of the 
 4. Modify the constructor among the interface definition of `MsgCreateGame` in `x/checkers/types/message_create_game.go` to avoid surprises:
 
     ```diff-go [https://github.com/cosmos/b9-checkers-academy-draft/blob/game-wager/x/checkers/types/message_create_game.go#L17]
-    -  func NewMsgCreateGame(creator string, red string, black string) *MsgCreateGame {
-    +  func NewMsgCreateGame(creator string, red string, black string, wager uint64) *MsgCreateGame {
+    -  func NewMsgCreateGame(creator string, black string, red string) *MsgCreateGame {
+    +  func NewMsgCreateGame(creator string, black string, red string, wager uint64) *MsgCreateGame {
             return &MsgCreateGame{
                 ...
     +          Wager: wager,

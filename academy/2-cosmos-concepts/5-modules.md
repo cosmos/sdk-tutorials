@@ -145,7 +145,7 @@ Each module defines commands for a command-line interface (CLI). Commands relate
 
 ### Keeper
 
-Keepers are the gatekeepers to any stores in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a module-view-controller (MVC) world, then it helps to think of the keeper as the controller.
+Keepers are the gatekeepers to any stores in the module. It is mandatory to go through a module’s keeper to access a store. A keeper encapsulates the knowledge about the layout of the storage within the store and contains methods to update and inspect it. If you come from a model-view-controller (MVC) world, then it helps to think of the keeper as the controller.
 
 ![Keeper in a node](/academy/2-cosmos-concepts/images/keeper.png)
 
