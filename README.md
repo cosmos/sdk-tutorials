@@ -51,10 +51,10 @@ tools:
         url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 articles:
-  - title: Move From Web2 to Web3 in 7 Weeks With the Interchain Developer Academy
-    date: Thursday, August 30
-    time: 4
-    url: https://blog.cosmos.network/join-the-interchain-developer-academy-and-master-cosmos-in-7-weeks-e28a47896e0f
+  - title: How-to Cosmos Pt. 3- Sending a Signed Tx on Cosmos hub using Cosmjs
+    date: Monday, May 29
+    time: 8
+    url: https://medium.com/lava-network/tutorial-how-to-cosmos-pt-3-sending-a-signed-tx-on-cosmos-hub-using-cosmjs-bd273381440d
     image: /article-banner-02.png
   - title: The Mind, Body, and Soul of Cosmos.
     date: Friday, May 27
