@@ -51,10 +51,10 @@ tools:
         url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 articles:
-  - title: How-to Cosmos Pt. 3- Sending a Signed Tx on Cosmos hub using Cosmjs
-    date: Monday, May 29
+  - title: How-to Cosmos Pt. 4- Building your first application with CosmJS
+    date: Sunday, June 4
     time: 8
-    url: https://medium.com/lava-network/tutorial-how-to-cosmos-pt-3-sending-a-signed-tx-on-cosmos-hub-using-cosmjs-bd273381440d
+    url: https://medium.com/lava-network/tutorial-how-to-cosmos-pt-4-building-your-first-application-with-cosmjs-87c5db9f3cdf
     image: /article-banner-02.png
   - title: The Mind, Body, and Soul of Cosmos.
     date: Friday, May 27
