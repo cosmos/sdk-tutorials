@@ -262,7 +262,7 @@ Your upcoming integration tests will include checks on wagers being paid, lost, 
         state := banktypes.NewGenesisState(
             banktypes.DefaultParams(),
             coins,
-            supply.GetTotal(),
+            supply.Total,
             []banktypes.Metadata{})
 
         return state
