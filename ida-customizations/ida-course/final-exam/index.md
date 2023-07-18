@@ -53,6 +53,8 @@ We have a service that runs on a schedule and checks if you completed the expect
 
 Sometimes, the testnet faucet hits its daily cap. Just to be on the safe side, you can ask for your testnet ATOMs ahead of time. See [here](https://git.academy.b9lab.com/ida-p4-final-exam/exam-ibc-operation/-/blob/main/exercise-description.md).
 
+Also, if you do not have write access to the faucet channel, try first to type _Faucet_, _Access_ or _Testnet_ in  the [⁠💬┇general](https://discord.com/channels/669268347736686612/928239045291679754) channel. A bot will then give you the write permissions.
+
 </HighlightBox>
 
 ## Overall exam score
