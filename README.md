@@ -51,10 +51,10 @@ tools:
         url: https://hub.cosmos.network/
     image: /generic-star-icon.svg
 articles:
-  - title: Move From Web2 to Web3 in 7 Weeks With the Interchain Developer Academy
-    date: Thursday, August 30
-    time: 4
-    url: https://blog.cosmos.network/join-the-interchain-developer-academy-and-master-cosmos-in-7-weeks-e28a47896e0f
+  - title: How-to Cosmos Pt. 4- Building your first application with CosmJS
+    date: Sunday, June 4
+    time: 8
+    url: https://bit.ly/43wVQne
     image: /article-banner-02.png
   - title: The Mind, Body, and Soul of Cosmos.
     date: Friday, May 27
