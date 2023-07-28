@@ -54,7 +54,7 @@ articles:
   - title: How-to Cosmos Pt. 4- Building your first application with CosmJS
     date: Sunday, June 4
     time: 8
-    url: bit.ly/43wVQne
+    url: https://bit.ly/43wVQne
     image: /article-banner-02.png
   - title: The Mind, Body, and Soul of Cosmos.
     date: Friday, May 27
