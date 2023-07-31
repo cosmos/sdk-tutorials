@@ -468,7 +468,7 @@ $ ./build/simd add-genesis-account alice 100000000stake \
 $ docker run --rm -it \
     -v $(pwd)/private:/root \
     simd:v0.45.4 \
-    simd add-genesis-account alice 100000000stake \
+    simd genesis add-genesis-account alice 100000000stake \
     --keyring-backend test
 ```
 
