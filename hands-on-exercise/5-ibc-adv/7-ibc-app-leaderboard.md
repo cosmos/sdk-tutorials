@@ -30,7 +30,7 @@ Create another folder for your leaderboard chain, and scaffold a chain via Ignit
 <CodeGroupItem title="Local">
 
 ```sh
-$ ignite ignite scaffold chain leaderboard --no-module
+$ ignite scaffold chain leaderboard --no-module
 ```
 
 </CodeGroupItem>
