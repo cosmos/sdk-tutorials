@@ -63,7 +63,7 @@
     "vuepress-reading-time-extended": "git+https://github.com/b9lab/vuepress-reading-time-extended.git"
   },
   "devDependencies": {
-    "@vuepress/plugin-medium-zoom": "^1.9.7",
+    "@vuepress/plugin-medium-zoom": "^1.9.10",
     "core-js": "^3.6.5",
     "is-svg": "^4.2.2",
     "node-forge": "^1.3.1",
