@@ -27,7 +27,7 @@ jobs:
           git config --global url."https://".insteadOf ssh:// 
 
       - name: Checkout 🛎️
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v4.0.0
         with:
           persist-credentials: false
           fetch-depth: 0
