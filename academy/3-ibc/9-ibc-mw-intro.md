@@ -12,7 +12,7 @@ tags:
 
 Middleware is a well-known concept in software engineering. In traditional web development (web 2.0) for example, middleware is a piece of software that is implemented in the HTTP request-response cycle. One or more pieces of middleware stacked on top have access to the request and response object when an HTTP request comes in at a web server. They can execute custom logic for adding authentication, requesting headers, parsing request bodies, error handling, and many other tasks.
 
-The use of middleware enables the composability and reusability of logical building blocks while allowing applications to focus on their application-specific logic. This suits the Interchain philosophy well, and it is, therefore, no surprise that middleware can also play an important role in Inter-Blokchain Communication Protocol (IBC) applications.
+The use of middleware enables the composability and reusability of logical building blocks while allowing applications to focus on their application-specific logic. This suits the Interchain philosophy well, and it is, therefore, no surprise that middleware can also play an important role in Inter-Blockchain Communication Protocol (IBC) applications.
 
 <HighlightBox type="learning">
 
