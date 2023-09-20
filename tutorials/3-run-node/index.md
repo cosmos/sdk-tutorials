@@ -298,7 +298,7 @@ It helps to understand the concepts clearly when working hands-on with the Cosmo
 
 </HighlightBox>
 
-You can also inspect your keys. These are held in one of the the backend keyrings, which by default is that of the operating system or of the test. To ring-fence them too, and to ensure consistency, you will use the `test` backend and also save them in `./private/.simapp`:
+You can also inspect your keys. These are held in one of the backend keyrings, which by default is that of the operating system or of the test. To ring-fence them too, and to ensure consistency, you will use the `test` backend and also save them in `./private/.simapp`:
 
 <CodeGroup>
 
