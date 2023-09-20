@@ -227,7 +227,7 @@ You did it! You waited 10 days, and have accrued rewards:
 
 ![Keplr: accruing good rewards](/academy/1-what-is-cosmos/images/keplr-accruing-good-rewards.png)
 
-This is enough to cover the claim transaction. Go ahead and claim it. Again, choose the low fee option to reduce loses against this small reward sum:
+This is enough to cover the claim transaction. Go ahead and claim it. Again, choose the low fee option to reduce losses against this small reward sum:
 
 ![Keplr: claim rewards](/academy/1-what-is-cosmos/images/keplr-claim-rewards.png)
 
