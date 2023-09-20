@@ -34,7 +34,7 @@ The Pull Request is now ready to be moved into the internal review state.
 
 Once your Pull Request is ready for internal review (technical and/or language), you can initiate the internal review process:
 
-1. Check the checkboxes on the Pull Request description accordingly to the review you want to request, in the internal review section:
+1. Check the checkboxes on the Pull Request description according to the review you want to request, in the internal review section:
 
 - Technical review
   - [x] requested
@@ -57,7 +57,7 @@ Once a reviewer has completed their review, they will check the completed checkb
 
 Once the internal review has been completed, the Pull Request can be moved into the external review pipeline, in a very similar process:
 
-1. Check the checkboxes on the Pull Request description accordingly to the review you want to request in the external review section.
+1. Check the checkboxes on the Pull Request description according to the review you want to request in the external review section.
 2. Make sure the external reviewers are set up correctly. You should select at least one reviewer for each review type.
 3. Remove the label `b9lab-internal-review` and instead add the label `b9lab-external-review`.
 4. Inform (ping) all reviewers via Slack with a link to the Pull Request.
@@ -69,7 +69,7 @@ External reviewers are also asked to check the status checkbox on the Pull Reque
 
 When you are ready for a last internal QA review, initiate it with a similar procedure:
 
-1. Check the checkboxes on the Pull Request description accordingly to the review you want to request in the internal QA review section.
+1. Check the checkboxes on the Pull Request description according to the review you want to request in the internal QA review section.
 2. Make sure the QA reviewers are set up correctly:
    * Citlali (@CitMC) for language review.
 3. Remove the label `b9lab-external-review` and instead apply the label `b9lab-qa-review`.
@@ -79,7 +79,7 @@ When you are ready for a last internal QA review, initiate it with a similar pro
 
 Finally, the content goes through a last external QA review before it is released for publishing:
 
-1. Check the checkboxes on the Pull Request description accordingly to the review you want to request in the final QA review section.
+1. Check the checkboxes on the Pull Request description according to the review you want to request in the final QA review section.
 2. Make sure the QA reviewers are set up correctly:
    * Noam (@nooomski).
 3. Remove the label `b9lab-qa-review` and instead apply the label `final-qa-review`.
