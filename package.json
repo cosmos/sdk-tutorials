@@ -33,7 +33,7 @@
     "@vuepress/plugin-google-analytics": "1.7.1",
     "@vuepress/plugin-html-redirect": "^0.1.4",
     "algoliasearch": "^4.2.0",
-    "axios": "^0.26.1",
+    "axios": "^1.5.1",
     "check-md": "^1.0.2",
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^4.0.1",
