@@ -234,7 +234,7 @@ You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs
 
 ### Proper saving
 
-Commit the extra `.proto` files as well as the compiled ones to your repository so you do not need to recreate them.So add an npm run target, to keep track of how this was done and easily reproduce it in the future when you update a Protobuf file:
+Commit the extra `.proto` files as well as the compiled ones to your repository so you do not need to recreate them. So add an npm run target, to keep track of how this was done and easily reproduce it in the future when you update a Protobuf file:
 
 ```json
 "scripts": {
