@@ -393,6 +393,11 @@ customModules:
             path: /hands-on-exercise/5-ibc-adv/7-ibc-app-leaderboard.html
 ---
 
+> [!WARNING]
+> This repository has been moved to a new place at [https://github.com/cosmos/developer-portal](https://github.com/cosmos/developer-portal). **This repository is marked for removal**
+
+---
+
 This repo contains the code and content for the [Developer Portal](https://developers.cosmos.network/) and the [Interchain Developer Academy](https://academy.cosmos.network/).
 
 Note: The layout metadata at the top of the README.md file controls how the tutorial page is published. Write permissions are limited to preserve the structure and contents.
