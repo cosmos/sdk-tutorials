@@ -196,9 +196,9 @@ service Msg {
 }
 ```
 
-If so, you find its service declaration in the compiled `tx.ts` file:
+If so, you find its service declaration in the compiled `tx.ts` file(with telescope option rpcClients.inline: true) or in `tx.rpc.msg.ts` file(with telescope option rpcClients.inline: false):
 
-```typescript [https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/bank/v1beta1/tx.ts#L243-L248]
+```typescript [https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/cosmos/bank/v1beta1/tx.ts#L484]
 export interface Msg {
     Send(request: MsgSend): Promise<MsgSendResponse>;
     //...
@@ -207,7 +207,7 @@ export interface Msg {
 
 It also appears in the default implementation:
 
-```typescript [https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/bank/v1beta1/tx.ts#L250-L268]
+```typescript [https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/cosmos/bank/v1beta1/tx.ts#L506]
 export class MsgClientImpl implements Msg {
     private readonly rpc: Rpc;
     constructor(rpc: Rpc) {
@@ -226,20 +226,21 @@ export class MsgClientImpl implements Msg {
 
 The important points to remember from this are:
 
-1. `rpc: RPC` is an instance of a Protobuf RPC client that is given to you by CosmJS. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/bank/v1beta1/tx.ts#L270-L272), this is the same interface found [throughout CosmJS](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It is given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
+1. `rpc: RPC` is an instance of a Protobuf RPC client that is given to you by CosmJS. Although the interface appears to be [declared locally](https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/helpers.ts#L166), this is the same interface found [throughout CosmJS](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/utils.ts#L35-L37). It is given to you [on construction](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/queryclient/queryclient.ts). At this point you do not need an implementation for it.
 2. You can see `encode` and `decode` in action. Notice the `.finish()` that flushes the Protobuf writer buffer.
 3. The `rpc.request` makes calls that are correctly understood by the Protobuf compiled server on the other side.
 
-You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/bank/v1beta1/query.ts).
+You can find the same structure in [`query.ts`](https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/cosmos/bank/v1beta1/query.ts#L1508).(or `query.rpc.Query.ts` with telescope option rpcClients.inline: false)
 
 ### Proper saving
 
-Commit the extra `.proto` files as well as the compiled ones to your repository so you do not need to recreate them.
+Commit the extra `.proto` files as well as the compiled ones to your repository so you do not need to recreate them.So add an npm run target, to keep track of how this was done and easily reproduce it in the future when you update a Protobuf file:
 
-Take inspiration from `cosmjs-types` [`codegen.sh`](https://github.com/confio/cosmjs-types/tree/main/scripts):
-
-1. Create a script file named `ts-proto.sh` with the previous command, or create a `Makefile` target.
-2. Add an [npm run target](https://github.com/confio/cosmjs-types/blob/c64759a/package.json#L31) with it, to keep track of how this was done and easily reproduce it in the future when you update a Protobuf file.
+```json
+"scripts": {
+    "codegen": "telescope transpile --config .telescope.json",
+}
+```
 
 ## Add convenience with types
 
@@ -264,17 +265,18 @@ message MsgSend {
 
 In this case, the `MsgSend`'s type URL is [`"/cosmos.bank.v1beta1.MsgSend"`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/modules/bank/messages.ts#L6).
 
-Each of your types is associated like this. You can declare each string as a constant value, such as:
+Each of your types is associated like this. You can also find constant strings like those in generated files, take [tx.ts](https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/cosmos/bank/v1beta1/tx.ts#L83C6-L83C6) as an example:
 
 ```typescript
-export const msgSendTypeUrl = "/cosmos.bank.v1beta1.MsgSend";
+export const MsgSend = {
+  typeUrl: "/cosmos.bank.v1beta1.MsgSend",
+  ...
+}
 ```
-
-Save those along with `generated` in `./client/src/types/modules`.
 
 ### For messages
 
-Messages, sub-types of `Msg`, are assembled into transactions that are then sent to CometBFT. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/v0.4.1/src/cosmos/tx/v1beta1/tx.ts#L12-L26). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L280-L298) of CosmJS.
+Messages, sub-types of `Msg`, are assembled into transactions that are then sent to CometBFT. CosmJS types already include types for [transactions](https://github.com/confio/cosmjs-types/blob/4bce108bc9307dc17f7127d6ff7de80c867c4a09/src/cosmos/tx/v1beta1/tx.ts#L10-L24). These are assembled, signed, and sent by the [`SigningStargateClient`](https://github.com/cosmos/cosmjs/blob/v0.28.3/packages/stargate/src/signingstargateclient.ts#L280-L298) of CosmJS.
 
 The `Msg` kind also needs to be added to a registry. To facilitate that, you should prepare them in a nested array:
 
