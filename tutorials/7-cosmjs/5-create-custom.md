@@ -31,119 +31,37 @@ This section assumes that you have a working Cosmos blockchain with its own modu
 
 ## Compiling the Protobuf objects and clients
 
-You can choose which library you use to compile your Protobuf objects into TypeScript or JavaScript. Reproducing [what Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) or [`cosmjs-types`](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.js) do is a good choice.
+You can choose which library you use to compile your Protobuf objects into TypeScript or JavaScript. Reproducing what [cosmjs-types](https://github.com/confio/cosmjs-types/blob/main/scripts/codegen.js) or [Stargate](https://github.com/cosmos/cosmjs/blob/main/packages/stargate/CUSTOM_PROTOBUF_CODECS.md) do is a good choice.
 
 ### Preparation
 
 This exercise assumes that:
 
-1. Your Protobuf definition files are in `./proto/myChain`.
-2. You want to compile them into TypeScript in `./client/src/types/generated`.
+1. The library you're creating is in 'myLib'.
+2. Your Protobuf definition files are in `./proto/`.
+2. You want to transpile them into TypeScript in `./src/codegen/`.
 
-Install `protoc` on your computer and its Typescript plugin in your project, possibly with the help of a Dockerfile:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local">
+Install `telescope` on your computer globally:
 
 ```sh
-$ mkdir -p /usr/lib/protoc
-$ cd /usr/lib/protoc
-$ curl -L https://github.com/protocolbuffers/protobuf/releases/download/v21.7/protoc-21.7-linux-x86_64.zip -o protoc.zip
-$ unzip -o protoc.zip
-$ rm protoc.zip
-$ ln -s /usr/lib/protoc/bin/protoc /usr/local/bin/protoc
-$ npm install ts-proto@1.121.6 --save-dev
+npm install -g @cosmology/telescope
 ```
-
-Adjust to your preferred version, operating system, and CPU platform. For instance, on an Apple M1 you would use `protoc-21.7-osx-aarch_64.zip`.
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Dockerfile">
-
-```Dockerfile
-FROM --platform=linux node:lts-slim as base
-ARG BUILDARCH
-
-ENV PROTOC_VERSION=21.7
-ENV TS_PROTO_VERSION=1.121.6
-
-FROM base AS platform-amd64
-ENV PROTOC_PLATFORM=x86_64
-
-FROM base AS platform-arm64
-ENV PROTOC_PLATFORM=aarch_64
-
-FROM platform-${BUILDARCH}
-
-RUN apt-get update
-RUN apt-get install curl unzip --yes
-
-# Install ProtoC
-RUN mkdir -p /usr/lib/protoc
-WORKDIR /usr/lib/protoc
-RUN curl -L https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-${PROTOC_PLATFORM}.zip -o protoc.zip
-RUN unzip -o protoc.zip
-RUN rm protoc.zip
-RUN ln -s /usr/lib/protoc/bin/protoc /usr/local/bin/protoc
-
-# Install ts-proto
-RUN npm install --global ts-proto@${TS_PROTO_VERSION} --save-exact
-
-WORKDIR /
-
-ENTRYPOINT [ "protoc" ]
-```
-
-Then build the image:
-
-```sh
-$ docker build . -t ts-protoc
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
 
 ---
 
-You can confirm the version you received. The executable is located in `./node_modules/protoc/protoc/bin/protoc`:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local">
+You can confirm the version you received by running:
 
 ```sh
-$ protoc --version
+$ telescope -v
 ```
-
-</CodeGroupItem>
-
-<CodeGroupItem title="Docker">
-
-```sh
-$ docker run --rm -it \
-    ts-protoc --version
-```
-
-</CodeGroupItem>
-
-</CodeGroup>
 
 This returns something like:
 
 ```txt
-libprotoc 3.21.7
+1.0.3
 ```
 
 The compiler tools are ready. Time to use them.
-
-Create the target folder if it does not exist yet:
-
-```sh
-$ mkdir -p client/src/types/generated
-```
 
 ### Getting third party files
 
@@ -184,59 +102,88 @@ $ mkdir -p ./proto/gogoproto
 $ curl https://raw.githubusercontent.com/cosmos/cosmos-sdk/v0.45.4/third_party/proto/gogoproto/gogo.proto -o ./proto/gogoproto/gogo.proto
 ```
 
+Or you can add latest whole `third_party` folders by running `telescope install` under `myLib` folder:
+
+```sh
+telescope install
+```
+
+then select packages you want to include in `myLib/proto` folder:
+
+```txt
+Telescope 1.0.3
+? [pkg] which packages do you want to support? (Press <space> to select, <a> to toggle all, <i> to invert selection)
+❯◯ amino
+ ◯ akash
+ ◯ bcna
+ ...
+ ◯ cosmos
+ ...
+```
+
+Say `cosmos`'s selected and entered, there'll be cosmos folder and its dependencies(like gogoproto and google, etc) in `myLib/proto` folder.
+
 ### Compilation
 
-You can now compile the Protobuf files. To avoid adding all the `.proto` files manually to the command, use `xargs`:
-
-<CodeGroup>
-
-<CodeGroupItem title="Local">
+You can now compile the Protobuf files using telescope.
 
 ```sh
-$ ls ./proto/myChain | xargs -I {} protoc \
-  --plugin="./node_modules/ts-proto/protoc-gen-ts_proto" \
-  --ts_proto_out="./client/src/types/generated" \
-  --proto_path="./proto" \
-  --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
-  myChain/{}
+telescope transpile
 ```
 
-</CodeGroupItem>
+You should now see some `.ts` files generated in `./src/codegen`. These are the real source files used in your application.
 
-<CodeGroupItem title="Docker">
+By default, the command takes `./proto` as input folder and `./src/codegen` as output folder. You can config in and out folders and the way telescope generating code by using options like the examples:
 
 ```sh
-$ ls ./proto/myChain | xargs -I {} \
-    docker run --rm -i \
-    -v $(pwd):/project -w /project \
-    ts-protoc \
-    --plugin="/usr/local/lib/node_modules/ts-proto/protoc-gen-ts_proto" \
-    --ts_proto_out="./client/src/types/generated" \
-    --proto_path="./proto" \
-    --ts_proto_opt="esModuleInterop=true,forceLong=long,useOptionals=messages" \
-    myChain/{}
+# Telescope takes chain1 folder as input,
+# and generate files in 'gen/src' folder.
+telescope transpile --protoDirs ./proto --outPath gen/src
 ```
 
-Where `/usr/local/lib/node_modules` is the result of the query:
+Each time `telescope transpile` has been ran, a config file `.telescope.json` will be created in the folder where it's running:
+
+```json
+//.telescope.json
+{
+  "protoDirs": [
+    "../../proto/chain2"
+  ],
+  "outPath": "gen/src",
+  "options": {
+    // telescope options
+    "addTypeUrlToDecoders": true,
+    "addTypeUrlToObjects": true,
+
+    "typingsFormat": {
+        "num64": "bigint",
+        "customTypes": {
+            "useCosmosSDKDec": true
+        }
+    },
+    ...
+  }
+}
+```
+
+You can modify the config file according to [telescope options](https://github.com/cosmology-tech/telescope#options), and then use the file by the option `--config`:
+
 
 ```sh
-$ docker run --rm -it \
-    --entrypoint npm \
-    ts-protoc \
-    root --global
+# Telescope takes chain1 folder(from args) and chain2 folder(from config) as input,
+# and generate files in 'gen/src'(defined in the config file, will override outPath in args) folder using a config file.
+telescope transpile --protoDirs ../../proto/chain1 --config .telescope.json
 ```
 
-This shows where `ts-proto` was installed globally.
+After it's been ran successfully, there'll be a message:
 
-</CodeGroupItem>
-
-</CodeGroup>
+```txt
+transpilation successful!
+```
 
 ---
 
-`--proto_path` is only `./proto` so that your imports (such as `import "cosmos/base...`) can be found.
-
-You should now see your files compiled into TypeScript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the compiled versions of your third party imports.
+You should now see your files transpiled into TypeScript. They have been correctly filed under their respective folders and contain both types and services definitions. It also created the transpiled versions of your third party imports.
 
 ### A note about the result
 
