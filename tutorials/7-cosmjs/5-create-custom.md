@@ -39,7 +39,7 @@ This exercise assumes that:
 
 1. The library you're creating is in 'myLib'.
 2. Your Protobuf definition files are in `./proto/`.
-2. You want to transpile them into TypeScript in `./src/codegen/`.
+3. You want to transpile them into TypeScript in `./src/codegen/`.
 
 Install `telescope` on your computer globally:
 
