@@ -70,7 +70,7 @@ It is recommended to use this latest version, and the following commands assume 
 
   ```sh
   $ cd relayer
-  $ git checkout v2.0.0-rc3
+  $ git checkout v2.4.2
   $ make install
   ```
 
