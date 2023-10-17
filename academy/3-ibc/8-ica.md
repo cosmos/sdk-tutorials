@@ -300,7 +300,7 @@ As an example, consider a remote-controlled atomic swap:
 
 <HighlightBox type="best-practice">
 
-The request from the community to enable a standard for this type of flow resulted in [ADR-008](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-008-app-caller-cbs/adr-008-app-caller-cbs.md), which extends the ability for general use cases.
+The request from the community to enable a standard for this type of flow resulted in [ADR-008](https://github.com/cosmos/ibc-go/blob/main/docs/architecture/adr-008-app-caller-cbs.md), which extends the ability for general use cases.
 <br/><br/>
 It is advisable to follow developments around ADR-008 and the so-called _callback interface for IBC actors_, i.e. secondary applications (like smart contracts for example) that want to call into IBC apps as part of their state machine logic.
 
