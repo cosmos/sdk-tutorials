@@ -18,7 +18,7 @@ In the following sections, you will learn how to develop your custom IBC applica
 
 <HighlightBox type="docs">
 
-In the [integration](https://ibc.cosmos.network/v3.0.0/ibc/integration.html) section of the IBC documentation, the necessary steps to integrate IBC in a Cosmos SDK chain are outlined.
+In the [integration](https://ibc.cosmos.network/v4.4.x/ibc/integration.html) section of the IBC documentation, the necessary steps to integrate IBC in a Cosmos SDK chain are outlined.
 <br/><br/>
 Note that this does not mean that the main application modules turn into IBC modules, it only means IBC is enabled for the chain. The IBC module has come out-of-the-box in Cosmos SDK chains since the 0.40.x version of the SDK, so it is unlikely you will have to implement these steps manually when developing a chain.
 <br/><br/>
