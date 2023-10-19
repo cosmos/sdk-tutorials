@@ -56,7 +56,6 @@ The code in this section was scaffolded with Ignite CLI v0.22.1. This version in
 <br/><br/>
 **It is thus highly discouraged to deploy any code in production using ibc-go code scaffolded by Ignite CLI v0.22.1.**
 <br/><br/>
-<!--- TODO: add link to section on upgrading ibc-go version --->
 
 [All actively supported versions of ibc-go](https://github.com/cosmos/ibc-go/blob/main/RELEASES.md#stable-release-policy) have reached past v3, so there may be some differences compared to the code in this section. For documentation on the latest version of ibc-go, please refer to the [ibc-go docs](https://ibc.cosmos.network/main/ibc/apps/apps.html).
 </br></br>
