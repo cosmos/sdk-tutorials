@@ -37,7 +37,7 @@
     "check-md": "^1.0.2",
     "cheerio": "^1.0.0-rc.3",
     "clipboard-copy": "^4.0.1",
-    "crypto-js": "^4.0.0",
+    "crypto-js": "^4.2.0",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.3",
     "email-validator": "^2.0.4",
