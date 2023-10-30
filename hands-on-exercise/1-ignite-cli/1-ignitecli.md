@@ -95,7 +95,7 @@ This entire exercise was built using the Ignite CLI version noted above. Using a
 If you need to install the latest version of Ignite CLI, use:
 
 ```sh
-$ curl https://get.ignite.com/cli@! | bash
+$ curl https://get.ignite.com/cli! | bash
 ```
 
 When you then run `ignite version`, it prints its version:
