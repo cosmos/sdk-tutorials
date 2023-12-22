@@ -1,8 +1,0 @@
-{
-  "libraryStrings": {
-    "helpText": "Use una línea vacía para separar cada pregunta. En opción múltiple la primera línea es la pregunta y las líneas siguientes son las respuestas alternativas. Las alternativas correctas están prefijadas con un asterisco(*), también pueden añadirse pistas y retroalimentación: *alternativa:pista:retroalimentación si fuera elegida elegida:retroalimentación si no fuera elegida. Ejemplo:",
-    "example": "¿Cual número es Pi?\n*3.14\n9.82\n\n¿Cual es 4 * 0?\n1\n4\n*0",
-    "warning": "¡Advertencia! Si Usted cambia las tareas en el editor de texto todo el formateo enriquecido del texto (incl. saltos de línea) será eliminado.",
-    "unknownQuestionType": "Pregunta no-editable"
-  }
-}

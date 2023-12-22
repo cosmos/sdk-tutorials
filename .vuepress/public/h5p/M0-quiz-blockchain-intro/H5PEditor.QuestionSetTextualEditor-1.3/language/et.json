@@ -1,8 +1,0 @@
-{
-  "libraryStrings": {
-    "helpText": "Eralda iga küsimus tühja reaga. Mitme valikuvõimaluse puhul on esimene rida küsimus ning teised read vastuse alternatiivid. Õiged alternatiivid on märgitud eelneva tärniga (*), lisada saab vihjeid ja tagasisidet: *alternatiiv:vihje:tagasiside kui valitud:tagasiside kui ei ole valitud. Näiteks:",
-    "example": "Mis arv on Pi?\n*3.14\n9.82\n\n Mis on 4 * 0?\n1\n4\n*0",
-    "warning": "Hoiatus! Kui muudad tekstitöötluses ülesandeid, siis tekstilt eemaldatakse kogu formateering (sh reavahetused).",
-    "unknownQuestionType": "Mitte-töödeldav küsimus"
-  }
-}

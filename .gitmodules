@@ -1,3 +1,0 @@
-[submodule ".vuepress/theme"]
-	path = .vuepress/theme
-	url = https://github.com/b9lab/vuepress-theme-cosmos.git

@@ -1,8 +1,0 @@
-{
-  "libraryStrings": {
-    "helpText": "Usa una riga vuota per separare ogni domanda. Nella scelta multipla la prima riga è la domanda e le righe successive sono le alternative di risposta. Le alternative corrette sono precedute da un asterisco (*). È inoltre possibile aggiungere suggerimenti e feedback: *alternativa:suggerimento:feedback se scelto:feedback se non scelto. Esempio:",
-    "example": "Che numero è Pi greco?\n*3.14\n9.82\n\nQuanto fa 4 * 0?\n1\n4\n*0",
-    "warning": "Attenzione! Se modifichi le attività nell'editor di testo, tutte le formattazioni \"rich text\" (incluse le interruzioni di riga) saranno rimosse.",
-    "unknownQuestionType": "Domanda non editabile"
-  }
-}

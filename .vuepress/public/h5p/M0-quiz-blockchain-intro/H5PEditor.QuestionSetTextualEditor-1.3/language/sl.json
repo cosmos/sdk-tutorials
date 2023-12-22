@@ -1,8 +1,0 @@
-{
-  "libraryStrings": {
-    "helpText": "Polje za zapis vprašanj, ki jim v ločenih vrsticah sledijo odgovori. Pravilen odgovor označuje zvezdica (*) pred zapisom odgovora. Namig za udeležence se zapiše v prvo vrstico in ga od odgovora loči dvopičje (:).",
-    "example": "Katera števila so večja od 3?\n*3\n1\n2\n*4",
-    "warning": "Opozorilo! Sprememba besedila v tekstovnem urejevalniku bo počistila morebitno drugo oblikovanje (npr. krepka pisava, prelomi vrstic).",
-    "unknownQuestionType": "Vprašanje brez možnosti urejanja"
-  }
-}

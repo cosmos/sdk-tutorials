@@ -1,8 +1,0 @@
-{
-  "libraryStrings": {
-    "helpText": "K oddělení každé otázky použijte prázdný řádek. V případě více možností je první řádek otázkou a další řádky jsou alternativou odpovědi. Správné alternativy jsou označeny hvězdičkou (*), lze také přidat tipy a zpětnou vazbu: *alternative:tip:feedback, pokud je chosen:feedback, pokud není vybrána. Příklad:",
-    "example": "Jaké je číslo PI?\n*3.14\n9.82\n\nCo je 4 * 0?\n1\n4\n*0",
-    "warning": "Varování! Pokud změníte úkoly v textovém editoru, budou odstraněny všechna formátování textu (včetně zalomení řádků).",
-    "unknownQuestionType": "Nelze upravovat otázku"
-  }
-}
