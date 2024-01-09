@@ -1,0 +1,33 @@
+name: Build Tutorial
+on: ["push"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [amd64]
+        targetos: [darwin, linux]
+        include:
+          - targetos: darwin
+            arch: arm64
+    name: Tutorial ${{ matrix.arch }} for ${{ matrix.targetos }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v4.1.0
+        with:
+          go-version: "1.21"
+          check-latest: true
+        env:
+          GOOS: ${{ matrix.targetos }}
+          GOARCH: ${{ matrix.arch }}
+
+      - name: Compile Tutorial
+        run: |
+          go mod download
+          cd cmd/Tutoriald
+          go build .
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Tutoriald ${{ matrix.targetos }} ${{ matrix.arch }}
+          path: cmd/Tutoriald/Tutoriald
