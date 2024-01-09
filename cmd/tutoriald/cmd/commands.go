@@ -5,15 +5,16 @@ import (
 	"io"
 	"os"
 
-	"github.com/spf13/cast"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
+	"github.com/cosmos/sdk-tutorials/x/ns-auction/testutils"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
 	tmcfg "github.com/cometbft/cometbft/config"
+	app "github.com/cosmos/sdk-tutorials/app"
 	dbm "github.com/cosmos/cosmos-db"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/debug"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -24,12 +25,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
+	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-
-	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
+	"github.com/spf13/cast"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 func initTendermintConfig() *tmcfg.Config {
@@ -56,28 +58,43 @@ func initAppConfig() (string, interface{}) {
 	return defaultAppTemplate, customAppConfig
 }
 
-func initRootCmd(rootCmd *cobra.Command, txConfig client.TxConfig, basicManager module.BasicManager) {
+func initRootCmd(rootCmd *cobra.Command, encodingConfig testutils.EncodingConfig, basicManager module.BasicManager, defaultNodeHome string) {
 	cfg := sdk.GetConfig()
 	cfg.Seal()
 
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(basicManager, app.DefaultNodeHome),
+		genutilcli.InitCmd(basicManager, defaultNodeHome),
 		debug.Cmd(),
 		confixcmd.ConfigCommand(),
-		pruning.Cmd(newApp, app.DefaultNodeHome),
+		pruning.Cmd(newApp, defaultNodeHome),
 		snapshot.Cmd(newApp),
 	)
 
-	server.AddCommands(rootCmd, app.DefaultNodeHome, newApp, appExport, func(startCmd *cobra.Command) {})
+	server.AddCommands(rootCmd, app.DefaultNodeHome, newApp, appExport, addModuleInitFlags)
 
-	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(
 		server.StatusCommand(),
-		genutilcli.Commands(txConfig, basicManager, app.DefaultNodeHome),
+		genesisCommand(encodingConfig, app.DefaultNodeHome, basicManager),
 		queryCommand(),
 		txCommand(),
 		keys.Commands(),
 	)
+
+}
+
+func addModuleInitFlags(startCmd *cobra.Command) {
+	crisis.AddModuleInitFlags(startCmd)
+	startCmd.Flags().String(ns.FlagValKey, "", "Name of Validator Key to Sign Txs")
+	startCmd.Flags().String(ns.FlagRunProvider, "false", "Run the transaction provider logic")
+}
+
+func genesisCommand(encodingConfig testutils.EncodingConfig, defaultNodeHome string, basicManager module.BasicManager, cmds ...*cobra.Command) *cobra.Command {
+	cmd := genutilcli.Commands(encodingConfig.TxConfig, basicManager, defaultNodeHome)
+
+	for _, subCmd := range cmds {
+		cmd.AddCommand(subCmd)
+	}
+	return cmd
 }
 
 func queryCommand() *cobra.Command {
@@ -85,13 +102,13 @@ func queryCommand() *cobra.Command {
 		Use:                        "query",
 		Aliases:                    []string{"q"},
 		Short:                      "Querying subcommands",
-		DisableFlagParsing:         false,
+		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
 
 	cmd.AddCommand(
-		rpc.ValidatorCommand(),
+		rpc.QueryEventForTxCmd(),
 		server.QueryBlockCmd(),
 		authcmd.QueryTxsByEventsCmd(),
 		server.QueryBlocksCmd(),
@@ -106,7 +123,7 @@ func txCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:                        "tx",
 		Short:                      "Transactions subcommands",
-		DisableFlagParsing:         false,
+		DisableFlagParsing:         true,
 		SuggestionsMinimumDistance: 2,
 		RunE:                       client.ValidateCmd,
 	}
@@ -126,7 +143,6 @@ func txCommand() *cobra.Command {
 	return cmd
 }
 
-// newApp is an appCreator
 func newApp(
 	logger log.Logger,
 	db dbm.DB,
@@ -145,7 +161,7 @@ func newApp(
 		valKey = "val"
 	}
 
-	tutorialApp, err := app.NewTutorialApp(
+	return app.NewTutorialApp(
 		logger,
 		db,
 		traceStore,
@@ -155,10 +171,6 @@ func newApp(
 		appOpts,
 		baseappOptions...,
 	)
-	if err != nil {
-		panic(err)
-	}
-	return tutorialApp
 }
 
 func appExport(
@@ -195,7 +207,7 @@ func appExport(
 		loadLatest = true
 	}
 
-	exportApp, err := app.NewTutorialApp(
+	exportApp = app.NewTutorialApp(
 		logger,
 		db,
 		traceStore,
@@ -204,9 +216,6 @@ func appExport(
 		valKey,
 		appOpts,
 	)
-	if err != nil {
-		return servertypes.ExportedApp{}, err
-	}
 
 	if height != -1 {
 		if err := exportApp.LoadHeight(height); err != nil {
@@ -218,7 +227,7 @@ func appExport(
 }
 
 var tempDir = func() string {
-	dir, err := os.MkdirTemp("", "cosmapp")
+	dir, err := os.MkdirTemp("", "tutorial")
 	if err != nil {
 		dir = app.DefaultNodeHome
 	}

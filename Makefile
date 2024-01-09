@@ -54,7 +54,7 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # ********** process linker flags **********
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=cosmapp \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=cosmos \
 		  -X github.com/cosmos/cosmos-sdk/version.AppName=tutoriald \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
@@ -147,10 +147,10 @@ start-localnet: build
 	./build/tutoriald genesis add-genesis-account val1 10000000000000000000000000uatom
 	./build/tutoriald genesis add-genesis-account alice 1000000000000000000uatom
 	./build/tutoriald genesis add-genesis-account bob 1000000000000000000uatom
-	./build/tutoriald genesis gentx val1 1000000000uatom --chain-id cosmos-
+	./build/tutoriald genesis gentx val1 1000000000uatom --chain-id cosmos-1
 	./build/tutoriald genesis collect-gentxs
 	sed -i.bak'' 's/minimum-gas-prices = ""/minimum-gas-prices = "0.025uatom"/' ~/.tutoriald/config/app.toml
-	./build/tutoriald start
+	./build/tutoriald start --val-key val1
 ###############################################################################
 ###                           Tests & Simulation                            ###
 ###############################################################################
