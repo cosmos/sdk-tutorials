@@ -69,7 +69,7 @@ func (ls *LocalSigner) Init(txCfg client.TxConfig, cdc codec.Codec, logger log.L
 	ls.codec = cdc
 	ls.lg = logger
 
-	kb, err := keyring.New("cosmos", keyring.BackendTest, ls.KeyringDir, nil, ls.codec)
+	kb, err := keyring.New("tutorial", keyring.BackendTest, ls.KeyringDir, nil, ls.codec)
 	if err != nil {
 		return err
 	}

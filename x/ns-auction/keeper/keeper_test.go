@@ -37,7 +37,7 @@ func initFixture(t *testing.T) *testFixture {
 	defaultDenom := "stake"
 	k := keeper.NewKeeper(
 		encCfg.Codec,
-		addresscodec.NewBech32Codec("cosmos"),
+		addresscodec.NewBech32Codec("tutorial"),
 		storeService,
 		addrs[0].String(),
 		bankKeeper,

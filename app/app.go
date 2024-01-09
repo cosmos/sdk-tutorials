@@ -1,100 +1,100 @@
 package app
 
 import (
-	_ "embed"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 
-	upgradetypes "cosmossdk.io/x/upgrade/types"
-	dbm "github.com/cosmos/cosmos-db"
-	"github.com/cosmos/gogoproto/proto"
-	"github.com/cosmos/sdk-tutorials/x/ns-auction/provider"
-	"github.com/spf13/cast"
-	"go.etcd.io/etcd/version"
-
-	"cosmossdk.io/client/v2/autocli"
-	"cosmossdk.io/core/appconfig"
-	"cosmossdk.io/core/appmodule"
-	"cosmossdk.io/depinject"
-	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 	"cosmossdk.io/x/tx/signing"
 	"cosmossdk.io/x/upgrade"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	abci2 "github.com/cosmos/sdk-tutorials/x/ns-auction/abci"
+	mempool2 "github.com/cosmos/sdk-tutorials/x/ns-auction/mempool"
+	"github.com/cosmos/sdk-tutorials/x/ns-auction/provider"
+	"github.com/spf13/cast"
 
+	"github.com/cosmos/cosmos-sdk/codec/address"
+	"github.com/cosmos/cosmos-sdk/std"
+	"github.com/cosmos/cosmos-sdk/x/auth"
+	"github.com/cosmos/cosmos-sdk/x/bank"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/cosmos/cosmos-sdk/x/consensus"
+	consensusparamtypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
+	"github.com/cosmos/cosmos-sdk/x/distribution"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	"github.com/cosmos/cosmos-sdk/x/params"
+	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	paramproposal "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
+	"github.com/cosmos/cosmos-sdk/x/staking"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+
+	"cosmossdk.io/client/v2/autocli"
+	"cosmossdk.io/core/appmodule"
+	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
+	"github.com/cosmos/cosmos-sdk/runtime"
+	"github.com/cosmos/cosmos-sdk/types/msgservice"
+	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
+	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
+	"github.com/cosmos/cosmos-sdk/x/gov"
+	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
+	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
+	"github.com/cosmos/gogoproto/proto"
+
+	// ibcclientclient "github.com/cosmos/ibc-go/v7/modules/core/02-client/client"
+
+	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
+	"cosmossdk.io/log"
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
+	abci "github.com/cometbft/cometbft/abci/types"
+	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
 	"github.com/cosmos/cosmos-sdk/codec"
-	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/codec/types"
-	"github.com/cosmos/cosmos-sdk/runtime"
 	runtimeservices "github.com/cosmos/cosmos-sdk/runtime/services"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/server/api"
 	"github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
-	"github.com/cosmos/cosmos-sdk/std"
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/cosmos/cosmos-sdk/types/msgservice"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
+	"github.com/cosmos/cosmos-sdk/version"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/cosmos/cosmos-sdk/x/bank"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
-	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/cosmos/cosmos-sdk/x/consensus"
-	consensuskeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
 	consensusparamkeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
-	consensusparamtypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
-	"github.com/cosmos/cosmos-sdk/x/distribution"
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
-	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	"github.com/cosmos/cosmos-sdk/x/genutil"
-	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
 	paramskeeper "github.com/cosmos/cosmos-sdk/x/params/keeper"
-	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	paramproposal "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
-	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	nsauction "github.com/cosmos/sdk-tutorials/x/ns-auction"
 	nstypes "github.com/cosmos/sdk-tutorials/x/ns-auction"
-	abci2 "github.com/cosmos/sdk-tutorials/x/ns-auction/abci"
 	nskeeper "github.com/cosmos/sdk-tutorials/x/ns-auction/keeper"
-	mempool2 "github.com/cosmos/sdk-tutorials/x/ns-auction/mempool"
-	nsauctionmod "github.com/cosmos/sdk-tutorials/x/ns-auction/module"
-
-	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-	_ "cosmossdk.io/api/cosmos/tx/config/v1" // import for side-effects
-	abci "github.com/cometbft/cometbft/abci/types"
-	_ "github.com/cosmos/cosmos-sdk/x/auth"           // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config" // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/bank"           // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/consensus"      // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/distribution"   // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/mint"           // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/staking"        // import for side-effects
+	nameservice "github.com/cosmos/sdk-tutorials/x/ns-auction/module"
 )
 
-// DefaultNodeHome default home directories for the application daemon
+const (
+	Bech32Prefix         = "cosmos"
+	AppName              = "tutorial"
+	DefaultDenom         = "uatom"
+	Bech32PrefixAccAddr  = Bech32Prefix
+	Bech32PrefixAccPub   = Bech32Prefix + "pub"
+	Bech32PrefixValAddr  = Bech32Prefix + "valoper"
+	Bech32PrefixValPub   = Bech32Prefix + "valoperpub"
+	Bech32PrefixConsAddr = Bech32Prefix + "valcons"
+	Bech32PrefixConsPub  = Bech32Prefix + "valconspub"
+)
+
 var (
 	DefaultNodeHome string
 	// module account permissions
@@ -108,20 +108,15 @@ var (
 	}
 )
 
-//go:embed app.yaml
-var AppConfigYAML []byte
-
 var (
 	_ runtime.AppI            = (*TutorialApp)(nil)
 	_ servertypes.Application = (*TutorialApp)(nil)
 )
 
-// TutorialApp extends an ABCI application, but with most of its parameters exported.
-// They are exported for convenience in creating helper functions, as object
-// capabilities aren't needed for testing.
 type TutorialApp struct {
 	*baseapp.BaseApp
-	legacyAmino       *codec.LegacyAmino
+
+	legacyAmino       *codec.LegacyAmino //nolint:staticcheck
 	appCodec          codec.Codec
 	txConfig          client.TxConfig
 	interfaceRegistry types.InterfaceRegistry
@@ -130,15 +125,15 @@ type TutorialApp struct {
 	tkeys map[string]*storetypes.TransientStoreKey
 
 	// keepers
-	AccountKeeper            authkeeper.AccountKeeper
-	BankKeeper               bankkeeper.Keeper
-	StakingKeeper            *stakingkeeper.Keeper
-	DistrKeeper              distrkeeper.Keeper
-	GovKeeper                govkeeper.Keeper
-	UpgradeKeeper            *upgradekeeper.Keeper
-	ParamsKeeper             paramskeeper.Keeper
-	ConsensusParamsKeeper    consensuskeeper.Keeper
-	NameserviceAuctionKeeper nskeeper.Keeper
+	AccountKeeper         authkeeper.AccountKeeper
+	BankKeeper            bankkeeper.Keeper
+	StakingKeeper         *stakingkeeper.Keeper
+	DistrKeeper           distrkeeper.Keeper
+	GovKeeper             govkeeper.Keeper
+	UpgradeKeeper         *upgradekeeper.Keeper
+	ParamsKeeper          paramskeeper.Keeper
+	ConsensusParamsKeeper consensusparamkeeper.Keeper
+	NameserviceKeeper     nskeeper.Keeper
 
 	mm           *module.Manager
 	BasicManager module.BasicManager
@@ -157,20 +152,6 @@ func init() {
 	DefaultNodeHome = filepath.Join(userHomeDir, ".tutoriald")
 }
 
-// AppConfig returns the default app config.
-func AppConfig() depinject.Config {
-	return depinject.Configs(
-		appconfig.LoadYAML(AppConfigYAML),
-		depinject.Supply(
-			// supply custom module basics
-			map[string]module.AppModuleBasic{
-				genutiltypes.ModuleName: genutil.NewAppModuleBasic(genutiltypes.DefaultMessageValidator),
-			},
-		),
-	)
-}
-
-// NewTutorialApp returns a reference to an initialized tutorialApp.
 func NewTutorialApp(
 	logger log.Logger,
 	db dbm.DB,
@@ -180,34 +161,7 @@ func NewTutorialApp(
 	valKeyName string,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) (*TutorialApp, error) {
-	var (
-		app        = &TutorialApp{}
-		appBuilder *runtime.AppBuilder
-	)
-
-	if err := depinject.Inject(
-		depinject.Configs(
-			AppConfig(),
-			depinject.Supply(
-				logger,
-				appOpts,
-			),
-		),
-		&appBuilder,
-		&app.appCodec,
-		&app.legacyAmino,
-		&app.txConfig,
-		&app.interfaceRegistry,
-		&app.AccountKeeper,
-		&app.BankKeeper,
-		&app.StakingKeeper,
-		&app.DistrKeeper,
-		&app.ConsensusParamsKeeper,
-	); err != nil {
-		return nil, err
-	}
-
+) *TutorialApp {
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	// Set demo flag
 	runProvider := cast.ToBool(appOpts.Get(nstypes.FlagRunProvider))
@@ -241,7 +195,7 @@ func NewTutorialApp(
 		app.SetMempool(mempool)
 	})
 
-	bApp := baseapp.NewBaseApp("tutorial", logger, db, app.txConfig.TxDecoder(), baseAppOptions...)
+	bApp := baseapp.NewBaseApp(AppName, logger, db, txConfig.TxDecoder(), baseAppOptions...)
 	bApp.SetCommitMultiStoreTracer(traceStore)
 	bApp.SetVersion(version.Version)
 	bApp.SetInterfaceRegistry(interfaceRegistry)
@@ -265,7 +219,7 @@ func NewTutorialApp(
 
 	tkeys := storetypes.NewTransientStoreKeys(paramstypes.TStoreKey)
 
-	app = &TutorialApp{
+	app := &TutorialApp{
 		BaseApp:           bApp,
 		legacyAmino:       legacyAmino,
 		txConfig:          txConfig,
@@ -397,13 +351,13 @@ func NewTutorialApp(
 		),
 	)
 
-	app.NameserviceAuctionKeeper = nskeeper.NewKeeper(
+	app.NameserviceKeeper = nskeeper.NewKeeper(
 		appCodec,
 		authcodec.NewBech32Codec(sdk.Bech32MainPrefix),
-		runtime.NewKVStoreService(keys[nsauction.StoreKey]),
+		runtime.NewKVStoreService(keys[nstypes.StoreKey]),
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 		app.BankKeeper,
-		"uatom",
+		DefaultDenom,
 	)
 
 	app.mm = module.NewManager(
@@ -419,7 +373,7 @@ func NewTutorialApp(
 		upgrade.NewAppModule(app.UpgradeKeeper, app.AccountKeeper.AddressCodec()),
 		params.NewAppModule(app.ParamsKeeper),
 		consensus.NewAppModule(appCodec, app.ConsensusParamsKeeper),
-		nsauctionmod.NewAppModule(appCodec, app.NameserviceAuctionKeeper),
+		nameservice.NewAppModule(appCodec, app.NameserviceKeeper),
 	)
 
 	// Basic manager
@@ -520,7 +474,7 @@ func NewTutorialApp(
 		}
 	}
 
-	return app, nil
+	return app
 }
 
 func (app *TutorialApp) Name() string { return app.BaseApp.Name() }
@@ -539,12 +493,12 @@ func (app *TutorialApp) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
 func (app *TutorialApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
 	var genesisState GenesisState
 
-	// // Enable VE
-	// req.ConsensusParams = &tmtypes.ConsensusParams{
-	// 	Abci: &tmtypes.ABCIParams{
-	// 		VoteExtensionsEnableHeight: 2,
-	// 	},
-	// }
+	// Enable VE
+	//req.ConsensusParams = &cmtproto.ConsensusParams{
+	//	Abci: &cmtproto.ABCIParams{
+	//		VoteExtensionsEnableHeight: 2,
+	//	},
+	//}
 
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
