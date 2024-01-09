@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	CoinUnit = "tutorial"
+	CoinUnit = "uatom"
 
 	DefaultBondDenom = CoinUnit
 

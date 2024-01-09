@@ -3,13 +3,16 @@ package cmd
 import (
 	"errors"
 	"io"
+	"os"
 
 	dbm "github.com/cosmos/cosmos-db"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
+	tmcfg "github.com/cometbft/cometbft/config"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/debug"
@@ -19,6 +22,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/rpc"
 	"github.com/cosmos/cosmos-sdk/client/snapshot"
 	"github.com/cosmos/cosmos-sdk/server"
+	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
@@ -26,7 +30,32 @@ import (
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 
 	"github.com/cosmos/sdk-tutorials/app"
+	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
 )
+
+func initTendermintConfig() *tmcfg.Config {
+	cfg := tmcfg.DefaultConfig()
+
+	return cfg
+}
+
+func initAppConfig() (string, interface{}) {
+	type CustomAppConfig struct {
+		serverconfig.Config
+	}
+
+	srvCfg := serverconfig.DefaultConfig()
+	srvCfg.StateSync.SnapshotInterval = 1000
+	srvCfg.StateSync.SnapshotKeepRecent = 10
+
+	customAppConfig := CustomAppConfig{
+		Config: *srvCfg,
+	}
+
+	defaultAppTemplate := serverconfig.DefaultConfigTemplate
+
+	return defaultAppTemplate, customAppConfig
+}
 
 func initRootCmd(rootCmd *cobra.Command, txConfig client.TxConfig, basicManager module.BasicManager) {
 	cfg := sdk.GetConfig()
@@ -99,17 +128,40 @@ func txCommand() *cobra.Command {
 }
 
 // newApp is an appCreator
-func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer, appOpts servertypes.AppOptions) servertypes.Application {
+func newApp(
+	logger log.Logger,
+	db dbm.DB,
+	traceStore io.Writer,
+	appOpts servertypes.AppOptions,
+) servertypes.Application {
 	baseappOptions := server.DefaultBaseappOptions(appOpts)
-	app, err := app.NewTutorialApp(logger, db, traceStore, true, appOpts, baseappOptions...)
+
+	skipUpgradeHeights := make(map[int64]bool)
+	for _, h := range cast.ToIntSlice(appOpts.Get(server.FlagUnsafeSkipUpgrades)) {
+		skipUpgradeHeights[int64(h)] = true
+	}
+
+	valKey, ok := appOpts.Get(ns.FlagValKey).(string)
+	if !ok {
+		valKey = "val"
+	}
+
+	tutorialApp, err := app.NewTutorialApp(
+		logger,
+		db,
+		traceStore,
+		true,
+		skipUpgradeHeights,
+		valKey,
+		appOpts,
+		baseappOptions...,
+	)
 	if err != nil {
 		panic(err)
 	}
-
-	return app
+	return tutorialApp
 }
 
-// appExport creates a new app (optionally at a given height) and exports state.
 func appExport(
 	logger log.Logger,
 	db dbm.DB,
@@ -120,13 +172,13 @@ func appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
-	var (
-		tutorialApp *app.TutorialApp
-		err         error
-	)
+	var exportApp *app.TutorialApp
 
-	// this check is necessary as we use the flag in x/upgrade.
-	// we can exit more gracefully by checking the flag here.
+	valKey, ok := appOpts.Get(ns.FlagValKey).(string)
+	if !ok {
+		return servertypes.ExportedApp{}, errors.New("validator key not set")
+	}
+
 	homePath, ok := appOpts.Get(flags.FlagHome).(string)
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
@@ -136,26 +188,42 @@ func appExport(
 	if !ok {
 		return servertypes.ExportedApp{}, errors.New("appOpts is not viper.Viper")
 	}
-
-	// overwrite the FlagInvCheckPeriod
 	viperAppOpts.Set(server.FlagInvCheckPeriod, 1)
 	appOpts = viperAppOpts
 
-	if height != -1 {
-		tutorialApp, err = app.NewTutorialApp(logger, db, traceStore, false, appOpts)
-		if err != nil {
-			return servertypes.ExportedApp{}, err
-		}
+	var loadLatest bool
+	if height == -1 {
+		loadLatest = true
+	}
 
-		if err := tutorialApp.LoadHeight(height); err != nil {
-			return servertypes.ExportedApp{}, err
-		}
-	} else {
-		tutorialApp, err = app.NewTutorialApp(logger, db, traceStore, true, appOpts)
-		if err != nil {
+	exportApp, err := app.NewTutorialApp(
+		logger,
+		db,
+		traceStore,
+		loadLatest,
+		map[int64]bool{},
+		valKey,
+		appOpts,
+	)
+	if err != nil {
+		return servertypes.ExportedApp{}, err
+	}
+
+	if height != -1 {
+		if err := exportApp.LoadHeight(height); err != nil {
 			return servertypes.ExportedApp{}, err
 		}
 	}
 
-	return tutorialApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
+	return exportApp.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
+}
+
+var tempDir = func() string {
+	dir, err := os.MkdirTemp("", "cosmapp")
+	if err != nil {
+		dir = app.DefaultNodeHome
+	}
+	defer os.RemoveAll(dir)
+
+	return dir
 }
