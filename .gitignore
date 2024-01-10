@@ -1,0 +1,7 @@
+minid
+debug_container.dot
+debug_container.log
+build/
+data/
+config/
+Library/

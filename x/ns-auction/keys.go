@@ -3,8 +3,8 @@ package ns_auction
 import "cosmossdk.io/collections"
 
 const (
-	ModuleName = "ns"
-	StoreKey   = "ns"
+	ModuleName = "ns-auction"
+	StoreKey   = "ns-auction"
 )
 
 var (
