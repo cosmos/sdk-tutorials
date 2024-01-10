@@ -98,7 +98,7 @@ func NewRootCmd() (*cobra.Command, testutils.EncodingConfig) {
 
 	initRootCmd(rootCmd, encodingConfig, tmpApp.BasicManager, app.DefaultNodeHome)
 
-	// add keyring to autocli opts
+	// // // add keyring to autocli opts
 	// autoCliOpts := tmpApp.AutoCliOpts()
 	// initClientCtx, _ = config.ReadFromClientConfig(initClientCtx)
 	// // autoCliOpts.Keyring = initClientCtx.Keyring

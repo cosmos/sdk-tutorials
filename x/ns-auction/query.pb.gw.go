@@ -181,7 +181,7 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Name_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 2}, []string{"tutorial", "ns", "name"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Name_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 2}, []string{"cosmos", "ns", "name"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

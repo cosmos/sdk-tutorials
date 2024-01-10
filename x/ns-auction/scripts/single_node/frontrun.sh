@@ -1,6 +1,19 @@
 #!/bin/bash
 
-binary=./build/tutoriald
-home=$HOME/.tutoriald
+find_project_root() {
+    local dir=$PWD
+    while [ "$dir" != "" ] && [ ! -d "$dir/.git" ]; do
+        dir=$(dirname "$dir")
+    done
+    echo "$dir"
+}
 
-./build/tutoriald tx ns reserve "bob.cosmos" $(./build/tutoriald keys show alice -a --home $home --keyring-backend test) 1000uatom --from $($binary keys show bob -a --home $home --keyring-backend test)  --home $home -y
+PROJECT_ROOT=$(find_project_root)
+HOME=$HOME/.tutoriald
+BINARY=$PROJECT_ROOT/build/tutoriald
+
+$BINARY keys list --home $HOME
+
+$BINARY keys show alice -a --home $HOME
+
+$BINARY tx reserve "bob.cosmos" $($BINARY keys show alice -a --home $HOME) 1000uatom --from $($BINARY keys show bob -a --home $HOME)  --home $HOME -y

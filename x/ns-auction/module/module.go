@@ -110,11 +110,12 @@ func (AppModule) GetTxCmd() *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		reserveCmd(),
+		ReserveCmd(),
 	)
 	return cmd
 }
-func reserveCmd() *cobra.Command {
+
+func ReserveCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "reserve [name] [resolve_address] [amount]",
 		Short: "Create a new game",

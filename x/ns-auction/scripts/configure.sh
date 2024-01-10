@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eux
 
-source ./scripts/vars.sh
+source ./vars.sh
 
 
 pkill -f tutoriald &> /dev/null || true

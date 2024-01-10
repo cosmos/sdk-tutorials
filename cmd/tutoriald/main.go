@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-	params.SetAddressPrefixes()
 
 	rootCmd, _ := cmd.NewRootCmd()
 	if err := svrcmd.Execute(rootCmd, "", app.DefaultNodeHome); err != nil {

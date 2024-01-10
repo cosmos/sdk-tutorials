@@ -1,7 +1,16 @@
 #!/bin/bash
 
-#node0, validator
-export BINARY=./build/tutoriald
+find_project_root() {
+    local dir=$PWD
+    while [ "$dir" != "" ] && [ ! -d "$dir/.git" ]; do
+        dir=$(dirname "$dir")
+    done
+    echo "$dir"
+}
+
+PROJECT_ROOT=$(find_project_root)
+export HOME="$PROJECT_ROOT"
+export BINARY=$HOME/build/tutoriald
 export CHAIN_ID=test
 export KEYRING=test
 # User balance of stake tokens

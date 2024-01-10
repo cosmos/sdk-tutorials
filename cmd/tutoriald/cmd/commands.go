@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 
-	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
 	"github.com/cosmos/sdk-tutorials/x/ns-auction/testutils"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,7 +12,6 @@ import (
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
 	tmcfg "github.com/cometbft/cometbft/config"
-	app "github.com/cosmos/sdk-tutorials/app"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/debug"
@@ -29,6 +27,9 @@ import (
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
+	"github.com/cosmos/sdk-tutorials/app"
+	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
+	nsmod "github.com/cosmos/sdk-tutorials/x/ns-auction/module"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -138,6 +139,7 @@ func txCommand() *cobra.Command {
 		authcmd.GetEncodeCommand(),
 		authcmd.GetDecodeCommand(),
 		authcmd.GetSimulateCmd(),
+		nsmod.ReserveCmd(),
 	)
 
 	return cmd
