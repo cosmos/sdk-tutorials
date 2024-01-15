@@ -30,12 +30,12 @@ Navigate to the specific tutorial you are interested in, and follow the instruct
 
 ## Contributing
 
-We welcome contributions to this repository! Please read our [Contributing Guidelines](LINK_TO_CONTRIBUTING_GUIDELINES) for more information on how you can contribute.
+We welcome contributions to this repository! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for more information on how you can contribute.
 
 ## Feedback
 
-If you have any feedback or suggestions, please open an issue in this repository, or contact us at [Your Contact Information].
+If you have any feedback or suggestions, please open an issue in this repository.
 
 ## License
 
-This project is licensed under the Apache license - see the [LICENSE.md](LINK_TO_LICENSE) file for details.
+This project is licensed under the Apache license - see the [LICENSE.md](./LICENSE) file for details.
