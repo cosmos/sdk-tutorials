@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"github.com/cosmos/sdk-tutorials/x/oracle"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 // InitGenesis initializes the module state from a genesis state.

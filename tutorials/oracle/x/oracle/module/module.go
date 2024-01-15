@@ -14,8 +14,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 
-	"github.com/cosmos/sdk-tutorials/x/oracle"
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
 var (

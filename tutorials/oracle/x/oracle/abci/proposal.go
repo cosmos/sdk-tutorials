@@ -11,7 +11,7 @@ import (
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
 // StakeWeightedPrices defines the structure a proposer should use to calculate

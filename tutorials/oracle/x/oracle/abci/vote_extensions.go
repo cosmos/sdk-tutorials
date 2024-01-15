@@ -9,7 +9,7 @@ import (
 	"cosmossdk.io/math"
 	abci "github.com/cometbft/cometbft/abci/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 	"golang.org/x/sync/errgroup"
 )
 

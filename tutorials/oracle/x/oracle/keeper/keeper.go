@@ -10,7 +10,7 @@ import (
 	"cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/codec"
 
-	oracle "github.com/cosmos/sdk-tutorials/x/oracle"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 type Keeper struct {

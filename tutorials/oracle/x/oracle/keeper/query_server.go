@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/cosmos/sdk-tutorials/x/oracle"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 var _ oracle.QueryServer = queryServer{}

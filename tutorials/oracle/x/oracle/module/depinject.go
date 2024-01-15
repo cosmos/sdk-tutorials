@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	modulev1 "github.com/cosmos/sdk-tutorials/x/oracle/api/module/v1"
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	modulev1 "github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/api/module/v1"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
 var _ appmodule.AppModule = AppModule{}

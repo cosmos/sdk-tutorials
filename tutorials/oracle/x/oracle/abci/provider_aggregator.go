@@ -3,7 +3,7 @@ package abci
 import (
 	"sync"
 
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
 // Provider defines an interface for fetching prices and candles for a given set

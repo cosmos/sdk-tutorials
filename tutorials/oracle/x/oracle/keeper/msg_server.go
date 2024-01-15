@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"cosmossdk.io/collections"
-	"github.com/cosmos/sdk-tutorials/x/oracle"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 type msgServer struct {

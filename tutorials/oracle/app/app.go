@@ -31,6 +31,7 @@ import (
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
+	// These imports are needed for dependency injection to work
 	_ "cosmossdk.io/api/cosmos/tx/config/v1"          // import for side-effects
 	_ "github.com/cosmos/cosmos-sdk/x/auth"           // import for side-effects
 	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config" // import for side-effects
@@ -48,14 +49,14 @@ var DefaultNodeHome string
 var AppConfigYAML []byte
 
 var (
-	_ runtime.AppI            = (*TutorialApp)(nil)
-	_ servertypes.Application = (*TutorialApp)(nil)
+	_ runtime.AppI            = (*OracleApp)(nil)
+	_ servertypes.Application = (*OracleApp)(nil)
 )
 
-// TutorialApp extends an ABCI application, but with most of its parameters exported.
+// OracleApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type TutorialApp struct {
+type OracleApp struct {
 	*runtime.App
 	legacyAmino       *codec.LegacyAmino
 	appCodec          codec.Codec
@@ -103,9 +104,9 @@ func NewTutorialApp(
 	loadLatest bool,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) (*TutorialApp, error) {
+) (*OracleApp, error) {
 	var (
-		app        = &TutorialApp{}
+		app        = &OracleApp{}
 		appBuilder *runtime.AppBuilder
 	)
 
@@ -153,12 +154,12 @@ func NewTutorialApp(
 }
 
 // LegacyAmino returns tutorialApp's amino codec.
-func (app *TutorialApp) LegacyAmino() *codec.LegacyAmino {
+func (app *OracleApp) LegacyAmino() *codec.LegacyAmino {
 	return app.legacyAmino
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
-func (app *TutorialApp) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *OracleApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	sk := app.UnsafeFindStoreKey(storeKey)
 	kvStoreKey, ok := sk.(*storetypes.KVStoreKey)
 	if !ok {
@@ -167,7 +168,7 @@ func (app *TutorialApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return kvStoreKey
 }
 
-func (app *TutorialApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
+func (app *OracleApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
 	keys := make(map[string]*storetypes.KVStoreKey)
 	for _, k := range app.GetStoreKeys() {
 		if kv, ok := k.(*storetypes.KVStoreKey); ok {
@@ -179,13 +180,13 @@ func (app *TutorialApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *TutorialApp) SimulationManager() *module.SimulationManager {
+func (app *OracleApp) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *TutorialApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *OracleApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	app.App.RegisterAPIRoutes(apiSvr, apiConfig)
 	// register swagger API in app.go so that other applications can override easily
 	if err := server.RegisterSwaggerAPI(apiSvr.ClientCtx, apiSvr.Router, apiConfig.Swagger); err != nil {

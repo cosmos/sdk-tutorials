@@ -26,7 +26,7 @@ import (
 	txmodule "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/cosmos/sdk-tutorials/app"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/app"
 )
 
 // NewRootCmd creates a new root command for tutoriald. It is called once in the
@@ -34,13 +34,13 @@ import (
 func NewRootCmd() *cobra.Command {
 	var (
 		//  It can be used to set options like the signer, fee granularity, and other transaction-related configurations.
-		txConfigOpts       tx.ConfigOptions
+		txConfigOpts tx.ConfigOptions
 		// It can include options for modules, address codecs, and other CLI-related configurations.
-		autoCliOpts        autocli.AppOptions
+		autoCliOpts autocli.AppOptions
 		// This includes things like genesis data, default genesis data, verifying genesis data, and the module's name.
 		moduleBasicManager module.BasicManager
 		// This can include things like the client's home directory, the client's input/output, and the client's trust node.
-		clientCtx          client.Context
+		clientCtx client.Context
 	)
 
 	if err := depinject.Inject(
