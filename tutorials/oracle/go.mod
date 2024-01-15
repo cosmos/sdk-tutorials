@@ -1,6 +1,6 @@
-module github.com/cosmos/sdk-tutorials
+module github.com/cosmos/sdk-tutorials/tutorials/oracle
 
-go 1.21.5
+go 1.21
 
 require github.com/cosmos/cosmos-sdk v0.50.2
 
@@ -18,6 +18,8 @@ require (
 	github.com/cosmos/gogoproto v1.4.11
 	github.com/golang/protobuf v1.5.3
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/stretchr/testify v1.8.4
+	golang.org/x/sync v0.3.0
 	google.golang.org/genproto/googleapis/api v0.0.0-20231012201019-e917dd12ba7a
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
@@ -28,8 +30,6 @@ require (
 	github.com/creachadair/atomicfile v0.3.1 // indirect
 	github.com/creachadair/tomledit v0.0.24 // indirect
 	github.com/golang/mock v1.6.0 // indirect
-	github.com/stretchr/testify v1.8.4 // indirect
-	golang.org/x/sync v0.3.0 // indirect
 )
 
 require (
