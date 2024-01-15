@@ -3,18 +3,9 @@ run:
   timeout: 15m
   allow-parallel-runners: true
   skip-files:
-    - server/grpc/gogoreflection/fix_registration.go
-    - "fix_registration.go"
     - ".*\\.pb\\.go$"
     - ".*\\.pb\\.gw\\.go$"
     - ".*\\.pulsar\\.go$"
-    - crypto/keys/secp256k1/internal/*
-
-build-tags:
-  - e2e
-  - ledger
-  - test_ledger_mock
-
 
 linters:
   disable-all: true
@@ -54,25 +45,6 @@ issues:
     - text: "ST1016:"
       linters:
         - stylecheck
-    - path: "migrations"
-      text: "SA1019:"
-      linters:
-        - staticcheck
-    - text: "SA1019: codec.NewAminoCodec is deprecated" # TODO remove once migration path is set out
-      linters:
-        - staticcheck
-    - text: "SA1019: legacybech32.MustMarshalPubKey" # TODO remove once ready to remove from the sdk
-      linters:
-        - staticcheck
-    - text: "SA1019: legacybech32.MarshalPubKey" # TODO remove once ready to remove from the sdk
-      linters:
-        - staticcheck
-    - text: "SA1019: legacybech32.UnmarshalPubKey" # TODO remove once ready to remove from the sdk
-      linters:
-        - staticcheck
-    - text: "SA1019: params.SendEnabled is deprecated" # TODO remove once ready to remove from the sdk
-      linters:
-        - staticcheck
     - text: "leading space"
       linters:
         - nolintlint
