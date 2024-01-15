@@ -1,12 +1,11 @@
 name: Fix typos nightly
 
 on:
-  pull_request
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Run codespell
