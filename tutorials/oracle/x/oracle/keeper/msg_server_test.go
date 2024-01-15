@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 	"github.com/stretchr/testify/require"
+
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 func TestUpdateParams(t *testing.T) {
@@ -98,5 +99,4 @@ func TestIncrementCounter(t *testing.T) {
 			}
 		})
 	}
-
 }

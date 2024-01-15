@@ -2,6 +2,7 @@ package module
 
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
+
 	oraclev1 "github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/api/v1"
 )
 

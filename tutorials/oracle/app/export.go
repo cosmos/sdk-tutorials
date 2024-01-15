@@ -51,7 +51,7 @@ func (app *OracleApp) ExportAppStateAndValidators(
 }
 
 // prepare for fresh start at zero height
-// NOTE zero height genesis is a temporary feature, which will be deprecated in favour of export at a block height
+// NOTE zero height genesis is a temporary feature, which will be deprecated in favor of export at a block height
 func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs []string) {
 	applyAllowedAddrs := false
 
@@ -73,7 +73,7 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 	/* Handle fee distribution state. */
 
 	// withdraw all validator commission
-	app.StakingKeeper.IterateValidators(ctx, func(_ int64, val stakingtypes.ValidatorI) (stop bool) {
+	if err := app.StakingKeeper.IterateValidators(ctx, func(_ int64, val stakingtypes.ValidatorI) (stop bool) {
 		valBz, err := app.StakingKeeper.ValidatorAddressCodec().StringToBytes(val.GetOperator())
 		if err != nil {
 			panic(err)
@@ -81,7 +81,9 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 
 		_, _ = app.DistrKeeper.WithdrawValidatorCommission(ctx, valBz)
 		return false
-	})
+	}); err != nil {
+		panic(err)
+	}
 
 	// withdraw all delegator rewards
 	dels, err := app.StakingKeeper.GetAllDelegations(ctx)
@@ -114,7 +116,7 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 	ctx = ctx.WithBlockHeight(0)
 
 	// reinitialize all validators
-	app.StakingKeeper.IterateValidators(ctx, func(_ int64, val stakingtypes.ValidatorI) (stop bool) {
+	if err := app.StakingKeeper.IterateValidators(ctx, func(_ int64, val stakingtypes.ValidatorI) (stop bool) {
 		valBz, err := app.StakingKeeper.ValidatorAddressCodec().StringToBytes(val.GetOperator())
 		if err != nil {
 			panic(err)
@@ -140,7 +142,9 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 			panic(err)
 		}
 		return false
-	})
+	}); err != nil {
+		panic(err)
+	}
 
 	// reinitialize all delegations
 	for _, del := range dels {
@@ -171,22 +175,30 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 	/* Handle staking state. */
 
 	// iterate through redelegations, reset creation height
-	app.StakingKeeper.IterateRedelegations(ctx, func(_ int64, red stakingtypes.Redelegation) (stop bool) {
+	if err := app.StakingKeeper.IterateRedelegations(ctx, func(_ int64, red stakingtypes.Redelegation) (stop bool) {
 		for i := range red.Entries {
 			red.Entries[i].CreationHeight = 0
 		}
-		app.StakingKeeper.SetRedelegation(ctx, red)
+		if err := app.StakingKeeper.SetRedelegation(ctx, red); err != nil {
+			panic(err)
+		}
 		return false
-	})
+	}); err != nil {
+		panic(err)
+	}
 
 	// iterate through unbonding delegations, reset creation height
-	app.StakingKeeper.IterateUnbondingDelegations(ctx, func(_ int64, ubd stakingtypes.UnbondingDelegation) (stop bool) {
+	if err := app.StakingKeeper.IterateUnbondingDelegations(ctx, func(_ int64, ubd stakingtypes.UnbondingDelegation) (stop bool) {
 		for i := range ubd.Entries {
 			ubd.Entries[i].CreationHeight = 0
 		}
-		app.StakingKeeper.SetUnbondingDelegation(ctx, ubd)
+		if err := app.StakingKeeper.SetUnbondingDelegation(ctx, ubd); err != nil {
+			panic(err)
+		}
 		return false
-	})
+	}); err != nil {
+		panic(err)
+	}
 
 	// Iterate through validators by power descending, reset bond heights, and
 	// update bond intra-tx counters.
@@ -208,7 +220,9 @@ func (app *OracleApp) prepForZeroHeightGenesis(ctx sdk.Context, jailAllowedAddrs
 			validator.Jailed = true
 		}
 
-		app.StakingKeeper.SetValidator(ctx, validator)
+		if err := app.StakingKeeper.SetValidator(ctx, validator); err != nil {
+			panic(err)
+		}
 		counter++
 	}
 

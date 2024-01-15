@@ -11,6 +11,7 @@ import (
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
@@ -39,7 +40,6 @@ func NewProposalHandler(logger log.Logger, keeper keeper.Keeper, valStore baseap
 
 func (h *ProposalHandler) PrepareProposal() sdk.PrepareProposalHandler {
 	return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
-
 		err := baseapp.ValidateVoteExtensions(ctx, h.valStore, req.Height, ctx.ChainID(), req.LocalLastCommit)
 		if err != nil {
 			return nil, err

@@ -2,6 +2,7 @@ package mockprovider
 
 import (
 	"cosmossdk.io/math"
+
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 

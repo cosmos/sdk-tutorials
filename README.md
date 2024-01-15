@@ -14,13 +14,13 @@ Before you begin, ensure you have the following installed:
 
 - [Install Golang](https://go.dev/doc/install)
 
-<!-- ## Tutorial List
+## Tutorial List
 
-1. **[Tutorial 1 Title]**
-   - Description: Brief overview of what this tutorial covers.
-   - [Link to Tutorial 1]
+1. **[Oracle]**
+   - Description: Learn how to take advantage of vote extensions to create an oracle module.
+   - [Oracle Tutorial](./tutorial/oracle)
 
-2. **[Tutorial 2 Title]**
+<!-- 2. **[Tutorial 2 Title]**
    - Description: Brief overview of what this tutorial covers.
    - [Link to Tutorial 2] -->
 

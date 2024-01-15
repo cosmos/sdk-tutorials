@@ -3,8 +3,9 @@ package keeper_test
 import (
 	"testing"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 	"github.com/stretchr/testify/require"
+
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 
 func TestQueryParams(t *testing.T) {

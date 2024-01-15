@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"cosmossdk.io/collections"
+
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
 )
 

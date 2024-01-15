@@ -25,6 +25,7 @@ type testFixture struct {
 }
 
 func initFixture(t *testing.T) *testFixture {
+	t.Helper()
 	encCfg := moduletestutil.MakeTestEncodingConfig()
 	key := storetypes.NewKVStoreKey(oracle.ModuleName)
 	testCtx := testutil.DefaultContextWithDB(t, key, storetypes.NewTransientStoreKey("transient_test"))
