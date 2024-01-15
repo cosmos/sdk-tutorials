@@ -1,8 +1,6 @@
 name: Check Markdown links
 on: 
   pull_request:
-    paths:
-      - "docs/**"
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
