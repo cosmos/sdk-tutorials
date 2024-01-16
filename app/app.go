@@ -17,6 +17,7 @@ import (
 	"github.com/cosmos/sdk-tutorials/x/ns-auction/provider"
 	"github.com/spf13/cast"
 
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/std"
 	"github.com/cosmos/cosmos-sdk/x/auth"
@@ -149,7 +150,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".tutoriald")
+	DefaultNodeHome = filepath.Join(userHomeDir, "")
 }
 
 func NewTutorialApp(
@@ -494,11 +495,11 @@ func (app *TutorialApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain)
 	var genesisState GenesisState
 
 	// Enable VE
-	//req.ConsensusParams = &cmtproto.ConsensusParams{
-	//	Abci: &cmtproto.ABCIParams{
-	//		VoteExtensionsEnableHeight: 2,
-	//	},
-	//}
+	req.ConsensusParams = &cmtproto.ConsensusParams{
+		Abci: &cmtproto.ABCIParams{
+			VoteExtensionsEnableHeight: 1,
+		},
+	}
 
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
