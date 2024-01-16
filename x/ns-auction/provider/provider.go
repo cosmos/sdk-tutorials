@@ -8,29 +8,29 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authclient "github.com/cosmos/cosmos-sdk/x/auth/client"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
+	nstypes "github.com/cosmos/sdk-tutorials/x/ns-auction"
 )
 
 /*
-	This implementation is for demo purposes only and does not reflect all limitations and
-	constraints of a live distributed network.
+This implementation is for demo purposes only and does not reflect all limitations and
+constraints of a live distributed network.
 
-	Transaction Provider is an embedded solution to demonstrate an interface an application could
-	leverage to extract MEV when building and proposing a block. In this example, the
-	application is building and signing transactions locally for the sake of a simplicity.
-	Alternatively, another implementation could instead take transactions submitted directly
-	via RPC to its app side mempool, and could even implement a separate custom mempool for
-	special transactions of this nature.
+Transaction Provider is an embedded solution to demonstrate an interface an application could
+leverage to extract MEV when building and proposing a block. In this example, the
+application is building and signing transactions locally for the sake of a simplicity.
+Alternatively, another implementation could instead take transactions submitted directly
+via RPC to its app side mempool, and could even implement a separate custom mempool for
+special transactions of this nature.
 */
-
 type TxProvider interface {
 	BuildProposal(ctx sdk.Context, proposalTxs []sdk.Tx) ([]sdk.Tx, error)
-	getMatchingBid(ctx sdk.Context, bid *ns.MsgBid) sdk.Tx
+	getMatchingBid(ctx sdk.Context, bid *nstypes.MsgBid) sdk.Tx
 }
 
 type LocalSigner struct {
@@ -69,7 +69,7 @@ func (ls *LocalSigner) Init(txCfg client.TxConfig, cdc codec.Codec, logger log.L
 	ls.codec = cdc
 	ls.lg = logger
 
-	kb, err := keyring.New("tutorial", keyring.BackendTest, ls.KeyringDir, nil, ls.codec)
+	kb, err := keyring.New("cosmos", keyring.BackendTest, ls.KeyringDir, nil, ls.codec)
 	if err != nil {
 		return err
 	}
@@ -80,20 +80,28 @@ func (ls *LocalSigner) Init(txCfg client.TxConfig, cdc codec.Codec, logger log.L
 func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.AccountKeeper) (types.AccountI, error) {
 	lg := ls.lg
 
-	// Use Key method to retrieve the key information
-	keyInfo, err := ls.kb.Key(ls.KeyName)
+	info, err := ls.kb.Key(ls.KeyName)
 	if err != nil {
-		lg.Error(fmt.Sprintf("Error retrieving key info by key name: %v", err))
+		lg.Error(fmt.Sprintf("Error retrieving key info: %v", err))
 		return nil, err
 	}
 
-	addr, err := keyInfo.GetAddress()
+	addrBz, err := info.GetAddress()
+
 	if err != nil {
-		ls.lg.Error(fmt.Sprintf("Error getting address from key info: %v", err))
+		lg.Error(fmt.Sprintf("Error retrieving address by key name: %v", err))
 		return nil, err
 	}
 
-	addrStr := addr.String()
+	addCodec := address.Bech32Codec{
+		Bech32Prefix: sdk.GetConfig().GetBech32AccountAddrPrefix(),
+	}
+
+	addrStr, err := addCodec.BytesToString(addrBz)
+	if err != nil {
+		lg.Error(fmt.Sprintf("Error converting address bytes to str: %v", err))
+		return nil, err
+	}
 
 	sdkAddr, err := sdk.AccAddressFromBech32(addrStr)
 	if err != nil {
@@ -105,7 +113,7 @@ func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.Acco
 	return acct, nil
 }
 
-func (ls *LocalSigner) BuildAndSignTx(ctx sdk.Context, acct types.AccountI, msg ns.MsgBid) sdk.Tx {
+func (ls *LocalSigner) BuildAndSignTx(ctx sdk.Context, acct types.AccountI, msg nstypes.MsgBid) sdk.Tx {
 	factory := tx.Factory{}.
 		WithTxConfig(ls.txConfig).
 		WithKeybase(ls.kb).
@@ -131,7 +139,7 @@ func (ls *LocalSigner) BuildAndSignTx(ctx sdk.Context, acct types.AccountI, msg 
 	return txBuilder.GetTx()
 }
 
-func (b *LocalTxProvider) getMatchingBid(ctx sdk.Context, bid *ns.MsgBid) sdk.Tx {
+func (b *LocalTxProvider) getMatchingBid(ctx sdk.Context, bid *nstypes.MsgBid) sdk.Tx {
 	acct, err := b.Signer.RetreiveSigner(ctx, b.AcctKeeper)
 	if err != nil {
 		b.Logger.Error(fmt.Sprintf("Error retrieving signer: %v", err))
@@ -139,7 +147,7 @@ func (b *LocalTxProvider) getMatchingBid(ctx sdk.Context, bid *ns.MsgBid) sdk.Tx
 	}
 	b.Logger.Info("💨 :: Created new bid")
 
-	msg := ns.MsgBid{
+	msg := nstypes.MsgBid{
 		Name:           bid.Name,
 		Owner:          acct.GetAddress().String(),
 		ResolveAddress: acct.GetAddress().String(),
@@ -158,7 +166,7 @@ func (b *LocalTxProvider) BuildProposal(ctx sdk.Context, proposalTxs []sdk.Tx) (
 		sdkMsgs := tx.GetMsgs()
 		for _, msg := range sdkMsgs {
 			switch msg := msg.(type) {
-			case *ns.MsgBid:
+			case *nstypes.MsgBid:
 				b.Logger.Info("💨 :: Found a Bid to Snipe")
 
 				// Get matching bid from matching engine
