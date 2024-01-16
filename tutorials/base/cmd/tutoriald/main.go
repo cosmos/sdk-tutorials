@@ -8,7 +8,6 @@ import (
 
 	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
 	"github.com/cosmos/sdk-tutorials/tutorials/base/app/params"
-	"github.com/cosmos/sdk-tutorials/tutorials/base/cmd/tutoriald/cmd"
 )
 
 func main() {
