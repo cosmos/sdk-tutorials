@@ -11,7 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
+	nstypes "github.com/cosmos/sdk-tutorials/x/ns-auction"
 	"github.com/cosmos/sdk-tutorials/x/ns-auction/mempool"
 	"github.com/cosmos/sdk-tutorials/x/ns-auction/provider"
 )
@@ -27,7 +27,7 @@ func NewPrepareProposalHandler(
 	return &PrepareProposalHandler{
 		logger:      lg,
 		txConfig:    txCg,
-		codec:       cdc,
+		cdc:         cdc,
 		mempool:     mp,
 		txProvider:  pv,
 		runProvider: runProv,
@@ -109,9 +109,9 @@ func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHan
 			}
 			if len(st.Bids) > 0 {
 				h.Logger.Info(fmt.Sprintf("⚙️:: There are bids in the Special Transaction"))
-				var bids []ns.MsgBid
+				var bids []nstypes.MsgBid
 				for i, b := range st.Bids {
-					var bid ns.MsgBid
+					var bid nstypes.MsgBid
 					h.Codec.Unmarshal(b, &bid)
 					h.Logger.Info(fmt.Sprintf("⚙️:: Special Transaction Bid No %v :: %v", i, bid))
 					bids = append(bids, bid)
@@ -171,8 +171,8 @@ func processVoteExtensions(req *abci.RequestPrepareProposal, log log.Logger) (Sp
 	return st, nil
 }
 
-func ValidateBids(txConfig client.TxConfig, veBids []ns.MsgBid, proposalTxs [][]byte, logger log.Logger) (bool, error) {
-	var proposalBids []*ns.MsgBid
+func ValidateBids(txConfig client.TxConfig, veBids []nstypes.MsgBid, proposalTxs [][]byte, logger log.Logger) (bool, error) {
+	var proposalBids []*nstypes.MsgBid
 	for _, txBytes := range proposalTxs {
 		txDecoder := txConfig.TxDecoder()
 		messages, err := txDecoder(txBytes)
@@ -184,7 +184,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []ns.MsgBid, proposalTxs [][]
 		sdkMsgs := messages.GetMsgs()
 		for _, m := range sdkMsgs {
 			switch m := m.(type) {
-			case *ns.MsgBid:
+			case *nstypes.MsgBid:
 				proposalBids = append(proposalBids, m)
 			}
 		}
@@ -226,7 +226,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []ns.MsgBid, proposalTxs [][]
 	return ok, nil
 }
 
-func Hash(m *ns.MsgBid) (string, error) {
+func Hash(m *nstypes.MsgBid) (string, error) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		return "", err

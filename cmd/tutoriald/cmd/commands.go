@@ -115,6 +115,7 @@ func queryCommand() *cobra.Command {
 		server.QueryBlocksCmd(),
 		authcmd.QueryTxCmd(),
 		server.QueryBlockResultsCmd(),
+		nsmod.QueryWhoisCmd(),
 	)
 
 	return cmd
