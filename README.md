@@ -1,28 +1,41 @@
-## steps
+# Cosmos SDK Tutorials - Application Development
 
-1.	go mod init github.com/yourusername/my-project
-2. Makefile 
+![banner](./banner.png)
 
-# Makefile To-Do List
+Welcome to Cosmos SDK Tutorails, your go-to resource for learning and mastering the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk). This repository contains a series of comprehensive tutorials designed to help you understand and effectively use the Cosmos SDK.
 
-1. **Add a `test` task:** This task should run your unit tests. You can use the `go test` command to run your tests.
+## About the Tutorials
 
-2. **Add a `test-integration` task:** This task should run your integration tests. You can use the `go test` command to run your tests in your integration test directory.
+These tutorials are crafted to cater to learners at various levels, from beginners to advanced users. Each tutorial covers specific aspects of the Cosmos SDK, ensuring a thorough understanding of its principles and applications.
 
-3. **Add a `proto-all` task:** This task should run all your Protobuf-related tasks. It should depend on `proto-format`, `proto-lint`, and `proto-gen`.
+## Prerequisites
 
-4. **Add a `proto-gen` task:** This task should generate Go code from your Protobuf files. You can use the `protoc` command to generate the code.
+Before you begin, ensure you have the following installed:
 
-5. **Add a `proto-format` task:** This task should format your Protobuf files. You can use the `clang-format` command to format your files.
+- [Install Golang](https://go.dev/doc/install)
 
-6. **Add a `proto-lint` task:** This task should lint your Protobuf files. You can use the `buf lint` command to lint your files.
+## Tutorial List
 
-7. **Add a `lint` task:** This task should run your linter on your Go code. You can use the `golangci-lint` command to lint your code.
+1. **[Oracle]**
+   - Description: Learn how to take advantage of vote extensions to create an oracle module.
+   - [Oracle Tutorial](./tutorial/oracle)
 
-8. **Add a `lint-fix` task:** This task should run your linter on your Go code and automatically fix any issues that it can. You can use the `golangci-lint` command with the `--fix` option to do this.
+<!-- 2. **[Tutorial 2 Title]**
+   - Description: Brief overview of what this tutorial covers.
+   - [Link to Tutorial 2] -->
 
-9. **Add an `install` task:** This task should build and install your application. You can use the `go install` command to do this.
+## How to Use This Repository
 
-10. **Add a `build` task:** This task should build your application without installing it. You can use the `go build` command to do this.
+Navigate to the specific tutorial you are interested in, and follow the instructions provided within each tutorial's directory.
 
-Remember to replace any placeholders with the actual values for your project. For example, replace `./...` with the actual path to your Go packages or Protobuf files.
+## Contributing
+
+We welcome contributions to this repository! Please read our [Contributing Guidelines](./CONTRIBUTING.md) for more information on how you can contribute.
+
+## Feedback
+
+If you have any feedback or suggestions, please open an issue in this repository.
+
+## License
+
+This project is licensed under the Apache license - see the [LICENSE.md](./LICENSE) file for details.

@@ -1,0 +1,15 @@
+name: Fix typos nightly
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run codespell
+        continue-on-error: true
+        run: |
+          sudo apt-get install codespell -y
+          codespell -w --skip="*.pulsar.go,*.pb.go,*.pb.gw.go,*.cosmos_orm.go,*.json,*.git,*.js,crypto/keys,fuzz,*.h,proto/tendermint,*.bin" --ignore-words=.github/.codespellignore
