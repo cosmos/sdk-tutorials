@@ -10,14 +10,13 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	nstypes "github.com/cosmos/sdk-tutorials/x/ns-auction"
+	ns "github.com/cosmos/sdk-tutorials/x/ns-auction"
 	"github.com/cosmos/sdk-tutorials/x/ns-auction/mempool"
 )
 
-
-func NewVoteExtensionHandler(lg log.Logger, mp *mempool.ThresholdMempool, cdc codec.Codec) *VoteExtHandler {
+func NewVoteExtensionHandler(log log.Logger, mp *mempool.ThresholdMempool, cdc codec.Codec) *VoteExtHandler {
 	return &VoteExtHandler{
-		logger:  lg,
+		logger:  log,
 		mempool: mp,
 		cdc:     cdc,
 	}
@@ -39,7 +38,7 @@ func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
 			// Iterate through msgs, check for any bids
 			for _, msg := range sdkMsgs {
 				switch msg := msg.(type) {
-				case *nstypes.MsgBid:
+				case *ns.MsgBid:
 					// Marshal sdk bids to []byte
 					bz, err := h.cdc.Marshal(msg)
 					if err != nil {

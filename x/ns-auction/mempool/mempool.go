@@ -5,17 +5,32 @@ import (
 	"fmt"
 
 	"cosmossdk.io/log"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/mempool"
+	mempool "github.com/cosmos/cosmos-sdk/types/mempool"
 	"github.com/cosmos/cosmos-sdk/x/auth/signing"
 )
 
 var _ mempool.Mempool = (*ThresholdMempool)(nil)
+var _ mempool.Iterator = &thresholdTxs{}
 
 type ThresholdMempool struct {
-	logger      log.Logger
-	pendingPool thTxs
-	pool        thTxs
+	logger log.Logger
+	// Where new transactions are initially added when they are received. These transactions are waiting to be processed.
+	pendingPool thresholdTxs
+	// Where txs are moved once they have been processed and are ready to be included in the next block.
+	pool thresholdTxs
+}
+
+type thresholdTxs struct {
+	idx int
+	txs []thresholdTx
+}
+
+type thresholdTx struct {
+	address  string
+	priority int64
+	tx       sdk.Tx
 }
 
 func NewThresholdMempool(logger log.Logger) *ThresholdMempool {
@@ -24,90 +39,85 @@ func NewThresholdMempool(logger log.Logger) *ThresholdMempool {
 	}
 }
 
-func (t *ThresholdMempool) Insert(ctx context.Context, tx sdk.Tx) error {
+func (tm *ThresholdMempool) Insert(ctx context.Context, tx sdk.Tx) error {
+	//we are verifying that the tx is valid by it being signed
 	sigs, err := tx.(signing.SigVerifiableTx).GetSignaturesV2()
 	if err != nil {
-		t.logger.Error("Error unable to retrieve tx signatures")
+		tm.logger.Error("Error unable to retrieve tx signatures")
 		return err
 	}
-	// Guarantee there is at least 1 signer
+
 	if len(sigs) == 0 {
-		t.logger.Error("Error missing tx signatures")
+		tm.logger.Error("Error missing tx signatures")
 		return fmt.Errorf("Transaction must be signed")
 	}
 
 	sig := sigs[0]
 	sender := sdk.AccAddress(sig.PubKey.Address()).String()
-	t.logger.Info(fmt.Sprintf("This is the sender account address :: %v", sender))
+	tm.logger.Info(fmt.Sprintf("This is the sender account address :: %v", sender))
 
-	// Set default 0 priority
 	priority := int64(0)
-	appTx := thTx{
-		sender,
-		priority,
-		tx,
+	appTx := thresholdTx{
+		tx:       tx,
+		address:  sender,
+		priority: priority,
 	}
 
-	t.logger.Info(fmt.Sprintf("Inserting transaction from %v with priority %v", sender, priority))
+	tm.logger.Info(fmt.Sprintf("Inserting transaction from %v with priority %v", sender, priority))
 
-	t.pendingPool.txs = append(t.pendingPool.txs, appTx)
-	leng := len(t.pendingPool.txs)
-	t.logger.Info(fmt.Sprintf("Transactions length %v", leng))
-
+	tm.pendingPool.txs = append(tm.pendingPool.txs, appTx)
+	leng := len(tm.pendingPool.txs)
+	tm.logger.Info(fmt.Sprintf("Transactions length %v", leng))
 	return nil
 }
 
-func (t *ThresholdMempool) Select(ctx context.Context, i [][]byte) mempool.Iterator {
-	if len(t.pool.txs) == 0 {
+func (tm *ThresholdMempool) Select(ctx context.Context, i [][]byte) mempool.Iterator {
+	if len(tm.pool.txs) == 0 {
+		return nil
+	}
+	return &tm.pool
+}
+
+func (tm *ThresholdMempool) SelectPending(ctx context.Context, i [][]byte) mempool.Iterator {
+	if len(tm.pendingPool.txs) == 0 {
 		return nil
 	}
 
-	return &t.pool
+	return &tm.pendingPool
 }
 
-func (t *ThresholdMempool) SelectPending(ctx context.Context, i [][]byte) mempool.Iterator {
-	if len(t.pendingPool.txs) == 0 {
-		return nil
-	}
-
-	return &t.pendingPool
-}
-
-func (t *ThresholdMempool) Update(ctx context.Context, tx sdk.Tx) error {
+func (tm *ThresholdMempool) Update(ctx context.Context, tx sdk.Tx) error {
 	sigs, err := tx.(signing.SigVerifiableTx).GetSignaturesV2()
 	if err != nil {
+		tm.logger.Error("Error unable to retrieve tx signatures")
 		return err
-	}
-	if len(sigs) == 0 {
-		return fmt.Errorf("tx must have at least one signer")
 	}
 
 	sig := sigs[0]
 	sender := sdk.AccAddress(sig.PubKey.Address()).String()
+	tm.logger.Info(fmt.Sprintf("This is the sender account address :: %v", sender))
 
-	txToUpdate := thTx{
+	txToUpdate := thresholdTx{
 		sender,
 		1,
 		tx,
 	}
 
-	for idx, ttx := range t.pendingPool.txs {
-		if ttx.Equal(txToUpdate) {
-			t.pendingPool.txs = removeAtIndex(t.pendingPool.txs, idx)
-			t.pool.txs = append(t.pool.txs, txToUpdate)
-			return nil
+	for idx, tmtx := range tm.pendingPool.txs {
+		if tmtx.Equal(txToUpdate) {
+			tm.pendingPool.txs = append(tm.pendingPool.txs[:idx], tm.pendingPool.txs[idx+1:]...)
+			tm.pool.txs = append(tm.pool.txs, txToUpdate)
 		}
 	}
-	// remove from pendingPool, add to
 
 	return mempool.ErrTxNotFound
 }
 
-func (t *ThresholdMempool) CountTx() int {
-	return len(t.pendingPool.txs)
+func (tm *ThresholdMempool) CountTx() int {
+	return len(tm.pendingPool.txs)
 }
 
-func (t *ThresholdMempool) Remove(tx sdk.Tx) error {
+func (tm *ThresholdMempool) Remove(tx sdk.Tx) error {
 	sigs, err := tx.(signing.SigVerifiableTx).GetSignaturesV2()
 	if err != nil {
 		return err
@@ -119,15 +129,15 @@ func (t *ThresholdMempool) Remove(tx sdk.Tx) error {
 	sig := sigs[0]
 	sender := sdk.AccAddress(sig.PubKey.Address()).String()
 
-	txToRemove := thTx{
+	txToRemove := thresholdTx{
 		sender,
 		1,
 		tx,
 	}
 
-	for idx, ttx := range t.pool.txs {
+	for idx, ttx := range tm.pool.txs {
 		if ttx.Equal(txToRemove) {
-			t.pool.txs = removeAtIndex(t.pool.txs, idx)
+			tm.pendingPool.txs = append(tm.pendingPool.txs[:idx], tm.pendingPool.txs[idx+1:]...)
 			return nil
 		}
 	}
@@ -135,41 +145,28 @@ func (t *ThresholdMempool) Remove(tx sdk.Tx) error {
 	return mempool.ErrTxNotFound
 }
 
-var _ mempool.Iterator = &thTxs{}
-
-type thTxs struct {
-	idx int
-	txs []thTx
-}
-
-func (t *thTxs) Next() mempool.Iterator {
-	if len(t.txs) == 0 {
+func (ttxs *thresholdTxs) Next() mempool.Iterator {
+	if len(ttxs.txs) == 0 {
 		return nil
 	}
 
-	if len(t.txs) == t.idx+1 {
+	if len(ttxs.txs) == ttxs.idx+1 {
 		return nil
 	}
 
-	t.idx++
-	return t
+	ttxs.idx++
+	return ttxs
 }
 
-func (t *thTxs) Tx() sdk.Tx {
-	if t.idx >= len(t.txs) {
-		panic(fmt.Sprintf("index out of bound: %d, Txs: %v", t.idx, t))
+func (ttxs *thresholdTxs) Tx() sdk.Tx {
+	if ttxs.idx >= len(ttxs.txs) {
+		panic(fmt.Sprintf("index out of bound: %d, Txs: %v", ttxs.idx, ttxs))
 	}
 
-	return t.txs[t.idx].tx
+	return ttxs.txs[ttxs.idx].tx
 }
 
-type thTx struct {
-	address  string
-	priority int64
-	tx       sdk.Tx
-}
-
-func (tx thTx) Equal(other thTx) bool {
+func (tx thresholdTx) Equal(other thresholdTx) bool {
 	if tx.address != other.address {
 		return false
 	}
@@ -185,8 +182,4 @@ func (tx thTx) Equal(other thTx) bool {
 	}
 
 	return true
-}
-
-func removeAtIndex[T any](slice []T, index int) []T {
-	return append(slice[:index], slice[index+1:]...)
 }

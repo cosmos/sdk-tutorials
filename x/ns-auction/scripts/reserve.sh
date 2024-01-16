@@ -7,20 +7,7 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-find_project_root() {
-    local dir=$PWD
-    while [ "$dir" != "" ] && [ ! -d "$dir/.git" ]; do
-        dir=$(dirname "$dir")
-    done
-    echo "$dir"
-}
-
-PROJECT_ROOT=$(find_project_root)
-BINARY=$PROJECT_ROOT/build/tutoriald
-
 name="$1"
+BINARY=./build/tutoriald
 
-$BINARY keys show alice -a --home $HOME/cosmos/nodes/beacon --keyring-backend test
-$BINARY keys show barbara -a --home $HOME/cosmos/nodes/beacon --keyring-backend test
-
-$BINARY tx reserve "${name}" $($BINARY keys show alice -a --home $HOME/cosmos/nodes/beacon --keyring-backend test) 1000uatom --from $($BINARY keys show barbara -a --home $HOME/cosmos/nodes/beacon --keyring-backend test) --home $HOME/cosmos/nodes/beacon --keyring-backend test --node "tcp://127.0.0.1:29170" -y 
+$BINARY tx ns reserve "bob.cosmos" $($BINARY keys show alice -a --home $HOME/cosmos/nodes/beacon --keyring-backend test) 1000uatom --from $($BINARY keys show barbara -a --home $HOME/cosmos/nodes/beacon --keyring-backend test)  --home $HOME/cosmos/nodes/beacon --node "tcp://127.0.0.1:29170" -y

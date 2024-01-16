@@ -12,7 +12,7 @@ import (
 type PrepareProposalHandler struct {
 	logger      log.Logger
 	txConfig    client.TxConfig
-	cdc         codec.Codec
+	codec       codec.Codec
 	mempool     *mempool.ThresholdMempool
 	txProvider  provider.TxProvider
 	keyname     string
@@ -35,10 +35,6 @@ type VoteExtHandler struct {
 type InjectedVoteExt struct {
 	VoteExtSigner []byte
 	Bids          [][]byte
-}
-
-type InjectedVotes struct {
-	Votes []InjectedVoteExt
 }
 
 type AppVoteExtension struct {

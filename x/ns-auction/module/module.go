@@ -152,33 +152,3 @@ func ReserveCmd() *cobra.Command {
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }
-
-func QueryWhoisCmd() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "whois [name]",
-		Short: "Get the resolve address and owner for a name record",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			clientCtx, err := client.GetClientTxContext(cmd)
-			if err != nil {
-				return err
-			}
-
-			queryClient := nstypes.NewQueryClient(clientCtx)
-			params := &nstypes.QueryNameRequest{Name: args[0]}
-			res, err := queryClient.Name(context.Background(), params)
-			if err != nil {
-				return err
-			}
-
-			cmd.Println(fmt.Sprintf("This is the name: %s", args[0]))
-			cmd.Println(fmt.Sprintf("This is the resolve: %s", res.Name))
-			cmd.Println(fmt.Sprintf("This is the owner: %s", res.Name.Owner))
-
-			return nil
-		},
-	}
-
-	flags.AddQueryFlagsToCmd(cmd)
-	return cmd
-}

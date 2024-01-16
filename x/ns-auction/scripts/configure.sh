@@ -3,6 +3,7 @@ set -eux
 
 source ./vars.sh
 
+
 pkill -f tutoriald &> /dev/null || true
 sleep 1
 rm -rf ${NODES_ROOT_DIR}

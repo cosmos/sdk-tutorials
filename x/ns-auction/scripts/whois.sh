@@ -9,4 +9,4 @@ fi
 
 name="$1"
 
-$BINARY q whois "${name}" --node "tcp://127.0.0.1:29170" -o json
+$BINARY q ns whois "${name}" --node "tcp://127.0.0.1:29170" -o json
