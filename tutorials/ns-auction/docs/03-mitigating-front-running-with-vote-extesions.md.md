@@ -1,98 +1,25 @@
-# Mitigate Auction Front-Running
+# Mitigating Front-running with Vote Extensions
 
-In this tutorial, we will be covering:
+## Table of Contents
+- [Prerequisites](#prerequisites)
+- [Implementing Structs for Vote Extensions](#implementing-structs-for-vote-extensions)
+- [Preparing Proposals with Vote Extensions](#preparing-proposals-with-vote-extensions)
+- [Processing Proposals and Vote Extensions](#processing-proposals-and-vote-extensions)
+- [Handling Vote Extensions](#handling-vote-extensions)
+- [Injected Vote Extensions](#injected-vote-extensions)
+- [Application Vote Extensions](#application-vote-extensions)
+- [Special Transactions](#special-transactions)
+- [Testing and Verification](#testing-and-verification)
 
-* [What are Vote extensions?](#what-are-vote-extensions)
-* [Context](#context)
-* [Simulation of Auction Front-Running](#simulation-of-auction-front-running)
-* [Mitigating Front-running with Vote Extensions](#mitigating-front-running-with-vote-extensions)
-* [Demo of Mitigating Front-Running with Vote Extensions](#demo-of-mitigating-front-running-with-vote-extensions)
+## Prerequisites
 
-## What are Vote extensions?
-
-Vote extensions is arbitrary information which can be inserted into a block. This feature is part of ABCI 2.0, which is available for use in the SDK 0.50 release and part of the 0.38 CometBFT release. 
-
-More information about vote extensions can be seen [here](../../../build/abci/03-vote-extensions.md).
-
-## Context
-
-For this tutorial we are using an example of an application that is mitigating auction front-running. 
-
-Front-running is a potential issue in blockchain systems where a participant gains an advantage by being able to perform actions or transactions ahead of others. In the context of this application, front-running can occur when a validator, who is also a proposer, spots a bid in the mempool and replaces it with their own higher bid. This is also known as "bid sniping".
-
-Please checkout https://github.com/fatal-fruit/abci-workshop to see the example.
-
-## Simulation of Auction Front-Running
-
-To verify an occurrence of front-running, you can navigate to the logs and search for instances of `💨 :: Found a Bid to Snipe`. This specific log message indicates that the validator has identified a bid to potentially front-run.
-
-Before we start, we need to set up a single node blockchain for local testing. This can be done by running the `setup.sh` script located in the `scripts/single_node` directory. This script initialises a new blockchain and creates three accounts (val1, alice, bob) with initial balances.
-
-Please switch to the `part-1` branch of the example repository. To run the script, use the following command:
-
-```shell
-./scripts/single_node/setup.sh
-```
-
-Following running this script, your local testing environment should be ready and you can proceed with the next steps.
-
-Here's how you can do it:
-
-1. Run the front-running script: 
-
-```shell
-scripts/single_node/frontrun.sh.
-``` 
-
-This script simulates a transaction where a user tries to reserve a namespace before another user does. When running the script we see alice attempts to reserve the namespace `bob.cosmos`.
-
-2. Open the log file of the validator node. The location of this file can vary depending on your setup, but it's typically located in a directory like `$HOME/cosmos/nodes/#{validator}/logs`. The directory in this case will be under the validator so, `beacon` `val1` or `val2`.
-
-```shell
-tail -f $HOME/cosmos/nodes/#{validator}/logs
-```
-
-3. Search for the log message `💨 :: Found a Bid to Snipe`. You can do this manually or use a command like grep if you're using a Unix-like operating system.
-
-If you find instances of `💨 :: Found a Bid to Snipe`, it indicates that the validator has identified a bid to potentially front-run. This is the desired behavior in this scenario, demonstrating that front-running has occurred.
-
-Remember, this is a demonstration of potential malicious behavior by a validator and is not a recommended practice in a real-world application. The purpose of this exercise is to understand the potential issues and how to mitigate them.
-
-An example of what you might see in the logs is:
-
-```shell
-5:46PM INF 💨 :: Found a Bid to Snipe module=server
-```
-
-If the log message `💨 :: Found a Bid to Snipe` is not present after running the front-running script, ensure there are bid transactions in the mempool and that your logging level includes Info messages. If these conditions are met and the message is still absent, it indicates that no bids were identified for potential front-running during the proposal building process.
-
-Next, to verify the status of the namespace `bob.cosmos`, we perform the following command:
-
-```shell 
-./build/cosmappd query ns whois bob.cosmos
-```
-
-You should receive something like this:
-
-```shell
-name:
-  amount:
-  - amount: "2000"
-    denom: uatom
-  name: bob.cosmos
-  owner: cosmos185gc7c296w0xjlq9kjdt6gghnqvdmyckv64e7a
-  resolve_address: cosmos185gc7c296w0xjlq9kjdt6gghnqvdmyckv64e7a
-```
-
-The owner address corresponds to Alice (`val1` in the keyring)
-
-## Mitigating Front-running with Vote Extensions
+Before implementing vote extensions to mitigate front-running, ensure you have a module ready to implement the vote-extensions with. If you need to create or reference a similar module, see `x/auction` for guidance.
 
 In this section, we will discuss the steps to mitigate front-running using vote extensions. We will introduce new types within the `abci/types.go` file. These types will be used to handle the process of preparing proposals, processing proposals, and handling vote extensions.
 
 ### Implementing Structs for Vote Extensions
 
-First, copy the following structs into the `abci/types.go` file during `part-1` of the tutorial and each of these structs serves a specific purpose in the process of mitigating front-running using vote extensions:
+First, copy the following structs into the `abci/types.go` and each of these structs serves a specific purpose in the process of mitigating front-running using vote extensions:
 
 ```go
 package abci
@@ -408,93 +335,3 @@ bApp.SetProcessProposal(processPropHandler.ProcessProposalHandler())
 This sets the `ProcessProposalHandler()` for our application. This means that whenever a proposal needs to be processed, our custom `ProcessProposalHandler()` method will be called.
 
 To test if the proposal processing and vote extensions are working correctly, you can check the logs for any relevant messages. If the logs do not provide enough information, you can also reinitialize your local testing environment by running the `./scripts/single_node/setup.sh` script again.
-
-## Demo of Mitigating Front-Running with Vote Extensions
-
-The purpose of this demo is to test the implementation of the `VoteExtensionHandler` and `PrepareProposalHandler` that we have just added to the codebase. These handlers are designed to mitigate front-running by ensuring that all validators have a consistent view of the mempool when preparing proposals.
-
-In this demo, we are using a 3 validator network. The Beacon validator is special because it has a custom transaction provider enabled. This means that it can potentially manipulate the order of transactions in a proposal to its advantage (i.e., front-running).
-
-1. Bootstrap the validator network: This sets up a network with 3 validators. The script `./scripts/configure.sh "bob.cosmos"` is used to configure the network and the validators.
-
-```shell
-./scripts/configure.sh "bob.cosmos"
-```
-
-2. Have alice attempt to reserve `bob.cosmos`: This is a normal transaction that alice wants to execute. The script ``./scripts/reserve.sh "bob.cosmos"` is used to send this transaction.
-
-```shell
-./scripts/reserve.sh "bob.cosmos"
-```
-
-3. Query to verify the name has been reserved: This is to check the result of the transaction. The script `./scripts/whois.sh "bob.cosmos"` is used to query the state of the blockchain.
-
-```shell
-./scripts/whois.sh "bob.cosmos"
-```
-
-It should return:
-
-```{
-  "name":  {
-    "name":  "bob.cosmos",
-    "owner":  "cosmos1nq9wuvuju4jdmpmzvxmg8zhhu2ma2y2l2pnu6w",
-    "resolve_address":  "cosmos1h6zy2kn9efxtw5z22rc5k9qu7twl70z24kr3ht",
-    "amount":  [
-      {
-        "denom":  "uatom",
-        "amount":  "1000"
-      }
-    ]
-  }
-}
-```
-
-To detect front-running attempts by the beacon, scrutinise the logs during the `ProcessProposal` stage. Open the logs for each validator, including the beacon, `val1`, and `val2`, to observe the following behavior:
-
-```shell
-2:47PM ERR ❌️:: Detected invalid proposal bid :: name:"bob.cosmos" resolveAddress:"cosmos1wmuwv38pdur63zw04t0c78r2a8dyt08hf9tpvd" owner:"cosmos1wmuwv38pdur63zw04t0c78r2a8dyt08hf9tpvd" amount:<denom:"uatom" amount:"2000" >  module=server
-2:47PM ERR ❌️:: Unable to validate bids in Process Proposal :: <nil> module=server
-2:47PM ERR prevote step: state machine rejected a proposed block; this should not happen:the proposer may be misbehaving; prevoting nil err=null height=142 module=consensus round=0
-```
-
-5. List the Beacon's keys: This is to verify the addresses of the validators. The script `./scripts/list-beacon-keys.sh` is used to list the keys. 
-
-```shell
-./scripts/list-beacon-keys.sh
-```
-
-We should receive something similar to the following:
-
-```shell
-[
-  {
-    "name": "alice",
-    "type": "local",
-    "address": "cosmos1h6zy2kn9efxtw5z22rc5k9qu7twl70z24kr3ht",
-    "pubkey": "{\"@type\":\"/cosmos.crypto.secp256k1.PubKey\",\"key\":\"A32cvBUkNJz+h2vld4A5BxvU5Rd+HyqpR3aGtvEhlm4C\"}"
-  },
-  {
-    "name": "barbara",
-    "type": "local",
-    "address": "cosmos1nq9wuvuju4jdmpmzvxmg8zhhu2ma2y2l2pnu6w",
-    "pubkey": "{\"@type\":\"/cosmos.crypto.secp256k1.PubKey\",\"key\":\"Ag9PFsNyTQPoJdbyCWia5rZH9CrvSrjMsk7Oz4L3rXQ5\"}"
-  },
-  {
-    "name": "beacon-key",
-    "type": "local",
-    "address": "cosmos1ez9a6x7lz4gvn27zr368muw8jeyas7sv84lfup",
-    "pubkey": "{\"@type\":\"/cosmos.crypto.secp256k1.PubKey\",\"key\":\"AlzJZMWyN7lass710TnAhyuFKAFIaANJyw5ad5P2kpcH\"}"
-  },
-  {
-    "name": "cindy",
-    "type": "local",
-    "address": "cosmos1m5j6za9w4qc2c5ljzxmm2v7a63mhjeag34pa3g",
-    "pubkey": "{\"@type\":\"/cosmos.crypto.secp256k1.PubKey\",\"key\":\"A6F1/3yot5OpyXoSkBbkyl+3rqBkxzRVSJfvSpm/AvW5\"}"
-  }
-]
-```
-
-This allows us to match up the addresses and see that the bid was not front run by the beacon due as the resolve address is Alice's address and not the beacons address.
-
-By running this demo, we can verify that the `VoteExtensionHandler` and `PrepareProposalHandler` are working as expected and that they are able to prevent front-running.
