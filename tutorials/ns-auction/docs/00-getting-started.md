@@ -27,7 +27,8 @@ Before diving into the advanced tutorial on auction front-running simulation, en
 
 - [Golang >1.21.5](https://golang.org/doc/install) installed
 - Familiarity with the concepts of front-running and MEV, as detailed in [Understanding Front-Running](./01-understanding-frontrunning.md)
+- Understanding of Vote Extensions as described [here](https://docs.cosmos.network/main/build/abci/vote-extensions)
 
-You will also need a foundational blockchain to build upon. The `tutorials/base` directory has the necessary blockchain code to start your custom project with the Cosmos SDK. But also you will need to have your own module or use the `ns-auction` module provided in the `tutorials/ns-auction/x/ns-auction` directory as a reference.
+You will also need a foundational blockchain to build upon coupled with your own module. The `tutorials/base` directory has the necessary blockchain code to start your custom project with the Cosmos SDK. For the module, you can use the `ns-auction` module provided in the `tutorials/ns-auction/x/ns-auction` directory as a reference but please be aware that all of the code needed to implement vote extensions is already implemented in this module.
 
 This will set up a strong base for your blockchain, enabling the integration of advanced features such as auction front-running simulation.

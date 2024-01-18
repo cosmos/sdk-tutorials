@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-Before implementing vote extensions to mitigate front-running, ensure you have a module ready to implement the vote-extensions with. If you need to create or reference a similar module, see `x/auction` for guidance.
+Before implementing vote extensions to mitigate front-running, ensure you have a module ready to implement the vote extensions with. If you need to create or reference a similar module, see `x/ns-auction` for guidance.
 
 In this section, we will discuss the steps to mitigate front-running using vote extensions. We will introduce new types within the `abci/types.go` file. These types will be used to handle the process of preparing proposals, processing proposals, and handling vote extensions.
 
@@ -44,7 +44,7 @@ type ProcessProposalHandler struct {
 }
 ```
 
-After the proposal has been prepared and vote extensions have been included, the ProcessProposalHandler is used to process the proposal. This includes validating the proposal and the included vote extensions. The `ProcessProposalHandler` allows you to access the transaction configuration and codec, which are necessary for processing the vote extensions.
+After the proposal has been prepared and vote extensions have been included, the `ProcessProposalHandler` is used to process the proposal. This includes validating the proposal and the included vote extensions. The `ProcessProposalHandler` allows you to access the transaction configuration and codec, which are necessary for processing the vote extensions.
 
 ```go
 type VoteExtHandler struct {
@@ -328,4 +328,4 @@ bApp.SetProcessProposal(processPropHandler.ProcessProposalHandler())
 
 This sets the `ProcessProposalHandler()` for our application. This means that whenever a proposal needs to be processed, our custom `ProcessProposalHandler()` method will be called.
 
-To test if the proposal processing and vote extensions are working correctly, you can check the logs for any relevant messages. If the logs do not provide enough information, you can also reinitialize your local testing environment by running the `./scripts/single_node/setup.sh` script again.
+To test if the proposal processing and vote extensions are working correctly, you can check the logs for any relevant messages. If the logs do not provide enough information, you can also reinitialize your local testing environment by running `./scripts/single_node/setup.sh` script.

@@ -40,7 +40,11 @@ It should return:
 }
 ```
 
-To detect front-running attempts by the beacon, scrutinise the logs during the `ProcessProposal` stage. Open the logs for each validator, including the beacon, `val1`, and `val2`, to observe the following behavior:
+To detect front-running attempts by the beacon, scrutinise the logs during the `ProcessProposal` stage. Open the logs for each validator, including the beacon, `val1`, and `val2`, to observe the following behavior. Open the log file of the validator node. The location of this file can vary depending on your setup, but it's typically located in a directory like `$HOME/cosmos/nodes/#{validator}/logs`. The directory in this case will be under the validator so, `beacon` `val1` or `val2`. Run the following to tail the logs of the validator or beacon:
+
+```shell
+tail -f $HOME/cosmos/nodes/#{validator}/logs
+```
 
 ```shell
 2:47PM ERR ❌️:: Detected invalid proposal bid :: name:"bob.cosmos" resolveAddress:"cosmos1wmuwv38pdur63zw04t0c78r2a8dyt08hf9tpvd" owner:"cosmos1wmuwv38pdur63zw04t0c78r2a8dyt08hf9tpvd" amount:<denom:"uatom" amount:"2000" >  module=server
