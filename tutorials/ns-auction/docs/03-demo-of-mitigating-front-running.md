@@ -92,3 +92,11 @@ We should receive something similar to the following:
 This allows us to match up the addresses and see that the bid was not front run by the beacon due as the resolve address is Alice's address and not the beacons address.
 
 By running this demo, we can verify that the `VoteExtensionHandler` and `PrepareProposalHandler` are working as expected and that they are able to prevent front-running.
+
+## Conclusion
+
+In this tutorial, we've tackled front-running and MEV, focusing on namespace auctions' vulnerability to these issues. We've explored vote extensions, a key feature of ABCI 2.0, and integrated them into a Cosmos SDK application.
+
+Through practical exercises, you've implemented vote extensions, and tested their effectiveness in creating a fair auction system. You've gained practical insights by configuring a validator network and analysing blockchain logs.
+
+Keep experimenting with these concepts, engage with the community, and stay updated on new advancements. The knowledge you've acquired here is crucial for developing secure and fair blockchain applications.
