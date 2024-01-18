@@ -1,4 +1,4 @@
-# Understanding Front-Running and Maximal Extractable Value (MEV)
+# Understanding Front-Running and more
 
 ## Introduction
 
@@ -6,15 +6,13 @@ Blockchain technology is vulnerable to practices that can affect the fairness an
 
 ## What is Front-Running?
 
-Front-running is when someone, such as a miner or validator, uses their ability to see pending transactions to execute their own transactions first, benefiting from the knowledge of upcoming transactions. In namespace auctions, a front-runner might place a higher bid before the original bid is confirmed, unfairly winning the auction.
+Front-running is when someone, such as a validator, uses their ability to see pending transactions to execute their own transactions first, benefiting from the knowledge of upcoming transactions. In namespace auctions, a front-runner might place a higher bid before the original bid is confirmed, unfairly winning the auction.
 
-## What are Namespaces?
+## Namespaces and Namespace Auctions
 
-Namespaces are human-readable identifiers within a blockchain that correspond to specific addresses or resources, similar to how domain names work on the internet. They provide a more user-friendly way to interact with blockchain addresses, which are typically long and complex. In the context of blockchain auctions, namespaces can be bid on and owned, allowing users to have a memorable and unique identifier linked to their blockchain address or smart contract.
+Namespaces are human-readable identifiers on a blockchain, akin to internet domain names, that correspond to specific addresses or resources. They simplify interactions with typically long and complex blockchain addresses, allowing users to have a memorable and unique identifier for their blockchain address or smart contract.
 
-## What are Namespace Auctions?
-
-Namespace auctions are a mechanism in blockchain where participants bid on human-readable identifiers, akin to internet domain names, to simplify interactions with blockchain addresses or contracts. To prevent front-running, where an entity might use knowledge of pending bids to place a higher bid first, strategies like commit-reveal schemes, auction extensions, and fair sequencing are employed to ensure a transparent and equitable bidding process, thereby reducing the potential for MEV exploitation.
+Namespace auctions are the process by which these identifiers are bid on and acquired. To combat front-running—where someone might use knowledge of pending bids to place a higher bid first—mechanisms such as commit-reveal schemes, auction extensions, and fair sequencing are implemented. These strategies ensure a transparent and fair bidding process, reducing the potential for Maximal Extractable Value (MEV) exploitation.
 
 ## What is Maximal Extractable Value (MEV)?
 

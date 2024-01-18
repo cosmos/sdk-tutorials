@@ -9,7 +9,9 @@ find_project_root() {
 
 PROJECT_ROOT=$(find_project_root)
 HOME=$HOME/.tutoriald
-BINARY=$PROJECT_ROOT/build/tutoriald
+BINARY=$PROJECT_ROOT/tutorials/ns-auction/base/build/tutoriald
+
+echo $PROJECT_ROOT
 
 rm -rf ~/.tutoriald
 

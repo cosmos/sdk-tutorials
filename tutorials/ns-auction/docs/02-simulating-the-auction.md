@@ -1,11 +1,12 @@
 # Simulation of Auction Front-Running
 
-As we mentioned in the previous section we are exploring in this section front-running in the context of namespace auctions. Here we will simulate front-running using the namespace-auction module. 
+As we mentioned in the previous section we are exploring in this section front-running in the context of namespace auctions. Here we will simulate front-running using the namespace-auction module.
 
 Before we start, we need to navigate to `scripts/single_node`. Here we will set up a single node blockchain for local testing. This can be done by running the `setup.sh` script located in the `scripts/single_node` directory. This script initialises a new blockchain and creates three accounts (val1, alice, bob) with initial balances.
 
 ```shell
-bash ./scripts/single_node/setup.sh
+cd x/ns-auction/scripts/single_node
+bash ./setup.sh
 ```
 
 Following running this script, your local testing environment should be ready and you can proceed with the next steps.
