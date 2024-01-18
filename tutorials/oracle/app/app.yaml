@@ -45,3 +45,6 @@ modules:
   - name: tx
     config:
       "@type": cosmos.tx.config.v1.Config
+- name: oracle
+    config:
+      "@type": facundomedica.oracle.module.v1.Module
