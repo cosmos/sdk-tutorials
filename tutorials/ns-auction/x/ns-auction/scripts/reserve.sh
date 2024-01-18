@@ -16,7 +16,7 @@ find_project_root() {
 }
 
 PROJECT_ROOT=$(find_project_root)
-BINARY=$PROJECT_ROOT/build/tutoriald
+BINARY=$PROJECT_ROOT/tutorials/ns-auction/base/build/tutoriald
 
 name="$1"
 

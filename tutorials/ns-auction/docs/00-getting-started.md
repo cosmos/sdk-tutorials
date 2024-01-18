@@ -1,14 +1,14 @@
 # Advanced Tutorial: Auction Front-Running Simulation
 
 ## Table of Contents
+
 - [Getting Started](#introduction)
-- [Understanding Front-Running](#understanding-front-running)
-- [Simulating the Auction](#simulating-the-auction)
-- [Mitigating Front-running with Vote Extensions](#mitigating-front-running-with-vote-extensions)
-- [Demo of Mitigating Front-Running](#demo-of-mitigating-front-running)
-- [Conclusion](#conclusion)
+- [Understanding Front-Running](01-understanding-front-running)
+- [Mitigating Front-running with Vote Extensions](02-mitigating-front-running-with-vote-extensions)
+- [Demo of Mitigating Front-Running](03-demo-of-mitigating-front-running)
 
 ## Getting Started
+
 ### Introduction
 
 In this advanced tutorial, we will be working with an example application that facilitates the auctioning of namespaces. To see what frontrunning and namespaces are [here](./01-understanding-frontrunning.md) This application provides a practical use case to explore the prevention of auction front-running, also known as "bid sniping", where a validator takes advantage of seeing a bid in the mempool to place their own higher bid before the original bid is processed.
@@ -25,4 +25,3 @@ Before diving into the advanced tutorial on auction front-running simulation, en
 You will also need a foundational blockchain to build upon. The `tutorials/base` directory has the necessary blockchain code to start your custom project with the Cosmos SDK. But also you will need to have your own module or use the `ns-auction` module provided in the `tutorials/ns-auction/x/ns-auction` directory as a reference.
 
 This will set up a strong base for your blockchain, enabling the integration of advanced features such as auction front-running simulation.
-

@@ -1,4 +1,4 @@
-module github.com/cosmos/sdk-tutorials/ns-auction/base
+module github.com/cosmos/sdk-tutorials/tutorials/ns-auction/base
 
 go 1.21.5
 

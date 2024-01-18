@@ -10,6 +10,7 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	nstypes "github.com/cosmos/sdk-tutorials/tutorials/ns-auction/x/ns-auction"
 	"github.com/cosmos/sdk-tutorials/tutorials/ns-auction/x/ns-auction/mempool"
 )

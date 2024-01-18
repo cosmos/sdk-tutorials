@@ -7,19 +7,20 @@ In this demo, we are using a 3 validator network. The Beacon validator is specia
 1. Bootstrap the validator network: This sets up a network with 3 validators. The script `./scripts/configure.sh "bob.cosmos"` is used to configure the network and the validators.
 
 ```shell
-bash ./scripts/configure.sh "bob.cosmos"
+cd scripts
+configure.sh "bob.cosmos"
 ```
 
 2. Have alice attempt to reserve `bob.cosmos`: This is a normal transaction that alice wants to execute. The script ``./scripts/reserve.sh "bob.cosmos"` is used to send this transaction.
 
 ```shell
-bash ./scripts/reserve.sh "bob.cosmos"
+bash reserve.sh "bob.cosmos"
 ```
 
 3. Query to verify the name has been reserved: This is to check the result of the transaction. The script `./scripts/whois.sh "bob.cosmos"` is used to query the state of the blockchain.
 
 ```shell
-./scripts/whois.sh "bob.cosmos"
+bash whois.sh "bob.cosmos"
 ```
 
 It should return:
@@ -47,10 +48,10 @@ To detect front-running attempts by the beacon, scrutinise the logs during the `
 2:47PM ERR prevote step: state machine rejected a proposed block; this should not happen:the proposer may be misbehaving; prevoting nil err=null height=142 module=consensus round=0
 ```
 
-5. List the Beacon's keys: This is to verify the addresses of the validators. The script `./scripts/list-beacon-keys.sh` is used to list the keys. 
+4. List the Beacon's keys: This is to verify the addresses of the validators. The script `./scripts/list-beacon-keys.sh` is used to list the keys.
 
 ```shell
-./scripts/list-beacon-keys.sh
+bash list-beacon-keys.sh
 ```
 
 We should receive something similar to the following:

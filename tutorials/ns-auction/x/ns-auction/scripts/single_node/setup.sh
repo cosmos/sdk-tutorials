@@ -12,8 +12,9 @@ HOME=$HOME/.tutoriald
 BINARY=$PROJECT_ROOT/tutorials/ns-auction/base/build/tutoriald
 
 echo $PROJECT_ROOT
+echo $HOME
 
-rm -rf ~/.tutoriald
+rm -rf $HOME
 
 make build
 

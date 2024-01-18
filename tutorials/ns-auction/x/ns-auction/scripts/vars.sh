@@ -11,7 +11,7 @@ find_project_root() {
 PROJECT_ROOT=$(find_project_root)
 export HOME=$HOME/.tutoriald
 echo $PROJECT_ROOT
-BINARY=$PROJECT_ROOT/build/tutoriald
+BINARY=$PROJECT_ROOT/tutorials/ns-auction/base/build/tutoriald
 export CHAIN_ID=test
 export KEYRING=test
 # User balance of stake tokens

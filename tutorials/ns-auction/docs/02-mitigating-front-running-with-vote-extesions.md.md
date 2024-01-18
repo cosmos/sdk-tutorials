@@ -1,15 +1,10 @@
 # Mitigating Front-running with Vote Extensions
 
 ## Table of Contents
+
 - [Prerequisites](#prerequisites)
 - [Implementing Structs for Vote Extensions](#implementing-structs-for-vote-extensions)
-- [Preparing Proposals with Vote Extensions](#preparing-proposals-with-vote-extensions)
-- [Processing Proposals and Vote Extensions](#processing-proposals-and-vote-extensions)
-- [Handling Vote Extensions](#handling-vote-extensions)
-- [Injected Vote Extensions](#injected-vote-extensions)
-- [Application Vote Extensions](#application-vote-extensions)
-- [Special Transactions](#special-transactions)
-- [Testing and Verification](#testing-and-verification)
+- [Implementing Handlers and Configuring Handlers](#implementing-handlers-and-configuring-handlers)
 
 ## Prerequisites
 
@@ -25,17 +20,17 @@ First, copy the following structs into the `abci/types.go` and each of these str
 package abci
 
 import (
-	//import the necessary files
+ //import the necessary files
 )
 
 type PrepareProposalHandler struct {
-	logger      log.Logger
-	txConfig    client.TxConfig
-	cdc         codec.Codec
-	mempool     *mempool.ThresholdMempool
-	txProvider  provider.TxProvider
-	keyname     string
-	runProvider bool
+ logger      log.Logger
+ txConfig    client.TxConfig
+ cdc         codec.Codec
+ mempool     *mempool.ThresholdMempool
+ txProvider  provider.TxProvider
+ keyname     string
+ runProvider bool
 }
 ```
 
@@ -43,9 +38,9 @@ The `PrepareProposalHandler` struct is used to handle the preparation of a propo
 
 ```go
 type ProcessProposalHandler struct {
-	TxConfig client.TxConfig
-	Codec    codec.Codec
-	Logger   log.Logger
+ TxConfig client.TxConfig
+ Codec    codec.Codec
+ Logger   log.Logger
 }
 ```
 
@@ -53,10 +48,10 @@ After the proposal has been prepared and vote extensions have been included, the
 
 ```go
 type VoteExtHandler struct {
-	logger       log.Logger
-	currentBlock int64
-	mempool      *mempool.ThresholdMempool
-	cdc          codec.Codec
+ logger       log.Logger
+ currentBlock int64
+ mempool      *mempool.ThresholdMempool
+ cdc          codec.Codec
 }
 ```
 
@@ -64,12 +59,12 @@ This struct is used to handle vote extensions. It contains a logger for logging 
 
 ```go
 type InjectedVoteExt struct {
-	VoteExtSigner []byte
-	Bids          [][]byte
+ VoteExtSigner []byte
+ Bids          [][]byte
 }
 
 type InjectedVotes struct {
-	Votes []InjectedVoteExt
+ Votes []InjectedVoteExt
 }
 ```
 
@@ -77,8 +72,8 @@ These structs are used to handle injected vote extensions. They include the sign
 
 ```go
 type AppVoteExtension struct {
-	Height int64
-	Bids   [][]byte
+ Height int64
+ Bids   [][]byte
 }
 ```
 
@@ -86,15 +81,14 @@ This struct is used for application vote extensions. It includes the height of t
 
 ```go
 type SpecialTransaction struct {
-	Height int
-	Bids   [][]byte
+ Height int
+ Bids   [][]byte
 }
 ```
 
 This struct is used for special transactions. It includes the height of the block and the bids associated with the transaction. Special transactions are used for transactions that need to be handled differently from regular transactions, such as transactions that are part of the process to mitigate front-running.
 
-
-### Implementing Handlers
+### Implementing Handlers and Configuring Handlers
 
 To establish the `VoteExtensionHandler`, follow these steps:
 
@@ -116,56 +110,56 @@ func NewVoteExtensionHandler(lg log.Logger, mp *mempool.ThresholdMempool, cdc co
 
 ```go
 func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
-	return func(ctx sdk.Context, req *abci.RequestExtendVote) (*abci.ResponseExtendVote, error) {
+ return func(ctx sdk.Context, req *abci.RequestExtendVote) (*abci.ResponseExtendVote, error) {
       h.logger.Info(fmt.Sprintf("Extending votes at block height : %v", req.Height))
 
-	voteExtBids := [][]byte{}
+ voteExtBids := [][]byte{}
 
-	// Get mempool txs
-	itr := h.mempool.SelectPending(context.Background(), nil)
-	for itr != nil {
-		tmptx := itr.Tx()
-		sdkMsgs := tmptx.GetMsgs()
+ // Get mempool txs
+ itr := h.mempool.SelectPending(context.Background(), nil)
+ for itr != nil {
+  tmptx := itr.Tx()
+  sdkMsgs := tmptx.GetMsgs()
 
-		// Iterate through msgs, check for any bids
-		for _, msg := range sdkMsgs {
-			switch msg := msg.(type) {
-			case *nstypes.MsgBid:
-			// Marshal sdk bids to []byte
-				bz, err := h.cdc.Marshal(msg)
-				if err != nil {
-					h.logger.Error(fmt.Sprintf("Error marshalling VE Bid : %v", err))
-					break
-				}
-				voteExtBids = append(voteExtBids, bz)
-			default:
-			}
-		}
+  // Iterate through msgs, check for any bids
+  for _, msg := range sdkMsgs {
+   switch msg := msg.(type) {
+   case *nstypes.MsgBid:
+   // Marshal sdk bids to []byte
+    bz, err := h.cdc.Marshal(msg)
+    if err != nil {
+     h.logger.Error(fmt.Sprintf("Error marshalling VE Bid : %v", err))
+     break
+    }
+    voteExtBids = append(voteExtBids, bz)
+   default:
+   }
+  }
 
-		// Move tx to ready pool
-		err := h.mempool.Update(context.Background(), tmptx)
-		
-		// Remove tx from app side mempool
-		if err != nil {
-			h.logger.Info(fmt.Sprintf("Unable to update mempool tx: %v", err))
-		}
-		
-		itr = itr.Next()
-	}
+  // Move tx to ready pool
+  err := h.mempool.Update(context.Background(), tmptx)
+  
+  // Remove tx from app side mempool
+  if err != nil {
+   h.logger.Info(fmt.Sprintf("Unable to update mempool tx: %v", err))
+  }
+  
+  itr = itr.Next()
+ }
 
-	// Create vote extension
-	voteExt := AppVoteExtension{
-	Height: req.Height,
-	Bids: voteExtBids,
-	}
+ // Create vote extension
+ voteExt := AppVoteExtension{
+ Height: req.Height,
+ Bids: voteExtBids,
+ }
 
-	// Encode Vote Extension
-	bz, err := json.Marshal(voteExt)
-		if err != nil {
-		return nil, fmt.Errorf("Error marshalling VE: %w", err)
-	}
+ // Encode Vote Extension
+ bz, err := json.Marshal(voteExt)
+  if err != nil {
+  return nil, fmt.Errorf("Error marshalling VE: %w", err)
+ }
 
-	return &abci.ResponseExtendVote{VoteExtension: bz}, nil
+ return &abci.ResponseExtendVote{VoteExtension: bz}, nil
 }
 ```
 
@@ -192,96 +186,96 @@ This is how the whole function should look:
 
 ```go
 func (h *PrepareProposalHandler) PrepareProposalHandler() sdk.PrepareProposalHandler {
-	return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
-		h.logger.Info(fmt.Sprintf("🛠️ :: Prepare Proposal"))
-		var proposalTxs [][]byte
+ return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
+  h.logger.Info(fmt.Sprintf("🛠️ :: Prepare Proposal"))
+  var proposalTxs [][]byte
 
-		var txs []sdk.Tx
+  var txs []sdk.Tx
 
-		// Get Vote Extensions
-		if req.Height > 2 {
-			voteExt := req.GetLocalLastCommit()
-			h.logger.Info(fmt.Sprintf("🛠️ :: Get vote extensions: %v", voteExt))
-		}
+  // Get Vote Extensions
+  if req.Height > 2 {
+   voteExt := req.GetLocalLastCommit()
+   h.logger.Info(fmt.Sprintf("🛠️ :: Get vote extensions: %v", voteExt))
+  }
 
-		itr := h.mempool.Select(context.Background(), nil)
-		for itr != nil {
-			tmptx := itr.Tx()
+  itr := h.mempool.Select(context.Background(), nil)
+  for itr != nil {
+   tmptx := itr.Tx()
 
-			txs = append(txs, tmptx)
-			itr = itr.Next()
-		}
-		h.logger.Info(fmt.Sprintf("🛠️ :: Number of Transactions available from mempool: %v", len(txs)))
+   txs = append(txs, tmptx)
+   itr = itr.Next()
+  }
+  h.logger.Info(fmt.Sprintf("🛠️ :: Number of Transactions available from mempool: %v", len(txs)))
 
-		if h.runProvider {
-			tmpMsgs, err := h.txProvider.BuildProposal(ctx, txs)
-			if err != nil {
-				h.logger.Error(fmt.Sprintf("❌️ :: Error Building Custom Proposal: %v", err))
-			}
-			txs = tmpMsgs
-		}
+  if h.runProvider {
+   tmpMsgs, err := h.txProvider.BuildProposal(ctx, txs)
+   if err != nil {
+    h.logger.Error(fmt.Sprintf("❌️ :: Error Building Custom Proposal: %v", err))
+   }
+   txs = tmpMsgs
+  }
 
-		for _, sdkTxs := range txs {
-			txBytes, err := h.txConfig.TxEncoder()(sdkTxs)
-			if err != nil {
-				h.logger.Info(fmt.Sprintf("❌~Error encoding transaction: %v", err.Error()))
-			}
-			proposalTxs = append(proposalTxs, txBytes)
-		}
+  for _, sdkTxs := range txs {
+   txBytes, err := h.txConfig.TxEncoder()(sdkTxs)
+   if err != nil {
+    h.logger.Info(fmt.Sprintf("❌~Error encoding transaction: %v", err.Error()))
+   }
+   proposalTxs = append(proposalTxs, txBytes)
+  }
 
-		h.logger.Info(fmt.Sprintf("🛠️ :: Number of Transactions in proposal: %v", len(proposalTxs)))
+  h.logger.Info(fmt.Sprintf("🛠️ :: Number of Transactions in proposal: %v", len(proposalTxs)))
 
-		return &abci.ResponsePrepareProposal{Txs: proposalTxs}, nil
-	}
+  return &abci.ResponsePrepareProposal{Txs: proposalTxs}, nil
+ }
 }
 ```
 
-As mentioned above, we check if vote extensions have been propagated, you can do this by checking the logs for any relevant messages such as `🛠️ :: Get vote extensions:`. If the logs do not provide enough information, you can also reinitialise your local testing environment by running the `./scripts/single_node/setup.sh` script again. 
+As mentioned above, we check if vote extensions have been propagated, you can do this by checking the logs for any relevant messages such as `🛠️ :: Get vote extensions:`. If the logs do not provide enough information, you can also reinitialise your local testing environment by running the `./scripts/single_node/setup.sh` script again.
 
 5. Implement the `ProcessProposalHandler()`. This function is responsible for processing the proposal. It should handle the logic of processing vote extensions, including inspecting the proposal and validating the bids.
 
 ```go
 func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHandler {
-	return func(ctx sdk.Context, req *abci.RequestProcessProposal) (resp *abci.ResponseProcessProposal, err error) {
-		h.Logger.Info(fmt.Sprintf("⚙️ :: Process Proposal"))
+ return func(ctx sdk.Context, req *abci.RequestProcessProposal) (resp *abci.ResponseProcessProposal, err error) {
+  h.Logger.Info(fmt.Sprintf("⚙️ :: Process Proposal"))
 
-		// The first transaction will always be the Special Transaction
-		numTxs := len(req.Txs)
+  // The first transaction will always be the Special Transaction
+  numTxs := len(req.Txs)
 
-		h.Logger.Info(fmt.Sprintf("⚙️:: Number of transactions :: %v", numTxs))
+  h.Logger.Info(fmt.Sprintf("⚙️:: Number of transactions :: %v", numTxs))
 
-		if numTxs >= 1 {
-			var st SpecialTransaction
-			err = json.Unmarshal(req.Txs[0], &st)
-			if err != nil {
-				h.Logger.Error(fmt.Sprintf("❌️:: Error unmarshalling special Tx in Process Proposal :: %v", err))
-			}
-			if len(st.Bids) > 0 {
-				h.Logger.Info(fmt.Sprintf("⚙️:: There are bids in the Special Transaction"))
-				var bids []nstypes.MsgBid
-				for i, b := range st.Bids {
-					var bid nstypes.MsgBid
-					h.Codec.Unmarshal(b, &bid)
-					h.Logger.Info(fmt.Sprintf("⚙️:: Special Transaction Bid No %v :: %v", i, bid))
-					bids = append(bids, bid)
-				}
-				// Validate Bids in Tx
-				txs := req.Txs[1:]
-				ok, err := ValidateBids(h.TxConfig, bids, txs, h.Logger)
-				if err != nil {
-					h.Logger.Error(fmt.Sprintf("❌️:: Error validating bids in Process Proposal :: %v", err))
-					return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_REJECT}, nil
-				}
-				if !ok {
-					h.Logger.Error(fmt.Sprintf("❌️:: Unable to validate bids in Process Proposal :: %v", err))
-					return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_REJECT}, nil
-				}
-				h.Logger.Info("⚙️:: Successfully validated bids in Process Proposal")
-			}
-		}
+  if numTxs >= 1 {
+   var st SpecialTransaction
+   err = json.Unmarshal(req.Txs[0], &st)
+   if err != nil {
+    h.Logger.Error(fmt.Sprintf("❌️:: Error unmarshalling special Tx in Process Proposal :: %v", err))
+   }
+   if len(st.Bids) > 0 {
+    h.Logger.Info(fmt.Sprintf("⚙️:: There are bids in the Special Transaction"))
+    var bids []nstypes.MsgBid
+    for i, b := range st.Bids {
+     var bid nstypes.MsgBid
+     h.Codec.Unmarshal(b, &bid)
+     h.Logger.Info(fmt.Sprintf("⚙️:: Special Transaction Bid No %v :: %v", i, bid))
+     bids = append(bids, bid)
+    }
+    // Validate Bids in Tx
+    txs := req.Txs[1:]
+    ok, err := ValidateBids(h.TxConfig, bids, txs, h.Logger)
+    if err != nil {
+     h.Logger.Error(fmt.Sprintf("❌️:: Error validating bids in Process Proposal :: %v", err))
+     return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_REJECT}, nil
+    }
+    if !ok {
+     h.Logger.Error(fmt.Sprintf("❌️:: Unable to validate bids in Process Proposal :: %v", err))
+     return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_REJECT}, nil
+    }
+    h.Logger.Info("⚙️:: Successfully validated bids in Process Proposal")
+   }
+  }
 
-		return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_ACCEPT}, nil
-	}
+  return &abci.ResponseProcessProposal{Status: abci.ResponseProcessProposal_ACCEPT}, nil
+ }
 }
 ```
 
@@ -289,39 +283,39 @@ func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHan
 
 ```go
 func processVoteExtensions(req *abci.RequestPrepareProposal, log log.Logger) (SpecialTransaction, error) {
-	log.Info(fmt.Sprintf("🛠️ :: Process Vote Extensions"))
+ log.Info(fmt.Sprintf("🛠️ :: Process Vote Extensions"))
 
-	// Create empty response
-	st := SpecialTransaction{
-		0,
-		[][]byte{},
-	}
+ // Create empty response
+ st := SpecialTransaction{
+  0,
+  [][]byte{},
+ }
 
-	// Get Vote Ext for H-1 from Req
-	voteExt := req.GetLocalLastCommit()
-	votes := voteExt.Votes
+ // Get Vote Ext for H-1 from Req
+ voteExt := req.GetLocalLastCommit()
+ votes := voteExt.Votes
 
-	// Iterate through votes
-	var ve AppVoteExtension
-	for _, vote := range votes {
-		// Unmarshal to AppExt
-		err := json.Unmarshal(vote.VoteExtension, &ve)
-		if err != nil {
-			log.Error(fmt.Sprintf("❌ :: Error unmarshalling Vote Extension"))
-		}
+ // Iterate through votes
+ var ve AppVoteExtension
+ for _, vote := range votes {
+  // Unmarshal to AppExt
+  err := json.Unmarshal(vote.VoteExtension, &ve)
+  if err != nil {
+   log.Error(fmt.Sprintf("❌ :: Error unmarshalling Vote Extension"))
+  }
 
-		st.Height = int(ve.Height)
+  st.Height = int(ve.Height)
 
-		// If Bids in VE, append to Special Transaction
-		if len(ve.Bids) > 0 {
-			log.Info("🛠️ :: Bids in VE")
-			for _, b := range ve.Bids {
-				st.Bids = append(st.Bids, b)
-			}
-		}
-	}
+  // If Bids in VE, append to Special Transaction
+  if len(ve.Bids) > 0 {
+   log.Info("🛠️ :: Bids in VE")
+   for _, b := range ve.Bids {
+    st.Bids = append(st.Bids, b)
+   }
+  }
+ }
 
-	return st, nil
+ return st, nil
 }
 ```
 

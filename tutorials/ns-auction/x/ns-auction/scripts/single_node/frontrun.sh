@@ -1,5 +1,4 @@
 #!/bin/bash
-
 find_project_root() {
     local dir=$PWD
     while [ "$dir" != "" ] && [ ! -d "$dir/.git" ]; do
@@ -10,7 +9,7 @@ find_project_root() {
 
 PROJECT_ROOT=$(find_project_root)
 HOME=$HOME/.tutoriald
-BINARY=$PROJECT_ROOT/build/tutoriald
+BINARY=$PROJECT_ROOT/tutorials/ns-auction/base/build/tutoriald
 
-
+echo $HOME
 $BINARY tx reserve "bob.cosmos" $($BINARY keys show alice -a --home $HOME --keyring-backend test) 1000uatom --from $($BINARY keys show bob -a --home $HOME --keyring-backend test) --home $HOME -y
