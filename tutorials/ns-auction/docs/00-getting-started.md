@@ -2,14 +2,20 @@
 
 ## Table of Contents
 
-- [Getting Started](#introduction)
+- [Getting Started](#overview-of-the-project)
 - [Understanding Front-Running](01-understanding-front-running)
 - [Mitigating Front-running with Vote Extensions](02-mitigating-front-running-with-vote-extensions)
 - [Demo of Mitigating Front-Running](03-demo-of-mitigating-front-running)
 
 ## Getting Started
 
-### Introduction
+### Overview of the Project
+
+This tutorial outlines the development of a module designed to mitigate front-running in namespace auctions. The following functions are central to this module:
+
+- `ExtendVote`: Gathers bids from the mempool and includes them in the vote extension to ensure a fair and transparent auction process.
+- `PrepareProposal`: Processes the vote extensions from the previous block, creating a special transaction that encapsulates bids to be included in the current proposal.
+- `ProcessProposal`: Validates that the first transaction in the proposal is the special transaction containing the vote extensions and ensures the integrity of the bids.
 
 In this advanced tutorial, we will be working with an example application that facilitates the auctioning of namespaces. To see what frontrunning and namespaces are [here](./01-understanding-frontrunning.md) This application provides a practical use case to explore the prevention of auction front-running, also known as "bid sniping", where a validator takes advantage of seeing a bid in the mempool to place their own higher bid before the original bid is processed.
 
