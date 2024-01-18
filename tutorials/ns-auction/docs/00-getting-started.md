@@ -15,6 +15,12 @@ In this advanced tutorial, we will be working with an example application that f
 
 The tutorial will guide you through using the Cosmos SDK to mitigate front-running using vote extensions. The module will be built on top of the base blockchain provided in the `tutorials/base` directory and will use the `ns-auction` module as a foundation. By the end of this tutorial, you will have a better understanding of how to prevent front-running in blockchain auctions, specifically in the context of namespace auctioning.
 
+## What are Vote extensions?
+
+Vote extensions is arbitrary information which can be inserted into a block. This feature is part of ABCI 2.0, which is available for use in the SDK 0.50 release and part of the 0.38 CometBFT release.
+
+More information about vote extensions can be seen [here](https://docs.cosmos.network/main/build/abci/vote-extensions).
+
 ## Requirements and Setup
 
 Before diving into the advanced tutorial on auction front-running simulation, ensure you meet the following requirements:
