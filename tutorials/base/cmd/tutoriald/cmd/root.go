@@ -4,15 +4,12 @@ import (
 	"os"
 	"time"
 
-	cmtcfg "github.com/cometbft/cometbft/config"
-	"github.com/spf13/cobra"
-
 	"cosmossdk.io/client/v2/autocli"
 	clientv2keyring "cosmossdk.io/client/v2/autocli/keyring"
 	"cosmossdk.io/core/address"
 	"cosmossdk.io/depinject"
 	"cosmossdk.io/log"
-
+	cmtcfg "github.com/cometbft/cometbft/config"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -25,6 +22,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
 	txmodule "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/spf13/cobra"
 
 	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
 )
@@ -34,13 +32,13 @@ import (
 func NewRootCmd() *cobra.Command {
 	var (
 		//  It can be used to set options like the signer, fee granularity, and other transaction-related configurations.
-		txConfigOpts       tx.ConfigOptions
+		txConfigOpts tx.ConfigOptions
 		// It can include options for modules, address codecs, and other CLI-related configurations.
-		autoCliOpts        autocli.AppOptions
+		autoCliOpts autocli.AppOptions
 		// This includes things like genesis data, default genesis data, verifying genesis data, and the module's name.
 		moduleBasicManager module.BasicManager
 		// This can include things like the client's home directory, the client's input/output, and the client's trust node.
-		clientCtx          client.Context
+		clientCtx client.Context
 	)
 
 	if err := depinject.Inject(

@@ -4,3 +4,5 @@ build/
 data/
 config/
 Library/
+go.work
+go.work.sum
