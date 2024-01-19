@@ -1,6 +1,6 @@
-module github.com/cosmos/sdk-tutorials
+module github.com/cosmos/sdk-tutorials/tutorials/base
 
-go 1.21.5
+go 1.21
 
 require github.com/cosmos/cosmos-sdk v0.50.2
 
