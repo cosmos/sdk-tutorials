@@ -6,9 +6,9 @@ import (
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/cosmos/sdk-tutorials/app"
-	"github.com/cosmos/sdk-tutorials/app/params"
-	"github.com/cosmos/sdk-tutorials/cmd/tutoriald/cmd"
+	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
+	"github.com/cosmos/sdk-tutorials/tutorials/base/app/params"
+	"github.com/cosmos/sdk-tutorials/tutorials/base/cmd/tutoriald/cmd"
 )
 
 func main() {
