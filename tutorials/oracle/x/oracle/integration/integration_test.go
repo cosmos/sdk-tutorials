@@ -22,9 +22,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil/configurator"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 
-	"github.com/cosmos/sdk-tutorials/x/oracle"
-	oraclemodulev1 "github.com/cosmos/sdk-tutorials/x/oracle/api/module/v1"
-	"github.com/cosmos/sdk-tutorials/x/oracle/keeper"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle"
+	oraclemodulev1 "github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/api/module/v1"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/keeper"
 )
 
 // ExampleModule is a configurator.ModuleOption that add the oracle module to the app config.

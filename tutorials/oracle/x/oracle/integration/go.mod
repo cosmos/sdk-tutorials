@@ -1,4 +1,4 @@
-module github.com/cosmos/sdk-tutorials/x/oracle/integration
+module github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle/integration
 
 go 1.21
 

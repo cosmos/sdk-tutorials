@@ -26,7 +26,7 @@ import (
 	txmodule "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 
-	"github.com/cosmos/sdk-tutorials/app"
+	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
 )
 
 // NewRootCmd creates a new root command for tutoriald. It is called once in the
