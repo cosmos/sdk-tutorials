@@ -7,81 +7,77 @@ import (
 	"os"
 	"path/filepath"
 
+	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
+	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
+	"cosmossdk.io/client/v2/autocli"
+	"cosmossdk.io/core/appmodule"
+	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 	"cosmossdk.io/x/tx/signing"
 	"cosmossdk.io/x/upgrade"
-	upgradetypes "cosmossdk.io/x/upgrade/types"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	abci2 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/abci"
-	mempool2 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/provider"
-	"github.com/spf13/cast"
-
-	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
-	"github.com/cosmos/cosmos-sdk/codec/address"
-	"github.com/cosmos/cosmos-sdk/std"
-	"github.com/cosmos/cosmos-sdk/x/auth"
-	"github.com/cosmos/cosmos-sdk/x/bank"
-	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/cosmos/cosmos-sdk/x/consensus"
-	consensusparamtypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
-	"github.com/cosmos/cosmos-sdk/x/distribution"
-	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
-	"github.com/cosmos/cosmos-sdk/x/params"
-	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	paramproposal "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
-	"github.com/cosmos/cosmos-sdk/x/staking"
-	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-
-	"cosmossdk.io/client/v2/autocli"
-	"cosmossdk.io/core/appmodule"
-	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
-	"github.com/cosmos/cosmos-sdk/runtime"
-	"github.com/cosmos/cosmos-sdk/types/msgservice"
-	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
-	"github.com/cosmos/cosmos-sdk/x/genutil"
-	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
-	"github.com/cosmos/cosmos-sdk/x/gov"
-	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
-	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
-	"github.com/cosmos/gogoproto/proto"
-
-	// ibcclientclient "github.com/cosmos/ibc-go/v7/modules/core/02-client/client"
-
-	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
-	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
-	"cosmossdk.io/log"
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
 	abci "github.com/cometbft/cometbft/abci/types"
+	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	dbm "github.com/cosmos/cosmos-db"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/codec/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	runtimeservices "github.com/cosmos/cosmos-sdk/runtime/services"
 	"github.com/cosmos/cosmos-sdk/server"
 	"github.com/cosmos/cosmos-sdk/server/api"
 	"github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
+	"github.com/cosmos/cosmos-sdk/std"
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	"github.com/cosmos/cosmos-sdk/version"
+	"github.com/cosmos/cosmos-sdk/x/auth"
+	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	"github.com/cosmos/cosmos-sdk/x/bank"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/cosmos/cosmos-sdk/x/consensus"
 	consensusparamkeeper "github.com/cosmos/cosmos-sdk/x/consensus/keeper"
+	consensusparamtypes "github.com/cosmos/cosmos-sdk/x/consensus/types"
+	"github.com/cosmos/cosmos-sdk/x/distribution"
 	distrkeeper "github.com/cosmos/cosmos-sdk/x/distribution/keeper"
+	distrtypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
+	"github.com/cosmos/cosmos-sdk/x/genutil"
+	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
+	"github.com/cosmos/cosmos-sdk/x/gov"
+	govclient "github.com/cosmos/cosmos-sdk/x/gov/client"
 	govkeeper "github.com/cosmos/cosmos-sdk/x/gov/keeper"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govv1beta1 "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	"github.com/cosmos/cosmos-sdk/x/params"
+	paramsclient "github.com/cosmos/cosmos-sdk/x/params/client"
 	paramskeeper "github.com/cosmos/cosmos-sdk/x/params/keeper"
+	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	paramproposal "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
+	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	"github.com/cosmos/gogoproto/proto"
+	"github.com/spf13/cast"
+
 	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
+	abci2 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/abci"
 	auctionkeeper "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/keeper"
+	mempool2 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
 	auctionmod "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/module"
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/provider"
 )
 
 const (
@@ -105,7 +101,7 @@ var (
 		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
-		auction.ModuleName:        nil,
+		auction.ModuleName:             nil,
 	}
 )
 
@@ -117,7 +113,7 @@ var (
 type TutorialApp struct {
 	*baseapp.BaseApp
 
-	legacyAmino       *codec.LegacyAmino //nolint:staticcheck
+	legacyAmino       *codec.LegacyAmino
 	appCodec          codec.Codec
 	txConfig          client.TxConfig
 	interfaceRegistry types.InterfaceRegistry
@@ -263,7 +259,7 @@ func NewTutorialApp(
 	}
 	voteExtHandler := abci2.NewVoteExtensionHandler(logger, mempool, appCodec)
 	prepareProposalHandler := abci2.NewPrepareProposalHandler(logger, app.txConfig, appCodec, mempool, bp, runProvider)
-	processPropHandler := abci2.ProcessProposalHandler{app.txConfig, appCodec, logger}
+	processPropHandler := abci2.ProcessProposalHandler{TxConfig: app.txConfig, Codec: appCodec, Logger: logger}
 	bApp.SetPrepareProposal(prepareProposalHandler.PrepareProposalHandler())
 	bApp.SetProcessProposal(processPropHandler.ProcessProposalHandler())
 	bApp.SetExtendVoteHandler(voteExtHandler.ExtendVoteHandler())
@@ -504,7 +500,9 @@ func (app *TutorialApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain)
 	if err := json.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
 	}
-	app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap())
+	if err := app.UpgradeKeeper.SetModuleVersionMap(ctx, app.mm.GetVersionMap()); err != nil {
+		return nil, err
+	}
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }
 
@@ -629,10 +627,10 @@ func (app *TutorialApp) RegisterNodeService(clientCtx client.Context, cfg config
 	nodeservice.RegisterNodeService(clientCtx, app.GRPCQueryRouter(), cfg)
 }
 
-func (app *TutorialApp) OnTxSucceeded(_ sdk.Context, _, _ string, _ []byte, _ []byte) {
+func (app *TutorialApp) OnTxSucceeded(_ sdk.Context, _, _ string, _, _ []byte) {
 }
 
-func (app *TutorialApp) OnTxFailed(_ sdk.Context, _, _ string, _ []byte, _ []byte) {
+func (app *TutorialApp) OnTxFailed(_ sdk.Context, _, _ string, _, _ []byte) {
 }
 
 func (app *TutorialApp) GetBaseApp() *baseapp.BaseApp {

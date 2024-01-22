@@ -6,13 +6,12 @@ import (
 	"fmt"
 
 	"cosmossdk.io/log"
-
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
 	auctiontypes "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
 )
 
 func NewVoteExtensionHandler(lg log.Logger, mp *mempool.ThresholdMempool, cdc codec.Codec) *VoteExtHandler {
@@ -43,7 +42,7 @@ func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
 					// Marshal sdk bids to []byte
 					bz, err := h.cdc.Marshal(msg)
 					if err != nil {
-						h.logger.Error(fmt.Sprintf("Error marshalling VE Bid : %v", err))
+						h.logger.Error(fmt.Sprintf("Error marshaling VE Bid : %v", err))
 						break
 					}
 					voteExtBids = append(voteExtBids, bz)
@@ -53,9 +52,8 @@ func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
 
 			// Move tx to ready pool
 			err := h.mempool.Update(context.Background(), tmptx)
-
 			//// Remove tx from app side mempool
-			//err = h.mempool.Remove(tmptx)
+			// err = h.mempool.Remove(tmptx)
 			if err != nil {
 				h.logger.Info(fmt.Sprintf("Unable to update mempool tx: %v", err))
 			}
@@ -72,7 +70,7 @@ func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
 		// Encode Vote Extension
 		bz, err := json.Marshal(voteExt)
 		if err != nil {
-			return nil, fmt.Errorf("Error marshalling VE: %w", err)
+			return nil, fmt.Errorf("error marshaling VE: %w", err)
 		}
 
 		return &abci.ResponseExtendVote{VoteExtension: bz}, nil

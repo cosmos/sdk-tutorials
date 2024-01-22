@@ -13,7 +13,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authclient "github.com/cosmos/cosmos-sdk/x/auth/client"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
-	"github.com/cosmos/cosmos-sdk/x/auth/types"
+
 	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 )
 
@@ -55,14 +55,12 @@ func (bp *LocalTxProvider) Init() error {
 }
 
 func (ls *LocalSigner) Init(txCfg client.TxConfig, cdc codec.Codec, logger log.Logger) error {
-
 	if len(ls.KeyName) == 0 {
 		return fmt.Errorf("keyName  must be set")
 	}
 
 	if len(ls.KeyringDir) == 0 {
 		return fmt.Errorf("keyDir  must be set")
-
 	}
 
 	ls.txConfig = txCfg
@@ -77,7 +75,7 @@ func (ls *LocalSigner) Init(txCfg client.TxConfig, cdc codec.Codec, logger log.L
 	return nil
 }
 
-func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.AccountKeeper) (types.AccountI, error) {
+func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.AccountKeeper) (sdk.AccountI, error) {
 	lg := ls.lg
 
 	info, err := ls.kb.Key(ls.KeyName)
@@ -87,7 +85,6 @@ func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.Acco
 	}
 
 	addrBz, err := info.GetAddress()
-
 	if err != nil {
 		lg.Error(fmt.Sprintf("Error retrieving address by key name: %v", err))
 		return nil, err
@@ -113,7 +110,7 @@ func (ls *LocalSigner) RetreiveSigner(ctx sdk.Context, actKeeper authkeeper.Acco
 	return acct, nil
 }
 
-func (ls *LocalSigner) BuildAndSignTx(ctx sdk.Context, acct types.AccountI, msg auction.MsgBid) sdk.Tx {
+func (ls *LocalSigner) BuildAndSignTx(ctx sdk.Context, acct sdk.AccountI, msg auction.MsgBid) sdk.Tx {
 	factory := tx.Factory{}.
 		WithTxConfig(ls.txConfig).
 		WithKeybase(ls.kb).
@@ -179,7 +176,6 @@ func (b *LocalTxProvider) BuildProposal(ctx sdk.Context, proposalTxs []sdk.Tx) (
 				// Append all other transactions
 				newProposal = append(newProposal, tx)
 			}
-
 		}
 	}
 

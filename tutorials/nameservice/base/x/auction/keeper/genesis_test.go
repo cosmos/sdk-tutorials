@@ -5,7 +5,6 @@ import (
 
 	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 
-	"github.com/stretchr/testify/require"
 )
 
 func TestInitGenesis(t *testing.T) {
@@ -13,12 +12,16 @@ func TestInitGenesis(t *testing.T) {
 
 	data := &auction.GenesisState{}
 	err := fixture.k.InitGenesis(fixture.ctx, data)
-	require.NoError(t, err)
+	if err != nil {
+		t.Errorf("InitGenesis returned an error: %v", err)
+	}
 }
 
 func TestExportGenesis(t *testing.T) {
 	fixture := initFixture(t)
 
 	_, err := fixture.k.ExportGenesis(fixture.ctx)
-	require.NoError(t, err)
+	if err != nil {
+		t.Errorf("InitGenesis returned an error: %v", err)
+	}
 }

@@ -1,16 +1,16 @@
 package keeper
 
 import (
-	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
-
+	"context"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 )
 
-func (k Keeper) GetNameRecord(ctx sdk.Context, name string) (auction.Name, error) {
+func (k Keeper) GetNameRecord(ctx context.Context, name string) (auction.Name, error) {
 	nameRecord, err := k.Names.Get(ctx, name)
-
 	if err != nil {
 		return auction.Name{}, err
 	}
@@ -37,7 +37,7 @@ func (k Keeper) checkAvailability(ctx sdk.Context, name string) error {
 		return fmt.Errorf("%s is already reserved", name)
 	}
 	if err != nil {
-		return fmt.Errorf("Unexpected error validating reservatio :: %w", err)
+		return fmt.Errorf("unexpected error validating reservation :: %w", err)
 	}
 	return nil
 }
@@ -59,7 +59,7 @@ func (k Keeper) validateAndFormat(ctx sdk.Context, msg *auction.MsgBid) (auction
 		return nr, err
 	}
 
-	return auction.Name{msg.Name, sender.String(), resolveAddr.String(), msg.Amount}, nil
+	return auction.Name{Name: msg.Name, Owner: sender.String(), ResolveAddress: resolveAddr.String(), Amount: msg.Amount}, nil
 }
 
 func (k Keeper) checkSufficientBalance(ctx sdk.Context, senderAddr sdk.AccAddress, amount sdk.Coins) error {

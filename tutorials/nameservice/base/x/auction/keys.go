@@ -4,7 +4,7 @@ import "cosmossdk.io/collections"
 
 const (
 	ModuleName = "auction"
-	StoreKey   = "auction"
+	StoreKey   = ModuleName
 )
 
 var (

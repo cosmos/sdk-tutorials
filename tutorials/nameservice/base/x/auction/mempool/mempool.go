@@ -33,7 +33,7 @@ func (t *ThresholdMempool) Insert(ctx context.Context, tx sdk.Tx) error {
 	// Guarantee there is at least 1 signer
 	if len(sigs) == 0 {
 		t.logger.Error("Error missing tx signatures")
-		return fmt.Errorf("Transaction must be signed")
+		return fmt.Errorf("transaction must be signed")
 	}
 
 	sig := sigs[0]

@@ -3,13 +3,13 @@ package keeper
 import (
 	"fmt"
 
-	"cosmossdk.io/log"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/address"
 	storetypes "cosmossdk.io/core/store"
+	"cosmossdk.io/log"
 	"github.com/cosmos/cosmos-sdk/codec"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 )
 
@@ -19,12 +19,12 @@ type Keeper struct {
 
 	authority string
 
-	bk          auction.BankKeeper
+	bk           auction.BankKeeper
 	defaultDenom string
 
 	// state management
 	Schema collections.Schema
-	Names  collections.Map[string,auction.Name]
+	Names  collections.Map[string, auction.Name]
 }
 
 func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService storetypes.KVStoreService, authority string, bk auction.BankKeeper, denom string) Keeper {

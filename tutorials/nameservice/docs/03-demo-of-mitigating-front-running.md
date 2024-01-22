@@ -13,12 +13,13 @@ configure.sh
 
 If this doesnt work please ensure you have run `make build` in the `tutorials/nameservice/base` directory.
 
+<!-- nolint:all -->
 2. Have alice attempt to reserve `bob.cosmos`: This is a normal transaction that alice wants to execute. The script ``./scripts/reserve.sh "bob.cosmos"` is used to send this transaction.
 
 ```shell
 bash reserve.sh "bob.cosmos"
 ```
-
+<!-- //nolint:all -->
 3. Query to verify the name has been reserved: This is to check the result of the transaction. The script `./scripts/whois.sh "bob.cosmos"` is used to query the state of the blockchain.
 
 ```shell
@@ -54,6 +55,7 @@ tail -f $HOME/cosmos/nodes/#{validator}/logs
 2:47PM ERR prevote step: state machine rejected a proposed block; this should not happen:the proposer may be misbehaving; prevoting nil err=null height=142 module=consensus round=0
 ```
 
+<!-- //nolint:all -->
 4. List the Beacon's keys: This is to verify the addresses of the validators. The script `./scripts/list-beacon-keys.sh` is used to list the keys.
 
 ```shell

@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgReserve(t *testing.T) {
+func TestMsg(t *testing.T) {
 	f := initFixture(t)
 	require := require.New(t)
 

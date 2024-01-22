@@ -5,13 +5,12 @@ import (
 	"cosmossdk.io/core/appmodule"
 	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
+	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 	modulev1 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/api/module"
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/keeper"
-	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 )
 
 var _ appmodule.AppModule = AppModule{}

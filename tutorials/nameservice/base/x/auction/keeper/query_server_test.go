@@ -9,19 +9,19 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestQueryParams(t *testing.T) {
+func TestQueryName(t *testing.T) {
 	f := initFixture(t)
 	require := require.New(t)
 
 	nameRes := &auction.MsgBid{
-		"bob.cosmos",
-		f.addrs[0].String(),
-		f.addrs[1].String(),
-		sdk.NewCoins(sdk.NewInt64Coin("stake", 150)),
+		Name: "bob.cosmos",
+		ResolveAddress: f.addrs[0].String(),
+		Owner: f.addrs[1].String(),
+		Amount: sdk.NewCoins(sdk.NewInt64Coin("stake", 150)),
 	}
 
 	nameReq := &auction.QueryNameRequest{
-		"bob.cosmos",
+		Name: "bob.cosmos",
 	}
 
 	_, err := f.msgServer.Bid(f.ctx, nameRes)

@@ -11,6 +11,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	auctiontypes "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/provider"
@@ -36,7 +37,7 @@ func NewPrepareProposalHandler(
 
 func (h *PrepareProposalHandler) PrepareProposalHandler() sdk.PrepareProposalHandler {
 	return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
-		h.logger.Info(fmt.Sprintf("🛠️ :: Prepare Proposal"))
+		h.logger.Info("🛠️ :: Prepare Proposal")
 		var proposalTxs [][]byte
 
 		// Get Vote Extensions
@@ -92,7 +93,7 @@ func (h *PrepareProposalHandler) PrepareProposalHandler() sdk.PrepareProposalHan
 
 func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHandler {
 	return func(ctx sdk.Context, req *abci.RequestProcessProposal) (resp *abci.ResponseProcessProposal, err error) {
-		h.Logger.Info(fmt.Sprintf("⚙️ :: Process Proposal"))
+		h.Logger.Info("⚙️ :: Process Proposal")
 
 		// The first transaction will always be the Special Transaction
 		numTxs := len(req.Txs)
@@ -108,11 +109,14 @@ func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHan
 				h.Logger.Error(fmt.Sprintf("❌️:: Error unmarshalling special Tx in Process Proposal :: %v", err))
 			}
 			if len(st.Bids) > 0 {
-				h.Logger.Info(fmt.Sprintf("⚙️:: There are bids in the Special Transaction"))
+				h.Logger.Info("⚙️:: There are bids in the Special Transaction")
 				var bids []auctiontypes.MsgBid
 				for i, b := range st.Bids {
 					var bid auctiontypes.MsgBid
-					h.Codec.Unmarshal(b, &bid)
+					err := h.Codec.Unmarshal(b, &bid)
+					if err != nil {
+						return nil, err
+					}
 					h.Logger.Info(fmt.Sprintf("⚙️:: Special Transaction Bid No %v :: %v", i, bid))
 					bids = append(bids, bid)
 				}
@@ -136,7 +140,7 @@ func (h *ProcessProposalHandler) ProcessProposalHandler() sdk.ProcessProposalHan
 }
 
 func processVoteExtensions(req *abci.RequestPrepareProposal, log log.Logger) (SpecialTransaction, error) {
-	log.Info(fmt.Sprintf("🛠️ :: Process Vote Extensions"))
+	log.Info("🛠️ :: Process Vote Extensions")
 
 	// Create empty response
 	st := SpecialTransaction{
@@ -154,7 +158,7 @@ func processVoteExtensions(req *abci.RequestPrepareProposal, log log.Logger) (Sp
 		// Unmarshal to AppExt
 		err := json.Unmarshal(vote.VoteExtension, &ve)
 		if err != nil {
-			log.Error(fmt.Sprintf("❌ :: Error unmarshalling Vote Extension"))
+			log.Error("❌ :: Error unmarshalling Vote Extension")
 		}
 
 		st.Height = int(ve.Height)
@@ -162,9 +166,7 @@ func processVoteExtensions(req *abci.RequestPrepareProposal, log log.Logger) (Sp
 		// If Bids in VE, append to Special Transaction
 		if len(ve.Bids) > 0 {
 			log.Info("🛠️ :: Bids in VE")
-			for _, b := range ve.Bids {
-				st.Bids = append(st.Bids, b)
-			}
+			st.Bids = append(st.Bids, ve.Bids...)
 		}
 	}
 
@@ -183,8 +185,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []auctiontypes.MsgBid, propos
 		}
 		sdkMsgs := messages.GetMsgs()
 		for _, m := range sdkMsgs {
-			switch m := m.(type) {
-			case *auctiontypes.MsgBid:
+			if m, ok := m.(*auctiontypes.MsgBid); ok {
 				proposalBids = append(proposalBids, m)
 			}
 		}
@@ -193,7 +194,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []auctiontypes.MsgBid, propos
 	bidFreq := make(map[string]int)
 	totalVotes := len(veBids)
 	for _, b := range veBids {
-		h, err := Hash(&b)
+		h, err := Hash(b)
 		if err != nil {
 			logger.Error(fmt.Sprintf("❌️:: Unable to produce bid frequency map :: %v", err))
 
@@ -209,7 +210,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []auctiontypes.MsgBid, propos
 
 	for _, p := range proposalBids {
 
-		key, err := Hash(p)
+		key, err := Hash(*p)
 		if err != nil {
 			logger.Error(fmt.Sprintf("❌️:: Unable to hash proposal bid :: %v", err))
 
@@ -226,7 +227,7 @@ func ValidateBids(txConfig client.TxConfig, veBids []auctiontypes.MsgBid, propos
 	return ok, nil
 }
 
-func Hash(m *auctiontypes.MsgBid) (string, error) {
+func Hash(m auctiontypes.MsgBid) (string, error) {
 	b, err := json.Marshal(m)
 	if err != nil {
 		return "", err

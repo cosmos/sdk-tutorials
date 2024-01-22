@@ -2,6 +2,7 @@ package mempool
 
 import (
 	"fmt"
+
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	txsigning "github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -24,7 +25,7 @@ func (t testPubKey) Address() cryptotypes.Address { return t.address.Bytes() }
 
 func (t testPubKey) Bytes() []byte { panic("not implemented") }
 
-func (t testPubKey) VerifySignature(msg []byte, sig []byte) bool { panic("not implemented") }
+func (t testPubKey) VerifySignature(msg, sig []byte) bool { panic("not implemented") }
 
 func (t testPubKey) Equals(key cryptotypes.PubKey) bool { panic("not implemented") }
 
@@ -32,13 +33,11 @@ func (t testPubKey) Type() string { panic("not implemented") }
 
 // testTx is a dummy implementation of Tx used for testing.
 type testTx struct {
-	id      int
 	address sdk.AccAddress
 	nonce   uint64
 }
 
 func (tx testTx) GetMsgsV2() ([]proto.Message, error) {
-	//TODO implement me
 	panic("implement me")
 }
 

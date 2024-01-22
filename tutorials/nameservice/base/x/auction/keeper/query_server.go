@@ -2,9 +2,8 @@ package keeper
 
 import (
 	"context"
-	"fmt"
+	"errors"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
 )
 
@@ -19,15 +18,14 @@ type queryServer struct {
 	k Keeper
 }
 
-func (qs queryServer) Name(goCtx context.Context, r *auction.QueryNameRequest) (*auction.QueryNameResponse, error) {
+func (qs queryServer) Name(ctx context.Context, r *auction.QueryNameRequest) (*auction.QueryNameResponse, error) {
 	if r == nil {
-		return nil, fmt.Errorf("Empty Request")
+		return nil, errors.New("empty request")
 	}
 	if len(r.Name) == 0 {
 		return nil, auction.ErrEmptyName
 	}
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
 	record, err := qs.k.GetNameRecord(ctx, r.Name)
 	if err != nil {
 		return nil, err

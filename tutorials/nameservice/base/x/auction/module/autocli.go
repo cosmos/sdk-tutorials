@@ -2,6 +2,7 @@ package module
 
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
+
 	nsv1 "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/api/v1"
 )
 
@@ -19,22 +20,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 						{ProtoField: "name"},
 					},
 				},
-			},
-		},
-		Tx: &autocliv1.ServiceCommandDescriptor{
-			Service:           nsv1.Msg_ServiceDesc.ServiceName,
-			RpcCommandOptions: []*autocliv1.RpcCommandOptions{
-				//{
-				//	RpcMethod: "ReserveName",
-				//	Use:       "reserve [name] [resolve_addr] [amount] [sender]",
-				//	Short:     "Reserve name and set resolve address",
-				//	PositionalArgs: []*autocliv1.PositionalArgDescriptor{
-				//		{ProtoField: "name"},
-				//		{ProtoField: "resolve_address"},
-				//		{ProtoField: "amount"},
-				//		{ProtoField: "sender"},
-				//	},
-				//},
 			},
 		},
 	}

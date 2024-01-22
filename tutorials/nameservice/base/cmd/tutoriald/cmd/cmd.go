@@ -3,24 +3,21 @@ package cmd
 import (
 	"os"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/testutils"
-
 	"cosmossdk.io/log"
 	dbm "github.com/cosmos/cosmos-db"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/config"
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/server"
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	"github.com/cosmos/cosmos-sdk/types/tx/signing"
 	"github.com/cosmos/cosmos-sdk/x/auth/tx"
 	txmodule "github.com/cosmos/cosmos-sdk/x/auth/tx/config"
-
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/app"
-
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/config"
-	"github.com/cosmos/cosmos-sdk/server"
-
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/spf13/cobra"
+
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/app"
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/testutils"
 )
 
 func NewRootCmd() (*cobra.Command, testutils.EncodingConfig) {

@@ -5,10 +5,6 @@ import (
 	"io"
 	"os"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/testutils"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"cosmossdk.io/log"
 	confixcmd "cosmossdk.io/tools/confix/cmd"
 	tmcfg "github.com/cometbft/cometbft/config"
@@ -23,16 +19,19 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	authcmd "github.com/cosmos/cosmos-sdk/x/auth/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/crisis"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/app"
-	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
-	auctionmod "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/module"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/app"
+	auction "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction"
+	auctionmod "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/module"
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/testutils"
 )
 
 func initTendermintConfig() *tmcfg.Config {
@@ -80,7 +79,6 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig testutils.EncodingConfig
 		txCommand(),
 		keys.Commands(),
 	)
-
 }
 
 func addModuleInitFlags(startCmd *cobra.Command) {

@@ -2,9 +2,9 @@ package abci
 
 import (
 	"cosmossdk.io/log"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
+
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/mempool"
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/provider"
 )
@@ -15,7 +15,6 @@ type PrepareProposalHandler struct {
 	cdc         codec.Codec
 	mempool     *mempool.ThresholdMempool
 	txProvider  provider.TxProvider
-	keyname     string
 	runProvider bool
 }
 
@@ -26,10 +25,9 @@ type ProcessProposalHandler struct {
 }
 
 type VoteExtHandler struct {
-	logger       log.Logger
-	currentBlock int64
-	mempool      *mempool.ThresholdMempool
-	cdc          codec.Codec
+	logger  log.Logger
+	mempool *mempool.ThresholdMempool
+	cdc     codec.Codec
 }
 
 type InjectedVoteExt struct {
