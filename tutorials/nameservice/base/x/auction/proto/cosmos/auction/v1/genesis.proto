@@ -1,0 +1,22 @@
+syntax = "proto3";
+package cosmos.auction.v1;
+
+option go_package = "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction";
+
+import "cosmos_proto/cosmos.proto";
+import "cosmos/auction/v1/types.proto";
+
+// GenesisState defines the nameservice module's genesis state.
+message GenesisState {
+  // listing defines all listings.
+  //  repeated nameservice.v1.NameCollection name_collection = 1;
+}
+
+// Entry define all names owned by an account
+message NameCollection {
+  // owner is the owner address of the following nft
+  string owner = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  // names is a all names of the same owner
+  repeated Name names = 2;
+}

@@ -1,0 +1,44 @@
+syntax = "proto3";
+package cosmos.auction.v1;
+
+option go_package = "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction";
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "amino/amino.proto";
+import "cosmos/auction/v1/types.proto";
+import "cosmos_proto/cosmos.proto";
+
+// Msg defines the nameservice Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // Reserve defines a method to buy a nameservice with an associated bech32
+  // address to resolve to.
+  rpc Bid(MsgBid) returns (MsgBidResponse);
+}
+
+// MsgReserve represents a message to purchase a nameservice.
+message MsgBid {
+  option (cosmos.msg.v1.signer) = "owner";
+
+  // name defines the human readable address
+  string name = 1;
+
+  // resolveAddress defines the bech32 address to resolve to
+  string resolve_address = 2 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  // owner is the address of the owner of listing
+  string owner = 3 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  //   price is the last price paid for listing
+  repeated cosmos.base.v1beta1.Coin amount = 4 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+// MsgSendResponse defines the Msg/Reserve response type.
+message MsgBidResponse {}
