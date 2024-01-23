@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package cosmos.auction.module;
+
+import "cosmos/app/v1alpha1/module.proto";
+
+// Module represents the main structure for the auction module.
+message Module {
+  option (cosmos.app.v1alpha1.module) = {
+    go_import : "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction/types"
+  };
+
+  string authority = 1;
+
+  string default_denom = 2;
+}

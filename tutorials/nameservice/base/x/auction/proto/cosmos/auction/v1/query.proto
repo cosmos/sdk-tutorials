@@ -1,0 +1,23 @@
+syntax = "proto3";
+package cosmos.auction.v1;
+
+option go_package = "github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/x/auction";
+
+import "cosmos/auction/v1/types.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "cosmos/query/v1/query.proto";
+
+// Query service defines the queries for the auction module
+service Query {
+  // Name is a method that takes a QueryNameRequest and returns a QueryNameResponse.
+  rpc Name(QueryNameRequest) returns (QueryNameResponse) {
+    option (google.api.http).get = "/cosmos/ns/name/{name}";
+  }
+}
+
+// QueryNameResponse is the response type for the Query/Names RPC method
+message QueryNameResponse { Name name = 1; }
+
+// QueryNameRequest is the request type for the Query/Names RPC method
+message QueryNameRequest { string name = 1; }
