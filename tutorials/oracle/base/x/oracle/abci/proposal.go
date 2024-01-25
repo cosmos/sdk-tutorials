@@ -40,14 +40,14 @@ func NewProposalHandler(logger log.Logger, keeper keeper.Keeper, valStore baseap
 
 func (h *ProposalHandler) PrepareProposal() sdk.PrepareProposalHandler {
 	return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
-		err := baseapp.ValidateVoteExtensions(ctx, h.valStore, req.Height, ctx.ChainID(), req.LocalLastCommit)
-		if err != nil {
-			return nil, err
-		}
-
 		proposalTxs := req.Txs
 
-		if req.Height >= ctx.ConsensusParams().Abci.VoteExtensionsEnableHeight {
+		if req.Height >= ctx.ConsensusParams().Abci.VoteExtensionsEnableHeight && ctx.ConsensusParams().Abci.VoteExtensionsEnableHeight != 0 {
+			err := baseapp.ValidateVoteExtensions(ctx, h.valStore, req.Height, ctx.ChainID(), req.LocalLastCommit)
+			if err != nil {
+				return nil, err
+			}
+
 			stakeWeightedPrices, err := h.computeStakeWeightedOraclePrices(ctx, req.LocalLastCommit)
 			if err != nil {
 				return nil, errors.New("failed to compute stake-weighted oracle prices")

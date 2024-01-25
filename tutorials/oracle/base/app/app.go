@@ -36,13 +36,13 @@ import (
 	oraclekeeper "github.com/cosmos/sdk-tutorials/tutorials/oracle/base/x/oracle/keeper"
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/x/oracle/mockprovider"
 
-	_ "cosmossdk.io/api/cosmos/tx/config/v1"                             // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/auth"                              // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config"                    // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/bank"                              // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/consensus"                         // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/distribution"                      // import for side-effects
-	_ "github.com/cosmos/cosmos-sdk/x/mint"                              // import for side-effects
+	_ "cosmossdk.io/api/cosmos/tx/config/v1"                                  // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/auth"                                   // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config"                         // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/bank"                                   // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/consensus"                              // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/distribution"                           // import for side-effects
+	_ "github.com/cosmos/cosmos-sdk/x/mint"                                   // import for side-effects
 	_ "github.com/cosmos/sdk-tutorials/tutorials/oracle/base/x/oracle/module" // import for side-effects
 )
 
@@ -85,7 +85,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, "")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".tutoriald")
 }
 
 // AppConfig returns the default app config.

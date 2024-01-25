@@ -108,7 +108,8 @@ func NewRootCmd() *cobra.Command {
 			cmtCfg.Consensus.TimeoutCommit = 3 * time.Second
 			cmtCfg.LogLevel = "*:error,p2p:info,state:info" // better default logging
 
-			return server.InterceptConfigsPreRunHandler(cmd, serverconfig.DefaultConfigTemplate, srvCfg, cmtCfg)
+			// TODO: copy from nameservice/simapp
+			return server.InterceptConfigsPreRunHandler(cmd, "", srvCfg, cmtCfg)
 		},
 	}
 
