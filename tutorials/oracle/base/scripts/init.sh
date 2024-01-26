@@ -13,4 +13,5 @@ $tutorialD_BIN genesis add-genesis-account alice 10000000tutorial --keyring-back
 $tutorialD_BIN genesis add-genesis-account bob 1000tutorial --keyring-backend test
 # create default validator
 $tutorialD_BIN genesis gentx alice 1000000tutorial --chain-id demo
+sed -i.bak'' 's/minimum-gas-prices = ""/minimum-gas-prices = "0.025uatom"/' $HOME/.tutoriald/config/app.toml
 $tutorialD_BIN genesis collect-gentxs
