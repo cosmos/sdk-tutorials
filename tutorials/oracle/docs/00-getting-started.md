@@ -9,9 +9,12 @@
 
 ## Prerequisites
 
-In this tutorial, we expect the reader to have a chain project already working as we won’t go through the steps of creating a new chain/module.
+Before you start with this tutorial, make sure you have:
 
-We also assume you are already familiar with the Cosmos SDK, if you are not we suggest you start with [https://tutorials.cosmos.network](https://tutorials.cosmos.network), as ABCI++ is considered an advanced topic.
+- A working chain project. This tutorial won't cover the steps of creating a new chain/module.
+- Familiarity with the Cosmos SDK. If you're not, we suggest you start with [Cosmos SDK Tutorials](https://tutorials.cosmos.network), as ABCI++ is considered an advanced topic.
+- Read and understood [What is an Oracle?](01-what-is-an-oracle.md). This provides necessary background information for understanding the Oracle module.
+- Basic understanding of Go programming language.
 
 ## What are Vote extensions?
 

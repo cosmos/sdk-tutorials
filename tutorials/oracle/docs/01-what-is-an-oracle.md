@@ -4,7 +4,7 @@ An oracle in blockchain technology is a system that provides external data to a 
 
 ## Oracle in the Cosmos SDK
 
-In the Cosmos SDK, an oracle module can be implemented to provide external data to the blockchain. This module can use features like vote extensions to allow validators to submit additional data during the consensus process, which can then be used by the blockchain to update its state with information from the outside world.
+In the Cosmos SDK, an oracle module can be implemented to provide external data to the blockchain. This module can use features like vote extensions to submit additional data during the consensus process, which can then be used by the blockchain to update its state with information from the outside world.
 
 For instance, a price oracle module in the Cosmos SDK could supply timely and accurate asset price information, which is vital for various financial operations within the blockchain ecosystem.
 
