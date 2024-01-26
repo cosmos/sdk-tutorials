@@ -60,7 +60,6 @@ Here we’ll do some simple checks like:
 * Is the vote extension for the right height?
 * Some other validation, for example, are the prices from this extension too deviated from my own prices? Or maybe checks that can detect malicious behavior.
 
-
 ```go
 func (h *VoteExtHandler) VerifyVoteExtensionHandler() sdk.VerifyVoteExtensionHandler {
     return func(ctx sdk.Context, req *abci.RequestVerifyVoteExtension) (*abci.ResponseVerifyVoteExtension, error) {
@@ -88,7 +87,7 @@ func (h *VoteExtHandler) VerifyVoteExtensionHandler() sdk.VerifyVoteExtensionHan
 
 ## Implement PrepareProposal
 
-```go 
+```go
 type ProposalHandler struct {
     logger   log.Logger
     keeper   keeper.Keeper // our oracle module keeper
@@ -97,7 +96,6 @@ type ProposalHandler struct {
 ```
 
 And we create the struct for our “special tx”, that will contain the prices and the votes so validators can later re-check in ProcessPRoposal that they get the same result than the block’s proposer. With this we could also check if all the votes have been used by comparing the votes received in ProcessProposal.
-
 
 ```go
 type StakeWeightedPrices struct {
@@ -108,7 +106,7 @@ type StakeWeightedPrices struct {
 
 Now we create the `PrepareProposalHandler`. In this step we’ll first check if the vote extensions’ signatures are correct using a helper function called ValidateVoteExtensions from the baseapp pacakge.
 
-```go 
+```go
 func (h *ProposalHandler) PrepareProposal() sdk.PrepareProposalHandler {
     return func(ctx sdk.Context, req *abci.RequestPrepareProposal) (*abci.ResponsePrepareProposal, error) {
         err := baseapp.ValidateVoteExtensions(ctx, h.valStore, req.Height, ctx.ChainID(), req.LocalLastCommit)
@@ -191,7 +189,6 @@ Important: In this example we avoided using the mempool and other basics, please
 Now validators are extending their vote, verifying other votes and including the result in the block. But how do we actually make use of this result? This is done in the PreBlocker which is code that is run before any other code during FinalizeBlock so we make sure we make this information available to the chain and its modules during the entire block execution (from BeginBlock).
 
 At this step we know that the injected tx is well-formatted and has been verified by the validators participating in consensus, so making use of it is straightforward. Just check if vote extensions are enabled, pick up the first transaction and use a method in your module’s keeper to set the result.
-
 
 ```go
 func (h *ProposalHandler) PreBlocker(ctx sdk.Context, req *abci.RequestFinalizeBlock) (*sdk.ResponsePreBlock, error) {
