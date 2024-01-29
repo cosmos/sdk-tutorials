@@ -1,5 +1,3 @@
-#!/usr/bin/make -f
-
 DOCKER := $(shell which docker)
 
 #################

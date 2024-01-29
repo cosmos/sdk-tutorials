@@ -20,7 +20,6 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Query_Counter_FullMethodName = "/cosmos.oracle.v1.Query/Counter"
-	Query_Params_FullMethodName  = "/cosmos.oracle.v1.Query/Params"
 	Query_Prices_FullMethodName  = "/cosmos.oracle.v1.Query/Prices"
 )
 
@@ -30,8 +29,6 @@ const (
 type QueryClient interface {
 	// Counter returns the current counter value.
 	Counter(ctx context.Context, in *QueryCounterRequest, opts ...grpc.CallOption) (*QueryCounterResponse, error)
-	// Params returns the module parameters.
-	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 	// Prices returns the current prices.
 	Prices(ctx context.Context, in *QueryPricesRequest, opts ...grpc.CallOption) (*QueryPricesResponse, error)
 }
@@ -53,15 +50,6 @@ func (c *queryClient) Counter(ctx context.Context, in *QueryCounterRequest, opts
 	return out, nil
 }
 
-func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
-	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, Query_Params_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *queryClient) Prices(ctx context.Context, in *QueryPricesRequest, opts ...grpc.CallOption) (*QueryPricesResponse, error) {
 	out := new(QueryPricesResponse)
 	err := c.cc.Invoke(ctx, Query_Prices_FullMethodName, in, out, opts...)
@@ -77,8 +65,6 @@ func (c *queryClient) Prices(ctx context.Context, in *QueryPricesRequest, opts .
 type QueryServer interface {
 	// Counter returns the current counter value.
 	Counter(context.Context, *QueryCounterRequest) (*QueryCounterResponse, error)
-	// Params returns the module parameters.
-	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	// Prices returns the current prices.
 	Prices(context.Context, *QueryPricesRequest) (*QueryPricesResponse, error)
 	mustEmbedUnimplementedQueryServer()
@@ -90,9 +76,6 @@ type UnimplementedQueryServer struct {
 
 func (UnimplementedQueryServer) Counter(context.Context, *QueryCounterRequest) (*QueryCounterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Counter not implemented")
-}
-func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
 func (UnimplementedQueryServer) Prices(context.Context, *QueryPricesRequest) (*QueryPricesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Prices not implemented")
@@ -128,24 +111,6 @@ func _Query_Counter_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryParamsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).Params(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Query_Params_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Query_Prices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(QueryPricesRequest)
 	if err := dec(in); err != nil {
@@ -174,10 +139,6 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Counter",
 			Handler:    _Query_Counter_Handler,
-		},
-		{
-			MethodName: "Params",
-			Handler:    _Query_Params_Handler,
 		},
 		{
 			MethodName: "Prices",

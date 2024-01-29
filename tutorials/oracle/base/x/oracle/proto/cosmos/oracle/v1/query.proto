@@ -18,11 +18,6 @@ service Query {
         "/cosmos/sdk-tutorials/x/oracle/v1/counter/{address}";
   }
 
-  // Params returns the module parameters.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/cosmos/oracle/v1/params";
-  }
-
   // Prices returns the current prices.
   rpc Prices(QueryPricesRequest) returns (QueryPricesResponse) {
     option (google.api.http).get = "/cosmos/oracle/v1/prices";
@@ -55,14 +50,4 @@ message QueryCounterRequest {
 message QueryCounterResponse {
   // counter defines the current counter for the sender.
   uint64 counter = 1;
-}
-
-// QueryParamsRequest is the request type for the Query/Params RPC method.
-message QueryParamsRequest {}
-
-// QueryParamsResponse is the response type for the Query/Params RPC method.
-message QueryParamsResponse {
-  // params defines the parameters of the module.
-  Params params = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
 }

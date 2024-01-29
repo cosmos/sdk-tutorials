@@ -7,8 +7,6 @@ import "cosmos_proto/cosmos.proto";
 import "gogoproto/gogo.proto";
 import "amino/amino.proto";
 
-// Params defines the parameters of the module.
-message Params { option (amino.name) = "cosmos/oracle/Params"; }
 
 // Counter defines a counter object.
 // It is used only for genesis purposes. Collections does not need to use it.
@@ -27,9 +25,5 @@ message Counter {
 message GenesisState {
   // counter defines the counter object.
   repeated Counter counters = 1
-      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
-
-  // params defines all the parameters of the module.
-  Params params = 2
       [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
 }

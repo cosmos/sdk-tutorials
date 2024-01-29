@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"strings"
 
 	"cosmossdk.io/collections"
 
@@ -40,25 +39,4 @@ func (ms msgServer) IncrementCounter(ctx context.Context, msg *oracle.MsgIncreme
 	}
 
 	return &oracle.MsgIncrementCounterResponse{}, nil
-}
-
-// UpdateParams params is defining the handler for the MsgUpdateParams message.
-func (ms msgServer) UpdateParams(ctx context.Context, msg *oracle.MsgUpdateParams) (*oracle.MsgUpdateParamsResponse, error) {
-	if _, err := ms.k.addressCodec.StringToBytes(msg.Authority); err != nil {
-		return nil, fmt.Errorf("invalid authority address: %w", err)
-	}
-
-	if authority := ms.k.GetAuthority(); !strings.EqualFold(msg.Authority, authority) {
-		return nil, fmt.Errorf("unauthorized, authority does not match the module's authority: got %s, want %s", msg.Authority, authority)
-	}
-
-	if err := msg.Params.Validate(); err != nil {
-		return nil, err
-	}
-
-	if err := ms.k.Params.Set(ctx, msg.Params); err != nil {
-		return nil, err
-	}
-
-	return &oracle.MsgUpdateParamsResponse{}, nil
 }

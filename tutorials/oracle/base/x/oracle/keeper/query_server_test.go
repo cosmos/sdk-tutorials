@@ -8,15 +8,6 @@ import (
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/x/oracle"
 )
 
-func TestQueryParams(t *testing.T) {
-	f := initFixture(t)
-	require := require.New(t)
-
-	resp, err := f.queryServer.Params(f.ctx, &oracle.QueryParamsRequest{})
-	require.NoError(err)
-	require.Equal(oracle.Params{}, resp.Params)
-}
-
 func TestQueryCounter(t *testing.T) {
 	f := initFixture(t)
 	require := require.New(t)

@@ -41,20 +41,6 @@ func (qs queryServer) Counter(ctx context.Context, req *oracle.QueryCounterReque
 	return &oracle.QueryCounterResponse{Counter: counter}, nil
 }
 
-// Params defines the handler for the Query/Params RPC method.
-func (qs queryServer) Params(ctx context.Context, req *oracle.QueryParamsRequest) (*oracle.QueryParamsResponse, error) {
-	params, err := qs.k.Params.Get(ctx)
-	if err != nil {
-		if errors.Is(err, collections.ErrNotFound) {
-			return &oracle.QueryParamsResponse{Params: oracle.Params{}}, nil
-		}
-
-		return nil, status.Error(codes.Internal, err.Error())
-	}
-
-	return &oracle.QueryParamsResponse{Params: params}, nil
-}
-
 func (qs queryServer) Prices(ctx context.Context, req *oracle.QueryPricesRequest) (*oracle.QueryPricesResponse, error) {
 	var prices []*oracle.Price
 

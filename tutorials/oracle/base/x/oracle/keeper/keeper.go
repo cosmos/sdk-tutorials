@@ -23,7 +23,6 @@ type Keeper struct {
 
 	// state management
 	Schema  collections.Schema
-	Params  collections.Item[oracle.Params]
 	Counter collections.Map[string, uint64]
 	Prices  collections.Map[string, []byte]
 }
@@ -39,7 +38,6 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		cdc:          cdc,
 		addressCodec: addressCodec,
 		authority:    authority,
-		Params:       collections.NewItem(sb, oracle.ParamsKey, "params", codec.CollValue[oracle.Params](cdc)),
 		Counter:      collections.NewMap(sb, oracle.CounterKey, "counter", collections.StringKey, collections.Uint64Value),
 		Prices:       collections.NewMap(sb, oracle.PricesKey, "prices", collections.StringKey, collections.BytesValue),
 	}
