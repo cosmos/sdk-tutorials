@@ -1,0 +1,53 @@
+syntax = "proto3";
+package cosmos.oracle.v1;
+
+option go_package = "github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle";
+
+import "cosmos/oracle/v1/types.proto";
+import "google/api/annotations.proto";
+import "cosmos/query/v1/query.proto";
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+// Msg defines the module Msg service.
+service Query {
+  // Counter returns the current counter value.
+  rpc Counter(QueryCounterRequest) returns (QueryCounterResponse) {
+    option (cosmos.query.v1.module_query_safe) = true;
+    option (google.api.http).get =
+        "/cosmos/sdk-tutorials/x/oracle/v1/counter/{address}";
+  }
+
+  // Prices returns the current prices.
+  rpc Prices(QueryPricesRequest) returns (QueryPricesResponse) {
+    option (google.api.http).get = "/cosmos/oracle/v1/prices";
+  }
+}
+
+// QueryPricesRequest is the request type for the Query/Prices RPC method.
+message QueryPricesRequest {}
+
+// QueryPricesResponse is the response type for the Query/Prices RPC method.
+message QueryPricesResponse {
+  repeated Price prices = 1;
+}
+
+// Price represents the price of a specific symbol.
+message Price {
+  string symbol = 1;
+  string price = 2;
+}
+
+// QueryCounterRequest is the request type for the Query/Counter RPC
+// method.
+message QueryCounterRequest {
+  // address defines the address to query for the counter.
+  string address = 1;
+}
+
+// QueryCounterResponse is the response type for the Query/Counter RPC
+// method.
+message QueryCounterResponse {
+  // counter defines the current counter for the sender.
+  uint64 counter = 1;
+}

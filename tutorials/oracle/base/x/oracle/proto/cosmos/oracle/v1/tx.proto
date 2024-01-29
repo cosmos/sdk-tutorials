@@ -1,0 +1,31 @@
+syntax = "proto3";
+package cosmos.oracle.v1;
+
+option go_package = "github.com/cosmos/sdk-tutorials/tutorials/oracle/x/oracle";
+
+import "cosmos/msg/v1/msg.proto";
+import "gogoproto/gogo.proto";
+import "amino/amino.proto";
+import "cosmos/oracle/v1/types.proto";
+import "cosmos_proto/cosmos.proto";
+
+// Msg defines the module Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // IncrementCounter increments the counter.
+  rpc IncrementCounter(MsgIncrementCounter)
+      returns (MsgIncrementCounterResponse);
+}
+
+// MsgIncrementCounter defines the Msg/IncrementCounter request type.
+message MsgIncrementCounter {
+  option (cosmos.msg.v1.signer) = "sender";
+  option (amino.name) = "cosmos/sdk-tutorials/x/oracle/MsgIncrementCounter";
+
+  // sender is the message sender.
+  string sender = 1;
+}
+
+// MsgIncrementCounterResponse defines the Msg/IncrementCounter response type.
+message MsgIncrementCounterResponse {}
