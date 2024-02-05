@@ -24,10 +24,10 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/spf13/cobra"
 
-	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/app"
 )
 
-// NewRootCmd creates a new root command for tutoriald. It is called once in the
+// NewRootCmd creates a new root command for exampled. It is called once in the
 // main function.
 func NewRootCmd() *cobra.Command {
 	var (
@@ -60,8 +60,8 @@ func NewRootCmd() *cobra.Command {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "tutoriald",
-		Short: "tutoriald - the tutorial chain app",
+		Use:   "exampled",
+		Short: "exampled - the example chain app",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -108,7 +108,8 @@ func NewRootCmd() *cobra.Command {
 			cmtCfg.Consensus.TimeoutCommit = 3 * time.Second
 			cmtCfg.LogLevel = "*:error,p2p:info,state:info" // better default logging
 
-			return server.InterceptConfigsPreRunHandler(cmd, serverconfig.DefaultConfigTemplate, srvCfg, cmtCfg)
+			// TODO: copy from nameservice/simapp
+			return server.InterceptConfigsPreRunHandler(cmd, "", srvCfg, cmtCfg)
 		},
 	}
 

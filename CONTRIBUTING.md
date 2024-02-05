@@ -47,7 +47,7 @@ The published content currently lives in a few separate folders:
 
 Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors).
 
-## Viewing Tutorial Builds
+## Viewing Example Builds
 
 There are two ways to see what your changes will look like in production before the updated pages are published:
 
