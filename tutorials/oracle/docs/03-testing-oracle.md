@@ -7,7 +7,7 @@ We will guide you through the process of testing the Oracle module in your appli
 First, we need to compile and install the application. Please ensure you are in the `tutorials/oracle/base` directory. Run the following command in your terminal:
 
 ```shell
-bash make install
+make install
 ```
 
 This command compiles the application and moves the resulting binary to a location in your system's PATH.
@@ -17,7 +17,7 @@ This command compiles the application and moves the resulting binary to a locati
 Next, we need to initialise the application. Run the following command in your terminal:
 
 ```shell
-bash make init
+make init
 ```
 
 This command runs the script `tutorials/oracle/base/scripts/init.sh`, which sets up the necessary configuration for your application to run. This includes creating the `app.toml` configuration file and initialising the blockchain with a genesis block.
@@ -37,7 +37,7 @@ This command starts your application, begins the blockchain node, and starts pro
 Finally, we can query the current prices from the Oracle module. Run the following command in your terminal:
 
 ```shell
-bash tutoriald q oracle prices
+tutoriald q oracle prices
 ```
 
 This command queries the current prices from the Oracle module. The expected output shows that the vote extensions were successfully included in the block and the Oracle module was able to retrieve the price data.
