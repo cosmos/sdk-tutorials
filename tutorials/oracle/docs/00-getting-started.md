@@ -33,3 +33,5 @@ We’ll go through the implementation of:
 * `PrepareProposal` to process the vote extensions from the previous block and include them into the proposal as a transaction.
 * `ProcessProposal` to check that the first transaction in the proposal is actually a “special tx” that contains the price information.
 * `PreBlocker` to make price information available during FinalizeBlock.
+
+If you would like to see the complete working oracle module please see [here](https://github.com/cosmos/sdk-tutorials/blob/master/tutorials/oracle/base/x/oracle)

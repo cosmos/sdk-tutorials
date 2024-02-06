@@ -1,6 +1,6 @@
 # Testing the Oracle Module
 
-We will guide you through the process of testing the Oracle module in your application. The Oracle module uses vote extensions to provide current price data.
+We will guide you through the process of testing the Oracle module in your application. The Oracle module uses vote extensions to provide current price data. If you would like to see the complete working oracle module please see [here](https://github.com/cosmos/sdk-tutorials/blob/master/tutorials/oracle/base/x/oracle).
 
 ## Step 1: Compile and Install the Application
 

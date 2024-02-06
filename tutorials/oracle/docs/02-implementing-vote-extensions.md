@@ -52,7 +52,7 @@ func (h *VoteExtHandler) ExtendVoteHandler() sdk.ExtendVoteHandler {
 }
 ```
 
-As you can see above, the creation of a vote extension is pretty simple and we just have to return bytes. CometBFT will handle the signing of these bytes for us. We ignored the process of getting the prices but you can see a more complete example [here:](../base/x/oracle/abci/vote_extensions.go)
+As you can see above, the creation of a vote extension is pretty simple and we just have to return bytes. CometBFT will handle the signing of these bytes for us. We ignored the process of getting the prices but you can see a more complete example [here:](https://github.com/cosmos/sdk-tutorials/blob/master/tutorials/oracle/base/x/oracle/abci/vote_extensions.go)
 
 Here we’ll do some simple checks like:
 
