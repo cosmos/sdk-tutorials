@@ -106,11 +106,11 @@ var (
 )
 
 var (
-	_ runtime.AppI            = (*TutorialApp)(nil)
-	_ servertypes.Application = (*TutorialApp)(nil)
+	_ runtime.AppI            = (*ExampleApp)(nil)
+	_ servertypes.Application = (*ExampleApp)(nil)
 )
 
-type TutorialApp struct {
+type ExampleApp struct {
 	*baseapp.BaseApp
 
 	legacyAmino       *codec.LegacyAmino
@@ -149,7 +149,7 @@ func init() {
 	DefaultNodeHome = filepath.Join(userHomeDir, "")
 }
 
-func NewTutorialApp(
+func NewExampleApp(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -158,7 +158,7 @@ func NewTutorialApp(
 	valKeyName string,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) *TutorialApp {
+) *ExampleApp {
 	homePath := cast.ToString(appOpts.Get(flags.FlagHome))
 	// Set demo flag
 	runProvider := cast.ToBool(appOpts.Get(auction.FlagRunProvider))
@@ -216,7 +216,7 @@ func NewTutorialApp(
 
 	tkeys := storetypes.NewTransientStoreKeys(paramstypes.TStoreKey)
 
-	app := &TutorialApp{
+	app := &ExampleApp{
 		BaseApp:           bApp,
 		legacyAmino:       legacyAmino,
 		txConfig:          txConfig,
@@ -474,20 +474,20 @@ func NewTutorialApp(
 	return app
 }
 
-func (app *TutorialApp) Name() string { return app.BaseApp.Name() }
+func (app *ExampleApp) Name() string { return app.BaseApp.Name() }
 
 // BeginBlocker application updates every begin block
-func (app *TutorialApp) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
+func (app *ExampleApp) BeginBlocker(ctx sdk.Context) (sdk.BeginBlock, error) {
 	return app.mm.BeginBlock(ctx)
 }
 
 // EndBlocker application updates every end block
-func (app *TutorialApp) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
+func (app *ExampleApp) EndBlocker(ctx sdk.Context) (sdk.EndBlock, error) {
 	return app.mm.EndBlock(ctx)
 }
 
 // InitChainer application update at chain initialization
-func (app *TutorialApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
+func (app *ExampleApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain) (*abci.ResponseInitChain, error) {
 	var genesisState GenesisState
 
 	// Enable VE
@@ -506,11 +506,11 @@ func (app *TutorialApp) InitChainer(ctx sdk.Context, req *abci.RequestInitChain)
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }
 
-func (app *TutorialApp) LoadHeight(height int64) error {
+func (app *ExampleApp) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
-func (app *TutorialApp) ModuleAccountAddrs() map[string]bool {
+func (app *ExampleApp) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
@@ -519,30 +519,30 @@ func (app *TutorialApp) ModuleAccountAddrs() map[string]bool {
 	return modAccAddrs
 }
 
-func (app *TutorialApp) BlockedModuleAccountAddrs(modAccAddrs map[string]bool) map[string]bool {
+func (app *ExampleApp) BlockedModuleAccountAddrs(modAccAddrs map[string]bool) map[string]bool {
 	delete(modAccAddrs, authtypes.NewModuleAddress(govtypes.ModuleName).String())
 
 	return modAccAddrs
 }
 
-func (app *TutorialApp) LegacyAmino() *codec.LegacyAmino {
+func (app *ExampleApp) LegacyAmino() *codec.LegacyAmino {
 	return app.legacyAmino
 }
 
-func (app *TutorialApp) AppCodec() codec.Codec {
+func (app *ExampleApp) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
-func (app *TutorialApp) InterfaceRegistry() types.InterfaceRegistry {
+func (app *ExampleApp) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
-func (app *TutorialApp) GetTxConfig() client.TxConfig {
+func (app *ExampleApp) GetTxConfig() client.TxConfig {
 	return app.txConfig
 }
 
 // AutoCliOpts returns the autocli options for the app.
-func (app *TutorialApp) AutoCliOpts() autocli.AppOptions {
+func (app *ExampleApp) AutoCliOpts() autocli.AppOptions {
 	modules := make(map[string]appmodule.AppModule, 0)
 	for _, m := range app.mm.Modules {
 		if moduleWithName, ok := m.(module.HasName); ok {
@@ -562,19 +562,19 @@ func (app *TutorialApp) AutoCliOpts() autocli.AppOptions {
 }
 
 // DefaultGenesis returns a default genesis from the registered AppModuleBasic's.
-func (app *TutorialApp) DefaultGenesis() map[string]json.RawMessage {
+func (app *ExampleApp) DefaultGenesis() map[string]json.RawMessage {
 	return app.BasicManager.DefaultGenesis(app.appCodec)
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *TutorialApp) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *ExampleApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetStoreKeys returns all the stored store keys.
-func (app *TutorialApp) GetStoreKeys() []storetypes.StoreKey {
+func (app *ExampleApp) GetStoreKeys() []storetypes.StoreKey {
 	keys := make([]storetypes.StoreKey, len(app.keys))
 	for _, key := range app.keys {
 		keys = append(keys, key)
@@ -584,11 +584,11 @@ func (app *TutorialApp) GetStoreKeys() []storetypes.StoreKey {
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *TutorialApp) SimulationManager() *module.SimulationManager {
+func (app *ExampleApp) SimulationManager() *module.SimulationManager {
 	return app.simulationManager
 }
 
-func (app *TutorialApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *ExampleApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 	// Register new tx routes from grpc-gateway.
 	authtx.RegisterGRPCGatewayRoutes(clientCtx, apiSvr.GRPCGatewayRouter)
@@ -608,12 +608,12 @@ func (app *TutorialApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.A
 	}
 }
 
-func (app *TutorialApp) RegisterTxService(clientCtx client.Context) {
+func (app *ExampleApp) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *TutorialApp) RegisterTendermintService(clientCtx client.Context) {
+func (app *ExampleApp) RegisterTendermintService(clientCtx client.Context) {
 	cmtApp := server.NewCometABCIWrapper(app)
 	cmtservice.RegisterTendermintService(
 		clientCtx,
@@ -623,17 +623,17 @@ func (app *TutorialApp) RegisterTendermintService(clientCtx client.Context) {
 	)
 }
 
-func (app *TutorialApp) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
+func (app *ExampleApp) RegisterNodeService(clientCtx client.Context, cfg config.Config) {
 	nodeservice.RegisterNodeService(clientCtx, app.GRPCQueryRouter(), cfg)
 }
 
-func (app *TutorialApp) OnTxSucceeded(_ sdk.Context, _, _ string, _, _ []byte) {
+func (app *ExampleApp) OnTxSucceeded(_ sdk.Context, _, _ string, _, _ []byte) {
 }
 
-func (app *TutorialApp) OnTxFailed(_ sdk.Context, _, _ string, _, _ []byte) {
+func (app *ExampleApp) OnTxFailed(_ sdk.Context, _, _ string, _, _ []byte) {
 }
 
-func (app *TutorialApp) GetBaseApp() *baseapp.BaseApp {
+func (app *ExampleApp) GetBaseApp() *baseapp.BaseApp {
 	return app.BaseApp
 }
 
@@ -656,7 +656,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *TutorialApp) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *ExampleApp) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }

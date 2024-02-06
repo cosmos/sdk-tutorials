@@ -21,11 +21,6 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					},
 				},
 				{
-					RpcMethod: "Params",
-					Use:       "params",
-					Short:     "Get the current module parameters",
-				},
-				{
 					RpcMethod: "Prices",
 					Use:       "prices",
 					Short:     "Get the current prices",

@@ -27,7 +27,7 @@ This command runs the script `tutorials/oracle/base/scripts/init.sh`, which sets
 Now, we can start the application. Run the following command in your terminal:
 
 ```shell
-tutoriald start
+exampled start
 ```
 
 This command starts your application, begins the blockchain node, and starts processing transactions.
@@ -37,7 +37,7 @@ This command starts your application, begins the blockchain node, and starts pro
 Finally, we can query the current prices from the Oracle module. Run the following command in your terminal:
 
 ```shell
-tutoriald q oracle prices
+exampled q oracle prices
 ```
 
 This command queries the current prices from the Oracle module. The expected output shows that the vote extensions were successfully included in the block and the Oracle module was able to retrieve the price data.

@@ -8,8 +8,8 @@ find_project_root() {
 }
 
 PROJECT_ROOT=$(find_project_root)
-HOME=$HOME/.tutoriald
-BINARY=$PROJECT_ROOT/tutorials/auction/base/build/tutoriald
+HOME=$HOME/.exampled
+BINARY=$PROJECT_ROOT/tutorials/auction/base/build/exampled
 
 echo $PROJECT_ROOT
 echo $HOME

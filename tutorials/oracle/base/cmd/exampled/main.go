@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/app"
 	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/app/params"
-	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/cmd/tutoriald/cmd"
+	"github.com/cosmos/sdk-tutorials/tutorials/oracle/base/cmd/exampled/cmd"
 )
 
 func main() {

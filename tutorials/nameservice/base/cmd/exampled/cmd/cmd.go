@@ -21,7 +21,7 @@ import (
 )
 
 func NewRootCmd() (*cobra.Command, testutils.EncodingConfig) {
-	tmpApp := app.NewTutorialApp(
+	tmpApp := app.NewExampleApp(
 		log.NewNopLogger(),
 		dbm.NewMemDB(),
 		nil,

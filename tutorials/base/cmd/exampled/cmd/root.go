@@ -27,7 +27,7 @@ import (
 	"github.com/cosmos/sdk-tutorials/tutorials/base/app"
 )
 
-// NewRootCmd creates a new root command for tutoriald. It is called once in the
+// NewRootCmd creates a new root command for exampled. It is called once in the
 // main function.
 func NewRootCmd() *cobra.Command {
 	var (
@@ -60,8 +60,8 @@ func NewRootCmd() *cobra.Command {
 	}
 
 	rootCmd := &cobra.Command{
-		Use:   "tutoriald",
-		Short: "tutoriald - the tutorial chain app",
+		Use:   "exampled",
+		Short: "exampled - the example chain app",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
@@ -101,7 +101,7 @@ func NewRootCmd() *cobra.Command {
 
 			// overwrite the minimum gas price from the app configuration
 			srvCfg := serverconfig.DefaultConfig()
-			srvCfg.MinGasPrices = "0tutorial"
+			srvCfg.MinGasPrices = "0example"
 
 			// overwrite the block timeout
 			cmtCfg := cmtcfg.DefaultConfig()

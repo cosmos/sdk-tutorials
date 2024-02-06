@@ -162,7 +162,7 @@ func newApp(
 		valKey = "val"
 	}
 
-	return app.NewTutorialApp(
+	return app.NewExampleApp(
 		logger,
 		db,
 		traceStore,
@@ -184,7 +184,7 @@ func appExport(
 	appOpts servertypes.AppOptions,
 	modulesToExport []string,
 ) (servertypes.ExportedApp, error) {
-	var exportApp *app.TutorialApp
+	var exportApp *app.ExampleApp
 
 	valKey, ok := appOpts.Get(auction.FlagValKey).(string)
 	if !ok {
@@ -208,7 +208,7 @@ func appExport(
 		loadLatest = true
 	}
 
-	exportApp = app.NewTutorialApp(
+	exportApp = app.NewExampleApp(
 		logger,
 		db,
 		traceStore,
