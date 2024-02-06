@@ -101,7 +101,7 @@ func NewRootCmd() *cobra.Command {
 
 			// overwrite the minimum gas price from the app configuration
 			srvCfg := serverconfig.DefaultConfig()
-			srvCfg.MinGasPrices = "0tutorial"
+			srvCfg.MinGasPrices = "0example"
 
 			// overwrite the block timeout
 			cmtCfg := cmtcfg.DefaultConfig()
