@@ -31,7 +31,7 @@ Other useful resources:
 
 ### Pull Request
 
-When you submit your PR, please use the default [Pull Request template](/.github/PULL_REQUEST_TEMPLATE.md).
+When you submit your PR, please use the default [Pull Request template](./.github/PULL_REQUEST_TEMPLATE.md).
 
 ### Folder structure
 
@@ -47,7 +47,7 @@ The published content currently lives in a few separate folders:
 
 Meet the people [behind the Cosmos SDK and contributors](https://github.com/cosmos/sdk-tutorials/graphs/contributors).
 
-## Viewing Tutorial Builds
+## Viewing Example Builds
 
 There are two ways to see what your changes will look like in production before the updated pages are published:
 
@@ -57,10 +57,6 @@ There are two ways to see what your changes will look like in production before 
 ### Pull Requests
 
 After the PR is created CI will kick off and run. All of ci must pass in order to merge the PR. Once the PR is merged, the changes will be deployed to the production site.
-
-### Preview Draft PRs on a Local Web Browser
-
-To view a local preview of a branch, follow the steps outlined in the [TECHNICAL SETUP](TECHNICAL-SETUP.md) guide to clone and install the app. Then, checkout the branch you would like to preview and run:
 
 ```sh
 npm run serve

@@ -9,9 +9,9 @@ find_project_root() {
 }
 
 PROJECT_ROOT=$(find_project_root)
-export HOME=$HOME/.tutoriald
+export HOME=$HOME/.exampled
 echo $PROJECT_ROOT
-BINARY=$PROJECT_ROOT/tutorials/nameservice/base/build/tutoriald
+BINARY=$PROJECT_ROOT/tutorials/nameservice/base/build/exampled
 export CHAIN_ID=test
 export KEYRING=test
 # User balance of stake tokens

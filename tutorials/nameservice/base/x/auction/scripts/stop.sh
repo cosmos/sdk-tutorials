@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eux
 
-pkill -f tutoriald &> /dev/null || true
+pkill -f exampled &> /dev/null || true

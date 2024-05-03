@@ -17,13 +17,13 @@ If this doesnt work please ensure you have run `make build` in the `tutorials/na
 2. Have alice attempt to reserve `bob.cosmos`: This is a normal transaction that alice wants to execute. The script ``./scripts/reserve.sh "bob.cosmos"` is used to send this transaction.
 
 ```shell
-bash reserve.sh "bob.cosmos"
+reserve.sh "bob.cosmos"
 ```
 <!-- //nolint:all -->
 3. Query to verify the name has been reserved: This is to check the result of the transaction. The script `./scripts/whois.sh "bob.cosmos"` is used to query the state of the blockchain.
 
 ```shell
-bash whois.sh "bob.cosmos"
+whois.sh "bob.cosmos"
 ```
 
 It should return:
@@ -59,7 +59,7 @@ tail -f $HOME/cosmos/nodes/#{validator}/logs
 4. List the Beacon's keys: This is to verify the addresses of the validators. The script `./scripts/list-beacon-keys.sh` is used to list the keys.
 
 ```shell
-bash list-beacon-keys.sh
+list-beacon-keys.sh
 ```
 
 We should receive something similar to the following:

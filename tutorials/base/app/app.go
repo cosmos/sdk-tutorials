@@ -45,14 +45,14 @@ var DefaultNodeHome string
 var AppConfigYAML []byte
 
 var (
-	_ runtime.AppI            = (*TutorialApp)(nil)
-	_ servertypes.Application = (*TutorialApp)(nil)
+	_ runtime.AppI            = (*ExampleApp)(nil)
+	_ servertypes.Application = (*ExampleApp)(nil)
 )
 
-// TutorialApp extends an ABCI application, but with most of its parameters exported.
+// ExampleApp extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type TutorialApp struct {
+type ExampleApp struct {
 	*runtime.App
 	legacyAmino       *codec.LegacyAmino
 	appCodec          codec.Codec
@@ -76,7 +76,7 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".tutoriald")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".exampled")
 }
 
 // AppConfig returns the default app config.
@@ -92,17 +92,17 @@ func AppConfig() depinject.Config {
 	)
 }
 
-// NewTutorialApp returns a reference to an initialized tutorialApp.
-func NewTutorialApp(
+// NewExampleApp returns a reference to an initialized ExampleApp.
+func NewExampleApp(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
 	loadLatest bool,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
-) (*TutorialApp, error) {
+) (*ExampleApp, error) {
 	var (
-		app        = &TutorialApp{}
+		app        = &ExampleApp{}
 		appBuilder *runtime.AppBuilder
 	)
 
@@ -149,13 +149,13 @@ func NewTutorialApp(
 	return app, nil
 }
 
-// LegacyAmino returns tutorialApp's amino codec.
-func (app *TutorialApp) LegacyAmino() *codec.LegacyAmino {
+// LegacyAmino returns ExampleApp's amino codec.
+func (app *ExampleApp) LegacyAmino() *codec.LegacyAmino {
 	return app.legacyAmino
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
-func (app *TutorialApp) GetKey(storeKey string) *storetypes.KVStoreKey {
+func (app *ExampleApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	sk := app.UnsafeFindStoreKey(storeKey)
 	kvStoreKey, ok := sk.(*storetypes.KVStoreKey)
 	if !ok {
@@ -164,7 +164,7 @@ func (app *TutorialApp) GetKey(storeKey string) *storetypes.KVStoreKey {
 	return kvStoreKey
 }
 
-func (app *TutorialApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
+func (app *ExampleApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
 	keys := make(map[string]*storetypes.KVStoreKey)
 	for _, k := range app.GetStoreKeys() {
 		if kv, ok := k.(*storetypes.KVStoreKey); ok {
@@ -176,13 +176,13 @@ func (app *TutorialApp) kvStoreKeys() map[string]*storetypes.KVStoreKey {
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *TutorialApp) SimulationManager() *module.SimulationManager {
+func (app *ExampleApp) SimulationManager() *module.SimulationManager {
 	return app.sm
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *TutorialApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *ExampleApp) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	app.App.RegisterAPIRoutes(apiSvr, apiConfig)
 	// register swagger API in app.go so that other applications can override easily
 	if err := server.RegisterSwaggerAPI(apiSvr.ClientCtx, apiSvr.Router, apiConfig.Swagger); err != nil {

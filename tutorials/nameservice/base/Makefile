@@ -54,8 +54,8 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # ********** process linker flags **********
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=tutorial \
-		  -X github.com/cosmos/cosmos-sdk/version.AppName=tutoriald \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=example \
+		  -X github.com/cosmos/cosmos-sdk/version.AppName=exampled \
 		  -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
 		  -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
 		  -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)"
@@ -88,12 +88,12 @@ all: lint test install
 ###############################################################################
 
 install: enforce-go-version
-	@echo "Installing tutoriald..."
-	go install -mod=readonly $(BUILD_FLAGS) ./cmd/tutoriald
+	@echo "Installing exampled..."
+	go install -mod=readonly $(BUILD_FLAGS) ./cmd/exampled
 
 build: enforce-go-version
-	@echo "Building tutoriald..."
-	go build $(BUILD_FLAGS) -o $(BUILDDIR)/ ./cmd/tutoriald
+	@echo "Building exampled..."
+	go build $(BUILD_FLAGS) -o $(BUILDDIR)/ ./cmd/exampled
 
 enforce-go-version:
 	@echo "Go version: $(GO_MAJOR_VERSION).$(GO_MINOR_VERSION)"
@@ -137,20 +137,20 @@ format:
 ###############################################################################
 
 start-localnet: build
-	rm -rf ~/.tutoriald
-	./build/tutoriald init liveness --chain-id cosmos-1 --default-denom uatom
-	./build/tutoriald config set client chain-id cosmos-1
-	./build/tutoriald config set client keyring-backend test
-	./build/tutoriald keys add val1
-	./build/tutoriald keys add alice
-	./build/tutoriald keys add bob
-	./build/tutoriald genesis add-genesis-account val1 10000000000000000000000000uatom
-	./build/tutoriald genesis add-genesis-account alice 1000000000000000000uatom
-	./build/tutoriald genesis add-genesis-account bob 1000000000000000000uatom
-	./build/tutoriald genesis gentx val1 1000000000uatom --chain-id cosmos-1
-	./build/tutoriald genesis collect-gentxs
-	sed -i.bak'' 's/minimum-gas-prices = ""/minimum-gas-prices = "0.025uatom"/' ~/.tutoriald/config/app.toml
-	./build/tutoriald start --val-key val1
+	rm -rf ~/.exampled
+	./build/exampled init liveness --chain-id cosmos-1 --default-denom uatom
+	./build/exampled config set client chain-id cosmos-1
+	./build/exampled config set client keyring-backend test
+	./build/exampled keys add val1
+	./build/exampled keys add alice
+	./build/exampled keys add bob
+	./build/exampled genesis add-genesis-account val1 10000000000000000000000000uatom
+	./build/exampled genesis add-genesis-account alice 1000000000000000000uatom
+	./build/exampled genesis add-genesis-account bob 1000000000000000000uatom
+	./build/exampled genesis gentx val1 1000000000uatom --chain-id cosmos-1
+	./build/exampled genesis collect-gentxs
+	sed -i.bak'' 's/minimum-gas-prices = ""/minimum-gas-prices = "0.025uatom"/' ~/.exampled/config/app.toml
+	./build/exampled start --val-key val1
 ###############################################################################
 ###                           Tests & Simulation                            ###
 ###############################################################################

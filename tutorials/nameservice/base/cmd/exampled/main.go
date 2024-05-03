@@ -7,7 +7,7 @@ import (
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
 	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/app"
-	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/cmd/tutoriald/cmd"
+	"github.com/cosmos/sdk-tutorials/tutorials/nameservice/base/cmd/exampled/cmd"
 )
 
 func main() {

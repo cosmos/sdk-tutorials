@@ -1,13 +1,13 @@
 # Testing the Oracle Module
 
-We will guide you through the process of testing the Oracle module in your application. The Oracle module uses vote extensions to provide current price data.
+We will guide you through the process of testing the Oracle module in your application. The Oracle module uses vote extensions to provide current price data. If you would like to see the complete working oracle module please see [here](https://github.com/cosmos/sdk-tutorials/blob/master/tutorials/oracle/base/x/oracle).
 
 ## Step 1: Compile and Install the Application
 
 First, we need to compile and install the application. Please ensure you are in the `tutorials/oracle/base` directory. Run the following command in your terminal:
 
 ```shell
-bash make install
+make install
 ```
 
 This command compiles the application and moves the resulting binary to a location in your system's PATH.
@@ -17,7 +17,7 @@ This command compiles the application and moves the resulting binary to a locati
 Next, we need to initialise the application. Run the following command in your terminal:
 
 ```shell
-bash make init
+make init
 ```
 
 This command runs the script `tutorials/oracle/base/scripts/init.sh`, which sets up the necessary configuration for your application to run. This includes creating the `app.toml` configuration file and initialising the blockchain with a genesis block.
@@ -27,7 +27,7 @@ This command runs the script `tutorials/oracle/base/scripts/init.sh`, which sets
 Now, we can start the application. Run the following command in your terminal:
 
 ```shell
-tutoriald start
+exampled start
 ```
 
 This command starts your application, begins the blockchain node, and starts processing transactions.
@@ -37,7 +37,7 @@ This command starts your application, begins the blockchain node, and starts pro
 Finally, we can query the current prices from the Oracle module. Run the following command in your terminal:
 
 ```shell
-bash tutoriald q oracle prices
+exampled q oracle prices
 ```
 
 This command queries the current prices from the Oracle module. The expected output shows that the vote extensions were successfully included in the block and the Oracle module was able to retrieve the price data.

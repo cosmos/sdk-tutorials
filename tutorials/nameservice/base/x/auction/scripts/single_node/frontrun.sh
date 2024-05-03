@@ -8,8 +8,8 @@ find_project_root() {
 }
 
 PROJECT_ROOT=$(find_project_root)
-HOME=$HOME/.tutoriald
-BINARY=$PROJECT_ROOT/tutorials/auction/base/build/tutoriald
+HOME=$HOME/.exampled
+BINARY=$PROJECT_ROOT/tutorials/auction/base/build/exampled
 
 echo $HOME
 $BINARY tx reserve "bob.cosmos" $($BINARY keys show alice -a --home $HOME --keyring-backend test) 1000uatom --from $($BINARY keys show bob -a --home $HOME --keyring-backend test) --home $HOME -y
