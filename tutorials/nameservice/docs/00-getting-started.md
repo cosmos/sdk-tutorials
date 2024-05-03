@@ -4,7 +4,7 @@
 
 - [Getting Started](#overview-of-the-project)
 - [Understanding Front-Running](./01-understanding-frontrunning.md)
-- [Mitigating Front-running with Vote Extensions](./02-mitigating-front-running-with-vote-extensions.md)
+- [Mitigating Front-running with Vote Extensions](./02-mitigating-front-running-with-vote-extesions.md)
 - [Demo of Mitigating Front-Running](./03-demo-of-mitigating-front-running.md)
 
 ## Getting Started
