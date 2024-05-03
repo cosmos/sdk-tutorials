@@ -31,7 +31,7 @@ Other useful resources:
 
 ### Pull Request
 
-When you submit your PR, please use the default [Pull Request template](/.github/PULL_REQUEST_TEMPLATE.md).
+When you submit your PR, please use the default [Pull Request template](./.github/PULL_REQUEST_TEMPLATE.md).
 
 ### Folder structure
 
