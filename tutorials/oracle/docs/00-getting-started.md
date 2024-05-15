@@ -2,10 +2,9 @@
 
 ## Table of Contents
 
-* [Getting Started](00-getting-started.md)
-* [What is an Oracle?](01-what-is-an-oracle.md)
-* [Implementing Vote Extensions](02-implementing-vote-extensions.md)
-* [Testing the Oracle Module](03-testing-oracle.md)
+* [What is an Oracle?](./01-what-is-an-oracle.md)
+* [Implementing Vote Extensions](./02-implementing-vote-extensions.md)
+* [Testing the Oracle Module](./03-testing-oracle.md)
 
 ## Prerequisites
 
