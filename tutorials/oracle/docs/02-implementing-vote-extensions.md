@@ -104,7 +104,7 @@ type StakeWeightedPrices struct {
 }
 ```
 
-Now we create the `PrepareProposalHandler`. In this step we’ll first check if the vote extensions’ signatures are correct using a helper function called ValidateVoteExtensions from the baseapp pacakge.
+Now we create the `PrepareProposalHandler`. In this step we’ll first check if the vote extensions’ signatures are correct using a helper function called ValidateVoteExtensions from the baseapp package.
 
 ```go
 func (h *ProposalHandler) PrepareProposal() sdk.PrepareProposalHandler {
