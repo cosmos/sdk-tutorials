@@ -11,7 +11,7 @@ cd scripts
 configure.sh
 ```
 
-If this doesnt work please ensure you have run `make build` in the `tutorials/nameservice/base` directory.
+If this doesn't work please ensure you have run `make build` in the `tutorials/nameservice/base` directory.
 
 <!-- nolint:all -->
 2. Have alice attempt to reserve `bob.cosmos`: This is a normal transaction that alice wants to execute. The script ``./scripts/reserve.sh "bob.cosmos"` is used to send this transaction.
