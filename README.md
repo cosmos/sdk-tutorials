@@ -2,7 +2,7 @@
 
 ![banner](./banner.png)
 
-Welcome to Cosmos SDK Tutorails, your go-to resource for learning and mastering the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk). This repository contains a series of comprehensive tutorials designed to help you understand and effectively use the Cosmos SDK.
+Welcome to Cosmos SDK Tutorials, your go-to resource for learning and mastering the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk). This repository contains a series of comprehensive tutorials designed to help you understand and effectively use the Cosmos SDK.
 
 ## About the Tutorials
 
